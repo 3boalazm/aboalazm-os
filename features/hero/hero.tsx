@@ -21,6 +21,13 @@
  */
 import { motion } from "framer-motion";
 import { heroLine, reveal, physics } from "@/lib/motion";
+import { useAmbientGlow } from "@/hooks/use-ambient-glow";
+
+/* The studio's own coral — the old site's red, worn as atmosphere */
+const STUDIO_CORAL = {
+  primary: "rgb(255 107 71 / 0.16)",
+  secondary: "rgb(196 69 31 / 0.08)",
+} as const;
 import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
@@ -36,32 +43,28 @@ const HEADLINE: readonly string[] = [
 const ITALIC_LINE = 1;
 
 export function Hero() {
+  /* Home rests warm: faint coral glow — color presence without paint */
+  useAmbientGlow(STUDIO_CORAL, 0.5);
+
   return (
     <section className="relative flex min-h-svh flex-col bg-obsidian">
-      {/* ── 1 · Live Status Node — floating, absolute ── */}
-      <motion.div
-        initial={{ opacity: 0, y: -12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ ...physics, delay: 0.9 }}
-        className="absolute left-3 top-3 z-nav sm:left-8 sm:top-4"
-      >
-        <StatusNode />
-      </motion.div>
-
-      {/* Micro-text framing — top-right coordinate stamp */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ ...physics, delay: 1.1 }}
-        className="absolute right-3 top-4 hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost sm:right-8 sm:block"
-      >
-        30.0444° N, 31.2357° E · CAIRO
-      </motion.p>
-
-      {/* ── 2 + 4 · Split hierarchy ── */}
+      {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
       <div className="container-wide grid flex-1 items-center gap-8 pb-8 pt-16 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Left — typographic architecture */}
         <div className="flex flex-col gap-4">
+          {/* Live status row — in-flow micro-frame */}
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ ...physics, delay: 0.9 }}
+            className="flex flex-wrap items-center gap-2"
+          >
+            <StatusNode />
+            <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost lg:inline">
+              30.1936° N, 31.4603° E · AL OBOUR
+            </span>
+          </motion.div>
+
           <h1
             className="font-display tracking-[-0.03em] text-text-primary"
             style={{
@@ -78,7 +81,7 @@ export function Hero() {
                   initial="hidden"
                   animate="visible"
                 >
-                  {i === ITALIC_LINE ? <em>{line}</em> : line}
+                  {i === ITALIC_LINE ? <em className="text-accent">{line}</em> : line}
                 </motion.span>
               </span>
             ))}

@@ -44,7 +44,7 @@ export function StatusNode() {
 
       {/* ── Readout ── */}
       <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-secondary">
-        [STATUS: AVAILABLE FOR SELECTIVE COMMISSIONS]
+        [STATUS: OPEN FOR SELECT PROJECTS · 2026]
       </span>
     </div>
   );

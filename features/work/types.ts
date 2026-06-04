@@ -9,7 +9,9 @@ import type { ProjectAccent } from "@/lib/tokens";
 export type Discipline =
   | "Systemic Identity"
   | "Product Architecture"
-  | "Design Infrastructure";
+  | "Design Infrastructure"
+  | "Identity Engineering"
+  | "Studio & Identity";
 
 export interface Project {
   /** Stable id + route segment */
@@ -25,6 +27,8 @@ export interface Project {
   year: string;
   /** Preview image for the floating cursor-trail reveal */
   thumbnail: string;
+  /** Case file written? false → row opens Behance (no-404 rule) */
+  hasCaseStudy: boolean;
   /**
    * Primary palette pair — consumed by useAmbientGlowControls to
    * override the global --glow-* tokens while the row is hovered.

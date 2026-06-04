@@ -6,16 +6,27 @@ export const metadata: Metadata = {
   description: "Seven years turning identity into infrastructure.",
 };
 
+/* The four principles — ported verbatim in spirit from the practice */
 const DOCTRINE = [
-  "A brand is a system, or it is a liability.",
-  "Strategy is the standard every pixel answers to.",
-  "Arabic deserves design, not translation.",
+  ["Strategy before design", "No logo until positioning, audience, and personality are agreed in writing — without strategy there's no way to judge."],
+  ["Systems, not artifacts", "A logo is the entry. The real work is the system that follows, so the brand stays itself across every touchpoint."],
+  ["Show the work", "A logo on a white page is theory; on a business card, a package, a screen — that's the test."],
+  ["Deliver, don't dump", "Final files come with guidelines, a handover call, and 30 days of support. Done means the team can run with it."],
 ] as const;
 
 const TIMELINE = [
-  ["2024 →", "Co-Founder & Creative Lead", "Code & Canvas — end-to-end identity systems"],
-  ["2020–25", "Media Director", "Nile Pharma Food — identity from zero, +40% visibility"],
-  ["2018 →", "Brand Consultant", "20+ systems across pharma, food, education, government"],
+  ["2024 →", "Co-Founder & Creative Lead", "Code & Canvas — branding & web for SMEs across Egypt and the region"],
+  ["2020–25", "Media Director & Account Manager", "Nile Pharma Food — identity from zero: +40% visibility, +25% engagement"],
+  ["2020–21", "Studio Lead & Visual Director", "Learn in Arabic (MSP) — identity + DIY studio built from scratch"],
+  ["2019–21", "Head of Media ×2 Seasons", "Youth Scope — full identity twice; Best Head, both seasons"],
+  ["2018 →", "Brand Consultant (Freelance)", "20+ systems across pharma, food, education, NGOs, government"],
+] as const;
+
+const FACTS = [
+  ["BASED", "Al Obour, Egypt — open to remote"],
+  ["LANGUAGES", "Arabic (Native) · English (Professional)"],
+  ["EDUCATION", "B.Sc. — Al-Azhar University · 2017–2024"],
+  ["TRAINING", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
 ] as const;
 
 export default function AboutPage() {
@@ -30,11 +41,21 @@ export default function AboutPage() {
           Seven years turning identity <em>into infrastructure.</em>
         </h1>
         <p className="max-w-[52ch] text-lead text-text-secondary">
-          Mustafa Aboalazm is a systemic identity architect — co-founder of
-          Code & Canvas, working from Cairo for teams worldwide. The practice
-          spans brand strategy, design systems, and the web they ship to,
-          in two languages, under one doctrine.
+          Mustafa Aboalazm started designing professionally in 2018 — and
+          never stopped. Senior Brand Identity Designer, Co-founder of
+          Code & Canvas, based in Al Obour, Egypt, working worldwide:
+          brand strategy, design systems, and the web they ship to, in two
+          languages, under one doctrine.
         </p>
+
+        <dl className="grid grid-cols-1 gap-2 border-y border-border-subtle py-3 sm:grid-cols-2">
+          {FACTS.map(([k, v]) => (
+            <div key={k} className="flex flex-col gap-0.5">
+              <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{k}</dt>
+              <dd className="text-body-sm text-text-secondary">{v}</dd>
+            </div>
+          ))}
+        </dl>
       </header>
 
       {/* Band 2 — doctrine */}
@@ -42,16 +63,17 @@ export default function AboutPage() {
         <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           DOCTRINE
         </p>
-        {DOCTRINE.map((line, i) => (
-          <p
-            key={line}
-            className="border-t border-border-subtle py-3 font-display text-title tracking-[-0.015em] text-text-primary last:border-b"
+        {DOCTRINE.map(([title, body], i) => (
+          <div
+            key={title}
+            className="border-t border-border-subtle py-3 last:border-b"
           >
-            <span className="mr-2 font-mono text-label text-text-ghost">
-              0{i + 1}
-            </span>
-            {line}
-          </p>
+            <p className="font-display text-title tracking-[-0.015em] text-text-primary">
+              <span className="mr-2 font-mono text-label text-accent">0{i + 1}</span>
+              {title}
+            </p>
+            <p className="mt-1 max-w-[60ch] text-body-sm text-text-secondary">{body}</p>
+          </div>
         ))}
       </section>
 

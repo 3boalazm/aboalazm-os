@@ -23,8 +23,10 @@ const COLUMNS = [
   {
     head: "ELSEWHERE",
     links: [
-      ["Behance ↗", "https://behance.net/aboalazm"],
-      ["LinkedIn ↗", "https://linkedin.com/in/aboalazm"],
+      ["Behance ↗", "https://www.behance.net/aboalazm"],
+      ["LinkedIn ↗", "https://www.linkedin.com/in/aboalazm"],
+      ["WhatsApp ↗", "https://wa.me/201092500454"],
+      ["Email", "mailto:Mustafaaboalazm@mail.ru"],
     ],
   },
 ] as const;
@@ -47,7 +49,7 @@ export function Footer() {
                 <Link
                   key={href}
                   href={href}
-                  {...(href.startsWith("http")
+                  {...(href.startsWith("http") || href.startsWith("mailto")
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   className="w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
@@ -60,7 +62,7 @@ export function Footer() {
         </div>
 
         <p className="border-t border-border-subtle pt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          © 2026 MUSTAFA ABOALAZM · CAIRO → WORLDWIDE · BUILT ON ITS OWN SYSTEM
+          © 2026 MUSTAFA ABOALAZM · AL OBOUR, EGYPT → WORLDWIDE · BUILT ON ITS OWN SYSTEM
         </p>
       </div>
     </footer>

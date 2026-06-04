@@ -1,74 +1,81 @@
 /**
- * PROJECT RECORDS — seed data.
- * Swap for the Sanity query (lib/sanity.ts → getProjects()) once the
- * studio is populated; the Project contract is already aligned.
+ * LEDGER DATA — the real five, ported from the live portfolio.
+ * Records with `hasCaseStudy: false` open Behance in a new tab —
+ * the established no-404 principle until each case file is written.
  */
 import type { Project } from "./types";
 
+export const BEHANCE = "https://www.behance.net/aboalazm";
+
 export const PROJECTS: readonly Project[] = [
   {
-    slug: "art-reflection",
-    name: "Art Reflection",
-    discipline: "Systemic Identity",
-    stack: ["Identity System", "Design Tokens", "Figma Library"],
-    outcome: "+45% System Speed",
-    year: "2025",
-    thumbnail: "/images/work/art-reflection.jpg",
-    accent: {
-      primary: "rgb(96 165 250 / 0.20)",   // signal blue
-      secondary: "rgb(45 212 191 / 0.10)", // teal undertone
-    },
-  },
-  {
-    slug: "zadullashr",
-    name: "Zadullashr",
-    discipline: "Product Architecture",
-    stack: ["Next.js", "Tailwind v4", "Supabase"],
-    outcome: "Automated Cloud Sync",
-    year: "2025",
-    thumbnail: "/images/work/zadullashr.jpg",
-    accent: {
-      primary: "rgb(52 211 153 / 0.20)",   // emerald
-      secondary: "rgb(250 204 21 / 0.08)", // amber undertone
-    },
-  },
-  {
-    slug: "momas-farm",
-    name: "Momas Farm",
-    discipline: "Systemic Identity",
-    stack: ["Brand System", "Packaging", "Bilingual Lockup"],
-    outcome: "Retail-Ready in 38 Days",
-    year: "2024",
-    thumbnail: "/images/work/momas-farm.jpg",
-    accent: {
-      primary: "rgb(163 230 53 / 0.18)",   // farm lime
-      secondary: "rgb(251 146 60 / 0.10)", // harvest orange
-    },
-  },
-  {
-    slug: "nile-pharma-food",
+    slug: "nile-pharma",
     name: "Nile Pharma Food",
-    discipline: "Design Infrastructure",
-    stack: ["WordPress", "Design System", "Social Templates"],
+    discipline: "Systemic Identity",
+    stack: ["Brand System", "WordPress", "Rebrand"],
     outcome: "+40% Online Visibility",
-    year: "2023",
+    year: "2020–25",
     thumbnail: "/images/work/nile-pharma.jpg",
+    hasCaseStudy: true,
     accent: {
-      primary: "rgb(56 189 248 / 0.20)",   // pharma cyan
-      secondary: "rgb(129 140 248 / 0.10)",// indigo undertone
+      primary: "rgb(0 200 210 / 0.18)",
+      secondary: "rgb(64 156 255 / 0.10)",
     },
   },
   {
-    slug: "code-and-canvas",
+    slug: "code-canvas",
     name: "Code & Canvas",
-    discipline: "Product Architecture",
-    stack: ["Next.js", "Sanity", "Token Pipeline"],
-    outcome: "0% Design Drift",
-    year: "2024",
+    discipline: "Design Infrastructure",
+    stack: ["Studio", "Strategy", "Web"],
+    outcome: "A Studio of My Own",
+    year: "2024 →",
     thumbnail: "/images/work/code-canvas.jpg",
+    hasCaseStudy: false,
     accent: {
-      primary: "rgb(255 107 71 / 0.20)",   // studio coral
-      secondary: "rgb(244 241 236 / 0.06)",// ink wash
+      primary: "rgb(255 107 71 / 0.20)",
+      secondary: "rgb(255 158 71 / 0.10)",
     },
   },
-] as const;
+  {
+    slug: "esfc",
+    name: "Egypt SEG Field Camp",
+    discipline: "Identity Engineering",
+    stack: ["Identity", "Print", "Event"],
+    outcome: "Record Registrations",
+    year: "2020",
+    thumbnail: "/images/work/esfc.jpg",
+    hasCaseStudy: false,
+    accent: {
+      primary: "rgb(255 200 60 / 0.18)",
+      secondary: "rgb(255 107 71 / 0.10)",
+    },
+  },
+  {
+    slug: "learn-in-arabic",
+    name: "Learn in Arabic",
+    discipline: "Studio & Identity",
+    stack: ["Identity", "Studio Build", "Motion"],
+    outcome: "Studio From Scratch",
+    year: "2020–21",
+    thumbnail: "/images/work/learn-in-arabic.jpg",
+    hasCaseStudy: false,
+    accent: {
+      primary: "rgb(96 165 250 / 0.20)",
+      secondary: "rgb(45 212 191 / 0.10)",
+    },
+  },
+  {
+    slug: "youth-scope",
+    name: "Youth Scope",
+    discipline: "Systemic Identity",
+    stack: ["Identity", "Campaigns", "Team Lead"],
+    outcome: "From Scratch, Twice",
+    year: "2019–21",
+    thumbnail: "/images/work/youth-scope.jpg",
+    hasCaseStudy: false,
+    accent: {
+      primary: "rgb(61 220 132 / 0.18)",
+      secondary: "rgb(150 220 61 / 0.10)",
+    },
+  },
+];

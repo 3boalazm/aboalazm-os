@@ -11,7 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: path === "" ? 1 : 0.8,
     }),
   );
-  const projects = PROJECTS.map((p) => ({
+  const projects = PROJECTS.filter((p) => p.hasCaseStudy).map((p) => ({
     url: `${BASE}/case-studies/${p.slug}`,
     changeFrequency: "yearly" as const,
     priority: 0.7,

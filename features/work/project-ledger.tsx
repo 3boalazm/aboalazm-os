@@ -28,7 +28,7 @@ import { motion } from "framer-motion";
 import { reveal } from "@/lib/motion";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
 import { FloatingPreview } from "./floating-preview";
-import { PROJECTS } from "./projects.data";
+import { PROJECTS, BEHANCE } from "./projects.data";
 import type { Project } from "./types";
 
 /* Shared column template — header & rows must never drift apart */
@@ -126,10 +126,16 @@ function LedgerRow({
   isDimmed,
   onEnter,
 }: LedgerRowProps) {
+  /* No-404 rule: rows without a written case file open the Behance
+     portfolio in a new tab until their case study ships. */
+  const internal = project.hasCaseStudy;
+  const href = internal ? `/case-studies/${project.slug}` : BEHANCE;
+
   return (
     <motion.li variants={reveal.item}>
       <Link
-        href={`/case-studies/${project.slug}`}
+        href={href}
+        {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
         onPointerEnter={() => onEnter(project)}
         className={[
           "group grid items-center border-b border-border-subtle px-2 py-3",
@@ -192,7 +198,7 @@ function LedgerRow({
 
         {/* Action call — underline draw + arrow nudge */}
         <span className="relative hidden justify-self-end font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics group-hover:text-text-primary md:block">
-          Case File
+          {internal ? "Case File" : "Behance"}
           <span className="text-text-ghost"> // </span>
           Open
           <span
