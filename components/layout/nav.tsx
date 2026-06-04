@@ -14,16 +14,25 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { physics } from "@/lib/motion";
+import { useLang } from "@/components/providers/lang-provider";
 
 const LINKS = [
-  { href: "/work", label: "WORK" },
-  { href: "/capabilities", label: "CAPABILITIES" },
-  { href: "/about", label: "ABOUT" },
-  { href: "/writing", label: "WRITING" },
+  { href: "/about", en: "ABOUT", ar: "نبذة" },
+  { href: "/work", en: "WORK", ar: "الأعمال" },
+  { href: "/services", en: "SERVICES", ar: "الخدمات" },
+  { href: "/pricing", en: "PRICING", ar: "التسعير" },
+] as const;
+
+/* Secondary set — mobile panel + footer carry these */
+const MORE = [
+  { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
+  { href: "/writing", en: "WRITING", ar: "مقالات" },
+  { href: "/capabilities", en: "CAPABILITIES", ar: "القدرات" },
 ] as const;
 
 export function Nav() {
   const pathname = usePathname();
+  const { lang, toggle } = useLang();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -76,7 +85,7 @@ export function Nav() {
                       : "text-text-tertiary hover:text-text-secondary",
                   ].join(" ")}
                 >
-                  {link.label}
+                  {lang === "ar" ? link.ar : link.en}
                   <span className="absolute inset-x-1 -bottom-px h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
                 </Link>
                 {active && (
@@ -91,11 +100,21 @@ export function Nav() {
           })}
         </ul>
 
+        {/* Language flip — the AR/EN switch */}
+        <button
+          type="button"
+          onClick={toggle}
+          aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+          className="rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+        >
+          {lang === "ar" ? "EN" : "ع"}
+        </button>
+
         <Link
           href="/contact"
           className="group whitespace-nowrap rounded-pill bg-accent px-2 py-1 font-mono text-micro uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
         >
-          COMMISSION
+          {lang === "ar" ? "تواصل" : "CONTACT"}
           <span
             aria-hidden
             className="ml-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 sm:inline-block"
@@ -128,7 +147,7 @@ export function Nav() {
             transition={physics}
             className="glass mt-1 flex flex-col rounded-panel p-2 shadow-card md:hidden"
           >
-            {LINKS.map((link, i) => {
+            {[...LINKS, ...MORE].map((link, i) => {
               const active = pathname.startsWith(link.href);
               return (
                 <motion.li
@@ -148,7 +167,7 @@ export function Nav() {
                         : "text-text-secondary hover:bg-surface-2 hover:text-text-primary",
                     ].join(" ")}
                   >
-                    {link.label}
+                    {lang === "ar" ? link.ar : link.en}
                   </Link>
                 </motion.li>
               );

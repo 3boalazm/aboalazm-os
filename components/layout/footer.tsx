@@ -1,68 +1,87 @@
-import Link from "next/link";
+"use client";
 
 /**
- * FOOTER — per Copy Deck. Server component, zero JS.
- * Three mono-headed columns + the sign-off line + legal stamp.
+ * FOOTER — old-site structure (Pages / Reach / Portfolio) in the
+ * new system's voice. Bilingual via useLang.
  */
+import Link from "next/link";
+import { useLang } from "@/components/providers/lang-provider";
+
 const COLUMNS = [
   {
-    head: "SYSTEM",
+    head: ["PAGES", "الصفحات"],
     links: [
-      ["Work", "/work"],
-      ["Capabilities", "/capabilities"],
-      ["Writing", "/writing"],
+      ["About", "نبذة", "/about"],
+      ["Services", "الخدمات", "/services"],
+      ["Pricing", "التسعير", "/pricing"],
+      ["Agreement", "الاتفاقية", "/agreement"],
+      ["Writing", "مقالات", "/writing"],
+      ["Contact", "تواصل", "/contact"],
     ],
   },
   {
-    head: "STUDIO",
+    head: ["REACH", "تواصل"],
     links: [
-      ["About", "/about"],
-      ["Contact", "/contact"],
+      ["Email ↗", "إيميل ↗", "mailto:Mustafaaboalazm@mail.ru"],
+      ["WhatsApp ↗", "واتساب ↗", "https://wa.me/201092500454"],
+      ["+20 109 250 0454", "+20 109 250 0454", "tel:+201092500454"],
     ],
   },
   {
-    head: "ELSEWHERE",
+    head: ["PORTFOLIO", "البورتفوليو"],
     links: [
-      ["Behance ↗", "https://www.behance.net/aboalazm"],
-      ["LinkedIn ↗", "https://www.linkedin.com/in/aboalazm"],
-      ["WhatsApp ↗", "https://wa.me/201092500454"],
-      ["Email", "mailto:Mustafaaboalazm@mail.ru"],
+      ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
+      ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
     ],
   },
 ] as const;
 
 export function Footer() {
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <footer className="border-t border-border-subtle">
-      <div className="container-wide flex flex-col gap-8 py-8">
-        <p className="max-w-[24ch] font-display text-title tracking-[-0.015em] text-text-primary">
-          We don't make brands. <em className="text-text-secondary">We make brands operational.</em>
-        </p>
+      <div className="container-wide grid gap-8 py-8 md:grid-cols-[1.2fr_2fr]">
+        <div className="flex flex-col gap-2">
+          <p className="font-display text-display leading-none tracking-[-0.025em]">
+            M<em className="text-accent">A</em>.
+          </p>
+          <p className="max-w-[32ch] text-body-sm text-text-tertiary">
+            {ar
+              ? "مصمم هوية بصرية أول وشريك مؤسس في Code & Canvas. نبني البراندات بوضوح وحِرفة واحترام للشغل."
+              : "Senior Brand Identity Designer & Co-founder, Code & Canvas. Building brands with clarity, craft, and a respect for the work."}
+          </p>
+        </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           {COLUMNS.map((col) => (
-            <nav key={col.head} aria-label={col.head} className="flex flex-col gap-1">
+            <nav key={col.head[0]} aria-label={col.head[0]} className="flex flex-col gap-1">
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                {col.head}
+                {ar ? col.head[1] : col.head[0]}
               </p>
-              {col.links.map(([label, href]) => (
+              {col.links.map(([en, arr, href]) => (
                 <Link
                   key={href}
                   href={href}
-                  {...(href.startsWith("http") || href.startsWith("mailto")
+                  {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
                   className="w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
                 >
-                  {label}
+                  {ar ? arr : en}
                 </Link>
               ))}
             </nav>
           ))}
         </div>
+      </div>
 
-        <p className="border-t border-border-subtle pt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          © 2026 MUSTAFA ABOALAZM · AL OBOUR, EGYPT → WORLDWIDE · BUILT ON ITS OWN SYSTEM
+      <div className="container-wide flex flex-wrap items-baseline justify-between gap-2 border-t border-border-subtle py-3">
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : "ALL RIGHTS RESERVED"}
+        </p>
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          {ar ? "صُمم وبُني داخل الاستوديو" : "DESIGNED & BUILT BY THE STUDIO"}
         </p>
       </div>
     </footer>
