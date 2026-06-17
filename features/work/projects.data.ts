@@ -9,6 +9,20 @@ export const BEHANCE = "https://www.behance.net/aboalazm";
 
 export const PROJECTS: readonly Project[] = [
   {
+    slug: "gad-institute",
+    name: "GAD Heart & Lungs Institute",
+    discipline: "Systemic Identity",
+    stack: ["Brand Strategy", "Bilingual Identity", "Guidelines"],
+    outcome: "Strategy → Identity → Governed System",
+    year: "2025",
+    thumbnail: "/images/work/gad/gad-thumb.jpg",
+    hasCaseStudy: true,
+    accent: {
+      primary: "rgb(0 88 149 / 0.20)",
+      secondary: "rgb(171 18 28 / 0.10)",
+    },
+  },
+  {
     slug: "ahmed-bedeer",
     name: "Ahmed Bedeer",
     discipline: "Systemic Identity",

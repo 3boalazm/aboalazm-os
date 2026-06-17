@@ -117,7 +117,10 @@ export const ALACARTE: readonly AlaCarteGroup[] = [
   {
     group: ["Web Design & Development", "تصميم وتطوير الويب"],
     rows: [
+      { service: ["Custom Web Platform", "منصة ويب مخصّصة"], details: ["Next.js · Bilingual EN/AR + RTL · multi-section · performance-tuned · brand-aligned", "Next.js · ثنائي اللغة + RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية"], price: "$1,275 – $2,975" },
+      { service: ["Bilingual Marketing Site", "موقع تعريفي ثنائي اللغة"], details: ["Up to 7 pages · EN/AR · responsive · CMS-ready · SEO foundation", "حتى ٧ صفحات · عربي/إنجليزي · متجاوب · جاهز لـ CMS · أساس SEO"], price: "$595 – $1,105" },
       { service: ["WordPress Website", "موقع ووردبريس"], details: ["Up to 7 pages · Responsive · Auth · 3 months support", "حتى ٧ صفحات · متجاوب · تسجيل دخول · دعم ٣ شهور"], price: "$255 – $510" },
+      { service: ["Landing Page", "صفحة هبوط"], details: ["Single conversion-focused page · responsive · fast", "صفحة واحدة موجّهة للتحويل · متجاوبة · سريعة"], price: "$170 – $340" },
     ],
   },
   {

@@ -62,6 +62,7 @@ export const CODE_CANVAS: CaseStudyRecord = {
   retro: [
     { verdict: "KEEP",   note: "The squircle with </> inside — it says 'code' and 'craft' in a single geometric form that scales from favicon to billboard." },
     { verdict: "KEEP",   note: "Purple-to-teal gradient as the expressive layer: constrained by the token system, so it never becomes decoration." },
+    { verdict: "KEEP",   note: "Identity shipped as a live product — codeandcanvas.net built end to end: bilingual EN/AR, productized services, the system applied in code, not just guidelines." },
     { verdict: "CHANGE", note: "Three typefaces (Signate Grotesk / Raleway / Poppins) is one too many for long-term consistency — consolidate at V2." },
   ],
 };
