@@ -22,10 +22,17 @@ import {
   PerformancePanel,
 } from "./panels";
 import type { CaseStudyRecord } from "./types";
+import type { ReactNode } from "react";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export function ScrollyCaseStudy({ record }: { record: CaseStudyRecord }) {
+export function ScrollyCaseStudy({
+  record,
+  gallery,
+}: {
+  record: CaseStudyRecord;
+  gallery?: ReactNode;
+}) {
   const articleRef = useRef<HTMLElement>(null);
 
   /* The page atmosphere belongs to this record while it's open */
@@ -63,6 +70,14 @@ export function ScrollyCaseStudy({ record }: { record: CaseStudyRecord }) {
         <ContextPanel record={record} />
         <ResearchPanel record={record} />
         <ExecutionPanel record={record} />
+        {gallery && (
+          <section data-panel className="flex scroll-mt-16 flex-col gap-4 border-t border-border-subtle py-8">
+            <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+              GALLERY / THE SYSTEM, RENDERED
+            </p>
+            {gallery}
+          </section>
+        )}
         <PerformancePanel record={record} />
       </article>
     </div>

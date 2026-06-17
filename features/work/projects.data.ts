@@ -9,6 +9,20 @@ export const BEHANCE = "https://www.behance.net/aboalazm";
 
 export const PROJECTS: readonly Project[] = [
   {
+    slug: "ahmed-bedeer",
+    name: "Ahmed Bedeer",
+    discipline: "Systemic Identity",
+    stack: ["Personal Brand", "Brand Guidelines", "Monogram"],
+    outcome: "Healthcare IT Personal Brand",
+    year: "2025",
+    thumbnail: "/images/work/ahmed-bedeer-mockup.jpg",
+    hasCaseStudy: true,
+    accent: {
+      primary: "rgb(17 138 178 / 0.20)",
+      secondary: "rgb(6 214 160 / 0.10)",
+    },
+  },
+  {
     slug: "nile-pharma",
     name: "Nile Pharma Food",
     discipline: "Systemic Identity",
