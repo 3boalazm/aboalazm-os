@@ -242,7 +242,7 @@
      besides the status pulse. Pauses for reduced-motion via the
      global override. ── */
 @utility marquee {
-  animation: marquee-drift 28s linear infinite;
+  animation: marquee-drift 60s linear infinite;
 }
 @keyframes marquee-drift {
   from { transform: translateX(0); }

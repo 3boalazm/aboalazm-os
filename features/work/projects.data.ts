@@ -65,6 +65,20 @@ export const PROJECTS: readonly Project[] = [
     },
   },
   {
+    slug: "reflection",
+    name: "Reflection",
+    discipline: "Identity Engineering",
+    stack: ["Identity", "Art & Print", "Guidelines"],
+    outcome: "Premium Art Brand · V1.0 System",
+    year: "2022",
+    thumbnail: "/images/work/reflection/refl-thumb.jpg",
+    hasCaseStudy: true,
+    accent: {
+      primary: "rgb(150 70 140 / 0.18)",
+      secondary: "rgb(31 168 164 / 0.12)",
+    },
+  },
+  {
     slug: "esfc",
     name: "Egypt SEG Field Camp",
     discipline: "Identity Engineering",

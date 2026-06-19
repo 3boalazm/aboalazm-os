@@ -9,3 +9,4 @@ export { CaseGallery } from "./case-gallery";
 export type { GalleryItem } from "./case-gallery";
 export { CODE_CANVAS } from "./code-canvas.data";
 export { GAD_INSTITUTE } from "./gad-institute.data";
+export { REFLECTION } from "./reflection.data";

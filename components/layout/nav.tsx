@@ -18,6 +18,7 @@ import { useLang } from "@/components/providers/lang-provider";
 
 const LINKS = [
   { href: "/about", en: "ABOUT", ar: "نبذة" },
+  { href: "/why", en: "WHY", ar: "لماذا" },
   { href: "/work", en: "WORK", ar: "الأعمال" },
   { href: "/services", en: "SERVICES", ar: "الخدمات" },
   { href: "/pricing", en: "PRICING", ar: "التسعير" },
