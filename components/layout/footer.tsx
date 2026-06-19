@@ -13,6 +13,8 @@ const COLUMNS = [
     links: [
       ["About", "نبذة", "/about"],
       ["Services", "الخدمات", "/services"],
+      ["Resources", "المصادر", "/resources"],
+      ["Labs", "المعمل", "/labs"],
       ["Pricing", "التسعير", "/pricing"],
       ["Agreement", "الاتفاقية", "/agreement"],
       ["Writing", "مقالات", "/writing"],

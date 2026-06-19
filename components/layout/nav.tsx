@@ -18,15 +18,16 @@ import { useLang } from "@/components/providers/lang-provider";
 
 const LINKS = [
   { href: "/about", en: "ABOUT", ar: "نبذة" },
-  { href: "/why", en: "WHY", ar: "لماذا" },
   { href: "/work", en: "WORK", ar: "الأعمال" },
   { href: "/services", en: "SERVICES", ar: "الخدمات" },
   { href: "/resources", en: "RESOURCES", ar: "المصادر" },
+  { href: "/labs", en: "LABS", ar: "المعمل" },
   { href: "/pricing", en: "PRICING", ar: "التسعير" },
 ] as const;
 
 /* Secondary set — mobile panel + footer carry these */
 const MORE = [
+  { href: "/why", en: "WHY", ar: "لماذا" },
   { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
   { href: "/writing", en: "WRITING", ar: "مقالات" },
   { href: "/capabilities", en: "CAPABILITIES", ar: "القدرات" },
