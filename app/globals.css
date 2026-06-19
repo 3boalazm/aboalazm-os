@@ -215,6 +215,17 @@
   filter: blur(80px) saturate(1.2);
 }
 
+/* Z-index utilities — the @theme --z-* tokens don't auto-generate utilities
+   in Tailwind v4 (wrong namespace), so the z-nav / z-overlay / z-elevated
+   classes were inert. Define them explicitly against the same contract. */
+@utility z-ambient  { z-index: var(--z-ambient); }
+@utility z-base     { z-index: var(--z-base); }
+@utility z-elevated { z-index: var(--z-elevated); }
+@utility z-nav      { z-index: var(--z-nav); }
+@utility z-overlay  { z-index: var(--z-overlay); }
+@utility z-modal    { z-index: var(--z-modal); }
+@utility z-cursor   { z-index: var(--z-cursor); }
+
 @utility glass {
   /* Floating pill nav / overlay surfaces */
   background: rgb(13 12 24 / 0.62);
@@ -242,7 +253,7 @@
      besides the status pulse. Pauses for reduced-motion via the
      global override. ── */
 @utility marquee {
-  animation: marquee-drift 60s linear infinite;
+  animation: marquee-drift 120s linear infinite;
 }
 @keyframes marquee-drift {
   from { transform: translateX(0); }
