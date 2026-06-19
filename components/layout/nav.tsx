@@ -21,6 +21,7 @@ const LINKS = [
   { href: "/why", en: "WHY", ar: "لماذا" },
   { href: "/work", en: "WORK", ar: "الأعمال" },
   { href: "/services", en: "SERVICES", ar: "الخدمات" },
+  { href: "/resources", en: "RESOURCES", ar: "المصادر" },
   { href: "/pricing", en: "PRICING", ar: "التسعير" },
 ] as const;
 

@@ -47,7 +47,7 @@ export function Hero() {
   useAmbientGlow(STUDIO_CORAL, 0.5);
 
   return (
-    <section className="relative flex min-h-svh flex-col bg-obsidian">
+    <section className="relative flex min-h-svh flex-col bg-obsidian" style={{ isolation: "isolate" }}>
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
       <div className="container-wide grid flex-1 items-center gap-8 pb-8 pt-16 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Left — typographic architecture */}
