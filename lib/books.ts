@@ -37,7 +37,7 @@ export const BOOKS: readonly Book[] = [
     blurb: "دليل عربي شامل في أساسيات التصميم — من المنهجية والتفكير، مرورًا بالحرفة وعناصرها، وصولًا إلى المهنة وبناء المسيرة.",
     blurbEn:
       "A comprehensive Arabic guide to design fundamentals — from methodology and thinking, through the craft and its elements, to the profession and building a career.",
-    chapterCount: 19,
+    chapterCount: 17,
     bundle: "/books/basics-of-design/index.html",
     journeys: [
       {
@@ -73,8 +73,6 @@ export const BOOKS: readonly Book[] = [
           { id: "ch11", title: "أساسيات تجربة المستخدم · UX" },
           { id: "ch12", title: "أنظمة التصميم" },
           { id: "ch13", title: "الذكاء الاصطناعي للمصممين" },
-          { id: "ch14", title: "بناء المحفظة وإطلاق المسيرة" },
-          { id: "ch15", title: "العمل الحر وإدارة العملاء" },
         ],
       },
     ],
