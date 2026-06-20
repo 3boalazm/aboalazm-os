@@ -15,6 +15,7 @@ const COLUMNS = [
       ["Services", "الخدمات", "/services"],
       ["Resources", "المصادر", "/resources"],
       ["Labs", "المعمل", "/labs"],
+      ["Library", "المكتبة", "/books"],
       ["Pricing", "التسعير", "/pricing"],
       ["Agreement", "الاتفاقية", "/agreement"],
       ["Writing", "مقالات", "/writing"],
