@@ -126,7 +126,13 @@ export function Nav() {
           aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
           className="rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
         >
-          {lang === "ar" ? "EN" : "ع"}
+          {lang === "ar" ? (
+            "EN"
+          ) : (
+            <span style={{ fontFamily: "var(--font-thmanyah)", fontSize: "1rem", lineHeight: 1, fontWeight: 500 }}>
+              ع
+            </span>
+          )}
         </button>
 
         <Link

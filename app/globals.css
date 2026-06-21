@@ -82,6 +82,8 @@
   --font-mono:    var(--font-jetbrains-mono), "JetBrains Mono", monospace;
   --font-geist:   var(--font-geist-mono), "Geist Mono", monospace; /* ledger pills */
   --font-arabic:  var(--font-plex-arabic), "IBM Plex Sans Arabic", sans-serif;
+  /* Thmanyah Serif Display — Arabic heading voice */
+  --font-thmanyah: "Thmanyah Serif Display", "IBM Plex Sans Arabic", sans-serif;
 
   /* Fluid editorial scale */
   --text-hero:       clamp(3.5rem, 9vw, 8.5rem);
@@ -151,6 +153,33 @@
 }
 
 /* ─────────────────────────── BASE LAYER ─────────────────────────── */
+/* ── Thmanyah Serif Display (self-hosted, Arabic heading voice) ─── */
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Light.otf") format("opentype");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Medium.otf") format("opentype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Black.otf") format("opentype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
 @layer base {
   * {
     border-color: var(--color-border-subtle);
@@ -186,6 +215,21 @@
   [lang="ar"] {
     font-family: var(--font-arabic);
     letter-spacing: 0;
+  }
+  /* RTL: Thmanyah for headings, IBM Plex for body */
+  [dir="rtl"] .font-display,
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3 {
+    font-family: var(--font-thmanyah);
+    letter-spacing: 0;
+    line-height: 1.15;
+  }
+  [dir="rtl"] body,
+  [dir="rtl"] p,
+  [dir="rtl"] li,
+  [dir="rtl"] span:not(.font-mono):not(.font-display) {
+    font-family: var(--font-arabic);
   }
 
   /* Accessibility gate — physics respects humans first */

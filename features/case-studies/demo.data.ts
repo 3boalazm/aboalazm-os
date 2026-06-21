@@ -50,6 +50,20 @@ export const NILE_PHARMA: CaseStudyRecord = {
     { value: "+25%", label: "Customer Engagement", context: "6 MONTHS POST-REBRAND" },
     { value: "5y", label: "System In Production", context: "2020 → 2025" },
   ],
+  images: [
+    { src: "/images/work/nile-pharma/npf-logo-grid.png",       caption: "Logo construction grid",    w: 1400, h: 700 },
+    { src: "/images/work/nile-pharma/npf-logo-waves.png",      caption: "Identity on palm leaves",    w: 1181, h: 1594 },
+    { src: "/images/work/nile-pharma/npf-business-card-box.jpg", caption: "Business card & packaging", w: 4000, h: 3000 },
+    { src: "/images/work/nile-pharma/npf-proxeed-products.png", caption: "Proxeed Plus & Proxerex",   w: 652,  h: 454 },
+    { src: "/images/work/nile-pharma/npf-ramadan.png",          caption: "Ramadan campaign post",     w: 1880, h: 1576 },
+    { src: "/images/work/nile-pharma/npf-proxeed-post.jpg",     caption: "Proxeed — campaign",        w: 1880, h: 1576 },
+    { src: "/images/work/nile-pharma/npf-img-b.png",            caption: "Billboard — New Story",     w: 1400, h: 1050 },
+    { src: "/images/work/nile-pharma/npf-img-c.png",            caption: "Product flyers",            w: 1400, h: 700 },
+    { src: "/images/work/nile-pharma/npf-img-a.png",            caption: "We care about you",         w: 1400, h: 700 },
+    { src: "/images/work/nile-pharma/npf-ezaby-post.jpg",       caption: "Ezaby — social post",       w: 1880, h: 1576 },
+    { src: "/images/work/nile-pharma/npf-logo-motion.gif",      caption: "Logo motion study",         w: 1400, h: 700 },
+  ],
+
   retro: [
     { verdict: "KEEP", note: "Templates as deliverables — every department could publish on-brand without me." },
     { verdict: "KEEP", note: "Stakeholder liaison role from day one; alignment was design work too." },

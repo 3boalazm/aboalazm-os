@@ -248,6 +248,41 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
           </p>
         </div>
       </div>
+
+      {/* Project gallery — only rendered when record.images is populated */}
+      {record.images && record.images.length > 0 && (
+        <div className="flex flex-col gap-3 border-t border-border-subtle pt-6">
+          <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+            DELIVERABLES — SYSTEM IN PRODUCTION
+          </p>
+          <div className="columns-2 gap-3 sm:columns-3 lg:columns-4">
+            {record.images.map((img) => (
+              <div
+                key={img.src}
+                className="group relative mb-3 overflow-hidden rounded-card border border-border-subtle bg-surface-1 break-inside-avoid"
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={img.src}
+                  alt={img.caption ?? ""}
+                  width={img.w}
+                  height={img.h}
+                  loading="lazy"
+                  className="w-full object-cover transition-transform duration-300 ease-physics group-hover:scale-105"
+                  style={{ aspectRatio: `${img.w}/${img.h}` }}
+                />
+                {img.caption && (
+                  <div className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/70 to-transparent px-2 pb-2 pt-6 transition-transform duration-300 ease-physics group-hover:translate-y-0">
+                    <p className="font-mono text-micro uppercase tracking-[0.08em] text-white/80">
+                      {img.caption}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </PanelShell>
   );
 }

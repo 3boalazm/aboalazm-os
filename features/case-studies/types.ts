@@ -27,6 +27,13 @@ export interface TokenSpec {
   role: string;    // e.g. "Card padding"
 }
 
+export interface GalleryImage {
+  src: string;
+  caption?: string;
+  w: number;
+  h: number;
+}
+
 export interface CaseStudyRecord {
   slug: string;
   name: string;
@@ -48,6 +55,9 @@ export interface CaseStudyRecord {
   tokens: readonly TokenSpec[];
   componentStates: readonly string[];
   breakpoints: readonly { bp: string; cols: string }[];
+
+  /** Optional project gallery — rendered in Execution panel */
+  images?: readonly GalleryImage[];
 
   /* Panel 04 — Performance & Post Mortem */
   results: readonly KPI[];
