@@ -23,6 +23,7 @@ import {
 } from "./panels";
 import type { CaseStudyRecord } from "./types";
 import type { ReactNode } from "react";
+import { useT } from "@/hooks/use-t";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -37,6 +38,7 @@ export function ScrollyCaseStudy({
 
   /* The page atmosphere belongs to this record while it's open */
   useAmbientGlow(record.accent, 0.6);
+  const t = useT();
 
   useGSAP(
     () => {
@@ -61,7 +63,7 @@ export function ScrollyCaseStudy({
       <article ref={articleRef} className="flex min-w-0 flex-col">
         <header className="flex flex-col gap-2 pb-8">
           <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-            CASE FILE // {record.slug.toUpperCase()}
+            {t.caseFile} // {record.slug.toUpperCase()}
           </p>
           <h1 className="font-display text-display tracking-[-0.025em]">
             {record.name}
@@ -73,7 +75,7 @@ export function ScrollyCaseStudy({
         {gallery && (
           <section data-panel className="flex scroll-mt-16 flex-col gap-4 border-t border-border-subtle py-8">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              GALLERY / THE SYSTEM, RENDERED
+              {t.galleryRendered}
             </p>
             {gallery}
           </section>

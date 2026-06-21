@@ -14,6 +14,7 @@ import type {
   CompetitorVector,
 } from "./types";
 import { BeforeAfterSlider } from "./before-after-slider";
+import { useT } from "@/hooks/use-t";
 
 /* ── Shared atoms ──────────────────────────────────────────────── */
 
@@ -61,8 +62,9 @@ function MonumentalKPI({ kpi }: { kpi: KPI }) {
 /* ── 01 · CONTEXT & AUDIT ──────────────────────────────────────── */
 
 export function ContextPanel({ record }: { record: CaseStudyRecord }) {
+  const t = useT();
   return (
-    <PanelShell id="context" index="01" label="CONTEXT & AUDIT">
+    <PanelShell id="context" index="01" label={t.contextAudit}>
       {/* Huge structural statement */}
       <h2 className="max-w-[24ch] font-display text-title tracking-[-0.015em] text-text-primary">
         {record.problem}
@@ -71,10 +73,10 @@ export function ContextPanel({ record }: { record: CaseStudyRecord }) {
       {/* Structural facts band */}
       <dl className="grid grid-cols-2 gap-3 border-y border-border-subtle py-3 md:grid-cols-4">
         {[
-          ["DISCIPLINE", record.discipline],
-          ["TEAM SCALE", record.teamScale],
-          ["TIMELINE", record.timeline],
-          ["RECORD", record.slug.toUpperCase()],
+          [t.discipline, record.discipline],
+          [t.teamScale, record.teamScale],
+          [t.timeline, record.timeline],
+          [t.record, record.slug.toUpperCase()],
         ].map(([k, v]) => (
           <div key={k} className="flex flex-col gap-0.5">
             <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -102,6 +104,7 @@ function CompetitorMap({
 }: {
   competitors: readonly CompetitorVector[];
 }) {
+  const t = useT();
   return (
     <figure className="relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1 p-2">
       {/* Axes */}
@@ -140,15 +143,16 @@ function CompetitorMap({
         </span>
       ))}
       <figcaption className="sr-only">
-        Competitor landscape: distinctiveness vs system maturity.
+        {t.competitorMap}
       </figcaption>
     </figure>
   );
 }
 
 export function ResearchPanel({ record }: { record: CaseStudyRecord }) {
+  const t = useT();
   return (
-    <PanelShell id="research" index="02" label="RESEARCH & LOGIC">
+    <PanelShell id="research" index="02" label={t.researchLogic}>
       {/* Asymmetric bento: 5/7 split, map dominant */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-12">
         <div className="flex flex-col justify-between gap-3 rounded-card border border-border-subtle bg-surface-1 p-3 md:col-span-5">
@@ -175,30 +179,31 @@ export function ResearchPanel({ record }: { record: CaseStudyRecord }) {
 /* ── 03 · EXECUTION & GOVERNANCE ───────────────────────────────── */
 
 export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
+  const t = useT();
   return (
-    <PanelShell id="execution" index="03" label="EXECUTION & GOVERNANCE">
+    <PanelShell id="execution" index="03" label={t.executionGov}>
       <h2 className="max-w-[20ch] font-display text-title tracking-[-0.015em]">
-        The system, governed: tokens, states, and the grid they live on.
+        {t.executionH2}
       </h2>
 
       <div className="grid grid-cols-1 gap-2 lg:grid-cols-12">
         {/* Token table — the design system core */}
         <div className="rounded-card border border-border-subtle bg-surface-1 lg:col-span-5">
           <p className="border-b border-border-subtle px-2 py-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            STRUCTURAL TOKENS
+            {t.structuralTokens}
           </p>
           <table className="w-full">
             <tbody>
-              {record.tokens.map((t) => (
-                <tr key={t.token} className="border-b border-border-subtle last:border-0">
+              {record.tokens.map((tok) => (
+                <tr key={tok.token} className="border-b border-border-subtle last:border-0">
                   <td className="px-2 py-1 font-geist text-micro text-accent">
-                    {t.token}
+                    {tok.token}
                   </td>
                   <td className="px-2 py-1 font-geist text-micro text-text-secondary">
-                    {t.value}
+                    {tok.value}
                   </td>
                   <td className="px-2 py-1 text-right font-mono text-micro text-text-ghost">
-                    {t.role}
+                    {tok.role}
                   </td>
                 </tr>
               ))}
@@ -207,7 +212,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 
           {/* Component states — live button row */}
           <p className="border-y border-border-subtle px-2 py-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            COMPONENT STATES
+            {t.componentStates}
           </p>
           <div className="flex flex-wrap items-center gap-2 p-2">
             <button className="rounded-pill bg-text-primary px-2 py-1 font-mono text-micro text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5">
@@ -229,7 +234,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 
           {/* Responsive spec */}
           <p className="border-y border-border-subtle px-2 py-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            RESPONSIVE LAYOUT
+            {t.responsiveLayout}
           </p>
           <div className="flex gap-3 p-2">
             {record.breakpoints.map((b) => (
@@ -244,7 +249,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
         <div className="flex flex-col gap-1 lg:col-span-7">
           <BeforeAfterSlider />
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            DRAG THE LINE — AUDIT STATE ⇄ GOVERNED SYSTEM
+            {t.dragLine}
           </p>
         </div>
       </div>
@@ -253,7 +258,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
       {record.images && record.images.length > 0 && (
         <div className="flex flex-col gap-3 border-t border-border-subtle pt-6">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            DELIVERABLES — SYSTEM IN PRODUCTION
+            {t.deliverables}
           </p>
           <div className="columns-2 gap-3 sm:columns-3 lg:columns-4">
             {record.images.map((img) => (
@@ -290,8 +295,9 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 /* ── 04 · PERFORMANCE & POST MORTEM ────────────────────────────── */
 
 export function PerformancePanel({ record }: { record: CaseStudyRecord }) {
+  const t = useT();
   return (
-    <PanelShell id="performance" index="04" label="PERFORMANCE & POST MORTEM">
+    <PanelShell id="performance" index="04" label={t.performancePM}>
       {/* Monumental callouts */}
       <div className="grid grid-cols-1 gap-4 border-b border-border-subtle pb-8 sm:grid-cols-3">
         {record.results.map((kpi) => (
@@ -302,7 +308,7 @@ export function PerformancePanel({ record }: { record: CaseStudyRecord }) {
       {/* Systematic retro */}
       <div className="flex flex-col">
         <p className="pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          RETRO LEDGER
+          {t.retroLedger}
         </p>
         {record.retro.map((r) => (
           <div

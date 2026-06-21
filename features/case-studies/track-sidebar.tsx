@@ -1,4 +1,5 @@
 "use client";
+import { useT } from "@/hooks/use-t";
 
 /**
  * TRACK SIDEBAR — the anchor line.
@@ -31,6 +32,7 @@ interface TrackSidebarProps {
 export function TrackSidebar({ articleRef }: TrackSidebarProps) {
   const spineRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<PanelId>("context");
+  const t = useT();
 
   useGSAP(
     () => {
@@ -82,7 +84,7 @@ export function TrackSidebar({ articleRef }: TrackSidebarProps) {
         </div>
 
         {/* Stations */}
-        <nav aria-label="Case study sections" className="flex flex-col gap-4 py-1">
+        <nav aria-label={t.caseStudySections} className="flex flex-col gap-4 py-1">
           {PANELS.map((panel) => {
             const isActive = active === panel.id;
             return (
@@ -109,7 +111,7 @@ export function TrackSidebar({ articleRef }: TrackSidebarProps) {
                       : "text-text-tertiary group-hover:text-text-secondary",
                   ].join(" ")}
                 >
-                  {panel.label}
+                  {t[panel.id === "context" ? "contextAudit" : panel.id === "research" ? "researchLogic" : panel.id === "execution" ? "executionGov" : "performancePM"]}
                 </span>
               </a>
             );
