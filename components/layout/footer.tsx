@@ -68,26 +68,35 @@ export function Footer() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {COLUMNS.map((col) => (
-            <nav key={col.head[0]} aria-label={col.head[0]} className="flex flex-col gap-1">
-              <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                {ar ? col.head[1] : col.head[0]}
-              </p>
-              {col.links.map(([en, arr, href]) => (
-                <Link
-                  key={href}
-                  href={href}
-                  {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
-                    ? { target: "_blank", rel: "noopener noreferrer" }
-                    : {})}
-                  className="w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
-                >
-                  {ar ? arr : en}
-                </Link>
-              ))}
-            </nav>
-          ))}
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {COLUMNS.map((col) => {
+            const isPages = col.head[0] === "PAGES";
+            return (
+              <nav
+                key={col.head[0]}
+                aria-label={col.head[0]}
+                className={`flex flex-col gap-1 ${isPages ? "col-span-2" : ""}`}
+              >
+                <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+                  {ar ? col.head[1] : col.head[0]}
+                </p>
+                <div className={isPages ? "columns-2 gap-x-6" : "flex flex-col gap-1"}>
+                  {col.links.map(([en, arr, href]) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className={`block w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary ${isPages ? "mb-1" : ""}`}
+                    >
+                      {ar ? arr : en}
+                    </Link>
+                  ))}
+                </div>
+              </nav>
+            );
+          })}
         </div>
       </div>
 
