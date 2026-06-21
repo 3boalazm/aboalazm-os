@@ -70,12 +70,21 @@ export function Nav() {
           aria-label="Aboalazm OS"
           className="flex items-center"
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/work/icon.png"
-            alt="Aboalazm OS"
-            className="h-6 w-auto md:h-7"
-          />
+          <motion.span
+            className="brand-orb h-8 w-8 md:h-9 md:w-9"
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.96 }}
+            transition={physics}
+          >
+            <span className="brand-orb__glow" aria-hidden />
+            <span className="brand-orb__halo" aria-hidden />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/work/icon.png"
+              alt="Aboalazm OS"
+              className="brand-orb__img h-8 w-8 md:h-9 md:w-9"
+            />
+          </motion.span>
         </Link>
 
         {/* Desktop links */}
