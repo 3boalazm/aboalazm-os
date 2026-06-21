@@ -103,7 +103,7 @@ function CompetitorMap({
   competitors: readonly CompetitorVector[];
 }) {
   return (
-    <figure className="relative aspect-square rounded-card border border-border-subtle bg-surface-1 p-2">
+    <figure className="relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1 p-2">
       {/* Axes */}
       <span className="absolute inset-x-2 top-1/2 h-px bg-border-subtle" />
       <span className="absolute inset-y-2 left-1/2 w-px bg-border-subtle" />
