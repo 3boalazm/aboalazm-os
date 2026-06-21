@@ -71,18 +71,17 @@ export function Nav() {
           className="flex items-center"
         >
           <motion.span
-            className="brand-orb h-8 w-8 md:h-9 md:w-9"
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.96 }}
+            className="brand-orb h-7 w-7 md:h-8 md:w-8"
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.97 }}
             transition={physics}
           >
             <span className="brand-orb__glow" aria-hidden />
-            <span className="brand-orb__halo" aria-hidden />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/work/icon.png"
               alt="Aboalazm OS"
-              className="brand-orb__img h-8 w-8 md:h-9 md:w-9"
+              className="brand-orb__img h-7 w-7 md:h-8 md:w-8"
             />
           </motion.span>
         </Link>
