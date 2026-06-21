@@ -67,9 +67,15 @@ export function Nav() {
       >
         <Link
           href="/"
-          className="whitespace-nowrap font-display text-body-sm tracking-[-0.015em] text-text-primary"
+          aria-label="Aboalazm OS"
+          className="flex items-center"
         >
-          Aboalazm<span className="text-accent"> OS</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/work/icon.png"
+            alt="Aboalazm OS"
+            className="h-6 w-auto md:h-7"
+          />
         </Link>
 
         {/* Desktop links */}

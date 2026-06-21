@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   },
   description:
     "Brand identity, design systems, and digital infrastructure for SaaS founders, AI startups, and design-driven teams.",
+  icons: {
+    icon: "/images/work/icon.png",
+    shortcut: "/images/work/icon.png",
+    apple: "/images/work/icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
