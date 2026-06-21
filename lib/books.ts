@@ -77,6 +77,53 @@ export const BOOKS: readonly Book[] = [
       },
     ],
   },
+  {
+    slug: "visual-identity",
+    title: "أساسيات الهوية البصرية",
+    titleEn: "Basics of Visual Identity",
+    edition: "1st Edition · 2026 · v1.0",
+    blurb: "من الاستراتيجية إلى الحرفة البصرية إلى المهنة — كيف تُبنى هويات البراند: الشعار، الألوان، التايبوجرافي، اللغة البصرية، ودليل الهوية وتقديمها.",
+    blurbEn:
+      "From strategy through visual craft to the profession — how brand identities are built: logo, colour, typography, visual language, and the identity guide and its presentation.",
+    chapterCount: 16,
+    bundle: "/books/visual-identity/index.html",
+    journeys: [
+      {
+        ar: "الاستراتيجية",
+        en: "Strategy",
+        chapters: [
+          { id: "chA", title: "إيه هي الهوية البصرية؟" },
+          { id: "chB", title: "ليه الناس بتشتري البراندات؟" },
+          { id: "chC", title: "استراتيجية البراند" },
+          { id: "chD", title: "شخصية وصوت البراند" },
+        ],
+      },
+      {
+        ar: "الحرفة البصرية",
+        en: "Visual Craft",
+        chapters: [
+          { id: "ch01", title: "الاكتشاف والبحث" },
+          { id: "ch02", title: "الاتجاه الإبداعي" },
+          { id: "ch03", title: "تصميم الشعار" },
+          { id: "ch04", title: "أنظمة الألوان" },
+          { id: "ch05", title: "التايبوجرافي في الهوية" },
+          { id: "ch06", title: "اللغة البصرية" },
+          { id: "ch07", title: "اتجاه التصوير" },
+        ],
+      },
+      {
+        ar: "المهنة",
+        en: "Profession",
+        chapters: [
+          { id: "ch08", title: "تطبيقات الهوية" },
+          { id: "ch09", title: "دليل الهوية" },
+          { id: "ch10", title: "تقديم الهوية" },
+          { id: "ch11", title: "أنظمة العالم الحقيقي" },
+          { id: "ch12", title: "المشروع وورش العمل" },
+        ],
+      },
+    ],
+  },
 ];
 
 export const getBook = (slug: string) => BOOKS.find((b) => b.slug === slug);
