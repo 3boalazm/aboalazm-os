@@ -124,6 +124,169 @@ export const BOOKS: readonly Book[] = [
       },
     ],
   },
+  {
+    slug: "marketing-fundamentals",
+    title: "أساسيات التسويق",
+    titleEn: "Marketing Fundamentals",
+    edition: "1st Edition · 2026 · v1.0",
+    blurb:
+      "دليل عربي شامل في التسويق الحديث — من فهم العميل والاستراتيجية والعلامة، مرورًا بالمحتوى والإعلان والنمو، وصولًا إلى البيانات والتقنية والصورة الكاملة.",
+    blurbEn:
+      "A complete modern marketing guide — from customers, strategy, and brand, through content, advertising, and growth, to data, tech, and the integrated plan.",
+    chapterCount: 59,
+    bundle: "/books/marketing-fundamentals/index.html",
+    journeys: [
+      {
+        ar: "مقدمة في التسويق",
+        en: "Introduction to Marketing",
+        chapters: [
+          { id: "ch01", title: "What Is Marketing?" },
+          { id: "ch02", title: "The Evolution of Marketing" },
+          { id: "ch03", title: "The Marketing Ecosystem" },
+        ],
+      },
+      {
+        ar: "فهم العملاء",
+        en: "Understanding Customers",
+        chapters: [
+          { id: "ch04", title: "Consumer Psychology" },
+          { id: "ch05", title: "The Customer Journey" },
+          { id: "ch06", title: "Customer Research" },
+          { id: "ch07", title: "Buyer Personas" },
+        ],
+      },
+      {
+        ar: "استراتيجية التسويق",
+        en: "Marketing Strategy",
+        chapters: [
+          { id: "ch08", title: "Strategic Thinking" },
+          { id: "ch09", title: "Positioning" },
+          { id: "ch10", title: "The Marketing Mix" },
+          { id: "ch11", title: "Goals & KPIs" },
+        ],
+      },
+      {
+        ar: "العلامة التجارية",
+        en: "Branding",
+        chapters: [
+          { id: "ch12", title: "Brand Foundations" },
+          { id: "ch13", title: "Brand Identity" },
+          { id: "ch14", title: "Voice & Messaging" },
+          { id: "ch15", title: "Brand Equity" },
+        ],
+      },
+      {
+        ar: "المحتوى",
+        en: "Content",
+        chapters: [
+          { id: "ch16", title: "Content Strategy" },
+          { id: "ch17", title: "Formats & Channels" },
+          { id: "ch18", title: "Storytelling" },
+          { id: "ch19", title: "Distribution" },
+        ],
+      },
+      {
+        ar: "الإعلان",
+        en: "Advertising",
+        chapters: [
+          { id: "ch20", title: "Ad Foundations" },
+          { id: "ch21", title: "Anatomy of an Ad" },
+          { id: "ch22", title: "Paid Channels" },
+          { id: "ch23", title: "Budget & Optimization" },
+        ],
+      },
+      {
+        ar: "النمو",
+        en: "Growth",
+        chapters: [
+          { id: "ch24", title: "Growth Mindset" },
+          { id: "ch25", title: "The Growth Funnel" },
+          { id: "ch26", title: "Retention & Loyalty" },
+          { id: "ch27", title: "Analytics & Testing" },
+        ],
+      },
+      {
+        ar: "البحث و SEO",
+        en: "Search & SEO",
+        chapters: [
+          { id: "ch28", title: "How Search Works" },
+          { id: "ch29", title: "Keyword Intent" },
+          { id: "ch30", title: "On-Page SEO" },
+          { id: "ch31", title: "Authority & Links" },
+        ],
+      },
+      {
+        ar: "السوشيال ميديا",
+        en: "Social Media",
+        chapters: [
+          { id: "ch32", title: "The Social Landscape" },
+          { id: "ch33", title: "Platform Strategy" },
+          { id: "ch34", title: "Building Community" },
+          { id: "ch35", title: "Influencer Marketing" },
+        ],
+      },
+      {
+        ar: "البريد والأتمتة",
+        en: "Email & Automation",
+        chapters: [
+          { id: "ch36", title: "Why Email Wins" },
+          { id: "ch37", title: "List Building" },
+          { id: "ch38", title: "Email Types" },
+          { id: "ch39", title: "Automation & Lifecycle" },
+        ],
+      },
+      {
+        ar: "التحليلات والقياس",
+        en: "Analytics & Measurement",
+        chapters: [
+          { id: "ch40", title: "The Data Mindset" },
+          { id: "ch41", title: "KPIs & Metrics" },
+          { id: "ch42", title: "Attribution" },
+          { id: "ch43", title: "Dashboards" },
+        ],
+      },
+      {
+        ar: "التحويل و CRO",
+        en: "Conversion & CRO",
+        chapters: [
+          { id: "ch44", title: "Conversion Mindset" },
+          { id: "ch45", title: "Landing Pages" },
+          { id: "ch46", title: "Funnels & Friction" },
+          { id: "ch47", title: "A/B Testing" },
+        ],
+      },
+      {
+        ar: "التسعير والعروض",
+        en: "Pricing & Offers",
+        chapters: [
+          { id: "ch48", title: "Pricing Psychology" },
+          { id: "ch49", title: "Pricing Models" },
+          { id: "ch50", title: "Crafting Offers" },
+          { id: "ch51", title: "Discounts" },
+        ],
+      },
+      {
+        ar: "التقنية والذكاء الاصطناعي",
+        en: "MarTech & AI",
+        chapters: [
+          { id: "ch52", title: "The MarTech Stack" },
+          { id: "ch53", title: "CRM & Data" },
+          { id: "ch54", title: "Automation" },
+          { id: "ch55", title: "AI in Marketing" },
+        ],
+      },
+      {
+        ar: "الصورة الكاملة",
+        en: "Putting It All Together",
+        chapters: [
+          { id: "ch56", title: "The Integrated Plan" },
+          { id: "ch57", title: "Team & Workflow" },
+          { id: "ch58", title: "Budget & Roadmap" },
+          { id: "ch59", title: "The Capstone" },
+        ],
+      },
+    ],
+  },
 ];
 
 export const getBook = (slug: string) => BOOKS.find((b) => b.slug === slug);

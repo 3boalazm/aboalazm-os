@@ -28,6 +28,7 @@ const LINKS = [
 /* Secondary set — mobile panel + footer carry these */
 const MORE = [
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
+  { href: "/gallery", en: "GALLERY", ar: "المعرض" },
   { href: "/why", en: "WHY", ar: "لماذا" },
   { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
   { href: "/writing", en: "WRITING", ar: "مقالات" },

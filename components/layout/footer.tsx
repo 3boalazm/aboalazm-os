@@ -16,6 +16,7 @@ const COLUMNS = [
       ["Resources", "المصادر", "/resources"],
       ["Labs", "المعمل", "/labs"],
       ["Library", "المكتبة", "/books"],
+      ["Gallery", "المعرض", "/gallery"],
       ["Pricing", "التسعير", "/pricing"],
       ["Agreement", "الاتفاقية", "/agreement"],
       ["Writing", "مقالات", "/writing"],
@@ -46,9 +47,20 @@ export function Footer() {
     <footer className="border-t border-border-subtle">
       <div className="container-wide grid gap-8 py-8 md:grid-cols-[1.2fr_2fr]">
         <div className="flex flex-col gap-2">
-          <p className="font-display text-display leading-none tracking-[-0.025em]">
-            M<em className="text-accent">A</em>.
-          </p>
+          <div className="flex items-center gap-2.5">
+            <span className="brand-orb h-8 w-8">
+              <span className="brand-orb__glow" aria-hidden />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/work/icon.png"
+                alt="Aboalazm"
+                className="brand-orb__img h-8 w-8"
+              />
+            </span>
+            <p className="font-display text-display leading-none tracking-[-0.025em]">
+              M<em className="text-accent">A</em>.
+            </p>
+          </div>
           <p className="max-w-[32ch] text-body-sm text-text-tertiary">
             {ar
               ? "مصمم هوية بصرية أول وشريك مؤسس في Code & Canvas. نبني البراندات بوضوح وحِرفة واحترام للشغل."
