@@ -1,4 +1,6 @@
 "use client";
+import { useT } from "@/hooks/use-t";
+import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * VIEWPORT HERO — "Mustafa Aboalazm OS"
@@ -32,19 +34,18 @@ import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
 
-/* Headline broken into masked lines for the clip-path rise */
-/* v2 headline per spec 04 — line 2 carries the italic:
-   "Code-Aligned" is where brand studio and engineering shake hands. */
-const HEADLINE: readonly string[] = [
-  "Designing",
-  "Code-Aligned",
-  "Digital Systems",
-];
+/* Headline is dynamic — see inside Hero() */
 const ITALIC_LINE = 1;
 
 export function Hero() {
   /* Home rests warm: faint coral glow — color presence without paint */
   useAmbientGlow(STUDIO_CORAL, 0.5);
+  const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  const HEADLINE = ar
+    ? [t.heroLine1, t.heroLine2, t.heroLine3]
+    : [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
     <section className="relative flex min-h-svh flex-col bg-obsidian" style={{ isolation: "isolate" }}>
@@ -61,7 +62,7 @@ export function Hero() {
           >
             <StatusNode />
             <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost lg:inline">
-              30.1936° N, 31.4603° E · AL OBOUR
+{ar ? t.heroCoords : "30.1936° N, 31.4603° E · AL OBOUR"}
             </span>
           </motion.div>
 
@@ -97,8 +98,7 @@ export function Hero() {
               variants={reveal.item}
               className="max-w-[46ch] text-lead text-text-secondary"
             >
-              Identity, design systems, and digital infrastructure —
-              engineered as one operating system for teams that ship.
+              {t.heroLead}
             </motion.p>
 
             {/* CTA pair — custom hover: underline draw + arrow nudge */}
@@ -107,7 +107,7 @@ export function Hero() {
                 href="/work"
                 className="group glass relative inline-flex items-center gap-1 overflow-hidden rounded-pill px-3 py-2 text-body text-text-primary transition-colors duration-base ease-physics hover:border-border-strong"
               >
-                <span>Explore the system</span>
+                <span>{t.heroExplore}</span>
                 <span
                   aria-hidden
                   className="inline-block transition-transform duration-base ease-physics group-hover:translate-x-1"

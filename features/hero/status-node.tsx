@@ -1,4 +1,6 @@
 "use client";
+import { useLang } from "@/components/providers/lang-provider";
+import { useT } from "@/hooks/use-t";
 
 /**
  * STATUS NODE — the OS heartbeat.
@@ -13,6 +15,8 @@ import { EASE_PHYSICS } from "@/lib/tokens";
 const PULSE_GREEN = "#3DDC84";
 
 export function StatusNode() {
+  const { lang } = useLang();
+  const t = useT();
   return (
     <div className="glass inline-flex items-center gap-2 rounded-pill py-1 pl-2 pr-3">
       {/* ── Node ── */}
@@ -44,7 +48,7 @@ export function StatusNode() {
 
       {/* ── Readout ── */}
       <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-secondary">
-        [STATUS: OPEN FOR SELECT PROJECTS · 2026]
+        {lang === "ar" ? `[${t.heroStatusOpen} · ${t.heroYear}]` : `[STATUS: OPEN FOR SELECT PROJECTS · ${t.heroYear}]`}
       </span>
     </div>
   );

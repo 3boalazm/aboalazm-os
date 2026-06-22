@@ -1,4 +1,5 @@
 "use client";
+import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * NARRATIVE PANELS — the four architectural blocks.
@@ -43,16 +44,16 @@ function PanelShell({
   );
 }
 
-function MonumentalKPI({ kpi }: { kpi: KPI }) {
+function MonumentalKPI({ kpi, ar = false }: { kpi: KPI; ar?: boolean }) {
   return (
     <div className="flex flex-col gap-1">
       <span className="font-display text-display leading-[1.02] tracking-[-0.025em] text-text-primary">
         {kpi.value}
       </span>
-      <span className="text-body-sm text-text-secondary">{kpi.label}</span>
+      <span className="text-body-sm text-text-secondary">{ar && kpi.labelAr ? kpi.labelAr : kpi.label}</span>
       {kpi.context && (
         <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {kpi.context}
+          {ar && kpi.contextAr ? kpi.contextAr : kpi.context}
         </span>
       )}
     </div>
@@ -63,19 +64,21 @@ function MonumentalKPI({ kpi }: { kpi: KPI }) {
 
 export function ContextPanel({ record }: { record: CaseStudyRecord }) {
   const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <PanelShell id="context" index="01" label={t.contextAudit}>
       {/* Huge structural statement */}
       <h2 className="max-w-[24ch] font-display text-title tracking-[-0.015em] text-text-primary">
-        {record.problem}
+        {ar && record.problemAr ? record.problemAr : record.problem}
       </h2>
 
       {/* Structural facts band */}
       <dl className="grid grid-cols-2 gap-3 border-y border-border-subtle py-3 md:grid-cols-4">
         {[
           [t.discipline, record.discipline],
-          [t.teamScale, record.teamScale],
-          [t.timeline, record.timeline],
+          [t.teamScale, ar && record.teamScaleAr ? record.teamScaleAr : record.teamScale],
+          [t.timeline, ar && record.timelineAr ? record.timelineAr : record.timeline],
           [t.record, record.slug.toUpperCase()],
         ].map(([k, v]) => (
           <div key={k} className="flex flex-col gap-0.5">
@@ -90,7 +93,7 @@ export function ContextPanel({ record }: { record: CaseStudyRecord }) {
       {/* Audit KPIs — the "before" numbers, stated plainly */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {record.kpis.map((kpi) => (
-          <MonumentalKPI key={kpi.label} kpi={kpi} />
+          <MonumentalKPI key={kpi.label} kpi={kpi} ar={ar} />
         ))}
       </div>
     </PanelShell>
@@ -151,14 +154,16 @@ function CompetitorMap({
 
 export function ResearchPanel({ record }: { record: CaseStudyRecord }) {
   const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <PanelShell id="research" index="02" label={t.researchLogic}>
       {/* Asymmetric bento: 5/7 split, map dominant */}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-12">
         <div className="flex flex-col justify-between gap-3 rounded-card border border-border-subtle bg-surface-1 p-3 md:col-span-5">
-          <p className="text-lead text-text-secondary">{record.researchSummary}</p>
+          <p className="text-lead text-text-secondary">{ar && record.researchSummaryAr ? record.researchSummaryAr : record.researchSummary}</p>
           <div className="flex flex-wrap gap-1">
-            {record.visualVectors.map((v) => (
+            {(ar && record.visualVectorsAr ? record.visualVectorsAr : record.visualVectors).map((v) => (
               <span
                 key={v}
                 className="rounded-pill border border-border-subtle px-1 py-0.5 font-geist text-micro tracking-[0.02em] text-text-tertiary"
@@ -180,6 +185,8 @@ export function ResearchPanel({ record }: { record: CaseStudyRecord }) {
 
 export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
   const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <PanelShell id="execution" index="03" label={t.executionGov}>
       <h2 className="max-w-[20ch] font-display text-title tracking-[-0.015em]">
@@ -203,7 +210,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
                     {tok.value}
                   </td>
                   <td className="px-2 py-1 text-right font-mono text-micro text-text-ghost">
-                    {tok.role}
+                    {ar && tok.roleAr ? tok.roleAr : tok.role}
                   </td>
                 </tr>
               ))}
@@ -296,12 +303,14 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 
 export function PerformancePanel({ record }: { record: CaseStudyRecord }) {
   const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <PanelShell id="performance" index="04" label={t.performancePM}>
       {/* Monumental callouts */}
       <div className="grid grid-cols-1 gap-4 border-b border-border-subtle pb-8 sm:grid-cols-3">
         {record.results.map((kpi) => (
-          <MonumentalKPI key={kpi.label} kpi={kpi} />
+          <MonumentalKPI key={kpi.label} kpi={kpi} ar={ar} />
         ))}
       </div>
 
@@ -325,9 +334,9 @@ export function PerformancePanel({ record }: { record: CaseStudyRecord }) {
                 .filter(Boolean)
                 .join(" ")}
             >
-              [{r.verdict}]
+              [{ar ? (r.verdict === "KEEP" ? "احتفظ" : r.verdict === "CHANGE" ? "غيّر" : "أسقط") : r.verdict}]
             </span>
-            <span className="text-body-sm text-text-secondary">{r.note}</span>
+            <span className="text-body-sm text-text-secondary">{ar && r.noteAr ? r.noteAr : r.note}</span>
           </div>
         ))}
       </div>

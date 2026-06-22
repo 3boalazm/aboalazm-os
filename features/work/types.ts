@@ -18,11 +18,13 @@ export interface Project {
   slug: string;
   /** Display name — serif, largest element in the row */
   name: string;
+  nameAr?: string;
   discipline: Discipline;
   /** Tech/design stack — rendered as Geist Mono micro-pills */
   stack: readonly string[];
   /** Strategic outcome — the why-care, shown at index level */
   outcome: string;
+  outcomeAr?: string;
   /** Year band for the ledger's mono index column */
   year: string;
   /** Preview image for the floating cursor-trail reveal */

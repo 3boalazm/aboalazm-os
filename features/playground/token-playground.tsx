@@ -1,4 +1,5 @@
 "use client";
+import { useT } from "@/hooks/use-t";
 
 /**
  * LIVE TOKEN PLAYGROUND — "the system, hands-on."
@@ -73,6 +74,7 @@ const SYNC =
   "background-color var(--pg-duration) var(--ease-physics), border-radius var(--pg-duration) var(--ease-physics), padding var(--pg-duration) var(--ease-physics), gap var(--pg-duration) var(--ease-physics), color var(--pg-duration) var(--ease-physics), border-color var(--pg-duration) var(--ease-physics)";
 
 export function TokenPlayground() {
+  const ui = useT();
   const [t, setT] = useState<PlaygroundTokens>(DEFAULTS);
   const patch = (p: Partial<PlaygroundTokens>) => setT((s) => ({ ...s, ...p }));
 
@@ -117,7 +119,7 @@ export function TokenPlayground() {
           </span>
           <div
             role="radiogroup"
-            aria-label="Theme mode"
+            aria-label={ui.playgroundTheme}
             className="grid grid-cols-2 gap-1 rounded-pill border border-border-subtle p-0.5"
           >
             {(["obsidian", "alabaster"] as const).map((mode) => (

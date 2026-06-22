@@ -1,4 +1,5 @@
 "use client";
+import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * CASE GALLERY — accent-framed image strip.
@@ -10,10 +11,13 @@ import Image from "next/image";
 export interface GalleryItem {
   src: string;
   caption: string;
+  captionAr?: string;
   span?: "full" | "half";
 }
 
 export function CaseGallery({ items }: { items: readonly GalleryItem[] }) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
       {items.map((item) => (
@@ -27,7 +31,7 @@ export function CaseGallery({ items }: { items: readonly GalleryItem[] }) {
           <div className="relative aspect-[16/9]">
             <Image
               src={item.src}
-              alt={item.caption}
+              alt={ar && item.captionAr ? item.captionAr : item.caption}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-slow ease-physics group-hover:scale-[1.02]"
@@ -35,7 +39,7 @@ export function CaseGallery({ items }: { items: readonly GalleryItem[] }) {
           </div>
           <figcaption className="flex items-center justify-between gap-2 border-t border-border-subtle px-2 py-1">
             <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary">
-              {item.caption}
+              {ar && item.captionAr ? item.captionAr : item.caption}
             </span>
             <span
               aria-hidden

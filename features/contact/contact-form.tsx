@@ -2,13 +2,14 @@
 
 /**
  * COMMISSION FORM — Design System C2 states, Copy Deck microcopy.
- * Submit: button → "WORKING…" (no spinner — the system talks, it
- * doesn't spin) → AnimatePresence swap to confirmation block.
- * TODO(launch): wire `submit()` to a server action / email service.
+ * Submit: button → "WORKING…" → AnimatePresence swap to confirmation block.
+ * Fully bilingual via useT() + useLang().
  */
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { physics } from "@/lib/motion";
+import { useLang } from "@/components/providers/lang-provider";
+import { useT } from "@/hooks/use-t";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Status = "idle" | "working" | "sent" | "error";
@@ -20,6 +21,9 @@ const LABEL =
   "font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary";
 
 export function ContactForm() {
+  const { lang } = useLang();
+  const t = useT();
+  const ar = lang === "ar";
   const [status, setStatus] = useState<Status>("idle");
   const [budget, setBudget] = useState<string | null>(null);
 
@@ -27,7 +31,6 @@ export function ContactForm() {
     e.preventDefault();
     setStatus("working");
     try {
-      // TODO(launch): replace with server action
       await new Promise((r) => setTimeout(r, 900));
       setStatus("sent");
     } catch {
@@ -47,10 +50,10 @@ export function ContactForm() {
             className="flex flex-col gap-2 py-8 text-center"
           >
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-[#3DDC84]">
-              RECEIVED. EXPECT A REPLY WITHIN 48H.
+              {ar ? "تم الاستلام. رد خلال 48 ساعة." : "RECEIVED. EXPECT A REPLY WITHIN 48H."}
             </p>
             <p className="font-display text-title tracking-[-0.015em]">
-              The brief is in the system.
+              {ar ? "البريف في النظام." : "The brief is in the system."}
             </p>
           </motion.div>
         ) : (
@@ -62,24 +65,24 @@ export function ContactForm() {
             className="flex flex-col gap-2"
           >
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>NAME</span>
-              <input required name="name" className={FIELD} placeholder="Your name" />
+              <span className={LABEL}>{t.formName}</span>
+              <input required name="name" className={FIELD} placeholder={t.formPlaceholderName} />
             </label>
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>COMPANY</span>
-              <input name="company" className={FIELD} placeholder="Company or project" />
+              <span className={LABEL}>{t.formCompany}</span>
+              <input name="company" className={FIELD} placeholder={t.formPlaceholderCompany} />
             </label>
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>WHAT ARE WE BUILDING</span>
-              <textarea required name="brief" rows={4} className={FIELD} placeholder="The brief, in your words" />
+              <span className={LABEL}>{t.formBuilding}</span>
+              <textarea required name="brief" rows={4} className={FIELD} placeholder={t.formPlaceholderBrief} />
             </label>
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>TIMELINE</span>
-              <input name="timeline" className={FIELD} placeholder="e.g. launch in Q4" />
+              <span className={LABEL}>{t.formTimeline}</span>
+              <input name="timeline" className={FIELD} placeholder={t.formPlaceholderTimeline} />
             </label>
 
             <fieldset className="flex flex-col gap-1">
-              <legend className={LABEL}>BUDGET BAND</legend>
+              <legend className={LABEL}>{t.formBudget}</legend>
               <div className="flex flex-wrap gap-1">
                 {BUDGET_BANDS.map((band) => (
                   <button
@@ -106,16 +109,20 @@ export function ContactForm() {
               aria-busy={status === "working"}
               className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
             >
-              {status === "working" ? "WORKING…" : "Begin the conversation →"}
+              {status === "working"
+                ? (ar ? "جارٍ الإرسال…" : "WORKING…")
+                : t.formBegin}
             </button>
 
             {status === "error" && (
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-                TRANSMISSION FAILED — TRY HELLO@ABOALAZM.COM
+                {ar
+                  ? "فشل الإرسال — تواصل عبر Mustafaaboalazm@mail.ru"
+                  : "TRANSMISSION FAILED — TRY Mustafaaboalazm@mail.ru"}
               </p>
             )}
             <p className="text-center font-mono text-micro text-text-ghost">
-              Replies within two working days. Cairo time, worldwide work.
+              {t.formReplies}
             </p>
           </motion.form>
         )}

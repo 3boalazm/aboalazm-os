@@ -1,4 +1,5 @@
 "use client";
+import { useT } from "@/hooks/use-t";
 
 /**
  * FLOATING PILL NAV — Design System C4 (v1.1).
@@ -36,6 +37,7 @@ const MORE = [
 ] as const;
 
 export function Nav() {
+  const t = useT();
   const pathname = usePathname();
   const { lang, toggle } = useLang();
   const [scrolled, setScrolled] = useState(false);
@@ -53,7 +55,7 @@ export function Nav() {
 
   return (
     <motion.nav
-      aria-label="Primary"
+      aria-label={t.navPrimary}
       initial={{ y: -12, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ ...physics, delay: 0.9 }}
@@ -68,7 +70,7 @@ export function Nav() {
       >
         <Link
           href="/"
-          aria-label="Aboalazm OS"
+          aria-label={t.navBrandName}
           className="flex items-center"
         >
           <motion.span
@@ -81,7 +83,7 @@ export function Nav() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/work/icon.png"
-              alt="Aboalazm OS"
+              alt={t.navLogoAlt}
               className="brand-orb__img h-7 w-7 md:h-8 md:w-8"
             />
           </motion.span>

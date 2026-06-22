@@ -1,4 +1,5 @@
 "use client";
+import { useT } from "@/hooks/use-t";
 
 /**
  * FOOTER — old-site structure (Pages / Reach / Portfolio) in the
@@ -41,6 +42,7 @@ const COLUMNS = [
 ] as const;
 
 export function Footer() {
+  const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
@@ -53,7 +55,7 @@ export function Footer() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/work/icon.png"
-                alt="Aboalazm"
+                alt={t.footerBrandAlt}
                 className="brand-orb__img h-8 w-8"
               />
             </span>

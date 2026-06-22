@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { SystemConstellation } from "@/features/hero";
 import { useLang } from "@/components/providers/lang-provider";
+import { useT } from "@/hooks/use-t";
 
 const REASONS = {
   en: [
@@ -35,6 +36,7 @@ const NUMBERS = {
 export default function WhyPage() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const t = useT();
   const reasons = ar ? REASONS.ar : REASONS.en;
   const approach = ar ? APPROACH.ar : APPROACH.en;
   const numbers = ar ? NUMBERS.ar : NUMBERS.en;
@@ -55,7 +57,7 @@ export default function WhyPage() {
         </p>
       </header>
 
-      <section aria-label="Why clients hire" className="flex flex-col">
+      <section aria-label={t.whyAriaReasons} className="flex flex-col">
         <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "لماذا يختارني العملاء" : "WHY CLIENTS HIRE ME"}
         </p>
@@ -70,7 +72,7 @@ export default function WhyPage() {
         ))}
       </section>
 
-      <section aria-label="Approach">
+      <section aria-label={t.whyAriaApproach}>
         <p className="pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "المنهجية" : "THE APPROACH"}
         </p>
@@ -83,7 +85,7 @@ export default function WhyPage() {
         ))}
       </section>
 
-      <section aria-label="By the numbers" className="flex flex-col gap-2">
+      <section aria-label={t.whyAriaNumbers} className="flex flex-col gap-2">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "بالأرقام" : "BY THE NUMBERS"}
         </p>
@@ -97,7 +99,7 @@ export default function WhyPage() {
         </dl>
       </section>
 
-      <section aria-label="What's different" className="flex flex-col gap-3 border-s-2 border-accent ps-5">
+      <section aria-label={t.whyAriaWhat} className="flex flex-col gap-3 border-s-2 border-accent ps-5">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "ما يجعل الشغل مختلفًا" : "WHAT MAKES THE WORK DIFFERENT"}
         </p>
@@ -108,7 +110,7 @@ export default function WhyPage() {
         </p>
       </section>
 
-      <section aria-label="Aboalazm OS" className="flex flex-col items-center gap-4">
+      <section aria-label={t.whyAriaOs} className="flex flex-col items-center gap-4">
         <p className="max-w-[56ch] text-center text-lead text-text-secondary">
           {ar
             ? "Aboalazm OS هو تتويج لسنوات من العمل في البراندينج وتفكير الأنظمة والعمليات التصميمية وسير العمل بالذكاء الاصطناعي — ليس منهجية، بل نظام تشغيل لبناء البراندات الحديثة وإدارتها وتطويرها."

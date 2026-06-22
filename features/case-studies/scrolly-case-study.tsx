@@ -1,4 +1,5 @@
 "use client";
+import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * SCROLLY CASE STUDY — composition root.
@@ -39,6 +40,8 @@ export function ScrollyCaseStudy({
   /* The page atmosphere belongs to this record while it's open */
   useAmbientGlow(record.accent, 0.6);
   const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
 
   useGSAP(
     () => {

@@ -1,4 +1,5 @@
 "use client";
+import { useT } from "@/hooks/use-t";
 
 /**
  * BEFORE / AFTER SLIDER — "Chaos vs System".
@@ -25,6 +26,7 @@ import { physics } from "@/lib/motion";
 const clamp = (v: number) => Math.min(96, Math.max(4, v));
 
 export function BeforeAfterSlider() {
+  const t = useT();
   const frameRef = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState(58); // % from left
   const [dragging, setDragging] = useState(false);
@@ -125,7 +127,7 @@ export function BeforeAfterSlider() {
       {/* ════ Divider + handle ════ */}
       <div
         role="slider"
-        aria-label="Reveal comparison between audit state and final system"
+        aria-label={t.sliderAria}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(pos)}

@@ -2,6 +2,7 @@
 import { StatusNode } from "@/features/hero";
 import { ContactForm } from "@/features/contact";
 import { useLang } from "@/components/providers/lang-provider";
+import { useT } from "@/hooks/use-t";
 
 const CHANNELS = {
   en: [
@@ -21,6 +22,7 @@ const CHANNELS = {
 export default function ContactPage() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const t = useT();
   const channels = ar ? CHANNELS.ar : CHANNELS.en;
 
   return (

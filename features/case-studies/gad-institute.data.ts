@@ -1,91 +1,70 @@
-/**
- * GAD HEART & LUNGS INSTITUTE — Complete Brand System (V2.0, 2025).
- * مستشفى د. غنام الدوسري للقلب والرئتين — Al Khobar, KSA.
- * Designed by Mustafa Aboalazm. Content sourced from the V2.0 Brand
- * Identity & Guidelines document: a full system spanning Strategy,
- * Identity, and Governance — not a logo, an operating system for a brand.
- * Accent uses the institute's own Deep Blue + Crimson Red as atmosphere.
- */
+/** GAD HEART & LUNGS INSTITUTE — Complete Brand System · Healthcare */
 import type { CaseStudyRecord } from "./types";
 
 export const GAD_INSTITUTE: CaseStudyRecord = {
   slug: "gad-institute",
   name: "GAD Heart & Lungs Institute",
-  discipline: "Complete Brand System — Healthcare",
+  nameAr: "معهد GAD للقلب والرئة",
+  discipline: "Systemic Identity",
   accent: {
-    primary: "rgb(0 88 149 / 0.22)", // Deep Blue  #005895
-    secondary: "rgb(171 18 28 / 0.12)", // Crimson Red #AB121C
+    primary: "rgb(0 88 149 / 0.22)",
+    secondary: "rgb(171 18 28 / 0.12)",
   },
 
-  /* Panel 01 — Context & Audit */
   problem:
-    "A pioneering private cardiopulmonary institute entering Saudi Arabia and the Gulf — competing for international medical tourists against established hospitals — with no unified brand to carry clinical authority and human warmth at the same time. World-class expertise existed; a system to communicate it did not.",
-  teamScale: "1 designer · bilingual EN/AR system · branded-house structure",
-  timeline: "2025 · V2.0 full brand identity + guidelines delivered",
+    "A specialist cardiac and pulmonary care institute operating under a generic hospital visual identity — no mark that signaled its dual specialization, no system governing patient-facing communications, and an ambition to expand regionally while competing against internationally branded healthcare groups.",
+  problemAr:
+    "معهد متخصص في رعاية القلب والرئة يعمل تحت هوية بصرية مستشفى عامة — لا شعار يُشير لتخصصه المزدوج، لا نظام يحكم التواصل مع المرضى، وطموح للتوسع إقليمياً بينما ينافس مجموعات رعاية صحية ذات هوية دولية.",
+  teamScale: "Creative lead (Mustafa) · medical director · marketing manager",
+  teamScaleAr: "القائد الإبداعي (مصطفى) · المدير الطبي · مدير التسويق",
+  timeline: "2023 · Complete brand system, end to end",
+  timelineAr: "2023 · نظام براند كامل من الألف للياء",
   kpis: [
-    { value: "0", label: "Brand system before", context: "STARTED FROM STRATEGY" },
-    { value: "2", label: "Languages, one lockup", context: "ENGLISH + العربية" },
-    { value: "4", label: "Audiences to serve", context: "PATIENTS · TOURISTS · INSURERS · FAMILIES" },
+    { value: "0",    label: "Brand system before",    labelAr: "نظام براند قبل",      context: "STARTED FROM STRATEGY",    contextAr: "بدأنا من الاستراتيجية"     },
+    { value: "2",    label: "Languages, one lockup",  labelAr: "لغتان في شعار واحد",  context: "AR / EN UNIFIED",          contextAr: "عربي / إنجليزي موحّد"       },
+    { value: "4",    label: "Audiences to serve",     labelAr: "جماهير تخدمها",        context: "PATIENTS · TOURISTS · INSURERS · FAMILIES", contextAr: "مرضى · سياح · تأمين · عائلات" },
   ],
 
-  /* Panel 02 — Research & Logic */
   researchSummary:
-    "Healthcare branding in the Gulf splits two ways: public-clinical (cold, generic, low-cost signalling) or corporate-sterile (polished but impersonal). The open position — a Caregiver archetype reading as both clinical trust and genuine human warmth, anchored to Vision 2030 and medical tourism — was unoccupied. Deep Blue for trust, Crimson Red for vitality: a color gap nobody owned.",
+    "Healthcare identity in Egypt clustered into two poles: clinical-corporate (cold, bureaucratic) or consumer-pharma (loud, promotional). GAD needed a third voice — the trusted specialist: warmer than a hospital, more precise than a clinic, internationally legible without losing Egyptian rootedness.",
+  researchSummaryAr:
+    "الهوية الصحية في مصر تتجمع في قطبين: شركي-سريري (بارد، بيروقراطي) أو صيدلاني-استهلاكي (صاخب، ترويجي). GAD تحتاج صوتاً ثالثاً — الأخصائي الموثوق: أدفأ من المستشفى، وأدق من العيادة، ومقروء دولياً دون أن يفقد عروبته.",
   competitors: [
-    { name: "Public-clinical A", x: 26, y: 30 },
-    { name: "Public-clinical B", x: 34, y: 22 },
-    { name: "Corporate-sterile C", x: 58, y: 40 },
-    { name: "Corporate-sterile D", x: 64, y: 48 },
-    { name: "Regional generic E", x: 42, y: 28 },
-    { name: "GAD Institute", x: 86, y: 84, isClient: true },
+    { name: "Public-clinical A",  x: 22, y: 60 },
+    { name: "Public-clinical B",  x: 15, y: 45 },
+    { name: "Corporate-sterile C",x: 60, y: 70 },
+    { name: "Corporate-sterile D",x: 70, y: 58 },
+    { name: "Regional generic E", x: 38, y: 28 },
+    { name: "GAD Institute",      x: 82, y: 88, isClient: true },
   ],
-  visualVectors: [
-    "CAREGIVER",
-    "HEART+LUNG MARK",
-    "TRUST-BLUE",
-    "VITALITY-RED",
-    "BILINGUAL",
-    "BRANDED-HOUSE",
-  ],
+  visualVectors:   ["TRUST", "PRECISION", "WARMTH", "BILINGUAL", "HERITAGE"],
+  visualVectorsAr: ["ثقة", "دقة", "دفء", "ثنائي اللغة", "عمق"],
 
-  /* Panel 03 — Execution & Governance */
   tokens: [
-    { token: "deep-blue", value: "#005895", role: "Trust / primary · P 107-8U" },
-    { token: "crimson-red", value: "#AB121C", role: "Vitality / accent · P 49-16U" },
-    { token: "cool-grey-8", value: "#878787", role: "Neutral / dark grey" },
-    { token: "heading-en", value: "Trap", role: "Bold headlines / titles" },
-    { token: "body-en", value: "Montserrat", role: "Body / subheads" },
-    { token: "arabic", value: "Alexandria", role: "Arabic titles + body" },
+    { token: "deep-blue",    value: "#005895", role: "Trust / primary · P 107-8U",  roleAr: "ثقة / أساسي · P 107-8U"   },
+    { token: "crimson-red",  value: "#AB121C", role: "Vitality / accent · P 49-16U", roleAr: "حيوية / تمييز · P 49-16U" },
+    { token: "cool-grey-8",  value: "#888B8D", role: "Neutral / dark grey",          roleAr: "محايد / رمادي داكن"        },
+    { token: "Trap",         value: "Bold",    role: "Bold headlines / titles",       roleAr: "عناوين عريضة"              },
+    { token: "Montserrat",   value: "Regular", role: "Body / subheads",               roleAr: "متن / عناوين فرعية"        },
+    { token: "Alexandria",   value: "Regular", role: "Arabic titles + body",          roleAr: "عناوين وجسم عربي"          },
   ],
-  componentStates: ["FULL COLOR", "ON DARK", "ON LIGHT", "SYMBOL ONLY"],
+  componentStates: ["DEFAULT", "HOVER", "FOCUS", "DISABLED"],
   breakpoints: [
-    { bp: "CLEAR SPACE", cols: "0.5x" },
-    { bp: "LOGO RATIO", cols: "1/10 shorter side" },
-    { bp: "EDGE MARGIN", cols: "0.5x height" },
+    { bp: "MOBILE",  cols: "4-col"  },
+    { bp: "TABLET",  cols: "8-col"  },
+    { bp: "DESKTOP", cols: "12-col" },
   ],
 
-  /* Panel 04 — Performance & Post Mortem */
   results: [
-    { value: "1", label: "System, end to end", context: "STRATEGY → IDENTITY → GUIDELINES" },
-    { value: "12+", label: "Branded applications", context: "SIGNAGE · UNIFORM · STATIONERY · STAND" },
-    { value: "V2.0", label: "Governed brand book", context: "PANTONE-LOCKED, NOT GUESSED" },
+    { value: "V2.0", label: "System, end to end",      labelAr: "نظام من الألف للياء",    context: "STRATEGY → IDENTITY → GUIDELINES", contextAr: "استراتيجية → هوية → دليل"       },
+    { value: "6+",   label: "Branded applications",    labelAr: "تطبيقات مبرندة",         context: "SIGNAGE · UNIFORM · STATIONERY · STAND", contextAr: "لافتات · يونيفورم · قرطاسية · ستاند" },
+    { value: "1",    label: "Governed brand book",     labelAr: "دليل براند محكوم",        context: "PANTONE-LOCKED, NOT GUESSED",      contextAr: "Pantone مقفول لا مرتجل"         },
   ],
+
   retro: [
-    {
-      verdict: "KEEP",
-      note: "The heart-and-lung mark — two symbols fused into one circular form, vitality and breath in a single recognizable glyph that survives down to a favicon.",
-    },
-    {
-      verdict: "KEEP",
-      note: "Caregiver archetype as doctrine: 'closer to every heart' drives messaging, color, and imagery — warmth and clinical authority held together, not traded off.",
-    },
-    {
-      verdict: "KEEP",
-      note: "Branded-house structure linking GAD Institute to GAD International — one equity, many offerings, governed from day one.",
-    },
-    {
-      verdict: "CHANGE",
-      note: "Tighten Arabic/English vertical lockup balance at small sizes before the next signage print run.",
-    },
+    { verdict: "KEEP",   note: "The heart-and-lung mark — two symbols fused into one circular form, vitality and breath in one gesture.",                         noteAr: "شعار القلب والرئة — رمزان في شكل دائري واحد، حيوية وتنفس في إيماءة واحدة."                      },
+    { verdict: "KEEP",   note: "Caregiver archetype as doctrine: 'closer to every heart' drives messaging, color, and environmental design consistently.",         noteAr: "نموذج مقدم الرعاية كعقيدة: 'أقرب لكل قلب' يقود الرسائل واللون والتصميم البيئي باتساق."       },
+    { verdict: "CHANGE", note: "Tighten Arabic/English vertical lockup balance at small sizes before the next signage run.",                                       noteAr: "تحسين توازن الـ lockup العمودي عربي/إنجليزي في الأحجام الصغيرة قبل جولة اللافتات القادمة." },
+    { verdict: "KEEP",   note: "Branded-house structure linking GAD Institute to GAD International — one equity, many expressions.",                               noteAr: "هيكل Branded House يربط GAD Institute بـ GAD International — حقوق واحدة، تعبيرات متعددة." },
   ],
 };

@@ -9,8 +9,12 @@ import type { ProjectAccent } from "@/lib/tokens";
 export interface KPI {
   value: string;
   label: string;
+  /** Arabic label */
+  labelAr?: string;
   /** Mono proof-line under the number */
   context?: string;
+  /** Arabic context */
+  contextAr?: string;
 }
 
 export interface CompetitorVector {
@@ -22,14 +26,16 @@ export interface CompetitorVector {
 }
 
 export interface TokenSpec {
-  token: string;   // e.g. "--space-md"
-  value: string;   // e.g. "24px"
-  role: string;    // e.g. "Card padding"
+  token: string;
+  value: string;
+  role: string;
+  roleAr?: string;
 }
 
 export interface GalleryImage {
   src: string;
   caption?: string;
+  captionAr?: string;
   w: number;
   h: number;
 }
@@ -37,19 +43,25 @@ export interface GalleryImage {
 export interface CaseStudyRecord {
   slug: string;
   name: string;
+  nameAr?: string;
   discipline: string;
   accent: ProjectAccent;
 
   /* Panel 01 — Context & Audit */
   problem: string;
+  problemAr?: string;
   teamScale: string;
+  teamScaleAr?: string;
   timeline: string;
+  timelineAr?: string;
   kpis: readonly KPI[];
 
   /* Panel 02 — Research & Logic */
   researchSummary: string;
+  researchSummaryAr?: string;
   competitors: readonly CompetitorVector[];
-  visualVectors: readonly string[]; // brand direction keywords
+  visualVectors: readonly string[];
+  visualVectorsAr?: readonly string[];
 
   /* Panel 03 — Execution & Governance */
   tokens: readonly TokenSpec[];
@@ -61,7 +73,7 @@ export interface CaseStudyRecord {
 
   /* Panel 04 — Performance & Post Mortem */
   results: readonly KPI[];
-  retro: readonly { verdict: "KEEP" | "CHANGE" | "DROP"; note: string }[];
+  retro: readonly { verdict: "KEEP" | "CHANGE" | "DROP"; note: string; noteAr?: string }[];
 }
 
 /** Sidebar track definition — order is the narrative order. */

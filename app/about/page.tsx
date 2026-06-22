@@ -1,6 +1,7 @@
 "use client";
 import { SystemConstellation } from "@/features/hero";
 import { useLang } from "@/components/providers/lang-provider";
+import { useT } from "@/hooks/use-t";
 
 const DOCTRINE = {
   en: [
@@ -52,6 +53,7 @@ const FACTS = {
 export default function AboutPage() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const t = useT();
   const doctrine = ar ? DOCTRINE.ar : DOCTRINE.en;
   const timeline = ar ? TIMELINE.ar : TIMELINE.en;
   const facts = ar ? FACTS.ar : FACTS.en;
@@ -60,12 +62,14 @@ export default function AboutPage() {
     <main className="container-content flex flex-col gap-16 py-16">
       <header className="flex flex-col gap-4">
         <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "المعماري" : "THE ARCHITECT"}
+          {ar ? t.aboutSection : t.aboutSection}
         </p>
         <h1 className="max-w-[18ch] font-display text-display tracking-[-0.025em] text-balance-pretty">
-          {ar
-            ? <>سبع سنوات تحوّل الهوية <em>إلى بنية تحتية.</em></>
-            : <>Seven years turning identity <em>into infrastructure.</em></>}
+          {ar ? (
+            <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
+          ) : (
+            <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
+          )}
         </h1>
         <p className="max-w-[52ch] text-lead text-text-secondary">
           {ar
@@ -83,9 +87,9 @@ export default function AboutPage() {
         </dl>
       </header>
 
-      <section aria-label="Doctrine" className="flex flex-col">
+      <section aria-label={t.aboutAriaDoctrine} className="flex flex-col">
         <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "المبادئ" : "DOCTRINE"}
+          {ar ? t.aboutDoctrine : t.aboutDoctrine}
         </p>
         {doctrine.map(([title, body], i) => (
           <div key={i} className="border-t border-border-subtle py-3 last:border-b">
@@ -98,9 +102,9 @@ export default function AboutPage() {
         ))}
       </section>
 
-      <section aria-label="Career">
+      <section aria-label={t.aboutAriaCareer}>
         <p className="pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "المسيرة المهنية" : "CAREER LEDGER"}
+          {ar ? t.aboutCareer : t.aboutCareer}
         </p>
         {timeline.map(([year, role, note]) => (
           <div
@@ -114,7 +118,7 @@ export default function AboutPage() {
         ))}
       </section>
 
-      <section aria-label="The system" className="flex flex-col items-center gap-4">
+      <section aria-label={t.aboutAriaSystem} className="flex flex-col items-center gap-4">
         <p className="max-w-[52ch] text-center text-lead text-text-secondary">
           {ar
             ? "كل مشروع يسير في نفس السلسلة: البراند يُترجَم لتوكنز، التوكنز لكومبوننتس، الكومبوننتس لصفحات، الصفحات لتجربة."

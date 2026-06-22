@@ -1,4 +1,6 @@
 "use client";
+import { useLang } from "@/components/providers/lang-provider";
+import { useT } from "@/hooks/use-t";
 
 /**
  * SYSTEM CONSTELLATION™ — the signature asset layer.
@@ -37,6 +39,24 @@ const BASE = {
   /* Terminal node — deliberately off-axis below the chain:
      experience is never a straight line from brand. */
   experience: { x: 196, y: 508, label: "EXPERIENCE" },
+} as const;
+
+
+/* ── Bilingual node labels ─────────────────────────────────────── */
+const NODES_EN = {
+  brand:      "BRAND",
+  token:      "TOKEN",
+  component:  "COMPONENT",
+  page:       "PAGE",
+  experience: "EXPERIENCE",
+} as const;
+
+const NODES_AR = {
+  brand:      "البراند",
+  token:      "توكن",
+  component:  "كومبوننت",
+  page:       "صفحة",
+  experience: "التجربة",
 } as const;
 
 type NodeKey = keyof typeof BASE;
@@ -180,6 +200,9 @@ function Edge({
 
 /* ── Component ─────────────────────────────────────────────────── */
 export function SystemConstellation() {
+  const { lang } = useLang();
+  const t = useT();
+  const NODES = lang === "ar" ? NODES_AR : NODES_EN;
   const ref = useRef<SVGSVGElement>(null);
 
   const brand = useMagneticNode(BASE.brand.x, BASE.brand.y);
@@ -224,7 +247,7 @@ export function SystemConstellation() {
         onPointerMove={onMove}
         onPointerLeave={onLeave}
         role="img"
-        aria-label="System constellation: brand compiles into tokens, tokens into components, components into pages, pages into experience."
+        aria-label={t.heroConstellationAria}
       >
         {EDGES.map(([a, b], i) => (
           <Edge
@@ -238,7 +261,7 @@ export function SystemConstellation() {
           <Node
             key={k}
             rig={rigs[k]}
-            label={BASE[k].label}
+            label={NODES[k as keyof typeof NODES]}
             delay={0.2 + i * 0.14}
           />
         ))}

@@ -1,4 +1,6 @@
 "use client";
+import { useT } from "@/hooks/use-t";
+import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * PROJECT LEDGER — "Engineering Ledger Layout"
@@ -45,6 +47,9 @@ export function ProjectLedger({
   projects = PROJECTS,
   limit,
 }: ProjectLedgerProps) {
+  const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
   const rows = limit ? projects.slice(0, limit) : projects;
 
   const [active, setActive] = useState<Project | null>(null);
@@ -77,11 +82,11 @@ export function ProjectLedger({
         className={`grid ${GRID} border-b border-border-default px-2 pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost`}
       >
         <span>№</span>
-        <span>Project</span>
-        <span className="hidden md:block">Discipline</span>
-        <span className="hidden md:block">Stack</span>
-        <span>Outcome</span>
-        <span className="hidden text-right md:block">Action</span>
+        <span>{t.workProject}</span>
+        <span className="hidden md:block">{t.workDiscipline}</span>
+        <span className="hidden md:block">{t.workStack}</span>
+        <span>{t.workOutcome}</span>
+        <span className="hidden text-right md:block">{t.workAction}</span>
       </div>
 
       {/* ── Records ── */}
@@ -99,6 +104,7 @@ export function ProjectLedger({
             isActive={active?.slug === project.slug}
             isDimmed={active !== null && active.slug !== project.slug}
             onEnter={onRowEnter}
+            ar={ar}
           />
         ))}
       </motion.ol>
@@ -117,6 +123,7 @@ interface LedgerRowProps {
   isActive: boolean;
   isDimmed: boolean;
   onEnter: (p: Project) => void;
+  ar?: boolean;
 }
 
 function LedgerRow({
@@ -125,6 +132,7 @@ function LedgerRow({
   isActive,
   isDimmed,
   onEnter,
+  ar = false,
 }: LedgerRowProps) {
   /* No-404 rule: rows without a written case file open the Behance
      portfolio in a new tab until their case study ships. */
@@ -164,7 +172,7 @@ function LedgerRow({
               isActive ? "translate-x-1" : "translate-x-0",
             ].join(" ")}
           >
-            {project.name}
+            {ar && project.nameAr ? project.nameAr : project.name}
           </span>
         </span>
 
@@ -193,14 +201,14 @@ function LedgerRow({
 
         {/* Strategic outcome */}
         <span className="font-mono text-label text-text-secondary">
-          {project.outcome}
+          {ar && project.outcomeAr ? project.outcomeAr : project.outcome}
         </span>
 
         {/* Action call — underline draw + arrow nudge */}
         <span className="relative hidden justify-self-end font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics group-hover:text-text-primary md:block">
-          {internal ? "Case File" : "Behance"}
+          {internal ? (ar ? "ملف المشروع" : "Case File") : "Behance"}
           <span className="text-text-ghost"> // </span>
-          Open
+          {ar ? "افتح" : "Open"}
           <span
             aria-hidden
             className="ml-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1"
