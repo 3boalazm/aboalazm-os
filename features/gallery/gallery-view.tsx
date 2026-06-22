@@ -16,6 +16,7 @@ import {
   type GalleryImage,
   type GalleryProject,
 } from "@/lib/gallery";
+import { RotatingGallery } from "./rotating-gallery";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -175,6 +176,25 @@ export function GalleryView() {
       </motion.div>
 
       {/* ── lightbox ───────────────────────────────────────────── */}
+
+      {/* ── rotating scroll gallery ────────────────────────────── */}
+      <section className="relative -mx-4 sm:-mx-6 lg:-mx-8 mt-8 border-t border-border-subtle pt-12">
+        <div className="px-4 sm:px-6 lg:px-8 mb-8">
+          <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+            {ar ? "عرض بصري — اسكرول للاستكشاف" : "VISUAL REEL — SCROLL TO EXPLORE"}
+          </p>
+          <h2 className="mt-1 font-display text-title tracking-[-0.02em] text-text-primary">
+            {ar ? "النظام، مُرَندَر." : "The system, rendered."}
+          </h2>
+        </div>
+        <RotatingGallery
+          images={filtered}
+          onOpen={(idx) => setLightbox(idx)}
+          activeSlug={active}
+          ar={ar}
+        />
+      </section>
+
       <AnimatePresence>
         {lightbox !== null &&
           (() => {
