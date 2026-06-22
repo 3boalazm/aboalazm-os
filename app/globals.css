@@ -216,20 +216,40 @@
     font-family: var(--font-arabic);
     letter-spacing: 0;
   }
-  /* RTL: Thmanyah for headings, IBM Plex for body */
-  [dir="rtl"] .font-display,
+
+  /*
+   * RTL FONT SYSTEM — Thmanyah Serif Display for all headings.
+   *
+   * Strategy: override the CSS variable --font-display at [dir="rtl"] scope.
+   * This means the Tailwind utility class `font-display` (which reads
+   * `var(--font-display)`) automatically picks up Thmanyah in RTL —
+   * zero specificity fight, zero !important needed.
+   *
+   * We also override --font-sans so body text uses IBM Plex Sans Arabic.
+   */
+  [dir="rtl"] {
+    /* Swap display font → Thmanyah Serif Display */
+    --font-display: var(--font-thmanyah);
+    /* Swap body font → IBM Plex Sans Arabic */
+    --font-sans: var(--font-arabic);
+  }
+
+  /* Explicit heading overrides — catches h1-h3 that don't use font-display utility */
   [dir="rtl"] h1,
   [dir="rtl"] h2,
-  [dir="rtl"] h3 {
-    font-family: var(--font-thmanyah);
+  [dir="rtl"] h3,
+  [dir="rtl"] h4 {
+    font-family: var(--font-thmanyah) !important;
     letter-spacing: 0;
     line-height: 1.15;
   }
+
+  /* Body text — IBM Plex Sans Arabic */
   [dir="rtl"] body,
   [dir="rtl"] p,
-  [dir="rtl"] li,
-  [dir="rtl"] span:not(.font-mono):not(.font-display) {
+  [dir="rtl"] li {
     font-family: var(--font-arabic);
+    letter-spacing: 0;
   }
 
   /* Accessibility gate — physics respects humans first */
