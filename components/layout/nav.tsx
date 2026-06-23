@@ -71,7 +71,7 @@ export function Nav() {
         <Link
           href="/"
           aria-label={t.navBrandName}
-          className="flex items-center"
+          className="flex items-center gap-2"
         >
           <motion.span
             className="brand-orb h-7 w-7 md:h-8 md:w-8"
@@ -87,6 +87,12 @@ export function Nav() {
               className="brand-orb__img h-7 w-7 md:h-8 md:w-8"
             />
           </motion.span>
+          <span
+            className="hidden font-display text-[1.1rem] leading-none tracking-[-0.02em] text-text-primary sm:block"
+            aria-hidden
+          >
+            M<span className="text-accent">A</span>
+          </span>
         </Link>
 
         {/* Desktop links */}
@@ -99,7 +105,7 @@ export function Nav() {
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "group relative block px-1 py-1 font-mono text-micro uppercase tracking-[0.10em]",
+                    "group relative block px-1 py-1 font-display text-[0.65rem] uppercase tracking-[0.08em]",
                     "transition-colors duration-base ease-physics",
                     active
                       ? "text-text-primary"
@@ -139,7 +145,7 @@ export function Nav() {
 
         <Link
           href="/contact"
-          className="group whitespace-nowrap rounded-pill bg-accent px-2 py-1 font-mono text-micro uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
+          className="group whitespace-nowrap rounded-pill bg-accent px-2 py-1 font-display text-[0.65rem] uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
         >
           {lang === "ar" ? "تواصل" : "CONTACT"}
           <span
@@ -187,7 +193,7 @@ export function Nav() {
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={[
-                      "block rounded-card px-2 py-2 font-mono text-label uppercase tracking-[0.10em]",
+                      "block rounded-card px-2 py-2 font-display text-[0.75rem] uppercase tracking-[0.08em]",
                       "transition-colors duration-base ease-physics",
                       active
                         ? "text-accent"

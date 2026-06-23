@@ -59,8 +59,8 @@ export function Footer() {
                 className="brand-orb__img h-8 w-8"
               />
             </span>
-            <p className="font-display text-display leading-none tracking-[-0.025em]">
-              M<em className="text-accent">A</em>.
+            <p className="font-display text-[1.6rem] leading-none tracking-[-0.02em]">
+              M<em className="not-italic text-accent">A</em>.
             </p>
           </div>
           <p className="max-w-[32ch] text-body-sm text-text-tertiary">
@@ -79,7 +79,7 @@ export function Footer() {
                 aria-label={col.head[0]}
                 className={`flex flex-col gap-1 ${isPages ? "col-span-2" : ""}`}
               >
-                <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+                <p className="font-display text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">
                   {ar ? col.head[1] : col.head[0]}
                 </p>
                 <div className={isPages ? "columns-2 gap-x-6" : "flex flex-col gap-1"}>

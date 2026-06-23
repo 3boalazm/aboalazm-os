@@ -77,10 +77,10 @@
   --color-accent-dim: rgb(255 107 71 / 0.14);
 
   /* ══════════════ 5 · TYPOGRAPHY ══════════════ */
-  /* Undefined Medium — EN heading voice (geometric display) */
-  --font-undefined: "undefined", "undefined medium", Georgia, serif;
-  --font-display: var(--font-undefined); /* EN headings → undefined */
-  --font-sans:    var(--font-inter-tight), "Inter Tight", system-ui, sans-serif;
+  /* GC EPICPRO — EN heading voice (extra bold display) */
+  --font-epicpro: "GC EPICPRO", "GC EPICPRO ExtBd", Georgia, serif;
+  --font-display: var(--font-epicpro); /* EN headings → GC EPICPRO */
+  --font-sans:    "Montserrat", var(--font-inter-tight), "Inter Tight", system-ui, sans-serif;
   --font-mono:    var(--font-jetbrains-mono), "JetBrains Mono", monospace;
   --font-geist:   var(--font-geist-mono), "Geist Mono", monospace; /* ledger pills */
   --font-arabic:  var(--font-plex-arabic), "IBM Plex Sans Arabic", sans-serif;
@@ -156,13 +156,16 @@
 
 /* ─────────────────────────── BASE LAYER ─────────────────────────── */
 
-/* ── undefined medium (self-hosted, EN heading voice) ─── */
+/* ── Montserrat (body / sans) — Google Fonts CDN ── */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap");
+
+/* ── GC EPICPRO Extra Bold (self-hosted, EN heading voice) ─── */
 @font-face {
-  font-family: "undefined";
-  src: url("/fonts/undefinedmedium.woff2") format("woff2"),
-       url("/fonts/undefinedmedium.woff")  format("woff"),
-       url("/fonts/undefinedmedium.otf")   format("opentype");
-  font-weight: 500;
+  font-family: "GC EPICPRO";
+  src: url("/fonts/Gc_Epicpro.woff2") format("woff2"),
+       url("/fonts/Gc_Epicpro.woff")  format("woff"),
+       url("/fonts/Gc_Epicpro.otf")   format("opentype");
+  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
@@ -229,6 +232,15 @@
   [lang="ar"] {
     font-family: var(--font-arabic);
     letter-spacing: 0;
+  }
+
+  /* GC EPICPRO is weight 800 — enforce on all elements using font-display in LTR */
+  [dir="ltr"] h1,
+  [dir="ltr"] h2,
+  [dir="ltr"] h3,
+  [dir="ltr"] h4,
+  .font-display {
+    font-weight: 800;
   }
 
   /*
