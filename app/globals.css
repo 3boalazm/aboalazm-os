@@ -77,7 +77,9 @@
   --color-accent-dim: rgb(255 107 71 / 0.14);
 
   /* ══════════════ 5 · TYPOGRAPHY ══════════════ */
-  --font-display: var(--font-instrument-serif), "Instrument Serif", Georgia, serif;
+  /* Undefined Medium — EN heading voice (geometric display) */
+  --font-undefined: "undefined", "undefined medium", Georgia, serif;
+  --font-display: var(--font-undefined); /* EN headings → undefined */
   --font-sans:    var(--font-inter-tight), "Inter Tight", system-ui, sans-serif;
   --font-mono:    var(--font-jetbrains-mono), "JetBrains Mono", monospace;
   --font-geist:   var(--font-geist-mono), "Geist Mono", monospace; /* ledger pills */
@@ -153,6 +155,18 @@
 }
 
 /* ─────────────────────────── BASE LAYER ─────────────────────────── */
+
+/* ── undefined medium (self-hosted, EN heading voice) ─── */
+@font-face {
+  font-family: "undefined";
+  src: url("/fonts/undefinedmedium.woff2") format("woff2"),
+       url("/fonts/undefinedmedium.woff")  format("woff"),
+       url("/fonts/undefinedmedium.otf")   format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ── Thmanyah Serif Display (self-hosted, Arabic heading voice) ─── */
 @font-face {
   font-family: "Thmanyah Serif Display";
@@ -346,4 +360,103 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .brand-orb__glow { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   UNDEFINED FONT VARIATIONS
+   The "undefined" typeface has one weight (500/medium). Variations are
+   achieved through CSS transforms and rendering techniques rather than
+   separate font files — this is intentional and maintains the distinctive
+   geometric character of the face across every use.
+
+   Usage:
+     <h1 class="font-undefined">             → base: medium weight
+     <h1 class="font-undefined-outline">     → outline/hollow letterforms
+     <h1 class="font-undefined-condensed">   → tighter horizontal rhythm
+     <h1 class="font-undefined-expanded">    → airy, wide-spaced
+     <h1 class="font-undefined-ghost">       → very low opacity, bg texture
+     <h1 class="font-undefined-stamp">       → uppercase + compressed
+     <h1 class="font-undefined-editorial">   → loose tracking, light feel
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Base — raw undefined medium ── */
+.font-undefined {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+
+/* ── Outline — hollow letterforms, accent stroke ── */
+.font-undefined-outline {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+  letter-spacing: 0.02em;
+}
+
+/* ── Condensed — tight horizontal rhythm, same cap-height ── */
+.font-undefined-condensed {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  transform: scaleX(0.85);
+  transform-origin: left center;
+  display: inline-block;
+}
+
+/* ── Expanded — airy, wide-spaced, editorial feel ── */
+.font-undefined-expanded {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  word-spacing: 0.08em;
+}
+
+/* ── Ghost — watermark/texture layer, very low opacity ── */
+.font-undefined-ghost {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  opacity: 0.06;
+  letter-spacing: -0.01em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Stamp — uppercase compressed, print-block energy ── */
+.font-undefined-stamp {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transform: scaleX(0.78);
+  transform-origin: left center;
+  display: inline-block;
+}
+
+/* ── Editorial — loose tracking, "magazine headline" feel ── */
+.font-undefined-editorial {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72em; /* optical compensation for expanded tracking */
+}
+
+/* ── Italic simulation (no italic cut exists — synthetic oblique) ── */
+.font-undefined-oblique {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  font-style: oblique 10deg;
+  letter-spacing: -0.01em;
+}
+
+/* ── Mixed: outline + expanded (hero-scale use only) ── */
+.font-undefined-hero {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  -webkit-text-stroke: 1.5px currentColor;
+  color: transparent;
+  letter-spacing: 0.06em;
 }
