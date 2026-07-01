@@ -102,6 +102,75 @@ export function StatsBand() {
   );
 }
 
+/* ── Client Journey Band — teaser strip linking to /start ── */
+export function ClientJourneyBand() {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+
+  const steps = ar
+    ? [
+        { n: "٠١", name: "اكتشاف\nوبحث" },
+        { n: "٠٢", name: "استراتيجية\nالبراند" },
+        { n: "٠٣", name: "مفهوم\nوتصميم" },
+        { n: "٠٤", name: "مراجعة\nوتسليم" },
+      ]
+    : [
+        { n: "01", name: "Discovery\n& Research" },
+        { n: "02", name: "Brand\nStrategy" },
+        { n: "03", name: "Concept\n& Design" },
+        { n: "04", name: "Refine\n& Deliver" },
+      ];
+
+  return (
+    <div className="journey-band">
+      <div className="journey-band__inner">
+
+        {/* Left: copy */}
+        <div className="flex flex-col gap-4">
+          <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-accent">
+            {ar ? "كيف نشتغل" : "HOW WE WORK"}
+          </p>
+          <h2 className="font-display text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.05] tracking-[-0.025em] text-text-primary">
+            {ar
+              ? <>من أول ما تتواصل <em className="text-accent">لحد ما تطلق.</em></>
+              : <>From first contact <em className="text-accent">to launch day.</em></>
+            }
+          </h2>
+          <p
+            className="max-w-[44ch] text-[0.875rem] leading-[1.7] text-text-secondary"
+            style={{ fontFamily: "Montserrat, system-ui" }}
+          >
+            {ar
+              ? "عملية واضحة من ٤ مراحل، ٣٨ يوم، موافقة كتابية عند كل محطة. تعرّف على الفلو كامل قبل ما تبدأ."
+              : "A clear 4-phase process, 38 days, written sign-off at every gate. See exactly what happens before you commit."}
+          </p>
+          <Link
+            href="/start"
+            className="group mt-1 flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-display text-[0.68rem] font-[800] uppercase tracking-[0.07em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
+          >
+            {ar ? "شوف الفلو كامل" : "See the full process"}
+            <span
+              aria-hidden
+              className="transition-transform duration-base ease-physics group-hover:translate-x-0.5"
+            >→</span>
+          </Link>
+        </div>
+
+        {/* Right: 4-step counter strip */}
+        <div className="journey-steps">
+          {steps.map((s) => (
+            <div key={s.n} className="journey-step">
+              <span className="journey-step__n">{s.n}</span>
+              <span className="journey-step__name" style={{ whiteSpace: "pre-line" }}>{s.name}</span>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
 /* ── Final CTA ── */
 export function HomeCta() {
   return (

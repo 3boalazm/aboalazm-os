@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Hero } from "@/features/hero";
 import { ProjectLedger } from "@/features/work";
-import { SkillsMarquee, AboutTeaser, StatsBand, HomeCta } from "@/features/home/home-bands";
+import { SkillsMarquee, AboutTeaser, StatsBand, HomeCta, ClientJourneyBand } from "@/features/home/home-bands";
 
 export default function Home() {
   return (
@@ -10,6 +10,9 @@ export default function Home() {
       <SkillsMarquee />
       <AboutTeaser />
       <StatsBand />
+
+      {/* ── Client Journey Band — "how we work" redirect to /start ── */}
+      <ClientJourneyBand />
 
       {/* 02 / Selected Work */}
       <section className="container-wide flex flex-col gap-4 py-16">

@@ -812,3 +812,122 @@
   .not-found-status__dot,
   .not-found-radar__ring { animation: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   /start — CLIENT JOURNEY PAGE
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* subtle dot-grid for hero section */
+.start-grid-bg {
+  background-image:
+    radial-gradient(circle, rgb(255 107 71 / 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* CTA buttons */
+.start-cta-primary {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: var(--color-accent);
+  color: var(--color-obsidian);
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  transition: transform 200ms var(--ease-physics), box-shadow 200ms var(--ease-physics);
+}
+.start-cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgb(255 107 71 / 0.30);
+}
+
+.start-cta-ghost {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.7rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  border: 1px solid rgb(255 107 71 / 0.30);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  transition: border-color 200ms var(--ease-physics), color 200ms var(--ease-physics), transform 200ms var(--ease-physics);
+}
+.start-cta-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HOME — CLIENT JOURNEY BAND (teaser strip that links to /start)
+   ═══════════════════════════════════════════════════════════════════════ */
+.journey-band {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-1);
+}
+.journey-band__inner {
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 1024px) {
+  .journey-band__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 4rem 2rem;
+  }
+}
+
+/* Steps row */
+.journey-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.journey-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-inline-end: 1rem;
+}
+/* connector line between steps */
+.journey-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 0;
+  width: 1px;
+  height: 20px;
+  background: var(--color-border-subtle);
+}
+.journey-step__n {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-accent);
+}
+.journey-step__name {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .journey-steps { grid-template-columns: repeat(2, 1fr); gap: 1rem 0; }
+  .journey-step:not(:last-child)::after { display: none; }
+}

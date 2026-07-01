@@ -18,12 +18,13 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 
 const LINKS = [
-  { href: "/about", en: "ABOUT", ar: "نبذة" },
-  { href: "/work", en: "WORK", ar: "الأعمال" },
-  { href: "/services", en: "SERVICES", ar: "الخدمات" },
-  { href: "/resources", en: "RESOURCES", ar: "المصادر" },
-  { href: "/labs", en: "LABS", ar: "المعمل" },
-  { href: "/pricing", en: "PRICING", ar: "التسعير" },
+  { href: "/about",     en: "ABOUT",     ar: "نبذة"      },
+  { href: "/work",      en: "WORK",      ar: "الأعمال"   },
+  { href: "/start",     en: "START",     ar: "ابدأ"      },
+  { href: "/services",  en: "SERVICES",  ar: "الخدمات"   },
+  { href: "/resources", en: "RESOURCES", ar: "المصادر"   },
+  { href: "/labs",      en: "LABS",      ar: "المعمل"    },
+  { href: "/pricing",   en: "PRICING",   ar: "التسعير"   },
 ] as const;
 
 /* Secondary set — mobile panel + footer carry these */
