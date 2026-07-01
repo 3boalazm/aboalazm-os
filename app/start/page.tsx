@@ -52,9 +52,9 @@ const COPY = {
     s02italic:   "engage.",
     s02sub:      "Every tier includes the strategic foundation — what changes is the depth of the system and how many applications we build together.",
     tiers: [
-      { tag: "TIER 01", name: "Logo Design", price: "$170 – $260", duration: "7 – 10 days", note: "Logo, formats, mini-guide. Right when budget is the constraint." },
-      { tag: "TIER 02", name: "Brand Identity Essentials", price: "$640 – $1,065", duration: "3 – 4 weeks", note: "The full identity core: strategy, logo system, colour, type, guidelines, 3 applications.", recommended: true },
-      { tag: "TIER 03", name: "Full Brand System", price: "$1,490 – $2,975+", duration: "5 – 7 weeks", note: "Everything in Tier 02 plus extended research, full strategy doc, packaging, web, and launch support." },
+      { tag: "TIER 01", name: "Logo Design", price: "$199 – $279", duration: "7 – 10 days", note: "Logo, formats, mini-guide. Right when budget is the constraint." },
+      { tag: "TIER 02", name: "Brand Identity Essentials", price: "$697 – $1,097", duration: "3 – 4 weeks", note: "The full identity core: strategy, logo system, colour, type, guidelines, 3 applications.", recommended: true },
+      { tag: "TIER 03", name: "Full Brand System", price: "$1,497 – $2,997+", duration: "5 – 7 weeks", note: "Everything in Tier 02 plus extended research, full strategy doc, packaging, web, and launch support." },
     ],
     s02pricing:  "Detailed breakdown →",
 
@@ -121,9 +121,9 @@ const COPY = {
     s02italic:   "للتعاون.",
     s02sub:      "كل فئة بتشمل الأساس الاستراتيجي — اللي بيتغير هو عمق النظام وكمية التطبيقات اللي بنبنيها سوا.",
     tiers: [
-      { tag: "الفئة ٠١", name: "تصميم الشعار", price: "$170 – $260", duration: "٧ – ١٠ أيام", note: "شعار وصيغ ودليل مصغّر. المناسب لما الميزانية هي القيد." },
-      { tag: "الفئة ٠٢", name: "أساسيات الهوية البصرية", price: "$640 – $1,065", duration: "٣ – ٤ أسابيع", note: "جوهر الهوية الكامل: استراتيجية، نظام شعار، ألوان، خطوط، دليل هوية، ٣ تطبيقات.", recommended: true },
-      { tag: "الفئة ٠٣", name: "نظام براند متكامل", price: "$1,490 – $2,975+", duration: "٥ – ٧ أسابيع", note: "كل ما في الفئة ٠٢ مع بحث موسّع، وثيقة استراتيجية كاملة، تغليف، موقع، ودعم الإطلاق." },
+      { tag: "الفئة ٠١", name: "تصميم الشعار", price: "$199 – $279", duration: "٧ – ١٠ أيام", note: "شعار وصيغ ودليل مصغّر. المناسب لما الميزانية هي القيد." },
+      { tag: "الفئة ٠٢", name: "أساسيات الهوية البصرية", price: "$697 – $1,097", duration: "٣ – ٤ أسابيع", note: "جوهر الهوية الكامل: استراتيجية، نظام شعار، ألوان، خطوط، دليل هوية، ٣ تطبيقات.", recommended: true },
+      { tag: "الفئة ٠٣", name: "نظام براند متكامل", price: "$1,497 – $2,997+", duration: "٥ – ٧ أسابيع", note: "كل ما في الفئة ٠٢ مع بحث موسّع، وثيقة استراتيجية كاملة، تغليف، موقع، ودعم الإطلاق." },
     ],
     s02pricing:  "التفاصيل الكاملة للتسعير →",
 
@@ -405,7 +405,24 @@ export default function StartPage() {
       </SectionWrap>
 
       {/* ══════════════════════════════════════════════════════════
-          05 / FINAL CTA
+          05 / EXPLORE THE SITE — cycle referral to every section
+      ══════════════════════════════════════════════════════════ */}
+      <SectionWrap id="explore" n={ar ? "٠٥" : "05"} label={ar ? "٠٥ / استكشف الموقع" : "05 / EXPLORE THE SITE"} title={ar ? "كل حاجة في مكانها" : "Everything in"} italic={ar ? "في مكانها." : "its place."}>
+        <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+          {ar
+            ? "الموقع ده مش كتالوج — كل صفحة بتجاوب على سؤال مختلف في دماغك. استكشف من هنا."
+            : "This site isn't a catalogue — every page answers a different question in your head. Explore from here."}
+        </p>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {(ar ? SITE_LINKS.ar : SITE_LINKS.en).map((link, i) => (
+            <SiteCard key={link.href} link={link} i={i} />
+          ))}
+        </div>
+      </SectionWrap>
+
+      {/* ══════════════════════════════════════════════════════════
+          06 / FINAL CTA
       ══════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden border-t border-border-subtle bg-surface-1/30 px-6 py-20 text-center lg:px-16">
         {/* ghost text bg */}
@@ -489,5 +506,58 @@ function SectionWrap({
         {children}
       </div>
     </section>
+  );
+}
+
+/* ─── Site cycle data ─────────────────────────────────────────── */
+const SITE_LINKS = {
+  en: [
+    { href: "/about",        emoji: "👤", label: "About",        desc: "Who I am, what I believe, and why systems over deliverables." },
+    { href: "/work",         emoji: "🎨", label: "Work",         desc: "20+ brand identity projects across pharma, food, education, and government." },
+    { href: "/services",     emoji: "⚙️",  label: "Services",     desc: "Five capabilities, one studio, no handoff gaps — with the full process breakdown." },
+    { href: "/pricing",      emoji: "💲",  label: "Pricing",      desc: "Three tiers, à la carte options, retainers — all numbers transparent." },
+    { href: "/why",          emoji: "🧭",  label: "Why Mustafa",  desc: "The strategic and operational case for working with me over other options." },
+    { href: "/agreement",    emoji: "📄",  label: "Agreement",    desc: "The work contract and terms — read before you sign, not after." },
+    { href: "/capabilities", emoji: "🛠️",  label: "Capabilities", desc: "The full stack: software, production, languages, and industry experience." },
+    { href: "/resources",    emoji: "📚",  label: "Resources",    desc: "Guides, playbooks, and frameworks I've built and use on every project." },
+    { href: "/contact",      emoji: "✉️",  label: "Contact",      desc: "Start the conversation — project brief, quick question, or discovery call." },
+  ],
+  ar: [
+    { href: "/about",        emoji: "👤", label: "نبذة",          desc: "مين أنا، ماذا أؤمن، ولماذا الأنظمة أهم من المخرجات." },
+    { href: "/work",         emoji: "🎨", label: "الأعمال",       desc: "+٢٠ مشروع هوية بصرية عبر الدواء والغذاء والتعليم والحكومة." },
+    { href: "/services",     emoji: "⚙️",  label: "الخدمات",       desc: "خمس قدرات، استوديو واحد، بدون فجوات تسليم — مع شرح العملية كاملة." },
+    { href: "/pricing",      emoji: "💲",  label: "التسعير",       desc: "ثلاث فئات، خيارات à la carte، وريتينر — كل الأرقام شفافة." },
+    { href: "/why",          emoji: "🧭",  label: "لماذا مصطفى",  desc: "الحجة الاستراتيجية والتشغيلية للعمل معي بدلاً من الخيارات الأخرى." },
+    { href: "/agreement",    emoji: "📄",  label: "الاتفاقية",     desc: "عقد العمل والشروط — اقرأه قبل التوقيع، مش بعده." },
+    { href: "/capabilities", emoji: "🛠️",  label: "القدرات",       desc: "التخصص الكامل: البرامج، الإنتاج، اللغات، وخبرة القطاعات." },
+    { href: "/resources",    emoji: "📚",  label: "المصادر",       desc: "أدلة وكتيبات وأطر عمل بنيتها وأستخدمها في كل مشروع." },
+    { href: "/contact",      emoji: "✉️",  label: "تواصل",         desc: "ابدأ المحادثة — بريف مشروع، سؤال سريع، أو مكالمة اكتشاف." },
+  ],
+} as const;
+
+/* ─── SiteCard component ──────────────────────────────────────── */
+import { useLang as _useLang } from "@/components/providers/lang-provider";
+
+function SiteCard({
+  link,
+  i,
+}: {
+  link: { href: string; emoji: string; label: string; desc: string };
+  i: number;
+}) {
+  return (
+    <motion.a
+      href={link.href}
+      className="site-card group"
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ ...physicsSlow, delay: i * 0.06 }}
+    >
+      <span className="site-card__emoji" aria-hidden>{link.emoji}</span>
+      <span className="site-card__label font-display">{link.label}</span>
+      <span className="site-card__desc" style={{ fontFamily: "Montserrat, system-ui" }}>{link.desc}</span>
+      <span className="site-card__arrow" aria-hidden>→</span>
+    </motion.a>
   );
 }

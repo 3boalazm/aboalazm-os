@@ -7,12 +7,13 @@ export default function Home() {
   return (
     <main>
       <Hero />
+
+      {/* ── Client Journey Band — FIRST after hero, highest priority ── */}
+      <ClientJourneyBand />
+
       <SkillsMarquee />
       <AboutTeaser />
       <StatsBand />
-
-      {/* ── Client Journey Band — "how we work" redirect to /start ── */}
-      <ClientJourneyBand />
 
       {/* 02 / Selected Work */}
       <section className="container-wide flex flex-col gap-4 py-16">

@@ -19,11 +19,9 @@ import { useLang } from "@/components/providers/lang-provider";
 
 const LINKS = [
   { href: "/about",     en: "ABOUT",     ar: "نبذة"      },
+  { href: "/start",     en: "START HERE", ar: "ابدأ هنا"  },
   { href: "/work",      en: "WORK",      ar: "الأعمال"   },
-  { href: "/start",     en: "START",     ar: "ابدأ"      },
   { href: "/services",  en: "SERVICES",  ar: "الخدمات"   },
-  { href: "/resources", en: "RESOURCES", ar: "المصادر"   },
-  { href: "/labs",      en: "LABS",      ar: "المعمل"    },
   { href: "/pricing",   en: "PRICING",   ar: "التسعير"   },
 ] as const;
 
@@ -106,11 +104,15 @@ export function Nav() {
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "group relative block px-1 py-1 font-display text-[0.65rem] uppercase tracking-[0.08em]",
+                    "group relative block px-2 py-1 font-display text-[0.65rem] uppercase tracking-[0.08em]",
                     "transition-colors duration-base ease-physics",
-                    active
-                      ? "text-text-primary"
-                      : "text-text-tertiary hover:text-text-secondary",
+                    link.href === "/start"
+                      ? active
+                        ? "rounded-pill bg-accent text-obsidian"
+                        : "rounded-pill border border-accent/40 text-accent hover:bg-accent/10"
+                      : active
+                        ? "text-text-primary"
+                        : "text-text-tertiary hover:text-text-secondary",
                   ].join(" ")}
                 >
                   {lang === "ar" ? link.ar : link.en}

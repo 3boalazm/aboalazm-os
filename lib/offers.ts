@@ -1,8 +1,11 @@
 /**
  * OFFERS — single source of truth for tiers, à la carte tables,
- * process phases, and payment structure. Consumed by /services,
- * /pricing, and /agreement so the numbers can never disagree.
- * All strings bilingual: [en, ar].
+ * process phases, and payment structure.
+ *
+ * PRICING (2025 research — charm pricing: xx9/xx7 endings):
+ * · Egypt agency floor: ~$370–$600 full brand
+ * · MENA senior freelancer: $500–$5,000 logo; $1,500–$10,000 identity
+ * · Mustafa positioned 20–30% above Egypt floor, 40–60% below intl agency
  */
 export type Bi = readonly [en: string, ar: string];
 
@@ -10,6 +13,7 @@ export interface Tier {
   tag: Bi;
   name: Bi;
   price: string;
+  priceNote: Bi;
   bestFor: Bi;
   duration: Bi;
   payment: string;
@@ -23,7 +27,8 @@ export const TIERS: readonly Tier[] = [
   {
     tag: ["TIER 01", "الفئة ٠١"],
     name: ["Logo Design", "تصميم الشعار"],
-    price: "$170 – $260",
+    price: "$199 – $279",
+    priceNote: ["Starting at $199", "يبدأ من $199"],
     bestFor: ["MVP startups · Small businesses", "شركات ناشئة · مشاريع صغيرة"],
     duration: ["7 – 10 days", "٧ – ١٠ أيام"],
     payment: "50% / 50%",
@@ -47,7 +52,8 @@ export const TIERS: readonly Tier[] = [
   {
     tag: ["TIER 02", "الفئة ٠٢"],
     name: ["Brand Identity Essentials", "أساسيات الهوية البصرية"],
-    price: "$640 – $1,065",
+    price: "$697 – $1,097",
+    priceNote: ["Starting at $697", "يبدأ من $697"],
     bestFor: ["Emerging brands · SMEs", "براندات صاعدة · شركات صغيرة ومتوسطة"],
     duration: ["3 – 4 weeks", "٣ – ٤ أسابيع"],
     payment: "50% / 25% / 25%",
@@ -67,7 +73,8 @@ export const TIERS: readonly Tier[] = [
   {
     tag: ["TIER 03", "الفئة ٠٣"],
     name: ["Full Brand System", "نظام براند متكامل"],
-    price: "$1,490 – $2,975+",
+    price: "$1,497 – $2,997+",
+    priceNote: ["Starting at $1,497", "يبدأ من $1,497"],
     bestFor: ["Launches & re-launches at scale", "إطلاقات وإعادة إطلاق على نطاق واسع"],
     duration: ["5 – 7 weeks", "٥ – ٧ أسابيع"],
     payment: "50% / 25% / 25%",
@@ -98,37 +105,37 @@ export const ALACARTE: readonly AlaCarteGroup[] = [
   {
     group: ["Print & Brand Applications", "مطبوعات وتطبيقات الهوية"],
     rows: [
-      { service: ["Business Card", "بيزنس كارد"], details: ["Two-sided · 2 versions · 3 revisions", "وجهان · نسختان · ٣ تعديلات"], price: "$22" },
-      { service: ["Brochure", "بروشور"], details: ["4 pages · A4 / A5 · up to 4 folds", "٤ صفحات · A4 / A5 · حتى ٤ طيّات"], price: "$34" },
-      { service: ["Flyer", "فلاير"], details: ["Bi / Tri / Quad fold", "طيّة ثنائية / ثلاثية / رباعية"], price: "$26 – $38" },
-      { service: ["Promotional Poster", "بوستر دعائي"], details: ["Digital or print", "ديجيتال أو مطبوع"], price: "$26 – $43" },
-      { service: ["Banner", "بانر"], details: ["Square meter + $9 / additional sq.m", "متر مربع + ٩$ لكل متر إضافي"], price: "$34" },
-      { service: ["Standard Roll-Up", "رول أب"], details: ["80×200 / 85×200 / 90×200 cm", "٨٠×٢٠٠ / ٨٥×٢٠٠ / ٩٠×٢٠٠ سم"], price: "$30" },
+      { service: ["Business Card", "بيزنس كارد"], details: ["Two-sided · 2 versions · 3 revisions", "وجهان · نسختان · ٣ تعديلات"], price: "$27" },
+      { service: ["Brochure", "بروشور"], details: ["4 pages · A4 / A5 · up to 4 folds", "٤ صفحات · A4 / A5 · حتى ٤ طيّات"], price: "$39" },
+      { service: ["Flyer", "فلاير"], details: ["Bi / Tri / Quad fold", "طيّة ثنائية / ثلاثية / رباعية"], price: "$29 – $47" },
+      { service: ["Promotional Poster", "بوستر دعائي"], details: ["Digital or print", "ديجيتال أو مطبوع"], price: "$29 – $47" },
+      { service: ["Banner", "بانر"], details: ["Square meter + $12 / additional sq.m", "متر مربع + ١٢$ لكل متر إضافي"], price: "$37" },
+      { service: ["Standard Roll-Up", "رول أب"], details: ["80×200 / 85×200 / 90×200 cm", "٨٠×٢٠٠ / ٨٥×٢٠٠ / ٩٠×٢٠٠ سم"], price: "$37" },
     ],
   },
   {
     group: ["Social Media Design", "تصميم السوشيال ميديا"],
     rows: [
-      { service: ["Single Post", "بوست واحد"], details: ["Facebook · Instagram · LinkedIn", "فيسبوك · انستجرام · لينكدإن"], price: "$11" },
-      { service: ["Pack of 10", "باقة ١٠"], details: ["Save $25", "وفّر ٢٥$"], price: "$85" },
-      { service: ["Pack of 20", "باقة ٢٠"], details: ["Save $65", "وفّر ٦٥$"], price: "$155" },
+      { service: ["Single Post", "بوست واحد"], details: ["Facebook · Instagram · LinkedIn", "فيسبوك · انستجرام · لينكدإن"], price: "$14" },
+      { service: ["Pack of 10", "باقة ١٠"], details: ["Save $29", "وفّر ٢٩$"], price: "$111" },
+      { service: ["Pack of 20", "باقة ٢٠"], details: ["Save $69", "وفّر ٦٩$"], price: "$211" },
     ],
   },
   {
     group: ["Web Design & Development", "تصميم وتطوير الويب"],
     rows: [
-      { service: ["Custom Web Platform", "منصة ويب مخصّصة"], details: ["Next.js · Bilingual EN/AR + RTL · multi-section · performance-tuned · brand-aligned", "Next.js · ثنائي اللغة + RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية"], price: "$1,275 – $2,975" },
-      { service: ["Bilingual Marketing Site", "موقع تعريفي ثنائي اللغة"], details: ["Up to 7 pages · EN/AR · responsive · CMS-ready · SEO foundation", "حتى ٧ صفحات · عربي/إنجليزي · متجاوب · جاهز لـ CMS · أساس SEO"], price: "$595 – $1,105" },
-      { service: ["WordPress Website", "موقع ووردبريس"], details: ["Up to 7 pages · Responsive · Auth · 3 months support", "حتى ٧ صفحات · متجاوب · تسجيل دخول · دعم ٣ شهور"], price: "$255 – $510" },
-      { service: ["Landing Page", "صفحة هبوط"], details: ["Single conversion-focused page · responsive · fast", "صفحة واحدة موجّهة للتحويل · متجاوبة · سريعة"], price: "$170 – $340" },
+      { service: ["Custom Web Platform", "منصة ويب مخصّصة"], details: ["Next.js · Bilingual EN/AR + RTL · multi-section · performance-tuned · brand-aligned", "Next.js · ثنائي اللغة + RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية"], price: "$1,297 – $2,997" },
+      { service: ["Bilingual Marketing Site", "موقع تعريفي ثنائي اللغة"], details: ["Up to 7 pages · EN/AR · responsive · CMS-ready · SEO foundation", "حتى ٧ صفحات · عربي/إنجليزي · متجاوب · جاهز لـ CMS · أساس SEO"], price: "$597 – $1,097" },
+      { service: ["WordPress Website", "موقع ووردبريس"], details: ["Up to 7 pages · Responsive · Auth · 3 months support", "حتى ٧ صفحات · متجاوب · تسجيل دخول · دعم ٣ شهور"], price: "$297 – $597" },
+      { service: ["Landing Page", "صفحة هبوط"], details: ["Single conversion-focused page · responsive · fast", "صفحة واحدة موجّهة للتحويل · متجاوبة · سريعة"], price: "$197 – $397" },
     ],
   },
   {
     group: ["Retainer Services (monthly)", "خدمات شهرية (ريتينر)"],
     rows: [
-      { service: ["Social Media Retainer", "ريتينر سوشيال ميديا"], details: ["15–20 designs + content templates", "١٥–٢٠ تصميم + قوالب محتوى"], price: "$170 – $255" },
-      { service: ["Brand Maintenance", "صيانة الهوية"], details: ["Templates · light edits · quality oversight", "قوالب · تعديلات خفيفة · إشراف على الجودة"], price: "$215" },
-      { service: ["Full Marketing Design", "تصميم تسويقي شامل"], details: ["Social + Print + Digital + Light Video", "سوشيال + مطبوعات + ديجيتال + فيديو خفيف"], price: "$425 – $640" },
+      { service: ["Social Media Retainer", "ريتينر سوشيال ميديا"], details: ["15–20 designs + content templates", "١٥–٢٠ تصميم + قوالب محتوى"], price: "$197 – $297" },
+      { service: ["Brand Maintenance", "صيانة الهوية"], details: ["Templates · light edits · quality oversight", "قوالب · تعديلات خفيفة · إشراف على الجودة"], price: "$247" },
+      { service: ["Full Marketing Design", "تصميم تسويقي شامل"], details: ["Social + Print + Digital + Light Video", "سوشيال + مطبوعات + ديجيتال + فيديو خفيف"], price: "$447 – $697" },
     ],
   },
 ];
