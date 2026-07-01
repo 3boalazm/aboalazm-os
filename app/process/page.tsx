@@ -18,6 +18,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, physicsSlow, reveal } from "@/lib/motion";
+import { GateStepper } from "@/features/process";
 
 /* ─── types ───────────────────────────────────────────────────── */
 type Phase = {
@@ -339,6 +340,13 @@ export default function ProcessPage() {
             ))}
           </motion.div>
         </motion.div>
+      </section>
+
+      {/* ── APPROVAL GATES (interactive terminal stepper) ── */}
+      <section className="bg-obsidian px-6 pb-4 lg:px-16">
+        <div className="mx-auto max-w-[900px]">
+          <GateStepper />
+        </div>
       </section>
 
       {/* ── PHASES (progressive disclosure) ── */}

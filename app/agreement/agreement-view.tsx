@@ -62,10 +62,10 @@ export function AgreementView() {
           {PHASES.map((p) => (
             <div key={p.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-3 last:border-b md:grid-cols-[2.5rem_7rem_14rem_1fr_auto]">
               <span className="font-display text-title text-accent">{p.n}</span>
-              <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{pick(p.days, lang)}</span>
+              <span className="font-mono text-label uppercase tracking-[0.08em] text-text-tertiary">{pick(p.days, lang)}</span>
               <span className="text-body text-text-primary">{pick(p.name, lang)}</span>
-              <span className="col-span-2 text-body-sm text-text-secondary md:col-span-1">{pick(p.body, lang)}</span>
-              <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary md:block">{pick(p.out, lang)}</span>
+              <span className="col-span-2 text-body text-text-secondary md:col-span-1">{pick(p.body, lang)}</span>
+              <span className="hidden font-mono text-label uppercase tracking-[0.08em] text-accent/70 md:block">{pick(p.out, lang)}</span>
             </div>
           ))}
         </div>

@@ -3,6 +3,7 @@
 import { useLang } from "@/components/providers/lang-provider";
 import type { Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
+import { InvestmentValue } from "@/features/offers/investment-value";
 
 const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
@@ -38,7 +39,7 @@ export function PricingView() {
             : "Three tiers from logo to full system, plus à la carte services for stand-alone work. Pricing varies with scope — and that's stated upfront."}
         </p>
         <dl className="grid grid-cols-3 gap-2 border-y border-border-subtle py-2">
-          {([["STARTS AT", "يبدأ من", "$170"], ["TIERS", "الفئات", "3"], ["À LA CARTE ITEMS", "خدمات منفردة", "15+"]] as const).map(([en, arr, v]) => (
+          {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["À LA CARTE ITEMS", "خدمات منفردة", "15+"]] as const).map(([en, arr, v]) => (
             <div key={en}>
               <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? arr : en}</dt>
               <dd className="font-display text-title text-text-primary">{v}</dd>
@@ -53,6 +54,11 @@ export function PricingView() {
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— كل الفئات قابلة للتخصيص · البنود تُضاف أو تُحذف بعد النقاش · التسعير قابل للتفاوض حسب النطاق والجدول والعلاقة —" : "— All tiers are customizable · Items can be added or removed after discussion · Pricing is negotiable based on scope, timeline, and long-term relationship —"}
         </p>
+      </section>
+
+      {/* Investment value — reframes price as an asset (systemic positioning) */}
+      <section className="rounded-panel border border-border-subtle bg-surface-1/30 p-5 md:p-7">
+        <InvestmentValue />
       </section>
 
       <section className="flex flex-col gap-3">
