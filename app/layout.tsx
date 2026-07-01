@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { fontVariables } from "@/lib/fonts";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { AmbientCanvas } from "@/components/layout/ambient-canvas";
@@ -47,6 +48,7 @@ export default function RootLayout({
             <Footer />
           </SmoothScroll>
         </LangProvider>
+        <Analytics />
       </body>
     </html>
   );
