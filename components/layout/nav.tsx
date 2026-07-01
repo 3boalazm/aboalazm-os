@@ -30,6 +30,7 @@ const MORE = [
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/gallery", en: "GALLERY", ar: "المعرض" },
   { href: "/why", en: "WHY", ar: "لماذا" },
+  { href: "/process", en: "PROCESS", ar: "المنهجية" },
   { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
   { href: "/writing", en: "WRITING", ar: "مقالات" },
   { href: "/capabilities", en: "CAPABILITIES", ar: "القدرات" },

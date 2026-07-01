@@ -5,6 +5,7 @@
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
 
@@ -76,25 +77,42 @@ export function AboutTeaser() {
   );
 }
 
-/* ── Stats band ── */
+/* ── Stats dashboard ── richer 8-metric grid, numbers from /why (approved) ── */
 export function StatsBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
+
+  // [value, suffix, EN label, AR label, EN sub, AR sub, bar 0–1]
   const stats = [
-    ["7", "+", "Years of practice", "سنوات خبرة"],
-    ["20", "+", "Brands shaped", "براند تم بناؤه"],
-    ["6", "", "Industry sectors", "قطاعات صناعية"],
-    ["3", "×", "Award-winning leader", "جوائز قيادية"],
+    ["7",   "+", "Years of practice",   "سنوات خبرة",        "Since 2018",        "منذ ٢٠١٨",        0.7],
+    ["20",  "+", "Brands shaped",       "براند تم بناؤه",  "Local & regional",  "محلي وإقليمي",  0.85],
+    ["15",  "+", "Identity systems",    "نظام هوية",        "Full brand systems","أنظمة متكاملة", 0.6],
+    ["6",   "",  "Industry sectors",    "قطاعات",        "Pharma → gov",       "دواء ← حكومة",  0.5],
+    ["500", "+", "Design assets",       "أصل تصميم",       "Print & digital",   "مطبوع وديجيتال", 0.9],
+    ["10",  "+", "Digital experiences", "تجربة رقمية",     "Web & platforms",   "ويب ومنصات",   0.55],
+    ["38",  "",  "Day method",          "يوم منهجية",      "Kickoff → launch",   "بدء ← إطلاق",     0.75],
+    ["3",   "×", "Award-winning",   "جوائز قيادية",     "Leadership seasons","مواسم قيادة",  0.45],
   ] as const;
+
   return (
-    <section className="border-y border-border-subtle">
-      <div className="container-wide grid grid-cols-2 md:grid-cols-4">
-        {stats.map(([v, suffix, en, arr], i) => (
-          <div key={en} className={["flex flex-col gap-0.5 px-3 py-4", i !== 0 && "md:border-s md:border-border-subtle"].filter(Boolean).join(" ")}>
-            <span className="font-display text-display leading-[1.02] tracking-[-0.025em]">
-              {v}<span className="text-accent">{suffix}</span>
+    <section className="stats-dash">
+      <div className="stats-dash__grid">
+        {stats.map(([v, suffix, en, arr, subEn, subAr, bar], i) => (
+          <div key={en as string} className="stats-dash__cell">
+            <span className="stats-dash__value">
+              {v}<span className="stats-dash__suffix">{suffix}</span>
             </span>
-            <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary">{ar ? arr : en}</span>
+            <span className="stats-dash__label">{ar ? arr : en}</span>
+            <span className="stats-dash__sub">{ar ? subAr : subEn}</span>
+            <div className="stats-dash__bar" aria-hidden>
+              <motion.div
+                className="stats-dash__bar-fill"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: bar as number }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}
+              />
+            </div>
           </div>
         ))}
       </div>

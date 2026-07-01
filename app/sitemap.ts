@@ -4,11 +4,11 @@ import { PROJECTS } from "@/features/work/projects.data";
 const BASE = "https://aboalazm.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const statics = ["", "/work", "/services", "/pricing", "/agreement", "/capabilities", "/about", "/why", "/writing", "/contact"].map(
+  const statics = ["", "/work", "/services", "/pricing", "/agreement", "/capabilities", "/about", "/why", "/process", "/start", "/writing", "/contact"].map(
     (path) => ({
       url: `${BASE}${path}`,
       changeFrequency: "monthly" as const,
-      priority: path === "" ? 1 : 0.8,
+      priority: path === "" ? 1 : path === "/start" ? 0.9 : 0.8,
     }),
   );
   const projects = PROJECTS.filter((p) => p.hasCaseStudy).map((p) => ({

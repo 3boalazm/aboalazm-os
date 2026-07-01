@@ -70,6 +70,10 @@ export function ServicesView() {
             </div>
           ))}
         </div>
+        <Link href="/process" className="group mx-auto mt-1 flex w-fit items-center gap-2 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-accent">
+          {ar ? "شوف المنهجية كاملة — ٣٨ يوم بالتفصيل" : "See the full 38-day method, gate by gate"}
+          <span aria-hidden className="transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+        </Link>
       </section>
 
       <section className="flex flex-col gap-3">
