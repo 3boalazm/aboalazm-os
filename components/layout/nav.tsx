@@ -117,6 +117,11 @@ export function Nav() {
                   ].join(" ")}
                 >
                   {lang === "ar" ? link.ar : link.en}
+                  {link.href === "/pricing" && (
+                    <span className="ms-1 font-mono text-[0.55rem] normal-case tracking-normal text-text-ghost">
+                      {lang === "ar" ? "من $199" : "from $199"}
+                    </span>
+                  )}
                   <span className="absolute inset-x-1 -bottom-px h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
                 </Link>
                 {active && (

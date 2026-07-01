@@ -57,6 +57,7 @@ export function TierCard({ tier }: { tier: Tier }) {
       </div>
       <p className="font-display text-title tracking-[-0.015em]">{pick(tier.name, lang)}</p>
       <p className="font-geist text-lead text-accent">{tier.price}</p>
+      <p className="font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">{pick(tier.priceNote, lang)}</p>
 
       <dl className="flex flex-col gap-0.5 border-y border-border-subtle py-2 font-mono text-micro">
         <div className="flex gap-1">

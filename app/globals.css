@@ -12,6 +12,11 @@
    4. Color is monochrome. Atmosphere comes from --glow-* (per project).
    ═══════════════════════════════════════════════════════════════════════ */
 
+/* Montserrat (EN body) + IBM Plex Sans Arabic (AR body) — Google Fonts CDN.
+   Must precede the Tailwind import: Tailwind's @import expands inline into
+   many CSS rules at build time, and any @import placed after it would then
+   sit after real rules in the generated stylesheet — invalid per spec. */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 /* ───────────────────────────── @theme ─────────────────────────────────
@@ -158,9 +163,6 @@
 }
 
 /* ─────────────────────────── BASE LAYER ─────────────────────────── */
-
-/* ── Montserrat (EN body) + IBM Plex Sans Arabic (AR body) — Google Fonts CDN ── */
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap");
 
 /* ── GC EPICPRO Extra Bold (self-hosted, EN heading voice) ─── */
 @font-face {
@@ -1321,4 +1323,454 @@
   text-transform: uppercase;
   color: var(--color-text-ghost);
   padding-top: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PHASE 5 — COGNITIVE LOAD REDUCTION SYSTEM
+   Shared utilities used across /why, /process, /start, /services, home:
+   visual chaptering, TL;DR hooks, jargon→value notes, anchor nav,
+   bento grid, and a simple systemic diagram.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Visual chaptering — subtle background shift between sections ──
+   Two alternating tints, barely perceptible, enough for the eye to
+   register "a new chapter started" without a hard visual break. */
+.chapter-a { background: var(--color-obsidian); }
+.chapter-b {
+  background:
+    radial-gradient(120rem circle at 50% 0%, rgb(255 107 71 / 0.025), transparent 55%),
+    var(--color-surface-1);
+}
+
+/* ── 2. TL;DR hook pattern — big rescue sentence before technical detail ── */
+.hook-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+  max-width: 32ch;
+}
+.hook-sub {
+  margin-top: 0.6rem;
+  font-family: "Montserrat", var(--font-sans);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+  max-width: 62ch;
+}
+
+/* ── 5. Jargon → Value — small translation note under a technical term ── */
+.jargon-term {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--color-text-primary);
+  border-bottom: 1px dashed rgb(255 107 71 / 0.4);
+  padding-bottom: 1px;
+  width: fit-content;
+}
+.jargon-note {
+  margin-top: 4px;
+  font-family: "Montserrat", var(--font-sans);
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--color-text-tertiary);
+}
+.jargon-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-1);
+}
+
+/* ── 4. Anchor navigation — floating section dots (desktop only) ── */
+.anchor-nav {
+  position: fixed;
+  top: 50%;
+  inset-inline-end: 22px;
+  transform: translateY(-50%);
+  z-index: var(--z-elevated, 20);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+@media (min-width: 1100px) {
+  .anchor-nav { display: flex; }
+}
+.anchor-nav__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border-default);
+  transition: background 220ms var(--ease-physics), transform 220ms var(--ease-physics);
+  cursor: pointer;
+}
+.anchor-nav__dot:hover { background: var(--color-text-tertiary); transform: scale(1.25); }
+.anchor-nav__dot--active {
+  background: var(--color-accent);
+  transform: scale(1.3);
+}
+.anchor-nav__label {
+  position: absolute;
+  inset-inline-end: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  padding: 4px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease-physics);
+}
+.anchor-nav__dot:hover .anchor-nav__label { opacity: 1; }
+[dir="rtl"] .anchor-nav { inset-inline-end: 22px; }
+[dir="rtl"] .anchor-nav__label { inset-inline-end: 18px; }
+
+/* ── 10. Bento grid — flexible box layout for chunked info ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 700px) {
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.bento-cell {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel, var(--radius-card));
+  background: var(--color-surface-1);
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 200ms var(--ease-physics), background 200ms var(--ease-physics);
+}
+.bento-cell:hover { border-color: rgb(255 107 71 / 0.3); }
+.bento-cell--wide  { grid-column: span 2; }
+.bento-cell--tall  { grid-row: span 2; }
+.bento-cell--accent {
+  border-color: rgb(255 107 71 / 0.25);
+  background: rgb(255 107 71 / 0.04);
+}
+@media (max-width: 700px) {
+  .bento-cell--wide { grid-column: span 2; }
+}
+
+/* ── 11. Simple systemic diagram (Single Source of Truth) ── */
+.ssot-diagram { width: 100%; height: auto; }
+.ssot-diagram__line {
+  stroke: var(--color-border-default);
+  stroke-width: 1;
+}
+.ssot-diagram__node-fill { fill: var(--color-surface-1); }
+.ssot-diagram__node-stroke { stroke: var(--color-border-default); stroke-width: 1; }
+.ssot-diagram__master-stroke { stroke: var(--color-accent); stroke-width: 1.5; }
+.ssot-diagram__master-fill { fill: rgb(255 107 71 / 0.06); }
+.ssot-diagram__text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  fill: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+.ssot-diagram__text--accent { fill: var(--color-accent); }
+
+/* ── 3. Negative space — dense technical zones get more air ── */
+.gate-terminal__body { padding: 1.75rem 1.5rem 2rem; }
+@media (min-width: 768px) { .gate-terminal__body { padding: 2.5rem 2.25rem; } }
+.gate-detail { padding: 1.5rem; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   LABS TOOLS — shared card + control primitives
+   Used by TypeScaleTool, ContrastCheckerTool, BilingualToggleTool (/labs)
+   ═══════════════════════════════════════════════════════════════════════ */
+.labtool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-1);
+  padding: 1.5rem;
+}
+.labtool-card__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.labtool-card__sub {
+  font-family: "Montserrat", var(--font-sans);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+  margin-top: -0.5rem;
+}
+
+/* ── shared controls ── */
+.labtool-controls {
+  display: grid;
+  gap: 0.9rem;
+}
+@media (min-width: 560px) { .labtool-controls { grid-template-columns: 1fr 1fr; } }
+.labtool-field { display: flex; flex-direction: column; gap: 6px; }
+.labtool-field__label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+}
+.labtool-slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  height: 4px;
+}
+.labtool-select {
+  width: 100%;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 8px 10px;
+}
+
+/* ── typography preview ── */
+.labtool-typepreview {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+.labtool-typepreview__row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 4rem;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.labtool-typepreview__tag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+}
+.labtool-typepreview__sample {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.labtool-typepreview__px {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--color-text-tertiary);
+  text-align: right;
+}
+[dir="rtl"] .labtool-typepreview__px { text-align: left; }
+
+/* ── code output ── */
+.labtool-code {
+  position: relative;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: rgb(8 7 16 / 0.5);
+  padding: 0.9rem 1rem;
+}
+.labtool-code__pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.labtool-code__copy {
+  position: absolute;
+  top: 0.6rem;
+  inset-inline-end: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px solid rgb(255 107 71 / 0.3);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 180ms var(--ease-physics);
+}
+.labtool-code__copy:hover { background: rgb(255 107 71 / 0.08); }
+
+/* ── contrast checker ── */
+.labtool-colorrow { display: flex; align-items: center; gap: 8px; }
+.labtool-colorswatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-subtle);
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+.labtool-colortext {
+  flex: 1;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  padding: 7px 10px;
+}
+.labtool-warning {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: rgb(255 107 71 / 0.8);
+}
+.labtool-samplebox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-card);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.labtool-samplebox__ratio {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+.labtool-samplebox__text {
+  font-family: "Montserrat", var(--font-sans);
+  font-size: 0.9rem;
+}
+.labtool-checklist { display: flex; flex-direction: column; gap: 6px; }
+.labtool-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border-subtle);
+}
+.labtool-check__dot { width: 7px; height: 7px; border-radius: 50%; }
+.labtool-check--pass .labtool-check__dot { background: #3DDC84; }
+.labtool-check--fail .labtool-check__dot { background: rgb(255 107 71 / 0.8); }
+.labtool-check__label {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+}
+.labtool-check__result {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.labtool-check--pass .labtool-check__result { color: #3DDC84; }
+.labtool-check--fail .labtool-check__result { color: rgb(255 107 71 / 0.85); }
+
+/* ── bilingual toggle demo ── */
+.labtool-toggle-btn {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid rgb(255 107 71 / 0.35);
+  color: var(--color-accent);
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 180ms var(--ease-physics), transform 180ms var(--ease-physics);
+}
+.labtool-toggle-btn:hover { background: rgb(255 107 71 / 0.08); transform: translateY(-1px); }
+
+.labtool-bilingual-frame {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0.5rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+.labtool-bilingual-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-2);
+  padding: 1.5rem;
+  text-align: start;
+}
+.labtool-bilingual-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.labtool-bilingual-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.labtool-bilingual-tag {
+  font-family: "Montserrat", var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--color-text-tertiary);
+}
+.labtool-bilingual-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.labtool-bilingual-pill {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  color: var(--color-text-secondary);
+}
+
+/* ── labs grid wrapper ── */
+.labtool-grid {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 900px) {
+  .labtool-grid { grid-template-columns: 1fr 1fr; }
+  .labtool-grid > :first-child { grid-column: 1 / -1; }
 }

@@ -20,6 +20,7 @@ import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { reveal, physics, physicsSlow } from "@/lib/motion";
 import { PROCESS, TIERS } from "@/lib/offers";
+import { AnchorNav } from "@/features/navigation";
 
 /* ─── copy ─────────────────────────────────────────────────────── */
 const COPY = {
@@ -45,6 +46,7 @@ const COPY = {
       "You're comparing quotes on Fiverr.",
     ],
     notFitsLabel: "Probably not the right fit:",
+    antiPortfolio: "If you want a logo in three days, or someone to execute orders without asking why — I'm not the right person for this. I choose projects where strategy is allowed to lead.",
 
     /* 02 */
     s02label:    "02 / WHAT WILL I GET?",
@@ -114,6 +116,7 @@ const COPY = {
       "بتقارن أسعار على Fiverr.",
     ],
     notFitsLabel: "على الأرجح مش التعاون المناسب:",
+    antiPortfolio: "لو عايز لوجو في ٣ أيام، أو حد ينفذ الأوامر من غير ما يسأل ليه — أنا مش الشخص المناسب. بختار المشاريع اللي الاستراتيجية فيها بتقود.",
 
     /* 02 */
     s02label:    "٠٢ / إيه اللي هاخده؟",
@@ -162,14 +165,50 @@ const COPY = {
   },
 } as const;
 
+/* Objection-handling FAQ — answers the hesitation behind the polite
+   question, not just the surface question. */
+const OBJECTIONS = {
+  en: [
+    { q: "What if my dev team struggles implementing the design?", a: "That almost never happens because the handoff is token-driven — developers get exact colour, spacing, and type values, not a picture to eyeball. If a question comes up, I'm reachable during the 30-day post-delivery window to sort it out with them directly." },
+    { q: "How are you different from a bigger branding agency?", a: "An agency spreads your project across juniors and account managers. Here, one senior person — with 7+ years across pharma, education, and government — works your project end to end. Slower to scale, but nothing gets lost in translation between departments." },
+    { q: "I'm not a technical or design person — will I understand what's happening?", a: "Every deliverable is explained in plain business terms before it's explained in design terms. You're never asked to approve something you don't understand — that's what the written sign-off at each gate is for." },
+    { q: "Can I still work with you if my project is small?", a: "Yes — Tier 01 exists exactly for that. If budget is genuinely tight, we scope down the system, not the strategy behind it." },
+  ],
+  ar: [
+    { q: "لو فريق المبرمجين بتاعي واجه صعوبة في تنفيذ التصميم؟", a: "ده نادر يحصل لأن التسليم معتمد على التوكنز — المطورون يستلمون قيم دقيقة للألوان والمسافات والخطوط، مش صورة يخمّنوا منها. ولو ظهر سؤال، أنا متاح خلال نافذة الـ٣٠ يوم بعد التسليم لحله معاهم مباشرة." },
+    { q: "إيه الفرق بينك وبين وكالة تصميم كبيرة؟", a: "الوكالة بتوزّع مشروعك على جونيورز ومديري حسابات. هنا، شخص واحد سينيور — بخبرة +٧ سنوات عبر الدواء والتعليم والحكومة — بيشتغل على مشروعك من الأول للآخر. أبطأ في التوسع، بس مفيش حاجة بتضيع بين الأقسام." },
+    { q: "أنا مش شخص تقني أو مصمم — هل هفهم اللي بيحصل؟", a: "كل مخرج بيتشرح بلغة أعمال بسيطة قبل ما يتشرح بلغة تصميم. مش هتوافق على حاجة مش فاهمها — ده بالظبط سبب وجود الموافقة الكتابية عند كل بوابة." },
+    { q: "أقدر أشتغل معاك لو مشروعي صغير؟", a: "أيوه — الفئة ٠١ موجودة بالظبط لكده. لو الميزانية ضيقة فعلًا، بنصغّر النظام، مش الاستراتيجية اللي وراه." },
+  ],
+} as const;
+
 /* ─── page ─────────────────────────────────────────────────────── */
 export default function StartPage() {
   const { lang } = useLang();
   const ar   = lang === "ar";
   const c    = ar ? COPY.ar : COPY.en;
 
+  const sections = ar
+    ? [
+        { id: "is-this-for-me", label: "مناسب لك؟" },
+        { id: "what-will-i-get", label: "الفئات" },
+        { id: "how-it-works", label: "الآلية" },
+        { id: "how-we-start", label: "البداية" },
+        { id: "objections", label: "أسئلة" },
+        { id: "explore", label: "استكشف" },
+      ]
+    : [
+        { id: "is-this-for-me", label: "Fit" },
+        { id: "what-will-i-get", label: "Tiers" },
+        { id: "how-it-works", label: "Process" },
+        { id: "how-we-start", label: "Kickoff" },
+        { id: "objections", label: "Objections" },
+        { id: "explore", label: "Explore" },
+      ];
+
   return (
     <main className="flex flex-col" dir={ar ? "rtl" : "ltr"}>
+      <AnchorNav sections={sections} />
 
       {/* ══════════════════════════════════════════════════════════
           HERO — the promise in one breath
@@ -269,6 +308,13 @@ export default function StartPage() {
               ))}
             </ul>
           </div>
+        </div>
+
+        {/* Anti-portfolio — confident, high-status statement */}
+        <div className="mt-5 border-s-2 border-accent ps-5">
+          <p className="max-w-[62ch] font-display text-[1.15rem] italic leading-[1.5] tracking-[-0.01em] text-text-primary">
+            "{c.antiPortfolio}"
+          </p>
         </div>
       </SectionWrap>
 
@@ -405,9 +451,34 @@ export default function StartPage() {
       </SectionWrap>
 
       {/* ══════════════════════════════════════════════════════════
-          05 / EXPLORE THE SITE — cycle referral to every section
+          05 / OBJECTIONS — answers to the real hesitations
       ══════════════════════════════════════════════════════════ */}
-      <SectionWrap id="explore" n={ar ? "٠٥" : "05"} label={ar ? "٠٥ / استكشف الموقع" : "05 / EXPLORE THE SITE"} title={ar ? "كل حاجة في مكانها" : "Everything in"} italic={ar ? "في مكانها." : "its place."}>
+      <SectionWrap
+        id="objections"
+        n={ar ? "٠٥" : "05"}
+        label={ar ? "٠٥ / اعتراضات شائعة" : "05 / COMMON HESITATIONS"}
+        title={ar ? "الأسئلة اللي" : "The questions"}
+        italic={ar ? "بتقلقك فعلًا." : "you're actually asking."}
+      >
+        <div className="flex flex-col">
+          {(ar ? OBJECTIONS.ar : OBJECTIONS.en).map((o, i) => (
+            <details key={i} className="group border-t border-border-subtle py-3 last:border-b">
+              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 font-display text-[1rem] tracking-[-0.01em] text-text-primary transition-colors duration-base ease-physics hover:text-accent">
+                {o.q}
+                <span aria-hidden className="shrink-0 font-mono text-[0.9rem] text-accent transition-transform duration-base ease-physics group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-2 max-w-[64ch] text-[0.85rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+                {o.a}
+              </p>
+            </details>
+          ))}
+        </div>
+      </SectionWrap>
+
+      {/* ══════════════════════════════════════════════════════════
+          06 / EXPLORE THE SITE — cycle referral to every section
+      ══════════════════════════════════════════════════════════ */}
+      <SectionWrap id="explore" n={ar ? "٠٦" : "06"} label={ar ? "٠٦ / استكشف الموقع" : "06 / EXPLORE THE SITE"} title={ar ? "كل حاجة في مكانها" : "Everything in"} italic={ar ? "في مكانها." : "its place."}>
         <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
           {ar
             ? "الموقع ده مش كتالوج — كل صفحة بتجاوب على سؤال مختلف في دماغك. استكشف من هنا."

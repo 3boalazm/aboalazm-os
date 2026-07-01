@@ -174,6 +174,10 @@ function LedgerRow({
           >
             {ar && project.nameAr ? project.nameAr : project.name}
           </span>
+          {/* Mobile-only: discipline shown inline since the desktop column is hidden below md */}
+          <span className="mt-0.5 block font-mono text-micro text-text-tertiary md:hidden">
+            {project.discipline}
+          </span>
         </span>
 
         {/* Discipline */}
@@ -200,8 +204,15 @@ function LedgerRow({
         </span>
 
         {/* Strategic outcome */}
-        <span className="font-mono text-label text-text-secondary">
+        <span className="flex items-center gap-1.5 font-mono text-label text-text-secondary">
           {ar && project.outcomeAr ? project.outcomeAr : project.outcome}
+          {/* Mobile-only open indicator — the row is a full-width Link, this makes the affordance visible */}
+          <span
+            aria-hidden
+            className="ms-auto inline-block shrink-0 text-text-ghost transition-transform duration-base ease-physics group-hover:translate-x-1 group-hover:text-accent md:hidden"
+          >
+            ↗
+          </span>
         </span>
 
         {/* Action call — underline draw + arrow nudge */}

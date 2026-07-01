@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { SectionHead, CtaBand, pick } from "@/features/offers/offer-blocks";
+import { TypeScaleTool, ContrastCheckerTool, BilingualToggleTool } from "@/features/labs-tools";
 import {
   RESEARCH_AREAS,
   PROJECTS,
@@ -57,8 +58,8 @@ export function LabsView() {
       <section className="flex flex-col gap-3">
         <SectionHead
           label={["01 / WHY", "٠١ / لماذا"]}
-          title={ar ? ["مبنيّ على", ""] : ["Built on testing,", ""]}
-          italic={ar ? ["الاختبار لا الافتراض.", ""] : ["not assumption.", ""]}
+          title={["Built on testing,", "مبنيّ على"]}
+          italic={["not assumption.", "الاختبار لا الافتراض."]}
         />
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {WHY.map(([en, arr], i) => (
@@ -77,8 +78,8 @@ export function LabsView() {
       <section className="flex flex-col gap-3">
         <SectionHead
           label={["02 / RESEARCH AREAS", "٠٢ / مجالات البحث"]}
-          title={ar ? ["خمسة خطوط", ""] : ["Five lines of", ""]}
-          italic={ar ? ["بحث مفتوحة.", ""] : ["open inquiry.", ""]}
+          title={["Five lines of", "خمسة خطوط"]}
+          italic={["open inquiry.", "بحث مفتوحة."]}
         />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {RESEARCH_AREAS.map((area) => (
@@ -114,12 +115,38 @@ export function LabsView() {
         </div>
       </section>
 
+      {/* Try them live — actual working tools, not just research descriptions */}
+      <section className="flex flex-col gap-3">
+        <SectionHead
+          label={["03 / TRY THEM LIVE", "٠٣ / جرّبها الآن"]}
+          title={["Working tools,", "أدوات تشتغل،"]}
+          italic={["not just ideas.", "لا مجرد أفكار."]}
+        />
+        <p className="max-w-[62ch] text-body-sm text-text-secondary">
+          {ar
+            ? "مش كل حاجة هنا نظرية. الأدوات دي شغالة فعليًا وبتستخدم نفس منطق الأنظمة اللي بتُبنى بيها هويات العملاء."
+            : "Not everything here is theoretical. These tools actually work, running on the same systemic logic used to build client identities."}
+        </p>
+        <div className="labtool-grid">
+          <TypeScaleTool />
+          <ContrastCheckerTool />
+          <BilingualToggleTool />
+        </div>
+        <Link
+          href="/capabilities"
+          className="group mt-1 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+        >
+          {ar ? "جرّب Token Playground الكامل" : "Try the full Token Playground"}
+          <span aria-hidden className="ms-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+        </Link>
+      </section>
+
       {/* Active projects */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["03 / ACTIVE PROJECTS", "٠٣ / مشاريع نشطة"]}
-          title={ar ? ["ما يجري", ""] : ["What's on the", ""]}
-          italic={ar ? ["على الطاولة الآن.", ""] : ["bench right now.", ""]}
+          label={["04 / ACTIVE PROJECTS", "٠٤ / مشاريع نشطة"]}
+          title={["What's on the", "ما يجري"]}
+          italic={["bench right now.", "على الطاولة الآن."]}
         />
         <div className="flex flex-col">
           {PROJECTS.map((p) => (
@@ -157,9 +184,9 @@ export function LabsView() {
       {/* Lab notes */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["04 / LAB NOTES", "٠٤ / ملاحظات المعمل"]}
-          title={ar ? ["ملاحظات من", ""] : ["Findings from", ""]}
-          italic={ar ? ["داخل التجارب.", ""] : ["inside the work.", ""]}
+          label={["05 / LAB NOTES", "٠٥ / ملاحظات المعمل"]}
+          title={["Findings from", "ملاحظات من"]}
+          italic={["inside the work.", "داخل التجارب."]}
         />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {NOTES.map((note, i) => (
@@ -176,9 +203,9 @@ export function LabsView() {
       {/* Methodology */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["05 / METHODOLOGY", "٠٥ / المنهجية"]}
-          title={ar ? ["دورة واحدة", ""] : ["One cycle,", ""]}
-          italic={ar ? ["لكل تجربة.", ""] : ["every experiment.", ""]}
+          label={["06 / METHODOLOGY", "٠٦ / المنهجية"]}
+          title={["One cycle,", "دورة واحدة"]}
+          italic={["every experiment.", "لكل تجربة."]}
         />
         <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 md:p-6">
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-3">
@@ -204,9 +231,9 @@ export function LabsView() {
       {/* Open frameworks → resources */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["06 / OPEN FRAMEWORKS", "٠٦ / أطر منشورة"]}
-          title={ar ? ["تجارب تخرّجت إلى", ""] : ["Experiments that graduated to", ""]}
-          italic={ar ? ["المكتبة العامة.", ""] : ["the public library.", ""]}
+          label={["07 / OPEN FRAMEWORKS", "٠٧ / أطر منشورة"]}
+          title={["Experiments that graduated to", "تجارب تخرّجت إلى"]}
+          italic={["the public library.", "المكتبة العامة."]}
         />
         <div className="flex flex-wrap gap-1.5">
           {OPEN_FRAMEWORKS.map((f, i) => (
@@ -231,8 +258,8 @@ export function LabsView() {
 
       <CtaBand
         kicker={["WHAT HAPPENS HERE REACHES CLIENT WORK", "ما يحدث هنا يصل إلى عمل العملاء"]}
-        title={ar ? ["المستقبل ليس مخرجات أكثر.", ""] : ["The future isn't more deliverables.", ""]}
-        italic={ar ? ["بل أنظمة تشغيل أفضل.", ""] : ["It's better operating systems.", ""]}
+        title={["The future isn't more deliverables.", "المستقبل ليس مخرجات أكثر."]}
+        italic={["It's better operating systems.", "بل أنظمة تشغيل أفضل."]}
         primary={["Start a project", "ابدأ مشروعًا"]}
         primaryHref="/contact"
         secondary={["Explore the OS", "استكشف الـ OS"]}

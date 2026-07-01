@@ -19,6 +19,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, physicsSlow, reveal } from "@/lib/motion";
 import { GateStepper } from "@/features/process";
+import { AnchorNav } from "@/features/navigation";
 
 /* ─── types ───────────────────────────────────────────────────── */
 type Phase = {
@@ -306,8 +307,23 @@ export default function ProcessPage() {
 
   const [open, setOpen] = useState<string | null>("01");
 
+  const sections = ar
+    ? [
+        { id: "gates", label: "البوابات" },
+        { id: "phases", label: "المراحل" },
+        { id: "principles", label: "المبادئ" },
+        { id: "cta", label: "ابدأ" },
+      ]
+    : [
+        { id: "gates", label: "Gates" },
+        { id: "phases", label: "Phases" },
+        { id: "principles", label: "Principles" },
+        { id: "cta", label: "Start" },
+      ];
+
   return (
     <main className="flex flex-col" dir={ar ? "rtl" : "ltr"}>
+      <AnchorNav sections={sections} />
 
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-obsidian px-6 py-24 lg:px-16">
@@ -343,15 +359,29 @@ export default function ProcessPage() {
       </section>
 
       {/* ── APPROVAL GATES (interactive terminal stepper) ── */}
-      <section className="bg-obsidian px-6 pb-4 lg:px-16">
+      <section id="gates" className="chapter-b px-6 pb-6 pt-4 lg:px-16">
         <div className="mx-auto max-w-[900px]">
+          <p className="hook-line mb-1">
+            {ar ? "أربع موافقات كتابية. لا مفاجآت." : "Four written approvals. No surprises."}
+          </p>
+          <p className="hook-sub mb-6">
+            {ar
+              ? "كل بوابة تحمي مرحلة كاملة من إعادة العمل — أنت توافق قبل ما نكمل، مش بعد ما نخلص."
+              : "Each gate protects an entire phase from rework — you approve before we move on, not after we're done."}
+          </p>
           <GateStepper />
         </div>
       </section>
 
       {/* ── PHASES (progressive disclosure) ── */}
-      <section className="bg-obsidian px-6 pb-16 lg:px-16">
+      <section id="phases" className="chapter-a px-6 pb-16 pt-8 lg:px-16">
         <div className="mx-auto max-w-[900px]">
+          <p className="hook-line mb-1">
+            {ar ? "أربع مراحل واضحة. افتح أي واحدة." : "Four clear phases. Open any one."}
+          </p>
+          <p className="hook-sub mb-6">
+            {ar ? "التفاصيل مطوية عمدًا — اضغط على أي مرحلة لترى المهام والمخرجات الفعلية بداخلها." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
+          </p>
           <div className="relative flex flex-col">
             {/* connecting spine */}
             <div className="absolute start-[1.35rem] top-6 bottom-6 w-px bg-border-subtle" aria-hidden />
@@ -460,7 +490,7 @@ export default function ProcessPage() {
       </section>
 
       {/* ── OPERATING PRINCIPLES ── */}
-      <section className="border-t border-border-subtle bg-surface-1/20 px-6 py-16 lg:px-16">
+      <section id="principles" className="chapter-b border-t border-border-subtle px-6 py-16 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <motion.div
             className="mb-8 flex flex-col gap-1"
@@ -497,7 +527,7 @@ export default function ProcessPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="relative overflow-hidden border-t border-border-subtle bg-obsidian px-6 py-20 text-center lg:px-16">
+      <section id="cta" className="relative overflow-hidden chapter-a border-t border-border-subtle px-6 py-20 text-center lg:px-16">
         <motion.div
           className="relative z-10 mx-auto flex max-w-[560px] flex-col items-center gap-5"
           initial={{ opacity: 0, y: 24 }}
