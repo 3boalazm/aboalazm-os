@@ -2,11 +2,16 @@ import Link from "next/link";
 import { Hero } from "@/features/hero";
 import { ProjectLedger } from "@/features/work";
 import { SkillsMarquee, AboutTeaser, StatsBand, HomeCta, ClientJourneyBand } from "@/features/home/home-bands";
+import { PersonaPickerBand } from "@/features/persona";
+import { PersonaSection } from "@/features/persona/persona-section";
 
 export default function Home() {
   return (
     <main>
       <Hero />
+
+      {/* ── Choose Your Path — non-blocking, right after the promise ── */}
+      <PersonaPickerBand />
 
       {/* ── Client Journey Band — FIRST after hero, highest priority ── */}
       <ClientJourneyBand />
@@ -16,15 +21,15 @@ export default function Home() {
       <StatsBand />
 
       {/* 02 / Selected Work */}
-      <section className="container-wide flex flex-col gap-4 py-16">
-        <div className="flex flex-col gap-1">
-          <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            02 / SELECTED WORK
-          </p>
-          <h2 className="font-display text-title tracking-[-0.015em]">
-            A handful of brands I've <em className="text-accent">shaped.</em>
-          </h2>
-        </div>
+      <PersonaSection
+        className="container-wide flex flex-col gap-4 py-16"
+        kicker="02 / SELECTED WORK"
+        title={{
+          base: <>A handful of brands I&apos;ve <em className="text-accent">shaped.</em></>,
+          founder: <>Results, not just <em className="text-accent">renders.</em></>,
+          technical: <>Systems shipped, not just <em className="text-accent">screens.</em></>,
+        }}
+      >
         <ProjectLedger />
         <div className="flex justify-center">
           <a
@@ -36,7 +41,7 @@ export default function Home() {
             VIEW FULL PORTFOLIO ON BEHANCE ↗
           </a>
         </div>
-      </section>
+      </PersonaSection>
 
       <HomeCta />
     </main>

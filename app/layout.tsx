@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { fontVariables } from "@/lib/fonts";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { AmbientCanvas } from "@/components/layout/ambient-canvas";
 import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { LangProvider } from "@/components/providers/lang-provider";
+import { PersonaProvider } from "@/components/providers/persona-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -41,12 +43,15 @@ export default function RootLayout({
       <body className="bg-obsidian text-text-primary antialiased">
         <AmbientCanvas />
         <LangProvider>
-          <SmoothScroll>
-            <Nav />
-            {children}
-            <Footer />
-          </SmoothScroll>
+          <PersonaProvider>
+            <SmoothScroll>
+              <Nav />
+              {children}
+              <Footer />
+            </SmoothScroll>
+          </PersonaProvider>
         </LangProvider>
+        <Analytics />
       </body>
     </html>
   );

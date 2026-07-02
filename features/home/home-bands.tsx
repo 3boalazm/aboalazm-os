@@ -7,6 +7,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
+import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
@@ -124,6 +125,7 @@ export function StatsBand() {
 export function ClientJourneyBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const { persona } = usePersona();
 
   const steps = ar
     ? [
@@ -139,6 +141,42 @@ export function ClientJourneyBand() {
         { n: "04", name: "Refine\n& Deliver" },
       ];
 
+  const kicker = pickFor(persona, {
+    base: ar ? "كيف نشتغل" : "HOW WE WORK",
+    founder: ar ? "الجدول والعائد" : "TIMELINE & ROI",
+    technical: ar ? "المعمارية والحوكمة" : "ARCHITECTURE & GOVERNANCE",
+  });
+
+  const heading = pickFor(persona, {
+    base: ar
+      ? <>من أول ما تتواصل <em className="text-accent">لحد ما تطلق.</em></>
+      : <>From first contact <em className="text-accent">to launch day.</em></>,
+    founder: ar
+      ? <>جدول ثابت. <em className="text-accent">نتيجة مقاسة.</em></>
+      : <>A fixed timeline. <em className="text-accent">A measured outcome.</em></>,
+    technical: ar
+      ? <>أربع بوابات، <em className="text-accent">موافقة عند كل واحدة.</em></>
+      : <>Four gates, <em className="text-accent">sign-off at every one.</em></>,
+  });
+
+  const body = pickFor(persona, {
+    base: ar
+      ? "عملية واضحة من ٤ مراحل، ٣٨ يوم، موافقة كتابية عند كل محطة. تعرّف على الفلو كامل قبل ما تبدأ."
+      : "A clear 4-phase process, 38 days, written sign-off at every gate. See exactly what happens before you commit.",
+    founder: ar
+      ? "٣٨ يوم من التواصل الأول للإطلاق. ميزانيتك محمية بمواعيد دفع مرتبطة بمخرجات فعلية، مش وعود."
+      : "38 days from first contact to launch. Your budget is protected by payment gates tied to real deliverables, not promises.",
+    technical: ar
+      ? "التوكنز المعتمدة عند بوابة التصميم تبقى المصدر الوحيد للحقيقة — تسليم دقيق للمطورين، بدون انحراف."
+      : "Tokens approved at the design gate become the single source of truth — precise developer handoff, zero drift.",
+  });
+
+  const cta = pickFor(persona, {
+    base: ar ? "شوف الفلو كامل" : "See the full process",
+    founder: ar ? "شوف الجدول والتسعير" : "See timeline & pricing",
+    technical: ar ? "شوف بوابات الاعتماد" : "See the approval gates",
+  });
+
   return (
     <div className="journey-band">
       <div className="journey-band__inner">
@@ -146,27 +184,22 @@ export function ClientJourneyBand() {
         {/* Left: copy */}
         <div className="flex flex-col gap-4">
           <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-accent">
-            {ar ? "كيف نشتغل" : "HOW WE WORK"}
+            {kicker}
           </p>
           <h2 className="font-display text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.05] tracking-[-0.025em] text-text-primary">
-            {ar
-              ? <>من أول ما تتواصل <em className="text-accent">لحد ما تطلق.</em></>
-              : <>From first contact <em className="text-accent">to launch day.</em></>
-            }
+            {heading}
           </h2>
           <p
             className="max-w-[44ch] text-[0.875rem] leading-[1.7] text-text-secondary"
             style={{ fontFamily: "Montserrat, system-ui" }}
           >
-            {ar
-              ? "عملية واضحة من ٤ مراحل، ٣٨ يوم، موافقة كتابية عند كل محطة. تعرّف على الفلو كامل قبل ما تبدأ."
-              : "A clear 4-phase process, 38 days, written sign-off at every gate. See exactly what happens before you commit."}
+            {body}
           </p>
           <Link
             href="/start"
             className="group mt-1 flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-display text-[0.68rem] font-[800] uppercase tracking-[0.07em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
-            {ar ? "شوف الفلو كامل" : "See the full process"}
+            {cta}
             <span
               aria-hidden
               className="transition-transform duration-base ease-physics group-hover:translate-x-0.5"

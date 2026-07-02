@@ -1774,3 +1774,168 @@
   .labtool-grid { grid-template-columns: 1fr 1fr; }
   .labtool-grid > :first-child { grid-column: 1 / -1; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PERSONA SYSTEM — "Choose Your Path" (Home + /start only)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Compact 3-way toggle (Nav) ── */
+.persona-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+  background: var(--color-surface-1);
+}
+.persona-toggle__btn {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+  color: var(--color-text-ghost);
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  transition: background 180ms var(--ease-physics), color 180ms var(--ease-physics);
+  white-space: nowrap;
+}
+.persona-toggle__btn:hover { color: var(--color-text-secondary); }
+.persona-toggle__btn--active {
+  background: var(--color-accent);
+  color: var(--color-obsidian);
+}
+
+/* ── Picker band (Home, right after Hero) ── */
+.persona-band {
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-1);
+}
+
+/* prompt state */
+.persona-band__prompt {
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.persona-band__kicker {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.persona-band__question {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.persona-band__options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+.persona-band__option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 190px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  padding: 10px 16px;
+  background: var(--color-surface-2);
+  transition: border-color 200ms var(--ease-physics), transform 200ms var(--ease-physics), background 200ms var(--ease-physics);
+  text-align: start;
+}
+.persona-band__option:hover {
+  border-color: rgb(255 107 71 / 0.4);
+  background: rgb(255 107 71 / 0.05);
+  transform: translateY(-2px);
+}
+.persona-band__option-label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: -0.005em;
+  color: var(--color-text-primary);
+}
+.persona-band__option-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+}
+.persona-band__skip {
+  font-family: "Montserrat", var(--font-sans);
+  font-size: 0.68rem;
+  color: var(--color-text-ghost);
+  margin-top: 2px;
+}
+
+/* active (collapsed) state */
+.persona-band__active {
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding: 0.7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.persona-band__active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+.persona-band__active-text {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+.persona-band__active-clear {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  transition: color 180ms var(--ease-physics), border-color 180ms var(--ease-physics);
+}
+.persona-band__active-clear:hover {
+  color: var(--color-accent);
+  border-color: rgb(255 107 71 / 0.4);
+}
+
+/* ── Persona-aware emphasis marker — used to highlight cards/sections
+   that are more relevant to the active persona (Tier cards, process
+   framing) without restructuring the DOM. ── */
+.persona-emphasis {
+  border-color: rgb(255 107 71 / 0.35) !important;
+  background: rgb(255 107 71 / 0.045) !important;
+  position: relative;
+}
+.persona-emphasis::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 1px rgb(255 107 71 / 0.15);
+  pointer-events: none;
+}

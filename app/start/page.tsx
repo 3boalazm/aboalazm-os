@@ -18,6 +18,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
+import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { reveal, physics, physicsSlow } from "@/lib/motion";
 import { PROCESS, TIERS } from "@/lib/offers";
 import { AnchorNav } from "@/features/navigation";
@@ -182,11 +183,80 @@ const OBJECTIONS = {
   ],
 } as const;
 
+/* Persona overrides — light copy swaps only (kicker/sub/CTA text), per
+   the product decision: structure and data stay identical, only framing
+   shifts. `base` = current general copy (used when persona is null). */
+const PERSONA = {
+  lede: {
+    en: {
+      founder: "You've seen the work. You need a brand that moves the needle — fast, on budget, with a clear path to revenue. Here's exactly what that looks like.",
+      technical: "You've seen the work. You need a system your team can actually build on — tokens, governance, clean handoff. Here's exactly how that gets engineered.",
+    },
+    ar: {
+      founder: "شفت الأعمال. محتاج براند يحرّك المؤشر — بسرعة، بميزانية واضحة، وطريق مباشر للإيراد. ده بالظبط شكله.",
+      technical: "شفت الأعمال. محتاج نظام فريقك يقدر يبني عليه فعلًا — توكنز، حوكمة، تسليم نظيف. ده بالظبط إزاي بيتهندس.",
+    },
+  },
+  s02sub: {
+    en: {
+      founder: "Every tier is priced and timed — pick the scope that matches your budget and how fast you need to launch.",
+      technical: "Every tier includes the strategic foundation. What changes is system depth: token coverage, documentation, and how many applications ship governed.",
+    },
+    ar: {
+      founder: "كل فئة مسعّرة ومحددة بجدول زمني — اختار النطاق اللي يناسب ميزانيتك وسرعة الإطلاق اللي محتاجها.",
+      technical: "كل فئة بتشمل الأساس الاستراتيجي. اللي بيتغير هو عمق النظام: تغطية التوكنز، التوثيق، وعدد التطبيقات المحكومة.",
+    },
+  },
+  s03sub: {
+    en: {
+      founder: "Four fixed phases, 38 days. You always know where the project stands and when the next payment or milestone lands.",
+      technical: "Every project follows the same spine — tokens locked at the design gate, zero drift into development. No surprises, no scope creep.",
+    },
+    ar: {
+      founder: "أربع مراحل ثابتة، ٣٨ يوم. دايمًا عارف المشروع واصل لفين وميعاد الدفعة أو المحطة الجاية.",
+      technical: "كل مشروع بيمشي على نفس العمود — التوكنز تتقفل عند بوابة التصميم، صفر انحراف في التطوير. مفيش مفاجآت.",
+    },
+  },
+  ctaSub: {
+    en: {
+      founder: "30 minutes. No commitment. Walk away with a clear price range and timeline for your project.",
+      technical: "30 minutes. No commitment. Walk away with a clear picture of the token architecture and handoff process.",
+    },
+    ar: {
+      founder: "٣٠ دقيقة. بدون التزام. تطلع بنطاق سعر وجدول زمني واضح لمشروعك.",
+      technical: "٣٠ دقيقة. بدون التزام. تطلع بصورة واضحة عن معمارية التوكنز وعملية التسليم.",
+    },
+  },
+} as const;
+
 /* ─── page ─────────────────────────────────────────────────────── */
 export default function StartPage() {
   const { lang } = useLang();
   const ar   = lang === "ar";
   const c    = ar ? COPY.ar : COPY.en;
+  const { persona } = usePersona();
+
+  const langKey = ar ? "ar" : "en";
+  const lede = pickFor(persona, {
+    base: c.lede,
+    founder: PERSONA.lede[langKey].founder,
+    technical: PERSONA.lede[langKey].technical,
+  });
+  const s02sub = pickFor(persona, {
+    base: c.s02sub,
+    founder: PERSONA.s02sub[langKey].founder,
+    technical: PERSONA.s02sub[langKey].technical,
+  });
+  const s03sub = pickFor(persona, {
+    base: c.s03sub,
+    founder: PERSONA.s03sub[langKey].founder,
+    technical: PERSONA.s03sub[langKey].technical,
+  });
+  const ctaSub = pickFor(persona, {
+    base: c.ctaSub,
+    founder: PERSONA.ctaSub[langKey].founder,
+    technical: PERSONA.ctaSub[langKey].technical,
+  });
 
   const sections = ar
     ? [
@@ -243,7 +313,7 @@ export default function StartPage() {
             style={{ fontFamily: "Montserrat, system-ui" }}
             variants={reveal.item}
           >
-            {c.lede}
+            {lede}
           </motion.p>
 
           <motion.div className="flex flex-wrap gap-3 pt-2" variants={reveal.item}>
@@ -323,23 +393,30 @@ export default function StartPage() {
       ══════════════════════════════════════════════════════════ */}
       <SectionWrap id="what-will-i-get" n={ar ? "٠٢" : "02"} label={c.s02label} title={c.s02title} italic={c.s02italic} alt>
         <p className="mb-6 max-w-[56ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
-          {c.s02sub}
+          {s02sub}
         </p>
 
         <div className="grid gap-3 md:grid-cols-3">
-          {c.tiers.map((tier) => (
+          {c.tiers.map((tier, i) => {
+            const isRecommended = "recommended" in tier && tier.recommended;
+            const isTechEmphasis = persona === "technical" && i === 2; // Tier 03 — Full System
+            const emphasized = isRecommended || isTechEmphasis;
+            const badgeText = isTechEmphasis
+              ? (ar ? "★ أعمق نظام" : "★ Deepest system")
+              : (ar ? "★ الأكثر طلبًا" : "★ Recommended");
+            return (
             <div
               key={tier.tag}
               className={[
                 "relative flex flex-col gap-3 rounded-panel border p-5",
-                ("recommended" in tier && tier.recommended)
+                emphasized
                   ? "border-accent bg-surface-1 shadow-card"
                   : "border-border-subtle bg-surface-1/60",
               ].join(" ")}
             >
-              {("recommended" in tier && tier.recommended) && (
+              {emphasized && (
                 <span className="absolute end-3 top-3 font-mono text-[0.55rem] uppercase tracking-[0.1em] text-accent">
-                  ★ {ar ? "الأكثر طلبًا" : "Recommended"}
+                  {badgeText}
                 </span>
               )}
               <p className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-ghost">{tier.tag}</p>
@@ -352,7 +429,8 @@ export default function StartPage() {
                 {tier.note}
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-4 flex justify-center">
@@ -367,7 +445,7 @@ export default function StartPage() {
       ══════════════════════════════════════════════════════════ */}
       <SectionWrap id="how-it-works" n={ar ? "٠٣" : "03"} label={c.s03label} title={c.s03title} italic={c.s03italic}>
         <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
-          {c.s03sub}
+          {s03sub}
         </p>
 
         {/* Timeline */}
@@ -519,7 +597,7 @@ export default function StartPage() {
             className="max-w-[44ch] text-[0.9rem] leading-[1.7] text-text-secondary"
             style={{ fontFamily: "Montserrat, system-ui" }}
           >
-            {c.ctaSub}
+            {ctaSub}
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             <a

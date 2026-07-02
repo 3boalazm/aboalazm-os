@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
+import { PersonaToggleCompact } from "@/features/persona";
 
 const LINKS = [
   { href: "/about",     en: "ABOUT",     ar: "نبذة"      },
@@ -136,6 +137,9 @@ export function Nav() {
           })}
         </ul>
 
+        {/* Persona toggle — desktop only, content adapts on Home + /start */}
+        <PersonaToggleCompact className="hidden md:inline-flex" />
+
         {/* Language flip — the AR/EN switch */}
         <button
           type="button"
@@ -189,6 +193,11 @@ export function Nav() {
             transition={physics}
             className="glass mt-1 flex flex-col rounded-panel p-2 shadow-card md:hidden"
           >
+            {/* Persona toggle — mobile */}
+            <div className="flex justify-center border-b border-border-subtle pb-2 mb-1">
+              <PersonaToggleCompact />
+            </div>
+
             {[...LINKS, ...MORE].map((link, i) => {
               const active = pathname.startsWith(link.href);
               return (
