@@ -1939,3 +1939,41 @@
   box-shadow: 0 0 0 1px rgb(255 107 71 / 0.15);
   pointer-events: none;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   WORK FILTER — All / Design / Development segmented control (/work)
+   ═══════════════════════════════════════════════════════════════════════ */
+.work-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  width: fit-content;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  background: var(--color-surface-1);
+}
+.work-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  transition: background 180ms var(--ease-physics), color 180ms var(--ease-physics);
+}
+.work-filter__btn:hover { color: var(--color-text-primary); }
+.work-filter__btn--active {
+  background: var(--color-accent);
+  color: var(--color-obsidian);
+}
+.work-filter__count {
+  font-size: 0.6rem;
+  opacity: 0.7;
+  tabular-nums: 1;
+  font-variant-numeric: tabular-nums;
+}

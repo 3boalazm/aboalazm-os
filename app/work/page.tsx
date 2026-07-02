@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ProjectLedger } from "@/features/work";
+import { WorkFilter } from "@/features/work";
 import { WorkHeader } from "./work-header";
 
 export const metadata: Metadata = {
@@ -11,7 +11,7 @@ export default function WorkPage() {
   return (
     <main className="container-wide flex min-h-svh flex-col gap-8 py-16">
       <WorkHeader />
-      <ProjectLedger />
+      <WorkFilter />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Hero } from "@/features/hero";
-import { ProjectLedger } from "@/features/work";
+import { ProjectLedger, PROJECTS } from "@/features/work";
 import { SkillsMarquee, AboutTeaser, StatsBand, HomeCta, ClientJourneyBand } from "@/features/home/home-bands";
 import { PersonaPickerBand } from "@/features/persona";
 import { PersonaSection } from "@/features/persona/persona-section";
@@ -30,7 +30,7 @@ export default function Home() {
           technical: <>Systems shipped, not just <em className="text-accent">screens.</em></>,
         }}
       >
-        <ProjectLedger />
+        <ProjectLedger projects={PROJECTS.filter((p) => p.category === "design")} />
         <div className="flex justify-center">
           <a
             href="https://www.behance.net/aboalazm"

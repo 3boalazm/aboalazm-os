@@ -75,6 +75,19 @@ export function ProjectLedger({
     release(); // atmosphere settles home on --duration-cinematic
   }, [release]);
 
+  if (rows.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-1 border-y border-border-subtle py-12 text-center">
+        <p className="font-display text-title text-text-tertiary">
+          {ar ? "لا توجد ملفات هنا بعد" : "Nothing filed here yet"}
+        </p>
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          {ar ? "المشاريع بتتضاف أول بأول" : "Projects are added as they ship"}
+        </p>
+      </div>
+    );
+  }
+
   return (
     <section onPointerMove={onPointerMove} onPointerLeave={onLedgerLeave}>
       {/* ── Column header ── */}
@@ -134,10 +147,11 @@ function LedgerRow({
   onEnter,
   ar = false,
 }: LedgerRowProps) {
-  /* No-404 rule: rows without a written case file open the Behance
-     portfolio in a new tab until their case study ships. */
+  /* No-404 rule: rows without a written case file open a fallback link
+     in a new tab — the project's externalUrl if set (e.g. a live dev
+     site), otherwise the Behance portfolio (design default). */
   const internal = project.hasCaseStudy;
-  const href = internal ? `/case-studies/${project.slug}` : BEHANCE;
+  const href = internal ? `/case-studies/${project.slug}` : (project.externalUrl ?? BEHANCE);
 
   return (
     <motion.li variants={reveal.item}>
@@ -217,7 +231,7 @@ function LedgerRow({
 
         {/* Action call — underline draw + arrow nudge */}
         <span className="relative hidden justify-self-end font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics group-hover:text-text-primary md:block">
-          {internal ? (ar ? "ملف المشروع" : "Case File") : "Behance"}
+          {internal ? (ar ? "ملف المشروع" : "Case File") : project.externalUrl ? (ar ? "الموقع المباشر" : "Live Site") : "Behance"}
           <span className="text-text-ghost"> // </span>
           {ar ? "افتح" : "Open"}
           <span
