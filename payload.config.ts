@@ -1,7 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { sqliteAdapter } from "@payloadcms/db-sqlite";
+import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { buildConfig } from "payload";
 
@@ -20,14 +20,15 @@ import { Settings } from "./globals/Settings";
 /**
  * PAYLOAD CONFIG — Aboalazm OS content engine.
  *
- * DB ADAPTER — currently SQLite for local/dev verification only (no
- * external network access needed). For production on Vercel, swap:
+ * DB ADAPTER — Postgres (Neon), used for BOTH local dev and production.
+ * Point DATABASE_URI at your Neon connection string in .env.local (dev)
+ * and in Vercel → Project → Settings → Environment Variables (prod).
  *
- *   import { postgresAdapter } from "@payloadcms/db-postgres";
- *   db: postgresAdapter({ pool: { connectionString: process.env.DATABASE_URI } })
- *
- * — and point DATABASE_URI at the Neon/Supabase connection string. No other
- * code changes needed; Payload's adapters are interchangeable by design.
+ * We switched off the earlier SQLite-for-dev setup: SQLite is a local
+ * file, and Vercel's serverless functions have an ephemeral, per-invocation
+ * filesystem — it would silently reset (or fail to persist) on every
+ * request. Postgres everywhere avoids that entire class of bug, and Neon's
+ * free tier is enough for this project's scale in dev and prod alike.
  */
 
 const filename = fileURLToPath(import.meta.url);
@@ -58,9 +59,9 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URI || "file:./aboalazm-cms.db",
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URI || "",
     },
   }),
 });
