@@ -8,6 +8,7 @@ import { getPayload } from "./payload";
 import type { Project } from "@/features/work/types";
 import type { CaseStudyRecord } from "@/features/case-studies/types";
 import type { GalleryItem } from "@/features/case-studies/case-gallery";
+import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
 import type { Media, Project as PayloadProject, CaseStudy as PayloadCaseStudy } from "@/payload-types";
 
 function mediaUrl(media: number | Media | null | undefined): string {
@@ -117,6 +118,26 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
   return doc ? toCaseStudy(doc) : null;
 }
 
+export async function getPosts(): Promise<
+  { index: string; slug: string; title: string; standfirst: string; publishedAt: string }[]
+> {
+  const payload = await getPayload();
+  const res = await payload.find({
+    collection: "posts",
+    limit: 100,
+    sort: "-publishedAt",
+    overrideAccess: false,
+  });
+  return res.docs.map((d) => ({
+    index: d.index ?? "",
+    slug: d.slug,
+    title: d.title,
+    standfirst: d.standfirst ?? "",
+    publishedAt: d.publishedAt
+      ? new Date(d.publishedAt).toLocaleDateString("en-CA").slice(0, 7)
+      : "",
+  }));
+}
 export async function getAllCaseStudySlugs(): Promise<string[]> {
   const payload = await getPayload();
   const res = await payload.find({
@@ -125,6 +146,79 @@ export async function getAllCaseStudySlugs(): Promise<string[]> {
     select: { slug: true },
   });
   return res.docs.map((d) => d.slug);
+}
+
+export async function getGalleryData(): Promise<{
+  projects: { slug: string; label: string; labelAr: string; accent: string; href: string }[];
+  images: { src: string; project: string; caption: string; captionAr: string; w: number; h: number }[];
+}> {
+  const payload = await getPayload();
+  const res = await payload.find({ collection: "case-studies", limit: 100 });
+
+  const projects = res.docs
+    .filter((d) => (d.images ?? []).length > 0)
+    .map((d) => ({
+      slug: d.slug,
+      label: d.name,
+      labelAr: d.nameAr ?? d.name,
+      accent: d.accent.primary,
+      href: `/case-studies/${d.slug}`,
+    }));
+
+  const images = res.docs.flatMap((d) =>
+    (d.images ?? []).map((img) => {
+      const media = img.image;
+      const isMediaObj = typeof media === "object" && media !== null;
+      return {
+        src: mediaUrl(media),
+        project: d.slug,
+        caption: img.caption ?? "",
+        captionAr: img.captionAr ?? img.caption ?? "",
+        w: isMediaObj ? media.width ?? 1200 : 1200,
+        h: isMediaObj ? media.height ?? 800 : 800,
+      };
+    }),
+  );
+
+  return { projects, images };
+}
+
+export async function getOffers(): Promise<{
+  tiers: Tier[];
+  investmentValue: { value: string; en: string; ar: string; subEn?: string | null; subAr?: string | null; pending?: boolean | null }[];
+  alaCarte: AlaCarteGroup[];
+}> {
+  const payload = await getPayload();
+  const offers = await payload.findGlobal({ slug: "offers" });
+  const toBi = (g: { en?: string | null; ar?: string | null } | null | undefined): Bi => [
+    g?.en ?? "",
+    g?.ar ?? "",
+  ];
+
+  const tiers: Tier[] = (offers.tiers ?? []).map((t) => ({
+    tag: toBi(t.tag),
+    name: toBi(t.name),
+    price: t.price,
+    priceNote: toBi(t.priceNote),
+    bestFor: toBi(t.bestFor),
+    duration: toBi(t.duration),
+    payment: t.payment,
+    recommended: t.recommended ?? undefined,
+    includesHead: toBi(t.includesHead),
+    includes: (t.includes ?? []).map(toBi),
+    excludes: (t.excludes ?? []).map(toBi),
+  }));
+
+  const alaCarte: AlaCarteGroup[] = (offers.alaCarte ?? []).map((g) => ({
+    group: toBi(g.group),
+    rows: (g.rows ?? []).map((r) => ({
+      service: toBi(r.service),
+      details: toBi(r.details),
+      price: r.price,
+    })),
+  }));
+
+  return { tiers, investmentValue: offers.investmentValue ?? [], alaCarte };
 }
 
 /** The gallery actually rendered by <CaseGallery> — span-based, not the

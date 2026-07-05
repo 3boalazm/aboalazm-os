@@ -4621,25 +4621,39 @@
           "notNull": true,
           "autoincrement": false
         },
-        "label": {
-          "name": "label",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "label_ar": {
-          "name": "label_ar",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "value": {
           "name": "value",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "en": {
+          "name": "en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "ar": {
+          "name": "ar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "sub_en": {
+          "name": "sub_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "sub_ar": {
+          "name": "sub_ar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         },
         "pending": {
@@ -4671,6 +4685,175 @@
         "offers_investment_value_parent_id_fk": {
           "name": "offers_investment_value_parent_id_fk",
           "tableFrom": "offers_investment_value",
+          "tableTo": "offers",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "offers_ala_carte_rows": {
+      "name": "offers_ala_carte_rows",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "service_en": {
+          "name": "service_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "service_ar": {
+          "name": "service_ar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "details_en": {
+          "name": "details_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "details_ar": {
+          "name": "details_ar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "price": {
+          "name": "price",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "offers_ala_carte_rows_order_idx": {
+          "name": "offers_ala_carte_rows_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "offers_ala_carte_rows_parent_id_idx": {
+          "name": "offers_ala_carte_rows_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "offers_ala_carte_rows_parent_id_fk": {
+          "name": "offers_ala_carte_rows_parent_id_fk",
+          "tableFrom": "offers_ala_carte_rows",
+          "tableTo": "offers_ala_carte",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "offers_ala_carte": {
+      "name": "offers_ala_carte",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "group_en": {
+          "name": "group_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "group_ar": {
+          "name": "group_ar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "offers_ala_carte_order_idx": {
+          "name": "offers_ala_carte_order_idx",
+          "columns": [
+            "_order"
+          ],
+          "isUnique": false
+        },
+        "offers_ala_carte_parent_id_idx": {
+          "name": "offers_ala_carte_parent_id_idx",
+          "columns": [
+            "_parent_id"
+          ],
+          "isUnique": false
+        }
+      },
+      "foreignKeys": {
+        "offers_ala_carte_parent_id_fk": {
+          "name": "offers_ala_carte_parent_id_fk",
+          "tableFrom": "offers_ala_carte",
           "tableTo": "offers",
           "columnsFrom": [
             "_parent_id"
@@ -4884,6 +5067,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "cf212688-8dca-42f0-8902-3f961563be9a",
+  "id": "85a8df5d-1606-4d5d-9b79-efae88ba7efa",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -673,15 +673,42 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
   	\`id\` text PRIMARY KEY NOT NULL,
-  	\`label\` text NOT NULL,
-  	\`label_ar\` text,
   	\`value\` text NOT NULL,
+  	\`en\` text NOT NULL,
+  	\`ar\` text NOT NULL,
+  	\`sub_en\` text,
+  	\`sub_ar\` text,
   	\`pending\` integer DEFAULT true,
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`offers\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
   await db.run(sql`CREATE INDEX \`offers_investment_value_order_idx\` ON \`offers_investment_value\` (\`_order\`);`)
   await db.run(sql`CREATE INDEX \`offers_investment_value_parent_id_idx\` ON \`offers_investment_value\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`offers_ala_carte_rows\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` text NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`service_en\` text NOT NULL,
+  	\`service_ar\` text NOT NULL,
+  	\`details_en\` text NOT NULL,
+  	\`details_ar\` text NOT NULL,
+  	\`price\` text NOT NULL,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`offers_ala_carte\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`offers_ala_carte_rows_order_idx\` ON \`offers_ala_carte_rows\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`offers_ala_carte_rows_parent_id_idx\` ON \`offers_ala_carte_rows\` (\`_parent_id\`);`)
+  await db.run(sql`CREATE TABLE \`offers_ala_carte\` (
+  	\`_order\` integer NOT NULL,
+  	\`_parent_id\` integer NOT NULL,
+  	\`id\` text PRIMARY KEY NOT NULL,
+  	\`group_en\` text NOT NULL,
+  	\`group_ar\` text NOT NULL,
+  	FOREIGN KEY (\`_parent_id\`) REFERENCES \`offers\`(\`id\`) ON UPDATE no action ON DELETE cascade
+  );
+  `)
+  await db.run(sql`CREATE INDEX \`offers_ala_carte_order_idx\` ON \`offers_ala_carte\` (\`_order\`);`)
+  await db.run(sql`CREATE INDEX \`offers_ala_carte_parent_id_idx\` ON \`offers_ala_carte\` (\`_parent_id\`);`)
   await db.run(sql`CREATE TABLE \`offers\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`updated_at\` text,
@@ -757,6 +784,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`offers_tiers_excludes\`;`)
   await db.run(sql`DROP TABLE \`offers_tiers\`;`)
   await db.run(sql`DROP TABLE \`offers_investment_value\`;`)
+  await db.run(sql`DROP TABLE \`offers_ala_carte_rows\`;`)
+  await db.run(sql`DROP TABLE \`offers_ala_carte\`;`)
   await db.run(sql`DROP TABLE \`offers\`;`)
   await db.run(sql`DROP TABLE \`settings\`;`)
 }

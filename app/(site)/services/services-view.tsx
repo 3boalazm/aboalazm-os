@@ -23,7 +23,7 @@ const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["What if I just need a logo, not the full system?", "ماذا لو أحتاج شعارًا فقط؟"], a: ["Logo-only sprints exist under Tier 01 — but honestly, a logo without strategy is a coin flip. If budget is tight, we shrink the system, not skip the strategy.", "متاح ضمن الفئة ٠١ — لكن بصراحة: شعار بدون استراتيجية رهان عشوائي. لو الميزانية ضيقة نُصغّر النظام، لا نتخطى الاستراتيجية."] },
 ];
 
-export function ServicesView() {
+export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
@@ -78,7 +78,7 @@ export function ServicesView() {
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["03 / ENGAGEMENT", "٠٣ / التعاقد"]} title={["Three ways to", "ثلاث طرق"]} italic={["work together.", "للعمل معًا."]} />
-        <TierGrid />
+        <TierGrid tiers={tiers} />
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— التسعير يختلف حسب النطاق · ريتينر مخصص متاح · خصم على الدفع الكامل مقدمًا —" : "— Project pricing varies by scope · Custom retainers available · Discount on full prepayment —"}
         </p>

@@ -54,10 +54,32 @@ export const Offers: GlobalConfig = {
           "Feeds the /pricing InvestmentValue section. Leave `pending` on until real measurement data replaces the placeholder — the UI shows a footnote whenever pending is true.",
       },
       fields: [
-        { name: "label", type: "text", required: true },
-        { name: "labelAr", type: "text" },
         { name: "value", type: "text", required: true },
+        { name: "en", type: "text", required: true },
+        { name: "ar", type: "text", required: true },
+        { name: "subEn", type: "text" },
+        { name: "subAr", type: "text" },
         { name: "pending", type: "checkbox", defaultValue: true },
+      ],
+    },
+    {
+      name: "alaCarte",
+      type: "array",
+      admin: {
+        description:
+          "À la carte service groups (business cards, social posts, web builds, retainers). PROCESS and PAYMENT (the 38-day methodology and payment-terms text) stay in lib/offers.ts as static code for now — they're policy/process copy, not pricing that changes with the market, so editing them via dashboard wasn't prioritized in this pass.",
+      },
+      fields: [
+        biField("group", true),
+        {
+          name: "rows",
+          type: "array",
+          fields: [
+            biField("service", true),
+            biField("details", true),
+            { name: "price", type: "text", required: true },
+          ],
+        },
       ],
     },
   ],

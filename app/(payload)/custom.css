@@ -1,3 +1,70 @@
 /* Aboalazm OS — Payload admin theme overrides.
-   Full brand pass happens in Phase 4 (Admin Branding). This file is
-   intentionally minimal for now. */
+ *
+ * Payload's admin exposes its palette as CSS custom properties on
+ * `html[data-theme='dark']` / `html[data-theme='light']` (see
+ * node_modules/@payloadcms/ui/dist/styles.css). We only override those
+ * variables here — no component overrides — so future Payload upgrades
+ * keep working without us chasing internal class names.
+ *
+ * Brand tokens (see app/(site)/globals.css for the canonical values):
+ *   obsidian bg   #0a0908
+ *   ink text      #f4f1ec
+ *   coral accent  #ff6b47
+ */
+
+@font-face {
+  font-family: "GC EPICPRO";
+  src: url("/fonts/Gc_Epicpro.woff2") format("woff2"),
+    url("/fonts/Gc_Epicpro.woff") format("woff"),
+    url("/fonts/Gc_Epicpro.otf") format("opentype");
+  font-weight: 800;
+  font-display: swap;
+}
+
+html[data-theme="dark"] {
+  /* Base surface ramp — interpolated from obsidian (0) to ink (1000) */
+  --theme-bg: #0a0908;
+  --theme-input-bg: #14120f;
+  --theme-elevation-0: #0a0908;
+  --theme-elevation-50: #100e0c;
+  --theme-elevation-100: #14120f;
+  --theme-elevation-150: #191713;
+  --theme-elevation-200: #1e1b17;
+  --theme-elevation-250: #232019;
+  --theme-elevation-300: #28251e;
+  --theme-elevation-350: #2d2922;
+  --theme-elevation-400: #332e26;
+  --theme-elevation-450: #3a352d;
+  --theme-elevation-500: #4a453c;
+  --theme-elevation-550: #5c564b;
+  --theme-elevation-600: #71695c;
+  --theme-elevation-700: #948b7a;
+  --theme-elevation-750: #a89e8c;
+  --theme-elevation-800: #ff6b47; /* primary buttons — brand coral */
+  --theme-elevation-850: #ffdcd2;
+  --theme-elevation-900: #f4f1ec;
+  --theme-elevation-950: #f4f1ec;
+  --theme-elevation-1000: #f4f1ec;
+  --theme-text: #f4f1ec;
+  --theme-border-color: #2d2922;
+
+  /* Focus rings + checked toggles ride on the success ramp — pointed at coral */
+  --theme-success-500: #ff6b47;
+  --theme-success-600: #ff6b47;
+  --theme-success-650: #e85a38;
+}
+
+/* Admin typography — same brand fonts as the public site, self-hosted */
+html[data-theme="dark"] body,
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] button {
+  font-family: "Montserrat", -apple-system, "Segoe UI", sans-serif;
+}
+
+html[data-theme="dark"] .nav__label,
+html[data-theme="dark"] .step-nav,
+html[data-theme="dark"] h1 {
+  font-family: "GC EPICPRO", "Montserrat", sans-serif;
+}
+

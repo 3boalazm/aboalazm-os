@@ -873,10 +873,38 @@ export interface Offer {
    */
   investmentValue?:
     | {
-        label: string;
-        labelAr?: string | null;
         value: string;
+        en: string;
+        ar: string;
+        subEn?: string | null;
+        subAr?: string | null;
         pending?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * À la carte service groups (business cards, social posts, web builds, retainers). PROCESS and PAYMENT (the 38-day methodology and payment-terms text) stay in lib/offers.ts as static code for now — they're policy/process copy, not pricing that changes with the market, so editing them via dashboard wasn't prioritized in this pass.
+   */
+  alaCarte?:
+    | {
+        group: {
+          en: string;
+          ar: string;
+        };
+        rows?:
+          | {
+              service: {
+                en: string;
+                ar: string;
+              };
+              details: {
+                en: string;
+                ar: string;
+              };
+              price: string;
+              id?: string | null;
+            }[]
+          | null;
         id?: string | null;
       }[]
     | null;
@@ -970,10 +998,41 @@ export interface OffersSelect<T extends boolean = true> {
   investmentValue?:
     | T
     | {
-        label?: T;
-        labelAr?: T;
         value?: T;
+        en?: T;
+        ar?: T;
+        subEn?: T;
+        subAr?: T;
         pending?: T;
+        id?: T;
+      };
+  alaCarte?:
+    | T
+    | {
+        group?:
+          | T
+          | {
+              en?: T;
+              ar?: T;
+            };
+        rows?:
+          | T
+          | {
+              service?:
+                | T
+                | {
+                    en?: T;
+                    ar?: T;
+                  };
+              details?:
+                | T
+                | {
+                    en?: T;
+                    ar?: T;
+                  };
+              price?: T;
+              id?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

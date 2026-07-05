@@ -10,23 +10,21 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
-import {
-  GALLERY_PROJECTS,
-  GALLERY_IMAGES,
-  type GalleryImage,
-  type GalleryProject,
-} from "@/lib/gallery";
+import type { GalleryImage, GalleryProject } from "@/lib/gallery";
 import { RotatingGallery } from "./rotating-gallery";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const ALL_ACCENT = "#FF6B47";
 
-function projectOf(slug: string): GalleryProject | undefined {
-  return GALLERY_PROJECTS.find((p) => p.slug === slug);
+interface GalleryData {
+  projects: readonly GalleryProject[];
+  images: readonly GalleryImage[];
 }
 
-export function GalleryView() {
+export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES }: GalleryData) {
+  const projectOf = (slug: string): GalleryProject | undefined =>
+    GALLERY_PROJECTS.find((p) => p.slug === slug);
   const { lang } = useLang();
   const ar = lang === "ar";
 
@@ -189,6 +187,7 @@ export function GalleryView() {
         </div>
         <RotatingGallery
           images={filtered}
+          projects={GALLERY_PROJECTS}
           onOpen={(idx) => setLightbox(idx)}
           activeSlug={active}
           ar={ar}

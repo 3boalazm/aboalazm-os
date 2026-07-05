@@ -10,16 +10,8 @@ interface WritingEntry {
   publishedAt: string;
 }
 
-const SEED: readonly WritingEntry[] = [
-  { index: "W-003", slug: "logo-smallest-part",    title: "The logo is the smallest part.",          standfirst: "Why guidelines fail and token systems don't.",                             publishedAt: "2026-04" },
-  { index: "W-002", slug: "arabic-deserves-design", title: "Arabic deserves design, not translation.", standfirst: "Building bilingual lockups as one system, not two compromises.",          publishedAt: "2026-02" },
-  { index: "W-001", slug: "strategy-is-a-standard", title: "Strategy is a standard, not a phase.",    standfirst: 'What "I\'ll know it when I see it" actually costs.',                       publishedAt: "2026-01" },
-];
-
-export function WritingView() {
+export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
   const t = useT();
-  const posts: readonly WritingEntry[] = SEED;
-
   return (
     <main className="container-content flex min-h-svh flex-col gap-8 py-16">
       <header className="flex flex-col gap-2">

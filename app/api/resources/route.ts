@@ -1,14 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { getPayload } from "@/lib/payload";
 
 /**
  * RESOURCE LEAD CAPTURE.
  * POST { email, resource? } → unlocks the Aboalazm OS resource downloads.
- *
- * Storage is optional and graceful:
- *  · If SANITY_WRITE_TOKEN is set, the lead is stored as a `resourceLead`
- *    document via the Sanity mutate API.
- *  · If not, the email is still validated and accepted so the gate works in
- *    every environment — swap in your ESP (Mailchimp/ConvertKit/Resend) here.
+ * Persists to the `resource-leads` Payload collection. Never blocks the
+ * unlock on a storage failure — the user still gets their download even
+ * if the write fails.
  */
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,39 +24,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "invalid_email" }, { status: 422 });
   }
 
-  const token = process.env.SANITY_WRITE_TOKEN;
-  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET ?? "production";
-
-  // Best-effort persistence. Never block the unlock on a storage failure.
-  if (token && projectId) {
-    try {
-      await fetch(
-        `https://${projectId}.api.sanity.io/v2024-01-01/data/mutate/${dataset}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            mutations: [
-              {
-                create: {
-                  _type: "resourceLead",
-                  email,
-                  resource: body.resource ?? null,
-                  source: "resources-page",
-                  createdAt: new Date().toISOString(),
-                },
-              },
-            ],
-          }),
-        },
-      );
-    } catch {
-      // swallow — the user still gets their download
-    }
+  try {
+    const payload = await getPayload();
+    await payload.create({
+      collection: "resource-leads",
+      data: { email, resource: body.resource, source: "resources-page" },
+    });
+  } catch {
+    // swallow — the user still gets their download
   }
 
   return NextResponse.json({ ok: true });

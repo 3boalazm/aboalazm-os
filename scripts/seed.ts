@@ -18,7 +18,7 @@ import { AHMED_BEDEER } from "../features/case-studies/ahmed-bedeer.data";
 import { CODE_CANVAS } from "../features/case-studies/code-canvas.data";
 import { GAD_INSTITUTE } from "../features/case-studies/gad-institute.data";
 import { REFLECTION } from "../features/case-studies/reflection.data";
-import { TIERS } from "../lib/offers";
+import { TIERS, ALACARTE } from "../lib/offers";
 import type { CaseStudyRecord } from "../features/case-studies/types";
 import type { GalleryItem } from "../features/case-studies/case-gallery";
 
@@ -246,9 +246,74 @@ async function seedOffers(payload: Awaited<ReturnType<typeof getPayload>>) {
         includes: t.includes.map(toBi),
         excludes: t.excludes?.map(toBi) ?? [],
       })),
+      alaCarte: ALACARTE.map((g) => ({
+        group: toBi(g.group),
+        rows: g.rows.map((r) => ({
+          service: toBi(r.service),
+          details: toBi(r.details),
+          price: r.price,
+        })),
+      })),
+      // These three figures were hardcoded (with pending:true) in
+      // features/offers/investment-value.tsx — moved here so they're
+      // dashboard-editable. Still placeholders pending real measurement.
+      investmentValue: [
+        {
+          value: "42%",
+          en: "Faster delivery",
+          ar: "أسرع في التسليم",
+          subEn: "Fixed 38-day timeline vs open-ended scope",
+          subAr: "جدول ثابت ٣٨ يوم مقابل نطاق مفتوح",
+          pending: true,
+        },
+        {
+          value: "3×",
+          en: "Handoff efficiency",
+          ar: "كفاءة التسليم للمطورين",
+          subEn: "Token-driven handoff — exact values, not guesses",
+          subAr: "تسليم معتمد على التوكنز — قيم دقيقة لا تخمين",
+          pending: true,
+        },
+        {
+          value: "0%",
+          en: "Design drift",
+          ar: "انحراف في التصميم",
+          subEn: "What's approved at the gate is what ships",
+          subAr: "ما يُعتمد عند البوابة هو ما يُنفَّذ",
+          pending: true,
+        },
+      ],
     },
   });
-  console.log(`  ✓ ${TIERS.length} tiers written`);
+  console.log(`  ✓ ${TIERS.length} tiers, ${ALACARTE.length} à la carte groups, 3 investment metrics written`);
+}
+
+/** The 3 posts that used to be hardcoded SEED data inside writing-view.tsx.
+ *  `body` is empty — nobody ever wrote the actual MDX bodies, so there's
+ *  nothing to migrate there; Mustafa will need to author them from the
+ *  dashboard (or the /writing/[slug] detail page still needs building —
+ *  it never existed, this isn't a regression). */
+const WRITING_POSTS = [
+  { index: "W-003", slug: "logo-smallest-part", title: "The logo is the smallest part.", standfirst: "Why guidelines fail and token systems don't.", publishedAt: "2026-04-01" },
+  { index: "W-002", slug: "arabic-deserves-design", title: "Arabic deserves design, not translation.", standfirst: "Building bilingual lockups as one system, not two compromises.", publishedAt: "2026-02-01" },
+  { index: "W-001", slug: "strategy-is-a-standard", title: "Strategy is a standard, not a phase.", standfirst: "What \"I'll know it when I see it\" actually costs.", publishedAt: "2026-01-01" },
+];
+
+async function seedPosts(payload: Awaited<ReturnType<typeof getPayload>>) {
+  console.log(`\n▶ Posts (${WRITING_POSTS.length})`);
+  for (const p of WRITING_POSTS) {
+    const found = await payload.find({ collection: "posts", where: { slug: { equals: p.slug } }, limit: 1 });
+    if (found.docs.length > 0) {
+      console.log(`  · ${p.slug} — already exists, skipping`);
+      continue;
+    }
+    await payload.create({
+      collection: "posts",
+      data: { ...p, lang: "en" },
+      draft: false,
+    });
+    console.log(`  ✓ ${p.slug}`);
+  }
 }
 
 async function main() {
@@ -264,6 +329,7 @@ async function main() {
   await seedCaseStudy(payload, REFLECTION);
 
   await seedOffers(payload);
+  await seedPosts(payload);
 
   console.log("\n✅ Seed complete.");
   process.exit(0);

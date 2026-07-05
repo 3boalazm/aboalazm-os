@@ -20,11 +20,7 @@ import { useEffect, useRef, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/components/providers/lang-provider";
-import {
-  GALLERY_IMAGES,
-  GALLERY_PROJECTS,
-  type GalleryImage,
-} from "@/lib/gallery";
+import type { GalleryImage, GalleryProject } from "@/lib/gallery";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,19 +30,16 @@ const AMPLITUDE = 0.18; // fraction of viewport width for sine scatter
 const OVERLAP  = -110;  // px — negative margin-bottom (cards overlap)
 
 interface RotatingGalleryProps {
-  /** Images to show — defaults to all */
-  images?: readonly GalleryImage[];
+  /** Images to show */
+  images: readonly GalleryImage[];
+  /** All gallery projects — for accent/label lookups */
+  projects: readonly GalleryProject[];
   /** Called when a card is clicked, with global image index */
   onOpen?: (globalIdx: number) => void;
   /** Active project slug (for marquee label) */
   activeSlug?: string;
   /** Lang */
   ar?: boolean;
-}
-
-/* ── helper: find global index ────────────────────────────────────── */
-function globalIdx(img: GalleryImage): number {
-  return GALLERY_IMAGES.findIndex((g) => g.src === img.src);
 }
 
 /* ── sub-component: one card ──────────────────────────────────────── */
@@ -223,11 +216,13 @@ function Marquee({ label }: { label: string }) {
 /* ── Main export ──────────────────────────────────────────────────── */
 export function RotatingGallery({
   images,
+  projects,
   onOpen,
   activeSlug = "all",
   ar = false,
 }: RotatingGalleryProps) {
-  const items = images ?? GALLERY_IMAGES;
+  const items = images;
+  const globalIdx = (img: GalleryImage): number => items.findIndex((g) => g.src === img.src);
   const rootRef = useRef<HTMLDivElement>(null);
 
   /* Pre-compute sine scatter per item */
@@ -251,7 +246,7 @@ export function RotatingGallery({
   }, [items.length]);
 
   /* Active project accent for marquee + borders */
-  const project = GALLERY_PROJECTS.find((p) => p.slug === activeSlug);
+  const project = projects.find((p) => p.slug === activeSlug);
   const accent  = project?.accent ?? "#FF6B47";
   const marqLabel = ar
     ? (project?.labelAr ?? "الأعمال")
@@ -278,7 +273,7 @@ export function RotatingGallery({
               index={i}
               scatter={Math.sin(i * 0.45) * (typeof window !== "undefined" ? window.innerWidth * AMPLITUDE : 256)}
               accent={
-                GALLERY_PROJECTS.find((p) => p.slug === img.project)?.accent ?? accent
+                projects.find((p) => p.slug === img.project)?.accent ?? accent
               }
               ar={ar}
               onClick={() => onOpen?.(globalIdx(img))}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLang } from "@/components/providers/lang-provider";
-import type { Bi } from "@/lib/offers";
+import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
 import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
 import { InvestmentValue } from "@/features/offers/investment-value";
 
@@ -15,7 +15,13 @@ const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "ملفات المصدر النهائية تُسلَّم مع كل فئة بعد سداد الدفعة الأخيرة — وهي لحظة انتقال الملكية."] },
 ];
 
-export function PricingView() {
+interface PricingData {
+  tiers: Tier[];
+  investmentValue: { value: string; en: string; ar: string; subEn?: string | null; subAr?: string | null; pending?: boolean | null }[];
+  alaCarte: AlaCarteGroup[];
+}
+
+export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
@@ -50,7 +56,7 @@ export function PricingView() {
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["01 / SERVICE TIERS", "٠١ / فئات الخدمة"]} title={["Pick the", "اختر"]} italic={["scope that fits.", "النطاق المناسب."]} />
-        <TierGrid />
+        <TierGrid tiers={tiers} />
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— كل الفئات قابلة للتخصيص · البنود تُضاف أو تُحذف بعد النقاش · التسعير قابل للتفاوض حسب النطاق والجدول والعلاقة —" : "— All tiers are customizable · Items can be added or removed after discussion · Pricing is negotiable based on scope, timeline, and long-term relationship —"}
         </p>
@@ -58,7 +64,7 @@ export function PricingView() {
 
       {/* Investment value — reframes price as an asset (systemic positioning) */}
       <section className="rounded-panel border border-border-subtle bg-surface-1/30 p-5 md:p-7">
-        <InvestmentValue />
+        <InvestmentValue metrics={investmentValue} />
       </section>
 
       <section className="flex flex-col gap-3">
@@ -66,7 +72,7 @@ export function PricingView() {
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar ? "لمشاريع لا تحتاج فئة كاملة — أو لعملاء حاليين يحتاجون تطبيقات إضافية." : "For projects that don't need a full tier — or for existing clients needing additional applications."}
         </p>
-        <AlaCarteTables />
+        <AlaCarteTables alaCarte={alaCarte} />
       </section>
 
       <section className="flex flex-col gap-3">

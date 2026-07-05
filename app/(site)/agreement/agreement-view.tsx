@@ -36,7 +36,7 @@ const TERMS: readonly { n: string; head: Bi; body: Bi }[] = [
   { n: "10", head: ["Good Faith", "حسن التعامل"], body: ["The designer guarantees flexibility and good conduct within a framework that protects both parties' rights.", "يضمن المصمم للعميل مرونة وحسن التعامل في إطار حفظ حقوق الطرفين."] },
 ];
 
-export function AgreementView() {
+export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers").Tier[]; alaCarte: import("@/lib/offers").AlaCarteGroup[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
@@ -92,12 +92,12 @@ export function AgreementView() {
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["03 / SERVICE TIERS", "٠٣ / فئات الخدمة"]} title={["Three tiers.", "ثلاث فئات."]} italic={["One starting line.", "خط بداية واحد."]} />
-        <TierGrid />
+        <TierGrid tiers={tiers} />
       </section>
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["04 / À LA CARTE", "٠٤ / خدمات منفردة"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
-        <AlaCarteTables />
+        <AlaCarteTables alaCarte={alaCarte} />
       </section>
 
       <section className="flex flex-col gap-3">

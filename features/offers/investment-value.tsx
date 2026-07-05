@@ -24,33 +24,9 @@ import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physicsSlow } from "@/lib/motion";
 
-/* ─── PLACEHOLDER METRICS — update when measured & documented ─── */
-const METRICS = [
-  {
-    value: "42%",
-    en: "Faster delivery",
-    ar: "أسرع في التسليم",
-    subEn: "Fixed 38-day timeline vs open-ended scope",
-    subAr: "جدول ثابت ٣٨ يوم مقابل نطاق مفتوح",
-    pending: true,
-  },
-  {
-    value: "3×",
-    en: "Handoff efficiency",
-    ar: "كفاءة التسليم للمطورين",
-    subEn: "Token-driven handoff — exact values, not guesses",
-    subAr: "تسليم معتمد على التوكنز — قيم دقيقة لا تخمين",
-    pending: true,
-  },
-  {
-    value: "0%",
-    en: "Design drift",
-    ar: "انحراف في التصميم",
-    subEn: "What's approved at the gate is what ships",
-    subAr: "ما يُعتمد عند البوابة هو ما يُنفَّذ",
-    pending: true,
-  },
-] as const;
+/* Metrics now come from the Offers global (see lib/content.ts getOffers()) —
+ * the pending:true placeholders are content, editable from the dashboard,
+ * not something to hardcode here anymore. */
 
 const VALUE_PROPS = {
   en: [
@@ -84,12 +60,21 @@ const UI = {
   },
 } as const;
 
-export function InvestmentValue() {
+interface Metric {
+  value: string;
+  en: string;
+  ar: string;
+  subEn?: string | null;
+  subAr?: string | null;
+  pending?: boolean | null;
+}
+
+export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const t = ar ? UI.ar : UI.en;
   const props = ar ? VALUE_PROPS.ar : VALUE_PROPS.en;
-  const hasPending = METRICS.some((m) => m.pending);
+  const hasPending = metrics.some((m) => m.pending);
 
   return (
     <div className="flex flex-col gap-6">
@@ -106,7 +91,7 @@ export function InvestmentValue() {
 
       {/* metric strip */}
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-        {METRICS.map((m, i) => (
+        {metrics.map((m, i) => (
           <motion.div
             key={m.value}
             className="flex flex-col gap-1 rounded-panel border border-border-subtle bg-surface-1 p-4"

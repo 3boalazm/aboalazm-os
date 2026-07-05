@@ -5,7 +5,7 @@
  * /services, /pricing, /agreement. All read useLang().
  */
 import { useLang } from "@/components/providers/lang-provider";
-import { TIERS, ALACARTE, PAYMENT, type Bi, type Tier } from "@/lib/offers";
+import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 
 export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
 
@@ -95,10 +95,10 @@ export function TierCard({ tier }: { tier: Tier }) {
   );
 }
 
-export function TierGrid() {
+export function TierGrid({ tiers }: { tiers: readonly Tier[] }) {
   return (
     <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
-      {TIERS.map((t) => (
+      {tiers.map((t) => (
         <TierCard key={t.tag[0]} tier={t} />
       ))}
     </div>
@@ -106,11 +106,11 @@ export function TierGrid() {
 }
 
 /* ── À la carte tables ── */
-export function AlaCarteTables() {
+export function AlaCarteTables({ alaCarte }: { alaCarte: readonly AlaCarteGroup[] }) {
   const { lang } = useLang();
   return (
     <div className="flex flex-col gap-4">
-      {ALACARTE.map((g) => (
+      {alaCarte.map((g) => (
         <div key={g.group[0]}>
           <p className="border-b border-border-default pb-1 font-mono text-micro uppercase tracking-[0.10em] text-accent">
             {pick(g.group, lang)}

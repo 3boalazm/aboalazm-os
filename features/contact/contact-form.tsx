@@ -10,6 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
+import { submitContact } from "./actions";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Status = "idle" | "working" | "sent" | "error";
@@ -27,11 +28,19 @@ export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [budget, setBudget] = useState<string | null>(null);
 
-  async function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus("working");
+    const form = new FormData(e.currentTarget);
     try {
-      await new Promise((r) => setTimeout(r, 900));
+      await submitContact({
+        name: String(form.get("name") ?? ""),
+        email: String(form.get("email") ?? ""),
+        company: String(form.get("company") ?? "") || undefined,
+        brief: String(form.get("brief") ?? ""),
+        timeline: String(form.get("timeline") ?? "") || undefined,
+        budget: budget ?? undefined,
+      });
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -67,6 +76,10 @@ export function ContactForm() {
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formName}</span>
               <input required name="name" className={FIELD} placeholder={t.formPlaceholderName} />
+            </label>
+            <label className="flex flex-col gap-0.5">
+              <span className={LABEL}>{t.formEmail}</span>
+              <input required type="email" name="email" className={FIELD} placeholder={t.formPlaceholderEmail} />
             </label>
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formCompany}</span>
