@@ -9,7 +9,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "preserve",
-    "allowJs": false,
+    "allowJs": true,
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
@@ -31,6 +31,9 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
       ]
     }
   },

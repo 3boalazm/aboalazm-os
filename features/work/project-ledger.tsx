@@ -30,7 +30,7 @@ import { motion } from "framer-motion";
 import { reveal } from "@/lib/motion";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
 import { FloatingPreview } from "./floating-preview";
-import { PROJECTS, BEHANCE } from "./projects.data";
+import { BEHANCE } from "./projects.data";
 import type { Project } from "./types";
 
 /* Shared column template — header & rows must never drift apart */
@@ -38,13 +38,14 @@ const GRID =
   "grid-cols-[2rem_1.6fr_1fr] gap-2 md:grid-cols-[2.5rem_1.5fr_1fr_1.3fr_1fr_auto] md:gap-3";
 
 interface ProjectLedgerProps {
-  projects?: readonly Project[];
+  /** Now sourced from Payload upstream (see lib/content.ts) — no static fallback. */
+  projects: readonly Project[];
   /** Optional cap — lets Home reuse the component as "Selected Work" */
   limit?: number;
 }
 
 export function ProjectLedger({
-  projects = PROJECTS,
+  projects,
   limit,
 }: ProjectLedgerProps) {
   const t = useT();

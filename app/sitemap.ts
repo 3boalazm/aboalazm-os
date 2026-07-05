@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
-import { PROJECTS } from "@/features/work/projects.data";
+import { getAllCaseStudySlugs } from "@/lib/content";
 
 const BASE = "https://aboalazm.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const statics = ["", "/work", "/services", "/pricing", "/agreement", "/capabilities", "/about", "/why", "/process", "/start", "/writing", "/contact"].map(
     (path) => ({
       url: `${BASE}${path}`,
@@ -11,8 +11,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: path === "" ? 1 : path === "/start" ? 0.9 : 0.8,
     }),
   );
-  const projects = PROJECTS.filter((p) => p.hasCaseStudy).map((p) => ({
-    url: `${BASE}/case-studies/${p.slug}`,
+  const slugs = await getAllCaseStudySlugs();
+  const projects = slugs.map((slug) => ({
+    url: `${BASE}/case-studies/${slug}`,
     changeFrequency: "yearly" as const,
     priority: 0.7,
   }));

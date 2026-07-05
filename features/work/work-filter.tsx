@@ -12,8 +12,7 @@
 import { useMemo, useState } from "react";
 import { useLang } from "@/components/providers/lang-provider";
 import { ProjectLedger } from "./project-ledger";
-import { PROJECTS } from "./projects.data";
-import type { ProjectCategory } from "./types";
+import type { Project, ProjectCategory } from "./types";
 
 type FilterValue = "all" | ProjectCategory;
 
@@ -23,20 +22,20 @@ const OPTIONS: { value: FilterValue; en: string; ar: string }[] = [
   { value: "development", en: "Development", ar: "ديفلوبمنت" },
 ];
 
-export function WorkFilter() {
+export function WorkFilter({ projects }: { projects: readonly Project[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const [filter, setFilter] = useState<FilterValue>("all");
 
   const counts = useMemo(() => {
-    const design = PROJECTS.filter((p) => p.category === "design").length;
-    const development = PROJECTS.filter((p) => p.category === "development").length;
-    return { all: PROJECTS.length, design, development };
-  }, []);
+    const design = projects.filter((p) => p.category === "design").length;
+    const development = projects.filter((p) => p.category === "development").length;
+    return { all: projects.length, design, development };
+  }, [projects]);
 
   const filtered = useMemo(
-    () => (filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter)),
-    [filter],
+    () => (filter === "all" ? projects : projects.filter((p) => p.category === filter)),
+    [filter, projects],
   );
 
   return (

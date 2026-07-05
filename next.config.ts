@@ -1,11 +1,13 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
+import { withPayload } from "@payloadcms/next/withPayload";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+    localPatterns: [{ pathname: "/api/media/file/**" }],
   },
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
@@ -13,4 +15,4 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX({});
-export default withMDX(nextConfig);
+export default withPayload(withMDX(nextConfig), { devBundleServerPackages: false });
