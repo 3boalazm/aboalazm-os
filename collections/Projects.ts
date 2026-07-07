@@ -1,4 +1,6 @@
 import type { CollectionConfig } from "payload";
+import { revalidateCollection, revalidateOnDelete } from "@/lib/revalidate";
+import { authenticatedOrPublished } from "@/lib/access";
 
 /**
  * PROJECTS — mirrors features/work/types.ts `Project` exactly.
@@ -18,7 +20,11 @@ export const Projects: CollectionConfig = {
     drafts: true,
   },
   access: {
-    read: () => true,
+    read: authenticatedOrPublished,
+  },
+  hooks: {
+    afterChange: [revalidateCollection(["/work", "/", "/sitemap.xml"])],
+    afterDelete: [revalidateOnDelete(["/work", "/", "/sitemap.xml"])],
   },
   fields: [
     {

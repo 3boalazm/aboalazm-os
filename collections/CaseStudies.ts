@@ -1,4 +1,6 @@
 import type { CollectionConfig, Field } from "payload";
+import { revalidateCollection, revalidateOnDelete } from "@/lib/revalidate";
+import { authenticatedOrPublished } from "@/lib/access";
 
 /**
  * CASE STUDIES — mirrors features/case-studies/types.ts `CaseStudyRecord`
@@ -26,7 +28,11 @@ export const CaseStudies: CollectionConfig = {
     drafts: true,
   },
   access: {
-    read: () => true,
+    read: authenticatedOrPublished,
+  },
+  hooks: {
+    afterChange: [revalidateCollection(["/case-studies", "/gallery", "/sitemap.xml"])],
+    afterDelete: [revalidateOnDelete(["/case-studies", "/gallery", "/sitemap.xml"])],
   },
   fields: [
     {

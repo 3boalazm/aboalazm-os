@@ -2,7 +2,7 @@
 
 > **Positioning:** Systemic Identity Architect
 > **DNA:** 40% Quiet Luxury · 25% Strategic Expert · 20% Design Engineer · 10% Creative Authority · 5% Technical Wizard
-> **Stack:** Next.js 15 (App Router) · TypeScript strict · Tailwind v4 · shadcn/ui · Framer Motion · GSAP · Lenis · MDX · Sanity
+> **Stack:** Next.js 15 (App Router) · TypeScript strict · Tailwind v4 · Payload CMS 3 (Postgres/Neon) · Framer Motion · GSAP · Lenis · MDX
 
 ---
 
@@ -11,104 +11,65 @@
 ```
 aboalazm-os/
 │
-├── app/                                  # Next.js 15 App Router
-│   ├── layout.tsx                        # Root: fonts, providers, ambient canvas
-│   ├── page.tsx                          # Home — the OS boot screen
-│   ├── globals.css                       # ★ Design Token Layer (Tailwind v4 @theme)
+├── app/
+│   ├── (site)/                           # The public site — its own root layout
+│   │   ├── layout.tsx                    # Root: fonts, providers, ambient canvas
+│   │   ├── page.tsx                      # Home — the OS boot screen
+│   │   ├── globals.css                   # ★ Design Token Layer (Tailwind v4 @theme)
+│   │   ├── work/page.tsx                 # Work ledger (fetches Payload `projects`)
+│   │   ├── case-studies/[slug]/page.tsx  # Single dynamic route — fetches `case-studies`
+│   │   ├── writing/                      # Blog — fetches Payload `posts`
+│   │   ├── pricing/ · services/ · agreement/  # All fetch the `offers` global
+│   │   ├── gallery/                      # Derived from case-studies image fields
+│   │   ├── contact/                      # Submits to `messages` (server action)
+│   │   ├── resources/                    # Lead-gated downloads → `resource-leads`
+│   │   └── about/ · why/ · process/ · capabilities/ · start/ · labs/ · books/ · type/
 │   │
-│   ├── work/
-│   │   ├── page.tsx                      # Work index (bento grid, filterable)
-│   │   └── [slug]/
-│   │       └── page.tsx                  # Project detail (sets ambient glow)
+│   ├── (payload)/                        # Admin dashboard — its own root layout
+│   │   ├── layout.tsx
+│   │   ├── custom.css                    # Brand theme overrides (obsidian/coral)
+│   │   ├── admin/[[...segments]]/        # Payload's admin UI
+│   │   └── api/[...slug]/ · api/graphql/ # Auto-generated REST + GraphQL
 │   │
-│   ├── case-studies/
-│   │   ├── page.tsx                      # Case study index
-│   │   └── [slug]/
-│   │       └── page.tsx                  # MDX-rendered: Problem→Research→Strategy→System→Execution→Impact
-│   │
-│   ├── services/page.tsx                 # 5 core services
-│   ├── process/page.tsx                  # The 38-day playbook, visualized
-│   ├── about/page.tsx
-│   ├── contact/page.tsx
-│   │
-│   ├── api/
-│   │   └── revalidate/route.ts           # Sanity webhook → ISR revalidation
-│   │
-│   ├── sitemap.ts                        # Generated sitemap
-│   ├── robots.ts
-│   └── opengraph-image.tsx               # Dynamic OG images
+│   ├── api/resources/route.ts            # Public lead-capture endpoint
+│   ├── sitemap.ts                        # Dynamic — reads case-study slugs from DB
+│   └── robots.ts
+│
+├── collections/                          # Payload collection definitions
+│   ├── Users.ts                          # Single-admin, no public registration
+│   ├── Media.ts · Projects.ts · CaseStudies.ts
+│   ├── Testimonials.ts · Posts.ts · TeamMembers.ts
+│   ├── ResourceLeads.ts · Messages.ts
+│
+├── globals/
+│   ├── Offers.ts                         # Pricing tiers, à la carte, investment metrics
+│   └── Settings.ts                       # Social links, CV, default SEO
 │
 ├── components/
-│   ├── ui/                               # shadcn/ui primitives (Radix), token-themed
-│   │   ├── button.tsx
-│   │   ├── card.tsx
-│   │   ├── dialog.tsx
-│   │   ├── separator.tsx
-│   │   └── tooltip.tsx
-│   │
-│   ├── layout/
-│   │   ├── nav.tsx                       # Floating pill nav (glass, magnetic items)
-│   │   ├── footer.tsx
-│   │   └── ambient-canvas.tsx            # Atmospheric glow layer (reads CSS tokens)
-│   │
-│   ├── providers/
-│   │   ├── smooth-scroll.tsx             # Lenis provider + GSAP ScrollTrigger sync
-│   │   └── theme-provider.tsx            # Obsidian / Alabaster mode
-│   │
-│   └── shared/
-│       ├── magnetic.tsx                  # Physics-based magnetic wrapper
-│       ├── reveal.tsx                    # Staggered entrance (ease-physics)
-│       ├── section.tsx                   # Spacing-token-enforced section shell
-│       └── bilingual-text.tsx            # AR/EN lockup (IBM Plex Sans Arabic)
+│   ├── ui/ · layout/ · providers/ · shared/
 │
 ├── features/                             # Domain-driven feature modules
-│   ├── work/
-│   │   ├── work-grid.tsx                 # Bento system layout
-│   │   ├── work-card.tsx                 # Hover → emits project accent to glow
-│   │   ├── work-filter.tsx
-│   │   └── types.ts
-│   │
-│   └── case-studies/
-│       ├── case-study-hero.tsx
-│       ├── case-study-metrics.tsx        # Impact numbers (counts up on scroll)
-│       ├── case-study-toc.tsx            # Sticky table of contents
-│       ├── mdx-components.tsx            # MDX → custom typographic components
-│       └── types.ts
+│   ├── work/ · case-studies/ · gallery/ · offers/ · contact/ · persona/ · home/
 │
 ├── lib/
-│   ├── tokens.ts                         # ★ Typed mirror of the CSS token layer
-│   ├── motion.ts                         # ★ Framer/GSAP physics presets
-│   ├── fonts.ts                          # next/font setup (4 families)
-│   ├── sanity.ts                         # Sanity client + GROQ queries
-│   ├── mdx.ts                            # MDX compile pipeline
-│   └── utils.ts                          # cn() + helpers
+│   ├── tokens.ts · motion.ts · fonts.ts · utils.ts · i18n.ts · offers.ts · gallery.ts
+│   ├── payload.ts                        # Cached Payload Local API instance
+│   ├── content.ts                        # Adapter: Payload docs → existing UI types
+│   └── revalidate.ts                     # afterChange/afterDelete hooks → revalidatePath
 │
-├── hooks/
-│   ├── use-ambient-glow.ts               # ★ Dynamic project-color atmosphere
-│   ├── use-magnetic.ts                   # Pointer-physics for magnetic elements
-│   ├── use-reduced-motion.ts             # Accessibility gate for all motion
-│   └── use-scroll-progress.ts
+├── scripts/
+│   └── seed.ts                           # One-time migration of the old static data
 │
-├── content/
-│   └── work/                             # Local MDX case studies (Sanity optional)
-│       └── *.mdx
+├── migrations/                           # Payload/Postgres schema migrations
 │
-├── sanity/
-│   ├── sanity.config.ts
-│   └── schemas/
-│       ├── project.ts                    # includes accentColor field → drives glow
-│       ├── caseStudy.ts
-│       └── testimonial.ts
+├── payload.config.ts                     # Postgres (Neon) adapter, Lexical editor
 │
 ├── public/
-│   ├── fonts/                            # Self-hosted woff2 (zero layout shift)
-│   ├── images/
-│   └── og/
+│   ├── fonts/ · images/ · og/
 │
-├── next.config.ts
+├── next.config.ts                        # withPayload() wrapper
 ├── tsconfig.json
 ├── postcss.config.mjs
-├── components.json                       # shadcn/ui config
 └── package.json
 ```
 
@@ -119,6 +80,8 @@ aboalazm-os/
 3. **All motion passes through `lib/motion.ts`** — one easing language across Framer, GSAP, and CSS.
 4. **The ambient glow is a contract:** any route or hover can write `--glow-1` / `--glow-2`; only `ambient-canvas.tsx` reads them.
 5. **Server Components by default.** `"use client"` only on leaves that need pointer/scroll physics.
+6. **Content flows through `lib/content.ts` only.** Pages never call Payload's Local API directly — they call the adapter, which returns the exact shapes the UI components already expect. This is the one place that would need to change if the CMS were ever swapped again.
+7. **Every Collection/Global that feeds a statically-generated route needs a `revalidatePath` hook** (`lib/revalidate.ts`). Without it, dashboard edits won't appear on the live site until the next deploy.
 
 ---
 

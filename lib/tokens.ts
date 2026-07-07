@@ -65,9 +65,9 @@ export const COLOR = {
 
 /* ── 5 · AMBIENT GLOW CONTRACT ────────────────────────────────── */
 /**
- * Every project in Sanity/MDX frontmatter carries an accent pair.
- * The use-ambient-glow hook writes these into the runtime CSS
- * custom properties --glow-1 / --glow-2.
+ * Every project in the Payload `projects`/`case-studies` collections carries
+ * an accent pair. The use-ambient-glow hook writes these into the runtime
+ * CSS custom properties --glow-1 / --glow-2.
  */
 export interface ProjectAccent {
   /** Primary glow, e.g. "rgb(255 107 71 / 0.22)" */

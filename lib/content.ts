@@ -113,6 +113,7 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
     collection: "case-studies",
     where: { slug: { equals: slug } },
     limit: 1,
+    overrideAccess: false,
   });
   const doc = res.docs[0];
   return doc ? toCaseStudy(doc) : null;
@@ -144,6 +145,7 @@ export async function getAllCaseStudySlugs(): Promise<string[]> {
     collection: "case-studies",
     limit: 100,
     select: { slug: true },
+    overrideAccess: false,
   });
   return res.docs.map((d) => d.slug);
 }
@@ -153,7 +155,7 @@ export async function getGalleryData(): Promise<{
   images: { src: string; project: string; caption: string; captionAr: string; w: number; h: number }[];
 }> {
   const payload = await getPayload();
-  const res = await payload.find({ collection: "case-studies", limit: 100 });
+  const res = await payload.find({ collection: "case-studies", limit: 100, overrideAccess: false });
 
   const projects = res.docs
     .filter((d) => (d.images ?? []).length > 0)
@@ -231,6 +233,7 @@ export async function getCaseStudyGallery(slug: string): Promise<GalleryItem[]> 
     collection: "case-studies",
     where: { slug: { equals: slug } },
     limit: 1,
+    overrideAccess: false,
   });
   const doc = res.docs[0];
   if (!doc) return [];

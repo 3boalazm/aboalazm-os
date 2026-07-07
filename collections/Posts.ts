@@ -1,4 +1,6 @@
 import type { CollectionConfig } from "payload";
+import { revalidateCollection, revalidateOnDelete } from "@/lib/revalidate";
+import { authenticatedOrPublished } from "@/lib/access";
 
 /**
  * POSTS — the "Writing" section ("Notes from the system").
@@ -15,7 +17,11 @@ export const Posts: CollectionConfig = {
     drafts: true,
   },
   access: {
-    read: () => true,
+    read: authenticatedOrPublished,
+  },
+  hooks: {
+    afterChange: [revalidateCollection(["/writing", "/sitemap.xml"])],
+    afterDelete: [revalidateOnDelete(["/writing", "/sitemap.xml"])],
   },
   fields: [
     {

@@ -1,8 +1,8 @@
 /**
  * WORK FEATURE — TYPE CONTRACTS
  * The Project shape is the single contract shared by the ledger,
- * the floating preview, the ambient glow system, and (later) the
- * Sanity schema — field names here mirror sanity/schemas/project.ts.
+ * the floating preview, the ambient glow system, and the
+ * Payload `projects` collection — field names mirror collections/Projects.ts.
  */
 import type { ProjectAccent } from "@/lib/tokens";
 

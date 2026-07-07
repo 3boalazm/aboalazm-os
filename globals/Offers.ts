@@ -1,4 +1,5 @@
 import type { Field, GlobalConfig } from "payload";
+import { revalidateGlobal } from "@/lib/revalidate";
 
 /**
  * OFFERS — global (singleton), mirrors lib/offers.ts `TIERS`.
@@ -19,6 +20,9 @@ export const Offers: GlobalConfig = {
   slug: "offers",
   admin: {
     group: "Site Content",
+  },
+  hooks: {
+    afterChange: [revalidateGlobal(["/pricing", "/services", "/agreement"])],
   },
   fields: [
     {

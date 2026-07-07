@@ -2,7 +2,7 @@
  * SCROLLYTELLING — TYPE CONTRACTS
  * One CaseStudyRecord drives all four panels. The shape mirrors the
  * content engine doctrine: Problem → Research → Strategy → System →
- * Execution → Impact. Field names align with sanity/schemas/caseStudy.
+ * Execution → Impact. Field names align with collections/CaseStudies.ts.
  */
 import type { ProjectAccent } from "@/lib/tokens";
 
