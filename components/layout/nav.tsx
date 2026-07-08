@@ -137,8 +137,15 @@ export function Nav() {
           })}
         </ul>
 
-        {/* Persona toggle — desktop only, content adapts on Home + /start */}
-        <PersonaToggleCompact className="hidden md:inline-flex" />
+        {/* Persona toggle — desktop only. Wrapped in its own div (not passed
+            as className on the component itself) because .persona-toggle
+            sets `display: inline-flex` as a plain CSS rule in globals.css,
+            which otherwise wins over Tailwind's `hidden` utility at the
+            same specificity — that's why this was showing on mobile and
+            crowding the header before. */}
+        <div className="hidden md:inline-flex">
+          <PersonaToggleCompact />
+        </div>
 
         {/* Language flip — the AR/EN switch */}
         <button
