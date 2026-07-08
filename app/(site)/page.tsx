@@ -4,6 +4,9 @@ import { ProjectLedger } from "@/features/work";
 import { getProjects } from "@/lib/content";
 import { SkillsMarquee, AboutTeaser, StatsBand, HomeCta, ClientJourneyBand } from "@/features/home/home-bands";
 import { PersonaPickerBand } from "@/features/persona";
+
+export const revalidate = 60;
+
 import { PersonaSection } from "@/features/persona/persona-section";
 
 export default async function Home() {

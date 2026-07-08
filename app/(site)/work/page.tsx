@@ -3,6 +3,9 @@ import { WorkFilter } from "@/features/work";
 import { getProjects } from "@/lib/content";
 import { WorkHeader } from "./work-header";
 
+export const revalidate = 60;
+
+
 export const metadata: Metadata = {
   title: "Work — Engineering Ledger",
   description: "A systematic index of identity systems, product architecture, and design infrastructure.",

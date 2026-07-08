@@ -227,6 +227,14 @@ export interface Project {
     primary: string;
     secondary: string;
   };
+  /**
+   * Tags this project for the dedicated /work-ui page.
+   */
+  isUiUx?: boolean | null;
+  /**
+   * The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.
+   */
+  liveUrl?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -601,6 +609,8 @@ export interface ProjectsSelect<T extends boolean = true> {
         primary?: T;
         secondary?: T;
       };
+  isUiUx?: T;
+  liveUrl?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

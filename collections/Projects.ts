@@ -122,5 +122,24 @@ export const Projects: CollectionConfig = {
         { name: "secondary", type: "text", required: true },
       ],
     },
+    {
+      name: "isUiUx",
+      label: "Show on UI/UX Showcase",
+      type: "checkbox",
+      defaultValue: false,
+      admin: {
+        position: "sidebar",
+        description: "Tags this project for the dedicated /work-ui page.",
+      },
+    },
+    {
+      name: "liveUrl",
+      label: "Live Preview URL",
+      type: "text",
+      admin: {
+        condition: (data) => Boolean(data?.isUiUx),
+        description: "The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.",
+      },
+    },
   ],
 };

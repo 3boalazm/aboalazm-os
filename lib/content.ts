@@ -30,8 +30,26 @@ function toProject(doc: PayloadProject): Project {
     thumbnail: mediaUrl(doc.thumbnail),
     hasCaseStudy: doc.hasCaseStudy ?? false,
     externalUrl: doc.externalUrl ?? undefined,
+    isUiUx: doc.isUiUx ?? false,
+    liveUrl: doc.liveUrl ?? undefined,
     accent: { primary: doc.accent.primary, secondary: doc.accent.secondary },
   };
+}
+
+/** Projects tagged for the /work-ui showcase — only ones with a real
+ *  liveUrl set (no point showing a preview card with nothing to preview). */
+export async function getUiUxProjects(): Promise<Project[]> {
+  const payload = await getPayload();
+  const res = await payload.find({
+    collection: "projects",
+    where: {
+      and: [{ isUiUx: { equals: true } }, { liveUrl: { exists: true } }],
+    },
+    limit: 100,
+    sort: "-year",
+    overrideAccess: false,
+  });
+  return res.docs.map(toProject).filter((p) => p.liveUrl);
 }
 
 export async function getProjects(): Promise<Project[]> {

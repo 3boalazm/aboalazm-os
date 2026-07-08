@@ -45,6 +45,14 @@ export interface Project {
    */
   externalUrl?: string;
   /**
+   * Tags this project for the /work-ui showcase, and gives the real,
+   * currently-live URL used both for the mini iframe preview and the
+   * "Live" button's new-tab link. Independent of externalUrl since a
+   * project can have both a case study AND a live UI/UX showcase entry.
+   */
+  isUiUx?: boolean;
+  liveUrl?: string;
+  /**
    * Primary palette pair — consumed by useAmbientGlowControls to
    * override the global --glow-* tokens while the row is hovered.
    * Keep alpha low (0.10–0.22): atmosphere, never paint.

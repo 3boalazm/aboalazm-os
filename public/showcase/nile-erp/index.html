@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nile Pharma ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{bg:'#0B1220',card:'#101A2E',sidebar:'#0D1626',primary:'#14B8A6',success:'#22C55E',danger:'#EF4444',warning:'#F59E0B',info:'#38BDF8'}}}}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0B1220;color:#E7ECF5;font-family:'IBM Plex Sans Arabic','Inter',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:#0B1220}::-webkit-scrollbar-thumb{background:#1E2A44;border-radius:3px}
+.FM{font-family:'JetBrains Mono','Courier New',monospace}
+.bg-mesh{background-image:radial-gradient(ellipse 600px 400px at 15% 0%,rgba(20,184,166,0.08),transparent),radial-gradient(ellipse 500px 300px at 85% 90%,rgba(56,189,248,0.05),transparent)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.anim-fade-up{animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both}
+.ring{transition:stroke-dashoffset 1s cubic-bezier(.2,.7,.2,1)}
+@media(max-width:900px){.sidebar-el{position:fixed !important;top:0;right:0;bottom:0;z-index:50 !important;width:250px !important;transform:translateX(100%);transition:transform .3s ease}.sidebar-el.mob-open{transform:translateX(0)}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.js"></script>
+<script>
+var html = htm.bind(React.createElement);
+var useState = React.useState, useEffect = React.useEffect;
+var C = {primary:'#14B8A6',primaryDim:'rgba(20,184,166,0.14)',success:'#22C55E',successDim:'rgba(34,197,94,0.14)',danger:'#EF4444',dangerDim:'rgba(239,68,68,0.14)',warning:'#F59E0B',warningDim:'rgba(245,158,11,0.14)',info:'#38BDF8',infoDim:'rgba(56,189,248,0.14)',text:'#E7ECF5',textDim:'#8B96AC',textFaint:'#57617A',border:'rgba(148,163,184,0.10)'};
+
+/* ==================== DEMO DATA (mirrors the real seed data) ==================== */
+var REPS=[
+  {id:'rep-001',name:'أحمد فتحي',territory:'Cairo-East',totalSales:44182.76,collected:34541.65,collectionRate:0.7817,efficiencyScore:82.4,incentiveEarned:460.46},
+  {id:'rep-002',name:'مريم أشرف',territory:'Cairo-West / Alexandria',totalSales:128500,collected:96000,collectionRate:0.7471,efficiencyScore:74.1,incentiveEarned:1712.80},
+  {id:'rep-003',name:'حسن جمال',territory:'Delta-North',totalSales:71350,collected:71350,collectionRate:1.0,efficiencyScore:96.8,incentiveEarned:951.30},
+  {id:'rep-004',name:'نهى سامي',territory:'Delta-South',totalSales:178300,collected:92000,collectionRate:0.516,efficiencyScore:58.2,incentiveEarned:2376.32}
+];
+var ORDERS=[
+  {no:'SO-1001',account:'صيدلية العزبي - المعادي',rep:'أحمد فتحي',total:19360.00,status:'PAID'},
+  {no:'SO-1002',account:'صيدلية الشفاء - مدينة نصر',rep:'أحمد فتحي',total:18641.11,status:'INVOICED'},
+  {no:'SO-1003',account:'مركز النيل الطبي - طنطا',rep:'حسن جمال',total:14094.00,status:'ALLOCATED'},
+  {no:'SO-1004',account:'صيدلية الدكتور - الدقي',rep:'مريم أشرف',total:31694.62,status:'PENDING_APPROVAL'},
+  {no:'SO-1005',account:'شركة النور لتوزيع الأدوية',rep:'مريم أشرف',total:181267.86,status:'APPROVED'},
+  {no:'SO-1006',account:'صيدلية سيف - مصر الجديدة',rep:'أحمد فتحي',total:1231.20,status:'DRAFT'},
+  {no:'SO-1007',account:'مستشفى دلتا التخصصي',rep:'نهى سامي',total:193800.00,status:'ALLOCATION_FAILED'},
+  {no:'SO-1008',account:'صيدلية أبو اليزيد - سموحة',rep:'مريم أشرف',total:9680.40,status:'CANCELLED'},
+  {no:'SO-1009',account:'مركز الأمل لطب الأسرة',rep:'أحمد فتحي',total:6181.65,status:'PAID'}
+];
+var PRODUCTS=[
+  {sku:'BRX-PLUS-30',name:'بروكسيد بلس 30 كيس',stock:3200,min:500,status:'ok'},
+  {sku:'BRX-WOMEN-30',name:'بروكسيد نساء 30 كيس',stock:1800,min:500,status:'ok'},
+  {sku:'BRX-ERX-30',name:'بروكس ايريكس 30 كيس',stock:410,min:500,status:'low'},
+  {sku:'ELM-30',name:'إيلاموزيل 30 كيس',stock:3000,min:400,status:'ok'},
+  {sku:'NLV-C1000-20',name:'نايل فيت سي 1000',stock:120,min:300,status:'low'},
+  {sku:'NLV-COLD-10',name:'نايل فيت أمبولات مبردة',stock:60,min:100,status:'critical'}
+];
+var STATUS_META={
+  DRAFT:{l:'مسودة',c:C.textFaint},
+  PENDING_APPROVAL:{l:'بانتظار الموافقة',c:C.warning},
+  APPROVED:{l:'معتمد',c:C.info},
+  ALLOCATING:{l:'جارٍ التجهيز',c:C.info},
+  ALLOCATED:{l:'محجوز',c:C.primary},
+  ALLOCATION_FAILED:{l:'فشل التجهيز',c:C.danger},
+  INVOICED:{l:'مفوتر',c:C.info},
+  PAID:{l:'محصّل',c:C.success},
+  CANCELLED:{l:'ملغي',c:C.textFaint}
+};
+var NAV=[{k:'dashboard',l:'لوحة التحكم',i:'fa-gauge-high'},{k:'sales',l:'أوامر البيع',i:'fa-file-invoice-dollar'},{k:'inventory',l:'المخزون',i:'fa-boxes-stacked'},{k:'crm',l:'العملاء (CRM)',i:'fa-users'},{k:'accounting',l:'الحسابات',i:'fa-coins'},{k:'incentives',l:'الحوافز',i:'fa-trophy'},{k:'products',l:'الأصناف',i:'fa-pills'},{k:'audit',l:'سجل التتبع',i:'fa-shield-halved'}];
+
+function fmt(n){return new Intl.NumberFormat('ar-EG',{minimumFractionDigits:2,maximumFractionDigits:2}).format(n)+' ج.م'}
+
+function Badge(p){return html`<span style=${{display:'inline-flex',alignItems:'center',gap:6,padding:'4px 10px',borderRadius:999,fontSize:11,fontWeight:600,background:p.color+'22',color:p.color}}><span style=${{width:6,height:6,borderRadius:999,background:p.color}} />${p.children}</span>`}
+function Card(p){return html`<div style=${{background:C.__bg||'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim-fade-up">${p.children}</div>`}
+function SecTitle(p){return html`<div style=${{marginBottom:14}}>${p.eyebrow?html`<p className="FM" style=${{fontSize:11,color:C.primary,letterSpacing:'0.08em',marginBottom:4}}>${p.eyebrow}</p>`:null}<h2 style=${{fontSize:17,fontWeight:700}}>${p.title}</h2></div>`}
+
+function Ring(p){
+  var r=32,c=2*Math.PI*r,off=c-(p.pct/100)*c;
+  return html`<div style=${{position:'relative',width:80,height:80}}>
+    <svg width=80 height=80 viewBox="0 0 80 80">
+      <circle cx=40 cy=40 r=${r} stroke=${'rgba(148,163,184,0.12)'} strokeWidth=8 fill="none" />
+      <circle className="ring" cx=40 cy=40 r=${r} stroke=${p.color} strokeWidth=8 fill="none" strokeDasharray=${c} strokeDashoffset=${off} strokeLinecap="round" transform="rotate(-90 40 40)" />
+    </svg>
+    <div style=${{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column'}}>
+      <span style=${{fontSize:15,fontWeight:700}}>${Math.round(p.pct)}</span>
+    </div>
+  </div>`;
+}
+
+function KpiCard(p){
+  return html`<div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:18,display:'flex',flexDirection:'column',gap:8}} className="anim-fade-up">
+    <div style=${{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+      <span className="FM" style=${{fontSize:11,color:C.textDim,letterSpacing:'0.06em'}}>${p.label}</span>
+      <div style=${{width:34,height:34,borderRadius:10,background:p.color+'1F',display:'flex',alignItems:'center',justifyContent:'center'}}><i className=${'fas '+p.icon} style=${{color:p.color,fontSize:14}} /></div>
+    </div>
+    <span style=${{fontSize:24,fontWeight:800}}>${p.value}</span>
+    ${p.sub?html`<span style=${{fontSize:12,color:C.textDim}}>${p.sub}</span>`:null}
+  </div>`;
+}
+
+function DashboardPage(){
+  var totalSales=ORDERS.reduce(function(s,o){return s+o.total},0);
+  var pending=ORDERS.filter(function(o){return ['DRAFT','PENDING_APPROVAL','APPROVED','ALLOCATING'].indexOf(o.status)>-1}).length;
+  var lowStock=PRODUCTS.filter(function(p){return p.status!=='ok'}).length;
+  var avgCollection=REPS.reduce(function(s,r){return s+r.collectionRate},0)/REPS.length*100;
+
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="نظرة عامة · Q1 2026" title="لوحة تحكم نايل فارما" />
+    <div style=${{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:14}}>
+      <${KpiCard} label="إجمالي المبيعات" value=${fmt(totalSales)} sub="9 أوامر بيع" icon="fa-sack-dollar" color=${C.primary} />
+      <${KpiCard} label="متوسط نسبة التحصيل" value=${avgCollection.toFixed(1)+'%'} sub="عبر 4 مندوبين" icon="fa-chart-pie" color=${C.info} />
+      <${KpiCard} label="أوامر قيد التنفيذ" value=${pending} sub="بانتظار الاعتماد أو التخصيص" icon="fa-hourglass-half" color=${C.warning} />
+      <${KpiCard} label="تنبيهات نقص مخزون" value=${lowStock} sub="أصناف تحت الحد الأدنى" icon="fa-triangle-exclamation" color=${C.danger} />
+    </div>
+
+    <div style=${{display:'grid',gridTemplateColumns:'1.6fr 1fr',gap:16}}>
+      <div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim-fade-up">
+        <${SecTitle} title="أوامر البيع الأخيرة" />
+        <div style=${{display:'flex',flexDirection:'column',gap:2}}>
+          ${ORDERS.map(function(o){var m=STATUS_META[o.status];return html`<div key=${o.no} style=${{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 0',borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+            <div style=${{display:'flex',flexDirection:'column',gap:2}}>
+              <span className="FM" style=${{fontSize:12,color:C.textDim}}>${o.no}</span>
+              <span style=${{fontSize:14,fontWeight:500}}>${o.account}</span>
+              <span style=${{fontSize:11,color:C.textFaint}}>${o.rep}</span>
+            </div>
+            <div style=${{display:'flex',flexDirection:'column',alignItems:'flex-end',gap:6}}>
+              <span className="FM" style=${{fontSize:13,fontWeight:600}}>${fmt(o.total)}</span>
+              <${Badge} color=${m.c}>${m.l}</${Badge}>
+            </div>
+          </div>`})}
+        </div>
+      </div>
+
+      <div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim-fade-up">
+        <${SecTitle} title="لوحة صدارة المندوبين" eyebrow="نسبة الكفاءة" />
+        <div style=${{display:'flex',flexDirection:'column',gap:16}}>
+          ${REPS.slice().sort(function(a,b){return b.efficiencyScore-a.efficiencyScore}).map(function(r,i){
+            var ringColor=r.efficiencyScore>=90?C.success:r.efficiencyScore>=70?C.info:C.warning;
+            return html`<div key=${r.id} style=${{display:'flex',alignItems:'center',gap:14}}>
+              <span className="FM" style=${{fontSize:13,color:C.textFaint,width:16}}>${i+1}</span>
+              <${Ring} pct=${r.efficiencyScore} color=${ringColor} />
+              <div style=${{flex:1}}>
+                <p style=${{fontSize:14,fontWeight:600}}>${r.name}</p>
+                <p style=${{fontSize:11,color:C.textDim}}>${r.territory}</p>
+                <p className="FM" style=${{fontSize:11,color:C.primary,marginTop:2}}>حافز: ${fmt(r.incentiveEarned)}</p>
+              </div>
+            </div>`
+          })}
+        </div>
+      </div>
+    </div>
+
+    <div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim-fade-up">
+      <${SecTitle} title="مستويات المخزون" eyebrow="مخزن القاهرة الرئيسي" />
+      <div style=${{display:'flex',flexDirection:'column',gap:12}}>
+        ${PRODUCTS.map(function(p){
+          var pct=Math.min(100,Math.round(p.stock/(p.min*3)*100));
+          var color=p.status==='ok'?C.success:p.status==='low'?C.warning:C.danger;
+          return html`<div key=${p.sku}>
+            <div style=${{display:'flex',justifyContent:'space-between',fontSize:12,marginBottom:4}}>
+              <span>${p.name} <span className="FM" style=${{color:C.textFaint}}>(${p.sku})</span></span>
+              <span className="FM" style=${{color:color}}>${p.stock} / حد أدنى ${p.min}</span>
+            </div>
+            <div style=${{height:8,borderRadius:4,background:'rgba(148,163,184,0.1)',overflow:'hidden'}}>
+              <div style=${{height:'100%',width:pct+'%',background:color,borderRadius:4,transition:'width 1s'}} />
+            </div>
+          </div>`
+        })}
+      </div>
+    </div>
+  </div>`;
+}
+
+function GenericPage(p){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title=${p.title} />
+    <div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:40,textAlign:'center'}} className="anim-fade-up">
+      <i className="fas fa-diagram-project" style=${{fontSize:32,color:C.primary,marginBottom:12}} />
+      <p style=${{color:C.textDim,fontSize:14}}>معاينة توضيحية لواجهة ${p.title} — جزء من منظومة نايل فارما ERP الكاملة (9 خدمات مصغّرة: المبيعات، المخزون، العملاء، الحسابات، الحوافز، والمزيد).</p>
+    </div>
+  </div>`;
+}
+
+function App(){
+  var ps=useState('dashboard'),page=ps[0],setPage=ps[1];
+  var ms=useState(false),mobOpen=ms[0],setMobOpen=ms[1];
+  var pages={dashboard:DashboardPage,sales:function(){return GenericPage({title:'أوامر البيع'})},inventory:function(){return GenericPage({title:'المخزون'})},crm:function(){return GenericPage({title:'العملاء (CRM)'})},accounting:function(){return GenericPage({title:'الحسابات'})},incentives:function(){return GenericPage({title:'الحوافز'})},products:function(){return GenericPage({title:'الأصناف'})},audit:function(){return GenericPage({title:'سجل التتبع'})}};
+  var Page=pages[page]||DashboardPage;
+
+  return html`<div className="bg-mesh" style=${{display:'flex',minHeight:'100vh'}}>
+    ${mobOpen?html`<div onClick=${function(){setMobOpen(false)}} style=${{position:'fixed',inset:0,zIndex:45,background:'rgba(0,0,0,0.5)'}} />`:null}
+    <aside className=${'sidebar-el'+(mobOpen?' mob-open':'')} style=${{width:250,flexShrink:0,minHeight:'100vh',background:'#0D1626',borderLeft:'1px solid '+C.border,display:'flex',flexDirection:'column'}}>
+      <div style=${{padding:20,display:'flex',alignItems:'center',gap:10,borderBottom:'1px solid '+C.border}}>
+        <div style=${{width:36,height:36,borderRadius:10,background:C.primaryDim,display:'flex',alignItems:'center',justifyContent:'center'}}><i className="fas fa-pills" style=${{color:C.primary}} /></div>
+        <div><p style=${{fontWeight:700,fontSize:14}}>Nile Pharma</p><p className="FM" style=${{fontSize:10,color:C.textFaint}}>ERP Console</p></div>
+      </div>
+      <nav style=${{flex:1,padding:'12px',display:'flex',flexDirection:'column',gap:2}}>
+        ${NAV.map(function(n){var act=page===n.k;return html`<button key=${n.k} onClick=${function(){setPage(n.k);setMobOpen(false)}} style=${{display:'flex',alignItems:'center',gap:12,padding:'10px 12px',borderRadius:10,border:'1px solid '+(act?'rgba(20,184,166,0.25)':'transparent'),background:act?C.primaryDim:'transparent',cursor:'pointer',width:'100%',textAlign:'right',color:act?C.text:C.textDim,fontWeight:act?600:400,fontSize:13}}>
+          <i className=${'fas '+n.i} style=${{width:16,color:act?C.primary:C.textFaint}} />${n.l}
+        </button>`})}
+      </nav>
+      <div style=${{padding:16,borderTop:'1px solid '+C.border,fontSize:11,color:C.textFaint}}>معاينة توضيحية — Aboalazm OS</div>
+    </aside>
+    <main style=${{flex:1,padding:'28px 32px',maxWidth:'100%',overflow:'hidden'}}>
+      <div style=${{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
+        <button onClick=${function(){setMobOpen(true)}} style=${{display:'none',background:'#101A2E',border:'1px solid '+C.border,borderRadius:8,padding:8,color:C.text}} className="mob-toggle"><i className="fas fa-bars" /></button>
+        <div />
+        <div style=${{display:'flex',alignItems:'center',gap:10}}>
+          <span className="FM" style=${{fontSize:11,color:C.textFaint}}>7 يناير 2026</span>
+          <div style=${{width:32,height:32,borderRadius:999,background:C.primaryDim,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:C.primary}}>أ.ف</div>
+        </div>
+      </div>
+      <${Page} />
+    </main>
+  </div>`;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${App} />`);
+</script>
+<style>@media(max-width:900px){.mob-toggle{display:flex !important}}</style>
+</body>
+</html>

@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { ScrollyCaseStudy, CaseGallery } from "@/features/case-studies";
 import { getCaseStudy, getCaseStudyGallery, getAllCaseStudySlugs } from "@/lib/content";
 
+export const revalidate = 60;
+
+
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
   return slugs.map((slug) => ({ slug }));

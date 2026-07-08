@@ -159,6 +159,8 @@ async function seedProjects(payload: Awaited<ReturnType<typeof getPayload>>) {
         year: p.year,
         thumbnail,
         hasCaseStudy: p.hasCaseStudy,
+        isUiUx: p.isUiUx,
+        liveUrl: p.liveUrl,
         externalUrl: p.externalUrl,
         accent: { primary: p.accent.primary, secondary: p.accent.secondary },
       },

@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { getAllCaseStudySlugs } from "@/lib/content";
 
+export const revalidate = 3600;
+
 const BASE = "https://aboalazm.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
