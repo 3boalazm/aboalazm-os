@@ -200,4 +200,23 @@ export const PROJECTS: readonly Project[] = [
       secondary: "rgb(16 90 60 / 0.12)",
     },
   },
+  {
+    slug: "farm-console",
+    name: "Farm Console",
+    nameAr: "بيان المزرعة",
+    category: "development",
+    discipline: "Product Architecture",
+    stack: ["PWA", "Firebase", "Realtime DB", "Chart.js"],
+    outcome: "Livestock management system — herd tracking, health, breeding, finance",
+    outcomeAr: "نظام إدارة مزرعة — تتبع القطيع، الصحة، التلقيح، الحسابات",
+    year: "2025–26",
+    thumbnail: "/images/work/farm-thumb.jpg",
+    hasCaseStudy: false,
+    isUiUx: true,
+    liveUrl: "/showcase/farm/index.html",
+    accent: {
+      primary: "rgb(34 197 94 / 0.20)",
+      secondary: "rgb(59 130 246 / 0.10)",
+    },
+  },
 ];

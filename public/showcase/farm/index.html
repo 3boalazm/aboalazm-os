@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بيان المزرعة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{colors:{bg:'#0a0a0a',card:'#161618',sidebar:'#0f0f10',primary:'#22c55e',blue:'#3b82f6',orange:'#f97316',yellow:'#eab308',purple:'#a855f7'}}}}</script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#f3f4f6;font-family:'Cairo',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:#0a0a0a}::-webkit-scrollbar-thumb{background:#2a2a2e;border-radius:3px}
+.FM{font-family:'JetBrains Mono',monospace}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fadeUp .5s cubic-bezier(.2,.7,.2,1) both}
+@media(max-width:900px){.sidebar-el{position:fixed !important;top:0;right:0;bottom:0;z-index:50 !important;width:230px !important;transform:translateX(100%);transition:transform .3s ease}.sidebar-el.mob-open{transform:translateX(0)}.mob-toggle{display:flex !important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.js"></script>
+<script>
+var html = htm.bind(React.createElement);
+var useState = React.useState;
+var C = {primary:'#22c55e',primaryDim:'rgba(34,197,94,0.14)',blue:'#3b82f6',blueDim:'rgba(59,130,246,0.14)',orange:'#f97316',orangeDim:'rgba(249,115,22,0.14)',yellow:'#eab308',yellowDim:'rgba(234,179,8,0.14)',purple:'#a855f7',text:'#f3f4f6',textDim:'#9a9aa2',textFaint:'#6a6a72',border:'rgba(148,163,184,0.10)'};
+
+/* ==================== DEMO DATA (matches the sanitized بيان) ==================== */
+var SHEEP_BREEDS=[
+  {name:'برقي',tarbiya:43,tasmeen:8,mawalid:15,color:C.primary},
+  {name:'دودبر',tarbiya:5,tasmeen:0,mawalid:5,color:C.blue},
+  {name:'ميت ماستر',tarbiya:2,tasmeen:0,mawalid:2,color:C.purple}
+];
+var GOAT_BREEDS=[
+  {name:'بور',tarbiya:15,tasmeen:24,mawalid:20,color:C.primary},
+  {name:'شامي',tarbiya:79,tasmeen:4,mawalid:8,color:C.blue},
+  {name:'بلدي',tarbiya:18,tasmeen:1,mawalid:13,color:C.orange}
+];
+var TASKS=[
+  {title:'تطعيم قطيع الشامي — جرعة الحمى القلاعية',due:'اليوم',status:'urgent'},
+  {title:'فحص دوري لعنزات بور الحوامل',due:'غدًا',status:'pending'},
+  {title:'توريد أعلاف مركزة — دفعة جديدة',due:'بعد 3 أيام',status:'pending'},
+  {title:'تسجيل مواليد الأسبوع (برقي × 8)',due:'منذ يومين',status:'done'},
+  {title:'متابعة بيطرية — حالة عرج في حظيرة 2',due:'منذ يوم',status:'urgent'}
+];
+var FINANCE=[
+  {label:'مبيعات الشهر',value:'184,500 ج.م',color:C.primary,icon:'fa-sack-dollar'},
+  {label:'مصروفات أعلاف',value:'62,300 ج.م',color:C.orange,icon:'fa-wheat-awn'},
+  {label:'رعاية بيطرية',value:'14,800 ج.م',color:C.blue,icon:'fa-kit-medical'},
+  {label:'صافي الربح',value:'107,400 ج.م',color:C.yellow,icon:'fa-chart-line'}
+];
+var NAV=[{k:'dashboard',l:'الرئيسية',i:'fa-house'},{k:'animals',l:'الحيوانات',i:'fa-paw'},{k:'births',l:'المواليد',i:'fa-egg'},{k:'health',l:'الصحة والتطعيم',i:'fa-syringe'},{k:'breeding',l:'التلقيح',i:'fa-dna'},{k:'finance',l:'الحسابات',i:'fa-coins'},{k:'inventory',l:'المخزون',i:'fa-warehouse'},{k:'reports',l:'التقارير',i:'fa-chart-pie'}];
+
+function total(arr){return arr.reduce(function(s,b){return s+b.tarbiya+b.tasmeen},0)}
+var totalSheep=total(SHEEP_BREEDS), totalGoat=total(GOAT_BREEDS);
+var totalMawalidSheep=SHEEP_BREEDS.reduce(function(s,b){return s+b.mawalid},0);
+var totalMawalidGoat=GOAT_BREEDS.reduce(function(s,b){return s+b.mawalid},0);
+
+function Badge(p){return html`<span style=${{display:'inline-flex',alignItems:'center',gap:6,padding:'3px 10px',borderRadius:999,fontSize:11,fontWeight:700,background:p.color+'22',color:p.color}}><span style=${{width:6,height:6,borderRadius:999,background:p.color}} />${p.children}</span>`}
+function SecTitle(p){return html`<div style=${{marginBottom:14}}>${p.eyebrow?html`<p className="FM" style=${{fontSize:11,color:C.primary,letterSpacing:'0.06em',marginBottom:4}}>${p.eyebrow}</p>`:null}<h2 style=${{fontSize:17,fontWeight:800}}>${p.title}</h2></div>`}
+function KpiCard(p){return html`<div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:18,display:'flex',flexDirection:'column',gap:8}} className="anim">
+  <div style=${{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+    <span className="FM" style=${{fontSize:11,color:C.textDim}}>${p.label}</span>
+    <div style=${{width:34,height:34,borderRadius:10,background:p.color+'1F',display:'flex',alignItems:'center',justifyContent:'center'}}><i className=${'fas '+p.icon} style=${{color:p.color,fontSize:14}} /></div>
+  </div>
+  <span style=${{fontSize:24,fontWeight:800}}>${p.value}</span>
+  ${p.sub?html`<span style=${{fontSize:12,color:C.textDim}}>${p.sub}</span>`:null}
+</div>`}
+
+function BreedBars(p){
+  var t=total(p.breeds);
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:14}}>
+    ${p.breeds.map(function(b){
+      var count=b.tarbiya+b.tasmeen;
+      var pct=Math.round(count/t*100);
+      return html`<div key=${b.name}>
+        <div style=${{display:'flex',justifyContent:'space-between',fontSize:12,marginBottom:5}}>
+          <span style=${{fontWeight:600}}>${b.name}</span>
+          <span className="FM" style=${{color:b.color}}>${count} رأس (${pct}%)</span>
+        </div>
+        <div style=${{height:8,borderRadius:4,background:'rgba(148,163,184,0.1)',overflow:'hidden'}}>
+          <div style=${{height:'100%',width:pct+'%',background:b.color,borderRadius:4}} />
+        </div>
+      </div>`
+    })}
+  </div>`;
+}
+
+function DashboardPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="بيان القطيع · 2026" title="نظرة عامة على المزرعة" />
+    <div style=${{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(190px,1fr))',gap:14}}>
+      <${KpiCard} label="إجمالي القطيع" value=${totalSheep+totalGoat} sub="رأس مسجّل" icon="fa-paw" color=${C.primary} />
+      <${KpiCard} label="الأغنام" value=${totalSheep} sub=${totalMawalidSheep+' مولود جديد'} icon="fa-sheep" color=${C.blue} />
+      <${KpiCard} label="الماعز" value=${totalGoat} sub=${totalMawalidGoat+' مولود جديد'} icon="fa-otter" color=${C.orange} />
+      <${KpiCard} label="مهام عاجلة" value=${TASKS.filter(function(t){return t.status==='urgent'}).length} sub="بانتظار المتابعة" icon="fa-triangle-exclamation" color=${C.yellow} />
+    </div>
+
+    <div style=${{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
+      <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim">
+        <${SecTitle} title="توزيع الأغنام حسب السلالة" />
+        <${BreedBars} breeds=${SHEEP_BREEDS} />
+      </div>
+      <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim">
+        <${SecTitle} title="توزيع الماعز حسب السلالة" />
+        <${BreedBars} breeds=${GOAT_BREEDS} />
+      </div>
+    </div>
+
+    <div style=${{display:'grid',gridTemplateColumns:'1.3fr 1fr',gap:16}}>
+      <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim">
+        <${SecTitle} title="المهام القادمة" />
+        <div style=${{display:'flex',flexDirection:'column',gap:2}}>
+          ${TASKS.map(function(t){
+            var meta=t.status==='urgent'?{c:C.orange,l:'عاجل'}:t.status==='done'?{c:C.primary,l:'منجز'}:{c:C.blue,l:'قادم'};
+            return html`<div key=${t.title} style=${{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'10px 0',borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+              <div>
+                <p style=${{fontSize:13,fontWeight:600}}>${t.title}</p>
+                <p className="FM" style=${{fontSize:11,color:C.textFaint,marginTop:2}}>${t.due}</p>
+              </div>
+              <${Badge} color=${meta.c}>${meta.l}</${Badge}>
+            </div>`
+          })}
+        </div>
+      </div>
+
+      <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim">
+        <${SecTitle} title="لمحة مالية" eyebrow="الشهر الحالي" />
+        <div style=${{display:'flex',flexDirection:'column',gap:12}}>
+          ${FINANCE.map(function(f){return html`<div key=${f.label} style=${{display:'flex',alignItems:'center',gap:12}}>
+            <div style=${{width:36,height:36,borderRadius:10,background:f.color+'1F',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}}><i className=${'fas '+f.icon} style=${{color:f.color,fontSize:14}} /></div>
+            <div style=${{flex:1}}>
+              <p style=${{fontSize:12,color:C.textDim}}>${f.label}</p>
+              <p className="FM" style=${{fontSize:15,fontWeight:700}}>${f.value}</p>
+            </div>
+          </div>`})}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function GenericPage(p){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="بيان المزرعة" title=${p.title} />
+    <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:40,textAlign:'center'}} className="anim">
+      <i className="fas fa-tractor" style=${{fontSize:32,color:C.primary,marginBottom:12}} />
+      <p style=${{color:C.textDim,fontSize:14}}>معاينة توضيحية لواجهة ${p.title} — جزء من نظام إدارة مزرعة متكامل (حيوانات، مواليد، صحة وتطعيم، تلقيح، مخزون، حسابات، تقارير).</p>
+    </div>
+  </div>`;
+}
+
+function App(){
+  var ps=useState('dashboard'),page=ps[0],setPage=ps[1];
+  var ms=useState(false),mobOpen=ms[0],setMobOpen=ms[1];
+  var pages={dashboard:DashboardPage,animals:function(){return GenericPage({title:'الحيوانات'})},births:function(){return GenericPage({title:'المواليد'})},health:function(){return GenericPage({title:'الصحة والتطعيم'})},breeding:function(){return GenericPage({title:'التلقيح'})},finance:function(){return GenericPage({title:'الحسابات'})},inventory:function(){return GenericPage({title:'المخزون'})},reports:function(){return GenericPage({title:'التقارير'})}};
+  var Page=pages[page]||DashboardPage;
+
+  return html`<div style=${{display:'flex',minHeight:'100vh'}}>
+    ${mobOpen?html`<div onClick=${function(){setMobOpen(false)}} style=${{position:'fixed',inset:0,zIndex:45,background:'rgba(0,0,0,0.5)'}} />`:null}
+    <aside className=${'sidebar-el'+(mobOpen?' mob-open':'')} style=${{width:230,flexShrink:0,minHeight:'100vh',background:'#0f0f10',borderLeft:'1px solid '+C.border,display:'flex',flexDirection:'column'}}>
+      <div style=${{padding:20,display:'flex',alignItems:'center',gap:10,borderBottom:'1px solid '+C.border}}>
+        <div style=${{width:36,height:36,borderRadius:10,background:C.primaryDim,display:'flex',alignItems:'center',justifyContent:'center'}}><i className="fas fa-tractor" style=${{color:C.primary}} /></div>
+        <div><p style=${{fontWeight:800,fontSize:14}}>بيان المزرعة</p><p className="FM" style=${{fontSize:10,color:C.textFaint}}>Farm Console</p></div>
+      </div>
+      <nav style=${{flex:1,padding:'12px',display:'flex',flexDirection:'column',gap:2}}>
+        ${NAV.map(function(n){var act=page===n.k;return html`<button key=${n.k} onClick=${function(){setPage(n.k);setMobOpen(false)}} style=${{display:'flex',alignItems:'center',gap:12,padding:'10px 12px',borderRadius:10,border:'1px solid '+(act?'rgba(34,197,94,0.25)':'transparent'),background:act?C.primaryDim:'transparent',cursor:'pointer',width:'100%',textAlign:'right',color:act?C.text:C.textDim,fontWeight:act?700:400,fontSize:13}}>
+          <i className=${'fas '+n.i} style=${{width:16,color:act?C.primary:C.textFaint}} />${n.l}
+        </button>`})}
+      </nav>
+      <div style=${{padding:16,borderTop:'1px solid '+C.border,fontSize:11,color:C.textFaint}}>معاينة توضيحية — Aboalazm OS</div>
+    </aside>
+    <main style=${{flex:1,padding:'28px 32px',maxWidth:'100%',overflow:'hidden'}}>
+      <div style=${{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:24}}>
+        <button onClick=${function(){setMobOpen(true)}} style=${{display:'none',background:'#161618',border:'1px solid '+C.border,borderRadius:8,padding:8,color:C.text}} className="mob-toggle"><i className="fas fa-bars" /></button>
+        <div />
+        <div style=${{display:'flex',alignItems:'center',gap:10}}>
+          <span className="FM" style=${{fontSize:11,color:C.textFaint}}>٢٤ إبريل ٢٠٢٦</span>
+          <div style=${{width:32,height:32,borderRadius:999,background:C.primaryDim,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:C.primary}}><i className="fas fa-user" /></div>
+        </div>
+      </div>
+      <${Page} />
+    </main>
+  </div>`;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${App} />`);
+</script>
+</body>
+</html>
