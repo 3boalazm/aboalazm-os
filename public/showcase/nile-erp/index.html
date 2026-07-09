@@ -226,28 +226,69 @@ function DashboardPage(){
 function Table(p){
   return html`<div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20,overflowX:'auto'}} className="anim-fade-up">
     <table style=${{width:'100%',borderCollapse:'collapse',fontSize:13}}>
-      <thead><tr>${p.cols.map(function(c){return html`<th key=${c} style=${{textAlign:'right',padding:'8px 10px',color:C.textDim,fontWeight:600,fontSize:11,borderBottom:'1px solid '+C.border}}>${c}</th>`})}</tr></thead>
+      <thead><tr>${p.cols.map(function(c){return html`<th key=${c} style=${{textAlign:'right',padding:'8px 10px',color:C.textDim,fontWeight:600,fontSize:11,borderBottom:'1px solid '+C.border}}>${c}</th>`})}<th style=${{padding:'8px 10px'}}></th></tr></thead>
       <tbody>${p.rows}</tbody>
     </table>
   </div>`;
 }
 
+/* ── Toast — lightweight feedback for demo actions (no real backend) ── */
+var _toastSetter=null;
+function showToast(msg){ if(_toastSetter) _toastSetter(msg); }
+function ToastHost(){
+  var ts=useState(null), toast=ts[0], setToast=ts[1];
+  _toastSetter=function(msg){ setToast(msg); setTimeout(function(){setToast(null)},2400); };
+  if(!toast) return null;
+  return html`<div style=${{position:'fixed',bottom:24,insetInlineEnd:24,zIndex:100,background:'#101A2E',border:'1px solid '+C.primary,borderRadius:12,padding:'12px 18px',display:'flex',alignItems:'center',gap:10,boxShadow:'0 8px 30px rgba(0,0,0,0.4)'}} className="anim-fade-up">
+    <i className="fas fa-circle-check" style=${{color:C.primary}} />
+    <span style=${{fontSize:13}}>${toast}</span>
+  </div>`;
+}
+
+function ActionBtn(p){
+  return html`<button onClick=${function(){showToast(p.msg || 'تم تنفيذ الإجراء (معاينة توضيحية — بدون Backend حقيقي)')}} style=${{display:'inline-flex',alignItems:'center',gap:8,padding:'8px 16px',borderRadius:10,background:C.primary,color:'#08131a',fontWeight:700,fontSize:12,border:'none',cursor:'pointer'}}>
+    <i className=${'fas '+(p.icon||'fa-plus')} />${p.label}
+  </button>`;
+}
+function RowActions(p){
+  return html`<td style=${{padding:'8px 10px',whiteSpace:'nowrap'}}>
+    <button onClick=${function(){showToast('عرض تفاصيل: '+p.label)}} title="عرض" style=${{background:'none',border:'1px solid '+C.border,borderRadius:8,padding:'6px 8px',color:C.textDim,cursor:'pointer',marginInlineEnd:6}}><i className="fas fa-eye" style=${{fontSize:11}} /></button>
+    <button onClick=${function(){showToast('تعديل: '+p.label)}} title="تعديل" style=${{background:'none',border:'1px solid '+C.border,borderRadius:8,padding:'6px 8px',color:C.textDim,cursor:'pointer'}}><i className="fas fa-pen" style=${{fontSize:11}} /></button>
+  </td>`;
+}
+function SearchBox(p){
+  return html`<div style=${{position:'relative',maxWidth:280}}>
+    <i className="fas fa-magnifying-glass" style=${{position:'absolute',insetInlineStart:12,top:'50%',transform:'translateY(-50%)',color:C.textFaint,fontSize:12}} />
+    <input value=${p.value} onInput=${function(e){p.onChange(e.target.value)}} placeholder=${p.placeholder||'بحث...'} style=${{width:'100%',background:'#0D1626',border:'1px solid '+C.border,borderRadius:10,padding:'9px 36px 9px 12px',color:C.text,fontSize:12,outline:'none'}} />
+  </div>`;
+}
+function PageHead(p){
+  return html`<div style=${{display:'flex',alignItems:'flex-end',justifyContent:'space-between',flexWrap:'wrap',gap:12}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title=${p.title} />
+    ${p.action?html`<${ActionBtn} label=${p.action} icon=${p.icon} msg=${p.msg} />`:null}
+  </div>`;
+}
+
 function SalesPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title="أوامر البيع (9)" />
-    <${Table} cols=${['الرقم','العميل','المندوب','القيمة','الحالة']} rows=${ORDERS.map(function(o){var m=STATUS_META[o.status];return html`<tr key=${o.no} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+  var qs=useState(''), q=qs[0], setQ=qs[1];
+  var rows=ORDERS.filter(function(o){return o.account.includes(q)||o.no.includes(q)||o.rep.includes(q)});
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title=${'أوامر البيع ('+ORDERS.length+')'} action="طلب جديد" icon="fa-plus" msg="تم فتح نموذج طلب بيع جديد (معاينة)" />
+    <${SearchBox} value=${q} onChange=${setQ} placeholder="دور برقم الطلب أو العميل أو المندوب..." />
+    <${Table} cols=${['الرقم','العميل','المندوب','القيمة','الحالة']} rows=${rows.map(function(o){var m=STATUS_META[o.status];return html`<tr key=${o.no} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
       <td style=${{padding:'10px'}} className="FM">${o.no}</td>
       <td style=${{padding:'10px'}}>${o.account}</td>
       <td style=${{padding:'10px',color:C.textDim}}>${o.rep}</td>
       <td style=${{padding:'10px'}} className="FM">${fmt(o.total)}</td>
       <td style=${{padding:'10px'}}><${Badge} color=${m.c}>${m.l}</${Badge}></td>
+      <${RowActions} label=${o.no} />
     </tr>`})} />
   </div>`;
 }
 
 function InventoryPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title="المخزون حسب المخزن" />
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="المخزون حسب المخزن" action="نقل مخزون" icon="fa-truck-fast" msg="تم فتح نموذج تحويل بين المخازن (معاينة)" />
     ${WAREHOUSES.map(function(w){return html`<div key=${w.code} style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim-fade-up">
       <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
         <p style=${{fontWeight:700,fontSize:14}}>${w.name}</p>
@@ -258,71 +299,86 @@ function InventoryPage(){
         <td style=${{padding:'8px 10px'}} className="FM">${it.batch}</td>
         <td style=${{padding:'8px 10px'}} className="FM">${it.qty}</td>
         <td style=${{padding:'8px 10px'}} className="FM">${it.expiry}</td>
+        <${RowActions} label=${it.sku} />
       </tr>`})} />
     </div>`})}
   </div>`;
 }
 
 function CrmPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title="العملاء (CRM) — 8" />
-    <${Table} cols=${['الكود','الاسم','النوع','المندوب','الرصيد']} rows=${ACCOUNTS.map(function(a){return html`<tr key=${a.code} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+  var qs=useState(''), q=qs[0], setQ=qs[1];
+  var rows=ACCOUNTS.filter(function(a){return a.name.includes(q)||a.code.includes(q)||a.type.includes(q)});
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title=${'العملاء (CRM) — '+ACCOUNTS.length} action="عميل جديد" icon="fa-user-plus" msg="تم فتح نموذج عميل جديد (معاينة)" />
+    <${SearchBox} value=${q} onChange=${setQ} placeholder="دور بالاسم أو الكود أو النوع..." />
+    <${Table} cols=${['الكود','الاسم','النوع','المندوب','الرصيد']} rows=${rows.map(function(a){return html`<tr key=${a.code} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
       <td style=${{padding:'10px'}} className="FM">${a.code}</td>
       <td style=${{padding:'10px'}}>${a.name}</td>
       <td style=${{padding:'10px',color:C.textDim}}>${a.type}</td>
       <td style=${{padding:'10px',color:C.textDim}}>${a.rep}</td>
       <td style=${{padding:'10px'}} className="FM">${a.balance>0?html`<span style=${{color:C.warning}}>${fmt(a.balance)}</span>`:html`<span style=${{color:C.success}}>مسدد</span>`}</td>
+      <${RowActions} label=${a.name} />
     </tr>`})} />
   </div>`;
 }
 
 function AccountingPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title="الفواتير والتحصيل" />
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="الفواتير والتحصيل" action="تسجيل تحصيل" icon="fa-money-check-dollar" msg="تم فتح نموذج تحصيل دفعة (معاينة)" />
     <${Table} cols=${['رقم الفاتورة','العميل','الإجمالي','المحصّل','الحالة']} rows=${INVOICES.map(function(i){return html`<tr key=${i.no} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
       <td style=${{padding:'10px'}} className="FM">${i.no}</td>
       <td style=${{padding:'10px'}}>${i.account}</td>
       <td style=${{padding:'10px'}} className="FM">${fmt(i.total)}</td>
       <td style=${{padding:'10px'}} className="FM">${fmt(i.paid)}</td>
       <td style=${{padding:'10px'}}><${Badge} color=${i.paid>=i.total?C.success:C.warning}>${i.status}</${Badge}></td>
+      <${RowActions} label=${i.no} />
     </tr>`})} />
   </div>`;
 }
 
 function IncentivesPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP · اسكيمة 2026" title="سجل الحوافز" />
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="سجل الحوافز" action="تصدير كشف" icon="fa-file-export" msg="جاري تجهيز كشف الحوافز (معاينة)" />
     <${Table} cols=${['المندوب','الطلب','الأساس','العمولة','الحالة']} rows=${INCENTIVE_LEDGER.map(function(l,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
       <td style=${{padding:'10px'}}>${l.rep}</td>
       <td style=${{padding:'10px'}} className="FM">${l.order}</td>
       <td style=${{padding:'10px'}} className="FM">${fmt(l.base)}</td>
       <td style=${{padding:'10px',color:C.primary}} className="FM">${fmt(l.commission)}</td>
       <td style=${{padding:'10px'}}><${Badge} color=${l.status==='مدفوع'?C.success:l.status==='معتمد'?C.info:C.warning}>${l.status}</${Badge}></td>
+      <${RowActions} label=${l.order} />
     </tr>`})} />
   </div>`;
 }
 
 function ProductsPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title="كتالوج الأصناف (8)" />
-    <${Table} cols=${['SKU','الاسم','العلامة','السعر','المخزون']} rows=${PRODUCTS.map(function(p){return html`<tr key=${p.sku} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+  var qs=useState(''), q=qs[0], setQ=qs[1];
+  var rows=PRODUCTS.filter(function(p){return p.name.includes(q)||p.sku.toLowerCase().includes(q.toLowerCase())||p.brand.includes(q)});
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title=${'كتالوج الأصناف ('+PRODUCTS.length+')'} action="صنف جديد" icon="fa-plus" msg="تم فتح نموذج صنف جديد (معاينة)" />
+    <${SearchBox} value=${q} onChange=${setQ} placeholder="دور بالاسم أو SKU أو العلامة..." />
+    <${Table} cols=${['SKU','الاسم','العلامة','السعر','المخزون']} rows=${rows.map(function(p){return html`<tr key=${p.sku} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
       <td style=${{padding:'10px'}} className="FM">${p.sku}</td>
       <td style=${{padding:'10px'}}>${p.name}</td>
       <td style=${{padding:'10px',color:C.textDim}}>${p.brand}</td>
       <td style=${{padding:'10px'}} className="FM">${fmt(p.price)}</td>
       <td style=${{padding:'10px',color:p.status==='ok'?C.success:p.status==='low'?C.warning:C.danger}} className="FM">${p.stock}</td>
+      <${RowActions} label=${p.name} />
     </tr>`})} />
   </div>`;
 }
 
 function AuditPage(){
-  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title="سجل التتبع (Event Stream)" />
-    <${Table} cols=${['الوقت','الحدث','المرجع','الفاعل']} rows=${AUDIT_LOG.map(function(e,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+  var qs=useState(''), q=qs[0], setQ=qs[1];
+  var rows=AUDIT_LOG.filter(function(e){return e.event.includes(q)||e.ref.includes(q)||e.actor.includes(q)});
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="سجل التتبع (Event Stream)" action="تحديث" icon="fa-rotate" msg="تم تحديث سجل الأحداث (معاينة)" />
+    <${SearchBox} value=${q} onChange=${setQ} placeholder="دور بنوع الحدث أو المرجع أو الفاعل..." />
+    <${Table} cols=${['الوقت','الحدث','المرجع','الفاعل']} rows=${rows.map(function(e,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
       <td style=${{padding:'10px'}} className="FM">${e.t}</td>
       <td style=${{padding:'10px',color:C.info}} className="FM">${e.event}</td>
       <td style=${{padding:'10px'}} className="FM">${e.ref}</td>
       <td style=${{padding:'10px',color:C.textDim}}>${e.actor}</td>
+      <${RowActions} label=${e.event} />
     </tr>`})} />
   </div>`;
 }
@@ -361,7 +417,7 @@ function App(){
   </div>`;
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(html`<${App} />`);
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${React.Fragment}><${App} /><${ToastHost} /></${React.Fragment}>`);
 </script>
 <style>@media(max-width:900px){.mob-toggle{display:flex !important}}</style>
 </body>
