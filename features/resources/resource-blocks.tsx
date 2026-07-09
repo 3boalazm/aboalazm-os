@@ -63,7 +63,7 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const [email, setEmail] = useState("");
-  const [state, setState] = useState<"idle" | "loading" | "error">("idle");
+  const [state, setState] = useState<"idle" | "loading" | "error" | "rateLimited">("idle");
 
   async function submit() {
     if (state === "loading") return;
@@ -75,7 +75,7 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
         body: JSON.stringify({ email }),
       });
       if (!res.ok) {
-        setState("error");
+        setState(res.status === 429 ? "rateLimited" : "error");
         return;
       }
       writeUnlocked();
@@ -109,7 +109,7 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            if (state === "error") setState("idle");
+            if (state === "error" || state === "rateLimited") setState("idle");
           }}
           onKeyDown={(e) => e.key === "Enter" && submit()}
           placeholder={ar ? "بريدك الإلكتروني" : "you@company.com"}
@@ -137,6 +137,13 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
           {ar
             ? "تأكد من صحة البريد وحاول مرة أخرى."
             : "Please check the email and try again."}
+        </p>
+      )}
+      {state === "rateLimited" && (
+        <p className="mt-2 text-body-sm text-accent">
+          {ar
+            ? "محاولات كتير في وقت قصير — استنى شوية وحاول تاني."
+            : "Too many attempts — please wait a bit and try again."}
         </p>
       )}
     </div>

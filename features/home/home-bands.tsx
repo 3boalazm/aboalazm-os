@@ -85,7 +85,7 @@ export function StatsBand() {
 
   // [value, suffix, EN label, AR label, EN sub, AR sub, bar 0–1]
   const stats = [
-    ["7",   "+", "Years of practice",   "سنوات خبرة",        "Since 2018",        "منذ ٢٠١٨",        0.7],
+    ["9",   "+", "Years of practice",   "سنوات خبرة",        "Since 2016",        "منذ ٢٠١٦",        0.7],
     ["20",  "+", "Brands shaped",       "براند تم بناؤه",  "Local & regional",  "محلي وإقليمي",  0.85],
     ["15",  "+", "Identity systems",    "نظام هوية",        "Full brand systems","أنظمة متكاملة", 0.6],
     ["6",   "",  "Industry sectors",    "قطاعات",        "Pharma → gov",       "دواء ← حكومة",  0.5],

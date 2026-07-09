@@ -59,7 +59,16 @@ export function useAmbientGlowControls() {
   return { engage, release } as const;
 }
 
-/** Optional: pointer-tracked glow origin. Attach to a section. */
+/**
+ * Optional: pointer-tracked glow origin. Attach to a section.
+ *
+ * ⚠️ Fixed a real memory leak here: the `pointermove` listener was being
+ * added on mount but never removed — every remount/swap of the attached
+ * node left a dangling listener + closure behind. React 19 lets a ref
+ * callback return its own cleanup function (runs on unmount or when the
+ * ref detaches), so no restructuring to useRef+useEffect was needed —
+ * just returning the teardown.
+ */
 export function useGlowPointer<T extends HTMLElement>() {
   return useCallback((node: T | null) => {
     if (!node) return;
@@ -77,5 +86,6 @@ export function useGlowPointer<T extends HTMLElement>() {
       );
     };
     node.addEventListener("pointermove", onMove, { passive: true });
+    return () => node.removeEventListener("pointermove", onMove);
   }, []);
 }

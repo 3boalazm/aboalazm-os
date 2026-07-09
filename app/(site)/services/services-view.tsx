@@ -59,7 +59,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / PROCESS", "٠٢ / المنهجية"]} title={["A four-act", "منهج من أربع مراحل،"]} italic={["method, refined over seven years.", "صُقل عبر سبع سنوات."]} />
+        <SectionHead label={["02 / PROCESS", "٠٢ / المنهجية"]} title={["A four-act", "منهج من أربع مراحل،"]} italic={["method, refined over nine years.", "صُقل عبر تسع سنوات."]} />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((p) => (
             <div key={p.n} className="rounded-card border border-border-subtle bg-surface-1 p-3">

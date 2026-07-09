@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Hero } from "@/features/hero";
 import { ProjectLedger } from "@/features/work";
@@ -6,6 +7,11 @@ import { SkillsMarquee, AboutTeaser, StatsBand, HomeCta, ClientJourneyBand } fro
 import { PersonaPickerBand } from "@/features/persona";
 
 export const revalidate = 60;
+
+export const metadata: Metadata = {
+  title: "Mustafa Aboalazm — Systemic Identity Architect",
+  description: "Brand identity, design systems, and digital infrastructure for SaaS founders, AI startups, and design-driven teams. Nine years across pharma, education, and government.",
+};
 
 import { PersonaSection } from "@/features/persona/persona-section";
 

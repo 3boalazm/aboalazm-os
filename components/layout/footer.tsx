@@ -13,7 +13,13 @@ const COLUMNS = [
     head: ["PAGES", "الصفحات"],
     links: [
       ["About", "نبذة", "/about"],
+      ["Start Here", "ابدأ هنا", "/start"],
+      ["Work", "الأعمال", "/work"],
+      ["UI/UX Showcase", "معرض الواجهات", "/work-ui"],
       ["Services", "الخدمات", "/services"],
+      ["Why", "لماذا", "/why"],
+      ["Process", "المنهجية", "/process"],
+      ["Capabilities", "القدرات", "/capabilities"],
       ["Resources", "المصادر", "/resources"],
       ["Labs", "المعمل", "/labs"],
       ["Library", "المكتبة", "/books"],

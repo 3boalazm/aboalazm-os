@@ -35,6 +35,9 @@ const MORE = [
   { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
   { href: "/writing", en: "WRITING", ar: "مقالات" },
   { href: "/capabilities", en: "CAPABILITIES", ar: "القدرات" },
+  { href: "/resources", en: "RESOURCES", ar: "المصادر" },
+  { href: "/labs", en: "LABS", ar: "المعمل" },
+  { href: "/work-ui", en: "UI/UX SHOWCASE", ar: "معرض الواجهات" },
 ] as const;
 
 export function Nav() {
@@ -198,7 +201,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8, transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] } }}
             transition={physics}
-            className="glass mt-1 flex flex-col rounded-panel p-2 shadow-card md:hidden"
+            className="glass mt-1 flex max-h-[calc(100svh-5.5rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card md:hidden"
           >
             {/* Persona toggle — mobile */}
             <div className="flex justify-center border-b border-border-subtle pb-2 mb-1">

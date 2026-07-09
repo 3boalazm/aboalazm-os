@@ -7,6 +7,7 @@ import { Nav } from "@/components/layout/nav";
 import { Footer } from "@/components/layout/footer";
 import { LangProvider } from "@/components/providers/lang-provider";
 import { PersonaProvider } from "@/components/providers/persona-provider";
+import { getPersonSchema, getWebSiteSchema } from "@/lib/structured-data";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -38,8 +39,24 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const personSchema = getPersonSchema();
+  const webSiteSchema = getWebSiteSchema();
   return (
     <html lang="en" dir="ltr" className={fontVariables}>
+      <head>
+        {/* JSON-LD — see lib/structured-data.ts. dangerouslySetInnerHTML is
+            the standard, documented Next.js pattern for this: it's static,
+            server-generated JSON with no user input, not a script-injection
+            risk. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+        />
+      </head>
       <body className="bg-obsidian text-text-primary antialiased">
         <AmbientCanvas />
         <LangProvider>

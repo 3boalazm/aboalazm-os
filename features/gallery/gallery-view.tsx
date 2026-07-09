@@ -8,10 +8,18 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";
-import { RotatingGallery } from "./rotating-gallery";
+
+// Deferred: GSAP + ScrollTrigger only load once this component actually
+// mounts, instead of bundling into /gallery's initial JS unconditionally.
+const RotatingGallery = dynamic(
+  () => import("./rotating-gallery").then((m) => m.RotatingGallery),
+  { ssr: false },
+);
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -144,13 +152,15 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                 onClick={() => setLightbox(i)}
                 className="group relative mb-3 block w-full overflow-hidden rounded-card border border-border-subtle bg-surface-1 text-left md:mb-4"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={img.src}
                   alt={ar ? img.captionAr : img.caption}
+                  width={img.w}
+                  height={img.h}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
                   loading="lazy"
                   className="w-full transition-transform duration-500 group-hover:scale-[1.03]"
-                  style={{ aspectRatio: `${img.w} / ${img.h}` }}
+                  style={{ aspectRatio: `${img.w} / ${img.h}`, height: "auto" }}
                 />
                 {/* hover reveal */}
                 <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/75 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100">
@@ -251,10 +261,12 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                   onClick={(e) => e.stopPropagation()}
                   className="flex max-h-full max-w-[min(1100px,92vw)] flex-col gap-3"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={img.src}
                     alt={ar ? img.captionAr : img.caption}
+                    width={img.w}
+                    height={img.h}
+                    sizes="92vw"
                     className="mx-auto max-h-[78vh] w-auto rounded-card object-contain"
                   />
                   <figcaption className="flex flex-wrap items-center justify-between gap-3">

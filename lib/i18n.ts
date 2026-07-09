@@ -63,7 +63,7 @@ export const UI = {
     capabilitiesLead:   "Change one value — spacing, radius, motion, theme — and every element recalculates in concert. That coherence is the product.",
     /* ── About ── */
     aboutSection:       "THE ARCHITECT",
-    aboutH1a:           "Seven years turning identity",
+    aboutH1a:           "Nine years turning identity",
     aboutH1b:           "into infrastructure.",
     aboutLead:          "Mustafa Aboalazm started designing professionally in 2018 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine.",
     aboutDoctrine:      "DOCTRINE",
@@ -196,7 +196,7 @@ export const UI = {
     capabilitiesLead:   "غيّر قيمة واحدة — المسافات والحواف والحركة والثيم — وكل عنصر يعيد الحساب في تناغم. هذا التناسق هو المنتج.",
     /* ── About ── */
     aboutSection:       "المعماري",
-    aboutH1a:           "سبع سنوات تحوّل الهوية",
+    aboutH1a:           "تسع سنوات تحوّل الهوية",
     aboutH1b:           "إلى بنية تحتية.",
     aboutLead:          "مصطفى أبوالعزم بدأ التصميم المهني في 2018 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد.",
     aboutDoctrine:      "المبادئ",

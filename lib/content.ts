@@ -203,6 +203,12 @@ export async function getGalleryData(): Promise<{
   return { projects, images };
 }
 
+export async function getSettings(): Promise<{ cvUrl: string | null }> {
+  const payload = await getPayload();
+  const settings = await payload.findGlobal({ slug: "settings" });
+  return { cvUrl: mediaUrl(settings.cv) || null };
+}
+
 export async function getOffers(): Promise<{
   tiers: Tier[];
   investmentValue: { value: string; en: string; ar: string; subEn?: string | null; subAr?: string | null; pending?: boolean | null }[];

@@ -13,7 +13,7 @@ import { useT } from "@/hooks/use-t";
 import { submitContact } from "./actions";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
-type Status = "idle" | "working" | "sent" | "error";
+type Status = "idle" | "working" | "sent" | "error" | "rateLimited";
 
 const FIELD =
   "w-full rounded-card border border-border-subtle bg-obsidian px-2 py-1.5 text-body-sm text-text-primary outline-none placeholder:text-text-ghost transition-colors duration-fast ease-physics hover:border-border-default focus:border-border-strong";
@@ -33,7 +33,7 @@ export function ContactForm() {
     setStatus("working");
     const form = new FormData(e.currentTarget);
     try {
-      await submitContact({
+      const res = await submitContact({
         name: String(form.get("name") ?? ""),
         email: String(form.get("email") ?? ""),
         company: String(form.get("company") ?? "") || undefined,
@@ -41,6 +41,10 @@ export function ContactForm() {
         timeline: String(form.get("timeline") ?? "") || undefined,
         budget: budget ?? undefined,
       });
+      if (!res.ok && res.error === "rate_limited") {
+        setStatus("rateLimited");
+        return;
+      }
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -132,6 +136,13 @@ export function ContactForm() {
                 {ar
                   ? "فشل الإرسال — تواصل عبر Mustafaaboalazm@mail.ru"
                   : "TRANSMISSION FAILED — TRY Mustafaaboalazm@mail.ru"}
+              </p>
+            )}
+            {status === "rateLimited" && (
+              <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
+                {ar
+                  ? "عدد محاولات كبير — استنى شوية أو ابعت على Mustafaaboalazm@mail.ru"
+                  : "TOO MANY ATTEMPTS — WAIT A BIT OR EMAIL Mustafaaboalazm@mail.ru"}
               </p>
             )}
             <p className="text-center font-mono text-micro text-text-ghost">

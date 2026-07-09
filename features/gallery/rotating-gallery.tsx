@@ -9,7 +9,9 @@
  *
  * Architecture choices for Aboalazm OS:
  * - Pure React + GSAP ScrollTrigger (already in the stack)
- * - No background-image — uses Next.js <img> for proper loading
+ * - Cards use next/image (AVIF/WebP + responsive srcset) — GSAP still
+ *   drives the filter animation via a forwarded ref to the underlying
+ *   <img>, same as before
  * - Cards carry the project accent color as a left border flash
  * - Sine-wave horizontal scatter (Theme 1 layout + Theme 3 animation)
  * - Marquee scrolls the current filter label across the viewport (mix-blend: difference)
@@ -17,6 +19,7 @@
  */
 
 import { useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/components/providers/lang-provider";
@@ -136,14 +139,17 @@ function Card({
           boxShadow:      `0 0 0 0 ${accent}`,
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           ref={imgRef}
           src={img.src}
           alt={ar ? img.captionAr : img.caption}
+          width={img.w || 1200}
+          height={img.h || 800}
+          sizes="(max-width: 768px) 100vw, 420px"
           loading="lazy"
           style={{
             width:      "100%",
+            height:     "auto",
             aspectRatio: isPortrait ? "3/4" : "16/9",
             objectFit:  "cover",
             display:    "block",
