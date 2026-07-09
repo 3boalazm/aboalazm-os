@@ -89,6 +89,179 @@ function BreedBars(p){
   </div>`;
 }
 
+/* ── Interactive shells (Table/Toast/actions/search) — same pattern as the Nile ERP mockup ── */
+function Table(p){
+  return html`<div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20,overflowX:'auto'}} className="anim">
+    <table style=${{width:'100%',borderCollapse:'collapse',fontSize:13}}>
+      <thead><tr>${p.cols.map(function(c){return html`<th key=${c} style=${{textAlign:'right',padding:'8px 10px',color:C.textDim,fontWeight:600,fontSize:11,borderBottom:'1px solid '+C.border}}>${c}</th>`})}<th style=${{padding:'8px 10px'}}></th></tr></thead>
+      <tbody>${p.rows}</tbody>
+    </table>
+  </div>`;
+}
+var _toastSetter=null;
+function showToast(msg){ if(_toastSetter) _toastSetter(msg); }
+function ToastHost(){
+  var ts=useState(null), toast=ts[0], setToast=ts[1];
+  _toastSetter=function(msg){ setToast(msg); setTimeout(function(){setToast(null)},2400); };
+  if(!toast) return null;
+  return html`<div style=${{position:'fixed',bottom:24,insetInlineEnd:24,zIndex:100,background:'#161618',border:'1px solid '+C.primary,borderRadius:12,padding:'12px 18px',display:'flex',alignItems:'center',gap:10,boxShadow:'0 8px 30px rgba(0,0,0,0.4)'}} className="anim">
+    <i className="fas fa-circle-check" style=${{color:C.primary}} />
+    <span style=${{fontSize:13}}>${toast}</span>
+  </div>`;
+}
+function ActionBtn(p){
+  return html`<button onClick=${function(){showToast(p.msg || 'تم تنفيذ الإجراء (معاينة توضيحية — بدون Backend حقيقي)')}} style=${{display:'inline-flex',alignItems:'center',gap:8,padding:'8px 16px',borderRadius:10,background:C.primary,color:'#08131a',fontWeight:700,fontSize:12,border:'none',cursor:'pointer'}}>
+    <i className=${'fas '+(p.icon||'fa-plus')} />${p.label}
+  </button>`;
+}
+function RowActions(p){
+  return html`<td style=${{padding:'8px 10px',whiteSpace:'nowrap'}}>
+    <button onClick=${function(){showToast('عرض تفاصيل: '+p.label)}} title="عرض" style=${{background:'none',border:'1px solid '+C.border,borderRadius:8,padding:'6px 8px',color:C.textDim,cursor:'pointer',marginInlineEnd:6}}><i className="fas fa-eye" style=${{fontSize:11}} /></button>
+    <button onClick=${function(){showToast('تعديل: '+p.label)}} title="تعديل" style=${{background:'none',border:'1px solid '+C.border,borderRadius:8,padding:'6px 8px',color:C.textDim,cursor:'pointer'}}><i className="fas fa-pen" style=${{fontSize:11}} /></button>
+  </td>`;
+}
+function SearchBox(p){
+  return html`<div style=${{position:'relative',maxWidth:280}}>
+    <i className="fas fa-magnifying-glass" style=${{position:'absolute',insetInlineStart:12,top:'50%',transform:'translateY(-50%)',color:C.textFaint,fontSize:12}} />
+    <input value=${p.value} onInput=${function(e){p.onChange(e.target.value)}} placeholder=${p.placeholder||'بحث...'} style=${{width:'100%',background:'#0f0f10',border:'1px solid '+C.border,borderRadius:10,padding:'9px 36px 9px 12px',color:C.text,fontSize:12,outline:'none'}} />
+  </div>`;
+}
+function PageHead(p){
+  return html`<div style=${{display:'flex',alignItems:'flex-end',justifyContent:'space-between',flexWrap:'wrap',gap:12}}>
+    <${SecTitle} eyebrow=${p.eyebrow||"بيان المزرعة"} title=${p.title} />
+    ${p.action?html`<${ActionBtn} label=${p.action} icon=${p.icon} msg=${p.msg} />`:null}
+  </div>`;
+}
+
+/* ── Demo datasets for the remaining pages ── */
+var ANIMALS=[
+  {tag:'برقي-إ-تر-1',breed:'برقي',species:'sheep',gender:'أنثى',purpose:'تربية',status:'سليم'},
+  {tag:'برقي-ذ-تر-1',breed:'برقي',species:'sheep',gender:'ذكر',purpose:'تربية',status:'سليم'},
+  {tag:'بور-إ-تر-1',breed:'بور',species:'goat',gender:'أنثى',purpose:'تربية',status:'سليم'},
+  {tag:'بور-ذ-تس-1',breed:'بور',species:'goat',gender:'ذكر',purpose:'تسمين',status:'تحت الملاحظة'},
+  {tag:'شامي-إ-تر-1',breed:'شامي',species:'goat',gender:'أنثى',purpose:'تربية',status:'سليم'},
+  {tag:'دودبر-ذ-تر-1',breed:'دودبر',species:'sheep',gender:'ذكر',purpose:'تربية',status:'سليم'},
+  {tag:'بلدي-إ-تر-1',breed:'بلدي',species:'goat',gender:'أنثى',purpose:'تربية',status:'حامل'},
+  {tag:'ميت ماستر-ذ-تر-1',breed:'ميت ماستر',species:'sheep',gender:'ذكر',purpose:'تربية',status:'سليم'}
+];
+var BIRTHS=[
+  {date:'2026-01-05',breed:'برقي',count:8,gender:'ذكور',mother:'برقي-إ-تر-12'},
+  {date:'2026-01-03',breed:'بور',count:9,gender:'ذكور',mother:'بور-إ-تر-04'},
+  {date:'2025-12-28',breed:'شامي',count:4,gender:'إناث',mother:'شامي-إ-تر-21'},
+  {date:'2025-12-20',breed:'بلدي',count:6,gender:'ذكور',mother:'بلدي-إ-تر-09'}
+];
+var HEALTH_LOG=[
+  {vaccine:'الحمى القلاعية',date:'2026-01-07',animals:'قطيع الشامي (83 رأس)',status:'مجدول'},
+  {vaccine:'التسمم المعوي',date:'2026-01-02',animals:'قطيع بور (39 رأس)',status:'تم'},
+  {vaccine:'الجرب',date:'2025-12-18',animals:'قطيع برقي (51 رأس)',status:'تم'},
+  {vaccine:'فحص دوري',date:'2025-12-10',animals:'كل القطيع',status:'تم'}
+];
+var BREEDING_LOG=[
+  {female:'بلدي-إ-تر-09',male:'بلدي-ذ-تر-01',date:'2025-11-15',expected:'2026-04-15',status:'حامل'},
+  {female:'شامي-إ-تر-21',male:'شامي-ذ-تر-01',date:'2025-11-20',expected:'2026-04-20',status:'حامل'},
+  {female:'برقي-إ-تر-12',male:'برقي-ذ-تر-01',date:'2025-08-01',expected:'2026-01-01',status:'ولدت'}
+];
+var INVENTORY_ITEMS=[
+  {item:'عليقة مركزة',qty:840,unit:'كيس 25كجم',min:200,status:'ok'},
+  {item:'برسيم مجفف',qty:120,unit:'بالة',min:150,status:'low'},
+  {item:'أملاح معدنية',qty:35,unit:'كيس',min:20,status:'ok'},
+  {item:'لقاح الحمى القلاعية',qty:8,unit:'عبوة',min:15,status:'critical'}
+];
+
+function AnimalsPage(){
+  var qs=useState(''),q=qs[0],setQ=qs[1];
+  var rows=ANIMALS.filter(function(a){return a.tag.includes(q)||a.breed.includes(q)});
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title=${'الحيوانات ('+(totalSheep+totalGoat)+')'} action="تسجيل حيوان" icon="fa-plus" msg="تم فتح نموذج تسجيل حيوان جديد (معاينة)" />
+    <${SearchBox} value=${q} onChange=${setQ} placeholder="دور بالتاج أو السلالة..." />
+    <${Table} cols=${['التاج','السلالة','النوع','الجنس','الغرض','الحالة']} rows=${rows.map(function(a){return html`<tr key=${a.tag} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${a.tag}</td>
+      <td style=${{padding:'10px'}}>${a.breed}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${a.species==='sheep'?'غنم':'ماعز'}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${a.gender}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${a.purpose}</td>
+      <td style=${{padding:'10px'}}><${Badge} color=${a.status==='سليم'?C.primary:a.status==='حامل'?C.purple:C.yellow}>${a.status}</${Badge}></td>
+      <${RowActions} label=${a.tag} />
+    </tr>`})} />
+  </div>`;
+}
+function BirthsPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="سجل المواليد" action="تسجيل مولود" icon="fa-egg" msg="تم فتح نموذج تسجيل مولود جديد (معاينة)" />
+    <${Table} cols=${['التاريخ','السلالة','العدد','الجنس الغالب','الأم']} rows=${BIRTHS.map(function(b,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${b.date}</td>
+      <td style=${{padding:'10px'}}>${b.breed}</td>
+      <td style=${{padding:'10px'}} className="FM">${b.count}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${b.gender}</td>
+      <td style=${{padding:'10px'}} className="FM">${b.mother}</td>
+      <${RowActions} label=${b.date} />
+    </tr>`})} />
+  </div>`;
+}
+function HealthPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="الصحة والتطعيم" action="جدولة تطعيم" icon="fa-syringe" msg="تم فتح نموذج جدولة تطعيم (معاينة)" />
+    <${Table} cols=${['التطعيم','التاريخ','الحيوانات','الحالة']} rows=${HEALTH_LOG.map(function(h,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}}>${h.vaccine}</td>
+      <td style=${{padding:'10px'}} className="FM">${h.date}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${h.animals}</td>
+      <td style=${{padding:'10px'}}><${Badge} color=${h.status==='تم'?C.primary:C.yellow}>${h.status}</${Badge}></td>
+      <${RowActions} label=${h.vaccine} />
+    </tr>`})} />
+  </div>`;
+}
+function BreedingPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="سجل التلقيح" action="تسجيل تلقيح" icon="fa-dna" msg="تم فتح نموذج تسجيل تلقيح جديد (معاينة)" />
+    <${Table} cols=${['الأنثى','الذكر','تاريخ التلقيح','الولادة المتوقعة','الحالة']} rows=${BREEDING_LOG.map(function(b,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${b.female}</td>
+      <td style=${{padding:'10px'}} className="FM">${b.male}</td>
+      <td style=${{padding:'10px'}} className="FM">${b.date}</td>
+      <td style=${{padding:'10px'}} className="FM">${b.expected}</td>
+      <td style=${{padding:'10px'}}><${Badge} color=${b.status==='ولدت'?C.primary:C.purple}>${b.status}</${Badge}></td>
+      <${RowActions} label=${b.female} />
+    </tr>`})} />
+  </div>`;
+}
+function FinancePage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="الحسابات" action="قيد جديد" icon="fa-plus" msg="تم فتح نموذج قيد مالي جديد (معاينة)" />
+    <${Table} cols=${['البند','القيمة']} rows=${FINANCE.map(function(f,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}}>${f.label}</td>
+      <td style=${{padding:'10px',color:f.color}} className="FM">${f.value}</td>
+      <${RowActions} label=${f.label} />
+    </tr>`})} />
+  </div>`;
+}
+function InventoryPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="المخزون" action="توريد جديد" icon="fa-truck-fast" msg="تم فتح نموذج توريد جديد (معاينة)" />
+    <${Table} cols=${['الصنف','الكمية','الوحدة','الحد الأدنى','الحالة']} rows=${INVENTORY_ITEMS.map(function(it,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}}>${it.item}</td>
+      <td style=${{padding:'10px'}} className="FM">${it.qty}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${it.unit}</td>
+      <td style=${{padding:'10px'}} className="FM">${it.min}</td>
+      <td style=${{padding:'10px',color:it.status==='ok'?C.primary:it.status==='low'?C.yellow:C.orange}}>${it.status==='ok'?'كافٍ':it.status==='low'?'منخفض':'حرج'}</td>
+      <${RowActions} label=${it.item} />
+    </tr>`})} />
+  </div>`;
+}
+function ReportsPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:16}}>
+    <${PageHead} title="التقارير" action="تصدير PDF" icon="fa-file-export" msg="جاري تجهيز التقرير (معاينة)" />
+    <div style=${{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
+      <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim">
+        <${SecTitle} title="توزيع الأغنام" />
+        <${BreedBars} breeds=${SHEEP_BREEDS} />
+      </div>
+      <div style=${{background:'#161618',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim">
+        <${SecTitle} title="توزيع الماعز" />
+        <${BreedBars} breeds=${GOAT_BREEDS} />
+      </div>
+    </div>
+  </div>`;
+}
+
 function DashboardPage(){
   return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
     <${SecTitle} eyebrow="بيان القطيع · 2026" title="نظرة عامة على المزرعة" />
@@ -156,7 +329,7 @@ function GenericPage(p){
 function App(){
   var ps=useState('dashboard'),page=ps[0],setPage=ps[1];
   var ms=useState(false),mobOpen=ms[0],setMobOpen=ms[1];
-  var pages={dashboard:DashboardPage,animals:function(){return GenericPage({title:'الحيوانات'})},births:function(){return GenericPage({title:'المواليد'})},health:function(){return GenericPage({title:'الصحة والتطعيم'})},breeding:function(){return GenericPage({title:'التلقيح'})},finance:function(){return GenericPage({title:'الحسابات'})},inventory:function(){return GenericPage({title:'المخزون'})},reports:function(){return GenericPage({title:'التقارير'})}};
+  var pages={dashboard:DashboardPage,animals:AnimalsPage,births:BirthsPage,health:HealthPage,breeding:BreedingPage,finance:FinancePage,inventory:InventoryPage,reports:ReportsPage};
   var Page=pages[page]||DashboardPage;
 
   return html`<div style=${{display:'flex',minHeight:'100vh'}}>
@@ -186,7 +359,7 @@ function App(){
     </main>
   </div>`;
 }
-ReactDOM.createRoot(document.getElementById('root')).render(html`<${App} />`);
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${React.Fragment}><${App} /><${ToastHost} /></${React.Fragment}>`);
 </script>
 </body>
 </html>
