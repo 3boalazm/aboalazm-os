@@ -51,12 +51,61 @@ var ORDERS=[
   {no:'SO-1009',account:'مركز الأمل لطب الأسرة',rep:'أحمد فتحي',total:6181.65,status:'PAID'}
 ];
 var PRODUCTS=[
-  {sku:'BRX-PLUS-30',name:'بروكسيد بلس 30 كيس',stock:3200,min:500,status:'ok'},
-  {sku:'BRX-WOMEN-30',name:'بروكسيد نساء 30 كيس',stock:1800,min:500,status:'ok'},
-  {sku:'BRX-ERX-30',name:'بروكس ايريكس 30 كيس',stock:410,min:500,status:'low'},
-  {sku:'ELM-30',name:'إيلاموزيل 30 كيس',stock:3000,min:400,status:'ok'},
-  {sku:'NLV-C1000-20',name:'نايل فيت سي 1000',stock:120,min:300,status:'low'},
-  {sku:'NLV-COLD-10',name:'نايل فيت أمبولات مبردة',stock:60,min:100,status:'critical'}
+  {sku:'BRX-PLUS-30',name:'بروكسيد بلس 30 كيس',stock:3200,min:500,status:'ok',price:849.12,brand:'بروكسيد',category:'مكملات غذائية'},
+  {sku:'BRX-WOMEN-30',name:'بروكسيد نساء 30 كيس',stock:1800,min:500,status:'ok',price:849.12,brand:'بروكسيد',category:'مكملات غذائية'},
+  {sku:'BRX-ERX-30',name:'بروكس ايريكس 30 كيس',stock:410,min:500,status:'low',price:694.74,brand:'بروكس',category:'مكملات غذائية'},
+  {sku:'ELM-30',name:'إيلاموزيل 30 كيس',stock:3000,min:400,status:'ok',price:694.74,brand:'إيلاموزيل',category:'مكملات غذائية'},
+  {sku:'NLV-C1000-20',name:'نايل فيت سي 1000',stock:120,min:300,status:'low',price:120.50,brand:'نايل فيت',category:'مكملات غذائية'},
+  {sku:'NLV-MULTI-30',name:'نايل فيت مالتي فيتامين 30',stock:840,min:200,status:'ok',price:210.00,brand:'نايل فيت',category:'مكملات غذائية'},
+  {sku:'BRX-KIDS-20',name:'بروكس أطفال شراب 20 مل',stock:560,min:150,status:'ok',price:45.00,brand:'بروكس',category:'أدوية بدون روشتة'},
+  {sku:'NLV-COLD-10',name:'نايل فيت أمبولات مبردة',stock:60,min:100,status:'critical',price:340.00,brand:'نايل فيت',category:'سلسلة تبريد'}
+];
+
+var WAREHOUSES=[
+  {name:'مخزن القاهرة الرئيسي',code:'WH-CAI',items:[
+    {sku:'BRX-PLUS-30',batch:'LOT-2025-A',qty:3200,expiry:'2027-06-01'},
+    {sku:'ELM-30',batch:'LOT-2025-A',qty:3000,expiry:'2027-06-01'},
+    {sku:'NLV-COLD-10',batch:'LOT-2025-A',qty:60,expiry:'2027-06-01'}
+  ]},
+  {name:'مخزن الإسكندرية',code:'WH-ALEX',items:[
+    {sku:'BRX-WOMEN-30',batch:'LOT-2025-B',qty:1800,expiry:'2027-09-01'},
+    {sku:'BRX-ERX-30',batch:'LOT-2025-B',qty:410,expiry:'2027-09-01'},
+    {sku:'NLV-C1000-20',batch:'LOT-2025-B',qty:120,expiry:'2027-09-01'}
+  ]}
+];
+
+var ACCOUNTS=[
+  {code:'PH-0001',name:'صيدلية العزبي - المعادي',type:'صيدلية',rep:'أحمد فتحي',balance:4200},
+  {code:'PH-0002',name:'صيدلية سيف - مصر الجديدة',type:'صيدلية',rep:'أحمد فتحي',balance:1800},
+  {code:'PH-0003',name:'صيدلية الشفاء - مدينة نصر',type:'صيدلية',rep:'أحمد فتحي',balance:0},
+  {code:'DR-0001',name:'د. محمود عبد الغني - عيادة باطنة',type:'دكتور',rep:'مريم أشرف',balance:0},
+  {code:'CTR-0001',name:'مركز النيل الطبي - طنطا',type:'مركز طبي',rep:'حسن جمال',balance:6100},
+  {code:'HOSP-0001',name:'مستشفى دلتا التخصصي',type:'مستشفى',rep:'نهى سامي',balance:15400},
+  {code:'DIST-0001',name:'شركة النور لتوزيع الأدوية',type:'موزع',rep:'مريم أشرف',balance:22000},
+  {code:'PH-0005',name:'صيدلية أبو اليزيد - سموحة',type:'صيدلية',rep:'مريم أشرف',balance:300}
+];
+
+var INVOICES=[
+  {no:'INV-2001',account:'صيدلية العزبي - المعادي',total:19360.00,paid:19360.00,status:'مدفوعة بالكامل'},
+  {no:'INV-2002',account:'صيدلية الشفاء - مدينة نصر',total:18641.11,paid:9000.00,status:'مدفوعة جزئيًا'},
+  {no:'INV-2003',account:'مركز الأمل لطب الأسرة',total:6181.65,paid:6181.65,status:'مدفوعة بالكامل'}
+];
+
+var INCENTIVE_LEDGER=[
+  {rep:'أحمد فتحي',order:'SO-1001',base:19360.00,commission:258.09,status:'مدفوع'},
+  {rep:'أحمد فتحي',order:'SO-1002',base:9000.00,commission:119.97,status:'معتمد'},
+  {rep:'أحمد فتحي',order:'SO-1009',base:6181.65,commission:82.40,status:'قيد المراجعة'},
+  {rep:'حسن جمال',order:'SO-1003-جزئي',base:12495.00,commission:183.27,status:'مدفوع'}
+];
+
+var AUDIT_LOG=[
+  {t:'09:12',event:'sales.order.created',ref:'SO-1001',actor:'أحمد فتحي'},
+  {t:'09:12',event:'inventory.reservation.confirmed',ref:'SO-1001',actor:'النظام'},
+  {t:'09:12',event:'accounting.invoice.issued',ref:'INV-2001',actor:'النظام'},
+  {t:'14:30',event:'accounting.payment.received',ref:'INV-2001',actor:'أحمد فتحي'},
+  {t:'14:30',event:'incentives.ledger.calculated',ref:'ilg-001',actor:'النظام'},
+  {t:'11:00',event:'inventory.reservation.failed',ref:'SO-1007',actor:'النظام'},
+  {t:'08:05',event:'iam.user.login',ref:'rep-002',actor:'مريم أشرف'}
 ];
 var STATUS_META={
   DRAFT:{l:'مسودة',c:C.textFaint},
@@ -174,20 +223,114 @@ function DashboardPage(){
   </div>`;
 }
 
-function GenericPage(p){
+function Table(p){
+  return html`<div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20,overflowX:'auto'}} className="anim-fade-up">
+    <table style=${{width:'100%',borderCollapse:'collapse',fontSize:13}}>
+      <thead><tr>${p.cols.map(function(c){return html`<th key=${c} style=${{textAlign:'right',padding:'8px 10px',color:C.textDim,fontWeight:600,fontSize:11,borderBottom:'1px solid '+C.border}}>${c}</th>`})}</tr></thead>
+      <tbody>${p.rows}</tbody>
+    </table>
+  </div>`;
+}
+
+function SalesPage(){
   return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
-    <${SecTitle} eyebrow="Nile Pharma ERP" title=${p.title} />
-    <div style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:40,textAlign:'center'}} className="anim-fade-up">
-      <i className="fas fa-diagram-project" style=${{fontSize:32,color:C.primary,marginBottom:12}} />
-      <p style=${{color:C.textDim,fontSize:14}}>معاينة توضيحية لواجهة ${p.title} — جزء من منظومة نايل فارما ERP الكاملة (9 خدمات مصغّرة: المبيعات، المخزون، العملاء، الحسابات، الحوافز، والمزيد).</p>
-    </div>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title="أوامر البيع (9)" />
+    <${Table} cols=${['الرقم','العميل','المندوب','القيمة','الحالة']} rows=${ORDERS.map(function(o){var m=STATUS_META[o.status];return html`<tr key=${o.no} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${o.no}</td>
+      <td style=${{padding:'10px'}}>${o.account}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${o.rep}</td>
+      <td style=${{padding:'10px'}} className="FM">${fmt(o.total)}</td>
+      <td style=${{padding:'10px'}}><${Badge} color=${m.c}>${m.l}</${Badge}></td>
+    </tr>`})} />
+  </div>`;
+}
+
+function InventoryPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title="المخزون حسب المخزن" />
+    ${WAREHOUSES.map(function(w){return html`<div key=${w.code} style=${{background:'#101A2E',border:'1px solid '+C.border,borderRadius:16,padding:20}} className="anim-fade-up">
+      <div style=${{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:12}}>
+        <p style=${{fontWeight:700,fontSize:14}}>${w.name}</p>
+        <span className="FM" style=${{fontSize:11,color:C.textFaint}}>${w.code}</span>
+      </div>
+      <${Table} cols=${['الصنف','الوجبة','الكمية','تاريخ الانتهاء']} rows=${w.items.map(function(it){var prod=PRODUCTS.find(function(p){return p.sku===it.sku});return html`<tr key=${it.sku} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+        <td style=${{padding:'8px 10px'}}>${prod?prod.name:it.sku}</td>
+        <td style=${{padding:'8px 10px'}} className="FM">${it.batch}</td>
+        <td style=${{padding:'8px 10px'}} className="FM">${it.qty}</td>
+        <td style=${{padding:'8px 10px'}} className="FM">${it.expiry}</td>
+      </tr>`})} />
+    </div>`})}
+  </div>`;
+}
+
+function CrmPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title="العملاء (CRM) — 8" />
+    <${Table} cols=${['الكود','الاسم','النوع','المندوب','الرصيد']} rows=${ACCOUNTS.map(function(a){return html`<tr key=${a.code} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${a.code}</td>
+      <td style=${{padding:'10px'}}>${a.name}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${a.type}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${a.rep}</td>
+      <td style=${{padding:'10px'}} className="FM">${a.balance>0?html`<span style=${{color:C.warning}}>${fmt(a.balance)}</span>`:html`<span style=${{color:C.success}}>مسدد</span>`}</td>
+    </tr>`})} />
+  </div>`;
+}
+
+function AccountingPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title="الفواتير والتحصيل" />
+    <${Table} cols=${['رقم الفاتورة','العميل','الإجمالي','المحصّل','الحالة']} rows=${INVOICES.map(function(i){return html`<tr key=${i.no} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${i.no}</td>
+      <td style=${{padding:'10px'}}>${i.account}</td>
+      <td style=${{padding:'10px'}} className="FM">${fmt(i.total)}</td>
+      <td style=${{padding:'10px'}} className="FM">${fmt(i.paid)}</td>
+      <td style=${{padding:'10px'}}><${Badge} color=${i.paid>=i.total?C.success:C.warning}>${i.status}</${Badge}></td>
+    </tr>`})} />
+  </div>`;
+}
+
+function IncentivesPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP · اسكيمة 2026" title="سجل الحوافز" />
+    <${Table} cols=${['المندوب','الطلب','الأساس','العمولة','الحالة']} rows=${INCENTIVE_LEDGER.map(function(l,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}}>${l.rep}</td>
+      <td style=${{padding:'10px'}} className="FM">${l.order}</td>
+      <td style=${{padding:'10px'}} className="FM">${fmt(l.base)}</td>
+      <td style=${{padding:'10px',color:C.primary}} className="FM">${fmt(l.commission)}</td>
+      <td style=${{padding:'10px'}}><${Badge} color=${l.status==='مدفوع'?C.success:l.status==='معتمد'?C.info:C.warning}>${l.status}</${Badge}></td>
+    </tr>`})} />
+  </div>`;
+}
+
+function ProductsPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title="كتالوج الأصناف (8)" />
+    <${Table} cols=${['SKU','الاسم','العلامة','السعر','المخزون']} rows=${PRODUCTS.map(function(p){return html`<tr key=${p.sku} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${p.sku}</td>
+      <td style=${{padding:'10px'}}>${p.name}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${p.brand}</td>
+      <td style=${{padding:'10px'}} className="FM">${fmt(p.price)}</td>
+      <td style=${{padding:'10px',color:p.status==='ok'?C.success:p.status==='low'?C.warning:C.danger}} className="FM">${p.stock}</td>
+    </tr>`})} />
+  </div>`;
+}
+
+function AuditPage(){
+  return html`<div style=${{display:'flex',flexDirection:'column',gap:20}}>
+    <${SecTitle} eyebrow="Nile Pharma ERP" title="سجل التتبع (Event Stream)" />
+    <${Table} cols=${['الوقت','الحدث','المرجع','الفاعل']} rows=${AUDIT_LOG.map(function(e,i){return html`<tr key=${i} style=${{borderBottom:'1px solid rgba(148,163,184,0.06)'}}>
+      <td style=${{padding:'10px'}} className="FM">${e.t}</td>
+      <td style=${{padding:'10px',color:C.info}} className="FM">${e.event}</td>
+      <td style=${{padding:'10px'}} className="FM">${e.ref}</td>
+      <td style=${{padding:'10px',color:C.textDim}}>${e.actor}</td>
+    </tr>`})} />
   </div>`;
 }
 
 function App(){
   var ps=useState('dashboard'),page=ps[0],setPage=ps[1];
   var ms=useState(false),mobOpen=ms[0],setMobOpen=ms[1];
-  var pages={dashboard:DashboardPage,sales:function(){return GenericPage({title:'أوامر البيع'})},inventory:function(){return GenericPage({title:'المخزون'})},crm:function(){return GenericPage({title:'العملاء (CRM)'})},accounting:function(){return GenericPage({title:'الحسابات'})},incentives:function(){return GenericPage({title:'الحوافز'})},products:function(){return GenericPage({title:'الأصناف'})},audit:function(){return GenericPage({title:'سجل التتبع'})}};
+  var pages={dashboard:DashboardPage,sales:SalesPage,inventory:InventoryPage,crm:CrmPage,accounting:AccountingPage,incentives:IncentivesPage,products:ProductsPage,audit:AuditPage};
   var Page=pages[page]||DashboardPage;
 
   return html`<div className="bg-mesh" style=${{display:'flex',minHeight:'100vh'}}>
