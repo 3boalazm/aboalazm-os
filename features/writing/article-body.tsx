@@ -107,12 +107,12 @@ const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
     return <li className="ps-1 marker:text-accent">{children}</li>;
   },
   blocks: {
-    diagram: ({ node }) => {
-      const fields = node.fields as BlockFields;
+    diagram: ({ node }: { node: { fields: BlockFields } }) => {
+      const fields = node.fields;
       return <MermaidDiagram code={fields.code ?? ""} caption={fields.caption || undefined} />;
     },
-    dataTable: ({ node }) => {
-      const fields = node.fields as BlockFields;
+    dataTable: ({ node }: { node: { fields: BlockFields } }) => {
+      const fields = node.fields;
       return <DataTable markdown={fields.markdown ?? ""} />;
     },
   },
