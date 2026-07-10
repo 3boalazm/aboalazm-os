@@ -168,14 +168,17 @@ html[data-theme="light"] {
   --color-surface-2: #EBE7DE;                /* elevated / hover        */
   --color-surface-3: #E2DDD1;                /* modals, popovers        */
 
-  --color-border-subtle:  rgb(8 7 16 / 0.08);
-  --color-border-default: rgb(8 7 16 / 0.14);
-  --color-border-strong:  rgb(8 7 16 / 0.24);
+  --color-border-subtle:  rgb(8 7 16 / 0.12);
+  --color-border-default: rgb(8 7 16 / 0.20);
+  --color-border-strong:  rgb(8 7 16 / 0.30);
 
+  /* Grays darkened ~2 steps for light-mode legibility: the old 0.40/0.24
+     tertiary/ghost washed out on the cream background (table headers,
+     chips, mono labels were barely readable). */
   --color-text-primary:   var(--color-ink-primary);
-  --color-text-secondary: var(--color-ink-secondary);
-  --color-text-tertiary:  var(--color-ink-tertiary);
-  --color-text-ghost:     rgb(8 7 16 / 0.24);
+  --color-text-secondary: rgb(8 7 16 / 0.74);
+  --color-text-tertiary:  rgb(8 7 16 / 0.56);
+  --color-text-ghost:     rgb(8 7 16 / 0.38);
 }
 
 /* ═══════════════ ARTICLE DIAGRAM NODE TOKENS ═══════════════
@@ -349,6 +352,9 @@ html[data-theme="light"] {
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
+      /* CRITICAL: without this, infinite loops (marquee) restart every
+         0.01ms and become a hyper-fast strobe instead of stopping. */
+      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
@@ -425,6 +431,9 @@ html[data-theme="light"] {
 @keyframes marquee-drift-rtl {
   from { transform: translateX(0); }
   to   { transform: translateX(50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee { animation: none; }
 }
 
 /* ── Brand orb: simple circular avatar with a soft, light glow ───────── */
