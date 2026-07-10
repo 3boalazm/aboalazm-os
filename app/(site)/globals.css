@@ -178,6 +178,26 @@ html[data-theme="light"] {
   --color-text-ghost:     rgb(8 7 16 / 0.24);
 }
 
+/* ═══════════════ ARTICLE DIAGRAM NODE TOKENS ═══════════════
+   Semantic node colors for the Writing section's native diagram
+   renderer (features/writing/diagram.tsx). Dark defaults here,
+   light overrides below — flipping data-theme restyles every
+   diagram with zero JS. gov = governance/decision (indigo),
+   tech = build (green), risk = failure (red), sot = single source
+   of truth (amber, always the most prominent node). */
+:root {
+  --node-gov: #1E1B4B;   --node-gov-border: #818CF8;  --node-gov-text: #E0E7FF;
+  --node-tech: #052E22;  --node-tech-border: #34D399; --node-tech-text: #D1FAE5;
+  --node-risk: #3B0D0D;  --node-risk-border: #F87171; --node-risk-text: #FECACA;
+  --node-sot: #3F2A05;   --node-sot-border: #FBBF24;  --node-sot-text: #FEF3C7;
+}
+html[data-theme="light"] {
+  --node-gov: #EEF2FF;   --node-gov-border: #4F46E5;  --node-gov-text: #312E81;
+  --node-tech: #ECFDF5;  --node-tech-border: #059669; --node-tech-text: #064E3B;
+  --node-risk: #FEF2F2;  --node-risk-border: #DC2626; --node-risk-text: #7F1D1D;
+  --node-sot: #FFFBEB;   --node-sot-border: #D97706;  --node-sot-text: #78350F;
+}
+
 /* ═══════════════ ATMOSPHERIC AMBIENT GLOW — LIVING TOKENS ═══════════════
    These are NOT in @theme on purpose: they mutate at runtime.
    The use-ambient-glow hook writes them; ambient-canvas reads them.

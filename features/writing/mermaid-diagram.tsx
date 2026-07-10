@@ -15,7 +15,8 @@
  * bundled (~2MB of parser only /writing/[slug] needs). On failure the
  * raw definition is shown in a <pre> — degraded, not broken.
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { NativeDiagram, parseMermaid } from "./diagram";
 
 const MERMAID_SRC = "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js";
 
@@ -82,7 +83,19 @@ export function MermaidDiagram({
   const hostRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
 
+  // Native renderer first — Lovable-style HTML/CSS nodes parsed from the
+  // stored definition. Mermaid (CDN) is only the fallback for anything
+  // the parser doesn't understand.
+  const parsed = useMemo(() => {
+    try {
+      return parseMermaid(code);
+    } catch {
+      return null;
+    }
+  }, [code]);
+
   useEffect(() => {
+    if (parsed) return; // native renderer handles it — skip mermaid
     let cancelled = false;
 
     const draw = () => {
@@ -142,7 +155,7 @@ export function MermaidDiagram({
       cancelled = true;
       observer.disconnect();
     };
-  }, [code]);
+  }, [code, parsed]);
 
   return (
     <figure className="my-12">
@@ -152,10 +165,12 @@ export function MermaidDiagram({
             Figure{figureNo ? ` · ${String(figureNo).padStart(2, "0")}` : ""}
           </span>
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
-            SVG
+            {parsed ? "SYSTEM FLOW" : "SVG"}
           </span>
         </div>
-        {failed ? (
+        {parsed ? (
+          <NativeDiagram parsed={parsed} />
+        ) : failed ? (
           <pre className="whitespace-pre-wrap font-mono text-micro text-text-tertiary" dir="ltr">
             {code}
           </pre>
