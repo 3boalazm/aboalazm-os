@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Designing Code-Aligned Digital Systems — Mustafa Aboalazm</title>
+<style>
+/* ==========================================================================
+   DESIGN TOKENS — single source of truth.
+   Light mode is the primary experience; dark mode is an opt-in override.
+   ========================================================================== */
+:root {
+  /* Type colors — never pure black for long copy (eye comfort) */
+  --text-heading: #000000;      /* H1/H2 only — extra bold */
+  --text-body: #3a3a3a;         /* paragraphs: #333–#444 range */
+  --text-soft: #888888;         /* repeated side labels, captions */
+  --accent: #d35400;            /* burnt orange — stats & numerals */
+  --accent-deep: #1a237e;       /* deep indigo — secondary numerals */
+
+  /* Color zoning — the brain separates sections without effort */
+  --bg-page: #ffffff;
+  --bg-stats: #f4f6f8;          /* very light gray zone */
+  --bg-questions: #ebf0f6;      /* pale blue zone */
+  --bg-card: #ffffff;
+  --border-subtle: #e3e7ec;
+
+  /* Rhythm */
+  --radius: 14px;
+  --section-pad: clamp(3.5rem, 9vw, 8rem);   /* generous negative space */
+  --content-width: 1120px;
+}
+
+[data-theme="dark"] {
+  --text-heading: #f5f5f5;
+  --text-body: #c9c9c9;
+  --text-soft: #7d7d7d;
+  --accent: #ff8a4c;
+  --accent-deep: #9fa8da;
+  --bg-page: #101214;
+  --bg-stats: #16191d;
+  --bg-questions: #14181f;
+  --bg-card: #16191d;
+  --border-subtle: #262b31;
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  font-size: 17px;                 /* body never below 16px */
+  line-height: 1.65;               /* long-copy comfort ≥ 1.6 */
+  color: var(--text-body);
+  background: var(--bg-page);
+  transition: background .35s ease, color .35s ease;
+}
+
+.container {
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 3rem);
+}
+
+section { padding-block: var(--section-pad); }
+
+/* Headings — pure black, extra bold, gentle tracking on caps */
+h1, h2 {
+  color: var(--text-heading);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;           /* prevents caps from fusing */
+  line-height: 1.12;
+}
+h1 { font-size: clamp(2.4rem, 6.5vw, 5rem); }
+h2 { font-size: clamp(1.5rem, 3.2vw, 2.4rem); }
+
+p  { max-width: 62ch; }
+
+.kicker {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-soft);         /* desaturated, low-attention */
+  font-weight: 600;
+  display: block;
+  margin-bottom: 1.1rem;
+}
+
+/* ==========================================================================
+   THEME TOGGLE (optional dark mode)
+   ========================================================================== */
+.theme-toggle {
+  position: fixed;
+  top: 1.1rem; right: 1.1rem;
+  z-index: 10;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  color: var(--text-body);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================================================
+   1 · HEADER — top of the visual hierarchy
+   ========================================================================== */
+.hero { padding-block: calc(var(--section-pad) * 1.15) var(--section-pad); }
+
+.hero h1 span { color: var(--accent); }
+
+.hero .sub {
+  margin-top: 1.75rem;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+}
+
+/* ==========================================================================
+   2 · STATS BAR — light-gray zone, numbers pull the eye first
+   ========================================================================== */
+.stats-zone { background: var(--bg-stats); }
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* Proximity: icon + number + label form ONE tight group */
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: clamp(1.6rem, 3vw, 2.4rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;                    /* tight inside the group */
+}
+
+.stat .num {
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: var(--accent);            /* warm, dominant focal point */
+  line-height: 1;
+}
+
+.stat .label {
+  font-weight: 700;
+  color: var(--text-heading);
+  font-size: 1rem;
+}
+
+.stat .desc { font-size: 0.92rem; color: var(--text-soft); }
+
+/* ==========================================================================
+   3 · QUESTIONS 01–04 — pale blue zone, numeral aligned with title
+   ========================================================================== */
+.questions-zone { background: var(--bg-questions); }
+
+.q-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 2rem);  /* big gaps BETWEEN groups */
+  margin-top: 2.5rem;
+}
+
+.q-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;           /* horizontal alignment binds number↔title */
+  gap: 1.25rem;
+  background: var(--bg-card);
+  border-inline-start: 4px solid var(--accent-deep);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: clamp(1.4rem, 2.8vw, 2.2rem) clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.q-item .no {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: var(--accent-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.q-item h3 {
+  color: var(--text-heading);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+}
+
+.q-item p { margin-top: 0.5rem; font-size: 0.97rem; }
+
+/* ==========================================================================
+   4 · ABOUT — pure white zone
+   ========================================================================== */
+.about-zone { background: var(--bg-page); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.about-zone p + p { margin-top: 1.1rem; }
+
+.btn {
+  display: inline-block;
+  margin-top: 2rem;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  padding: 0.9rem 1.9rem;
+  border-radius: 999px;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.92; }
+
+.about-aside {
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  background: var(--bg-stats);
+}
+.about-aside dt { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-soft); font-weight: 600; }
+.about-aside dd { font-weight: 700; color: var(--text-heading); margin-bottom: 1.1rem; }
+.about-aside dd:last-child { margin-bottom: 0; }
+
+/* ==========================================================================
+   5 · CLIENTS — real names, no repetition
+   ========================================================================== */
+.clients-zone { background: var(--bg-stats); }
+
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.client {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;                     /* proximity inside the group */
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+}
+
+.client .mark {
+  width: 42px; height: 42px; flex: none;
+  border-radius: 10px;
+  display: grid; place-items: center;
+  font-weight: 800; font-size: 0.9rem; color: #fff;
+}
+
+.client .name { font-weight: 700; color: var(--text-heading); font-size: 0.98rem; line-height: 1.3; }
+.client .field { font-size: 0.8rem; color: var(--text-soft); }
+
+/* ==========================================================================
+   6 · FOOTER STATS — even grid, single coherent numbers story
+   ========================================================================== */
+.footer-zone { background: var(--bg-page); border-top: 1px solid var(--border-subtle); }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.f-stat .num {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--accent-deep);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+.f-stat .label { font-size: 0.85rem; color: var(--text-soft); margin-top: 0.35rem; }
+
+.colophon {
+  margin-top: calc(var(--section-pad) * 0.6);
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 820px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .q-item { grid-template-columns: 1fr; gap: 0.4rem; }
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light'">
+  ◐ &nbsp;Light / Dark
+</button>
+
+<!-- 1 · HEADER =========================================================== -->
+<header class="hero">
+  <div class="container">
+    <span class="kicker">Mustafa Aboalazm · Brand &amp; Digital Systems</span>
+    <h1>Designing <span>Code-Aligned</span> Digital Systems</h1>
+    <p class="sub">
+      Brand identities engineered like software — token-driven, bilingual by design,
+      and delivered on a fixed 38-day system with written sign-off gates.
+    </p>
+  </div>
+</header>
+
+<!-- 2 · STATS BAR ======================================================== -->
+<section class="stats-zone" aria-label="Key delivery metrics">
+  <div class="container">
+    <span class="kicker">What the system guarantees</span>
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="num">+42%</div>
+        <div class="label">Delivery Speed</div>
+        <div class="desc">Fixed 38-day timeline versus open-ended scope.</div>
+      </div>
+      <div class="stat">
+        <div class="num">0%</div>
+        <div class="label">Design Drift</div>
+        <div class="desc">What is approved at the gate is exactly what ships.</div>
+      </div>
+      <div class="stat">
+        <div class="num">3×</div>
+        <div class="label">Handoff Efficiency</div>
+        <div class="desc">Token-driven handoff — exact values, never guesses.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · QUESTIONS 01–04 ================================================== -->
+<section class="questions-zone" aria-label="How the engagement is structured">
+  <div class="container">
+    <span class="kicker">Four questions, answered in order</span>
+    <h2>How an engagement runs</h2>
+    <div class="q-list">
+      <div class="q-item">
+        <span class="no">01</span>
+        <div>
+          <h3>Business Outcomes</h3>
+          <p>We define what success costs and what it returns — before a single pixel exists.</p>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="no">02</span>
+        <div>
+          <h3>The Architecture</h3>
+          <p>Tokens, type systems, and bilingual lockups designed as one system, not two compromises.</p>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="no">03</span>
+        <div>
+          <h3>The Process</h3>
+          <p>Discover → Define → Architect → Build. Every phase closes with a written sign-off gate.</p>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="no">04</span>
+        <div>
+          <h3>First Contact to Launch Day</h3>
+          <p>38 days, one accountable owner, zero re-litigated decisions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · ABOUT ============================================================ -->
+<section class="about-zone" aria-label="About the designer">
+  <div class="container about-grid">
+    <div>
+      <span class="kicker">About</span>
+      <h2>Systems, not deliverables</h2>
+      <p style="margin-top:1.5rem;">
+        I'm Mustafa Aboalazm — a brand and digital systems designer working across
+        identity, tokens, and bilingual (Arabic/English) design. In-house at
+        <strong>Nile Pharma Food</strong> and founder of <strong>Code &amp; Canvas</strong>,
+        I build identities that behave like products: versioned, documented, and
+        extensible without me in the room.
+      </p>
+      <p>
+        Every engagement is recorded as a system — the discipline, the stack,
+        and the outcome it shipped.
+      </p>
+      <a class="btn" href="/about">Read the about page →</a>
+    </div>
+    <dl class="about-aside">
+      <dt>Current roles</dt>
+      <dd>Nile Pharma Food · Brand Lead</dd>
+      <dt>Studio</dt>
+      <dd>Code &amp; Canvas · Founder</dd>
+      <dt>Focus</dt>
+      <dd>Identity systems · Design tokens · Bilingual design</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- 5 · CLIENTS ========================================================== -->
+<section class="clients-zone" aria-label="Selected clients">
+  <div class="container">
+    <span class="kicker">Selected work</span>
+    <h2>Brands built as systems</h2>
+    <div class="clients-grid">
+      <div class="client">
+        <span class="mark" style="background:#1a5c3a;">NP</span>
+        <div><div class="name">Nile Pharma Food</div><div class="field">Pharma · Bilingual identity</div></div>
+      </div>
+      <div class="client">
+        <span class="mark" style="background:#3b3b98;">C&amp;C</span>
+        <div><div class="name">Code &amp; Canvas</div><div class="field">Tech studio · Full system</div></div>
+      </div>
+      <div class="client">
+        <span class="mark" style="background:#8e2432;">GAD</span>
+        <div><div class="name">GAD Institute</div><div class="field">Healthcare · Identity V2</div></div>
+      </div>
+      <div class="client">
+        <span class="mark" style="background:#c0842c;">RF</span>
+        <div><div class="name">Reflection</div><div class="field">Framed art · Retail system</div></div>
+      </div>
+      <div class="client">
+        <span class="mark" style="background:#374151;">AB</span>
+        <div><div class="name">Ahmed Bedeer</div><div class="field">Personal brand · Monogram</div></div>
+      </div>
+      <div class="client">
+        <span class="mark" style="background:#0f766e;">ZD</span>
+        <div><div class="name">Zad</div><div class="field">Digital product · UI system</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · FOOTER STATS ===================================================== -->
+<footer class="footer-zone">
+  <section aria-label="Practice statistics" style="padding-block: var(--section-pad) 0;">
+    <div class="container">
+      <span class="kicker">The practice in numbers</span>
+      <!-- Single coherent story: 38 shipped total, of which 15+ in the last two years -->
+      <div class="footer-grid">
+        <div class="f-stat"><div class="num">5+</div><div class="label">Years of practice</div></div>
+        <div class="f-stat"><div class="num">38</div><div class="label">Digital experiences shipped — 15+ in the last two years</div></div>
+        <div class="f-stat"><div class="num">12</div><div class="label">Brand systems delivered</div></div>
+        <div class="f-stat"><div class="num">500+</div><div class="label">Design assets under version control</div></div>
+      </div>
+      <p class="colophon">Designed as a system · Aboalazm OS · 2026</p>
+    </div>
+  </section>
+</footer>
+
+</body>
+</html>
