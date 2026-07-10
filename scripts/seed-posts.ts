@@ -32,9 +32,14 @@ if (fs.existsSync(envPath)) {
 }
 const config = (await import("../payload.config")).default;
 
+// --refresh: rebuild the body of EVERY post from the source files even
+// if it already has one (used when article content/blocks change, e.g.
+// adding the stats rows). Keeps posts published.
+const REFRESH = process.argv.includes("--refresh");
+
 async function main() {
   const payload = await getPayload({ config });
-  console.log(`\n▶ Posts (${WRITING_POSTS.length})`);
+  console.log(`\n▶ Posts (${WRITING_POSTS.length})${REFRESH ? " — REFRESH MODE" : ""}`);
 
   for (const p of WRITING_POSTS) {
     const lang = p.lang ?? "en";
@@ -45,6 +50,16 @@ async function main() {
     if (found.docs.length > 0) {
       const existing = found.docs[0];
       if (!existing) continue;
+      if (REFRESH && body) {
+        await payload.update({
+          collection: "posts",
+          id: existing.id,
+          data: { body, _status: "published" } as never,
+          draft: false,
+        });
+        console.log(`  ✓ ${p.slug} — body refreshed`);
+        continue;
+      }
       const hasBody = existing.body && JSON.stringify(existing.body).length > 40;
       if (hasBody) {
         console.log(`  · ${p.slug} — already exists with a body, skipping`);

@@ -107,6 +107,23 @@ export default buildConfig({
               },
             ],
           },
+          {
+            slug: "stats",
+            labels: { singular: "Stats Row", plural: "Stats Rows" },
+            fields: [
+              {
+                name: "items",
+                type: "array",
+                minRows: 2,
+                maxRows: 4,
+                fields: [
+                  { name: "value", type: "text", required: true },
+                  { name: "label", type: "text", required: true },
+                ],
+                admin: { description: "Key figures rendered as animated counter cards." },
+              },
+            ],
+          },
         ],
       }),
     ],

@@ -16,6 +16,7 @@ import { RichText, type JSXConvertersFunction } from "@payloadcms/richtext-lexic
 import type { SerializedEditorState } from "lexical";
 import { MermaidDiagram } from "./mermaid-diagram";
 import { Reveal } from "./reveal";
+import { StatsRow } from "./stats-row";
 import { extractSections, sectionAnchor } from "./toc";
 
 function DataTable({ markdown }: { markdown: string }) {
@@ -65,11 +66,19 @@ function DataTable({ markdown }: { markdown: string }) {
   );
 }
 
-type BlockFields = { blockType: string; id?: string; code?: string; caption?: string; markdown?: string };
+type BlockFields = {
+  blockType: string;
+  id?: string;
+  code?: string;
+  caption?: string;
+  markdown?: string;
+  items?: { value?: string | null; label?: string | null }[];
+};
 
 function makeConverters(
   figureNos: Map<string, number>,
   sectionNos: Map<string, string>,
+  closingQuote: string | null,
 ): JSXConvertersFunction {
   return ({ defaultConverters }) => ({
     ...defaultConverters,
@@ -119,6 +128,21 @@ function makeConverters(
     },
     quote: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
+      const text = (node.children ?? [])
+        .map((c) => (c as { text?: string }).text ?? "")
+        .join("");
+      // Closing quote → full-width accent panel (Lovable final section)
+      if (closingQuote && text === closingQuote) {
+        return (
+          <Reveal>
+            <blockquote className="my-16 border-2 border-accent bg-surface-1 px-8 py-12 text-center md:px-16">
+              <p className="mx-auto max-w-[46ch] font-display text-title font-bold italic leading-tight text-text-primary">
+                {children}
+              </p>
+            </blockquote>
+          </Reveal>
+        );
+      }
       return (
         <Reveal>
           <blockquote className="my-12 border-s-2 border-accent py-2 ps-6">
@@ -167,6 +191,17 @@ function makeConverters(
           </Reveal>
         );
       },
+      stats: ({ node }: { node: { fields: BlockFields } }) => {
+        const items = (node.fields.items ?? []).map((i) => ({
+          value: i.value ?? "",
+          label: i.label ?? "",
+        }));
+        return (
+          <Reveal>
+            <StatsRow items={items} />
+          </Reveal>
+        );
+      },
     },
   });
 }
@@ -174,7 +209,7 @@ function makeConverters(
 export function ArticleBody({ content }: { content: SerializedEditorState }) {
   // Number diagram figures (FIGURE · 01 …) and h2 sections (01, 02 …)
   // in document order.
-  const { figureNos, sectionNos } = useMemo(() => {
+  const { figureNos, sectionNos, closingQuote } = useMemo(() => {
     const figures = new Map<string, number>();
     let n = 0;
     const children =
@@ -188,10 +223,23 @@ export function ArticleBody({ content }: { content: SerializedEditorState }) {
     }
     const sections = new Map<string, string>();
     for (const s of extractSections(content)) sections.set(s.text, s.no);
-    return { figureNos: figures, sectionNos: sections };
+
+    // If the article ENDS on a quote (last or second-to-last block),
+    // render it as the full-width closing panel.
+    let closing: string | null = null;
+    const tail = children.slice(-2) as { type?: string; children?: { text?: string }[] }[];
+    for (const node of tail) {
+      if (node?.type === "quote") {
+        closing = (node.children ?? []).map((c) => c.text ?? "").join("");
+      }
+    }
+    return { figureNos: figures, sectionNos: sections, closingQuote: closing };
   }, [content]);
 
-  const converters = useMemo(() => makeConverters(figureNos, sectionNos), [figureNos, sectionNos]);
+  const converters = useMemo(
+    () => makeConverters(figureNos, sectionNos, closingQuote),
+    [figureNos, sectionNos, closingQuote],
+  );
 
   return <RichText data={content} converters={converters} />;
 }

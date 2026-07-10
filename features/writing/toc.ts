@@ -24,6 +24,24 @@ export function sectionAnchor(text: string): string {
   );
 }
 
+/** Rough reading time in minutes (~200 wpm) from the Lexical tree. */
+export function readingMinutes(content: unknown): number {
+  const walk = (nodes: unknown[]): string =>
+    nodes
+      .map((n) => {
+        const node = n as { text?: string; children?: unknown[]; fields?: { markdown?: string } };
+        let s = node.text ?? "";
+        if (node.fields?.markdown) s += " " + node.fields.markdown;
+        if (node.children) s += " " + walk(node.children);
+        return s;
+      })
+      .join(" ");
+  const children =
+    (content as { root?: { children?: unknown[] } })?.root?.children ?? [];
+  const words = walk(children).split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
+}
+
 export function extractSections(content: unknown): ArticleSection[] {
   const children =
     (content as { root?: { children?: LexicalNode[] } })?.root?.children ?? [];

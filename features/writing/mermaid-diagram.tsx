@@ -104,7 +104,7 @@ export function MermaidDiagram({
                   primaryBorderColor: "#8A8578",
                   lineColor: "#8A8578",
                   textColor: "#EDEAE2",
-                  fontSize: "14px",
+                  fontSize: "16px",
                 }
               : {
                   background: "transparent",
@@ -113,9 +113,12 @@ export function MermaidDiagram({
                   primaryBorderColor: "#6B655B",
                   lineColor: "#6B655B",
                   textColor: "#0B0A08",
-                  fontSize: "14px",
+                  fontSize: "16px",
                 },
-            flowchart: { htmlLabels: true, curve: "basis" },
+            // useMaxWidth:false → natural-size SVG; CSS below stretches it
+            // to fill the figure, so diagrams stop floating tiny inside a
+            // big empty box.
+            flowchart: { htmlLabels: true, curve: "basis", useMaxWidth: false, nodeSpacing: 40, rankSpacing: 55 },
           });
           return mermaid.render(id, themedCode(code, dark));
         })
@@ -157,7 +160,11 @@ export function MermaidDiagram({
             {code}
           </pre>
         ) : (
-          <div ref={hostRef} className="[&_svg]:mx-auto [&_svg]:h-auto [&_svg]:max-w-full" dir="ltr" />
+          <div
+            ref={hostRef}
+            className="[&_svg]:mx-auto [&_svg]:h-auto [&_svg]:w-full [&_svg]:max-w-[720px]"
+            dir="ltr"
+          />
         )}
       </div>
       {caption ? (

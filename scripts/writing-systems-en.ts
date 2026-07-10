@@ -26,6 +26,12 @@ export const SYSTEMS_BODIES_EN: Record<string, Block[]> = {
   "business-operating-system": [
     { p: "Most companies don't hit a growth ceiling because the product stops working. They hit it because internal complexity outgrows organizational clarity — and the founder's memory stops scaling. The fix isn't more hustle. It's a Business Operating System: the documented, integrated set of protocols that defines how the company behaves when nobody is watching." },
     { q: "A business that runs on one person's instincts is a personality. A business that runs on a system is an asset." },
+    { stats: [
+      { value: "1.8h", label: "Lost per employee, daily, to searching for information" },
+      { value: "5", label: "Maturity stages between chaos and self-management" },
+      { value: "90min", label: "The weekly Level 10 pulse" },
+      { value: "5–15", label: "Scorecard measurables, one owner each" },
+    ] },
 
     { h: "The maturity ladder — where is your company right now?" },
     { p: "Every organization sits somewhere on a five-stage ladder. The honest diagnosis matters more than the label, because each stage has a different failure mode — and a different next move." },
@@ -107,6 +113,12 @@ ${DIAGRAM_CLASSES}`, caption: "The Level 10 loop. The red path is the discipline
   "brand-operating-system": [
     { p: "Brand dilution is not an aesthetic problem — it's a leak in the P&L. Mid-to-large businesses lose an estimated $6M a year in revenue to inconsistent brand presentation, while consistent presentation is associated with roughly 23% revenue lift. The static PDF guideline was never going to hold that line: it's a snapshot trying to govern a moving system." },
     { q: "Logos get you noticed. Systems keep you recognizable." },
+    { stats: [
+      { value: "$6M", label: "Lost yearly to inconsistent brand presentation" },
+      { value: "23%", label: "Revenue lift from consistent presentation" },
+      { value: "12", label: "Pillars in the Brand OS architecture" },
+      { value: "3", label: "Governance tiers, locked to self-serve" },
+    ] },
 
     { h: "From static assets to dynamic infrastructure" },
     { p: "A Brand Operating System is not a style guide. It's the operating logic underneath everything the company makes: the strategy that steers, the workflows that move, and the decision filter that keeps both honest. It runs as a continuous loop, not a one-time project:" },
@@ -176,6 +188,12 @@ ${DIAGRAM_CLASSES}`, caption: "AI-integrated brand pipeline. The context files a
   /* ------------------------------------------------------------------ */
   "enterprise-design-systems": [
     { p: "High-performing design organizations grow revenue and shareholder returns at nearly twice the rate of their industry peers. That number has nothing to do with prettier buttons. It comes from treating design as infrastructure — measured like cost, governed like code, and owned at leadership level. The design system is where that discipline becomes physical." },
+    { stats: [
+      { value: "50%", label: "Faster design-to-development handoff" },
+      { value: "27%", label: "Less time on repetitive design work" },
+      { value: "96.3%", label: "Of websites fail basic WCAG 2.1 AA" },
+      { value: "$13T", label: "Spending power excluded by inaccessibility" },
+    ] },
 
     { h: "A design system is not a UI kit" },
     { table: [
@@ -243,6 +261,12 @@ ${DIAGRAM_CLASSES}`, caption: "The contribution loop. Every rejection returns wi
   /* ------------------------------------------------------------------ */
   "product-led-expansion": [
     { p: "Scaling is not doing more things. It's doing the right things with more precision — and letting the product itself carry acquisition, expansion, and retention. That shift has an organizational price: product management moves to the executive table (70% of Fortune 100 companies are expected to have a CPO by 2027), and UX stops being a cost line and becomes a revenue variable." },
+    { stats: [
+      { value: "69.8%", label: "Average online cart abandonment" },
+      { value: "32%", label: "Faster revenue growth — top design quartile" },
+      { value: "$100", label: "Returned for every $1 invested in UX" },
+      { value: "70%", label: "Of Fortune 100 with a CPO by 2027" },
+    ] },
 
     { h: "The product operating model — MVP focus vs. enterprise focus" },
     { table: [
@@ -304,6 +328,12 @@ ${DIAGRAM_CLASSES}`, caption: "Contract-first decomposition. The dotted swaps ar
   "ux-strategy-playbook": [
     { p: "UX strategy sits at the intersection of business strategy and product design — the plan that moves an organization to a higher state of experience over time. The numbers make the case bluntly: top-quartile design companies post 32 percentage points higher revenue growth and 56 points higher shareholder-return growth than their peers. This playbook is the operating manual for capturing that gap." },
     { q: "Users form an opinion of your product in 0.05 seconds. Strategy is deciding, in advance, what that twentieth of a second says." },
+    { stats: [
+      { value: "0.05s", label: "To form a first impression" },
+      { value: "5", label: "Users uncover 85% of usability issues" },
+      { value: "52%", label: "Higher LTV from emotional connection" },
+      { value: "56pt", label: "Higher shareholder-return growth" },
+    ] },
 
     { h: "Product thinking — everything is an experiment" },
     { p: "Scalable product thinking assumes every decision is a hypothesis until market evidence says otherwise. Decisions get grounded in data, not seniority — because product design is full of wicked problems, where solving one aspect reveals two more. The organizational shape follows: product elevated to the executive table, with four roles holding the strategy together:" },
@@ -382,6 +412,12 @@ ${DIAGRAM_CLASSES}`, caption: "How one input moves four financial outputs. This 
   /* ------------------------------------------------------------------ */
   "digital-product-lifecycle": [
     { p: "Every digital product travels the same road: idea, validation, research, brand, design, build, launch, growth, scale. What separates the products that survive the trip is not talent at any single stage — it's an execution chassis that connects the stages, so evidence from one becomes the input of the next instead of dying in a slide deck." },
+    { stats: [
+      { value: "$260B", label: "Recoverable through checkout usability" },
+      { value: "53%", label: "Abandon mobile pages slower than 3s" },
+      { value: "85%", label: "Of usability issues found by 5 users" },
+      { value: "1.8h", label: "Lost daily without documentation" },
+    ] },
     { mermaid: `flowchart TD
     I["Idea<br/>human value defined"]:::gov --> V["Validation<br/>smoke tests"]:::tech
     V --> R["Research<br/>personas + journeys"]:::gov
@@ -444,6 +480,12 @@ ${DIAGRAM_CLASSES}`, caption: "Smoke testing. The red path back is a feature, no
   /* ------------------------------------------------------------------ */
   "brand-case-studies": [
     { p: "Brand value stopped being a soft metric a long time ago. It is pricing power, acquisition efficiency, and shareholder return wearing a logo. The most valuable brands on earth — Apple, Nike, Coca-Cola, Airbnb — don't treat branding as a design exercise; they run it as an operating system. What follows is the anatomy of how, case by case." },
+    { stats: [
+      { value: "20–30%", label: "Apple's price premium over commodity rivals" },
+      { value: "52%", label: "Higher LTV — emotionally connected customers" },
+      { value: "90%", label: "Airbnb traffic, direct + organic" },
+      { value: "$6M", label: "Yearly cost of brand inconsistency" },
+    ] },
 
     { h: "The tech giants — precision as a system" },
     { p: "Apple is the reference case for analytical leadership: design measured with the same rigor as revenue, owned at C-suite level. The mechanism is the halo effect — perceived visual quality bleeding into perceived functional quality — and the payoff is a 20–30% price premium over commodity rivals, paid by customers who negotiate less. Stripe runs the same discipline through engineering: brand as soft infrastructure, one source of truth, and a Definition-of-Ready handoff that cuts design-to-development time by half so the brand feel never dies in translation to code. Linear's cult following is the discipline of restraint — a governing axiom, shared decision logic, and the confidence to say no to almost everything." },
@@ -501,6 +543,12 @@ ${DIAGRAM_CLASSES}`, caption: "The four-phase BrandOS roadmap, extracted from th
   /* ------------------------------------------------------------------ */
   "brand-identity-blueprint": [
     { p: "Brand identity is not the aesthetic layer of a business. It's the structural scaffolding that aligns organizational culture, product engineering, and market communication — a deliberate configuration of internal values and external expressions. This blueprint maps the whole stack: what it's made of, what it's financially worth, how it drives growth, and how world-class companies operate it." },
+    { stats: [
+      { value: "4", label: "Tiers in the identity stack" },
+      { value: "1:5", label: "CAC:LTV ratio of branded market leaders" },
+      { value: "3–10×", label: "M&A goodwill multiplier for strong brands" },
+      { value: "3", label: "Architecture models for the portfolio" },
+    ] },
 
     { h: "The four-tier architecture" },
     { p: "Every durable identity is a hierarchy with one source of truth at the top. Change flows downward only — a touchpoint never redefines the purpose:" },

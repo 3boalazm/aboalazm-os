@@ -28,7 +28,8 @@ export type Block =
   | { ul: string[] }                           // bullet list
   | { ol: string[] }                           // numbered list
   | { table: string[][] }                      // data table — first row is the header
-  | { mermaid: string; caption?: string };     // Mermaid diagram + optional caption
+  | { mermaid: string; caption?: string }      // Mermaid diagram + optional caption
+  | { stats: { value: string; label: string }[] }; // animated counter cards
 
 function textNode(text: string) {
   return { type: "text", detail: 0, format: 0, mode: "normal", style: "", text, version: 1 };
@@ -93,6 +94,17 @@ export function toLexical(blocks: Block[], dir: "ltr" | "rtl" = "ltr") {
           blockType: "diagram",
           code: b.mermaid.trim(),
           caption: b.caption ?? "",
+        },
+      };
+    }
+    if ("stats" in b) {
+      return {
+        type: "block", format: "", version: 2,
+        fields: {
+          id: nextId(),
+          blockName: "",
+          blockType: "stats",
+          items: b.stats.map((s) => ({ id: nextId(), value: s.value, label: s.label })),
         },
       };
     }

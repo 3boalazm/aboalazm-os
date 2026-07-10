@@ -5,7 +5,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
 import { ArticleBody } from "@/features/writing/article-body";
-import { extractSections, type ArticleSection } from "@/features/writing/toc";
+import { extractSections, readingMinutes, type ArticleSection } from "@/features/writing/toc";
 import type { SerializedEditorState } from "lexical";
 
 interface PostSummary {
@@ -132,6 +132,8 @@ export function WritingDetailView({
   const dir = postLang === "ar" ? "rtl" : "ltr";
   const dateLabel = post.publishedAt ? post.publishedAt.slice(0, 10) : "";
   const sections = extractSections(post.body);
+  const minutes = post.body ? readingMinutes(post.body) : 0;
+  const titleWords = post.title.split(" ");
 
   return (
     <main className="container-content flex min-h-svh flex-col gap-10 py-16">
@@ -146,46 +148,103 @@ export function WritingDetailView({
         ← {t.writingSection}
       </Link>
 
-      <motion.header
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="border-b border-border-subtle pb-12"
+      <header
+        className="relative overflow-hidden border-b border-border-subtle pb-14"
         dir={dir}
         lang={postLang}
       >
-        <div className="mb-8 flex flex-wrap items-center gap-4" dir="ltr">
+        {/* Ambient hero glow — accent radial, GPU-cheap, both themes */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 h-72 w-72 rounded-full opacity-[0.14] blur-3xl ltr:-right-16 rtl:-left-16"
+          style={{ background: "radial-gradient(closest-side, #FF4D24, transparent 70%)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 h-48 w-48 rounded-full opacity-[0.07] blur-3xl ltr:left-1/4 rtl:right-1/4"
+          style={{ background: "radial-gradient(closest-side, #4F46E5, transparent 70%)" }}
+        />
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="mb-10 flex flex-wrap items-center gap-4"
+          dir="ltr"
+        >
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
             <span className="text-accent">{post.index}</span>
             {dateLabel ? <> · {dateLabel}</> : null}
+            {minutes ? <> · {minutes} min</> : null}
           </span>
           <div className="h-px flex-1 bg-border-subtle" />
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
             Aboalazm OS / Writing
           </span>
-        </div>
+        </motion.div>
 
         <h1 className="max-w-[16ch] font-display text-display font-bold uppercase leading-[0.98] tracking-[-0.02em]">
-          {post.title}
+          {titleWords.map((word, i) => (
+            <motion.span
+              key={i}
+              className="inline-block"
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.08 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {word}
+              {i < titleWords.length - 1 ? " " : ""}
+            </motion.span>
+          ))}
         </h1>
 
-        <p className="mt-8 max-w-[62ch] text-lead font-medium leading-snug text-text-secondary">
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
+          className="mt-8 max-w-[62ch] text-lead font-medium leading-snug text-text-secondary"
+        >
           {post.standfirst}
-        </p>
+        </motion.p>
 
         {post.topics && post.topics.length > 0 ? (
-          <div className="mt-10 flex flex-wrap gap-2">
-            {post.topics.map((topic) => (
-              <span
-                key={topic}
-                className="border border-border-subtle px-2.5 py-1 font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary"
-              >
-                {topic}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2"
+          >
+            {post.topics.map((topic, i) => (
+              <span key={topic} className="flex items-center gap-3">
+                <span className="border border-border-subtle px-2.5 py-1 font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
+                  {topic}
+                </span>
+                {i < (post.topics?.length ?? 0) - 1 ? (
+                  <span aria-hidden className="text-accent">
+                    +
+                  </span>
+                ) : null}
               </span>
             ))}
-          </div>
+          </motion.div>
         ) : null}
-      </motion.header>
+
+        <motion.div
+          aria-hidden
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-12 flex items-center gap-3 font-mono text-micro uppercase tracking-[0.14em] text-text-ghost"
+        >
+          <motion.span
+            animate={{ y: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+          >
+            ↓
+          </motion.span>
+          {ar ? "اقرأ" : "Scroll"}
+        </motion.div>
+      </header>
 
       {post.body ? (
         <article dir={dir} lang={postLang}>
