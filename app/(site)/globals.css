@@ -435,8 +435,15 @@ html[data-theme="light"] {
   from { transform: translateX(0); }
   to   { transform: translateX(50%); }
 }
+/* The marquee is EXEMPT from the reduced-motion kill-switch: the global
+   override (0.01ms duration) turned it into a strobe, and killing it
+   entirely left a static bar. A 120s drift is gentle enough to keep for
+   everyone — restore its real timing with higher precedence. */
 @media (prefers-reduced-motion: reduce) {
-  .marquee { animation: none; }
+  .marquee {
+    animation-duration: 120s !important;
+    animation-iteration-count: infinite !important;
+  }
 }
 
 /* ── Brand orb: simple circular avatar with a soft, light glow ───────── */
