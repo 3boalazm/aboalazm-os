@@ -11,40 +11,100 @@
  * `toLexical()` builds the minimal valid Lexical JSON structure Payload's
  * richText field expects — a plain object tree, no editor instance
  * needed to construct it.
+ *
+ * UPGRADE (systems series): the Block union now also supports h3
+ * subheadings, bullet/numbered lists, data tables, and Mermaid diagrams.
+ * Tables and diagrams are stored as Payload Blocks inside the richText
+ * (`dataTable` / `diagram` — registered in payload.config.ts via
+ * BlocksFeature), so they stay editable from the admin dashboard and get
+ * rendered by the custom converters in features/writing/article-body.tsx.
  */
 
-type Block =
-  | { h: string }              // heading (h2)
-  | { p: string }              // paragraph
-  | { q: string };             // pull-quote (rendered as a blockquote-style paragraph)
+export type Block =
+  | { h: string }                              // heading (h2)
+  | { h3: string }                             // subheading (h3)
+  | { p: string }                              // paragraph
+  | { q: string }                              // pull-quote
+  | { ul: string[] }                           // bullet list
+  | { ol: string[] }                           // numbered list
+  | { table: string[][] }                      // data table — first row is the header
+  | { mermaid: string; caption?: string };     // Mermaid diagram + optional caption
 
 function textNode(text: string) {
   return { type: "text", detail: 0, format: 0, mode: "normal", style: "", text, version: 1 };
 }
 
-export function toLexical(blocks: Block[]) {
+let blockId = 0;
+function nextId() {
+  blockId += 1;
+  return `seed-block-${Date.now().toString(36)}-${blockId}`;
+}
+
+export function toLexical(blocks: Block[], dir: "ltr" | "rtl" = "ltr") {
   const children = blocks.map((b) => {
     if ("h" in b) {
       return {
         type: "heading", tag: "h2", format: "", indent: 0, version: 1,
-        children: [textNode(b.h)], direction: "ltr",
+        children: [textNode(b.h)], direction: dir,
+      };
+    }
+    if ("h3" in b) {
+      return {
+        type: "heading", tag: "h3", format: "", indent: 0, version: 1,
+        children: [textNode(b.h3)], direction: dir,
       };
     }
     if ("q" in b) {
       return {
         type: "quote", format: "", indent: 0, version: 1,
-        children: [textNode(b.q)], direction: "ltr",
+        children: [textNode(b.q)], direction: dir,
+      };
+    }
+    if ("ul" in b || "ol" in b) {
+      const items = "ul" in b ? b.ul : b.ol;
+      const listType = "ul" in b ? "bullet" : "number";
+      const tag = "ul" in b ? "ul" : "ol";
+      return {
+        type: "list", listType, tag, start: 1, format: "", indent: 0, version: 1,
+        direction: dir,
+        children: items.map((item, i) => ({
+          type: "listitem", value: i + 1, format: "", indent: 0, version: 1,
+          direction: dir, children: [textNode(item)],
+        })),
+      };
+    }
+    if ("table" in b) {
+      return {
+        type: "block", format: "", version: 2,
+        fields: {
+          id: nextId(),
+          blockName: "",
+          blockType: "dataTable",
+          markdown: b.table.map((row) => row.join(" | ")).join("\n"),
+        },
+      };
+    }
+    if ("mermaid" in b) {
+      return {
+        type: "block", format: "", version: 2,
+        fields: {
+          id: nextId(),
+          blockName: "",
+          blockType: "diagram",
+          code: b.mermaid.trim(),
+          caption: b.caption ?? "",
+        },
       };
     }
     return {
       type: "paragraph", format: "", indent: 0, version: 1,
-      children: [textNode(b.p)], direction: "ltr", textFormat: 0,
+      children: [textNode(b.p)], direction: dir, textFormat: 0,
     };
   });
 
   return {
     root: {
-      type: "root", format: "", indent: 0, version: 1, direction: "ltr",
+      type: "root", format: "", indent: 0, version: 1, direction: dir,
       children,
     },
   };
