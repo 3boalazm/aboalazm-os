@@ -27,6 +27,24 @@ export async function GET(req: NextRequest) {
   const payload = await getPayload();
   const report: { slug: string; action: string }[] = [];
 
+  // ?publish=1 — force-publish every existing post (same fix as
+  // scripts/publish-all.ts): seeded docs can land as drafts, and the
+  // public site only shows _status: published.
+  if (req.nextUrl.searchParams.get("publish") === "1") {
+    const res = await payload.find({ collection: "posts", limit: 200, overrideAccess: true, draft: true });
+    for (const doc of res.docs) {
+      await payload.update({
+        collection: "posts",
+        id: doc.id,
+        data: { _status: "published" } as never,
+        draft: false,
+      });
+      report.push({ slug: (doc as { slug?: string }).slug ?? String(doc.id), action: "force-published" });
+    }
+    const total = await payload.count({ collection: "posts" });
+    return NextResponse.json({ done: true, mode: "publish", totalPostsInDb: total.totalDocs, report });
+  }
+
   for (const p of WRITING_POSTS) {
     const lang = p.lang ?? "en";
     const blocks = ARTICLE_BODIES[p.slug] ?? SYSTEMS_BODIES_EN[p.slug] ?? SYSTEMS_BODIES_AR[p.slug];
