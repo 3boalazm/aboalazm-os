@@ -41,11 +41,18 @@ export default async function WritingDetailPage({
   const next = i > 0 ? sameLang[i - 1] : null; // newer
   const prev = i >= 0 && i < sameLang.length - 1 ? sameLang[i + 1] : null; // older
 
+  // Counterpart in the other language (slug convention: `-ar` suffix) —
+  // lets the view hot-swap the article when the UI language toggles.
+  const counterpart =
+    (post.lang ?? "en") === "ar" ? slug.replace(/-ar$/, "") : `${slug}-ar`;
+  const counterpartSlug = all.some((p) => p.slug === counterpart) ? counterpart : null;
+
   return (
     <WritingDetailView
       post={post}
       prev={prev ? { slug: prev.slug, title: prev.title, index: prev.index } : null}
       next={next ? { slug: next.slug, title: next.title, index: next.index } : null}
+      counterpartSlug={counterpartSlug}
     />
   );
 }

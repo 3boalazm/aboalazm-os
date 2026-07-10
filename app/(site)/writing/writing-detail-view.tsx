@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
@@ -120,15 +121,30 @@ export function WritingDetailView({
   post,
   prev,
   next,
+  counterpartSlug,
 }: {
   post: PostDetail;
   prev?: PostSummary | null;
   next?: PostSummary | null;
+  counterpartSlug?: string | null;
 }) {
   const t = useT();
   const { lang } = useLang();
+  const router = useRouter();
   const ar = lang === "ar";
   const postLang = post.lang ?? "en";
+
+  // Language hot-swap: when the UI language TOGGLES while reading and a
+  // counterpart version exists, jump to it. A ref guards the initial
+  // mount so deep links to a specific language never redirect on load.
+  const prevUiLang = useRef(lang);
+  useEffect(() => {
+    if (prevUiLang.current === lang) return;
+    prevUiLang.current = lang;
+    if (counterpartSlug && lang !== postLang) {
+      router.push(`/writing/${counterpartSlug}`);
+    }
+  }, [lang, counterpartSlug, postLang, router]);
   const dir = postLang === "ar" ? "rtl" : "ltr";
   const dateLabel = post.publishedAt ? post.publishedAt.slice(0, 10) : "";
   const sections = extractSections(post.body);
