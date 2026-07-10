@@ -250,7 +250,7 @@ function Node({ node }: { node: DNode }) {
         {node.title}
       </div>
       {node.sub ? (
-        <div className="mt-1 font-mono text-[10px] uppercase leading-snug tracking-wider opacity-80">{node.sub}</div>
+        <div className="mt-1 font-mono text-[11px] uppercase leading-snug tracking-wider opacity-80">{node.sub}</div>
       ) : null}
     </div>
   );
@@ -260,7 +260,7 @@ function Connector({ labels, dashed }: { labels: string[]; dashed: boolean }) {
   return (
     <div className="flex flex-col items-center py-1">
       {labels.length > 0 ? (
-        <span className="mb-1 bg-surface-1 px-2 font-mono text-[10px] uppercase tracking-wider text-text-tertiary">
+        <span className="mb-1 bg-surface-1 px-2 font-mono text-[11px] uppercase tracking-wider text-text-tertiary">
           {labels.join(" · ")}
         </span>
       ) : null}
@@ -294,7 +294,7 @@ export function NativeDiagram({ parsed }: { parsed: ParsedDiagram }): ReactNode 
         const to = parsed.nodes.get(loop.to);
         return (
           <div key={i} className="relative mx-auto mt-5 w-4/5 border-2 border-t-0 border-dashed border-text-ghost pb-4 pt-1">
-            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-surface-1 px-2 font-mono text-[10px] uppercase tracking-wider text-text-tertiary">
+            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-surface-1 px-2 font-mono text-[11px] uppercase tracking-wider text-text-tertiary">
               ⟲ {loop.label ?? "feedback"} · {from?.title} → {to?.title}
             </div>
           </div>
