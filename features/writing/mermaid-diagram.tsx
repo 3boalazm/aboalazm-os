@@ -1,14 +1,19 @@
 "use client";
 
 /**
- * MERMAID DIAGRAM — renders a `diagram` block from a Post's richText.
+ * MERMAID DIAGRAM — renders a `diagram` block from a Post's richText,
+ * styled after the Lovable "Editorial Brand Systems" reference:
+ * a bordered Figure container with a mono label row ("FIGURE · NN"),
+ * the diagram itself, and a mono uppercase caption underneath.
+ *
+ * THEME-AWARE: the seeded mermaid definitions carry light-mode classDef
+ * colors (indigo/green/red/amber pastels). On dark mode we swap each
+ * hex for its dark-palette twin before rendering, and re-render when
+ * html[data-theme] changes — so diagrams stay legible on both themes.
  *
  * Mermaid is loaded once from CDN via a <script> tag instead of being
- * bundled: it's ~2MB of parser that only /writing/[slug] pages with
- * diagrams ever need, and a runtime script tag keeps it out of every
- * webpack/turbopack chunk entirely. On failure (offline, CDN blocked)
- * the raw definition is shown in a <pre> so the content never
- * disappears — degraded, not broken.
+ * bundled (~2MB of parser only /writing/[slug] needs). On failure the
+ * raw definition is shown in a <pre> — degraded, not broken.
  */
 import { useEffect, useRef, useState } from "react";
 
@@ -31,13 +36,6 @@ function loadMermaid(): Promise<MermaidApi> {
       script.async = true;
       script.onload = () => {
         if (!w.mermaid) return reject(new Error("mermaid failed to attach"));
-        w.mermaid.initialize({
-          startOnLoad: false,
-          theme: "neutral",
-          securityLevel: "strict",
-          fontFamily: "inherit",
-          flowchart: { htmlLabels: true, curve: "basis" },
-        });
         resolve(w.mermaid);
       };
       script.onerror = () => reject(new Error("mermaid CDN unreachable"));
@@ -47,34 +45,113 @@ function loadMermaid(): Promise<MermaidApi> {
   return loaderPromise;
 }
 
+/** Light-palette hex → dark-palette twin (Lovable token pairs). */
+const DARK_SWAP: [string, string][] = [
+  ["#EEF2FF", "#1E1B4B"], ["#4F46E5", "#818CF8"], ["#312E81", "#E0E7FF"],
+  ["#ECFDF5", "#052E22"], ["#059669", "#34D399"], ["#064E3B", "#D1FAE5"],
+  ["#FEF2F2", "#3B0D0D"], ["#DC2626", "#F87171"], ["#7F1D1D", "#FECACA"],
+  ["#FFFBEB", "#3F2A05"], ["#D97706", "#FBBF24"], ["#78350F", "#FEF3C7"],
+];
+
+function themedCode(code: string, dark: boolean) {
+  if (!dark) return code;
+  let out = code;
+  for (const [light, darkHex] of DARK_SWAP) {
+    out = out.split(light).join(darkHex).split(light.toLowerCase()).join(darkHex);
+  }
+  return out;
+}
+
+function isDarkTheme() {
+  // Site convention (theme-provider): default is dark; light mode sets
+  // html[data-theme="light"].
+  return document.documentElement.getAttribute("data-theme") !== "light";
+}
+
 let renderSeq = 0;
 
-export function MermaidDiagram({ code, caption }: { code: string; caption?: string }) {
+export function MermaidDiagram({
+  code,
+  caption,
+  figureNo,
+}: {
+  code: string;
+  caption?: string;
+  figureNo?: number;
+}) {
   const hostRef = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
-    renderSeq += 1;
-    const id = `mmd-${renderSeq}`;
 
-    loadMermaid()
-      .then((mermaid) => mermaid.render(id, code))
-      .then(({ svg }) => {
-        if (!cancelled && hostRef.current) hostRef.current.innerHTML = svg;
-      })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
+    const draw = () => {
+      const dark = isDarkTheme();
+      renderSeq += 1;
+      const id = `mmd-${renderSeq}`;
+      loadMermaid()
+        .then((mermaid) => {
+          mermaid.initialize({
+            startOnLoad: false,
+            securityLevel: "strict",
+            fontFamily: "inherit",
+            theme: "base",
+            themeVariables: dark
+              ? {
+                  background: "transparent",
+                  primaryColor: "#14121C",
+                  primaryTextColor: "#EDEAE2",
+                  primaryBorderColor: "#8A8578",
+                  lineColor: "#8A8578",
+                  textColor: "#EDEAE2",
+                  fontSize: "14px",
+                }
+              : {
+                  background: "transparent",
+                  primaryColor: "#F1EDE6",
+                  primaryTextColor: "#0B0A08",
+                  primaryBorderColor: "#6B655B",
+                  lineColor: "#6B655B",
+                  textColor: "#0B0A08",
+                  fontSize: "14px",
+                },
+            flowchart: { htmlLabels: true, curve: "basis" },
+          });
+          return mermaid.render(id, themedCode(code, dark));
+        })
+        .then(({ svg }) => {
+          if (!cancelled && hostRef.current) hostRef.current.innerHTML = svg;
+        })
+        .catch(() => {
+          if (!cancelled) setFailed(true);
+        });
+    };
+
+    draw();
+
+    // Re-render when the site theme flips.
+    const observer = new MutationObserver((muts) => {
+      if (muts.some((m) => m.attributeName === "data-theme")) draw();
+    });
+    observer.observe(document.documentElement, { attributes: true });
 
     return () => {
       cancelled = true;
+      observer.disconnect();
     };
   }, [code]);
 
   return (
-    <figure className="mt-6">
-      <div className="overflow-x-auto rounded-md border border-border-subtle bg-surface-1 p-4">
+    <figure className="my-12">
+      <div className="border border-border-subtle bg-surface-1 p-6 md:p-10">
+        <div className="mb-6 flex items-center justify-between">
+          <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
+            Figure{figureNo ? ` · ${String(figureNo).padStart(2, "0")}` : ""}
+          </span>
+          <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
+            SVG
+          </span>
+        </div>
         {failed ? (
           <pre className="whitespace-pre-wrap font-mono text-micro text-text-tertiary" dir="ltr">
             {code}
@@ -84,7 +161,7 @@ export function MermaidDiagram({ code, caption }: { code: string; caption?: stri
         )}
       </div>
       {caption ? (
-        <figcaption className="mt-2 max-w-[68ch] font-mono text-micro text-text-tertiary">
+        <figcaption className="mt-4 max-w-[68ch] font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary">
           {caption}
         </figcaption>
       ) : null}

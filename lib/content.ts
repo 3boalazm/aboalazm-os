@@ -154,6 +154,7 @@ export async function getPost(slug: string) {
     standfirst: doc.standfirst ?? "",
     publishedAt: doc.publishedAt ?? "",
     lang: doc.lang ?? "en",
+    topics: doc.topics ?? [],
     body: doc.body,
   };
 }
