@@ -2,7 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 import { postgresAdapter } from "@payloadcms/db-postgres";
-import { BlocksFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 
@@ -67,50 +67,7 @@ export default buildConfig({
     Messages,
   ],
   globals: [Offers, Settings],
-  /**
-   * EDITOR — default Lexical features plus two custom blocks used by the
-   * Writing section (rendered in features/writing/article-body.tsx):
-   *   · diagram   — a Mermaid definition, rendered client-side
-   *   · dataTable — pipe-separated rows ("A | B | C"), first row = header
-   * Registering them here keeps seeded block nodes fully editable from
-   * the admin dashboard instead of crashing the editor on unknown nodes.
-   */
-  editor: lexicalEditor({
-    features: ({ defaultFeatures }) => [
-      ...defaultFeatures,
-      BlocksFeature({
-        blocks: [
-          {
-            slug: "diagram",
-            labels: { singular: "Diagram (Mermaid)", plural: "Diagrams (Mermaid)" },
-            fields: [
-              {
-                name: "code",
-                type: "textarea",
-                required: true,
-                admin: { description: "Mermaid definition, e.g. flowchart TD …" },
-              },
-              { name: "caption", type: "text" },
-            ],
-          },
-          {
-            slug: "dataTable",
-            labels: { singular: "Data Table", plural: "Data Tables" },
-            fields: [
-              {
-                name: "markdown",
-                type: "textarea",
-                required: true,
-                admin: {
-                  description: "One row per line, cells separated by ' | '. First line is the header.",
-                },
-              },
-            ],
-          },
-        ],
-      }),
-    ],
-  }),
+  editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
     outputFile: path.resolve(dirname, "payload-types.ts"),

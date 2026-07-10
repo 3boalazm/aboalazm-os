@@ -95,7 +95,7 @@ export function BeforeAfterSlider() {
 
       {/* ════ BEFORE — wireframe chaos (clipped layer) ════ */}
       <div
-        className="absolute inset-0 bg-obsidian"
+        className="absolute inset-0 bg-surface-0"
         style={{
           clipPath: `inset(0 ${100 - pos}% 0 0)`,
           // Direct manipulation: no transition while dragging
@@ -139,7 +139,7 @@ export function BeforeAfterSlider() {
       >
         <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-text-primary/80" />
         <motion.span
-          className="absolute left-1/2 top-1/2 flex size-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-pill border border-border-strong bg-obsidian font-mono text-micro text-text-secondary shadow-card"
+          className="absolute left-1/2 top-1/2 flex size-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-pill border border-border-strong bg-surface-0 font-mono text-micro text-text-secondary shadow-card"
           animate={{ scale: dragging ? 1.15 : 1 }}
           transition={physics}
         >
@@ -148,10 +148,10 @@ export function BeforeAfterSlider() {
       </div>
 
       {/* ════ State labels ════ */}
-      <span className="pointer-events-none absolute left-2 top-2 z-elevated rounded-pill bg-obsidian/70 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary backdrop-blur-sm">
+      <span className="pointer-events-none absolute left-2 top-2 z-elevated rounded-pill bg-surface-0/70 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary backdrop-blur-sm">
         BEFORE // AUDIT
       </span>
-      <span className="pointer-events-none absolute right-2 top-2 rounded-pill bg-obsidian/70 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-text-secondary backdrop-blur-sm">
+      <span className="pointer-events-none absolute right-2 top-2 rounded-pill bg-surface-0/70 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-text-secondary backdrop-blur-sm">
         AFTER // SYSTEM
       </span>
     </div>

@@ -37,7 +37,7 @@ export function ReaderView({ book }: { book: Book }) {
   return (
     <div className="flex h-[100svh] flex-col">
       {/* Reader chrome — brand header + progress */}
-      <header className="relative z-elevated flex items-center justify-between gap-3 border-b border-border-subtle bg-obsidian/95 px-4 py-2.5 backdrop-blur md:px-6">
+      <header className="relative z-elevated flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-0/95 px-4 py-2.5 backdrop-blur md:px-6">
         <div className="flex min-w-0 items-center gap-3">
           <Link
             href="/books"
@@ -73,7 +73,7 @@ export function ReaderView({ book }: { book: Book }) {
 
       {/* chapter index drawer */}
       {menuOpen && (
-        <div className="absolute inset-x-0 top-[calc(2.75rem+2px)] z-overlay max-h-[70svh] overflow-y-auto border-b border-border-subtle bg-obsidian/98 px-4 py-5 backdrop-blur md:px-6">
+        <div className="absolute inset-x-0 top-[calc(2.75rem+2px)] z-overlay max-h-[70svh] overflow-y-auto border-b border-border-subtle bg-surface-0/98 px-4 py-5 backdrop-blur md:px-6">
           <div className="container-content grid grid-cols-1 gap-6 md:grid-cols-3">
             {book.journeys.map((j, ji) => (
               <div key={j.en} className="flex flex-col gap-2">

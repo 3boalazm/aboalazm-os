@@ -44,7 +44,7 @@ export function LivePreviewCard({ project }: { project: Project }) {
         <span className="h-1.5 w-1.5 rounded-full bg-text-ghost/40" />
         <span className="h-1.5 w-1.5 rounded-full bg-text-ghost/40" />
         <span className="h-1.5 w-1.5 rounded-full bg-text-ghost/40" />
-        <span className="ml-1.5 truncate rounded-pill bg-obsidian px-1.5 py-0.5 font-mono text-micro text-text-tertiary">
+        <span className="ml-1.5 truncate rounded-pill bg-surface-0 px-1.5 py-0.5 font-mono text-micro text-text-tertiary">
           {host}
         </span>
         <span className="ms-auto flex items-center gap-1 font-mono text-micro uppercase tracking-[0.08em] text-accent">
@@ -54,7 +54,7 @@ export function LivePreviewCard({ project }: { project: Project }) {
       </div>
 
       {/* Scaled live preview */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-obsidian" style={{ containerType: "inline-size" }}>
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-0" style={{ containerType: "inline-size" }}>
         <iframe
           src={url}
           title={`${project.name} — live preview`}
@@ -64,8 +64,8 @@ export function LivePreviewCard({ project }: { project: Project }) {
           style={{ width: 1440, height: 900, transform: "scale(calc(100cqw / 1440))" }}
         />
         {/* Hover scrim */}
-        <div className="absolute inset-0 flex items-center justify-center bg-obsidian/0 opacity-0 transition-all duration-base ease-physics group-hover:bg-obsidian/50 group-hover:opacity-100">
-          <span className="rounded-pill border border-border-strong bg-obsidian px-2 py-1 font-mono text-micro uppercase tracking-[0.08em] text-text-primary">
+        <div className="absolute inset-0 flex items-center justify-center bg-surface-0/0 opacity-0 transition-all duration-base ease-physics group-hover:bg-surface-0/50 group-hover:opacity-100">
+          <span className="rounded-pill border border-border-strong bg-surface-0 px-2 py-1 font-mono text-micro uppercase tracking-[0.08em] text-text-primary">
             View Live ↗
           </span>
         </div>

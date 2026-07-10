@@ -236,7 +236,7 @@ html[data-theme="light"] {
   }
 
   html {
-    background: var(--color-obsidian);
+    background: var(--color-surface-0);
     color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -364,8 +364,13 @@ html[data-theme="light"] {
 @utility z-cursor   { z-index: var(--z-cursor); }
 
 @utility glass {
-  /* Floating pill nav / overlay surfaces */
-  background: rgb(13 12 24 / 0.62);
+  /* Floating pill nav / overlay surfaces — theme-reactive: was a fixed
+     dark tint (rgb(13 12 24 / 0.62)) regardless of theme, which broke
+     contrast against theme-reactive text once light mode existed
+     (dark-ish glass + dark ink text = invisible). Riding the semantic
+     surface token instead makes it correctly translucent-dark in dark
+     mode and translucent-light in light mode. */
+  background: color-mix(in srgb, var(--color-surface-1) 62%, transparent);
   backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid var(--color-border-subtle);
 }
@@ -532,7 +537,7 @@ html[data-theme="light"] {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--color-obsidian);
+  background: var(--color-surface-0);
   /* suppress footer/nav from layout — 404 is self-contained */
 }
 
@@ -1084,7 +1089,7 @@ html[data-theme="light"] {
   border-bottom: 1px solid var(--color-border-subtle);
   background:
     radial-gradient(60rem circle at 50% -20%, rgb(255 107 71 / 0.04), transparent 60%),
-    var(--color-obsidian);
+    var(--color-surface-0);
 }
 .stats-dash__grid {
   max-width: var(--container-wide);
@@ -1363,7 +1368,7 @@ html[data-theme="light"] {
 /* ── 1. Visual chaptering — subtle background shift between sections ──
    Two alternating tints, barely perceptible, enough for the eye to
    register "a new chapter started" without a hard visual break. */
-.chapter-a { background: var(--color-obsidian); }
+.chapter-a { background: var(--color-surface-0); }
 .chapter-b {
   background:
     radial-gradient(120rem circle at 50% 0%, rgb(255 107 71 / 0.025), transparent 55%),

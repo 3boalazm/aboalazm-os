@@ -326,7 +326,7 @@ export function ProcessView() {
       <AnchorNav sections={sections} />
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-obsidian px-6 py-24 lg:px-16">
+      <section className="relative overflow-hidden bg-surface-0 px-6 py-24 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
         <motion.div
           className="relative z-10 flex max-w-[760px] flex-col gap-5"
@@ -404,7 +404,7 @@ export function ProcessView() {
                   >
                     {/* node */}
                     <span className={[
-                      "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border bg-obsidian transition-colors duration-base ease-physics",
+                      "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border bg-surface-0 transition-colors duration-base ease-physics",
                       isOpen ? "border-accent" : "border-border-default group-hover:border-text-ghost",
                     ].join(" ")}>
                       <span className={["font-mono text-[0.6rem] transition-colors duration-base", isOpen ? "text-accent" : "text-text-tertiary"].join(" ")}>

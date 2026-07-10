@@ -113,7 +113,7 @@ export function FloatingPreview({ active, pointer }: FloatingPreviewProps) {
               }}
             />
             {/* Record stamp — keeps the ledger fiction intact */}
-            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-obsidian/70 px-2 py-1 backdrop-blur-sm">
+            <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-surface-0/70 px-2 py-1 backdrop-blur-sm">
               <span className="font-geist text-micro uppercase tracking-[0.10em] text-text-secondary">
                 {active.slug}
               </span>

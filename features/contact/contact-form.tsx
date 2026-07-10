@@ -16,7 +16,7 @@ const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Status = "idle" | "working" | "sent" | "error" | "rateLimited";
 
 const FIELD =
-  "w-full rounded-card border border-border-subtle bg-obsidian px-2 py-1.5 text-body-sm text-text-primary outline-none placeholder:text-text-ghost transition-colors duration-fast ease-physics hover:border-border-default focus:border-border-strong";
+  "w-full rounded-card border border-border-subtle bg-surface-0 px-2 py-1.5 text-body-sm text-text-primary outline-none placeholder:text-text-ghost transition-colors duration-fast ease-physics hover:border-border-default focus:border-border-strong";
 
 const LABEL =
   "font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary";

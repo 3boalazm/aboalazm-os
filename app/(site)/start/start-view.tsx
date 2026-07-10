@@ -283,7 +283,7 @@ export function StartView() {
       {/* ══════════════════════════════════════════════════════════
           HERO — the promise in one breath
       ══════════════════════════════════════════════════════════ */}
-      <section className="relative flex min-h-[60svh] flex-col justify-center overflow-hidden bg-obsidian px-6 py-24 lg:px-16">
+      <section className="relative flex min-h-[60svh] flex-col justify-center overflow-hidden bg-surface-0 px-6 py-24 lg:px-16">
         {/* subtle grid */}
         <div className="pointer-events-none absolute inset-0 start-grid-bg" aria-hidden />
 
@@ -463,7 +463,7 @@ export function StartView() {
               transition={{ ...physicsSlow, delay: i * 0.1 }}
             >
               {/* node */}
-              <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border-default bg-obsidian">
+              <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border-default bg-surface-0">
                 <span className="font-mono text-[0.55rem] text-accent">{phase.n}</span>
               </div>
 
@@ -636,7 +636,7 @@ function SectionWrap({
       id={id}
       className={[
         "px-6 py-16 lg:px-16",
-        alt ? "bg-surface-1/20" : "bg-obsidian",
+        alt ? "bg-surface-1/20" : "bg-surface-0",
       ].join(" ")}
     >
       <div className="mx-auto max-w-[1080px]">

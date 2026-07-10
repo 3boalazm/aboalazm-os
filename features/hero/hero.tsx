@@ -18,7 +18,7 @@ import { useLang } from "@/components/providers/lang-provider";
  *   └────────────────────────────────────────────────────────────┘
  *
  * Spacing: 8px scale only (gap-2/3/4, py-8, pt-16 → 16/24/32/64/128).
- * Canvas: absolute Obsidian #080710 (token: bg-obsidian).
+ * Canvas: bg-surface-0 (theme-reactive — Obsidian in dark, Alabaster in light).
  * Motion: every transition rides --ease-physics via lib/motion.
  */
 import { motion } from "framer-motion";
@@ -48,7 +48,7 @@ export function Hero() {
     : [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
-    <section className="relative flex min-h-svh flex-col bg-obsidian" style={{ isolation: "isolate" }}>
+    <section className="relative flex min-h-svh flex-col bg-surface-0" style={{ isolation: "isolate" }}>
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
       <div className="container-wide grid flex-1 items-center gap-8 pb-8 pt-16 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Left — typographic architecture */}

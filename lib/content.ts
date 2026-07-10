@@ -153,7 +153,6 @@ export async function getPost(slug: string) {
     title: doc.title,
     standfirst: doc.standfirst ?? "",
     publishedAt: doc.publishedAt ?? "",
-    lang: doc.lang ?? "en",
     body: doc.body,
   };
 }
@@ -170,7 +169,7 @@ export async function getAllPostSlugs(): Promise<string[]> {
 }
 
 export async function getPosts(): Promise<
-  { index: string; slug: string; title: string; standfirst: string; publishedAt: string; lang: "en" | "ar" }[]
+  { index: string; slug: string; title: string; standfirst: string; publishedAt: string }[]
 > {
   const payload = await getPayload();
   const res = await payload.find({
@@ -187,7 +186,6 @@ export async function getPosts(): Promise<
     publishedAt: d.publishedAt
       ? new Date(d.publishedAt).toLocaleDateString("en-CA").slice(0, 7)
       : "",
-    lang: d.lang ?? "en",
   }));
 }
 export async function getAllCaseStudySlugs(): Promise<string[]> {
