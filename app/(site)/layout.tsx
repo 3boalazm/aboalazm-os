@@ -46,8 +46,12 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const personSchema = getPersonSchema();
   const webSiteSchema = getWebSiteSchema();
+  // suppressHydrationWarning on <html>: the anti-flash script below (and
+  // the lang/theme providers) legitimately mutate <html> attributes
+  // (data-theme, lang, dir) before/around hydration — React #418
+  // false-positive otherwise. Applies to this element's attributes only.
   return (
-    <html lang="en" dir="ltr" className={fontVariables}>
+    <html lang="en" dir="ltr" className={fontVariables} suppressHydrationWarning>
       <head>
         {/* Anti-flash: set data-theme from localStorage before hydration,
             so a returning light-mode visitor doesn't see a dark flash. A
