@@ -38,6 +38,9 @@ function blockToMd(b: Block): string {
     const caption = b.caption ? `\n*${b.caption}*` : "";
     return "```mermaid\n" + b.mermaid.trim() + "\n```" + caption;
   }
+  if ("stats" in b) {
+    return b.stats.map((s) => `- **${s.value}** — ${s.label}`).join("\n");
+  }
   return b.p;
 }
 
