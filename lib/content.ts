@@ -137,6 +137,37 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
   return doc ? toCaseStudy(doc) : null;
 }
 
+export async function getPost(slug: string) {
+  const payload = await getPayload();
+  const res = await payload.find({
+    collection: "posts",
+    where: { slug: { equals: slug } },
+    limit: 1,
+    overrideAccess: false,
+  });
+  const doc = res.docs[0];
+  if (!doc) return null;
+  return {
+    index: doc.index ?? "",
+    slug: doc.slug,
+    title: doc.title,
+    standfirst: doc.standfirst ?? "",
+    publishedAt: doc.publishedAt ?? "",
+    body: doc.body,
+  };
+}
+
+export async function getAllPostSlugs(): Promise<string[]> {
+  const payload = await getPayload();
+  const res = await payload.find({
+    collection: "posts",
+    limit: 100,
+    select: { slug: true },
+    overrideAccess: false,
+  });
+  return res.docs.map((d) => d.slug);
+}
+
 export async function getPosts(): Promise<
   { index: string; slug: string; title: string; standfirst: string; publishedAt: string }[]
 > {

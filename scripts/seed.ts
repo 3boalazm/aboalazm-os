@@ -21,6 +21,7 @@ import { REFLECTION } from "../features/case-studies/reflection.data";
 import { TIERS, ALACARTE } from "../lib/offers";
 import type { CaseStudyRecord } from "../features/case-studies/types";
 import type { GalleryItem } from "../features/case-studies/case-gallery";
+import { ARTICLE_BODIES, toLexical } from "./writing-content";
 
 /**
  * REAL galleries — extracted from the hardcoded GALLERY consts that used
@@ -296,6 +297,8 @@ async function seedOffers(payload: Awaited<ReturnType<typeof getPayload>>) {
  *  dashboard (or the /writing/[slug] detail page still needs building —
  *  it never existed, this isn't a regression). */
 const WRITING_POSTS = [
+  { index: "W-005", slug: "the-38-day-argument", title: "Why 38 days, not \"it's ready when it's ready.\"", standfirst: "What a fixed timeline actually protects.", publishedAt: "2026-06-01" },
+  { index: "W-004", slug: "systems-not-deliverables", title: "Systems, not deliverables.", standfirst: "The handoff test every brand identity should pass and usually doesn't.", publishedAt: "2026-05-01" },
   { index: "W-003", slug: "logo-smallest-part", title: "The logo is the smallest part.", standfirst: "Why guidelines fail and token systems don't.", publishedAt: "2026-04-01" },
   { index: "W-002", slug: "arabic-deserves-design", title: "Arabic deserves design, not translation.", standfirst: "Building bilingual lockups as one system, not two compromises.", publishedAt: "2026-02-01" },
   { index: "W-001", slug: "strategy-is-a-standard", title: "Strategy is a standard, not a phase.", standfirst: "What \"I'll know it when I see it\" actually costs.", publishedAt: "2026-01-01" },
@@ -304,14 +307,29 @@ const WRITING_POSTS = [
 async function seedPosts(payload: Awaited<ReturnType<typeof getPayload>>) {
   console.log(`\n▶ Posts (${WRITING_POSTS.length})`);
   for (const p of WRITING_POSTS) {
+    const blocks = ARTICLE_BODIES[p.slug];
+    const body = blocks ? toLexical(blocks) : undefined;
     const found = await payload.find({ collection: "posts", where: { slug: { equals: p.slug } }, limit: 1 });
+
     if (found.docs.length > 0) {
-      console.log(`  · ${p.slug} — already exists, skipping`);
+      const existing = found.docs[0];
+      if (!existing) continue;
+      const hasBody = existing.body && JSON.stringify(existing.body).length > 40;
+      if (hasBody) {
+        console.log(`  · ${p.slug} — already exists with a body, skipping`);
+        continue;
+      }
+      // Existing post from an earlier seed run had an empty body — backfill
+      // it now instead of leaving it stuck forever (the old "skip if
+      // exists by slug" logic never updates content, only creates new).
+      await payload.update({ collection: "posts", id: existing.id, data: { body } as never });
+      console.log(`  ✓ ${p.slug} — backfilled body`);
       continue;
     }
+
     await payload.create({
       collection: "posts",
-      data: { ...p, lang: "en" },
+      data: { ...p, lang: "en", body } as never,
       draft: false,
     });
     console.log(`  ✓ ${p.slug}`);

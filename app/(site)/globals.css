@@ -150,6 +150,34 @@
   --z-cursor: 100;
 }
 
+/* ═══════════════ LIGHT / DARK MODE — SEMANTIC TOKEN SWITCH ═══════════════
+   The @theme block above defines the DARK values (the site's default).
+   Components only ever call the semantic classes (bg-surface-1,
+   text-text-primary, border-border-subtle...) — never bg-obsidian /
+   bg-alabaster directly for page-level surfaces. That's what makes a
+   runtime theme switch possible without touching component code: we
+   just reassign what the semantic custom properties point to, here,
+   after @theme has set the dark defaults. --color-obsidian and
+   --color-alabaster themselves are NOT reassigned — they're fixed
+   primitives (e.g. mockup/browser-chrome panels that should always stay
+   dark regardless of site theme reference --color-obsidian directly on
+   purpose, per components/work-ui/live-preview-card.tsx and similar). */
+html[data-theme="light"] {
+  --color-surface-0: var(--color-alabaster); /* #FBF9F6 — page          */
+  --color-surface-1: #F3F0EA;                /* cards                   */
+  --color-surface-2: #EBE7DE;                /* elevated / hover        */
+  --color-surface-3: #E2DDD1;                /* modals, popovers        */
+
+  --color-border-subtle:  rgb(8 7 16 / 0.08);
+  --color-border-default: rgb(8 7 16 / 0.14);
+  --color-border-strong:  rgb(8 7 16 / 0.24);
+
+  --color-text-primary:   var(--color-ink-primary);
+  --color-text-secondary: var(--color-ink-secondary);
+  --color-text-tertiary:  var(--color-ink-tertiary);
+  --color-text-ghost:     rgb(8 7 16 / 0.24);
+}
+
 /* ═══════════════ ATMOSPHERIC AMBIENT GLOW — LIVING TOKENS ═══════════════
    These are NOT in @theme on purpose: they mutate at runtime.
    The use-ambient-glow hook writes them; ambient-canvas reads them.

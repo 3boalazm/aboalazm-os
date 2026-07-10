@@ -11,7 +11,7 @@
  */
 export default function Loading() {
   return (
-    <main className="flex min-h-svh flex-col items-center justify-center gap-3 bg-obsidian">
+    <main className="flex min-h-svh flex-col items-center justify-center gap-3 bg-surface-0">
       <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary">
         Loading

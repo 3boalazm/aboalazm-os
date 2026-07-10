@@ -113,6 +113,9 @@ export function Footer() {
           © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : "ALL RIGHTS RESERVED"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          {ar ? "دوس Ctrl + ` لمفاجأة" : "PRESS CTRL + ` FOR A SURPRISE"}
+        </p>
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "صُمم وبُني داخل الاستوديو" : "DESIGNED & BUILT BY THE STUDIO"}
         </p>
       </div>

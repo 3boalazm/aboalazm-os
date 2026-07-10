@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { buildConfig } from "payload";
 
 import { Users } from "./collections/Users";
@@ -29,6 +30,18 @@ import { Settings } from "./globals/Settings";
  * filesystem — it would silently reset (or fail to persist) on every
  * request. Postgres everywhere avoids that entire class of bug, and Neon's
  * free tier is enough for this project's scale in dev and prod alike.
+ *
+ * ⚠️ MEDIA STORAGE — this was the actual bug behind "images not showing
+ * on the live site": Payload's Media collection defaulted to LOCAL DISK
+ * storage the whole time. That works fine on your own machine (which is
+ * why every screenshot during development looked correct), but Vercel's
+ * serverless functions have no persistent disk — anything uploaded via
+ * scripts/seed.ts on your machine only ever existed on your machine.
+ * `vercelBlobStorage` below fixes this for good: uploads go to real,
+ * durable cloud storage instead. It needs `BLOB_READ_WRITE_TOKEN` — see
+ * RUN_LOCALLY.md for how to get one. Without that token set, the plugin
+ * quietly falls back to local storage (same broken behavior as before),
+ * so this only really goes into effect once the token exists.
  */
 
 const filename = fileURLToPath(import.meta.url);
@@ -64,4 +77,10 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || "",
     },
   }),
+  plugins: [
+    vercelBlobStorage({
+      collections: { media: true },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+  ],
 });

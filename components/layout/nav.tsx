@@ -16,6 +16,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
+import { useTheme } from "@/components/providers/theme-provider";
 import { PersonaToggleCompact } from "@/features/persona";
 
 const LINKS = [
@@ -44,6 +45,7 @@ export function Nav() {
   const t = useT();
   const pathname = usePathname();
   const { lang, toggle } = useLang();
+  const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -164,6 +166,16 @@ export function Nav() {
               ع
             </span>
           )}
+        </button>
+
+        {/* Theme flip — Obsidian (dark) / Alabaster (light) */}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          className="rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+        >
+          {theme === "dark" ? "☀" : "☾"}
         </button>
 
         <Link
