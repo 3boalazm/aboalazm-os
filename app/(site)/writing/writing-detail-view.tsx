@@ -1,9 +1,18 @@
 "use client";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
 import { ArticleBody } from "@/features/writing/article-body";
+import { extractSections, type ArticleSection } from "@/features/writing/toc";
 import type { SerializedEditorState } from "lexical";
+
+interface PostSummary {
+  slug: string;
+  title: string;
+  index: string;
+}
 
 interface PostDetail {
   index: string;
@@ -16,25 +25,120 @@ interface PostDetail {
   body: unknown;
 }
 
-/**
- * Article page, styled after the Lovable "Editorial Brand Systems"
- * reference: mono meta row with a rule line, oversized display title,
- * large standfirst, bordered topic chips.
- *
- * The article renders in the language it was WRITTEN in — an Arabic
- * essay stays RTL even when the UI chrome is in English. Only the
- * chrome (back link, empty state) follows the UI toggle.
- */
-export function WritingDetailView({ post }: { post: PostDetail }) {
+/* ------------------------------------------------------------------ */
+/* Reading progress bar (Lovable reference)                            */
+/* ------------------------------------------------------------------ */
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 24, mass: 0.2 });
+  return (
+    <motion.div
+      style={{ scaleX, transformOrigin: "0% 50%" }}
+      className="fixed inset-x-0 top-0 z-50 h-[2px] bg-accent"
+    />
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Side navigation rail with scrollspy                                 */
+/* ------------------------------------------------------------------ */
+function SideNav({ sections }: { sections: ArticleSection[] }) {
+  const [active, setActive] = useState<string>("");
+
+  useEffect(() => {
+    const els = sections
+      .map((s) => document.getElementById(s.id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (els.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -70% 0px" },
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [sections]);
+
+  if (sections.length < 2) return null;
+
+  return (
+    <nav
+      aria-label="Article sections"
+      className="fixed top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 ltr:right-6 rtl:left-6 xl:flex"
+    >
+      {sections.map((s) => (
+        <button
+          key={s.id}
+          onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })}
+          title={s.text}
+          className={`group flex items-center gap-2 font-mono text-micro tracking-[0.1em] transition-colors duration-base ${
+            active === s.id ? "text-accent" : "text-text-ghost hover:text-text-tertiary"
+          }`}
+        >
+          <span
+            className={`h-px transition-all duration-base ${
+              active === s.id ? "w-6 bg-accent" : "w-3 bg-current"
+            }`}
+          />
+          {s.no}
+        </button>
+      ))}
+    </nav>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Back-to-top                                                         */
+/* ------------------------------------------------------------------ */
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 800);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  if (!visible) return null;
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Back to top"
+      className="fixed bottom-6 z-40 border border-border-subtle bg-surface-1 px-3 py-2 font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary transition-colors duration-base hover:border-accent hover:text-accent ltr:right-6 rtl:left-6"
+    >
+      ↑ TOP
+    </button>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Article page                                                        */
+/* ------------------------------------------------------------------ */
+export function WritingDetailView({
+  post,
+  prev,
+  next,
+}: {
+  post: PostDetail;
+  prev?: PostSummary | null;
+  next?: PostSummary | null;
+}) {
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
   const postLang = post.lang ?? "en";
   const dir = postLang === "ar" ? "rtl" : "ltr";
   const dateLabel = post.publishedAt ? post.publishedAt.slice(0, 10) : "";
+  const sections = extractSections(post.body);
 
   return (
     <main className="container-content flex min-h-svh flex-col gap-10 py-16">
+      <ScrollProgress />
+      <SideNav sections={sections} />
+      <BackToTop />
+
       <Link
         href="/writing"
         className="w-fit font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
@@ -42,7 +146,14 @@ export function WritingDetailView({ post }: { post: PostDetail }) {
         ← {t.writingSection}
       </Link>
 
-      <header className="border-b border-border-subtle pb-12" dir={dir} lang={postLang}>
+      <motion.header
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="border-b border-border-subtle pb-12"
+        dir={dir}
+        lang={postLang}
+      >
         <div className="mb-8 flex flex-wrap items-center gap-4" dir="ltr">
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
             <span className="text-accent">{post.index}</span>
@@ -74,7 +185,7 @@ export function WritingDetailView({ post }: { post: PostDetail }) {
             ))}
           </div>
         ) : null}
-      </header>
+      </motion.header>
 
       {post.body ? (
         <article dir={dir} lang={postLang}>
@@ -85,6 +196,39 @@ export function WritingDetailView({ post }: { post: PostDetail }) {
           {ar ? "لسه بتتكتب." : "This one's still being written."}
         </p>
       )}
+
+      {prev || next ? (
+        <footer className="mt-16 grid grid-cols-1 gap-px border-t border-border-subtle pt-0 md:grid-cols-2">
+          {prev ? (
+            <Link
+              href={`/writing/${prev.slug}`}
+              className="group flex flex-col gap-2 border-b border-border-subtle py-8 pe-6 transition-colors duration-base hover:bg-surface-1 md:border-b-0 md:border-e"
+            >
+              <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
+                ← {ar ? "السابق" : "Previous"} · {prev.index}
+              </span>
+              <span className="font-display text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
+                {prev.title}
+              </span>
+            </Link>
+          ) : (
+            <div className="hidden md:block" />
+          )}
+          {next ? (
+            <Link
+              href={`/writing/${next.slug}`}
+              className="group flex flex-col gap-2 py-8 ps-6 text-end transition-colors duration-base hover:bg-surface-1"
+            >
+              <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
+                {ar ? "التالي" : "Next"} · {next.index} →
+              </span>
+              <span className="font-display text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
+                {next.title}
+              </span>
+            </Link>
+          ) : null}
+        </footer>
+      ) : null}
     </main>
   );
 }

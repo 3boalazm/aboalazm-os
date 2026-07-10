@@ -1,20 +1,22 @@
 "use client";
 
 /**
- * ARTICLE BODY — renders a Post's Lexical richText, styled after the
- * Lovable "Editorial Brand Systems" reference design:
+ * ARTICLE BODY — renders a Post's Lexical richText as the interactive
+ * editorial experience from the Lovable reference:
+ *   · h2 sections get a big outlined index number (01, 02 …), an
+ *     anchor id (for the side-nav scrollspy) and a rule line
+ *   · every block fades in as it enters the viewport
  *   · pull-quotes: 2px accent side-rule, large italic display type
- *   · data tables: strong top/bottom rules, mono uppercase headers,
- *     airy rows — editorial, not spreadsheet
- *   · diagram figures: numbered containers (FIGURE · 01) with mono
- *     captions, theme-aware Mermaid rendering
- * Logical properties (ps-*, border-s) keep everything RTL-correct for
- * Arabic posts without a single conditional.
+ *   · data tables: strong rules, mono uppercase headers, row hover
+ *   · diagram figures: numbered containers with theme-aware Mermaid
+ * Logical properties (ps-*, border-s) keep everything RTL-correct.
  */
 import { useMemo } from "react";
 import { RichText, type JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import type { SerializedEditorState } from "lexical";
 import { MermaidDiagram } from "./mermaid-diagram";
+import { Reveal } from "./reveal";
+import { extractSections, sectionAnchor } from "./toc";
 
 function DataTable({ markdown }: { markdown: string }) {
   const rows = markdown
@@ -41,7 +43,10 @@ function DataTable({ markdown }: { markdown: string }) {
         </thead>
         <tbody>
           {body.map((cells, r) => (
-            <tr key={r} className="border-b border-border-subtle">
+            <tr
+              key={r}
+              className="border-b border-border-subtle transition-colors duration-base hover:bg-surface-1"
+            >
               {cells.map((cell, c) => (
                 <td
                   key={c}
@@ -62,45 +67,79 @@ function DataTable({ markdown }: { markdown: string }) {
 
 type BlockFields = { blockType: string; id?: string; code?: string; caption?: string; markdown?: string };
 
-function makeConverters(figureNos: Map<string, number>): JSXConvertersFunction {
+function makeConverters(
+  figureNos: Map<string, number>,
+  sectionNos: Map<string, string>,
+): JSXConvertersFunction {
   return ({ defaultConverters }) => ({
     ...defaultConverters,
     heading: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
       if (node.tag === "h3") {
         return (
-          <h3 className="mt-8 font-display text-lead font-semibold uppercase tracking-[0.01em] text-text-primary">
-            {children}
-          </h3>
+          <Reveal>
+            <h3 className="mt-8 font-display text-lead font-semibold uppercase tracking-[0.01em] text-text-primary">
+              {children}
+            </h3>
+          </Reveal>
         );
       }
+      // h2 — numbered section header with anchor + rule (Lovable style)
+      const text = (node.children ?? [])
+        .map((c) => (c as { text?: string }).text ?? "")
+        .join("");
+      const no = sectionNos.get(text);
+      const id = sectionAnchor(text);
       return (
-        <h2 className="mt-14 font-display text-title font-bold uppercase tracking-[-0.01em] text-text-primary">
-          {children}
-        </h2>
+        <Reveal>
+          <div id={id} data-section-anchor className="mt-20 scroll-mt-28 first:mt-8">
+            {no ? (
+              <span
+                aria-hidden
+                className="block font-display text-6xl font-extrabold leading-none text-transparent [-webkit-text-stroke:1px_var(--color-text-ghost,currentColor)] md:text-7xl"
+              >
+                {no}
+              </span>
+            ) : null}
+            <h2 className="mt-2 font-display text-title font-bold uppercase tracking-[-0.01em] text-text-primary">
+              {children}
+            </h2>
+            <div className="mt-4 h-px w-full bg-border-subtle" />
+          </div>
+        </Reveal>
       );
     },
     paragraph: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
-      return <p className="mt-4 max-w-[68ch] text-body leading-relaxed text-text-secondary">{children}</p>;
+      return (
+        <Reveal>
+          <p className="mt-5 max-w-[68ch] text-body leading-relaxed text-text-secondary">{children}</p>
+        </Reveal>
+      );
     },
     quote: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
       return (
-        <blockquote className="my-10 border-s-2 border-accent py-2 ps-6">
-          <p className="max-w-[40ch] font-display text-lead font-semibold italic leading-tight text-text-primary md:text-title">
-            {children}
-          </p>
-        </blockquote>
+        <Reveal>
+          <blockquote className="my-12 border-s-2 border-accent py-2 ps-6">
+            <p className="max-w-[40ch] font-display text-lead font-semibold italic leading-tight text-text-primary md:text-title">
+              {children}
+            </p>
+          </blockquote>
+        </Reveal>
       );
     },
     list: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
-      const cls = "mt-4 flex max-w-[68ch] flex-col gap-2 ps-5 text-body leading-relaxed text-text-secondary";
-      return node.listType === "number" ? (
-        <ol className={`${cls} list-decimal marker:font-mono marker:text-accent`}>{children}</ol>
-      ) : (
-        <ul className={`${cls} list-disc marker:text-accent`}>{children}</ul>
+      const cls = "mt-5 flex max-w-[68ch] flex-col gap-2 ps-5 text-body leading-relaxed text-text-secondary";
+      return (
+        <Reveal>
+          {node.listType === "number" ? (
+            <ol className={`${cls} list-decimal marker:font-mono marker:text-accent`}>{children}</ol>
+          ) : (
+            <ul className={`${cls} list-disc marker:text-accent`}>{children}</ul>
+          )}
+        </Reveal>
       );
     },
     listitem: ({ node, nodesToJSX }) => {
@@ -111,25 +150,32 @@ function makeConverters(figureNos: Map<string, number>): JSXConvertersFunction {
       diagram: ({ node }: { node: { fields: BlockFields } }) => {
         const fields = node.fields;
         return (
-          <MermaidDiagram
-            code={fields.code ?? ""}
-            caption={fields.caption || undefined}
-            figureNo={fields.id ? figureNos.get(fields.id) : undefined}
-          />
+          <Reveal>
+            <MermaidDiagram
+              code={fields.code ?? ""}
+              caption={fields.caption || undefined}
+              figureNo={fields.id ? figureNos.get(fields.id) : undefined}
+            />
+          </Reveal>
         );
       },
       dataTable: ({ node }: { node: { fields: BlockFields } }) => {
         const fields = node.fields;
-        return <DataTable markdown={fields.markdown ?? ""} />;
+        return (
+          <Reveal>
+            <DataTable markdown={fields.markdown ?? ""} />
+          </Reveal>
+        );
       },
     },
   });
 }
 
 export function ArticleBody({ content }: { content: SerializedEditorState }) {
-  // Number the diagram figures in document order (FIGURE · 01, 02 …).
-  const figureNos = useMemo(() => {
-    const map = new Map<string, number>();
+  // Number diagram figures (FIGURE · 01 …) and h2 sections (01, 02 …)
+  // in document order.
+  const { figureNos, sectionNos } = useMemo(() => {
+    const figures = new Map<string, number>();
     let n = 0;
     const children =
       (content as unknown as { root?: { children?: { type?: string; fields?: BlockFields }[] } })?.root
@@ -137,13 +183,15 @@ export function ArticleBody({ content }: { content: SerializedEditorState }) {
     for (const node of children) {
       if (node?.type === "block" && node.fields?.blockType === "diagram" && node.fields.id) {
         n += 1;
-        map.set(node.fields.id, n);
+        figures.set(node.fields.id, n);
       }
     }
-    return map;
+    const sections = new Map<string, string>();
+    for (const s of extractSections(content)) sections.set(s.text, s.no);
+    return { figureNos: figures, sectionNos: sections };
   }, [content]);
 
-  const converters = useMemo(() => makeConverters(figureNos), [figureNos]);
+  const converters = useMemo(() => makeConverters(figureNos, sectionNos), [figureNos, sectionNos]);
 
   return <RichText data={content} converters={converters} />;
 }
