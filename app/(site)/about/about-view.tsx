@@ -2,6 +2,7 @@
 import { SystemConstellation } from "@/features/hero";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
+import { Heading } from "@/components/ui/Heading";
 
 const DOCTRINE = {
   en: [
@@ -61,21 +62,23 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
   return (
     <main className="container-content flex flex-col gap-16 py-16">
       <header className="flex flex-col gap-4">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? t.aboutSection : t.aboutSection}
-        </p>
-        <h1 className="max-w-[18ch] font-display text-display tracking-[-0.025em] text-balance-pretty">
-          {ar ? (
-            <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
-          ) : (
-            <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
-          )}
-        </h1>
-        <p className="max-w-[52ch] text-lead text-text-secondary">
-          {ar
-            ? "مصطفى أبوالعزم بدأ التصميم المهني في 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد."
-            : "Mustafa Aboalazm started designing professionally in 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine."}
-        </p>
+        <Heading
+          eyebrow={ar ? t.aboutSection : t.aboutSection}
+          title={
+            ar ? (
+              <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
+            ) : (
+              <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
+            )
+          }
+          titleClassName="max-w-[18ch] text-balance-pretty"
+          subtitle={
+            ar
+              ? "مصطفى أبوالعزم بدأ التصميم المهني في 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد."
+              : "Mustafa Aboalazm started designing professionally in 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine."
+          }
+          subtitleClassName="max-w-[52ch]"
+        />
 
         <dl className="grid grid-cols-1 gap-2 border-y border-border-subtle py-3 sm:grid-cols-2">
           {facts.map(([k, v]) => (

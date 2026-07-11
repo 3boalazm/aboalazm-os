@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";
+import { Heading } from "@/components/ui/Heading";
 
 // Deferred: GSAP + ScrollTrigger only load once this component actually
 // mounts, instead of bundling into /gallery's initial JS unconditionally.
@@ -84,18 +85,21 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
     <main className="container-content flex flex-col gap-10 py-16">
       {/* ── header ─────────────────────────────────────────────── */}
       <header className="flex flex-col gap-3">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "المعرض" : "GALLERY"}
-        </p>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {ar ? "كل الأعمال، " : "Every project, "}
-          <em className="text-accent">{ar ? "على حيطة واحدة." : "one wall."}</em>
-        </h1>
-        <p className="max-w-[56ch] text-lead text-text-secondary">
-          {ar
-            ? "صور مجمّعة من كل مشاريع الهوية البصرية — مقسّمة حسب العميل. اختَر مشروعًا للفلترة، واضغط أي صورة لتكبيرها."
-            : "Brand imagery pulled from every identity project — grouped by client. Filter by project, then tap any image to open it full-size."}
-        </p>
+        <Heading
+          eyebrow={ar ? "المعرض" : "GALLERY"}
+          title={
+            <>
+              {ar ? "كل الأعمال، " : "Every project, "}
+              <em className="text-accent">{ar ? "على حيطة واحدة." : "one wall."}</em>
+            </>
+          }
+          subtitle={
+            ar
+              ? "صور مجمّعة من كل مشاريع الهوية البصرية — مقسّمة حسب العميل. اختَر مشروعًا للفلترة، واضغط أي صورة لتكبيرها."
+              : "Brand imagery pulled from every identity project — grouped by client. Filter by project, then tap any image to open it full-size."
+          }
+          subtitleClassName="max-w-[56ch]"
+        />
       </header>
 
       {/* ── filter chips ───────────────────────────────────────── */}

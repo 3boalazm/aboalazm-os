@@ -6,6 +6,7 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { SectionHead } from "@/features/offers/offer-blocks";
 import { BOOKS } from "@/lib/books";
+import { Heading } from "@/components/ui/Heading";
 
 export function BooksView() {
   const { lang } = useLang();
@@ -14,18 +15,21 @@ export function BooksView() {
   return (
     <main className="container-content flex flex-col gap-14 py-16">
       <header className="flex flex-col gap-3">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "المكتبة" : "LIBRARY"}
-        </p>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {ar ? "كتب " : "Books, "}
-          <em className="text-accent">{ar ? "تُقرأ كتجربة." : "read as an experience."}</em>
-        </h1>
-        <p className="max-w-[54ch] text-lead text-text-secondary">
-          {ar
-            ? "كتب ومراجع في التصميم والبراندينج — معاد بناؤها كتجربة قراءة تفاعلية على مراحل، بدل صفحات ثابتة."
-            : "Books and references on design and branding — rebuilt as a staged, interactive reading experience instead of static pages."}
-        </p>
+        <Heading
+          eyebrow={ar ? "المكتبة" : "LIBRARY"}
+          title={
+            <>
+              {ar ? "كتب " : "Books, "}
+              <em className="text-accent">{ar ? "تُقرأ كتجربة." : "read as an experience."}</em>
+            </>
+          }
+          subtitle={
+            ar
+              ? "كتب ومراجع في التصميم والبراندينج — معاد بناؤها كتجربة قراءة تفاعلية على مراحل، بدل صفحات ثابتة."
+              : "Books and references on design and branding — rebuilt as a staged, interactive reading experience instead of static pages."
+          }
+          subtitleClassName="max-w-[54ch]"
+        />
       </header>
 
       <section className="flex flex-col gap-4">

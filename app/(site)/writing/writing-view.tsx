@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
+import { Heading } from "@/components/ui/Heading";
 
 interface WritingEntry {
   index: string;
@@ -38,15 +39,12 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
   return (
     <main className="container-content flex min-h-svh flex-col gap-8 py-16">
       <header className="flex flex-col gap-2">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {t.writingSection}
-        </p>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {t.writingTitle}
-        </h1>
-        <p className="max-w-[52ch] text-lead text-text-secondary">
-          {t.writingLead}
-        </p>
+        <Heading
+          eyebrow={t.writingSection}
+          title={t.writingTitle}
+          subtitle={t.writingLead}
+          subtitleClassName="max-w-[52ch]"
+        />
       </header>
 
       <ol>

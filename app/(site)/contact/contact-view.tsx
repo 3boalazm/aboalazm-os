@@ -3,6 +3,7 @@ import { StatusNode } from "@/features/hero";
 import { ContactForm } from "@/features/contact";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
+import { Heading } from "@/components/ui/Heading";
 
 const CHANNELS = {
   en: [
@@ -28,19 +29,21 @@ export function ContactView() {
   return (
     <main className="container-wide grid min-h-svh gap-8 py-16 lg:grid-cols-[5fr_7fr]">
       <div className="flex flex-col gap-4">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "07 / تواصل" : "07 / CONTACT"}
-        </p>
-        <h1 className="max-w-[14ch] font-display text-display tracking-[-0.025em] text-balance-pretty">
-          {ar
-            ? <>ابدأ بالبريف، <em>مش اللوجو.</em></>
-            : <>Start with the brief, <em>not the logo.</em></>}
-        </h1>
-        <p className="max-w-[46ch] text-lead text-text-secondary">
-          {ar
-            ? "مشاريع مختارة فقط. لو الجدول الزمني أو الميزانية بتضمن المتوسطية، هتسمعها في أول مكالمة — الصراحة مجانية."
-            : "Selective commissions only. If the timeline or budget guarantees mediocrity, you'll hear it on the first call — that honesty is free."}
-        </p>
+        <Heading
+          eyebrow={ar ? "07 / تواصل" : "07 / CONTACT"}
+          title={
+            ar
+              ? <>ابدأ بالبريف، <em>مش اللوجو.</em></>
+              : <>Start with the brief, <em>not the logo.</em></>
+          }
+          titleClassName="max-w-[14ch] text-balance-pretty"
+          subtitle={
+            ar
+              ? "مشاريع مختارة فقط. لو الجدول الزمني أو الميزانية بتضمن المتوسطية، هتسمعها في أول مكالمة — الصراحة مجانية."
+              : "Selective commissions only. If the timeline or budget guarantees mediocrity, you'll hear it on the first call — that honesty is free."
+          }
+          subtitleClassName="max-w-[46ch]"
+        />
 
         <div className="mt-4 flex flex-col items-start gap-2">
           <StatusNode />

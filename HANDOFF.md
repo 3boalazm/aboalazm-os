@@ -36,6 +36,13 @@
 
 - استثناء واحد: P0-1 و P0-2 (الاتنين تحقق سريع بس، مش تعديل) ممكن يتعملوا في أي وقت من غير ما ننتظر Phase 3B.
 
+### 🟢 Design System Refactoring Sprint — بدأ فعليًا (تعليمات مباشرة من المستخدم، مش بعد Phase 3B)
+المستخدم طلب صراحة نبدأ الـ sprint دلوقتي (Button/Heading/Card بس — Section/Container/Badge اتلغوا بالأدلة، Tag مؤجل). ترتيب الميجريشن: **Heading → Button → Card**، كل واحد لازم يخلص ويستقر (typecheck+build+regression) قبل ما نبدأ اللي بعده.
+
+- **✅ Heading — production-complete.** التقرير الكامل في [`design-preview/sprint-heading-primitive.md`](design-preview/sprint-heading-primitive.md). 15 صفحة اتهاجرت لـ `components/ui/Heading.tsx`، كلها اتأكدت DOM-identical لايف. باج حقيقي اتلقى واتصلح أثناء الشغل: `cn()`/tailwind-merge كانت بتشيل `text-display`/`text-lead` بصمت (تعارض في تصنيف كلاسات `text-*` المخصصة) — اتصلح بدالة `joinClasses` بسيطة بدل `cn()`. كمان لقينا (مش بتاعنا، مسجّلين بس): 2 hydration mismatch سابقين في `system-constellation.tsx` و`resource-blocks.tsx` (اتأكد `git diff` إنهم متلموسناش).
+- **⏭️ التالي: Button** (لسه مبدأناش — الـ gate يطلب استقرار Heading الأول، وده خلص).
+- الأودت الأصلي (Phase 1) في [`design-preview/phase1-primitive-audit.md`](design-preview/phase1-primitive-audit.md).
+
 ### ✅ V1/V2 اتعملوا، وP0-1 اتصلح واتأكد (2026-07-11)
 - **V1 (Zad iframe) ✅ PASS**: `iframe.src` على اللايف = `https://zad.codeandcanvas.net/`، مفيش mixed-content warnings. مقفول.
 - **V2 → P0-1 ✅ FIXED & VERIFIED**: `features/work/floating-preview.tsx` كان بيستخدم Framer Motion `animate` prop مباشر من غير فرع reduced-motion (فات على الـ 13 كومبوننت اللي اتصلحوا قبل كده). الإصلاح: نفس الباترن بالظبط المستخدم في `gate-stepper.tsx`/`gallery-view.tsx` — `useReducedMotion()` + `initial={reduceMotion ? false : {...}}`، من غير أي تعديل في `animate`/`exit`/`transition`. **الملف الوحيد المعدّل: `features/work/floating-preview.tsx`.**

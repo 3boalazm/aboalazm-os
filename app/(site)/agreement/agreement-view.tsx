@@ -3,6 +3,7 @@
 import { useLang } from "@/components/providers/lang-provider";
 import type { Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, CtaBand, pick } from "@/features/offers/offer-blocks";
+import { Heading } from "@/components/ui/Heading";
 
 const PHASES: readonly { n: string; days: Bi; name: Bi; body: Bi; out: Bi }[] = [
   { n: "01", days: ["PRE-DAY 1", "قبل اليوم ١"], name: ["Discovery Call", "مكالمة الاكتشاف"], body: ["A short call to understand the project and confirm we're fit — before any financial commitment.", "مكالمة قصيرة لفهم المشروع والتأكد من التوافق — قبل أي التزام مالي."], out: ["FIT CONFIRMED", "تأكيد التوافق"] },
@@ -42,18 +43,21 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
   return (
     <main className="container-content flex flex-col gap-16 py-16">
       <header className="flex flex-col gap-3">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "الاتفاقية / كيف نعمل" : "AGREEMENT / HOW WE WORK"}
-        </p>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {ar ? "اتفاقية " : "Work-Flow "}
-          <em className="text-accent">{ar ? "سير العمل." : "Agreement."}</em>
-        </h1>
-        <p className="max-w-[52ch] text-lead text-text-secondary">
-          {ar
-            ? "المنهجية والتسعير والنطاق والبنود — موضوعة بوضوح لنبدأ بثقة. هذا هو العرض الكامل: اقرأه مرة، ولا مفاجآت بعدها."
-            : "Process, pricing, scope, and terms — clearly laid out so we can build with confidence. This is the full proposal: read it once, no surprises later."}
-        </p>
+        <Heading
+          eyebrow={ar ? "الاتفاقية / كيف نعمل" : "AGREEMENT / HOW WE WORK"}
+          title={
+            <>
+              {ar ? "اتفاقية " : "Work-Flow "}
+              <em className="text-accent">{ar ? "سير العمل." : "Agreement."}</em>
+            </>
+          }
+          subtitle={
+            ar
+              ? "المنهجية والتسعير والنطاق والبنود — موضوعة بوضوح لنبدأ بثقة. هذا هو العرض الكامل: اقرأه مرة، ولا مفاجآت بعدها."
+              : "Process, pricing, scope, and terms — clearly laid out so we can build with confidence. This is the full proposal: read it once, no surprises later."
+          }
+          subtitleClassName="max-w-[52ch]"
+        />
       </header>
 
       <section className="flex flex-col gap-3">

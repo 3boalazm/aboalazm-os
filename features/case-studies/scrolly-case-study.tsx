@@ -25,6 +25,7 @@ import {
 import type { CaseStudyRecord } from "./types";
 import type { ReactNode } from "react";
 import { useT } from "@/hooks/use-t";
+import { Heading } from "@/components/ui/Heading";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -65,12 +66,10 @@ export function ScrollyCaseStudy({
       <TrackSidebar articleRef={articleRef} />
       <article ref={articleRef} className="flex min-w-0 flex-col">
         <header className="flex flex-col gap-2 pb-8">
-          <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-            {t.caseFile} // {record.slug.toUpperCase()}
-          </p>
-          <h1 className="font-display text-display tracking-[-0.025em]">
-            {record.name}
-          </h1>
+          <Heading
+            eyebrow={<>{t.caseFile} // {record.slug.toUpperCase()}</>}
+            title={record.name}
+          />
         </header>
         <ContextPanel record={record} />
         <ResearchPanel record={record} />

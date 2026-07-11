@@ -4,6 +4,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
 import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
 import { InvestmentValue } from "@/features/offers/investment-value";
+import { Heading } from "@/components/ui/Heading";
 
 const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
@@ -27,23 +28,26 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
   return (
     <main className="container-content flex flex-col gap-16 py-16">
       <header className="flex flex-col gap-3">
-        <div className="flex items-baseline justify-between gap-2">
-          <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-            {ar ? "التسعير / التكلفة" : "PRICING / WHAT IT COSTS"}
-          </p>
-          <p className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost sm:block">
-            {ar ? "بالدولار · شفاف · قابل للتفاوض" : "USD · TRANSPARENT · NEGOTIABLE"}
-          </p>
-        </div>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {ar ? "بلا رسوم " : "No hidden "}
-          <em className="text-accent">{ar ? "خفية." : "fees."}</em>
-        </h1>
-        <p className="max-w-[52ch] text-lead text-text-secondary">
-          {ar
-            ? "ثلاث فئات من الشعار إلى النظام الكامل، وخدمات منفردة للأعمال المستقلة. التسعير يتغير مع النطاق — ومُعلن مقدمًا."
-            : "Three tiers from logo to full system, plus à la carte services for stand-alone work. Pricing varies with scope — and that's stated upfront."}
-        </p>
+        <Heading
+          eyebrow={ar ? "التسعير / التكلفة" : "PRICING / WHAT IT COSTS"}
+          eyebrowMeta={
+            <p className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost sm:block">
+              {ar ? "بالدولار · شفاف · قابل للتفاوض" : "USD · TRANSPARENT · NEGOTIABLE"}
+            </p>
+          }
+          title={
+            <>
+              {ar ? "بلا رسوم " : "No hidden "}
+              <em className="text-accent">{ar ? "خفية." : "fees."}</em>
+            </>
+          }
+          subtitleClassName="max-w-[52ch]"
+          subtitle={
+            ar
+              ? "ثلاث فئات من الشعار إلى النظام الكامل، وخدمات منفردة للأعمال المستقلة. التسعير يتغير مع النطاق — ومُعلن مقدمًا."
+              : "Three tiers from logo to full system, plus à la carte services for stand-alone work. Pricing varies with scope — and that's stated upfront."
+          }
+        />
         <dl className="grid grid-cols-3 gap-2 border-y border-border-subtle py-2">
           {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["À LA CARTE ITEMS", "خدمات منفردة", "15+"]] as const).map(([en, arr, v]) => (
             <div key={en}>

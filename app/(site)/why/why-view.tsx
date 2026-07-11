@@ -5,6 +5,7 @@ import { SingleSourceDiagram } from "@/features/why";
 import { AnchorNav } from "@/features/navigation";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
+import { Heading } from "@/components/ui/Heading";
 
 const REASONS = {
   en: [
@@ -87,17 +88,21 @@ export function WhyView() {
       <div className="chapter-a">
         <div className="container-content flex flex-col gap-16 py-20">
           <header className="flex flex-col gap-4">
-            <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-              {ar ? "لماذا مصطفى" : "WHY MUSTAFA"}
-            </p>
-            <h1 className="max-w-[20ch] font-display text-display tracking-[-0.025em] text-balance-pretty">
-              {ar ? <>لا أصمّم براندات. <em>أبني أنظمة.</em></> : <>I don't design brands. <em>I build systems.</em></>}
-            </h1>
-            <p className="max-w-[56ch] text-lead text-text-secondary">
-              {ar
-                ? "معظم المصممين يسلّمون لوجوهات. أنا أساعد المؤسسات على بناء أنظمة هوية تتوسع عبر الفرق والمنتجات والحملات والتجارب الرقمية — شغل يجمع بين الاستراتيجية وهندسة الهوية والتفكير التشغيلي."
-                : "Most designers deliver logos. I help organizations build identity systems that scale across teams, products, campaigns, and digital experiences — work at the intersection of strategy, identity architecture, and operational thinking."}
-            </p>
+            <Heading
+              eyebrow={ar ? "لماذا مصطفى" : "WHY MUSTAFA"}
+              title={
+                ar
+                  ? <>لا أصمّم براندات. <em>أبني أنظمة.</em></>
+                  : <>I don't design brands. <em>I build systems.</em></>
+              }
+              titleClassName="max-w-[20ch] text-balance-pretty"
+              subtitle={
+                ar
+                  ? "معظم المصممين يسلّمون لوجوهات. أنا أساعد المؤسسات على بناء أنظمة هوية تتوسع عبر الفرق والمنتجات والحملات والتجارب الرقمية — شغل يجمع بين الاستراتيجية وهندسة الهوية والتفكير التشغيلي."
+                  : "Most designers deliver logos. I help organizations build identity systems that scale across teams, products, campaigns, and digital experiences — work at the intersection of strategy, identity architecture, and operational thinking."
+              }
+              subtitleClassName="max-w-[56ch]"
+            />
           </header>
 
           <section id="reasons" aria-label={t.whyAriaReasons} className="flex flex-col">

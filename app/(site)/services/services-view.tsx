@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { PROCESS, type Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, Faq, CtaBand, pick } from "@/features/offers/offer-blocks";
+import { Heading } from "@/components/ui/Heading";
 
 const OFFERINGS: readonly { n: string; name: Bi; italic: Bi; body: Bi }[] = [
   { n: "01", name: ["Brand Identity &", "هوية &"], italic: ["Strategy", "استراتيجية البراند"], body: ["Brand audit · competitor & cultural research · positioning & archetype · naming · logo systems · color & typography · brand guidelines.", "مراجعة البراند · بحث المنافسين والثقافة · التموضع والنموذج · التسمية · أنظمة الشعار · الألوان والخطوط · دليل الهوية."] },
@@ -29,18 +30,21 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
   return (
     <main className="container-content flex flex-col gap-16 py-16">
       <header className="flex flex-col gap-3">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "الخدمات / التعاقد" : "SERVICES / ENGAGEMENT"}
-        </p>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {ar ? "استراتيجية، هوية، " : "Strategy, identity, "}
-          <em className="text-accent">{ar ? "أنظمة." : "systems."}</em>
-        </h1>
-        <p className="max-w-[52ch] text-lead text-text-secondary">
-          {ar
-            ? "من أول بريف إبداعي إلى دليل الهوية الذي يستخدمه فريقك فعلًا — خمس خدمات، استوديو واحد، بلا فجوات تسليم."
-            : "From the first creative brief to the brand guidelines your team actually uses — five services, one studio, no handoff gaps."}
-        </p>
+        <Heading
+          eyebrow={ar ? "الخدمات / التعاقد" : "SERVICES / ENGAGEMENT"}
+          title={
+            <>
+              {ar ? "استراتيجية، هوية، " : "Strategy, identity, "}
+              <em className="text-accent">{ar ? "أنظمة." : "systems."}</em>
+            </>
+          }
+          subtitle={
+            ar
+              ? "من أول بريف إبداعي إلى دليل الهوية الذي يستخدمه فريقك فعلًا — خمس خدمات، استوديو واحد، بلا فجوات تسليم."
+              : "From the first creative brief to the brand guidelines your team actually uses — five services, one studio, no handoff gaps."
+          }
+          subtitleClassName="max-w-[52ch]"
+        />
       </header>
 
       <section className="flex flex-col gap-3">

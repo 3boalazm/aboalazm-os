@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { SectionHead, CtaBand, pick } from "@/features/offers/offer-blocks";
+import { Heading } from "@/components/ui/Heading";
 import { TypeScaleTool, ContrastCheckerTool, BilingualToggleTool } from "@/features/labs-tools";
 import {
   RESEARCH_AREAS,
@@ -35,18 +36,21 @@ export function LabsView() {
     <main className="container-content flex flex-col gap-16 py-16">
       {/* Header */}
       <header className="flex flex-col gap-3">
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-          {ar ? "المعمل / البحث والتطوير" : "LABS / R&D"}
-        </p>
-        <h1 className="font-display text-display tracking-[-0.025em]">
-          {ar ? "حيث تُختبر الأنظمة " : "Where systems are tested "}
-          <em className="text-accent">{ar ? "قبل أن تصبح أطرًا." : "before they become frameworks."}</em>
-        </h1>
-        <p className="max-w-[58ch] text-lead text-text-secondary">
-          {ar
-            ? "Aboalazm Labs هو طبقة البحث والتجريب خلف Aboalazm OS — قسم الـ R&D للبراندينج وأنظمة الهوية وعمليات التصميم والتدفقات المدعومة بالذكاء الاصطناعي."
-            : "Aboalazm Labs is the research and experimentation layer behind Aboalazm OS — the R&D department for branding, identity systems, design operations, and AI-powered creative workflows."}
-        </p>
+        <Heading
+          eyebrow={ar ? "المعمل / البحث والتطوير" : "LABS / R&D"}
+          title={
+            <>
+              {ar ? "حيث تُختبر الأنظمة " : "Where systems are tested "}
+              <em className="text-accent">{ar ? "قبل أن تصبح أطرًا." : "before they become frameworks."}</em>
+            </>
+          }
+          subtitle={
+            ar
+              ? "Aboalazm Labs هو طبقة البحث والتجريب خلف Aboalazm OS — قسم الـ R&D للبراندينج وأنظمة الهوية وعمليات التصميم والتدفقات المدعومة بالذكاء الاصطناعي."
+              : "Aboalazm Labs is the research and experimentation layer behind Aboalazm OS — the R&D department for branding, identity systems, design operations, and AI-powered creative workflows."
+          }
+          subtitleClassName="max-w-[58ch]"
+        />
         <p className="max-w-[58ch] text-body text-text-secondary">
           {ar
             ? "ليست كل تجربة تنجح. كل تجربة تُعلّم. والأطر التي تُنشر علنًا وُلدت هنا أولًا."
