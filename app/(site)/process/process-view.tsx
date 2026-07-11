@@ -15,7 +15,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, physicsSlow, reveal } from "@/lib/motion";
 import { GateStepper } from "@/features/process";
@@ -306,6 +306,7 @@ export function ProcessView() {
   const principles = ar ? PRINCIPLES.ar : PRINCIPLES.en;
 
   const [open, setOpen] = useState<string | null>("01");
+  const reduceMotion = useReducedMotion();
 
   const sections = ar
     ? [
@@ -435,7 +436,7 @@ export function ProcessView() {
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
-                        initial={{ height: 0, opacity: 0 }}
+                        initial={reduceMotion ? false : { height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ ...physics }}

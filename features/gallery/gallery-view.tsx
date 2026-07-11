@@ -133,12 +133,17 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
       </div>
 
       {/* ── masonry wall ───────────────────────────────────────── */}
+      {/* No AnimatePresence here: filtering must remove non-matching
+          items from the DOM the instant `filtered` changes, not wait on
+          each item's exit transition to report finished — that's what
+          left the grid showing all images regardless of the active
+          filter chip. The layout prop still gives remaining items a
+          smooth FLIP reflow. */}
       <motion.div
         layout
         className="columns-2 gap-3 md:columns-3 md:gap-4 lg:columns-4"
         style={{ columnFill: "balance" }}
       >
-        <AnimatePresence mode="popLayout">
           {filtered.map((img, i) => {
             const p = projectOf(img.project);
             return (
@@ -148,7 +153,6 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                 type="button"
                 initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.4, ease: EASE }}
                 onClick={() => setLightbox(i)}
                 className="group relative mb-3 block w-full overflow-hidden rounded-card border border-border-subtle bg-surface-1 text-left md:mb-4"
@@ -181,7 +185,6 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
               </motion.button>
             );
           })}
-        </AnimatePresence>
       </motion.div>
 
       {/* ── lightbox ───────────────────────────────────────────── */}

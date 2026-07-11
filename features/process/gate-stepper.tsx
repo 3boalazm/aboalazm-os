@@ -16,7 +16,7 @@
  */
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics } from "@/lib/motion";
 
@@ -198,16 +198,18 @@ export function GateStepper() {
           })}
         </div>
 
-        {/* detail panel */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={physics}
-            className="gate-detail"
-          >
+        {/* detail panel — plain key-change remount, not AnimatePresence:
+            mode="wait" would hold the new gate's content mounting until
+            the old one's exit transition reports finished, tying which
+            gate is shown to an animation-completion callback instead of
+            to the click itself. */}
+        <motion.div
+          key={active}
+          initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={physics}
+          className="gate-detail"
+        >
             {/* command line */}
             <div className="gate-detail__cmdline">
               <span className="gate-detail__prompt">$</span>
@@ -237,8 +239,7 @@ export function GateStepper() {
                 <span className="text-accent">$</span> {t.paymentLabel}: {g.payment}
               </p>
             )}
-          </motion.div>
-        </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );

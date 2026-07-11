@@ -10,7 +10,7 @@
  *    returning visitors aren't re-asked the same question every visit.
  */
 
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { usePersona } from "@/components/providers/persona-provider";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics } from "@/lib/motion";
@@ -51,13 +51,14 @@ export function PersonaPickerBand() {
 
   return (
     <div className="persona-band">
-      <AnimatePresence mode="wait">
-        {persona === null ? (
+      {/* Plain conditional, not AnimatePresence: which block shows must
+          follow the persona pick instantly, not wait on an exit
+          transition's completion callback. */}
+      {persona === null ? (
           <motion.div
             key="prompt"
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
             transition={physics}
             className="persona-band__prompt"
           >
@@ -80,7 +81,6 @@ export function PersonaPickerBand() {
             key="active"
             initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
             transition={physics}
             className="persona-band__active"
           >
@@ -93,7 +93,6 @@ export function PersonaPickerBand() {
             </button>
           </motion.div>
         )}
-      </AnimatePresence>
     </div>
   );
 }

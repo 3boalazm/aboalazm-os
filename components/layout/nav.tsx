@@ -13,7 +13,7 @@ import { useT } from "@/hooks/use-t";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useTheme } from "@/components/providers/theme-provider";
@@ -48,6 +48,7 @@ export function Nav() {
   const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 64);
@@ -209,7 +210,7 @@ export function Nav() {
         {open && (
           <motion.ul
             id="mobile-menu"
-            initial={{ opacity: 0, y: -8 }}
+            initial={reduceMotion ? false : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8, transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] } }}
             transition={physics}
@@ -225,7 +226,7 @@ export function Nav() {
               return (
                 <motion.li
                   key={link.href}
-                  initial={{ opacity: 0, x: -8 }}
+                  initial={reduceMotion ? false : { opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ ...physics, delay: 0.05 * i }}
                 >
