@@ -20,7 +20,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import gsap from "gsap";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE_PHYSICS, DURATION } from "@/lib/tokens";
 import type { Project } from "./types";
 
@@ -38,6 +38,7 @@ interface FloatingPreviewProps {
 export function FloatingPreview({ active, pointer }: FloatingPreviewProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const lastX = useRef(0);
+  const reduceMotion = useReducedMotion();
 
   /* GSAP trail engine — mounted once, runs for the component's life */
   useEffect(() => {
@@ -80,7 +81,7 @@ export function FloatingPreview({ active, pointer }: FloatingPreviewProps) {
         {active && (
           <motion.div
             key={active.slug}
-            initial={{ opacity: 0, scale: 0.82, y: 12 }}
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.82, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -8 }}
             transition={{ duration: DURATION.base, ease: EASE_PHYSICS }}

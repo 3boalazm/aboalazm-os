@@ -15,9 +15,35 @@
   `features/process/gate-stepper.tsx`، `features/persona/persona-picker-band.tsx`، `features/gallery/gallery-view.tsx` (فلتر الماسونري)، `app/(site)/process/process-view.tsx` (الأكورديون)، `components/layout/nav.tsx` (مينيو الموبايل) — كل واحدة اتأكد منها لايف: ديسكتوب/موبايل/لايت/دارك/reduced-motion.
 - إصلاح hydration warning إضافي (نفس فكرة reduced-motion) على gate-stepper بـ `suppressHydrationWarning` — مطابق لنفس الباترن المستخدم في `<html>`.
 
-### ⚠️ حاجتين معلقة — محتاجين قرارك، مش اتعملوا لسه:
-1. **iframe "Zad" في `/work-ui` لسه `http://` مش `https://` على اللايف.** المصدر Payload CMS (مش الكود — الكود اتصلح بس في seed data اللي مبتحدّثش الداتا الموجودة). فيه سكريبت جاهز: `scripts/fix-zad-live-url.ts` (بيصلح صف واحد بس، آمن يتكرر). **متشغّلش** لأن الداتابيز نفسها لـ dev وprod (Neon واحدة) — محتاج موافقتك الصريحة، أو تعمله يدوي من Payload Admin: Projects → Zad → Live Preview URL → `https://zad.codeandcanvas.net` → Save.
-2. **الـ Visual/Design Audit (Apple/Linear/Stripe-style) اللي اتطلب — متعملش.** أداة الـ screenshot عطلانة تمامًا في المتصفح بتاع الجلسة (اتأكد إنها مش مشكلة في الموقع — حتى `example.com` البسيطة فشلت في الـ screenshot). الخيارات المطروحة على المستخدم: (أ) يجرب تاني بعدين لو المشكلة مؤقتة، (ب) يوصّل إضافة Claude in Chrome، (ج) أعمل أودت "قياسي" بقيم CSS فعلية (border-radius/spacing/ألوان) بدل حكم بصري حقيقي.
+### ✅ Zad iframe — تم الحل
+اتشغل `npx tsx scripts/fix-zad-live-url.ts` بنجاح، اتصلح الصف في Neon (`"zad".liveUrl → https://zad.codeandcanvas.net`). **باقي حاجة واحدة بس**: تأكيد سريع في أول regression pass إن الـ iframe بيحمل صح على اللايف ومفيش Mixed Content warnings.
+
+### ✅ Phase 3A — Enterprise Design System Audit (source-only) — خلصت
+تقرير كامل في [`design-preview/design-system-audit-phase3a.md`](design-preview/design-system-audit-phase3a.md) — تحليل ستاتيك لـ `globals.css` (2052 سطر) + 92 كومبوننت، من غير أي حكم بصري (screenshot لسه عطلانة، اتأكد تاني إن المشكلة في الأداة مش في الموقع).
+
+**أهم اللقطات:**
+- الـ token layer (`@theme` block) نضيف ومنظم — المشكلة مش فيه.
+- **مفيش شريط component مشترك خالص** (`components/ui` مش موجود، مفيش `<Button>`) — كل CTA بيتكرر يدوي. `.not-found-cta`, `.start-cta`, `.process-cta` — نفس الكود بالظبط 3 مرات.
+- لون الـ accent `rgb(255 107 71 / …)` متكرر 49 مرة في globals.css بقيم opacity مختلفة عشوائياً (~20 قيمة غير موثقة) بدل tokens.
+- `/start` و`/process` عندهم 69% من كل الـ arbitrary Tailwind values (90 قيمة في 13 ملف) — أكتر صفحتين بعيد عن نظام الـ tokens.
+- سلم الـ spacing بيخالف قاعدته المكتوبة في نفس الملف (8px strict) في 15+ مكان.
+- `AnimatePresence` واحدة لسه محتاجة مراجعة يدوية لايف: `features/work/floating-preview.tsx` (hover crossfade على كروت `/work`) — مش زي الباج اللي اتصلح، بس نفس المكتبة/mode.
+
+**التالي: Phase 3B (Visual Audit)** — معلقة لحد ما أداة الـ screenshot تشتغل تاني في الجلسة.
+
+### ✅ Backlog محضّر — لسه متبدأش أي تعديل كود
+تقرير كامل في [`design-preview/design-system-backlog.md`](design-preview/design-system-backlog.md) — كل لقطات Phase 3A متبوّبة P0/P1/P2/P3 مع impact/effort/الملفات المتأثرة/مخاطر الميجريشن. **القرار الصريح من المستخدم: متبدأش أي refactor (لا CTA، لا tokens، لا component extraction) لحد ما Phase 3B تخلص كمان.** بعدين نرتّب الأولويات على الاثنين مع بعض ونعمل "Design System Refactoring Sprint" واحد.
+
+- استثناء واحد: P0-1 و P0-2 (الاتنين تحقق سريع بس، مش تعديل) ممكن يتعملوا في أي وقت من غير ما ننتظر Phase 3B.
+
+### ✅ V1/V2 اتعملوا، وP0-1 اتصلح واتأكد (2026-07-11)
+- **V1 (Zad iframe) ✅ PASS**: `iframe.src` على اللايف = `https://zad.codeandcanvas.net/`، مفيش mixed-content warnings. مقفول.
+- **V2 → P0-1 ✅ FIXED & VERIFIED**: `features/work/floating-preview.tsx` كان بيستخدم Framer Motion `animate` prop مباشر من غير فرع reduced-motion (فات على الـ 13 كومبوننت اللي اتصلحوا قبل كده). الإصلاح: نفس الباترن بالظبط المستخدم في `gate-stepper.tsx`/`gallery-view.tsx` — `useReducedMotion()` + `initial={reduceMotion ? false : {...}}`، من غير أي تعديل في `animate`/`exit`/`transition`. **الملف الوحيد المعدّل: `features/work/floating-preview.tsx`.**
+  - ✅ `npm run typecheck` نضيف.
+  - ✅ `npm run build` نجح، `/work` زي ما هو (8.7 kB).
+  - ✅ اتأكد لايف على dev server محلي: Normal motion → الأنيميشن زي ما كانت بالظبط (opacity 1, transform none بعد الدخول). Reduced motion → دلوقتي بيظهر فورًا (`opacity:1; transform:none`) بدل ما يفضل واقف على `opacity:0`.
+- **🆕 باج جديد اتكشف أثناء التحقق (متتصلحش، مش جزء من المهمة دي)**: لما تعمل hover من صف مشروع لصف تاني في `/work` من غير ما الماوس يسيب الليدجر خالص، الكارت القديم مش بيعمل unmount — بيفضل الاتنين ظاهرين (`opacity:1`) في نفس الوقت. اتأكد إنه بيحصل **في الحالتين (reduced-motion وnormal motion)** يعني مش مرتبط بالإصلاح ده، باج سابق أصلاً. مسجّل كـ **P0-3** في الباكلوج، لسه محتاج triage.
+- تفاصيل كاملة في [`design-preview/design-system-backlog.md`](design-preview/design-system-backlog.md) تحت P0-1/P0-2/P0-3.
 
 ---
 
