@@ -202,9 +202,15 @@ export function GateStepper() {
             mode="wait" would hold the new gate's content mounting until
             the old one's exit transition reports finished, tying which
             gate is shown to an animation-completion callback instead of
-            to the click itself. */}
+            to the click itself.
+            suppressHydrationWarning: same reasoning as the anti-flash
+            script in app/(site)/layout.tsx — the server can't know the
+            client's real prefers-reduced-motion value, so this element's
+            first-paint style legitimately differs between SSR and the
+            client correcting it on mount. Scoped to this one node only. */}
         <motion.div
           key={active}
+          suppressHydrationWarning
           initial={reduceMotion ? false : { opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={physics}
