@@ -1,7 +1,25 @@
 # HANDOFF — Aboalazm OS (سياق الجلسة السابقة)
 
 > اكتب في الشات الجديد: "اقرأ HANDOFF.md في فولدر المشروع وكمّل من حيث انتهى".
-> آخر تحديث: 2026-07-10
+> آخر تحديث: 2026-07-11
+
+## 🔴 جلسة اليوم (2026-07-11) — QA شامل + إصلاحات — كمّل من هنا
+
+**كل ده اتعمل واتعمله commit بالفعل (git status نضيف دلوقتي):**
+- Smoke Test + Deep QA كامل على اللايف، وبعدين إصلاح كل الباجات المكتشفة:
+  - **فورم التواصل (Critical)**: كان بيفضل عالق على "WORKING…" للأبد حتى لما السيرفر يرجع نجاح. اتصلح بـ timeout (20 ثانية) + منع الإرسال المكرر + إصلاح منطق الأخطاء + إلغاء الاعتماد على انتهاء أنيميشن Framer Motion (`features/contact/contact-form.tsx`).
+  - **Reduced-motion (High)**: عناصر كتير كانت بتفضل `opacity:0` للأبد لو المستخدم مفعّل "تقليل الحركة". اتصلح بهوك `useEntrance`/`reduceMotion` في حوالي 13 كومبوننت (hero, gallery, work, about, وغيرهم).
+  - Theme playground، mixed-content iframe (جزئي — تفاصيل تحت)، ترجمة "Start a commission" للعربي، تناسق سنة بداية المشوار المهني (2017 مش 2018).
+  - إصلاح فشل بناء Vercel (`discipline: "E-Commerce Platform"` مش موجودة في enum — اتظبطت لـ "Product Architecture" زي باقي مشاريع الديفلوبمنت).
+- **اكتشاف نمط تاني بعد الـ regression test**: `AnimatePresence mode="wait"` (و`popLayout`) كانت بتمنع تحديث المحتوى فعليًا حتى لو الـ state اتحدّث صح — نفس سبب باج الكونتاكت فورم بالظبط. اتصلح في:
+  `features/process/gate-stepper.tsx`، `features/persona/persona-picker-band.tsx`، `features/gallery/gallery-view.tsx` (فلتر الماسونري)، `app/(site)/process/process-view.tsx` (الأكورديون)، `components/layout/nav.tsx` (مينيو الموبايل) — كل واحدة اتأكد منها لايف: ديسكتوب/موبايل/لايت/دارك/reduced-motion.
+- إصلاح hydration warning إضافي (نفس فكرة reduced-motion) على gate-stepper بـ `suppressHydrationWarning` — مطابق لنفس الباترن المستخدم في `<html>`.
+
+### ⚠️ حاجتين معلقة — محتاجين قرارك، مش اتعملوا لسه:
+1. **iframe "Zad" في `/work-ui` لسه `http://` مش `https://` على اللايف.** المصدر Payload CMS (مش الكود — الكود اتصلح بس في seed data اللي مبتحدّثش الداتا الموجودة). فيه سكريبت جاهز: `scripts/fix-zad-live-url.ts` (بيصلح صف واحد بس، آمن يتكرر). **متشغّلش** لأن الداتابيز نفسها لـ dev وprod (Neon واحدة) — محتاج موافقتك الصريحة، أو تعمله يدوي من Payload Admin: Projects → Zad → Live Preview URL → `https://zad.codeandcanvas.net` → Save.
+2. **الـ Visual/Design Audit (Apple/Linear/Stripe-style) اللي اتطلب — متعملش.** أداة الـ screenshot عطلانة تمامًا في المتصفح بتاع الجلسة (اتأكد إنها مش مشكلة في الموقع — حتى `example.com` البسيطة فشلت في الـ screenshot). الخيارات المطروحة على المستخدم: (أ) يجرب تاني بعدين لو المشكلة مؤقتة، (ب) يوصّل إضافة Claude in Chrome، (ج) أعمل أودت "قياسي" بقيم CSS فعلية (border-radius/spacing/ألوان) بدل حكم بصري حقيقي.
+
+---
 
 ## المشروع
 - **الريبو الأساسي (الكانوني):** `E:\final projcts web\aboalazm-os` → GitHub `3boalazm/aboalazm-os` → Vercel `aboalazm-os.vercel.app`
