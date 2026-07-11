@@ -21,6 +21,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, physicsSlow, reveal } from "@/lib/motion";
+import { buttonVariants } from "@/components/ui/Button";
 
 /* ─── copy ───────────────────────────────────────────────────────── */
 const COPY = {
@@ -160,10 +161,23 @@ export function NotFoundContent() {
           className="not-found-ctas"
           variants={reveal.item}
         >
-          <Link href="/" className="not-found-cta not-found-cta--primary">
+          <Link
+            href="/"
+            className={buttonVariants({
+              className:
+                "px-[20px] py-[10px] font-display font-[800] text-[0.78rem] tracking-[0.08em] transition-transform duration-[200ms] ease-physics hover:-translate-y-[2px]",
+            })}
+          >
             {copy.cta}
           </Link>
-          <Link href="/work" className="not-found-cta not-found-cta--ghost">
+          <Link
+            href="/work"
+            className={buttonVariants({
+              variant: "ghost",
+              className:
+                "border border-[rgb(255_107_71_/_0.35)] bg-transparent px-[20px] py-[10px] font-display font-[800] text-[0.78rem] tracking-[0.08em] text-accent transition-[transform,background-color] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:bg-[rgb(255_107_71_/_0.08)]",
+            })}
+          >
             {copy.ctaAlt}
           </Link>
         </motion.div>

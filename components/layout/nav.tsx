@@ -18,6 +18,7 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useTheme } from "@/components/providers/theme-provider";
 import { PersonaToggleCompact } from "@/features/persona";
+import { buttonVariants } from "@/components/ui/Button";
 
 const LINKS = [
   { href: "/about",     en: "ABOUT",     ar: "نبذة"      },
@@ -181,7 +182,10 @@ export function Nav() {
 
         <Link
           href="/contact"
-          className="group whitespace-nowrap rounded-pill bg-accent px-2 py-1 font-display text-[0.65rem] uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
+          className={buttonVariants({
+            className:
+              "group whitespace-nowrap px-2 py-1 font-display text-[0.65rem] tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
+          })}
         >
           {lang === "ar" ? "تواصل" : "CONTACT"}
           <span

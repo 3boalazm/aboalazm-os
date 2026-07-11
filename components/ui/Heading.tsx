@@ -1,16 +1,5 @@
 import type { ReactNode } from "react";
-
-/**
- * Plain concatenation, deliberately NOT the project's `cn()` (tailwind-merge)
- * helper: twMerge's class-group heuristics key off the `text-` prefix and
- * treat custom v4 theme utilities like `text-display`/`text-lead` as
- * conflicting with `text-text-secondary`/`text-balance-pretty` (both also
- * `text-*`), silently dropping the base font-size utility. No override
- * semantics are needed here — every className passed in is additive.
- */
-function joinClasses(...parts: (string | undefined | false)[]): string {
-  return parts.filter(Boolean).join(" ");
-}
+import { joinClasses } from "@/lib/utils";
 
 /**
  * Page-hero section header: eyebrow + title (+ optional subtitle/meta).

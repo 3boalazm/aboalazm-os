@@ -5,6 +5,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { PROCESS, type Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, Faq, CtaBand, pick } from "@/features/offers/offer-blocks";
 import { Heading } from "@/components/ui/Heading";
+import { buttonVariants } from "@/components/ui/Button";
 
 const OFFERINGS: readonly { n: string; name: Bi; italic: Bi; body: Bi }[] = [
   { n: "01", name: ["Brand Identity &", "هوية &"], italic: ["Strategy", "استراتيجية البراند"], body: ["Brand audit · competitor & cultural research · positioning & archetype · naming · logo systems · color & typography · brand guidelines.", "مراجعة البراند · بحث المنافسين والثقافة · التموضع والنموذج · التسمية · أنظمة الشعار · الألوان والخطوط · دليل الهوية."] },
@@ -87,10 +88,10 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           {ar ? "— التسعير يختلف حسب النطاق · ريتينر مخصص متاح · خصم على الدفع الكامل مقدمًا —" : "— Project pricing varies by scope · Custom retainers available · Discount on full prepayment —"}
         </p>
         <div className="flex justify-center gap-2">
-          <Link href="/pricing" className="rounded-pill bg-accent px-3 py-1.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5">
+          <Link href="/pricing" className={buttonVariants({ className: "px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
             {ar ? "التسعير التفصيلي ✦" : "View Detailed Pricing ✦"}
           </Link>
-          <Link href="/agreement" className="glass rounded-pill px-3 py-1.5 font-mono text-label uppercase tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary">
+          <Link href="/agreement" className={buttonVariants({ variant: "ghost", className: "glass px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
             {ar ? "اقرأ الاتفاقية →" : "Read Full Agreement →"}
           </Link>
         </div>

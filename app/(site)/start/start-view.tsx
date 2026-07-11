@@ -22,6 +22,7 @@ import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { reveal, physics, physicsSlow } from "@/lib/motion";
 import { PROCESS, TIERS } from "@/lib/offers";
 import { AnchorNav } from "@/features/navigation";
+import { buttonVariants } from "@/components/ui/Button";
 
 /* ─── copy ─────────────────────────────────────────────────────── */
 const COPY = {
@@ -321,11 +322,18 @@ export function StartView() {
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className="start-cta-primary"
+              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
             >
               {ar ? "احجز مكالمة مجانية" : "Book a Free Call"}
             </a>
-            <a href="#how-it-works" className="start-cta-ghost">
+            <a
+              href="#how-it-works"
+              className={buttonVariants({
+                variant: "ghost",
+                className:
+                  "border border-[rgb(255_107_71_/_0.30)] px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
+              })}
+            >
               {ar ? "شوف كيف بنشتغل ↓" : "See how it works ↓"}
             </a>
           </motion.div>
@@ -604,11 +612,18 @@ export function StartView() {
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className="start-cta-primary"
+              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
             >
               {c.ctaPrimary}
             </a>
-            <Link href="/services" className="start-cta-ghost">
+            <Link
+              href="/services"
+              className={buttonVariants({
+                variant: "ghost",
+                className:
+                  "border border-[rgb(255_107_71_/_0.30)] px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
+              })}
+            >
               {c.ctaSecondary}
             </Link>
           </div>

@@ -12,6 +12,7 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { pick } from "@/features/offers/offer-blocks";
 import { SPINE, type Resource } from "@/lib/resources";
+import { Button } from "@/components/ui/Button";
 
 const UNLOCK_KEY = "aboalazm-os-resources-unlocked";
 
@@ -116,11 +117,11 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
           aria-label={ar ? "البريد الإلكتروني" : "Email address"}
           className="w-full rounded-pill border border-border-default bg-surface-2 px-4 py-2.5 text-body text-text-primary outline-none transition-colors duration-base ease-physics placeholder:text-text-ghost focus:border-accent"
         />
-        <button
+        <Button
           type="button"
           onClick={submit}
           disabled={state === "loading"}
-          className="group whitespace-nowrap rounded-pill bg-accent px-5 py-2.5 font-mono text-micro uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
+          className="group whitespace-nowrap px-5 py-2.5 font-mono text-micro tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5"
         >
           {state === "loading"
             ? ar
@@ -129,7 +130,7 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
             : ar
               ? "افتح الوصول"
               : "UNLOCK"}
-        </button>
+        </Button>
       </div>
 
       {state === "error" && (

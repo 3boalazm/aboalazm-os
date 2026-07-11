@@ -781,35 +781,6 @@ html[data-theme="light"] {
   gap: 10px;
   margin-top: 8px;
 }
-.not-found-cta {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: var(--radius-pill);
-  padding: 10px 20px;
-  transition: transform 200ms var(--ease-physics),
-              background 200ms var(--ease-physics),
-              color 200ms var(--ease-physics);
-}
-.not-found-cta--primary {
-  background: var(--color-accent);
-  color: var(--color-obsidian);
-}
-.not-found-cta--primary:hover { transform: translateY(-2px); }
-
-.not-found-cta--ghost {
-  border: 1px solid rgb(255 107 71 / 0.35);
-  color: var(--color-accent);
-  background: transparent;
-}
-.not-found-cta--ghost:hover {
-  background: rgb(255 107 71 / 0.08);
-  transform: translateY(-2px);
-}
-
 /* ── Quick nav ── */
 .not-found-nav {
   display: flex;
@@ -914,44 +885,6 @@ html[data-theme="light"] {
     radial-gradient(circle, rgb(255 107 71 / 0.12) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 40%, transparent 100%);
-}
-
-/* CTA buttons */
-.start-cta-primary {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  background: var(--color-accent);
-  color: var(--color-obsidian);
-  border-radius: var(--radius-pill);
-  padding: 12px 24px;
-  transition: transform 200ms var(--ease-physics), box-shadow 200ms var(--ease-physics);
-}
-.start-cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgb(255 107 71 / 0.30);
-}
-
-.start-cta-ghost {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  border: 1px solid rgb(255 107 71 / 0.30);
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-pill);
-  padding: 12px 24px;
-  transition: border-color 200ms var(--ease-physics), color 200ms var(--ease-physics), transform 200ms var(--ease-physics);
-}
-.start-cta-ghost:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  transform: translateY(-2px);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -1083,41 +1016,6 @@ html[data-theme="light"] {
     radial-gradient(circle, rgb(255 107 71 / 0.10) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(ellipse 70% 80% at 40% 40%, black 30%, transparent 100%);
-}
-.process-cta-primary {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  background: var(--color-accent);
-  color: var(--color-obsidian);
-  border-radius: var(--radius-pill);
-  padding: 12px 24px;
-  transition: transform 200ms var(--ease-physics), box-shadow 200ms var(--ease-physics);
-}
-.process-cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgb(255 107 71 / 0.30);
-}
-.process-cta-ghost {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 0.8rem;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  border: 1px solid rgb(255 107 71 / 0.30);
-  color: var(--color-text-secondary);
-  border-radius: var(--radius-pill);
-  padding: 12px 24px;
-  transition: border-color 200ms var(--ease-physics), color 200ms var(--ease-physics), transform 200ms var(--ease-physics);
-}
-.process-cta-ghost:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  transform: translateY(-2px);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════

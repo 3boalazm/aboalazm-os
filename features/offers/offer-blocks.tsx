@@ -6,6 +6,7 @@
  */
 import { useLang } from "@/components/providers/lang-provider";
 import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
+import { buttonVariants } from "@/components/ui/Button";
 
 export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
 
@@ -199,10 +200,10 @@ export function CtaBand({
         {pick(title, lang)} <em className="text-accent">{pick(italic, lang)}</em>
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <a href={primaryHref} className="rounded-pill bg-accent px-3 py-1.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5">
+        <a href={primaryHref} className={buttonVariants({ className: "px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
           {pick(primary, lang)} ✦
         </a>
-        <a href={secondaryHref} className="glass rounded-pill px-3 py-1.5 font-mono text-label uppercase tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary">
+        <a href={secondaryHref} className={buttonVariants({ variant: "ghost", className: "glass px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
           {pick(secondary, lang)} →
         </a>
       </div>

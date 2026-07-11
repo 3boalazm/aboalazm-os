@@ -19,6 +19,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, reveal } from "@/lib/motion";
+import { Button } from "@/components/ui/Button";
 
 const COPY = {
   en: {
@@ -85,12 +86,12 @@ export default function ErrorBoundary({
         </motion.p>
 
         <motion.div variants={reveal.item} className="mt-2 flex items-center gap-4">
-          <button
+          <Button
             onClick={reset}
-            className="rounded-pill bg-accent px-4 py-2 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-opacity duration-base ease-physics hover:opacity-90"
+            className="px-4 py-2 font-mono text-label tracking-[0.06em] transition-opacity duration-base ease-physics hover:opacity-90"
           >
             {copy.retry}
-          </button>
+          </Button>
           <Link
             href="/"
             className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"

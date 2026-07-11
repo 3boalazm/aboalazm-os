@@ -9,6 +9,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
+import { buttonVariants } from "@/components/ui/Button";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
 const SKILLS = ["Brand Identity", "Brand Strategy", "Logo Design", "Visual Systems", "Art Direction", "Web Design", "Brand Guidelines", "Packaging"];
@@ -198,7 +199,10 @@ export function ClientJourneyBand() {
           </p>
           <Link
             href="/start"
-            className="group mt-1 flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-display text-[0.68rem] font-[800] uppercase tracking-[0.07em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
+            className={buttonVariants({
+              className:
+                "group mt-1 flex w-fit items-center gap-2 px-4 py-2 font-display text-[0.68rem] font-[800] tracking-[0.07em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
+            })}
           >
             {cta}
             <span
