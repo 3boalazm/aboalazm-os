@@ -186,7 +186,7 @@ export const PROJECTS: readonly Project[] = [
     name: "Momo Collective",
     nameAr: "مومو كوليكتيف",
     category: "development",
-    discipline: "E-Commerce Platform",
+    discipline: "Product Architecture",
     stack: ["React + Vite", "Drizzle + Postgres", "Payments", "Loyalty & Roles", "Admin Analytics"],
     outcome: "Full-stack urban streetwear store — cart, wishlist, loyalty, admin dashboard",
     outcomeAr: "متجر ستريت وير متكامل — سلة، مفضلة، برنامج ولاء، لوحة إدارة",
