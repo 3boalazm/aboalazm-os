@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 };
 
 import { PersonaSection } from "@/features/persona/persona-section";
+import { buttonVariants } from "@/components/ui/Button";
 
 export default async function Home() {
   const projects = await getProjects();
@@ -48,7 +49,7 @@ export default async function Home() {
             href="https://www.behance.net/aboalazm"
             target="_blank"
             rel="noopener noreferrer"
-            className="glass rounded-pill px-3 py-1.5 font-mono text-label uppercase tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary"
+            className={buttonVariants({ variant: "ghost", className: "glass px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}
           >
             VIEW FULL PORTFOLIO ON BEHANCE ↗
           </a>
