@@ -21,7 +21,7 @@ import { useLang } from "@/components/providers/lang-provider";
  * Canvas: bg-surface-0 (theme-reactive — Obsidian in dark, Alabaster in light).
  * Motion: every transition rides --ease-physics via lib/motion.
  */
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { heroLine, reveal, physics } from "@/lib/motion";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 
@@ -43,6 +43,9 @@ export function Hero() {
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
+  /* One reduced-motion read per render — reused below instead of calling
+     a hook per headline line inside .map(). */
+  const reduceMotion = useReducedMotion();
   const HEADLINE = ar
     ? [t.heroLine1, t.heroLine2, t.heroLine3]
     : [t.heroLine1, t.heroLine2, t.heroLine3];
@@ -55,7 +58,7 @@ export function Hero() {
         <div className="flex flex-col gap-4">
           {/* Live status row — in-flow micro-frame */}
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={reduceMotion ? false : { opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ ...physics, delay: 0.9 }}
             className="flex flex-wrap items-center gap-2"
@@ -79,7 +82,7 @@ export function Hero() {
                   className="block will-change-transform"
                   custom={i}
                   variants={heroLine}
-                  initial="hidden"
+                  initial={reduceMotion ? false : "hidden"}
                   animate="visible"
                 >
                   {i === ITALIC_LINE ? <em className="text-accent">{line}</em> : line}
@@ -90,7 +93,7 @@ export function Hero() {
 
           <motion.div
             variants={reveal.container}
-            initial="hidden"
+            initial={reduceMotion ? false : "hidden"}
             animate="visible"
             className="flex flex-col gap-3"
           >
@@ -119,7 +122,7 @@ export function Hero() {
                 href="/contact"
                 className="group relative px-1 py-2 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
               >
-                Start a commission
+                {t.heroCommission}
                 <span className="absolute inset-x-1 bottom-1 h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
               </a>
             </motion.div>
@@ -128,7 +131,7 @@ export function Hero() {
 
         {/* Right — signature asset layer */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...physics, duration: 1.2, delay: 0.5 }}
           className="justify-self-center lg:justify-self-end"

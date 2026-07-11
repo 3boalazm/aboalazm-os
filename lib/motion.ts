@@ -8,8 +8,25 @@
  * things MOVE, then come to rest.
  * ═══════════════════════════════════════════════════════════════
  */
-import type { Variants, Transition } from "framer-motion";
+import { useReducedMotion, type Variants, type Transition } from "framer-motion";
 import { EASE_PHYSICS, EASE_ENTRANCE, DURATION } from "@/lib/tokens";
+
+/**
+ * useEntrance — the one place every entrance animation asks
+ * "should I actually play?" Wrap any `initial` value with it.
+ *
+ * When the user has `prefers-reduced-motion: reduce` set, this
+ * returns `false` instead of the given initial value. Framer Motion
+ * treats `initial={false}` as "skip the mount/whileInView animation,
+ * render already at the animate/whileInView target" — so entrance
+ * animations are skipped and content renders immediately in its
+ * final state (opacity 1, transform none) instead of getting stuck
+ * at its hidden starting values.
+ */
+export function useEntrance<T>(initialValue: T): T | false {
+  const reduceMotion = useReducedMotion();
+  return reduceMotion ? false : initialValue;
+}
 
 /* ── Core transitions ─────────────────────────────────────────── */
 

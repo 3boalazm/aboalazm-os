@@ -73,8 +73,8 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
         </h1>
         <p className="max-w-[52ch] text-lead text-text-secondary">
           {ar
-            ? "مصطفى أبوالعزم بدأ التصميم المهني في 2018 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد."
-            : "Mustafa Aboalazm started designing professionally in 2018 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine."}
+            ? "مصطفى أبوالعزم بدأ التصميم المهني في 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد."
+            : "Mustafa Aboalazm started designing professionally in 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine."}
         </p>
 
         <dl className="grid grid-cols-1 gap-2 border-y border-border-subtle py-3 sm:grid-cols-2">

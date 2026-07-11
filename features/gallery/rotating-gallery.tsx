@@ -71,6 +71,12 @@ function Card({
     const image = imgRef.current;
     if (!wrap || !card || !image) return;
 
+    /* Reduced motion: skip the scroll-tilt effect entirely and leave
+       cards flat/at rest instead of driving them via ScrollTrigger. */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
     /* Horizontal scatter via sine wave (Theme 1 positioning) */
     gsap.set(wrap, { x: scatter });
 
@@ -177,6 +183,11 @@ function Marquee({ label }: { label: string }) {
   useEffect(() => {
     const el = innerRef.current;
     if (!el) return;
+
+    /* Reduced motion: leave the watermark static instead of scrolling it. */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
 
     /* scroll the marquee across the page while the gallery is in view */
     const ctx = gsap.context(() => {

@@ -152,6 +152,10 @@ export function TokenPlayground() {
 
       {/* ════ 2 · CANVAS PREVIEW (right frame) ════ */}
       <div
+        /* Keyed on theme so a theme switch always forces a fresh
+           subtree — every var(--pg-*) consumer below re-evaluates
+           against the new palette with no reconciliation ambiguity. */
+        key={t.theme}
         className="overflow-hidden rounded-panel border border-border-subtle p-4 sm:p-8"
         style={{
           /* ── THE SYNC POINT ──

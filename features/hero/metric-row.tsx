@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { physics, reveal } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 
@@ -62,10 +62,11 @@ function MetricCard({ metric }: { metric: Metric }) {
 export function MetricRow() {
   const { lang } = useLang();
   const metrics = METRICS[lang];
+  const reduceMotion = useReducedMotion();
   return (
     <motion.div
       variants={reveal.container}
-      initial="hidden"
+      initial={reduceMotion ? false : "hidden"}
       animate="visible"
       className="flex flex-col gap-2 sm:flex-row sm:gap-4"
     >

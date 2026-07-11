@@ -16,7 +16,7 @@
  */
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics } from "@/lib/motion";
 
@@ -142,6 +142,7 @@ export function GateStepper() {
   const ar = lang === "ar";
   const gates = ar ? GATES_AR : GATES_EN;
   const t = ar ? UI.ar : UI.en;
+  const reduceMotion = useReducedMotion();
 
   const [active, setActive] = useState(0);
   const g = gates[active] ?? gates[0]!;
@@ -201,7 +202,7 @@ export function GateStepper() {
         <AnimatePresence mode="wait">
           <motion.div
             key={active}
-            initial={{ opacity: 0, y: 8 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={physics}

@@ -7,11 +7,12 @@
  */
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
+import { useEntrance } from "@/lib/motion";
 
 export function Reveal({ children }: { children: ReactNode }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={useEntrance({ opacity: 0, y: 24 })}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px 0px" }}
       transition={{ duration: 0.5, ease: "easeOut" }}

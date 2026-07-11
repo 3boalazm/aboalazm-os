@@ -7,7 +7,7 @@
  * returning visitor isn't asked twice.
  */
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { pick } from "@/features/offers/offer-blocks";
@@ -160,10 +160,11 @@ export function ResourceCard({
 }) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 12 }}
+      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={physics}

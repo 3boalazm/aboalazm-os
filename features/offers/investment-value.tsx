@@ -20,7 +20,7 @@
  * Bilingual + RTL.
  */
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physicsSlow } from "@/lib/motion";
 
@@ -75,6 +75,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
   const t = ar ? UI.ar : UI.en;
   const props = ar ? VALUE_PROPS.ar : VALUE_PROPS.en;
   const hasPending = metrics.some((m) => m.pending);
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="flex flex-col gap-6">
@@ -95,7 +96,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
           <motion.div
             key={m.value}
             className="flex flex-col gap-1 rounded-panel border border-border-subtle bg-surface-1 p-4"
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ ...physicsSlow, delay: i * 0.08 }}
@@ -119,7 +120,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
           <motion.div
             key={title}
             className="flex gap-3 rounded-panel border border-border-subtle bg-surface-1/60 p-4"
-            initial={{ opacity: 0, y: 16 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ ...physicsSlow, delay: i * 0.06 }}

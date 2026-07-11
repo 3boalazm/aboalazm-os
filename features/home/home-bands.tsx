@@ -5,7 +5,7 @@
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
@@ -82,6 +82,7 @@ export function AboutTeaser() {
 export function StatsBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const reduceMotion = useReducedMotion();
 
   // [value, suffix, EN label, AR label, EN sub, AR sub, bar 0–1]
   const stats = [
@@ -108,7 +109,7 @@ export function StatsBand() {
             <div className="stats-dash__bar" aria-hidden>
               <motion.div
                 className="stats-dash__bar-fill"
-                initial={{ scaleX: 0 }}
+                initial={reduceMotion ? false : { scaleX: 0 }}
                 whileInView={{ scaleX: bar as number }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }}

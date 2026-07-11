@@ -10,7 +10,7 @@
  *    returning visitors aren't re-asked the same question every visit.
  */
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { usePersona } from "@/components/providers/persona-provider";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics } from "@/lib/motion";
@@ -47,6 +47,7 @@ export function PersonaPickerBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
   const t = ar ? COPY.ar : COPY.en;
+  const reduceMotion = useReducedMotion();
 
   return (
     <div className="persona-band">
@@ -54,7 +55,7 @@ export function PersonaPickerBand() {
         {persona === null ? (
           <motion.div
             key="prompt"
-            initial={{ opacity: 0, y: 8 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={physics}
@@ -77,7 +78,7 @@ export function PersonaPickerBand() {
         ) : (
           <motion.div
             key="active"
-            initial={{ opacity: 0, y: 8 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={physics}

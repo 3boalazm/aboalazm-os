@@ -10,7 +10,7 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";
 
@@ -35,6 +35,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
     GALLERY_PROJECTS.find((p) => p.slug === slug);
   const { lang } = useLang();
   const ar = lang === "ar";
+  const reduceMotion = useReducedMotion();
 
   const [active, setActive] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -145,7 +146,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                 layout
                 key={img.src}
                 type="button"
-                initial={{ opacity: 0, scale: 0.96 }}
+                initial={reduceMotion ? false : { opacity: 0, scale: 0.96 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.4, ease: EASE }}

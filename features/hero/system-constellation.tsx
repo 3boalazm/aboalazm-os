@@ -22,6 +22,7 @@ import { useCallback, useRef } from "react";
 import {
   motion,
   useMotionValue,
+  useReducedMotion,
   useSpring,
   useTransform,
   type MotionValue,
@@ -130,10 +131,11 @@ function Node({
 }) {
   const labelX = useTransform(rig.x, (v) => v + 24);
   const labelY = useTransform(rig.y, (v) => v + 4);
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.g
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={reduceMotion ? false : { opacity: 0, scale: 0.6 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ ...physicsSlow, delay }}
     >
@@ -183,6 +185,7 @@ function Edge({
   b: NodeRig;
   delay: number;
 }) {
+  const reduceMotion = useReducedMotion();
   return (
     <motion.line
       x1={a.x}
@@ -191,7 +194,7 @@ function Edge({
       y2={b.y}
       className="stroke-border-default"
       strokeWidth={1}
-      initial={{ pathLength: 0, opacity: 0 }}
+      initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
       animate={{ pathLength: 1, opacity: 1 }}
       transition={{ duration: 1.1, ease: "easeInOut", delay }}
     />

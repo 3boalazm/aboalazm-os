@@ -26,7 +26,7 @@ import { useLang } from "@/components/providers/lang-provider";
  */
 import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { reveal } from "@/lib/motion";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
 import { FloatingPreview } from "./floating-preview";
@@ -56,6 +56,7 @@ export function ProjectLedger({
   const [active, setActive] = useState<Project | null>(null);
   const pointer = useRef({ x: 0, y: 0 });
   const { engage, release } = useAmbientGlowControls();
+  const reduceMotion = useReducedMotion();
 
   /* Pointer stream — ref write only, never state. 60fps-safe. */
   const onPointerMove = useCallback((e: React.PointerEvent) => {
@@ -106,7 +107,7 @@ export function ProjectLedger({
       {/* ── Records ── */}
       <motion.ol
         variants={reveal.container}
-        initial="hidden"
+        initial={reduceMotion ? false : "hidden"}
         animate="visible"
         className="relative"
       >
