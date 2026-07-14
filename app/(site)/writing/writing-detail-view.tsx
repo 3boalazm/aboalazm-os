@@ -263,7 +263,7 @@ export function WritingDetailView({
       </header>
 
       {post.body ? (
-        <article dir={dir} lang={postLang}>
+        <article dir={dir} lang={postLang} className="min-w-0">
           <ArticleBody content={post.body as SerializedEditorState} />
         </article>
       ) : (
