@@ -15,6 +15,11 @@ Brand dilution is not an aesthetic problem — it's a leak in the P&L. Mid-to-la
 
 > Logos get you noticed. Systems keep you recognizable.
 
+- **$6M** — Lost yearly to inconsistent brand presentation
+- **23%** — Revenue lift from consistent presentation
+- **12** — Pillars in the Brand OS architecture
+- **3** — Governance tiers, locked to self-serve
+
 ## From static assets to dynamic infrastructure
 
 A Brand Operating System is not a style guide. It's the operating logic underneath everything the company makes: the strategy that steers, the workflows that move, and the decision filter that keeps both honest. It runs as a continuous loop, not a one-time project:

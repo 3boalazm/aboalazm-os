@@ -21,6 +21,97 @@ const DIAGRAM_CLASSES = `
 
 export const SYSTEMS_BODIES_EN: Record<string, Block[]> = {
   /* ------------------------------------------------------------------ */
+  /* W-014 — THE $50 LOGO                                                 */
+  /* ------------------------------------------------------------------ */
+  "the-50-dollar-logo": [
+    { p: "A logo is spent once. Its cost doesn't stop there — it compounds through rework, inconsistency, and trust lost one touchpoint at a time. The client sees a price. The designer sees a system. What costs fifty dollars is never the mark itself — it's the absence of everything the mark could have become." },
+    { stats: [
+      { value: "4", label: "Hidden cost tiers" },
+      { value: "400", label: "Days until the bill arrives" },
+      { value: "5–10×", label: "Rework cost vs. original price" },
+      { value: "3", label: "Touchpoints where it breaks first" },
+    ] },
+
+    { h: "The four-tier hidden invoice" },
+    { p: "Every cheap logo carries a deferred cost structure — a chain of debts that stay invisible until the business outgrows the canvas it was designed for." },
+    { mermaid: `flowchart LR
+    REWORK["Rework"]:::risk --> INCON["Inconsistency"]:::risk --> TRUST["Trust loss"]:::risk --> DRAG["Decision drag"]:::risk
+${DIAGRAM_CLASSES}`, caption: "The system doesn't fail all at once — it degrades one touchpoint at a time, and each failure looks like an isolated problem instead of the same root cause repeating." },
+    { table: [
+      ["Tier", "What breaks", "Business impact"],
+      ["Rework", "File fails at scale, packaging, single-color print", "Redesign cost, 5–10× the original spend"],
+      ["Inconsistency", "No documented rules for color, type, spacing", "Brand fragments across every new hire"],
+      ["Trust loss", "Visual instability read as unreliability", "Conversion drop customers can't articulate"],
+      ["Decision drag", "No reference point for new choices", "Every small decision becomes a meeting"],
+    ] },
+
+    { h: "The balance-sheet case — branding as a financial asset" },
+    { p: "A logo is spent once. A brand system is amortized — it keeps paying down decision cost for every year it's used correctly." },
+    { table: [
+      ["Financial vector", "Cheap logo", "Brand system"],
+      ["Initial cost", "Low", "Moderate"],
+      ["Cost at month 12", "Redesign + lost time", "Zero — already scales"],
+      ["Decision cost per new asset", "High (guesswork every time)", "Near-zero (rules exist)"],
+      ["Trust compounding", "Erodes with each inconsistency", "Builds with each consistent touchpoint"],
+    ] },
+    { p: "The founder who treats identity as a one-time expense pays for it every time the business touches a new surface. The founder who treats it as infrastructure pays once and reuses the answer indefinitely." },
+
+    { h: "The rework cycle — how the cost multiplies" },
+    { p: "Identity failure follows a repeatable loop, and it compounds the longer it's ignored." },
+    { mermaid: `flowchart TD
+    BREAK["Logo breaks<br/>at scale"]:::risk --> REQ["Redesign request"]:::risk
+    REQ --> NODOC["No documented<br/>system to reference"]:::risk
+    NODOC --> REBUILD["Full rebuild instead<br/>of extension"]:::risk
+    REBUILD --> COST["Higher cost than<br/>original project"]:::sot
+${DIAGRAM_CLASSES}`, caption: "Without a system, every new context is treated as a new problem. With one, every new context is treated as an application of an existing answer." },
+    { table: [
+      ["Stage", "Without a system", "With a system"],
+      ["New use case appears", "Logo redesigned from scratch", "Existing rules extended"],
+      ["New designer joins", "Guesses at brand intent", "References documented system"],
+      ["Scale event (packaging, signage)", "Fails, requires rebuild", "Applies pre-solved rules"],
+    ] },
+
+    { h: "The trust layer — why customers feel it before they say it" },
+    { p: "Brand trust isn't rational before it's emotional. Customers register inconsistency as a pattern, not as a design critique." },
+    { table: [
+      ["Signal", "Customer reads as", "Founder sees as"],
+      ["Different logo colors across platforms", "\"Something's off\"", "\"Small detail, doesn't matter\""],
+      ["Type changing personality post to post", "Instability", "Time-saving flexibility"],
+      ["Packaging that looks unrelated to the website", "Lower quality perception", "Unrelated departments, no big deal"],
+    ] },
+    { p: "The founder sees isolated small choices. The customer sees one continuous impression. That gap is where trust — and revenue — quietly leaks." },
+
+    { h: "The Brand OS — institutionalizing the identity" },
+    { p: "A system only pays off once it's documented well enough that it runs without the founder in the room." },
+    { table: [
+      ["System layer", "What it defines", "Who it protects against"],
+      ["Color logic", "Primary, secondary, usage rules", "Ad-hoc palette drift"],
+      ["Type hierarchy", "Headline, body, sizing scale", "Inconsistent visual weight"],
+      ["Spacing & grid", "Layout rules across formats", "Cramped or inconsistent compositions"],
+      ["Do's & don'ts", "Explicit right/wrong examples", "Repeating past mistakes"],
+    ] },
+    { p: "Guidelines that only exist in someone's head disappear the moment that person is unavailable. Guidelines that exist on paper outlive any single hire." },
+
+    { h: "Measuring the ROI — from asset to infrastructure" },
+    { p: "The return on a real brand system doesn't show up as a single number — it shows up as reduced friction across every future design decision." },
+    { mermaid: `flowchart LR
+    REWORKRATE["Lower rework rate"]:::tech --> SPEED["Faster asset production"]:::tech
+    SPEED --> PERCEPTION["Consistent customer perception"]:::gov
+    PERCEPTION --> TRUST2["Compounding trust"]:::sot
+${DIAGRAM_CLASSES}`, caption: "The cheapest way to measure it: count how many meetings it takes to approve a new social post today. A real system should make that answer close to zero." },
+
+    { h: "The execution checklist" },
+    { ol: [
+      "Documented color system — not just hex codes, but usage rules.",
+      "Typography hierarchy tested across at least 3 real-world formats.",
+      "Logo tested at minimum size and in single color before approval.",
+      "Written do's & don'ts — not just visual examples.",
+      "A system a new hire could apply without asking you first.",
+    ] },
+    { q: "A logo is a picture. A brand system is a decision-making tool — and that's what competitors can't copy." },
+  ],
+
+  /* ------------------------------------------------------------------ */
   /* W-006 — THE BUSINESS OPERATING SYSTEM                               */
   /* ------------------------------------------------------------------ */
   "business-operating-system": [

@@ -72,7 +72,7 @@ async function main() {
 
     await payload.create({
       collection: "posts",
-      data: { ...p, lang, body } as never,
+      data: { ...p, lang, body, _status: "published" } as never,
       draft: false,
     });
     console.log(`  ✓ ${p.slug} (${lang})`);

@@ -13,6 +13,11 @@ publishedAt: 2026-07-04
 
 High-performing design organizations grow revenue and shareholder returns at nearly twice the rate of their industry peers. That number has nothing to do with prettier buttons. It comes from treating design as infrastructure — measured like cost, governed like code, and owned at leadership level. The design system is where that discipline becomes physical.
 
+- **50%** — Faster design-to-development handoff
+- **27%** — Less time on repetitive design work
+- **96.3%** — Of websites fail basic WCAG 2.1 AA
+- **$13T** — Spending power excluded by inaccessibility
+
 ## A design system is not a UI kit
 
 | Artifact | What it is | What it solves |

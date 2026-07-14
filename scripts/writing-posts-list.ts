@@ -15,6 +15,9 @@ export type SeedPost = {
 };
 
 export const WRITING_POSTS: SeedPost[] = [
+  // — Systems series, volume 4 (EN + AR) —
+  { index: "W-014", slug: "the-50-dollar-logo", title: "The $50 logo: the hidden invoice that compounds.", standfirst: "The four hidden cost tiers, the trust equation, and why cheap becomes the most expensive decision a founder makes.", publishedAt: "2026-08-14", lang: "en", topics: ["brand", "identity", "cost"] },
+  { index: "W-014", slug: "the-50-dollar-logo-ar", title: "اللوجو بـ٥٠ دولاراً: الفاتورة الخفية المتراكمة.", standfirst: "طبقات التكلفة الخفية الأربع، معادلة الثقة، ولماذا يتحول الرخيص إلى أغلى قرار يتخذه المؤسس.", publishedAt: "2026-08-14", lang: "ar", topics: ["brand", "identity", "cost"] },
   // — Systems series, volume 3 (EN + AR) —
   { index: "W-013", slug: "brand-identity-blueprint", title: "The brand identity blueprint: from core purpose to market touchpoints.", standfirst: "The four-tier stack, the balance-sheet case, the growth loop, and the Brand OS that runs it all.", publishedAt: "2026-08-07", lang: "en", topics: ["brand", "identity", "strategy"] },
   { index: "W-013", slug: "brand-identity-blueprint-ar", title: "مخطط الهوية التجارية: من الغاية الجوهرية إلى نقاط التماس مع السوق.", standfirst: "هرم الطبقات الأربع، القضية المالية، حلقة النمو، ونظام التشغيل الذي يدير كل ذلك.", publishedAt: "2026-08-07", lang: "ar", topics: ["brand", "identity", "strategy"] },
