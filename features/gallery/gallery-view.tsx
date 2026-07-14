@@ -14,6 +14,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";
 import { Heading } from "@/components/ui/Heading";
+import { mediaCardVariants } from "@/components/ui/MediaCard";
 
 // Deferred: GSAP + ScrollTrigger only load once this component actually
 // mounts, instead of bundling into /gallery's initial JS unconditionally.
@@ -159,7 +160,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, ease: EASE }}
                 onClick={() => setLightbox(i)}
-                className="group relative mb-3 block w-full overflow-hidden rounded-card border border-border-subtle bg-surface-1 text-left md:mb-4"
+                className={mediaCardVariants({ className: "relative mb-3 block w-full text-left md:mb-4" })}
               >
                 <Image
                   src={img.src}

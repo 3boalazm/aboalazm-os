@@ -16,6 +16,7 @@ import type {
 } from "./types";
 import { BeforeAfterSlider } from "./before-after-slider";
 import { useT } from "@/hooks/use-t";
+import { MediaCard } from "@/components/ui/MediaCard";
 
 /* ── Shared atoms ──────────────────────────────────────────────── */
 
@@ -269,9 +270,9 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
           </p>
           <div className="columns-2 gap-3 sm:columns-3 lg:columns-4">
             {record.images.map((img) => (
-              <div
+              <MediaCard
                 key={img.src}
-                className="group relative mb-3 overflow-hidden rounded-card border border-border-subtle bg-surface-1 break-inside-avoid"
+                className="relative mb-3 break-inside-avoid"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
@@ -290,7 +291,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
                     </p>
                   </div>
                 )}
-              </div>
+              </MediaCard>
             ))}
           </div>
         </div>
