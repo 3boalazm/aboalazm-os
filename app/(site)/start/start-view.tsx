@@ -23,6 +23,7 @@ import { reveal, physics, physicsSlow } from "@/lib/motion";
 import { PROCESS, TIERS } from "@/lib/offers";
 import { AnchorNav } from "@/features/navigation";
 import { buttonVariants } from "@/components/ui/Button";
+import { PanelCard, panelCardVariants } from "@/components/ui/PanelCard";
 
 /* ─── copy ─────────────────────────────────────────────────────── */
 const COPY = {
@@ -354,7 +355,7 @@ export function StartView() {
       <SectionWrap id="is-this-for-me" n={ar ? "٠١" : "01"} label={c.s01label} title={c.s01title} italic={c.s01italic}>
         <div className="grid gap-6 md:grid-cols-2">
           {/* Fits */}
-          <div className="flex flex-col gap-3 rounded-panel border border-accent/20 bg-surface-1 p-5">
+          <PanelCard className="flex flex-col gap-3 rounded-panel p-5 border-accent/20">
             <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-accent">
               {ar ? "✓ مناسب لك" : "✓ Good fit"}
             </p>
@@ -368,10 +369,10 @@ export function StartView() {
                 </li>
               ))}
             </ul>
-          </div>
+          </PanelCard>
 
           {/* Not fits */}
-          <div className="flex flex-col gap-3 rounded-panel border border-border-subtle bg-surface-1/50 p-5">
+          <PanelCard className="flex flex-col gap-3 rounded-panel p-5 bg-surface-1/50">
             <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">
               {c.notFitsLabel}
             </p>
@@ -385,7 +386,7 @@ export function StartView() {
                 </li>
               ))}
             </ul>
-          </div>
+          </PanelCard>
         </div>
 
         {/* Anti-portfolio — confident, high-status statement */}
@@ -413,14 +414,10 @@ export function StartView() {
               ? (ar ? "★ أعمق نظام" : "★ Deepest system")
               : (ar ? "★ الأكثر طلبًا" : "★ Recommended");
             return (
-            <div
+            <PanelCard
               key={tier.tag}
-              className={[
-                "relative flex flex-col gap-3 rounded-panel border p-5",
-                emphasized
-                  ? "border-accent bg-surface-1 shadow-card"
-                  : "border-border-subtle bg-surface-1/60",
-              ].join(" ")}
+              emphasis={emphasized ? "accent" : "dimmed"}
+              className="relative flex flex-col gap-3 rounded-panel p-5"
             >
               {emphasized && (
                 <span className="absolute end-3 top-3 font-mono text-[0.55rem] uppercase tracking-[0.1em] text-accent">
@@ -436,7 +433,7 @@ export function StartView() {
               <p className="mt-auto border-t border-border-subtle pt-3 text-[0.8rem] leading-[1.6] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
                 {tier.note}
               </p>
-            </div>
+            </PanelCard>
             );
           })}
         </div>
@@ -503,7 +500,7 @@ export function StartView() {
           {c.steps.map((step, i) => (
             <motion.div
               key={step.n}
-              className="flex flex-col gap-3 rounded-panel border border-border-subtle bg-surface-1 p-5"
+              className={panelCardVariants({ className: "flex flex-col gap-3 rounded-panel p-5" })}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}

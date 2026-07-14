@@ -13,6 +13,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { pick } from "@/features/offers/offer-blocks";
 import { SPINE, type Resource } from "@/lib/resources";
 import { Button } from "@/components/ui/Button";
+import { panelCardVariants } from "@/components/ui/PanelCard";
 
 const UNLOCK_KEY = "aboalazm-os-resources-unlocked";
 
@@ -169,10 +170,12 @@ export function ResourceCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={physics}
-      className={[
-        "flex flex-col rounded-panel border bg-surface-1 p-4 transition-colors duration-base ease-physics md:p-5",
-        resource.recommended ? "border-accent/40" : "border-border-subtle hover:border-border-strong",
-      ].join(" ")}
+      className={panelCardVariants({
+        className: [
+          "flex flex-col rounded-panel p-4 md:p-5 transition-colors duration-base ease-physics",
+          resource.recommended ? "border-accent/40" : "hover:border-border-strong",
+        ].join(" "),
+      })}
     >
       <div className="flex items-baseline justify-between gap-2">
         <span className="font-mono text-micro text-text-ghost">{resource.id}</span>

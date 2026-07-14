@@ -23,6 +23,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physicsSlow } from "@/lib/motion";
+import { panelCardVariants } from "@/components/ui/PanelCard";
 
 /* Metrics now come from the Offers global (see lib/content.ts getOffers()) —
  * the pending:true placeholders are content, editable from the dashboard,
@@ -95,7 +96,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
         {metrics.map((m, i) => (
           <motion.div
             key={m.value}
-            className="flex flex-col gap-1 rounded-panel border border-border-subtle bg-surface-1 p-4"
+            className={panelCardVariants({ className: "flex flex-col gap-1 rounded-panel p-4" })}
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
@@ -119,7 +120,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
         {props.map(([title, body], i) => (
           <motion.div
             key={title}
-            className="flex gap-3 rounded-panel border border-border-subtle bg-surface-1/60 p-4"
+            className={panelCardVariants({ emphasis: "dimmed", className: "flex gap-3 rounded-panel p-4" })}
             initial={reduceMotion ? false : { opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}

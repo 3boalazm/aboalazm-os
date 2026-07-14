@@ -4,6 +4,7 @@
  * /type — GC EPICPRO + Montserrat type system showcase
  * Internal reference page.
  */
+import { PanelCard } from "@/components/ui/PanelCard";
 
 const SPECIMEN_ALPHA = "ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\n0123456789";
 
@@ -84,7 +85,7 @@ export function TypeView() {
         <div className="mt-6 space-y-8">
 
           {/* Hero */}
-          <div className="rounded-panel border border-border-subtle bg-surface-1 p-8">
+          <PanelCard className="rounded-panel p-8">
             <CtxLabel>Hero — index page</CtxLabel>
             <h2
               className="font-display text-text-primary"
@@ -93,10 +94,10 @@ export function TypeView() {
               Systemic<br />
               <span className="text-accent">Identity.</span>
             </h2>
-          </div>
+          </PanelCard>
 
           {/* Section title + body */}
-          <div className="rounded-panel border border-border-subtle bg-surface-1 p-8">
+          <PanelCard className="rounded-panel p-8">
             <CtxLabel>Section heading + Montserrat body</CtxLabel>
             <h3
               className="font-display text-text-primary"
@@ -113,10 +114,10 @@ export function TypeView() {
               pharma, food, education, and government — every project grounded in
               strategy before any pixel moves.
             </p>
-          </div>
+          </PanelCard>
 
           {/* Nav preview */}
-          <div className="rounded-panel border border-border-subtle bg-surface-1 p-8">
+          <PanelCard className="rounded-panel p-8">
             <CtxLabel>Nav links — GC EPICPRO at small size</CtxLabel>
             <div className="mt-4 flex items-center gap-4">
               <span
@@ -141,10 +142,10 @@ export function TypeView() {
                 CONTACT
               </span>
             </div>
-          </div>
+          </PanelCard>
 
           {/* Footer MA */}
-          <div className="rounded-panel border border-border-subtle bg-surface-1 p-8">
+          <PanelCard className="rounded-panel p-8">
             <CtxLabel>Footer wordmark</CtxLabel>
             <p
               className="font-display text-text-primary"
@@ -159,7 +160,7 @@ export function TypeView() {
               Senior Brand Identity Designer & Co-founder, Code & Canvas.
               Building brands with clarity, craft, and a respect for the work.
             </p>
-          </div>
+          </PanelCard>
 
         </div>
       </section>

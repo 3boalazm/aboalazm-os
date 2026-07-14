@@ -7,6 +7,7 @@
 import { useLang } from "@/components/providers/lang-provider";
 import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 import { buttonVariants } from "@/components/ui/Button";
+import { PanelCard } from "@/components/ui/PanelCard";
 
 export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
 
@@ -38,13 +39,9 @@ export function SectionHead({
 export function TierCard({ tier }: { tier: Tier }) {
   const { lang } = useLang();
   return (
-    <div
-      className={[
-        "flex flex-col gap-2 rounded-panel border p-3",
-        tier.recommended
-          ? "border-accent bg-surface-1 shadow-card"
-          : "border-border-subtle bg-surface-1/60",
-      ].join(" ")}
+    <PanelCard
+      emphasis={tier.recommended ? "accent" : "dimmed"}
+      className="flex flex-col gap-2 rounded-panel p-3"
     >
       <div className="flex items-baseline justify-between">
         <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -92,7 +89,7 @@ export function TierCard({ tier }: { tier: Tier }) {
           </li>
         ))}
       </ul>
-    </div>
+    </PanelCard>
   );
 }
 

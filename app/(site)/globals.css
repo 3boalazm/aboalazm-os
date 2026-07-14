@@ -1350,16 +1350,6 @@ html[data-theme="light"] {
   line-height: 1.55;
   color: var(--color-text-tertiary);
 }
-.jargon-card {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 0.9rem 1rem;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-card);
-  background: var(--color-surface-1);
-}
-
 /* ── 4. Anchor navigation — floating section dots (desktop only) ── */
 .anchor-nav {
   position: fixed;
@@ -1891,23 +1881,6 @@ html[data-theme="light"] {
 .persona-band__active-clear:hover {
   color: var(--color-accent);
   border-color: rgb(255 107 71 / 0.4);
-}
-
-/* ── Persona-aware emphasis marker — used to highlight cards/sections
-   that are more relevant to the active persona (Tier cards, process
-   framing) without restructuring the DOM. ── */
-.persona-emphasis {
-  border-color: rgb(255 107 71 / 0.35) !important;
-  background: rgb(255 107 71 / 0.045) !important;
-  position: relative;
-}
-.persona-emphasis::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 0 1px rgb(255 107 71 / 0.15);
-  pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
