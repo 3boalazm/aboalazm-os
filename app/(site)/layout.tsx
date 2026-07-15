@@ -31,6 +31,9 @@ export const metadata: Metadata = {
     alternateLocale: "ar_EG",
     siteName: "Mustafa Aboalazm OS",
   },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export const viewport: Viewport = {
