@@ -1,4 +1,5 @@
 "use client";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
@@ -11,6 +12,21 @@ interface WritingEntry {
   standfirst: string;
   publishedAt: string;
   lang?: "en" | "ar";
+  topics?: string[];
+}
+
+const WEEKDAYS: Record<"en" | "ar", readonly string[]> = {
+  en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+  ar: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+};
+
+/** "Wednesday 15/7/2026" / "الأربعاء 15/7/2026" — full weekday name, no leading zeros. */
+function formatFullDate(iso: string, lang: "en" | "ar"): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const weekday = WEEKDAYS[lang][d.getUTCDay()];
+  return `${weekday} ${d.getUTCDate()}/${d.getUTCMonth() + 1}/${d.getUTCFullYear()}`;
 }
 
 /**
@@ -36,6 +52,22 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
   const { lang } = useLang();
   const visible = visibleIn(posts, lang);
 
+  const [activeTopic, setActiveTopic] = useState<string | null>(null);
+  const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
+
+  const topics = useMemo(
+    () => Array.from(new Set(visible.flatMap((p) => p.topics ?? []))).sort(),
+    [visible],
+  );
+
+  const filtered = useMemo(() => {
+    // `posts` already arrives sorted newest-first from the server; only
+    // reverse for "oldest", never re-sort by string date (would break
+    // full ISO vs. display-format assumptions).
+    const base = activeTopic ? visible.filter((p) => (p.topics ?? []).includes(activeTopic)) : visible;
+    return sortOrder === "oldest" ? [...base].reverse() : base;
+  }, [visible, activeTopic, sortOrder]);
+
   return (
     <main className="container-content flex min-h-svh flex-col gap-8 py-16">
       <header className="flex flex-col gap-2">
@@ -47,8 +79,64 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
         />
       </header>
 
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="-mx-1 flex flex-wrap gap-2 px-1">
+          <button
+            type="button"
+            onClick={() => setActiveTopic(null)}
+            aria-pressed={activeTopic === null}
+            className={`rounded-pill border px-3 py-1.5 font-mono text-micro uppercase tracking-[0.08em] transition-colors duration-base ease-physics ${
+              activeTopic === null
+                ? "border-accent text-accent"
+                : "border-border-subtle text-text-tertiary hover:border-border-strong hover:text-text-primary"
+            }`}
+          >
+            {t.writingAllTopics}
+          </button>
+          {topics.map((topic) => (
+            <button
+              key={topic}
+              type="button"
+              onClick={() => setActiveTopic(activeTopic === topic ? null : topic)}
+              aria-pressed={activeTopic === topic}
+              className={`rounded-pill border px-3 py-1.5 font-mono text-micro uppercase tracking-[0.08em] transition-colors duration-base ease-physics ${
+                activeTopic === topic
+                  ? "border-accent text-accent"
+                  : "border-border-subtle text-text-tertiary hover:border-border-strong hover:text-text-primary"
+              }`}
+            >
+              {topic}
+            </button>
+          ))}
+        </div>
+
+        <div className="flex shrink-0 items-center gap-1 font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">
+          <button
+            type="button"
+            onClick={() => setSortOrder("newest")}
+            aria-pressed={sortOrder === "newest"}
+            className={`rounded-pill px-2.5 py-1 transition-colors duration-base ease-physics ${
+              sortOrder === "newest" ? "text-accent" : "hover:text-text-primary"
+            }`}
+          >
+            {t.writingSortNewest}
+          </button>
+          <span aria-hidden className="text-text-ghost">·</span>
+          <button
+            type="button"
+            onClick={() => setSortOrder("oldest")}
+            aria-pressed={sortOrder === "oldest"}
+            className={`rounded-pill px-2.5 py-1 transition-colors duration-base ease-physics ${
+              sortOrder === "oldest" ? "text-accent" : "hover:text-text-primary"
+            }`}
+          >
+            {t.writingSortOldest}
+          </button>
+        </div>
+      </div>
+
       <ol>
-        {visible.map((post) => (
+        {filtered.map((post) => (
           <li key={post.slug}>
             <Link
               href={`/writing/${post.slug}`}
@@ -70,8 +158,8 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
                   {post.standfirst}
                 </span>
               </span>
-              <span className="hidden font-mono text-micro text-text-tertiary md:block">
-                {post.publishedAt}
+              <span className="hidden whitespace-nowrap font-mono text-micro text-text-tertiary md:block">
+                {formatFullDate(post.publishedAt, lang)}
               </span>
             </Link>
           </li>
