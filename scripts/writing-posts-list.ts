@@ -15,6 +15,9 @@ export type SeedPost = {
 };
 
 export const WRITING_POSTS: SeedPost[] = [
+  // — Systems series, volume 5 (EN + AR) —
+  { index: "W-015", slug: "website-is-not-an-interface", title: "The website is not an interface. It's the identity, operating.", standfirst: "Why most websites fail despite great design, and how the interface becomes an asset built from identity, not on top.", publishedAt: "2026-08-21", lang: "en", topics: ["brand", "identity", "web"] },
+  { index: "W-015", slug: "website-is-not-an-interface-ar", title: "الموقع ليس واجهة. بل هو الهوية وهي تعمل.", standfirst: "لماذا تفشل معظم مواقع الشركات رغم جودة تصميمها، وكيف تتحول الواجهة إلى أصل تجاري عندما تُبنى من داخل الهوية لا فوقها.", publishedAt: "2026-08-21", lang: "ar", topics: ["brand", "identity", "web"] },
   // — Systems series, volume 4 (EN + AR) —
   { index: "W-014", slug: "the-50-dollar-logo", title: "The $50 logo: the hidden invoice that compounds.", standfirst: "The four hidden cost tiers, the trust equation, and why cheap becomes the most expensive decision a founder makes.", publishedAt: "2026-08-14", lang: "en", topics: ["brand", "identity", "cost"] },
   { index: "W-014", slug: "the-50-dollar-logo-ar", title: "اللوجو بـ٥٠ دولاراً: الفاتورة الخفية المتراكمة.", standfirst: "طبقات التكلفة الخفية الأربع، معادلة الثقة، ولماذا يتحول الرخيص إلى أغلى قرار يتخذه المؤسس.", publishedAt: "2026-08-14", lang: "ar", topics: ["brand", "identity", "cost"] },
