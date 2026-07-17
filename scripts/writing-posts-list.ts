@@ -15,6 +15,8 @@ export type SeedPost = {
 };
 
 export const WRITING_POSTS: SeedPost[] = [
+  // — Systems series, volume 6 (AR) —
+  { index: "W-016", slug: "the-split-brand-ar", title: "البراند المنفصم: ليه شركتك بتتكلم بشخصيتين من غير ما حد يدّيها بالها", standfirst: "الفرق بين نسخة عربية وهوية عربية، وليه الترجمة الحرفية بتكسر ثقة العميل من غير ما تحس.", publishedAt: "2026-08-28", lang: "ar", topics: ["brand", "identity", "bilingual"] },
   // — Systems series, volume 5 (EN + AR) —
   { index: "W-015", slug: "website-is-not-an-interface", title: "The website is not an interface. It's the identity, operating.", standfirst: "Why most websites fail despite great design, and how the interface becomes an asset built from identity, not on top.", publishedAt: "2026-08-21", lang: "en", topics: ["brand", "identity", "web"] },
   { index: "W-015", slug: "website-is-not-an-interface-ar", title: "الموقع ليس واجهة. بل هو الهوية وهي تعمل.", standfirst: "لماذا تفشل معظم مواقع الشركات رغم جودة تصميمها، وكيف تتحول الواجهة إلى أصل تجاري عندما تُبنى من داخل الهوية لا فوقها.", publishedAt: "2026-08-21", lang: "ar", topics: ["brand", "identity", "web"] },
