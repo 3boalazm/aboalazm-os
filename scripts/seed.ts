@@ -141,8 +141,16 @@ async function exists(payload: Awaited<ReturnType<typeof getPayload>>, collectio
 async function seedProjects(payload: Awaited<ReturnType<typeof getPayload>>) {
   console.log(`\n▶ Projects (${PROJECTS.length})`);
   for (const p of PROJECTS) {
-    if (await exists(payload, "projects", p.slug)) {
+    const foundProject = (await payload.find({ collection: "projects", where: { slug: { equals: p.slug } }, limit: 1, overrideAccess: true })).docs[0];
+    if (foundProject) {
       console.log(`  · ${p.slug} — already exists, skipping`);
+      // REPAIR: docs created before the _status fix landed as drafts and
+      // were invisible to the public site. Publish in place instead of
+      // silently skipping, so re-running the seed heals old databases.
+      if (foundProject._status !== "published") {
+        await payload.update({ collection: "projects", id: foundProject.id, data: { _status: "published" }, draft: false });
+        console.log(`    ↳ published (was ${foundProject._status})`);
+      }
       continue;
     }
     const thumbnail = await uploadMedia(payload, p.thumbnail, `${p.name} thumbnail`);
@@ -166,6 +174,10 @@ async function seedProjects(payload: Awaited<ReturnType<typeof getPayload>>) {
         liveUrl: p.liveUrl,
         externalUrl: p.externalUrl,
         accent: { primary: p.accent.primary, secondary: p.accent.secondary },
+        // _status MUST be explicit: with drafts enabled, create() without it
+        // lands as 'draft', and authenticatedOrPublished then hides the doc
+        // from the entire public site. `draft: false` alone is NOT enough.
+        _status: "published" as const,
       },
       // Publish immediately — these are already-live projects, not drafts.
       draft: false,
@@ -175,8 +187,14 @@ async function seedProjects(payload: Awaited<ReturnType<typeof getPayload>>) {
 }
 
 async function seedCaseStudy(payload: Awaited<ReturnType<typeof getPayload>>, record: CaseStudyRecord) {
-  if (await exists(payload, "case-studies", record.slug)) {
+  const foundCase = (await payload.find({ collection: "case-studies", where: { slug: { equals: record.slug } }, limit: 1, overrideAccess: true })).docs[0];
+  if (foundCase) {
     console.log(`  · ${record.slug} — already exists, skipping`);
+    // REPAIR — same as projects: publish draft-stuck case studies.
+    if (foundCase._status !== "published") {
+      await payload.update({ collection: "case-studies", id: foundCase.id, data: { _status: "published" }, draft: false });
+      console.log(`    ↳ published (was ${foundCase._status})`);
+    }
     return;
   }
 
@@ -226,6 +244,8 @@ async function seedCaseStudy(payload: Awaited<ReturnType<typeof getPayload>>, re
       images,
       results: [...record.results],
       retro: [...record.retro],
+      // See seedProjects — explicit status, or the case study stays invisible.
+      _status: "published" as const,
     },
     draft: false,
   });
@@ -361,14 +381,14 @@ async function seedPosts(payload: Awaited<ReturnType<typeof getPayload>>) {
       // Existing post from an earlier seed run had an empty body — backfill
       // it now instead of leaving it stuck forever (the old "skip if
       // exists by slug" logic never updates content, only creates new).
-      await payload.update({ collection: "posts", id: existing.id, data: { body } as never });
+      await payload.update({ collection: "posts", id: existing.id, data: { body, _status: "published" } as never, draft: false });
       console.log(`  ✓ ${p.slug} — backfilled body`);
       continue;
     }
 
     await payload.create({
       collection: "posts",
-      data: { ...p, lang, body } as never,
+      data: { ...p, lang, body, _status: "published" } as never,
       draft: false,
     });
     console.log(`  ✓ ${p.slug} (${lang})`);

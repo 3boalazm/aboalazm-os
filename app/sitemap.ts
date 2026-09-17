@@ -6,11 +6,11 @@ export const revalidate = 3600;
 const BASE = "https://aboalazm.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const statics = ["", "/work", "/services", "/pricing", "/agreement", "/capabilities", "/about", "/why", "/process", "/start", "/writing", "/contact"].map(
+  const statics = ["", "/work", "/services", "/pricing", "/agreement", "/capabilities", "/about", "/why", "/process", "/start", "/writing", "/contact", "/portfolio"].map(
     (path) => ({
       url: `${BASE}${path}`,
       changeFrequency: "monthly" as const,
-      priority: path === "" ? 1 : path === "/start" ? 0.9 : 0.8,
+      priority: path === "" ? 1 : path === "/start" ? 0.9 : path === "/portfolio" ? 0.85 : 0.8,
     }),
   );
   const slugs = await getAllCaseStudySlugs();

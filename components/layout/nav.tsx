@@ -28,7 +28,9 @@ const LINKS = [
   { href: "/pricing",   en: "PRICING",   ar: "التسعير"   },
 ] as const;
 
-/* Secondary set — mobile panel + footer carry these */
+/* Secondary set — mobile panel + footer carry these.
+   PORTFOLIO PDF is pinned LAST on purpose: the fixed A4 edition is the
+   "take me with you" exit at the very end of the menu. */
 const MORE = [
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/gallery", en: "GALLERY", ar: "المعرض" },
@@ -40,6 +42,7 @@ const MORE = [
   { href: "/resources", en: "RESOURCES", ar: "المصادر" },
   { href: "/labs", en: "LABS", ar: "المعمل" },
   { href: "/work-ui", en: "UI/UX SHOWCASE", ar: "معرض الواجهات" },
+  { href: "/portfolio", en: "PORTFOLIO PDF ↓", ar: "بورتفوليو PDF ↓" },
 ] as const;
 
 export function Nav() {

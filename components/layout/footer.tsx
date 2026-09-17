@@ -28,6 +28,7 @@ const COLUMNS = [
       ["Agreement", "الاتفاقية", "/agreement"],
       ["Writing", "مقالات", "/writing"],
       ["Contact", "تواصل", "/contact"],
+      ["Portfolio PDF ↓", "بورتفوليو PDF ↓", "/portfolio"],
     ],
   },
   {
@@ -43,6 +44,8 @@ const COLUMNS = [
     links: [
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
       ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
+      ["GitHub ↗", "جيت هب ↗", "https://github.com/3boalazm"],
+      ["PDF Edition · A4", "نسخة PDF · A4", "/portfolio"],
     ],
   },
 ] as const;

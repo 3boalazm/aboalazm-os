@@ -3,6 +3,10 @@
 **Fixed A4 bilingual portfolio — 29 pages, dark editorial (Behance-grade), exports to a pixel-perfect PDF.**
 **بورتفوليو ثابت مقاس A4 — ٢٩ صفحة، ستايل إيديتوريال دارك، وبيتصدر PDF ظبط بظبط.**
 
+> **NOTE — نسخة داخلية:** البورتفوليو ده كمان صفحة رسمية جوه الموقع على
+> **`/portfolio`** (نفس التصميم، مبنية Next.js، بيليها شورت كت في آخر المينيو).
+> الفولدر ده هو **النسخة المستقلة أوفلاين** — للتحميل كمصدر أو فتحه من غير نت.
+
 Zero build. Zero dependencies to install. Zero internet needed — يفتح من أي مكان.
 
 ---
