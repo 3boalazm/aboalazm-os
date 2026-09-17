@@ -19,8 +19,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
-import { reveal, physics, physicsSlow } from "@/lib/motion";
-import { PROCESS, TIERS } from "@/lib/offers";
+import { reveal, physicsSlow } from "@/lib/motion";
 import { AnchorNav } from "@/features/navigation";
 import { buttonVariants } from "@/components/ui/Button";
 import { PanelCard, panelCardVariants } from "@/components/ui/PanelCard";
@@ -52,7 +51,7 @@ const COPY = {
     antiPortfolio: "If you want a logo in three days, or someone to execute orders without asking why — I'm not the right person for this. I choose projects where strategy is allowed to lead.",
 
     /* 02 */
-    s02label:    "02 / WHAT WILL I GET?",
+    s02label:    "03 / WHAT DOES IT COST?",
     s02title:    "Three ways to",
     s02italic:   "engage.",
     s02sub:      "Every tier includes the strategic foundation — what changes is the depth of the system and how many applications we build together.",
@@ -64,7 +63,7 @@ const COPY = {
     s02pricing:  "Detailed breakdown →",
 
     /* 03 */
-    s03label:    "03 / HOW DOES IT WORK?",
+    s03label:    "02 / WHAT HAPPENS?",
     s03title:    "Four phases,",
     s03italic:   "38 days.",
     s03sub:      "Every project follows the same spine — no surprises, no scope drift. You sign off at each gate before anything moves forward.",
@@ -122,7 +121,7 @@ const COPY = {
     antiPortfolio: "لو عايز لوجو في ٣ أيام، أو حد ينفذ الأوامر من غير ما يسأل ليه — أنا مش الشخص المناسب. بختار المشاريع اللي الاستراتيجية فيها بتقود.",
 
     /* 02 */
-    s02label:    "٠٢ / إيه اللي هاخده؟",
+    s02label:    "٠٣ / كام التكلفة؟",
     s02title:    "ثلاث طرق",
     s02italic:   "للتعاون.",
     s02sub:      "كل فئة بتشمل الأساس الاستراتيجي — اللي بيتغير هو عمق النظام وكمية التطبيقات اللي بنبنيها سوا.",
@@ -263,19 +262,15 @@ export function StartView() {
   const sections = ar
     ? [
         { id: "is-this-for-me", label: "مناسب لك؟" },
-        { id: "what-will-i-get", label: "الفئات" },
-        { id: "how-it-works", label: "الآلية" },
-        { id: "how-we-start", label: "البداية" },
-        { id: "objections", label: "أسئلة" },
-        { id: "explore", label: "استكشف" },
+        { id: "how-it-works", label: "إيه اللي بيحصل" },
+        { id: "what-will-i-get", label: "التكلفة" },
+        { id: "how-we-start", label: "احجز" },
       ]
     : [
         { id: "is-this-for-me", label: "Fit" },
-        { id: "what-will-i-get", label: "Tiers" },
-        { id: "how-it-works", label: "Process" },
-        { id: "how-we-start", label: "Kickoff" },
-        { id: "objections", label: "Objections" },
-        { id: "explore", label: "Explore" },
+        { id: "how-it-works", label: "What happens" },
+        { id: "what-will-i-get", label: "Cost" },
+        { id: "how-we-start", label: "Book" },
       ];
 
   return (
@@ -398,6 +393,53 @@ export function StartView() {
       </SectionWrap>
 
       {/* ══════════════════════════════════════════════════════════
+          03 / HOW DOES IT WORK?
+      ══════════════════════════════════════════════════════════ */}
+      <SectionWrap id="how-it-works" n={ar ? "٠٢" : "02"} label={c.s03label} title={c.s03title} italic={c.s03italic}>
+        <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+          {s03sub}
+        </p>
+
+        {/* Timeline */}
+        <div className="relative flex flex-col gap-0">
+          {/* vertical line */}
+          <div className="absolute start-[1.25rem] top-4 h-[calc(100%-2rem)] w-px bg-border-subtle md:start-[2rem]" aria-hidden />
+
+          {c.phases.map((phase, i) => (
+            <motion.div
+              key={phase.n}
+              className="relative flex gap-5 pb-8 last:pb-0"
+              initial={{ opacity: 0, x: ar ? 16 : -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ ...physicsSlow, delay: i * 0.1 }}
+            >
+              {/* node */}
+              <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border-default bg-surface-0">
+                <span className="font-mono text-[0.55rem] text-accent">{phase.n}</span>
+              </div>
+
+              <div className="flex flex-col gap-1 pt-1.5">
+                <div className="flex flex-wrap items-baseline gap-3">
+                  <p className="font-display text-[1.05rem] tracking-[-0.01em] text-text-primary">{phase.name}</p>
+                  <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-text-ghost">{phase.days}</p>
+                </div>
+                <p className="max-w-[50ch] text-[0.85rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+                  {phase.body}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* payment note */}
+        <div className="mt-8 flex items-center gap-2 rounded-card border border-border-subtle bg-surface-1/50 px-4 py-3">
+          <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-accent">$</span>
+          <p className="font-mono text-[0.62rem] uppercase tracking-[0.08em] text-text-ghost">{c.payNote}</p>
+        </div>
+      </SectionWrap>
+
+      {/* ══════════════════════════════════════════════════════════
           02 / WHAT WILL I GET?
       ══════════════════════════════════════════════════════════ */}
       <SectionWrap id="what-will-i-get" n={ar ? "٠٢" : "02"} label={c.s02label} title={c.s02title} italic={c.s02italic} alt>
@@ -442,53 +484,6 @@ export function StartView() {
           <Link href="/pricing" className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-text-ghost transition-colors duration-base ease-physics hover:text-accent">
             {c.s02pricing}
           </Link>
-        </div>
-      </SectionWrap>
-
-      {/* ══════════════════════════════════════════════════════════
-          03 / HOW DOES IT WORK?
-      ══════════════════════════════════════════════════════════ */}
-      <SectionWrap id="how-it-works" n={ar ? "٠٣" : "03"} label={c.s03label} title={c.s03title} italic={c.s03italic}>
-        <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
-          {s03sub}
-        </p>
-
-        {/* Timeline */}
-        <div className="relative flex flex-col gap-0">
-          {/* vertical line */}
-          <div className="absolute start-[1.25rem] top-4 h-[calc(100%-2rem)] w-px bg-border-subtle md:start-[2rem]" aria-hidden />
-
-          {c.phases.map((phase, i) => (
-            <motion.div
-              key={phase.n}
-              className="relative flex gap-5 pb-8 last:pb-0"
-              initial={{ opacity: 0, x: ar ? 16 : -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ ...physicsSlow, delay: i * 0.1 }}
-            >
-              {/* node */}
-              <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border-default bg-surface-0">
-                <span className="font-mono text-[0.55rem] text-accent">{phase.n}</span>
-              </div>
-
-              <div className="flex flex-col gap-1 pt-1.5">
-                <div className="flex flex-wrap items-baseline gap-3">
-                  <p className="font-display text-[1.05rem] tracking-[-0.01em] text-text-primary">{phase.name}</p>
-                  <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-text-ghost">{phase.days}</p>
-                </div>
-                <p className="max-w-[50ch] text-[0.85rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
-                  {phase.body}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* payment note */}
-        <div className="mt-8 flex items-center gap-2 rounded-card border border-border-subtle bg-surface-1/50 px-4 py-3">
-          <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-accent">$</span>
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.08em] text-text-ghost">{c.payNote}</p>
         </div>
       </SectionWrap>
 
@@ -568,9 +563,15 @@ export function StartView() {
             : "This site isn't a catalogue — every page answers a different question in your head. Explore from here."}
         </p>
 
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {(ar ? SITE_LINKS.ar : SITE_LINKS.en).map((link, i) => (
-            <SiteCard key={link.href} link={link} i={i} />
+        <div className="flex flex-wrap gap-x-4 gap-y-2">
+          {(ar ? SITE_LINKS.ar : SITE_LINKS.en).map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+            >
+              {link.label}
+            </Link>
           ))}
         </div>
       </SectionWrap>
@@ -696,29 +697,4 @@ const SITE_LINKS = {
   ],
 } as const;
 
-/* ─── SiteCard component ──────────────────────────────────────── */
-import { useLang as _useLang } from "@/components/providers/lang-provider";
 
-function SiteCard({
-  link,
-  i,
-}: {
-  link: { href: string; emoji: string; label: string; desc: string };
-  i: number;
-}) {
-  return (
-    <motion.a
-      href={link.href}
-      className="site-card group"
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ ...physicsSlow, delay: i * 0.06 }}
-    >
-      <span className="site-card__emoji" aria-hidden>{link.emoji}</span>
-      <span className="site-card__label font-display">{link.label}</span>
-      <span className="site-card__desc" style={{ fontFamily: "Montserrat, system-ui" }}>{link.desc}</span>
-      <span className="site-card__arrow" aria-hidden>→</span>
-    </motion.a>
-  );
-}

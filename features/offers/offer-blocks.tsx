@@ -89,7 +89,68 @@ export function TierCard({ tier }: { tier: Tier }) {
           </li>
         ))}
       </ul>
+      <a
+        href="/contact"
+        className={buttonVariants({
+          variant: tier.recommended ? "primary" : "ghost",
+          className: tier.recommended
+            ? "mt-auto w-fit px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5"
+            : "mt-auto w-fit border border-border-default px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary",
+        })}
+      >
+        {lang === "ar" ? `ناقش ${pick(tier.name, lang)}` : `Discuss ${pick(tier.name, lang)}`}
+      </a>
     </PanelCard>
+  );
+}
+
+/** Decision aid — read this before the three detailed cards. */
+export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  return (
+    <div className="overflow-x-auto rounded-card border border-border-subtle">
+      <table className="w-full min-w-[36rem] text-start text-body-sm">
+        <caption className="sr-only">{ar ? "مقارنة الفئات" : "Tier comparison"}</caption>
+        <thead>
+          <tr className="border-b border-border-subtle bg-surface-1">
+            <th className="px-3 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+              {ar ? "المعيار" : "Fit"}
+            </th>
+            {tiers.map((t) => (
+              <th key={t.tag[0]} className="px-3 py-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
+                {pick(t.name, lang)}
+                {t.recommended ? (
+                  <span className="ms-2 font-mono text-micro uppercase tracking-[0.08em] text-accent">
+                    {ar ? "الأنسب لمعظم المشاريع" : "Best for most projects"}
+                  </span>
+                ) : null}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {(
+            [
+              [ar ? "الأنسب لـ" : "Best for", (t: Tier) => pick(t.bestFor, lang)],
+              [ar ? "يبدأ من" : "From", (t: Tier) => t.price],
+              [ar ? "المدة" : "Duration", (t: Tier) => pick(t.duration, lang)],
+            ] as const
+          ).map(([label, value]) => (
+            <tr key={label} className="border-b border-border-subtle last:border-0">
+              <th className="px-3 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                {label}
+              </th>
+              {tiers.map((t) => (
+                <td key={t.tag[0]} className="px-3 py-2 text-text-secondary">
+                  {value(t)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

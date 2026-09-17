@@ -7,8 +7,8 @@ export const revalidate = 60;
 
 
 export const metadata: Metadata = {
-  title: "Work — Engineering Ledger",
-  description: "A systematic index of identity systems, product architecture, and design infrastructure.",
+  title: "Work — Selected cases",
+  description: "Identity systems and digital products — the problem, what shipped, and the outcome.",
 };
 
 export default async function WorkPage() {

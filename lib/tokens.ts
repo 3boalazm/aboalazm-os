@@ -61,6 +61,18 @@ export const COLOR = {
     strong: "rgb(255 255 255 / 0.20)",
   },
   accent: "#FF6B47",
+  accentAlpha: {
+    8: "rgb(255 107 71 / 0.08)",
+    14: "rgb(255 107 71 / 0.14)",
+    24: "rgb(255 107 71 / 0.24)",
+    40: "rgb(255 107 71 / 0.40)",
+  },
+} as const;
+
+/** Dense-control heights — not a page layout language. */
+export const CONTROL = {
+  sm: 24,
+  md: 32,
 } as const;
 
 /* ── 5 · AMBIENT GLOW CONTRACT ────────────────────────────────── */

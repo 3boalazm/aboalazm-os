@@ -17,7 +17,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useTheme } from "@/components/providers/theme-provider";
-import { PersonaToggleCompact } from "@/features/persona";
 import { buttonVariants } from "@/components/ui/Button";
 
 const LINKS = [
@@ -118,21 +117,12 @@ export function Nav() {
                   className={[
                     "group relative block px-2 py-1 font-display text-[0.65rem] uppercase tracking-[0.08em]",
                     "transition-colors duration-base ease-physics",
-                    link.href === "/start"
-                      ? active
-                        ? "rounded-pill bg-accent text-obsidian"
-                        : "rounded-pill border border-accent/40 text-accent hover:bg-accent/10"
-                      : active
-                        ? "text-text-primary"
-                        : "text-text-tertiary hover:text-text-secondary",
+                    active
+                      ? "text-text-primary"
+                      : "text-text-tertiary hover:text-text-secondary",
                   ].join(" ")}
                 >
                   {lang === "ar" ? link.ar : link.en}
-                  {link.href === "/pricing" && (
-                    <span className="ms-1 font-mono text-[0.55rem] normal-case tracking-normal text-text-ghost">
-                      {lang === "ar" ? "من $199" : "from $199"}
-                    </span>
-                  )}
                   <span className="absolute inset-x-1 -bottom-px h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
                 </Link>
                 {active && (
@@ -146,16 +136,6 @@ export function Nav() {
             );
           })}
         </ul>
-
-        {/* Persona toggle — desktop only. Wrapped in its own div (not passed
-            as className on the component itself) because .persona-toggle
-            sets `display: inline-flex` as a plain CSS rule in globals.css,
-            which otherwise wins over Tailwind's `hidden` utility at the
-            same specificity — that's why this was showing on mobile and
-            crowding the header before. */}
-        <div className="hidden md:inline-flex">
-          <PersonaToggleCompact />
-        </div>
 
         {/* Language flip — the AR/EN switch */}
         <button
@@ -223,11 +203,6 @@ export function Nav() {
             transition={physics}
             className="glass mt-1 flex max-h-[calc(100svh-5.5rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card md:hidden"
           >
-            {/* Persona toggle — mobile */}
-            <div className="flex justify-center border-b border-border-subtle pb-2 mb-1">
-              <PersonaToggleCompact />
-            </div>
-
             {[...LINKS, ...MORE].map((link, i) => {
               const active = pathname.startsWith(link.href);
               return (

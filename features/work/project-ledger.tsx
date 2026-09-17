@@ -34,24 +34,30 @@ import { BEHANCE } from "./projects.data";
 import type { Project } from "./types";
 
 /* Shared column template — header & rows must never drift apart */
-const GRID =
+const GRID_FULL =
   "grid-cols-[2rem_1.6fr_1fr] gap-2 md:grid-cols-[2.5rem_1.5fr_1fr_1.3fr_1fr_auto] md:gap-3";
+const GRID_COMPACT =
+  "grid-cols-[2rem_1.6fr_1fr] gap-2 md:grid-cols-[2.5rem_1.6fr_1fr_auto] md:gap-3";
 
 interface ProjectLedgerProps {
   /** Now sourced from Payload upstream (see lib/content.ts) — no static fallback. */
   projects: readonly Project[];
   /** Optional cap — lets Home reuse the component as "Selected Work" */
   limit?: number;
+  /** Compact index under featured cases — stack is enhancement, not the story. */
+  compact?: boolean;
 }
 
 export function ProjectLedger({
   projects,
   limit,
+  compact = false,
 }: ProjectLedgerProps) {
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
   const rows = limit ? projects.slice(0, limit) : projects;
+  const grid = compact ? GRID_COMPACT : GRID_FULL;
 
   const [active, setActive] = useState<Project | null>(null);
   const pointer = useRef({ x: 0, y: 0 });
@@ -94,12 +100,12 @@ export function ProjectLedger({
     <section onPointerMove={onPointerMove} onPointerLeave={onLedgerLeave}>
       {/* ── Column header ── */}
       <div
-        className={`grid ${GRID} border-b border-border-default px-2 pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost`}
+        className={`grid ${grid} border-b border-border-default px-2 pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost`}
       >
         <span>№</span>
         <span>{t.workProject}</span>
-        <span className="hidden md:block">{t.workDiscipline}</span>
-        <span className="hidden md:block">{t.workStack}</span>
+        {compact ? null : <span className="hidden md:block">{t.workDiscipline}</span>}
+        {compact ? null : <span className="hidden md:block">{t.workStack}</span>}
         <span>{t.workOutcome}</span>
         <span className="hidden text-right md:block">{t.workAction}</span>
       </div>
@@ -120,6 +126,7 @@ export function ProjectLedger({
             isDimmed={active !== null && active.slug !== project.slug}
             onEnter={onRowEnter}
             ar={ar}
+            compact={compact}
           />
         ))}
       </motion.ol>
@@ -139,6 +146,7 @@ interface LedgerRowProps {
   isDimmed: boolean;
   onEnter: (p: Project) => void;
   ar?: boolean;
+  compact?: boolean;
 }
 
 function LedgerRow({
@@ -148,7 +156,9 @@ function LedgerRow({
   isDimmed,
   onEnter,
   ar = false,
+  compact = false,
 }: LedgerRowProps) {
+  const grid = compact ? GRID_COMPACT : GRID_FULL;
   /* No-404 rule: rows without a written case file open a fallback link
      in a new tab — the project's externalUrl if set (e.g. a live dev
      site), otherwise the Behance portfolio (design default). */
@@ -163,7 +173,7 @@ function LedgerRow({
         onPointerEnter={() => onEnter(project)}
         className={[
           "group grid items-center border-b border-border-subtle px-2 py-3",
-          GRID,
+          grid,
           "transition-[background-color,opacity] duration-base ease-physics",
           isActive ? "bg-surface-1" : "bg-transparent",
           isDimmed ? "opacity-40" : "opacity-100", // focus isolation
@@ -196,28 +206,30 @@ function LedgerRow({
           </span>
         </span>
 
-        {/* Discipline */}
-        <span className="hidden text-body-sm text-text-secondary md:block">
-          {project.discipline}
-        </span>
+        {compact ? null : (
+          <span className="hidden text-body-sm text-text-secondary md:block">
+            {project.discipline}
+          </span>
+        )}
 
-        {/* Stack — Geist Mono micro-pills */}
-        <span className="hidden flex-wrap gap-1 md:flex">
-          {project.stack.map((item) => (
-            <span
-              key={item}
-              className={[
-                "rounded-pill border px-1 py-0.5 font-geist text-micro tracking-[0.02em]",
-                "transition-colors duration-base ease-physics",
-                isActive
-                  ? "border-border-strong text-text-secondary"
-                  : "border-border-subtle text-text-tertiary",
-              ].join(" ")}
-            >
-              {item}
-            </span>
-          ))}
-        </span>
+        {compact ? null : (
+          <span className="hidden flex-wrap gap-1 md:flex">
+            {project.stack.map((item) => (
+              <span
+                key={item}
+                className={[
+                  "rounded-pill border px-1 py-0.5 font-geist text-micro tracking-[0.02em]",
+                  "transition-colors duration-base ease-physics",
+                  isActive
+                    ? "border-border-strong text-text-secondary"
+                    : "border-border-subtle text-text-tertiary",
+                ].join(" ")}
+              >
+                {item}
+              </span>
+            ))}
+          </span>
+        )}
 
         {/* Strategic outcome */}
         <span className="flex items-center gap-1.5 font-mono text-label text-text-secondary">

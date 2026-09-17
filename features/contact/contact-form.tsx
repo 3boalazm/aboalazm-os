@@ -32,6 +32,8 @@ export function ContactForm() {
   const reduceMotion = useReducedMotion();
   const [status, setStatus] = useState<Status>("idle");
   const [budget, setBudget] = useState<string | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [scopeUnknown, setScopeUnknown] = useState(false);
 
   /* Guards against double-submits (fast repeat clicks/Enter) and against
      setState after the component has unmounted (e.g. user navigates away
@@ -60,7 +62,13 @@ export function ContactForm() {
           name: String(data.get("name") ?? ""),
           email: String(data.get("email") ?? ""),
           company: String(data.get("company") ?? "") || undefined,
-          brief: String(data.get("brief") ?? ""),
+          brief:
+            String(data.get("brief") ?? "").trim() ||
+            (scopeUnknown
+              ? ar
+                ? "لسه بحدد النطاق."
+                : "Still figuring out the scope."
+              : ""),
           timeline: String(data.get("timeline") ?? "") || undefined,
           budget: budget ?? undefined,
         }),
@@ -103,10 +111,15 @@ export function ContactForm() {
             className="flex flex-col gap-2 py-8 text-center"
           >
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-[#3DDC84]">
-              {ar ? "تم الاستلام. رد خلال 48 ساعة." : "RECEIVED. EXPECT A REPLY WITHIN 48H."}
+              {ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."}
             </p>
             <p className="font-display text-title tracking-[-0.015em]">
-              {ar ? "البريف في النظام." : "The brief is in the system."}
+              {ar ? "هكتب لك من نفس القناة." : "I'll write back on the same email."}
+            </p>
+            <p className="text-body-sm text-text-secondary">
+              {ar
+                ? "لو أسرع، واتساب والإيميل جنب النموذج."
+                : "Need something faster? Email and WhatsApp are listed beside this form."}
             </p>
           </motion.div>
         ) : (
@@ -125,39 +138,82 @@ export function ContactForm() {
               <input required type="email" name="email" className={FIELD} placeholder={t.formPlaceholderEmail} />
             </label>
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>{t.formCompany}</span>
-              <input name="company" className={FIELD} placeholder={t.formPlaceholderCompany} />
-            </label>
-            <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formBuilding}</span>
-              <textarea required name="brief" rows={4} className={FIELD} placeholder={t.formPlaceholderBrief} />
-            </label>
-            <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>{t.formTimeline}</span>
-              <input name="timeline" className={FIELD} placeholder={t.formPlaceholderTimeline} />
+              <textarea
+                required={!scopeUnknown}
+                name="brief"
+                rows={4}
+                className={FIELD}
+                placeholder={
+                  scopeUnknown
+                    ? ar
+                      ? "اختياري — نقدر نحدد النطاق مع بعض"
+                      : "Optional — we can figure out the scope together"
+                    : t.formPlaceholderBrief
+                }
+              />
             </label>
 
-            <fieldset className="flex flex-col gap-1">
-              <legend className={LABEL}>{t.formBudget}</legend>
-              <div className="flex flex-wrap gap-1">
-                {BUDGET_BANDS.map((band) => (
-                  <button
-                    key={band}
-                    type="button"
-                    aria-pressed={budget === band}
-                    onClick={() => setBudget(band)}
-                    className={[
-                      "rounded-pill border px-2 py-0.5 font-geist text-micro transition-colors duration-base ease-physics",
-                      budget === band
-                        ? "border-accent text-text-primary"
-                        : "border-border-subtle text-text-tertiary hover:border-border-default",
-                    ].join(" ")}
-                  >
-                    {band}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
+            <label className="flex items-start gap-2 py-1">
+              <input
+                type="checkbox"
+                checked={scopeUnknown}
+                onChange={(e) => setScopeUnknown(e.target.checked)}
+                className="mt-0.5 accent-[var(--color-accent)]"
+              />
+              <span className="text-body-sm text-text-secondary">
+                {ar ? "لسه بحدد النطاق — وده كفاية للبداية." : "I'm still figuring out the scope — that's enough to start."}
+              </span>
+            </label>
+
+            <button
+              type="button"
+              onClick={() => setDetailsOpen((v) => !v)}
+              aria-expanded={detailsOpen}
+              className="w-fit font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+            >
+              {detailsOpen
+                ? ar
+                  ? "إخفاء التفاصيل الاختيارية"
+                  : "Hide optional details"
+                : ar
+                  ? "إضافة الشركة والميزانية والجدول (اختياري)"
+                  : "Add company, budget, and timeline (optional)"}
+            </button>
+
+            {detailsOpen ? (
+              <>
+                <label className="flex flex-col gap-0.5">
+                  <span className={LABEL}>{t.formCompany}</span>
+                  <input name="company" className={FIELD} placeholder={t.formPlaceholderCompany} />
+                </label>
+                <label className="flex flex-col gap-0.5">
+                  <span className={LABEL}>{t.formTimeline}</span>
+                  <input name="timeline" className={FIELD} placeholder={t.formPlaceholderTimeline} />
+                </label>
+                <fieldset className="flex flex-col gap-1">
+                  <legend className={LABEL}>{t.formBudget}</legend>
+                  <div className="flex flex-wrap gap-1">
+                    {BUDGET_BANDS.map((band) => (
+                      <button
+                        key={band}
+                        type="button"
+                        aria-pressed={budget === band}
+                        onClick={() => setBudget(band)}
+                        className={[
+                          "rounded-pill border px-2 py-0.5 font-geist text-micro transition-colors duration-base ease-physics",
+                          budget === band
+                            ? "border-accent text-text-primary"
+                            : "border-border-subtle text-text-tertiary hover:border-border-default",
+                        ].join(" ")}
+                      >
+                        {band}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+              </>
+            ) : null}
 
             <button
               type="submit"

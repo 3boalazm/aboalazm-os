@@ -3,23 +3,22 @@
 /**
  * WorkFilter — segmented category filter for /work.
  *
- * "All" shows everything (the historical default — nothing changes for
- * existing visitors). "Design" and "Development" narrow the ledger to
- * that `category`. State lives here, not in the page, so /work/page.tsx
- * stays a plain server component with static metadata.
+ * Featured cases sit above a compact ledger of the remaining records.
+ * Filters are client-facing: All / Identity / Digital Products.
  */
 
 import { useMemo, useState } from "react";
 import { useLang } from "@/components/providers/lang-provider";
+import { FeaturedCases, pickFeatured } from "./featured-cases";
 import { ProjectLedger } from "./project-ledger";
 import type { Project, ProjectCategory } from "./types";
 
 type FilterValue = "all" | ProjectCategory;
 
 const OPTIONS: { value: FilterValue; en: string; ar: string }[] = [
-  { value: "all",         en: "All",         ar: "الكل" },
-  { value: "design",      en: "Design",      ar: "تصميم" },
-  { value: "development", en: "Development", ar: "ديفلوبمنت" },
+  { value: "all",         en: "All",              ar: "الكل" },
+  { value: "design",      en: "Identity",         ar: "هوية" },
+  { value: "development", en: "Digital Products", ar: "منتجات رقمية" },
 ];
 
 export function WorkFilter({ projects }: { projects: readonly Project[] }) {
@@ -36,6 +35,13 @@ export function WorkFilter({ projects }: { projects: readonly Project[] }) {
   const filtered = useMemo(
     () => (filter === "all" ? projects : projects.filter((p) => p.category === filter)),
     [filter, projects],
+  );
+
+  const featured = useMemo(() => pickFeatured(filtered, 3), [filtered]);
+  const featuredSlugs = useMemo(() => new Set(featured.map((p) => p.slug)), [featured]);
+  const rest = useMemo(
+    () => filtered.filter((p) => !featuredSlugs.has(p.slug)),
+    [filtered, featuredSlugs],
   );
 
   return (
@@ -55,7 +61,16 @@ export function WorkFilter({ projects }: { projects: readonly Project[] }) {
         ))}
       </div>
 
-      <ProjectLedger projects={filtered} />
+      <FeaturedCases projects={filtered} heading="none" showIndexLink={false} contained={false} />
+
+      {rest.length > 0 ? (
+        <div className="flex flex-col gap-3">
+          <p className="font-mono text-label uppercase tracking-[0.08em] text-text-tertiary">
+            {ar ? "باقي الفهرس" : "The rest of the index"}
+          </p>
+          <ProjectLedger projects={rest} compact />
+        </div>
+      ) : null}
     </div>
   );
 }
