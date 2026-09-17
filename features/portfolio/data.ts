@@ -36,8 +36,11 @@ export interface Project {
   frames: [Frame, Frame];
   /** three color tokens, rendered as swatches */
   tokens: { hex: string; name: string }[];
-  /** atmospheric accent (dividers, numerals) */
+  /** atmospheric accent (dividers, numerals) — brand-true */
   accent: string;
+  /** optional brighter variant of `accent` that survives the dark slide
+      surface (used for numerals, index dots, keylines) */
+  accentBright?: string;
 }
 
 export const IDENTITY = {
@@ -109,6 +112,7 @@ export const PROJECTS: Project[] = [
       { hex: "#7850C8", name: "VIOLET" },
     ],
     accent: "#7850C8",
+    accentBright: "#9B79E0",
   },
   {
     slug: "ahmed-bedeer",
@@ -134,6 +138,7 @@ export const PROJECTS: Project[] = [
       { hex: "#06D6A0", name: "TEAL" },
     ],
     accent: "#118AB2",
+    accentBright: "#3FB0DC",
   },
   {
     slug: "reflection",
@@ -159,6 +164,7 @@ export const PROJECTS: Project[] = [
       { hex: "#96468C", name: "ORCHID" },
     ],
     accent: "#96468C",
+    accentBright: "#C478B8",
   },
   {
     slug: "gad",
@@ -184,6 +190,7 @@ export const PROJECTS: Project[] = [
       { hex: "#E8EDF2", name: "MIST" },
     ],
     accent: "#005895",
+    accentBright: "#4C9BE0",
   },
   {
     slug: "nile-pharma",
@@ -209,6 +216,7 @@ export const PROJECTS: Project[] = [
       { hex: "#39A0D6", name: "WAVE BLUE" },
     ],
     accent: "#1B2A5B",
+    accentBright: "#6C93E8",
   },
 ];
 

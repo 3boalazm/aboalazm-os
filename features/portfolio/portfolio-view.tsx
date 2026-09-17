@@ -1,11 +1,14 @@
 "use client";
 
 /**
- * PORTFOLIO VIEW — the landscape presentation edition.
+ * PORTFOLIO VIEW — OBSIDIAN ATELIER edition (the landscape deck).
  * 14 slides · 1600×900px each (exact 16:9) · screen == print == PDF.
  *
  * Lives in its own route group (app/(print)) with a dedicated root layout
  * that does NOT load the site chrome. All content from ./data.ts.
+ * Layout rules: every slide content zone is a flex column with pinned
+ * top/bottom areas and ≥24px vertical slack (verified against the real
+ * font metrics) — text drift can never clip a slide again.
  */
 
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
@@ -19,6 +22,11 @@ import "./portfolio.css";
 
 const TOTAL = SLIDES.total;
 const SHEET_W = 1600;
+
+/* chapter accents, tuned for the dark slide surface (data keeps the
+   brand-true original in `accent`; `accentBright` is the screen-safe
+   variant used for numerals, dots and keylines) */
+const acc = (p: Project) => p.accentBright ?? p.accent;
 
 /* ── primitives ─────────────────────────────────────────────────────── */
 
@@ -75,15 +83,15 @@ function CoverSlide() {
   return (
     <Sheet id="cover" sec="COVER — الغلاف">
       <div className="fol-cover-grid">
-        <div>
+        <div className="fol-cover-left">
           <div className="fol-kicker">{COVER.kicker}</div>
           <h1 className="fol-disp fol-cover-title">
             {COVER.titleA}<br />{COVER.titleB} <span className="yr">’26</span>
           </h1>
-          <p className="fol-lead" style={{ marginTop: 26, maxWidth: "36ch" }}>{COVER.lede}</p>
-          <p className="fol-ar-body" style={{ marginTop: 8, maxWidth: "36ch", textAlign: "left", direction: "ltr" }}>{COVER.ledeAr}</p>
+          <p className="fol-lead fol-cover-lede">{COVER.lede}</p>
+          <p className="fol-ar-body fol-cover-ledear">{COVER.ledeAr}</p>
           <div className="fol-cover-name">
-            <Avatar size={96} />
+            <Avatar size={88} />
             <div>
               <div className="nm">{IDENTITY.name}</div>
               <div className="rl">{IDENTITY.role} · {IDENTITY.roleAr}</div>
@@ -105,7 +113,7 @@ function IndexSlide() {
   return (
     <Sheet id="index" sec="INDEX — الفهرس">
       <div className="fol-kicker">TABLE OF CONTENTS <span className="ar">الفهرس</span></div>
-      <div className="fol-index-head" style={{ marginTop: 18 }}>
+      <div className="fol-index-head">
         <h2 className="fol-disp t">Five chapters<span className="fol-red">.</span></h2>
         <span className="c">EACH CHAPTER — DIVIDER + FRAMES</span>
       </div>
@@ -113,13 +121,20 @@ function IndexSlide() {
         {PROJECTS.map((p) => (
           <div key={p.slug} className="fol-index-row">
             <span className="no">{p.no}</span>
-            <span className="nm">{p.name}</span>
+            <span className="nm">
+              <i style={{ background: acc(p) }} />
+              <b>{p.name}</b>
+            </span>
             <span className="ar">{p.nameAr}</span>
             <span className="cat">{p.category}</span>
             <span className="yr">{p.year}</span>
             <span className="pg"><b>{String(SLIDES.byId[`ch-${p.slug}`]).padStart(2, "0")}</b>–{String(SLIDES.byId[`frames-${p.slug}`]).padStart(2, "0")}</span>
           </div>
         ))}
+      </div>
+      <div className="fol-index-foot fol-micro">
+        <span>{String(TOTAL).padStart(2, "0")} SLIDES · 05 CHAPTERS · 2019 → 2026</span>
+        <span>AR / EN — ONE DOCTRINE</span>
       </div>
     </Sheet>
   );
@@ -130,34 +145,36 @@ function IndexSlide() {
 function ProfileSlide() {
   return (
     <Sheet id="profile" sec="PROFILE — الملف">
-      <div className="fol-prof-grid">
-        <div>
-          <div className="fol-kicker">THE ARCHITECT <span className="ar">المعماري</span></div>
-          <h2 className="fol-disp fol-prof-state">
-            {PROFILE.statement}<br /><span className="hot">{PROFILE.statementHot}</span>
-          </h2>
-          <p className="fol-ar-disp fol-prof-ar">{PROFILE.statementAr}</p>
-          <p className="fol-prof-p">{PROFILE.paragraph}</p>
-          <div className="fol-chiprow fol-prof-chips">
-            {PROFILE.chips.map((c) => <span key={c} className="fol-chip">{c}</span>)}
-          </div>
-        </div>
-        <div className="fol-prof-side">
-          <p className="fol-micro" style={{ paddingBottom: 12 }}>BY THE NUMBERS — بالأرقام</p>
-          {PROFILE.stats.map((s) => (
-            <div key={s.l} className="fol-stat">
-              <div className="n">{s.n}<span className="suf">{s.suf}</span></div>
-              <div>
-                <div className="l">{s.l}</div>
-                <div className="c">{s.c}</div>
-              </div>
+      <div className="fol-prof">
+        <div className="fol-kicker">THE ARCHITECT <span className="ar">المعماري</span></div>
+        <h2 className="fol-disp fol-prof-state">
+          {PROFILE.statement}<br /><span className="hot">{PROFILE.statementHot}</span>
+        </h2>
+        <p className="fol-ar-disp fol-prof-ar">{PROFILE.statementAr}</p>
+        <div className="fol-prof-grid">
+          <div className="fol-prof-left">
+            <p className="fol-prof-p">{PROFILE.paragraph}</p>
+            <div className="fol-chiprow fol-prof-chips">
+              {PROFILE.chips.map((c) => <span key={c} className="fol-chip">{c}</span>)}
             </div>
-          ))}
-          <div className="fol-prof-who">
-            <Avatar size={72} />
-            <div>
-              <div style={{ fontFamily: "var(--f-disp)", fontWeight: 900, fontSize: 26 }}>{IDENTITY.name}</div>
-              <div className="fol-micro" style={{ marginTop: 4 }}>{IDENTITY.location} — {IDENTITY.email}</div>
+          </div>
+          <div className="fol-prof-side">
+            <p className="fol-micro">BY THE NUMBERS — بالأرقام</p>
+            <div className="fol-stat-grid">
+              {PROFILE.stats.map((s) => (
+                <div key={s.l} className="fol-stat">
+                  <div className="n">{s.n}<span className="suf">{s.suf}</span></div>
+                  <div className="l">{s.l}</div>
+                  <div className="c">{s.c}</div>
+                </div>
+              ))}
+            </div>
+            <div className="fol-prof-who">
+              <Avatar size={64} />
+              <div>
+                <div className="nm">{IDENTITY.name}</div>
+                <div className="fol-micro" style={{ marginTop: 6 }}>{IDENTITY.location} — {IDENTITY.email}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -173,8 +190,8 @@ function ChapterSlide({ p }: { p: Project }) {
     <Sheet id={`ch-${p.slug}`} sec={`CHAPTER ${p.no} — ${p.name}`}>
       <div className="fol-ch-grid">
         <div className="fol-ch-left">
-          <div className="fol-ch-no" style={{ color: p.accent }}>{p.no}</div>
-          <div className="fol-ch-cat" style={{ color: p.accent }}>{p.category} · {p.categoryAr}</div>
+          <div className="fol-ch-no" style={{ color: acc(p) }}>{p.no}</div>
+          <div className="fol-ch-cat" style={{ color: acc(p) }}>{p.category} · {p.categoryAr}</div>
           <h2 className="fol-disp fol-ch-name">{p.name}</h2>
           <div className="fol-ar-disp fol-ch-ar">{p.nameAr}</div>
           <div className="fol-ch-meta">
@@ -182,7 +199,7 @@ function ChapterSlide({ p }: { p: Project }) {
             <span className="sc">{p.scope.join(" · ")}</span>
           </div>
           <p className="fol-ch-brief">{p.brief}</p>
-          <div className="fol-ch-outcome">
+          <div className="fol-ch-outcome" style={{ borderTopColor: acc(p) }}>
             <div className="k">OUTCOME — النتيجة</div>
             <div className="v">{p.outcome}</div>
             <div className="a">{p.outcomeAr}</div>
@@ -228,32 +245,34 @@ function FramesSlide({ p }: { p: Project }) {
 function ContactSlide() {
   return (
     <Sheet id="contact" sec="CONTACT — التواصل">
-      <div className="fol-ct-grid">
-        <div>
-          <div className="fol-kicker">{CONTACT.kicker}</div>
-          <h2 className="fol-disp fol-ct-title">
-            {CONTACT.titleA}<br /><span className="hot">{CONTACT.titleB}</span>
-          </h2>
-          <p className="fol-ar-disp fol-ct-ar">{CONTACT.titleAr}</p>
-          <p className="fol-ct-note">{CONTACT.note}</p>
-          <span className="fol-ct-mail">{IDENTITY.email}</span>
-        </div>
-        <div className="fol-ct-side">
-          {IDENTITY.links.map((l) => (
-            <div key={l.label} className="fol-ct-row">
-              <span className="k">{l.label}</span>
-              <span className="v">{l.value}</span>
-            </div>
-          ))}
-          <div className="fol-ct-row">
-            <span className="k">BASE</span>
-            <span className="v">{IDENTITY.location}</span>
+      <div className="fol-ct">
+        <div className="fol-kicker">{CONTACT.kicker}</div>
+        <h2 className="fol-disp fol-ct-title">
+          {CONTACT.titleA}<br /><span className="hot">{CONTACT.titleB}</span>
+        </h2>
+        <div className="fol-ct-grid">
+          <div className="fol-ct-left">
+            <p className="fol-ar-disp fol-ct-ar">{CONTACT.titleAr}</p>
+            <p className="fol-ct-note">{CONTACT.note}</p>
+            <span className="fol-ct-mail">{IDENTITY.email}</span>
           </div>
-          <div className="fol-ct-end">
-            <Avatar size={88} />
-            <div>
-              <div className="t">END OF DECK</div>
-              <div className="s">{IDENTITY.name} · {IDENTITY.version}</div>
+          <div className="fol-ct-side">
+            {IDENTITY.links.map((l) => (
+              <div key={l.label} className="fol-ct-row">
+                <span className="k">{l.label}</span>
+                <span className="v">{l.value}</span>
+              </div>
+            ))}
+            <div className="fol-ct-row">
+              <span className="k">BASE</span>
+              <span className="v">{IDENTITY.location}</span>
+            </div>
+            <div className="fol-ct-end">
+              <Avatar size={56} />
+              <div>
+                <div className="t">END OF DECK</div>
+                <div className="s">{IDENTITY.name} · {IDENTITY.version}</div>
+              </div>
             </div>
           </div>
         </div>

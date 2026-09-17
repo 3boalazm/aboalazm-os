@@ -116,7 +116,7 @@ export function usePdfExport(containerRef: React.RefObject<HTMLDivElement | null
           scale: 2,
           useCORS: false,
           allowTaint: false,
-          backgroundColor: "#f4efe4",
+          backgroundColor: "#14110b",
           logging: false,
           width: SHEET_W,
           height: SHEET_H,
