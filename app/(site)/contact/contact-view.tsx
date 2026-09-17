@@ -2,7 +2,6 @@
 import { StatusNode } from "@/features/hero";
 import { ContactForm } from "@/features/contact";
 import { useLang } from "@/components/providers/lang-provider";
-import { useT } from "@/hooks/use-t";
 import { Heading } from "@/components/ui/Heading";
 
 const CHANNELS = {
@@ -23,7 +22,6 @@ const CHANNELS = {
 export function ContactView() {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const t = useT();
   const channels = ar ? CHANNELS.ar : CHANNELS.en;
 
   return (
@@ -33,14 +31,14 @@ export function ContactView() {
           eyebrow={ar ? "07 / تواصل" : "07 / CONTACT"}
           title={
             ar
-              ? <>ابدأ بالبريف، <em>مش اللوجو.</em></>
-              : <>Start with the brief, <em>not the logo.</em></>
+              ? <>قولّي عايز <em>تبني إيه.</em></>
+              : <>Tell me what you want <em>to build.</em></>
           }
-          titleClassName="max-w-[14ch] text-balance-pretty"
+          titleClassName="max-w-[16ch] text-balance-pretty"
           subtitle={
             ar
-              ? "مشاريع مختارة فقط. لو الجدول الزمني أو الميزانية بتضمن المتوسطية، هتسمعها في أول مكالمة — الصراحة مجانية."
-              : "Selective commissions only. If the timeline or budget guarantees mediocrity, you'll hear it on the first call — that honesty is free."
+              ? "اسم وإيميل وجملة كافية للبداية. لو مش جاهز تملا نموذج، الإيميل والواتساب تحت بديل واضح."
+              : "A name, an email, and a sentence is enough. Prefer not to fill a form? Email and WhatsApp are right here."
           }
           subtitleClassName="max-w-[46ch]"
         />

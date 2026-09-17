@@ -77,10 +77,13 @@ export function FloatingPreview({ active, pointer }: FloatingPreviewProps) {
       className="pointer-events-none fixed left-0 top-0 z-overlay hidden lg:block"
       style={{ width: SIZE.w, height: SIZE.h }}
     >
-      <AnimatePresence mode="popLayout">
+      {/* Stable key: row-to-row switches update content in place.
+          AnimatePresence only handles idle ⇄ hovering, so a stale card
+          can never linger behind the live one (P0-3). */}
+      <AnimatePresence>
         {active && (
           <motion.div
-            key={active.slug}
+            key="preview"
             initial={reduceMotion ? false : { opacity: 0, scale: 0.82, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: -8 }}
@@ -102,6 +105,7 @@ export function FloatingPreview({ active, pointer }: FloatingPreviewProps) {
               {active.name.charAt(0)}
             </span>
             <Image
+              key={active.slug}
               src={active.thumbnail}
               alt=""
               fill

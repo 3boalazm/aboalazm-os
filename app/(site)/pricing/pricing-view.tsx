@@ -2,7 +2,7 @@
 
 import { useLang } from "@/components/providers/lang-provider";
 import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
-import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
+import { SectionHead, TierGrid, TierCompare, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
 import { InvestmentValue } from "@/features/offers/investment-value";
 import { Heading } from "@/components/ui/Heading";
 
@@ -60,6 +60,12 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["01 / SERVICE TIERS", "٠١ / فئات الخدمة"]} title={["Pick the", "اختر"]} italic={["scope that fits.", "النطاق المناسب."]} />
+        <p className="max-w-[60ch] text-body-sm text-text-secondary">
+          {ar
+            ? "معظم المشاريع تبدأ من الفئة ٢. الفئة ١ للقيد الميزاني، والفئة ٣ للإطلاق الكامل."
+            : "Most projects start at Tier 2. Tier 1 is the budget constraint; Tier 3 is a full launch system."}
+        </p>
+        <TierCompare tiers={tiers} />
         <TierGrid tiers={tiers} />
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— كل الفئات قابلة للتخصيص · البنود تُضاف أو تُحذف بعد النقاش · التسعير قابل للتفاوض حسب النطاق والجدول والعلاقة —" : "— All tiers are customizable · Items can be added or removed after discussion · Pricing is negotiable based on scope, timeline, and long-term relationship —"}
@@ -72,11 +78,20 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / À LA CARTE", "٠٢ / خدمات منفردة"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
+        <SectionHead label={["02 / PRODUCTION MENU", "٠٢ / قائمة الإنتاج"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
-          {ar ? "لمشاريع لا تحتاج فئة كاملة — أو لعملاء حاليين يحتاجون تطبيقات إضافية." : "For projects that don't need a full tier — or for existing clients needing additional applications."}
+          {ar
+            ? "قائمة إنتاج منفصلة عن استثمار نظام الهوية. لمشاريع لا تحتاج فئة كاملة — أو لعملاء حاليين يحتاجون تطبيقات إضافية."
+            : "A production menu, separate from brand-system investment. For projects that don't need a full tier — or for existing clients needing additional applications."}
         </p>
-        <AlaCarteTables alaCarte={alaCarte} />
+        <details className="group rounded-card border border-border-subtle bg-surface-1/40 p-3">
+          <summary className="cursor-pointer font-mono text-label uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
+            {ar ? "فتح قائمة الخدمات المنفردة (١٥+ بند)" : "Open the à la carte list (15+ items)"}
+          </summary>
+          <div className="mt-3">
+            <AlaCarteTables alaCarte={alaCarte} />
+          </div>
+        </details>
       </section>
 
       <section className="flex flex-col gap-3">

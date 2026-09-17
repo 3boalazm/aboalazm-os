@@ -80,6 +80,15 @@
   /* Studio accent — used ONLY for focus rings & critical CTAs */
   --color-accent:     #FF6B47;
   --color-accent-dim: rgb(255 107 71 / 0.14);
+  /* Named accent alpha steps — prefer these over one-off rgb(255 107 71 / N) */
+  --color-accent-08: rgb(255 107 71 / 0.08);
+  --color-accent-14: rgb(255 107 71 / 0.14);
+  --color-accent-24: rgb(255 107 71 / 0.24);
+  --color-accent-40: rgb(255 107 71 / 0.40);
+
+  /* Control heights — dense UI only, not a page layout language */
+  --size-control-sm: 24px;
+  --size-control-md: 32px;
 
   /* ══════════════ 5 · TYPOGRAPHY ══════════════ */
   /* GC EPICPRO — EN heading voice (extra bold display) */

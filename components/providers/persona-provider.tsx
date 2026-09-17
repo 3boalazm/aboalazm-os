@@ -11,8 +11,8 @@
  * and adapt copy/emphasis. Every other page ignores it and stays general —
  * this keeps the surface area small and the content maintainable.
  *
- * Mechanism: a non-blocking toggle (not a modal), visible in the Nav and
- * as an inviting picker band on Home. Choice persists in localStorage and
+ * Mechanism: a non-blocking optional prompt in the home hero — never a
+ * header control, never required. Choice persists in localStorage and
  * survives navigation between pages, mirroring the LangProvider pattern
  * so hydration stays SSR-safe (default state on first render, restored
  * from storage in an effect after mount).

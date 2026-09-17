@@ -30,6 +30,7 @@ const STUDIO_CORAL = {
   primary: "rgb(255 107 71 / 0.16)",
   secondary: "rgb(196 69 31 / 0.08)",
 } as const;
+import { usePersona } from "@/components/providers/persona-provider";
 import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
@@ -104,11 +105,11 @@ export function Hero() {
               {t.heroLead}
             </motion.p>
 
-            {/* CTA pair — custom hover: underline draw + arrow nudge */}
-            <motion.div variants={reveal.item} className="flex items-center gap-3">
+            {/* One primary action, one secondary. Promise → Proof, then convert. */}
+            <motion.div variants={reveal.item} className="flex flex-wrap items-center gap-3">
               <a
-                href="/work"
-                className="group glass relative inline-flex items-center gap-1 overflow-hidden rounded-pill px-3 py-2 text-body text-text-primary transition-colors duration-base ease-physics hover:border-border-strong"
+                href="#selected-work"
+                className="group relative inline-flex items-center gap-1 rounded-pill bg-accent px-3 py-2 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
               >
                 <span>{t.heroExplore}</span>
                 <span
@@ -126,6 +127,7 @@ export function Hero() {
                 <span className="absolute inset-x-1 bottom-1 h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
               </a>
             </motion.div>
+            <PersonaHint ar={ar} />
           </motion.div>
         </div>
 
@@ -145,5 +147,52 @@ export function Hero() {
         <MetricRow />
       </div>
     </section>
+  );
+}
+
+/** Optional, non-blocking framing — never a header control, never required. */
+function PersonaHint({ ar }: { ar: boolean }) {
+  const { persona, setPersona } = usePersona();
+
+  if (persona) {
+    return (
+      <p className="font-mono text-micro text-text-ghost">
+        {persona === "founder"
+          ? ar
+            ? "بتتشاف نسخة النتائج والعائد."
+            : "Framed for business outcomes."
+          : ar
+            ? "بتتشاف نسخة الأنظمة والتسليم."
+            : "Framed for systems and handoff."}{" "}
+        <button
+          type="button"
+          onClick={() => setPersona(null)}
+          className="underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
+        >
+          {ar ? "ارجع للعام" : "Keep it general"}
+        </button>
+      </p>
+    );
+  }
+
+  return (
+    <p className="max-w-[46ch] font-mono text-micro text-text-ghost">
+      {ar ? "عايز الكلام يتظبط على دورك؟" : "What are you here to solve?"}{" "}
+      <button
+        type="button"
+        onClick={() => setPersona("founder")}
+        className="text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
+      >
+        {ar ? "براند يشتغل" : "A brand that performs"}
+      </button>
+      <span aria-hidden> · </span>
+      <button
+        type="button"
+        onClick={() => setPersona("technical")}
+        className="text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
+      >
+        {ar ? "نظام الفريق يقدر يبني عليه" : "A system the team can ship"}
+      </button>
+    </p>
   );
 }

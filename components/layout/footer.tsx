@@ -10,24 +10,29 @@ import { useLang } from "@/components/providers/lang-provider";
 
 const COLUMNS = [
   {
-    head: ["PAGES", "الصفحات"],
+    head: ["ENGAGE", "التعاون"],
     links: [
-      ["About", "نبذة", "/about"],
       ["Start Here", "ابدأ هنا", "/start"],
       ["Work", "الأعمال", "/work"],
-      ["UI/UX Showcase", "معرض الواجهات", "/work-ui"],
       ["Services", "الخدمات", "/services"],
-      ["Why", "لماذا", "/why"],
       ["Process", "المنهجية", "/process"],
+      ["Pricing", "التسعير", "/pricing"],
+      ["Contact", "تواصل", "/contact"],
+    ],
+  },
+  {
+    head: ["STUDIO", "الاستوديو"],
+    links: [
+      ["About", "نبذة", "/about"],
+      ["Why", "لماذا", "/why"],
+      ["Writing", "مقالات", "/writing"],
+      ["Library", "المكتبة", "/books"],
+      ["Labs", "المعمل", "/labs"],
+      ["Gallery", "المعرض", "/gallery"],
       ["Capabilities", "القدرات", "/capabilities"],
       ["Resources", "المصادر", "/resources"],
-      ["Labs", "المعمل", "/labs"],
-      ["Library", "المكتبة", "/books"],
-      ["Gallery", "المعرض", "/gallery"],
-      ["Pricing", "التسعير", "/pricing"],
       ["Agreement", "الاتفاقية", "/agreement"],
-      ["Writing", "مقالات", "/writing"],
-      ["Contact", "تواصل", "/contact"],
+      ["UI/UX Showcase", "معرض الواجهات", "/work-ui"],
       ["Portfolio PDF ↓", "بورتفوليو PDF ↓", "/portfolio"],
     ],
   },
@@ -80,34 +85,31 @@ export function Footer() {
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {COLUMNS.map((col) => {
-            const isPages = col.head[0] === "PAGES";
-            return (
-              <nav
-                key={col.head[0]}
-                aria-label={col.head[0]}
-                className={`flex flex-col gap-1 ${isPages ? "col-span-2" : ""}`}
-              >
-                <p className="font-display text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">
-                  {ar ? col.head[1] : col.head[0]}
-                </p>
-                <div className={isPages ? "columns-2 gap-x-6" : "flex flex-col gap-1"}>
-                  {col.links.map(([en, arr, href]) => (
-                    <Link
-                      key={href}
-                      href={href}
-                      {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className={`block w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary ${isPages ? "mb-1" : ""}`}
-                    >
-                      {ar ? arr : en}
-                    </Link>
-                  ))}
-                </div>
-              </nav>
-            );
-          })}
+          {COLUMNS.map((col) => (
+            <nav
+              key={col.head[0]}
+              aria-label={col.head[0]}
+              className="flex flex-col gap-1"
+            >
+              <p className="font-display text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">
+                {ar ? col.head[1] : col.head[0]}
+              </p>
+              <div className="flex flex-col gap-1">
+                {col.links.map(([en, arr, href]) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
+                      ? { target: "_blank", rel: "noopener noreferrer" }
+                      : {})}
+                    className="block w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+                  >
+                    {ar ? arr : en}
+                  </Link>
+                ))}
+              </div>
+            </nav>
+          ))}
         </div>
       </div>
 

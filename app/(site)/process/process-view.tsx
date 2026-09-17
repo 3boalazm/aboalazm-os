@@ -358,6 +358,36 @@ export function ProcessView() {
               </div>
             ))}
           </motion.div>
+
+          <motion.ol
+            variants={reveal.item}
+            className="mt-4 grid max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4"
+          >
+            {(ar
+              ? [
+                  ["٠١", "اكتشاف"],
+                  ["٠٢", "استراتيجية"],
+                  ["٠٣", "تصميم"],
+                  ["٠٤", "تسليم"],
+                ]
+              : [
+                  ["01", "Discover"],
+                  ["02", "Strategize"],
+                  ["03", "Design"],
+                  ["04", "Deliver"],
+                ]
+            ).map(([n, name], i, list) => (
+              <li key={n} className="flex items-baseline gap-2">
+                <span className="font-mono text-micro text-accent">{n}</span>
+                <span className="font-display text-[1.05rem] tracking-[-0.015em] text-text-primary">{name}</span>
+                {i < list.length - 1 ? (
+                  <span aria-hidden className="hidden text-text-ghost sm:inline">
+                    →
+                  </span>
+                ) : null}
+              </li>
+            ))}
+          </motion.ol>
         </motion.div>
       </section>
 
