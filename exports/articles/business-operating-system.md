@@ -15,6 +15,11 @@ Most companies don't hit a growth ceiling because the product stops working. The
 
 > A business that runs on one person's instincts is a personality. A business that runs on a system is an asset.
 
+- **1.8h** — Lost per employee, daily, to searching for information
+- **5** — Maturity stages between chaos and self-management
+- **90min** — The weekly Level 10 pulse
+- **5–15** — Scorecard measurables, one owner each
+
 ## The maturity ladder — where is your company right now?
 
 Every organization sits somewhere on a five-stage ladder. The honest diagnosis matters more than the label, because each stage has a different failure mode — and a different next move.

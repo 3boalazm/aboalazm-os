@@ -13,6 +13,11 @@ publishedAt: 2026-07-24
 
 Every digital product travels the same road: idea, validation, research, brand, design, build, launch, growth, scale. What separates the products that survive the trip is not talent at any single stage — it's an execution chassis that connects the stages, so evidence from one becomes the input of the next instead of dying in a slide deck.
 
+- **$260B** — Recoverable through checkout usability
+- **53%** — Abandon mobile pages slower than 3s
+- **85%** — Of usability issues found by 5 users
+- **1.8h** — Lost daily without documentation
+
 ```mermaid
 flowchart TD
     I["Idea<br/>human value defined"]:::gov --> V["Validation<br/>smoke tests"]:::tech

@@ -171,7 +171,15 @@ export async function getAllPostSlugs(): Promise<string[]> {
 }
 
 export async function getPosts(): Promise<
-  { index: string; slug: string; title: string; standfirst: string; publishedAt: string; lang: "en" | "ar" }[]
+  {
+    index: string;
+    slug: string;
+    title: string;
+    standfirst: string;
+    publishedAt: string;
+    lang: "en" | "ar";
+    topics: string[];
+  }[]
 > {
   const payload = await getPayload();
   const res = await payload.find({
@@ -185,10 +193,11 @@ export async function getPosts(): Promise<
     slug: d.slug,
     title: d.title,
     standfirst: d.standfirst ?? "",
-    publishedAt: d.publishedAt
-      ? new Date(d.publishedAt).toLocaleDateString("en-CA").slice(0, 7)
-      : "",
+    // Full ISO date — the writing index formats this (weekday + d/m/y) per
+    // the active UI language; truncating here would lose the day/weekday.
+    publishedAt: d.publishedAt ?? "",
     lang: d.lang ?? "en",
+    topics: d.topics ?? [],
   }));
 }
 export async function getAllCaseStudySlugs(): Promise<string[]> {

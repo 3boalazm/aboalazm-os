@@ -7,6 +7,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { SectionHead } from "@/features/offers/offer-blocks";
 import { BOOKS } from "@/lib/books";
 import { Heading } from "@/components/ui/Heading";
+import { panelCardVariants } from "@/components/ui/PanelCard";
 
 export function BooksView() {
   const { lang } = useLang();
@@ -49,7 +50,9 @@ export function BooksView() {
             >
               <Link
                 href={`/books/${book.slug}`}
-                className="group flex h-full flex-col justify-between gap-6 rounded-panel border border-border-subtle bg-surface-1 p-5 transition-colors duration-base ease-physics hover:border-accent/40 md:p-6"
+                className={panelCardVariants({
+                  className: "group flex h-full flex-col justify-between gap-6 rounded-panel p-5 md:p-6 transition-colors duration-base ease-physics hover:border-accent/40",
+                })}
               >
                 <div className="flex flex-col gap-2">
                   <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">

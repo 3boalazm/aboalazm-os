@@ -15,6 +15,11 @@ UX strategy sits at the intersection of business strategy and product design —
 
 > Users form an opinion of your product in 0.05 seconds. Strategy is deciding, in advance, what that twentieth of a second says.
 
+- **0.05s** — To form a first impression
+- **5** — Users uncover 85% of usability issues
+- **52%** — Higher LTV from emotional connection
+- **56pt** — Higher shareholder-return growth
+
 ## Product thinking — everything is an experiment
 
 Scalable product thinking assumes every decision is a hypothesis until market evidence says otherwise. Decisions get grounded in data, not seniority — because product design is full of wicked problems, where solving one aspect reveals two more. The organizational shape follows: product elevated to the executive table, with four roles holding the strategy together:

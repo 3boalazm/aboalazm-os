@@ -21,6 +21,173 @@ const DIAGRAM_CLASSES = `
 
 export const SYSTEMS_BODIES_EN: Record<string, Block[]> = {
   /* ------------------------------------------------------------------ */
+  /* W-015 — THE WEBSITE IS NOT AN INTERFACE                              */
+  /* ------------------------------------------------------------------ */
+  "website-is-not-an-interface": [
+    { p: "The client never sees the brand guidelines. Never reads the logo usage manual. Never thinks about the color system written into a PDF. The one place the brand lives in front of them, every day, is the website. That's why the website isn't a project separate from the identity — it's the identity's first real test." },
+    { stats: [
+      { value: "4", label: "Layers where identity becomes experience" },
+      { value: "70%", label: "Of the impression forms before the first paragraph is read" },
+      { value: "1", label: "Visual language that should govern every decision" },
+    ] },
+
+    { h: "The gap between identity and interface" },
+    { p: "Identity doesn't collapse when the logo changes. It collapses when the website starts acting like it belongs to a different company." },
+    { mermaid: `flowchart TD
+    STRAT["Brand strategy"]:::gov --> IDENT["Brand identity"]:::gov --> SITE["Website experience"]:::tech --> TRUST["Customer trust"]:::sot
+${DIAGRAM_CLASSES}`, caption: "Every decision inside the website is an extension of a decision inside the identity. Built apart from it, every page starts forming a different personality." },
+    { table: [
+      ["Identity element", "How it should show up on the website"],
+      ["Brand personality", "Motion and navigation style"],
+      ["Tone of voice", "Headlines and content interface"],
+      ["Color system", "Visual priority, not decoration"],
+      ["Typography", "Rhythm and readability"],
+      ["Grid", "Consistency across every page"],
+    ] },
+
+    { h: "Why beautiful UI isn't enough" },
+    { p: "A beautiful interface can capture attention. It can't build trust alone. The difference between a professional website and a persuasive one isn't the number of animations — it's the number of decisions made from the identity outward." },
+    { table: [
+      ["Decision", "Trend-built website", "Identity-built website"],
+      ["Color choice", "Because it looks good", "Because it expresses the brand"],
+      ["Components", "Pulled from a library", "Part of a design system"],
+      ["Motion", "To impress the user", "To direct attention"],
+      ["Layout", "Whatever the template does", "What the brand's personality does"],
+    ] },
+
+    { h: "UX starts before the first click" },
+    { p: "UX doesn't start at the first button. It starts the moment the customer arrives and asks: does this company look like what it promised me?" },
+    { mermaid: `flowchart TD
+    PROMISE["Brand promise"]:::gov --> VISUAL["Visual identity"]:::gov --> SITE2["Website experience"]:::tech --> CONF["Customer confidence"]:::sot
+${DIAGRAM_CLASSES}`, caption: "If any layer drifts, trust erodes — quietly, and without the customer ever knowing why." },
+
+    { h: "When the UI works against the brand" },
+    { p: "The most common mistakes aren't design mistakes. They're translation mistakes: a calm identity paired with a website full of motion, a premium brand paired with components that feel cheap, an engineering firm with a website that reads like a clothing store. Every decision is defensible alone — the combination sends a different message." },
+    { table: [
+      ["What the customer sees", "What the team assumes"],
+      ["The company feels inconsistent", "Just a minor difference"],
+      ["The experience feels uncomfortable", "Design refinements"],
+      ["The website doesn't feel like the brand", "Just one page"],
+    ] },
+
+    { h: "From Figma to a brand system" },
+    { p: "Figma is a tool, not a starting point. Before the first frame exists, these need clear answers: What does the brand look like? How does it speak? How does it move? How does it guide the user? What should the customer feel after the first minute? Leave these unresolved, and every screen becomes a fresh improvisation." },
+
+    { h: "The system that prevents chaos" },
+    { p: "A website that scales doesn't depend on the designer's skill. It depends on the system it's built through." },
+    { table: [
+      ["System layer", "What it governs"],
+      ["Design tokens", "Color and spacing"],
+      ["Typography system", "Visual hierarchy"],
+      ["Components", "Reuse"],
+      ["Interaction rules", "Motion and response"],
+      ["Content rules", "Writing style"],
+    ] },
+    { p: "The more it's documented, the less is improvised — and the more consistent it stays." },
+
+    { h: "The execution checklist" },
+    { ol: [
+      "Can the brand's personality be read within the first five seconds?",
+      "Does the motion reflect the same personality as the identity?",
+      "Can a new page be added without inventing a new style?",
+      "Is there a real design system, or just a UI kit?",
+      "Can a new designer work without reinterpreting the brand?",
+    ] },
+    { q: "A website isn't a set of pages, the same way an identity isn't a logo. Both are systems. But the difference is this: identity describes the character. The website is where the customer experiences that character for the first time." },
+  ],
+
+  /* ------------------------------------------------------------------ */
+  /* W-014 — THE $50 LOGO                                                 */
+  /* ------------------------------------------------------------------ */
+  "the-50-dollar-logo": [
+    { p: "A logo is spent once. Its cost doesn't stop there — it compounds through rework, inconsistency, and trust lost one touchpoint at a time. The client sees a price. The designer sees a system. What costs fifty dollars is never the mark itself — it's the absence of everything the mark could have become." },
+    { stats: [
+      { value: "4", label: "Hidden cost tiers" },
+      { value: "400", label: "Days until the bill arrives" },
+      { value: "5–10×", label: "Rework cost vs. original price" },
+      { value: "3", label: "Touchpoints where it breaks first" },
+    ] },
+
+    { h: "The four-tier hidden invoice" },
+    { p: "Every cheap logo carries a deferred cost structure — a chain of debts that stay invisible until the business outgrows the canvas it was designed for." },
+    { mermaid: `flowchart LR
+    REWORK["Rework"]:::risk --> INCON["Inconsistency"]:::risk --> TRUST["Trust loss"]:::risk --> DRAG["Decision drag"]:::risk
+${DIAGRAM_CLASSES}`, caption: "The system doesn't fail all at once — it degrades one touchpoint at a time, and each failure looks like an isolated problem instead of the same root cause repeating." },
+    { table: [
+      ["Tier", "What breaks", "Business impact"],
+      ["Rework", "File fails at scale, packaging, single-color print", "Redesign cost, 5–10× the original spend"],
+      ["Inconsistency", "No documented rules for color, type, spacing", "Brand fragments across every new hire"],
+      ["Trust loss", "Visual instability read as unreliability", "Conversion drop customers can't articulate"],
+      ["Decision drag", "No reference point for new choices", "Every small decision becomes a meeting"],
+    ] },
+
+    { h: "The balance-sheet case — branding as a financial asset" },
+    { p: "A logo is spent once. A brand system is amortized — it keeps paying down decision cost for every year it's used correctly." },
+    { table: [
+      ["Financial vector", "Cheap logo", "Brand system"],
+      ["Initial cost", "Low", "Moderate"],
+      ["Cost at month 12", "Redesign + lost time", "Zero — already scales"],
+      ["Decision cost per new asset", "High (guesswork every time)", "Near-zero (rules exist)"],
+      ["Trust compounding", "Erodes with each inconsistency", "Builds with each consistent touchpoint"],
+    ] },
+    { p: "The founder who treats identity as a one-time expense pays for it every time the business touches a new surface. The founder who treats it as infrastructure pays once and reuses the answer indefinitely." },
+
+    { h: "The rework cycle — how the cost multiplies" },
+    { p: "Identity failure follows a repeatable loop, and it compounds the longer it's ignored." },
+    { mermaid: `flowchart TD
+    BREAK["Logo breaks<br/>at scale"]:::risk --> REQ["Redesign request"]:::risk
+    REQ --> NODOC["No documented<br/>system to reference"]:::risk
+    NODOC --> REBUILD["Full rebuild instead<br/>of extension"]:::risk
+    REBUILD --> COST["Higher cost than<br/>original project"]:::sot
+${DIAGRAM_CLASSES}`, caption: "Without a system, every new context is treated as a new problem. With one, every new context is treated as an application of an existing answer." },
+    { table: [
+      ["Stage", "Without a system", "With a system"],
+      ["New use case appears", "Logo redesigned from scratch", "Existing rules extended"],
+      ["New designer joins", "Guesses at brand intent", "References documented system"],
+      ["Scale event (packaging, signage)", "Fails, requires rebuild", "Applies pre-solved rules"],
+    ] },
+
+    { h: "The trust layer — why customers feel it before they say it" },
+    { p: "Brand trust isn't rational before it's emotional. Customers register inconsistency as a pattern, not as a design critique." },
+    { table: [
+      ["Signal", "Customer reads as", "Founder sees as"],
+      ["Different logo colors across platforms", "\"Something's off\"", "\"Small detail, doesn't matter\""],
+      ["Type changing personality post to post", "Instability", "Time-saving flexibility"],
+      ["Packaging that looks unrelated to the website", "Lower quality perception", "Unrelated departments, no big deal"],
+    ] },
+    { p: "The founder sees isolated small choices. The customer sees one continuous impression. That gap is where trust — and revenue — quietly leaks." },
+
+    { h: "The Brand OS — institutionalizing the identity" },
+    { p: "A system only pays off once it's documented well enough that it runs without the founder in the room." },
+    { table: [
+      ["System layer", "What it defines", "Who it protects against"],
+      ["Color logic", "Primary, secondary, usage rules", "Ad-hoc palette drift"],
+      ["Type hierarchy", "Headline, body, sizing scale", "Inconsistent visual weight"],
+      ["Spacing & grid", "Layout rules across formats", "Cramped or inconsistent compositions"],
+      ["Do's & don'ts", "Explicit right/wrong examples", "Repeating past mistakes"],
+    ] },
+    { p: "Guidelines that only exist in someone's head disappear the moment that person is unavailable. Guidelines that exist on paper outlive any single hire." },
+
+    { h: "Measuring the ROI — from asset to infrastructure" },
+    { p: "The return on a real brand system doesn't show up as a single number — it shows up as reduced friction across every future design decision." },
+    { mermaid: `flowchart LR
+    REWORKRATE["Lower rework rate"]:::tech --> SPEED["Faster asset production"]:::tech
+    SPEED --> PERCEPTION["Consistent customer perception"]:::gov
+    PERCEPTION --> TRUST2["Compounding trust"]:::sot
+${DIAGRAM_CLASSES}`, caption: "The cheapest way to measure it: count how many meetings it takes to approve a new social post today. A real system should make that answer close to zero." },
+
+    { h: "The execution checklist" },
+    { ol: [
+      "Documented color system — not just hex codes, but usage rules.",
+      "Typography hierarchy tested across at least 3 real-world formats.",
+      "Logo tested at minimum size and in single color before approval.",
+      "Written do's & don'ts — not just visual examples.",
+      "A system a new hire could apply without asking you first.",
+    ] },
+    { q: "A logo is a picture. A brand system is a decision-making tool — and that's what competitors can't copy." },
+  ],
+
+  /* ------------------------------------------------------------------ */
   /* W-006 — THE BUSINESS OPERATING SYSTEM                               */
   /* ------------------------------------------------------------------ */
   "business-operating-system": [

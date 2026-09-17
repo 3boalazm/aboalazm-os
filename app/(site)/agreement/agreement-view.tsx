@@ -4,6 +4,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import type { Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, CtaBand, pick } from "@/features/offers/offer-blocks";
 import { Heading } from "@/components/ui/Heading";
+import { PanelCard } from "@/components/ui/PanelCard";
 
 const PHASES: readonly { n: string; days: Bi; name: Bi; body: Bi; out: Bi }[] = [
   { n: "01", days: ["PRE-DAY 1", "قبل اليوم ١"], name: ["Discovery Call", "مكالمة الاكتشاف"], body: ["A short call to understand the project and confirm we're fit — before any financial commitment.", "مكالمة قصيرة لفهم المشروع والتأكد من التوافق — قبل أي التزام مالي."], out: ["FIT CONFIRMED", "تأكيد التوافق"] },
@@ -82,14 +83,14 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
         </p>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {QUESTIONS.map((g) => (
-            <div key={g.head[0]} className="rounded-card border border-border-subtle bg-surface-1 p-3">
+            <PanelCard key={g.head[0]} className="rounded-card p-3">
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{pick(g.head, lang)}</p>
               <ul className="mt-1 flex flex-col gap-1">
                 {g.items.map((q) => (
                   <li key={q[0]} className="text-body-sm text-text-secondary">— {pick(q, lang)}</li>
                 ))}
               </ul>
-            </div>
+            </PanelCard>
           ))}
         </div>
       </section>

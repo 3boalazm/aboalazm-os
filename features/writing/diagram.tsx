@@ -294,7 +294,7 @@ export function NativeDiagram({ parsed }: { parsed: ParsedDiagram }): ReactNode 
         const to = parsed.nodes.get(loop.to);
         return (
           <div key={i} className="relative mx-auto mt-5 w-4/5 border-2 border-t-0 border-dashed border-text-ghost pb-4 pt-1">
-            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap bg-surface-1 px-2 font-mono text-[11px] uppercase tracking-wider text-text-tertiary">
+            <div className="absolute -bottom-2.5 left-1/2 max-w-[92%] -translate-x-1/2 text-center [overflow-wrap:anywhere] bg-surface-1 px-2 font-mono text-[11px] uppercase tracking-wider text-text-tertiary">
               ⟲ {loop.label ?? "feedback"} · {from?.title} → {to?.title}
             </div>
           </div>

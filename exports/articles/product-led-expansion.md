@@ -13,6 +13,11 @@ publishedAt: 2026-07-10
 
 Scaling is not doing more things. It's doing the right things with more precision — and letting the product itself carry acquisition, expansion, and retention. That shift has an organizational price: product management moves to the executive table (70% of Fortune 100 companies are expected to have a CPO by 2027), and UX stops being a cost line and becomes a revenue variable.
 
+- **69.8%** — Average online cart abandonment
+- **32%** — Faster revenue growth — top design quartile
+- **$100** — Returned for every $1 invested in UX
+- **70%** — Of Fortune 100 with a CPO by 2027
+
 ## The product operating model — MVP focus vs. enterprise focus
 
 | Aspect | MVP stage | Enterprise stage |

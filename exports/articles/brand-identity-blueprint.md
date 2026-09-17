@@ -13,6 +13,11 @@ publishedAt: 2026-08-07
 
 Brand identity is not the aesthetic layer of a business. It's the structural scaffolding that aligns organizational culture, product engineering, and market communication — a deliberate configuration of internal values and external expressions. This blueprint maps the whole stack: what it's made of, what it's financially worth, how it drives growth, and how world-class companies operate it.
 
+- **4** — Tiers in the identity stack
+- **1:5** — CAC:LTV ratio of branded market leaders
+- **3–10×** — M&A goodwill multiplier for strong brands
+- **3** — Architecture models for the portfolio
+
 ## The four-tier architecture
 
 Every durable identity is a hierarchy with one source of truth at the top. Change flows downward only — a touchpoint never redefines the purpose:

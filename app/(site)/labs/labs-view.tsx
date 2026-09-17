@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { SectionHead, CtaBand, pick } from "@/features/offers/offer-blocks";
 import { Heading } from "@/components/ui/Heading";
+import { PanelCard } from "@/components/ui/PanelCard";
 import { TypeScaleTool, ContrastCheckerTool, BilingualToggleTool } from "@/features/labs-tools";
 import {
   RESEARCH_AREAS,
@@ -87,9 +88,11 @@ export function LabsView() {
         />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
           {RESEARCH_AREAS.map((area) => (
-            <article
+            <PanelCard
               key={area.n}
-              className="flex flex-col rounded-panel border border-border-subtle bg-surface-1 p-4 transition-colors duration-base ease-physics hover:border-border-strong md:p-5"
+              as="article"
+              interactive
+              className="flex flex-col rounded-panel p-4 md:p-5"
             >
               <div className="flex items-baseline justify-between">
                 <span className="font-mono text-micro text-text-ghost">{area.n}</span>
@@ -114,7 +117,7 @@ export function LabsView() {
                 </span>
                 {pick(area.question, lang)}
               </p>
-            </article>
+            </PanelCard>
           ))}
         </div>
       </section>

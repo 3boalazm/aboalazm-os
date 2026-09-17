@@ -13,6 +13,11 @@ publishedAt: 2026-07-31
 
 Brand value stopped being a soft metric a long time ago. It is pricing power, acquisition efficiency, and shareholder return wearing a logo. The most valuable brands on earth — Apple, Nike, Coca-Cola, Airbnb — don't treat branding as a design exercise; they run it as an operating system. What follows is the anatomy of how, case by case.
 
+- **20–30%** — Apple's price premium over commodity rivals
+- **52%** — Higher LTV — emotionally connected customers
+- **90%** — Airbnb traffic, direct + organic
+- **$6M** — Yearly cost of brand inconsistency
+
 ## The tech giants — precision as a system
 
 Apple is the reference case for analytical leadership: design measured with the same rigor as revenue, owned at C-suite level. The mechanism is the halo effect — perceived visual quality bleeding into perceived functional quality — and the payoff is a 20–30% price premium over commodity rivals, paid by customers who negotiate less. Stripe runs the same discipline through engineering: brand as soft infrastructure, one source of truth, and a Definition-of-Ready handoff that cuts design-to-development time by half so the brand feel never dies in translation to code. Linear's cult following is the discipline of restraint — a governing axiom, shared decision logic, and the confidence to say no to almost everything.

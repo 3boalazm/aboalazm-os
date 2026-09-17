@@ -21,6 +21,7 @@ import { physics, physicsSlow, reveal } from "@/lib/motion";
 import { GateStepper } from "@/features/process";
 import { AnchorNav } from "@/features/navigation";
 import { buttonVariants } from "@/components/ui/Button";
+import { panelCardVariants } from "@/components/ui/PanelCard";
 
 /* ─── types ───────────────────────────────────────────────────── */
 type Phase = {
@@ -511,7 +512,7 @@ export function ProcessView() {
             {principles.map(([title, body], i) => (
               <motion.div
                 key={title}
-                className="flex gap-3 rounded-panel border border-border-subtle bg-surface-1 p-4"
+                className={panelCardVariants({ className: "flex gap-3 rounded-panel p-4" })}
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}

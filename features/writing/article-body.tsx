@@ -28,14 +28,14 @@ function DataTable({ markdown }: { markdown: string }) {
   const [header, ...body] = rows;
 
   return (
-    <div className="my-10 overflow-x-auto">
-      <table className="w-full border-collapse text-body-sm">
+    <div className="my-10 max-w-full overflow-x-auto">
+      <table className="w-full min-w-[32rem] border-collapse text-body-sm">
         <thead>
           <tr className="border-y border-text-primary">
             {header!.map((cell, i) => (
               <th
                 key={i}
-                className="py-3 pe-6 text-start font-mono text-micro font-medium uppercase tracking-[0.14em] text-text-tertiary"
+                className="py-3 pe-6 text-start font-mono text-micro font-medium uppercase tracking-[0.14em] text-text-tertiary [overflow-wrap:anywhere]"
               >
                 {cell}
               </th>
@@ -51,7 +51,7 @@ function DataTable({ markdown }: { markdown: string }) {
               {cells.map((cell, c) => (
                 <td
                   key={c}
-                  className={`py-4 pe-6 align-top leading-relaxed ${
+                  className={`py-4 pe-6 align-top leading-relaxed [overflow-wrap:anywhere] ${
                     c === 0 ? "font-medium text-text-primary" : "text-text-secondary"
                   }`}
                 >

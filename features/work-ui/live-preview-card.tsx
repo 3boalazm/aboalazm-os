@@ -1,6 +1,7 @@
 "use client";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
 import type { Project } from "@/features/work/types";
+import { MediaCard } from "@/components/ui/MediaCard";
 
 /**
  * LIVE PREVIEW CARD — a real, currently-live site rendered at its actual
@@ -31,13 +32,15 @@ export function LivePreviewCard({ project }: { project: Project }) {
   }
 
   return (
-    <a
+    <MediaCard
+      as="a"
       href={url}
       target="_blank"
       rel="noopener noreferrer"
       onPointerEnter={() => engage(project.accent, 0.6)}
       onPointerLeave={release}
-      className="group block overflow-hidden rounded-card border border-border-subtle bg-surface-0 transition-colors duration-base ease-physics hover:border-border-strong"
+      surface="surface-0"
+      className="block transition-colors duration-base ease-physics hover:border-border-strong"
     >
       {/* Fake browser chrome */}
       <div className="flex items-center gap-1.5 border-b border-border-subtle bg-surface-1 px-2 py-1.5">
@@ -78,6 +81,6 @@ export function LivePreviewCard({ project }: { project: Project }) {
           {project.discipline}
         </span>
       </div>
-    </a>
+    </MediaCard>
   );
 }

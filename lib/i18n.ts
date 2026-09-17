@@ -57,6 +57,9 @@ export const UI = {
     writingTitle:       "Notes from the system.",
     writingLead:        "Working documents on identity, tokens, and the craft of bilingual design — written from projects, not about them.",
     writingFooter:      "PUBLISHED IRREGULARLY · WRITTEN CAREFULLY",
+    writingAllTopics:   "All",
+    writingSortNewest:  "Newest",
+    writingSortOldest:  "Oldest",
     /* ── Capabilities ── */
     capabilitiesSection:"CAPABILITIES // SYSTEMS",
     capabilitiesTitle:  "Hold the tokens. Watch the system hold.",
@@ -191,6 +194,9 @@ export const UI = {
     writingTitle:       "ملاحظات من النظام.",
     writingLead:        "وثائق عمل عن الهوية والتوكنز وحرفة التصميم ثنائي اللغة — مكتوبة من المشاريع، لا عنها.",
     writingFooter:      "تُنشر بشكل غير منتظم · تُكتب بعناية",
+    writingAllTopics:   "الكل",
+    writingSortNewest:  "الأحدث",
+    writingSortOldest:  "الأقدم",
     /* ── Capabilities ── */
     capabilitiesSection:"القدرات // الأنظمة",
     capabilitiesTitle:  "أمسك التوكنز. شوف النظام يتماسك.",
