@@ -1,11 +1,12 @@
 "use client";
 
 /**
- * PDF EXPORT — exact A4 from the fixed sheets.
- * html2canvas rasterizes each .fol-sheet at scale 2 (~192dpi) → JPEG →
- * jsPDF A4 pages in order. Vendor libs lazy-load from /portfolio-vendor/*
- * on first export; all sheet images are same-origin (/images/work/*) so
- * the canvas is never tainted. Fonts are awaited before capture.
+ * PDF EXPORT — exact 16:9 from the fixed slides.
+ * html2canvas rasterizes each .fol-sheet at scale 2 (3200×1800) → JPEG →
+ * jsPDF custom 16:9 pages (297×167mm) in order. Vendor libs lazy-load from
+ * /portfolio-vendor/* on first export; all slide images are same-origin
+ * (/images/work/*) so the canvas is never tainted. Fonts are awaited
+ * before capture.
  */
 
 import { useCallback, useRef, useState } from "react";
@@ -22,9 +23,15 @@ declare global {
 interface PdfDoc {
   setProperties(props: Record<string, string>): void;
   addImage(data: string, fmt: string, x: number, y: number, w: number, h: number, alias?: unknown, compression?: string): void;
-  addPage(format: string, orientation: string): void;
+  addPage(format: number[], orientation: string): void;
   save(name: string): void;
 }
+
+const SHEET_W = 1600;
+const SHEET_H = 900;
+/** 16:9 page, fits the classic 297mm presentation width */
+const PAGE_W = 297;
+const PAGE_H = 167.06;
 
 function loadScript(src: string): Promise<void> {
   return new Promise((res, rej) => {
@@ -82,13 +89,13 @@ export function usePdfExport(containerRef: React.RefObject<HTMLDivElement | null
       const sheets = container ? Array.from(container.querySelectorAll<HTMLElement>(".fol-sheet")) : [];
       if (sheets.length === 0) throw new Error("no sheets found");
 
-      const pdf = new jsPDFCtor({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
+      const pdf = new jsPDFCtor({ unit: "mm", format: [PAGE_W, PAGE_H], orientation: "landscape", compress: true });
       pdf.setProperties({
         title: "Mustafa Aboalazm — Portfolio 2026",
-        subject: "Systemic Identity Architect — Brand Identity, Design Systems & Web",
+        subject: "Systemic Identity Architect — Selected Works 16:9 presentation deck",
         author: "Mustafa Aboalazm",
         keywords: "portfolio, brand identity, design systems, bilingual, Aboalazm, Code & Canvas",
-        creator: "Aboalazm OS — Portfolio Edition",
+        creator: "Aboalazm OS — Portfolio Deck",
       });
 
       const prevZoom = container?.style.zoom ?? "";
@@ -100,7 +107,7 @@ export function usePdfExport(containerRef: React.RefObject<HTMLDivElement | null
           setState("idle");
           return;
         }
-        setLabel(`PAGE ${i + 1}/${sheets.length}`);
+        setLabel(`SLIDE ${i + 1}/${sheets.length}`);
         setProgress(Math.round(((i + 1) / sheets.length) * 92));
         const sheet = sheets[i];
         if (!sheet) continue;
@@ -109,19 +116,19 @@ export function usePdfExport(containerRef: React.RefObject<HTMLDivElement | null
           scale: 2,
           useCORS: false,
           allowTaint: false,
-          backgroundColor: "#080710",
+          backgroundColor: "#f4efe4",
           logging: false,
-          width: 794,
-          height: 1123,
-          windowWidth: 794,
-          windowHeight: 1123,
+          width: SHEET_W,
+          height: SHEET_H,
+          windowWidth: SHEET_W,
+          windowHeight: SHEET_H,
           scrollX: 0,
           scrollY: 0,
         });
 
         const img = canvas.toDataURL("image/jpeg", 0.92);
-        if (i > 0) pdf.addPage("a4", "portrait");
-        pdf.addImage(img, "JPEG", 0, 0, 210, 297, undefined, "FAST");
+        if (i > 0) pdf.addPage([PAGE_W, PAGE_H], "landscape");
+        pdf.addImage(img, "JPEG", 0, 0, PAGE_W, PAGE_H, undefined, "FAST");
         canvas.width = 0;
         canvas.height = 0;
         await new Promise((r) => setTimeout(r, 10));

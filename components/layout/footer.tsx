@@ -45,7 +45,7 @@ const COLUMNS = [
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
       ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
       ["GitHub ↗", "جيت هب ↗", "https://github.com/3boalazm"],
-      ["PDF Edition · A4", "نسخة PDF · A4", "/portfolio"],
+      ["Slide Deck · 16:9", "عرض تقديمي · 16:9", "/portfolio"],
     ],
   },
 ] as const;

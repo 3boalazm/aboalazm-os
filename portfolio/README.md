@@ -1,4 +1,9 @@
-# MUSTAFA ABOALAZM — PORTFOLIO 2026 · بورتفوليو 2026
+# ⚠️ ARCHIVED — THIS FOLDER IS THE OLD A4 EDITION (kept offline-only)
+> The live portfolio moved to a **landscape 16:9 slide deck** at `/portfolio`
+> (see `features/portfolio/`). This standalone A4 folder is no longer synced —
+> kept only as an offline archive.
+
+# MUSTAFA ABOALAZM — PORTFOLIO 2026 · بورتفوليو 2026 (ARCHIVE)
 
 **Fixed A4 bilingual portfolio — 29 pages, dark editorial (Behance-grade), exports to a pixel-perfect PDF.**
 **بورتفوليو ثابت مقاس A4 — ٢٩ صفحة، ستايل إيديتوريال دارك، وبيتصدر PDF ظبط بظبط.**

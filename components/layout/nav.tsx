@@ -29,7 +29,7 @@ const LINKS = [
 ] as const;
 
 /* Secondary set — mobile panel + footer carry these.
-   PORTFOLIO PDF is pinned LAST on purpose: the fixed A4 edition is the
+   PORTFOLIO PDF is pinned LAST on purpose: the 16:9 slide deck is the
    "take me with you" exit at the very end of the menu. */
 const MORE = [
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
