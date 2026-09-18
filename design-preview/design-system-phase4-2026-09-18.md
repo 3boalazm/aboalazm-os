@@ -255,11 +255,6 @@ agreement,contact,portfolio}/*    type tokens + icon migrations
 
 Reverting is one `git revert`. The DB schema, routes, data models, and every
 component API are untouched.
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/arena/01a0b5cf-aboalazm-os
 
 ---
 
@@ -286,7 +281,3 @@ so both read as family with the orange on either canvas, never as foreign hues.
 Semantic tokens (`-dim`/`-border`/`-text`, both themes) unchanged — they already
 picked the theme-correct steps. JS mirror gained `COLOR.liveRamp` /
 `COLOR.proofRamp` per the both-places contract.
-<<<<<<< HEAD
->>>>>>> arena/01a0b5cf-aboalazm-os
-=======
->>>>>>> origin/arena/01a0b5cf-aboalazm-os
