@@ -324,11 +324,14 @@ html[data-theme="light"] {
         Alabaster, so light mode defers to the deeper 500/600 end. */
 :root {
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* ── primitives — role ramps. Three steps per hue is the whole story:
        300 = type-safe tint on Obsidian · 400/500 = the role itself
        700 = type-safe step on Alabaster (assigned in the light block).
      Values track Tailwind's ramps so nobody invents a fifth hue. ── */
 =======
+=======
+>>>>>>> origin/arena/01a0b5cf-aboalazm-os
   /* ── primitives — role ramps, tuned to sit with the coral-orange anchor.
      Cyan is the ORANGE COMPLEMENT (~190°), lime is its warm neighbour
      (~80°), so both read as family with #FF6B47 rather than as foreign
@@ -346,11 +349,15 @@ html[data-theme="light"] {
      Values track Tailwind's ramps so nobody invents a fifth hue, and the
      300/400/700 anchors stay byte-identical to the audited 2026-09-18
      values (live surfaces keep their exact colour). ── */
+<<<<<<< HEAD
 >>>>>>> arena/01a0b5cf-aboalazm-os
+=======
+>>>>>>> origin/arena/01a0b5cf-aboalazm-os
   --color-violet-300: #C4B5FD;
   --color-violet-400: #A78BFA;
   --color-violet-500: #8B5CF6;
   --color-violet-700: #6D28D9;
+<<<<<<< HEAD
 <<<<<<< HEAD
   --color-cyan-300:   #67E8F9;
   --color-cyan-400:   #22D3EE;
@@ -359,6 +366,8 @@ html[data-theme="light"] {
   --color-lime-400:   #A3E635;
   --color-lime-700:   #4D7C0F;
 =======
+=======
+>>>>>>> origin/arena/01a0b5cf-aboalazm-os
 
   /* CYAN — the "live" role. Full ramp, complement of the orange anchor. */
   --color-cyan-100:   #CFFAFE;
@@ -379,7 +388,10 @@ html[data-theme="light"] {
   --color-lime-600:   #65A30D;  /* pressed / emphasis                      */
   --color-lime-700:   #4D7C0F;  /* light-mode text (anchor, unchanged)     */
   --color-lime-800:   #3F6212;  /* deep edge on light                      */
+<<<<<<< HEAD
 >>>>>>> arena/01a0b5cf-aboalazm-os
+=======
+>>>>>>> origin/arena/01a0b5cf-aboalazm-os
 
   /* ── semantic creative roles ── */
   --color-creative: var(--color-violet-500);

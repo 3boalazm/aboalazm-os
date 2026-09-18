@@ -8,20 +8,38 @@ import type { CollectionConfig } from "payload";
 export const TeamMembers: CollectionConfig = {
   slug: "team-members",
   admin: {
+    group: "People",
     useAsTitle: "name",
+    description: "Humans behind the studio — order on the page follows the order field.",
     defaultColumns: ["name", "role", "order"],
+    listSearchableFields: ["name"],
   },
   access: {
     read: () => true,
   },
   fields: [
-    { name: "name", type: "text", required: true },
-    { name: "nameAr", type: "text" },
-    { name: "role", type: "text", required: true },
-    { name: "roleAr", type: "text" },
+    {
+      type: "row",
+      fields: [
+        { name: "name", type: "text", required: true, admin: { width: "50%" } },
+        { name: "nameAr", type: "text", admin: { width: "50%" } },
+      ],
+    },
+    {
+      type: "row",
+      fields: [
+        { name: "role", type: "text", required: true, admin: { width: "50%" } },
+        { name: "roleAr", type: "text", admin: { width: "50%" } },
+      ],
+    },
     { name: "photo", type: "upload", relationTo: "media" },
-    { name: "bio", type: "textarea" },
-    { name: "bioAr", type: "textarea" },
+    {
+      type: "row",
+      fields: [
+        { name: "bio", type: "textarea", admin: { width: "50%" } },
+        { name: "bioAr", type: "textarea", admin: { width: "50%" } },
+      ],
+    },
     {
       name: "order",
       type: "number",

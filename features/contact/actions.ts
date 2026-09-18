@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { getPayload } from "@/lib/payload";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { sendContactNotification } from "@/lib/email";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Budget = (typeof BUDGET_BANDS)[number];
@@ -36,5 +37,15 @@ export async function submitContact(data: ContactSubmission): Promise<{ ok: bool
       budget,
     },
   });
+
+  /* Notify the studio inbox. The record is already safely stored, so an
+     email failure only logs — the client still sees "sent", and nothing
+     is lost (worst case: read it from the dashboard). */
+  try {
+    await sendContactNotification({ ...data, budget });
+  } catch (err) {
+    console.error("[contact] email notification failed:", err);
+  }
+
   return { ok: true };
 }

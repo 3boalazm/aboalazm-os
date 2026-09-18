@@ -88,7 +88,10 @@ export const COLOR = {
   },
   /**
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/arena/01a0b5cf-aboalazm-os
    * Full role ramps (mirrors --color-cyan-* / --color-lime-* in
    * globals.css). Tuned to sit with the coral-orange anchor: cyan is its
    * complement, lime its warm neighbour. Dark mode reads from 300/400;
@@ -115,7 +118,10 @@ export const COLOR = {
     800: "#3F6212", // deep edge on light
   },
   /**
+<<<<<<< HEAD
 >>>>>>> arena/01a0b5cf-aboalazm-os
+=======
+>>>>>>> origin/arena/01a0b5cf-aboalazm-os
    * Functional states (dark-canvas values). Light mode reassigns these
    * in CSS; JS consumers drawing on Alabaster should read the computed
    * custom property instead of these constants.

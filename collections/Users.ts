@@ -21,7 +21,9 @@ export const Users: CollectionConfig = {
   slug: "users",
   auth: true,
   admin: {
+    group: "System",
     useAsTitle: "email",
+    description: "Editor logins. Registration is closed — create accounts here.",
   },
   access: {
     create: ({ req }) => Boolean(req.user),

@@ -13,8 +13,11 @@ import { authenticatedOrPublished } from "@/lib/access";
 export const Projects: CollectionConfig = {
   slug: "projects",
   admin: {
+    group: "Portfolio",
     useAsTitle: "name",
+    description: "Work ledger entries. EN/AR pairs and links live in tabs; flags live in the sidebar.",
     defaultColumns: ["name", "category", "discipline", "year", "hasCaseStudy"],
+    listSearchableFields: ["name", "nameAr"],
   },
   versions: {
     drafts: true,
@@ -26,6 +29,9 @@ export const Projects: CollectionConfig = {
     afterChange: [revalidateCollection(["/work", "/", "/sitemap.xml"])],
     afterDelete: [revalidateOnDelete(["/work", "/", "/sitemap.xml"])],
   },
+  /* UNNAMED TABS — pure layout: field paths stay flat, so this changes
+     nothing in the database or the frontend. The old single-scroll edit
+     view stacked 15 fields into one wall; now they sit in three rooms. */
   fields: [
     {
       name: "slug",
@@ -33,15 +39,6 @@ export const Projects: CollectionConfig = {
       required: true,
       unique: true,
       admin: { position: "sidebar" },
-    },
-    {
-      name: "name",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "nameAr",
-      type: "text",
     },
     {
       name: "category",
@@ -70,31 +67,10 @@ export const Projects: CollectionConfig = {
       },
     },
     {
-      name: "stack",
-      type: "text",
-      hasMany: true,
-      admin: { description: "Rendered as Geist Mono micro-pills." },
-    },
-    {
-      name: "outcome",
-      type: "textarea",
-      required: true,
-    },
-    {
-      name: "outcomeAr",
-      type: "textarea",
-    },
-    {
       name: "year",
       type: "text",
       required: true,
       admin: { position: "sidebar" },
-    },
-    {
-      name: "thumbnail",
-      type: "upload",
-      relationTo: "media",
-      required: true,
     },
     {
       name: "hasCaseStudy",
@@ -106,23 +82,6 @@ export const Projects: CollectionConfig = {
       },
     },
     {
-      name: "externalUrl",
-      type: "text",
-      admin: {
-        condition: (data) => !data?.hasCaseStudy,
-        description: "Live site / repo / Behance link — used when there's no case study.",
-      },
-    },
-    {
-      name: "accent",
-      type: "group",
-      admin: { description: "Ambient glow pair (rgb(...) / alpha 0.10–0.22)." },
-      fields: [
-        { name: "primary", type: "text", required: true },
-        { name: "secondary", type: "text", required: true },
-      ],
-    },
-    {
       name: "isUiUx",
       label: "Show on UI/UX Showcase",
       type: "checkbox",
@@ -132,14 +91,90 @@ export const Projects: CollectionConfig = {
         description: "Tags this project for the dedicated /work-ui page.",
       },
     },
+
     {
-      name: "liveUrl",
-      label: "Live Preview URL",
-      type: "text",
-      admin: {
-        condition: (data) => Boolean(data?.isUiUx),
-        description: "The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.",
-      },
+      type: "tabs",
+      tabs: [
+        {
+          label: "Identity & Story",
+          description: "Names (EN/AR side by side), stack pills, and the one-line outcome.",
+          fields: [
+            {
+              type: "row",
+              fields: [
+                { name: "name", type: "text", required: true, admin: { width: "50%" } },
+                { name: "nameAr", type: "text", admin: { width: "50%" } },
+              ],
+            },
+            {
+              name: "stack",
+              type: "text",
+              hasMany: true,
+              admin: { description: "Rendered as Geist Mono micro-pills." },
+            },
+            {
+              type: "row",
+              fields: [
+                {
+                  name: "outcome",
+                  type: "textarea",
+                  required: true,
+                  admin: { width: "50%" },
+                },
+                {
+                  name: "outcomeAr",
+                  type: "textarea",
+                  admin: { width: "50%" },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Visuals & Glow",
+          description: "Thumbnail and the ambient-glow accent pair.",
+          fields: [
+            {
+              name: "thumbnail",
+              type: "upload",
+              relationTo: "media",
+              required: true,
+            },
+            {
+              name: "accent",
+              type: "group",
+              admin: { description: "Ambient glow pair (rgb(...) / alpha 0.10–0.22)." },
+              fields: [
+                { name: "primary", type: "text", required: true },
+                { name: "secondary", type: "text", required: true },
+              ],
+            },
+          ],
+        },
+        {
+          label: "Links",
+          description: "Destinations — shown conditionally by the sidebar flags.",
+          fields: [
+            {
+              name: "externalUrl",
+              type: "text",
+              admin: {
+                condition: (data) => !data?.hasCaseStudy,
+                description: "Live site / repo / Behance link — used when there's no case study.",
+              },
+            },
+            {
+              name: "liveUrl",
+              label: "Live Preview URL",
+              type: "text",
+              admin: {
+                condition: (data) => Boolean(data?.isUiUx),
+                description: "The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.",
+              },
+            },
+          ],
+        },
+      ],
     },
   ],
 };

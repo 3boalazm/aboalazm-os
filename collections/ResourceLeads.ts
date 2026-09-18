@@ -8,8 +8,11 @@ import type { CollectionConfig } from "payload";
 export const ResourceLeads: CollectionConfig = {
   slug: "resource-leads",
   admin: {
+    group: "Inbox",
     useAsTitle: "email",
+    description: "Emails captured at the /resources download gate — newest first.",
     defaultColumns: ["email", "resource", "source", "createdAt"],
+    listSearchableFields: ["email", "resource"],
   },
   access: {
     // Public site can create a lead (the gate itself), but only the

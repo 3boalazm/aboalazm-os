@@ -10,8 +10,11 @@ import { authenticatedOrPublished } from "@/lib/access";
 export const Posts: CollectionConfig = {
   slug: "posts",
   admin: {
+    group: "Writing",
     useAsTitle: "title",
+    description: "Notes & essays. One language per post — write the other one as a separate post.",
     defaultColumns: ["title", "index", "lang", "publishedAt", "_status"],
+    listSearchableFields: ["title", "slug"],
   },
   versions: {
     drafts: true,
