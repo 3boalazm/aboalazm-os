@@ -18,6 +18,7 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useTheme } from "@/components/providers/theme-provider";
 import { buttonVariants } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 
 const LINKS = [
   { href: "/about",     en: "ABOUT",     ar: "نبذة"      },
@@ -107,7 +108,7 @@ export function Nav() {
             />
           </motion.span>
           <span
-            className="hidden font-display text-[1.1rem] leading-none tracking-[-0.02em] text-text-primary sm:block"
+            className="hidden font-display text-subtitle leading-none tracking-[-0.02em] text-text-primary sm:block"
             aria-hidden
           >
             M<span className="text-accent">A</span>
@@ -124,7 +125,7 @@ export function Nav() {
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "group relative block px-2 py-1 font-display text-[0.65rem] uppercase tracking-[0.08em]",
+                    "group relative block px-2 py-1 font-display text-caption uppercase tracking-[0.08em]",
                     "transition-colors duration-base ease-physics",
                     active
                       ? "text-text-primary"
@@ -167,24 +168,24 @@ export function Nav() {
           type="button"
           onClick={toggleTheme}
           aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          className="rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+          className="grid size-7 place-items-center rounded-pill border border-border-subtle font-mono text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
         >
-          {theme === "dark" ? "☀" : "☾"}
+          <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
         </button>
 
         <Link
           href="/contact"
           className={buttonVariants({
             className:
-              "group whitespace-nowrap px-2 py-1 font-display text-[0.65rem] tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
+              "group whitespace-nowrap px-2 py-1 font-display text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
           {lang === "ar" ? "تواصل" : "CONTACT"}
           <span
             aria-hidden
-            className="ml-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 sm:inline-block"
+            className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"
           >
-            →
+            <Icon name="arrow-right" />
           </span>
         </Link>
 
@@ -195,9 +196,9 @@ export function Nav() {
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
-          className="rounded-pill px-2 py-1 font-mono text-label text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary md:hidden"
+          className="grid size-8 place-items-center rounded-pill font-mono text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary md:hidden"
         >
-          {open ? "✕" : "☰"}
+          <Icon name={open ? "x" : "menu"} size={16} />
         </button>
       </div>
 
@@ -225,14 +226,25 @@ export function Nav() {
                     href={link.href}
                     aria-current={active ? "page" : undefined}
                     className={[
-                      "block rounded-card px-2 py-2 font-display text-[0.75rem] uppercase tracking-[0.08em]",
+                      "flex items-center gap-1.5 rounded-card px-2 py-2 font-display text-micro uppercase tracking-[0.08em]",
                       "transition-colors duration-base ease-physics",
                       active
                         ? "text-accent"
                         : "text-text-secondary hover:bg-surface-2 hover:text-text-primary",
                     ].join(" ")}
                   >
-                    {lang === "ar" ? link.ar : link.en}
+                    {(() => {
+                      const label = lang === "ar" ? link.ar : link.en;
+                      const download = label.endsWith("↓");
+                      return (
+                        <>
+                          {label.replace(/\s*↓$/, "")}
+                          {download && (
+                            <Icon name="arrow-down" size="0.9em" className="text-text-ghost" />
+                          )}
+                        </>
+                      );
+                    })()}
                   </Link>
                 </motion.li>
               );

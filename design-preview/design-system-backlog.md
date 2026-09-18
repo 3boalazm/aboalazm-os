@@ -1,5 +1,5 @@
 # Design System Refactoring Backlog
-Source: [`design-system-audit-phase3a.md`](design-system-audit-phase3a.md) · Status: **planning only — no code changes until Phase 3B (Visual Audit) completes.**
+Source: [`design-system-audit-phase3a.md`](design-system-audit-phase3a.md) · Status: **Phase 4 executed 2026-09-18 — see [`design-system-phase4-2026-09-18.md`](design-system-phase4-2026-09-18.md). P1-1/P1-2/P2-2/P3-1/P3-3 closed below.**
 
 Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High ROI (small effort, high leverage) · **P2** Nice to Have (polish, low urgency) · **P3** Technical Debt (correct today, fragile/costly long-term)
 
@@ -43,7 +43,8 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 
 ## P1 — High ROI
 
-### P1-1 · Extract shared CTA button (kill the triple duplication)
+### P1-1 · [RESOLVED] Extract shared CTA button (kill the triple duplication)
+- **Status:** ✅ Resolved by the Button primitive sprint — see [`sprint-button-primitive.md`](sprint-button-primitive.md) (`components/ui/Button.tsx`, 11 files / 17 sites migrated, production-complete).
 - **Source:** Audit §5
 - **What:** `.not-found-cta`, `.start-cta`, `.process-cta` (primary + ghost, 6 classes total) are byte-for-byte identical. Consolidate into one `.cta-primary` / `.cta-ghost` utility or a `<CtaButton>` component.
 - **Impact:** High — removes the single largest duplication in the codebase; every future page currently invites a 4th copy-paste.
@@ -51,7 +52,8 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 - **Affected files:** `app/(site)/globals.css` (lines 778-811, 920-955, 1087-1121), plus the `.tsx` files rendering `not-found-cta*`/`start-cta*`/`process-cta*` class names (need a grep pass to enumerate exact call sites before touching).
 - **Migration risk:** Low — purely additive if done as "new shared class, old classes kept as aliases during transition," but true cleanup requires touching 3+ page files. Visual regression risk is low since all 3 are pixel-identical already; still should be confirmed in Phase 3B before/after.
 
-### P1-2 · Consolidate accent-opacity color soup into named tokens
+### P1-2 · [DONE 2026-09-18] Consolidate accent-opacity color soup into named tokens
+- **Status:** ✅ Done in Phase 4 — 12-step `--color-accent-NN` ramp in `@theme`; all 41 hardcoded sites snapped (Δ ≤ 0.05, snap table in the Phase 4 doc §1); zero raw accent rgb() outside definitions; JS mirror updated in `lib/tokens.ts`. Also delivered alongside: contrast-safe `accent-text`/`accent-border`, completed role ramps, and the new status set.
 - **Source:** Audit §2
 - **What:** Replace ~20 ad hoc `rgb(255 107 71 / N)` opacity values (49 occurrences) with 3-4 semantic tokens (e.g. `--color-accent-08`, `-16`, `-32`) following the existing `--color-accent-dim` pattern.
 - **Impact:** Medium-high — unlocks retheming, removes guesswork on which opacity to reach for in new code.
@@ -59,7 +61,8 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 - **Affected files:** `app/(site)/globals.css` only (all instances are in this one file per the grep).
 - **Migration risk:** Medium — find/replace across 49 sites in one file is mechanical but easy to fat-finger an opacity step; needs a visual diff pass (Phase 3B) after, not before.
 
-### P1-3 · Reduce `/start` and `/process` arbitrary-Tailwind debt
+### P1-3 · [PARTIAL 2026-09-18] Reduce `/start` and `/process` arbitrary-Tailwind debt
+- **Status:** 🟡 All **typography** arbitrary values on both pages migrated to tokens (Phase 4 §2); all **color** arbitrary values tokenized (accent-border/08). Remaining arbitrary values are layout/spacing (`px-[24px] py-[12px]` CTA paddings, `[2px]` hover lifts, `[900px]`-style max-widths) — the CTA paddings are the CSS-trio family's deliberately measured values per the Button sprint, so they stay until the spacing sprint (P3-2).
 - **Source:** Audit §6
 - **What:** 62 of the 90 total arbitrary-bracket Tailwind values (`[Npx]`/`[N.Nrem]`) live in these two files alone (35 + 27). Map them onto existing spacing/type tokens where a clean match exists.
 - **Impact:** Medium — these two pages are the least systemized; fixing them closes most of the arbitrary-value gap codebase-wide in one pass.
@@ -79,7 +82,8 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 - **Affected files:** `app/(site)/globals.css` + call sites in `features/gallery/`, `app/(site)/start/`, and wherever `.jargon-card`/`.labtool-card` render.
 - **Migration risk:** Medium — genuine visual differences exist between the 4 today; risk of accidentally normalizing away an intentional distinction. Needs Phase 3B screenshots of all 4 as a baseline first.
 
-### P2-2 · Untokenized micro type scale cleanup
+### P2-2 · [DONE 2026-09-18] Untokenized micro type scale cleanup
+- **Status:** ✅ Done in Phase 4 — scale extended 7 → 11 steps (`caption` 11px floor, `body-lg`, fluid `subtitle`); 61/61 one-off CSS font-sizes + all TSX arbitrary text sizes mapped; documented exceptions listed in the Phase 4 doc §2. The design decision the backlog flagged ("expand the scale vs. map down") was resolved as **expand by 3 steps + snap everything up to the 11px floor**.
 - **Source:** Audit §3
 - **What:** Dozens of one-off rem font sizes (0.63–1.6rem range) outside the 7 defined `--text-*` tokens, mostly in `.labtool-*`, `.gate-*`, `.persona-*`, `.not-found-*`.
 - **Impact:** Medium-low — visual drift risk over time, not currently broken.
@@ -91,7 +95,8 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 
 ## P3 — Technical Debt
 
-### P3-1 · Route hardcoded `"Montserrat"` literals through `var(--font-sans)`
+### P3-1 · [DONE 2026-09-18] Route hardcoded `"Montserrat"` literals through `var(--font-sans)`
+- **Status:** ✅ Done in Phase 4 — the audit's 8 CSS sites **plus 28 more TSX inline styles** found this pass (same defect class); all now `var(--font-sans)` so the RTL font-lock covers them. `/type` specimen keeps literal Montserrat by design.
 - **Source:** Audit §3
 - **What:** 8 places hardcode `font-family: "Montserrat", var(--font-sans);` instead of `var(--font-sans)` alone, bypassing the deliberate RTL font-lock system.
 - **Impact:** Low today (works via per-glyph fallback), but fragile — any future explicit Latin fallback added after Montserrat would silently break Arabic rendering in exactly these 8 spots.
@@ -107,7 +112,8 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 - **Affected files:** `app/(site)/globals.css`, scattered.
 - **Migration risk:** Low, but easy to introduce visually-worse spacing if rounded blindly — lowest urgency, do last.
 
-### P3-3 · Drop the dead `var(--radius-panel, var(--radius-card))` fallback
+### P3-3 · [DONE 2026-09-18] Drop the dead `var(--radius-panel, var(--radius-card))` fallback
+- **Status:** ✅ Done in Phase 4 (`.bento-cell` now `var(--radius-panel)`).
 - **Source:** Audit §4 (noted in passing, not previously itemized)
 - **What:** `.bento-cell` (globals.css:1528) uses a fallback for `--radius-panel` even though it's unconditionally defined in `@theme` — dead code, mildly confusing.
 - **Impact:** Negligible — cosmetic code-cleanliness only.
@@ -124,13 +130,14 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 | P0-1 | ✅ FIXED: floating-preview invisible under reduced-motion | P0 | High (resolved) | Low | 1 | None realized |
 | P0-2 | ✅ VERIFIED: Zad iframe live, clean | P0 | — (closed) | — | 0 | — |
 | P0-3 | 🆕 NEW: floating-preview card doesn't unmount on row switch | P0 (untriaged) | Medium | Unestimated | 1-2 | Unknown |
-| P1-1 | Extract shared CTA button | P1 | High | Low | ~4-5 | Low |
-| P1-2 | Consolidate accent-opacity tokens | P1 | Med-High | Medium | 1 | Medium |
-| P1-3 | Reduce `/start` + `/process` arbitrary values | P1 | Medium | Med-High | 2 | Medium |
+| P1-1 | ✅ RESOLVED: shared CTA button (Button primitive sprint) | P1 | High | Low | ~4-5 | Low |
+| P1-2 | ✅ DONE 2026-09-18: accent-opacity tokens (12-step ramp) | P1 | Med-High | Medium | 1 | Medium |
+| P1-3 | 🟡 PARTIAL 2026-09-18: `/start` + `/process` type/color done; layout values pending P3-2 | P1 | Medium | Med-High | 2 | Medium |
 | P2-1 | Consolidate 4 card-shell variants | P2 | Medium | Medium | ~4-5 | Medium |
-| P2-2 | Untokenized micro type scale cleanup | P2 | Med-Low | High | many | Low-Med |
-| P3-1 | Fix hardcoded `"Montserrat"` literals | P3 | Low | Trivial | 1 | Very Low |
-| P3-2 | Off-grid spacing values | P3 | Low | Medium | 1 | Low |
-| P3-3 | Dead radius-panel fallback | P3 | Negligible | Trivial | 1 | None |
+| P2-2 | ✅ DONE 2026-09-18: micro type scale (11-step scale + floor) | P2 | Med-Low | High | many | Low-Med |
+| P3-1 | ✅ DONE 2026-09-18: Montserrat literals (36 sites, CSS + TSX) | P3 | Low | Trivial | 1+ | Very Low |
+| P3-2 | Off-grid spacing values (audited 2026-09-18, untouched by design) | P3 | Low | Medium | 1 | Low |
+| P3-3 | ✅ DONE 2026-09-18: dead radius-panel fallback | P3 | Negligible | Trivial | 1 | None |
+| NEW-1 | Icon sweep follow-up: print deck toolbar + diagram labels still Unicode (documented exceptions, Phase 4 §4) | P3 | Low | Low | 3 | None |
 
 **Recommended sequencing once both audits are done:** P0s first (verification only, can run anytime — no need to wait for Phase 3B), then P1-1 → P1-2 → P1-3 in order (each is a prerequisite-free, standalone win), then P2/P3 as capacity allows. Every item touching `globals.css` visually (P1-2, P1-3, P2-1, P2-2, P3-2) should run its own before/after screenshot diff once Phase 3B tooling is available — P0 and P3-1/P3-3 are behavior-preserving and don't strictly need one.

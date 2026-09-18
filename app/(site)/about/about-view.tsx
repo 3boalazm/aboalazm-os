@@ -2,6 +2,7 @@
 import { SystemConstellation } from "@/features/hero";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
+import { Icon } from "@/components/ui/Icon";
 import { Heading } from "@/components/ui/Heading";
 
 const DOCTRINE = {
@@ -97,7 +98,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
             download
             className="inline-flex w-fit items-center gap-2 rounded-pill border border-border-default px-3 py-1.5 font-mono text-micro uppercase tracking-[0.08em] text-text-primary transition-colors duration-fast ease-physics hover:border-accent hover:text-accent"
           >
-            {ar ? "تحميل السيرة الذاتية" : "Download CV"} ↓
+            <>{ar ? "تحميل السيرة الذاتية" : "Download CV"} <Icon name="arrow-down" /></>
           </a>
         )}
       </header>

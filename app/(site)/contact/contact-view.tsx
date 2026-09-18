@@ -2,6 +2,7 @@
 import { StatusNode } from "@/features/hero";
 import { ContactForm } from "@/features/contact";
 import { useLang } from "@/components/providers/lang-provider";
+import { Icon } from "@/components/ui/Icon";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { Heading } from "@/components/ui/Heading";
 import type { CSSProperties } from "react";
@@ -76,7 +77,7 @@ export function ContactView() {
                 <span className="block truncate text-body-sm text-text-primary">{label}</span>
                 <span className="block font-mono text-micro text-text-ghost">{hint}</span>
               </span>
-              <span aria-hidden className="text-text-tertiary transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+              <span aria-hidden className="inline-flex text-text-tertiary transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
             </a>
           ))}
         </div>

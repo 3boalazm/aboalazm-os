@@ -9,7 +9,13 @@
    1. Every value in the UI traces back to a token in this file.
    2. Spacing base = 8px → p-1/p-2/p-3/p-4/p-8/p-16 are the ONLY rhythm.
    3. One easing curve: --ease-physics. No exceptions without review.
-   4. Color is monochrome. Atmosphere comes from --glow-* (per project).
+   4. Color is SEMANTIC. Surfaces/text ride the surface-border-text
+      ramps; meaning rides named roles — accent (the orange anchor),
+      creative/live/proof (supporting roles), success/warning/danger/
+      info (functional states). Atmosphere comes from --glow-* and the
+      atmos utilities. Never raw hex or one-off rgb() in components;
+      accent opacities come ONLY from the --color-accent-NN ramp.
+   5. Icons come from components/ui/Icon — never raw Unicode glyphs.
    ═══════════════════════════════════════════════════════════════════════ */
 
 /* Montserrat (EN body) + IBM Plex Sans Arabic (AR body) — Google Fonts CDN.
@@ -77,14 +83,68 @@
   --color-ink-tertiary:  rgb(8 7 16 / 0.40);
   --color-border-light:  rgb(8 7 16 / 0.10);
 
-  /* Studio accent — used ONLY for focus rings & critical CTAs */
+  /* Studio accent — the authorial brand anchor: CTAs, focus rings,
+     authorial emphasis. Never demoted, never one of several. */
   --color-accent:     #FF6B47;
-  --color-accent-dim: rgb(255 107 71 / 0.14);
-  /* Named accent alpha steps — prefer these over one-off rgb(255 107 71 / N) */
+  --color-accent-dim: var(--color-accent-14); /* alias of accent-14 */
+
+  /* ── ACCENT ALPHA RAMP — the only sanctioned accent opacities ──
+     12 named steps, chosen so every historical one-off value
+     (0.02 … 0.85, 41 sites audited 2026-09-18) snaps to a step with
+     Δ ≤ 0.05. Reach for these; never write rgb(255 107 71 / N).
+       04 · 08          whispers — washes, grid textures
+       14 · 20 · 24     tints — quiet fills, hairline borders
+       32 · 40 · 48     edges — hover borders, active outlines
+       64 · 72          strong — filled markers, emphasized type
+       80 · 88          near-solid — glow cores, checked states   */
+  --color-accent-04: rgb(255 107 71 / 0.04);
   --color-accent-08: rgb(255 107 71 / 0.08);
   --color-accent-14: rgb(255 107 71 / 0.14);
+  --color-accent-20: rgb(255 107 71 / 0.20);
   --color-accent-24: rgb(255 107 71 / 0.24);
+  --color-accent-32: rgb(255 107 71 / 0.32);
   --color-accent-40: rgb(255 107 71 / 0.40);
+  --color-accent-48: rgb(255 107 71 / 0.48);
+  --color-accent-64: rgb(255 107 71 / 0.64);
+  --color-accent-72: rgb(255 107 71 / 0.72);
+  --color-accent-80: rgb(255 107 71 / 0.80);
+  --color-accent-88: rgb(255 107 71 / 0.88);
+
+  /* Contrast-safe accent TYPE. #FF6B47 only reaches 2.7:1 on Alabaster
+     (fails even WCAG large-text), so small accent type in light mode
+     defers to a deeper family member (reassigned below). On Obsidian the
+     base already holds 7.1:1, so dark mode keeps the anchor untouched. */
+  --color-accent-text:   #FF6B47;
+  /* Standard hairline for accent-edged surfaces — the 32 ramp step,
+     aliased so borders always speak the ramp, not a one-off alpha. */
+  --color-accent-border: var(--color-accent-32);
+
+  /* ══════════════ 4b · FUNCTIONAL STATUS COLORS ══════════════
+     Success / warning / danger / info are SEMANTIC STATES, not palette
+     decoration: form validation, checklist outcomes, system health.
+     They stay separate from the expressive roles and from the orange
+     anchor — a success message is green on every surface, both themes,
+     both languages. Four members per state: base (icon/marker),
+     -text (type-safe), -dim (wash), -border (hairline). Dark values
+     ride the 400/300 end of the Tailwind ramps; light mode reassigns
+     to 600/700 below. Declared in @theme on purpose so Tailwind
+     generates bg-success-dim / text-success-text / … utilities.
+     (The Writing diagram's --node-* set stays its own thing — that is
+     illustration, not state.) */
+  --color-success: #34D399;  --color-success-text: #6EE7B7;
+  --color-warning: #FBBF24;  --color-warning-text: #FCD34D;
+  --color-danger:  #F87171;  --color-danger-text:  #FCA5A5;
+  --color-info:    #60A5FA;  --color-info-text:    #93C5FD;
+
+  --color-success-dim: rgb(52 211 153 / 0.12);
+  --color-warning-dim: rgb(251 191 36 / 0.12);
+  --color-danger-dim:  rgb(248 113 113 / 0.12);
+  --color-info-dim:    rgb(96 165 250 / 0.12);
+
+  --color-success-border: rgb(52 211 153 / 0.28);
+  --color-warning-border: rgb(251 191 36 / 0.28);
+  --color-danger-border:  rgb(248 113 113 / 0.28);
+  --color-info-border:    rgb(96 165 250 / 0.28);
 
   /* Control heights — dense UI only, not a page layout language */
   --size-control-sm: 24px;
@@ -104,7 +164,15 @@
   /* Thmanyah Serif Display — Arabic heading voice */
   --font-thmanyah: "Thmanyah Serif Display", "IBM Plex Sans Arabic", sans-serif;
 
-  /* Fluid editorial scale */
+  /* ══════════ FLUID EDITORIAL SCALE ══════════
+     11 steps, each shipping its own line-height (+ tracking where the
+     step earns it). 2026-09-18 audit: ~100 one-off arbitrary sizes
+     (0.55–2rem) grew outside this scale, concentrated in /start,
+     /process, /type. They all map onto the steps below — most onto
+     `caption`, which is deliberately the FLOOR: nothing readable
+     renders under 11px anymore (the old 0.55–0.62rem terminal sizes
+     were sub-9px — illegible at 390px). Display steps are clamp()
+     fluid, so mobile and desktop sizes are one token, not two. */
   --text-hero:       clamp(3rem, 7.5vw, 7rem); /* trimmed ~15% — was overwhelming the viewport */
   --text-hero--line-height: 0.95;
   --text-hero--letter-spacing: -0.03em;
@@ -117,8 +185,18 @@
   --text-title--line-height: 1.15;
   --text-title--letter-spacing: -0.015em;
 
+  /* Section subtitles / big statements under a title. Fluid so a
+     2rem desktop statement stays readable-but-not-shouting at 390px. */
+  --text-subtitle:   clamp(1.125rem, 1rem + 0.7vw, 1.375rem);
+  --text-subtitle--line-height: 1.3;
+  --text-subtitle--letter-spacing: -0.005em;
+
   --text-lead:       1.25rem;
   --text-lead--line-height: 1.55;
+
+  /* Long-form emphasis one notch above body (absorbs old 1.05rem one-offs). */
+  --text-body-lg:    1.0625rem;
+  --text-body-lg--line-height: 1.6;
 
   --text-body:       1rem;
   --text-body--line-height: 1.65;
@@ -133,6 +211,13 @@
   --text-micro:      0.75rem;   /* raised from 0.6875 — site-wide small-type bump */
   --text-micro--line-height: 1.3;
   --text-micro--letter-spacing: 0.10em;
+
+  /* THE FLOOR — 11px. Terminal chrome, index markers, dense metadata.
+     Never for anything a user must read to act. Absorbs the old
+     0.55–0.72rem one-offs; Arabic pages zero its tracking via [lang=ar]. */
+  --text-caption:    0.6875rem;
+  --text-caption--line-height: 1.35;
+  --text-caption--letter-spacing: 0.08em;
 
   /* ══════════════ 6 · DEPTH (VisionOS-grade, restrained) ══════════════ */
   --shadow-card:
@@ -191,6 +276,13 @@ html[data-theme="light"] {
   --color-text-secondary: rgb(8 7 16 / 0.66);
   --color-text-tertiary:  rgb(8 7 16 / 0.48);
   --color-text-ghost:     rgb(8 7 16 / 0.32);
+
+  /* Accent TYPE deepens on Alabaster: #FF6B47 measures 2.7:1 on this
+     canvas (fails WCAG even for large text); #C2410C holds 4.9:1 while
+     staying unmistakably in the coral family. CTA FILLS keep
+     --color-accent untouched — obsidian-on-coral already passes. */
+  --color-accent-text:   #C2410C;
+  --color-accent-border: rgb(194 65 12 / 0.35);
 }
 
 /* ═══════════════ ARTICLE DIAGRAM NODE TOKENS ═══════════════
@@ -231,13 +323,47 @@ html[data-theme="light"] {
      4. Every role has a -text variant: the 400-level tints fail as type on
         Alabaster, so light mode defers to the deeper 500/600 end. */
 :root {
-  /* ── primitives ── */
-  --color-violet-500: #8B5CF6;
+  /* ── primitives — role ramps, tuned to sit with the coral-orange anchor.
+     Cyan is the ORANGE COMPLEMENT (~190°), lime is its warm neighbour
+     (~80°), so both read as family with #FF6B47 rather than as foreign
+     accents — on Obsidian in dark, on Alabaster in light.
+
+     How to reach for a step:
+       100–200  whispers / highlight washes (rare, atmosphere only)
+       300      type-safe tint on OBSIDIAN (dark mode text)
+       400      the role itself · fills, markers, glow source
+       500      interactive / hover, just past the base
+       600      pressed / emphasis on light surfaces
+       700      type-safe step on ALABASTER (light mode text)
+       800      deep edge, captions on light, never large fills
+
+     Values track Tailwind's ramps so nobody invents a fifth hue, and the
+     300/400/700 anchors stay byte-identical to the audited 2026-09-18
+     values (live surfaces keep their exact colour). ── */
   --color-violet-300: #C4B5FD;
-  --color-cyan-400:   #22D3EE;
-  --color-cyan-300:   #67E8F9;
-  --color-lime-400:   #A3E635;
-  --color-lime-300:   #BEF264;
+  --color-violet-400: #A78BFA;
+  --color-violet-500: #8B5CF6;
+  --color-violet-700: #6D28D9;
+
+  /* CYAN — the "live" role. Full ramp, complement of the orange anchor. */
+  --color-cyan-100:   #CFFAFE;
+  --color-cyan-200:   #A5F3FC;
+  --color-cyan-300:   #67E8F9;  /* dark-mode text tint (anchor, unchanged) */
+  --color-cyan-400:   #22D3EE;  /* role base (anchor, unchanged)           */
+  --color-cyan-500:   #06B6D4;  /* hover / interactive                     */
+  --color-cyan-600:   #0891B2;  /* pressed / emphasis                      */
+  --color-cyan-700:   #0E7490;  /* light-mode text (anchor, unchanged)     */
+  --color-cyan-800:   #155E75;  /* deep edge on light                      */
+
+  /* LIME — the "proof" role. Full ramp, warm neighbour of the anchor. */
+  --color-lime-100:   #ECFCCB;
+  --color-lime-200:   #D9F99D;
+  --color-lime-300:   #BEF264;  /* dark-mode text tint (anchor, unchanged) */
+  --color-lime-400:   #A3E635;  /* role base (anchor, unchanged)           */
+  --color-lime-500:   #84CC16;  /* hover / interactive                     */
+  --color-lime-600:   #65A30D;  /* pressed / emphasis                      */
+  --color-lime-700:   #4D7C0F;  /* light-mode text (anchor, unchanged)     */
+  --color-lime-800:   #3F6212;  /* deep edge on light                      */
 
   /* ── semantic creative roles ── */
   --color-creative: var(--color-violet-500);
@@ -269,9 +395,9 @@ html[data-theme="light"] {
 
 html[data-theme="light"] {
   /* Alabaster canvas: 400-level tints do not hold contrast as type. */
-  --color-creative-text: #6D28D9;
-  --color-live-text:     #0E7490;
-  --color-proof-text:    #4D7C0F;
+  --color-creative-text: var(--color-violet-700);
+  --color-live-text:     var(--color-cyan-700);
+  --color-proof-text:    var(--color-lime-700);
 
   --color-creative-dim: rgb(139 92 246 / 0.10);
   --color-live-dim:     rgb(34 211 238 / 0.12);
@@ -283,6 +409,26 @@ html[data-theme="light"] {
 
   --atmos-strength-1: 10%;
   --atmos-strength-2: 8%;
+}
+
+/* ═══════════════ FUNCTIONAL STATUS — LIGHT THEME ═══════════════
+   Alabaster reassigns the @theme status values to their 600/700
+   ramp members for contrast (see the 4b block above). */
+html[data-theme="light"] {
+  --color-success: #059669;  --color-success-text: #047857;
+  --color-warning: #D97706;  --color-warning-text: #B45309;
+  --color-danger:  #DC2626;  --color-danger-text:  #B91C1C;
+  --color-info:    #2563EB;  --color-info-text:    #1D4ED8;
+
+  --color-success-dim: rgb(5 150 105 / 0.12);
+  --color-warning-dim: rgb(217 119 6 / 0.14);
+  --color-danger-dim:  rgb(220 38 38 / 0.10);
+  --color-info-dim:    rgb(37 99 235 / 0.10);
+
+  --color-success-border: rgb(4 120 87 / 0.28);
+  --color-warning-border: rgb(180 83 9 / 0.30);
+  --color-danger-border:  rgb(185 28 28 / 0.28);
+  --color-info-border:    rgb(29 78 216 / 0.26);
 }
 
 /* ═══════════════ ATMOSPHERIC AMBIENT GLOW — LIVING TOKENS ═══════════════
@@ -401,6 +547,8 @@ html[data-theme="light"] {
    */
   .text-body,
   .text-body-sm,
+  .text-body-lg,
+  .text-caption,
   .text-lead {
     font-family: var(--font-sans);
   }
@@ -656,7 +804,7 @@ html[data-theme="light"] .grain-layer {
 }
 .brand-orb__glow {
   position: absolute; inset: 0; z-index: 0; border-radius: 9999px;
-  box-shadow: 0 0 11px 1px rgb(255 107 71 / 0.30);
+  box-shadow: 0 0 11px 1px var(--color-accent-32);
   animation: orb-breathe 3.8s var(--ease-physics) infinite;
 }
 @keyframes orb-breathe {
@@ -822,8 +970,8 @@ html[data-theme="light"] .grain-layer {
   inset: 0;
   z-index: 1;
   background-image:
-    linear-gradient(rgb(255 107 71 / 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 107 71 / 0.06) 1px, transparent 1px);
+    linear-gradient(var(--color-accent-08) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-accent-08) 1px, transparent 1px);
   background-size: 60px 60px;
   pointer-events: none;
 }
@@ -837,7 +985,7 @@ html[data-theme="light"] .grain-layer {
   z-index: 10;
   height: 28px;
   overflow: hidden;
-  border-bottom: 1px solid rgb(255 107 71 / 0.20);
+  border-bottom: 1px solid var(--color-accent-20);
   background: rgb(8 7 16 / 0.6);
   display: flex;
   align-items: center;
@@ -847,9 +995,9 @@ html[data-theme="light"] .grain-layer {
   white-space: nowrap;
   animation: ticker-scroll 18s linear infinite;
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.12em;
-  color: rgb(255 107 71 / 0.6);
+  color: var(--color-accent-64);
 }
 @keyframes ticker-scroll {
   from { transform: translateX(0); }
@@ -879,7 +1027,7 @@ html[data-theme="light"] .grain-layer {
 .not-found-crosshair__h,
 .not-found-crosshair__v {
   position: absolute;
-  background: rgb(255 107 71 / 0.65);
+  background: var(--color-accent-64);
 }
 .not-found-crosshair__h { width: 100%; height: 1px; top: 50%; }
 .not-found-crosshair__v { height: 100%; width: 1px; left: 50%; }
@@ -900,9 +1048,9 @@ html[data-theme="light"] .grain-layer {
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.14em;
-  color: rgb(255 107 71 / 0.75);
+  color: var(--color-accent-72);
 }
 [dir="rtl"] .not-found-status { left: auto; right: 48px; }
 
@@ -962,15 +1110,15 @@ html[data-theme="light"] .grain-layer {
 
 /* ── Sub and body text ── */
 .not-found-sub {
-  font-family: "Montserrat", var(--font-sans);
-  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
   color: var(--color-text-secondary);
   letter-spacing: 0.01em;
   margin-top: -4px;
 }
 .not-found-body {
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.875rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-text-tertiary);
   max-width: 48ch;
@@ -992,7 +1140,7 @@ html[data-theme="light"] .grain-layer {
 }
 .not-found-nav__link {
   font-family: var(--font-mono);
-  font-size: 0.71rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1009,9 +1157,9 @@ html[data-theme="light"] .grain-layer {
   transform-origin: center center;
   z-index: 10;
   font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.14em;
-  color: rgb(255 107 71 / 0.40);
+  color: var(--color-accent-40);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -1032,12 +1180,12 @@ html[data-theme="light"] .grain-layer {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-top: 1px solid rgb(255 107 71 / 0.15);
+  border-top: 1px solid var(--color-accent-14);
   background: rgb(8 7 16 / 0.7);
   font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.14em;
-  color: rgb(255 107 71 / 0.45);
+  color: var(--color-accent-48);
   text-transform: uppercase;
   white-space: nowrap;
   overflow: hidden;
@@ -1060,7 +1208,7 @@ html[data-theme="light"] .grain-layer {
 .not-found-radar__ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgb(255 107 71 / 0.25);
+  border: 1px solid var(--color-accent-24);
 }
 .not-found-radar__ring--1 { width: 100px; height: 100px; animation: radar-pulse 3s ease-out infinite; }
 .not-found-radar__ring--2 { width: 100px; height: 100px; animation: radar-pulse 3s ease-out 1s infinite; }
@@ -1084,7 +1232,7 @@ html[data-theme="light"] .grain-layer {
 /* subtle dot-grid for hero section */
 .start-grid-bg {
   background-image:
-    radial-gradient(circle, rgb(255 107 71 / 0.12) 1px, transparent 1px);
+    radial-gradient(circle, var(--color-accent-14) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 40%, transparent 100%);
 }
@@ -1140,14 +1288,14 @@ html[data-theme="light"] .grain-layer {
 .journey-step__n {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: var(--text-subtitle);
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--color-accent);
 }
 .journey-step__name {
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1174,30 +1322,30 @@ html[data-theme="light"] .grain-layer {
   text-decoration: none;
 }
 .site-card:hover {
-  border-color: rgb(255 107 71 / 0.40);
-  background: rgb(255 107 71 / 0.04);
+  border-color: var(--color-accent-40);
+  background: var(--color-accent-04);
   transform: translateY(-2px);
 }
 .site-card__emoji {
-  font-size: 1.1rem;
+  font-size: var(--text-subtitle);
   line-height: 1;
 }
 .site-card__label {
-  font-size: 1rem;
+  font-size: var(--text-body);
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--color-text-primary);
   line-height: 1.1;
 }
 .site-card__desc {
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   line-height: 1.6;
   color: var(--color-text-tertiary);
   flex: 1;
 }
 .site-card__arrow {
   align-self: flex-end;
-  font-size: 0.75rem;
+  font-size: var(--text-micro);
   color: var(--color-accent);
   opacity: 0;
   transform: translateX(-4px);
@@ -1215,7 +1363,7 @@ html[data-theme="light"] .grain-layer {
    ═══════════════════════════════════════════════════════════════════════ */
 .process-grid-bg {
   background-image:
-    radial-gradient(circle, rgb(255 107 71 / 0.10) 1px, transparent 1px);
+    radial-gradient(circle, var(--color-accent-08) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(ellipse 70% 80% at 40% 40%, black 30%, transparent 100%);
 }
@@ -1227,7 +1375,7 @@ html[data-theme="light"] .grain-layer {
   border-top: 1px solid var(--color-border-subtle);
   border-bottom: 1px solid var(--color-border-subtle);
   background:
-    radial-gradient(60rem circle at 50% -20%, rgb(255 107 71 / 0.04), transparent 60%),
+    radial-gradient(60rem circle at 50% -20%, var(--color-accent-04), transparent 60%),
     var(--color-surface-0);
 }
 .stats-dash__grid {
@@ -1266,7 +1414,7 @@ html[data-theme="light"] .grain-layer {
 .stats-dash__suffix { color: var(--color-accent); }
 .stats-dash__label {
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-text-tertiary);
@@ -1274,7 +1422,7 @@ html[data-theme="light"] .grain-layer {
 }
 .stats-dash__sub {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1303,7 +1451,7 @@ html[data-theme="light"] .grain-layer {
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-card);
   background:
-    linear-gradient(180deg, rgb(255 107 71 / 0.02), transparent 40%),
+    linear-gradient(180deg, var(--color-accent-04), transparent 40%),
     var(--color-surface-1);
   overflow: hidden;
 }
@@ -1322,10 +1470,10 @@ html[data-theme="light"] .grain-layer {
   width: 9px; height: 9px; border-radius: 50%;
   background: var(--color-border-default);
 }
-.gate-terminal__dots span:first-child { background: rgb(255 107 71 / 0.5); }
+.gate-terminal__dots span:first-child { background: var(--color-accent-48); }
 .gate-terminal__label {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.08em;
   color: var(--color-text-ghost);
 }
@@ -1374,17 +1522,17 @@ html[data-theme="light"] .grain-layer {
 }
 .gate-node__num {
   font-family: var(--font-mono);
-  font-size: 0.71rem;
+  font-size: var(--text-caption);
   color: var(--color-text-tertiary);
   transition: color 200ms var(--ease-physics);
 }
 .gate-node__check {
-  font-size: 0.8rem;
+  font-size: var(--text-label);
   color: var(--color-accent);
 }
 .gate-node__cmd {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.02em;
   color: var(--color-text-ghost);
   text-align: center;
@@ -1393,15 +1541,15 @@ html[data-theme="light"] .grain-layer {
   word-break: break-word;
 }
 @media (max-width: 520px) {
-  .gate-node__cmd { font-size: 0.53rem; }
+  .gate-node__cmd { font-size: var(--text-caption); }
 }
 
 /* states */
 .gate-node:hover .gate-node__ring { border-color: var(--color-text-ghost); }
-.gate-node--past .gate-node__ring { border-color: rgb(255 107 71 / 0.35); }
+.gate-node--past .gate-node__ring { border-color: var(--color-accent-32); }
 .gate-node--active .gate-node__ring {
   border-color: var(--color-accent);
-  background: rgb(255 107 71 / 0.08);
+  background: var(--color-accent-08);
   transform: scale(1.08);
 }
 .gate-node--active .gate-node__num { color: var(--color-accent); }
@@ -1423,7 +1571,7 @@ html[data-theme="light"] .grain-layer {
   margin-bottom: 0.75rem;
   border-bottom: 1px solid var(--color-border-subtle);
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: var(--text-label);
 }
 .gate-detail__prompt { color: var(--color-accent); }
 .gate-detail__cmd { color: var(--color-text-primary); }
@@ -1432,9 +1580,9 @@ html[data-theme="light"] .grain-layer {
   align-items: center;
   gap: 5px;
   margin-inline-start: auto;
-  font-size: 0.63rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
-  color: rgb(255 107 71 / 0.7);
+  color: var(--color-accent-72);
 }
 .gate-detail__status-dot {
   width: 5px; height: 5px; border-radius: 50%;
@@ -1444,7 +1592,7 @@ html[data-theme="light"] .grain-layer {
 @keyframes gate-blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
 
 .gate-detail__name {
-  font-size: 1.1rem;
+  font-size: var(--text-subtitle);
   font-weight: 800;
   letter-spacing: -0.01em;
   color: var(--color-text-primary);
@@ -1452,7 +1600,7 @@ html[data-theme="light"] .grain-layer {
 }
 .gate-detail__phase {
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1472,25 +1620,25 @@ html[data-theme="light"] .grain-layer {
   background: var(--color-surface-1);
 }
 .gate-detail__block--accent {
-  border-color: rgb(255 107 71 / 0.20);
-  background: rgb(255 107 71 / 0.04);
+  border-color: var(--color-accent-20);
+  background: var(--color-accent-04);
 }
 .gate-detail__block-label {
   font-family: var(--font-mono);
-  font-size: 0.63rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 6px;
 }
 .gate-detail__block-body {
-  font-size: 0.8rem;
+  font-size: var(--text-label);
   line-height: 1.6;
   color: var(--color-text-secondary);
 }
 .gate-detail__payment {
   font-family: var(--font-mono);
-  font-size: 0.71rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1510,7 +1658,7 @@ html[data-theme="light"] .grain-layer {
 .chapter-a { background: var(--color-surface-0); }
 .chapter-b {
   background:
-    radial-gradient(120rem circle at 50% 0%, rgb(255 107 71 / 0.025), transparent 55%),
+    radial-gradient(120rem circle at 50% 0%, var(--color-accent-04), transparent 55%),
     var(--color-surface-1);
 }
 
@@ -1518,7 +1666,7 @@ html[data-theme="light"] .grain-layer {
 .hook-line {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  font-size: var(--text-title);
   line-height: 1.2;
   letter-spacing: -0.015em;
   color: var(--color-text-primary);
@@ -1526,8 +1674,8 @@ html[data-theme="light"] .grain-layer {
 }
 .hook-sub {
   margin-top: 0.6rem;
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
   line-height: 1.7;
   color: var(--color-text-tertiary);
   max-width: 62ch;
@@ -1539,16 +1687,16 @@ html[data-theme="light"] .grain-layer {
   align-items: baseline;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   color: var(--color-text-primary);
-  border-bottom: 1px dashed rgb(255 107 71 / 0.4);
+  border-bottom: 1px dashed var(--color-accent-40);
   padding-bottom: 1px;
   width: fit-content;
 }
 .jargon-note {
   margin-top: 4px;
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.76rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
   line-height: 1.55;
   color: var(--color-text-tertiary);
 }
@@ -1588,7 +1736,7 @@ html[data-theme="light"] .grain-layer {
   transform: translateY(-50%);
   white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-text-secondary);
@@ -1615,7 +1763,7 @@ html[data-theme="light"] .grain-layer {
 }
 .bento-cell {
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-panel, var(--radius-card));
+  border-radius: var(--radius-panel);
   background: var(--color-surface-1);
   padding: 1.1rem;
   display: flex;
@@ -1623,12 +1771,12 @@ html[data-theme="light"] .grain-layer {
   gap: 6px;
   transition: border-color 200ms var(--ease-physics), background 200ms var(--ease-physics);
 }
-.bento-cell:hover { border-color: rgb(255 107 71 / 0.3); }
+.bento-cell:hover { border-color: var(--color-accent-32); }
 .bento-cell--wide  { grid-column: span 2; }
 .bento-cell--tall  { grid-row: span 2; }
 .bento-cell--accent {
-  border-color: rgb(255 107 71 / 0.25);
-  background: rgb(255 107 71 / 0.04);
+  border-color: var(--color-accent-24);
+  background: var(--color-accent-04);
 }
 @media (max-width: 700px) {
   .bento-cell--wide { grid-column: span 2; }
@@ -1643,7 +1791,7 @@ html[data-theme="light"] .grain-layer {
 .ssot-diagram__node-fill { fill: var(--color-surface-1); }
 .ssot-diagram__node-stroke { stroke: var(--color-border-default); stroke-width: 1; }
 .ssot-diagram__master-stroke { stroke: var(--color-accent); stroke-width: 1.5; }
-.ssot-diagram__master-fill { fill: rgb(255 107 71 / 0.06); }
+.ssot-diagram__master-fill { fill: var(--color-accent-08); }
 .ssot-diagram__text {
   font-family: var(--font-mono);
   font-size: 9px;
@@ -1674,13 +1822,13 @@ html[data-theme="light"] .grain-layer {
 .labtool-card__title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.05rem;
+  font-size: var(--text-body-lg);
   letter-spacing: -0.01em;
   color: var(--color-text-primary);
 }
 .labtool-card__sub {
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
   line-height: 1.6;
   color: var(--color-text-tertiary);
   margin-top: -0.5rem;
@@ -1695,7 +1843,7 @@ html[data-theme="light"] .grain-layer {
 .labtool-field { display: flex; flex-direction: column; gap: 6px; }
 .labtool-field__label {
   font-family: var(--font-mono);
-  font-size: 0.71rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1712,7 +1860,7 @@ html[data-theme="light"] .grain-layer {
   background: var(--color-surface-2);
   color: var(--color-text-primary);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   padding: 8px 10px;
 }
 
@@ -1733,7 +1881,7 @@ html[data-theme="light"] .grain-layer {
 }
 .labtool-typepreview__tag {
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -1747,7 +1895,7 @@ html[data-theme="light"] .grain-layer {
 }
 .labtool-typepreview__px {
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   color: var(--color-text-tertiary);
   text-align: right;
 }
@@ -1764,7 +1912,7 @@ html[data-theme="light"] .grain-layer {
 .labtool-code__pre {
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   line-height: 1.7;
   color: var(--color-text-secondary);
   white-space: pre-wrap;
@@ -1775,18 +1923,18 @@ html[data-theme="light"] .grain-layer {
   top: 0.6rem;
   inset-inline-end: 0.6rem;
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-accent);
-  border: 1px solid rgb(255 107 71 / 0.3);
+  border: 1px solid var(--color-accent-32);
   border-radius: var(--radius-pill);
   padding: 4px 10px;
   background: transparent;
   cursor: pointer;
   transition: background 180ms var(--ease-physics);
 }
-.labtool-code__copy:hover { background: rgb(255 107 71 / 0.08); }
+.labtool-code__copy:hover { background: var(--color-accent-08); }
 
 /* ── contrast checker ── */
 .labtool-colorrow { display: flex; align-items: center; gap: 8px; }
@@ -1806,13 +1954,13 @@ html[data-theme="light"] .grain-layer {
   background: var(--color-surface-2);
   color: var(--color-text-primary);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   padding: 7px 10px;
 }
 .labtool-warning {
   font-family: var(--font-mono);
-  font-size: 0.82rem;
-  color: rgb(255 107 71 / 0.8);
+  font-size: var(--text-label);
+  color: var(--color-accent-80);
 }
 .labtool-samplebox {
   display: flex;
@@ -1827,11 +1975,11 @@ html[data-theme="light"] .grain-layer {
 .labtool-samplebox__ratio {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.4rem;
+  font-size: var(--text-subtitle);
 }
 .labtool-samplebox__text {
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.9rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
 }
 .labtool-checklist { display: flex; flex-direction: column; gap: 6px; }
 .labtool-check {
@@ -1843,32 +1991,32 @@ html[data-theme="light"] .grain-layer {
   border: 1px solid var(--color-border-subtle);
 }
 .labtool-check__dot { width: 7px; height: 7px; border-radius: 50%; }
-.labtool-check--pass .labtool-check__dot { background: #3DDC84; }
-.labtool-check--fail .labtool-check__dot { background: rgb(255 107 71 / 0.8); }
+.labtool-check--pass .labtool-check__dot { background: var(--color-success); }
+.labtool-check--fail .labtool-check__dot { background: var(--color-accent-80); }
 .labtool-check__label {
   flex: 1;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: var(--text-label);
   color: var(--color-text-secondary);
 }
 .labtool-check__result {
   font-family: var(--font-mono);
-  font-size: 0.71rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.labtool-check--pass .labtool-check__result { color: #3DDC84; }
-.labtool-check--fail .labtool-check__result { color: rgb(255 107 71 / 0.85); }
+.labtool-check--pass .labtool-check__result { color: var(--color-success); }
+.labtool-check--fail .labtool-check__result { color: var(--color-accent-88); }
 
 /* ── bilingual toggle demo ── */
 .labtool-toggle-btn {
   align-self: flex-start;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  border: 1px solid rgb(255 107 71 / 0.35);
+  border: 1px solid var(--color-accent-32);
   color: var(--color-accent);
   border-radius: var(--radius-pill);
   padding: 8px 18px;
@@ -1876,7 +2024,7 @@ html[data-theme="light"] .grain-layer {
   cursor: pointer;
   transition: background 180ms var(--ease-physics), transform 180ms var(--ease-physics);
 }
-.labtool-toggle-btn:hover { background: rgb(255 107 71 / 0.08); transform: translateY(-1px); }
+.labtool-toggle-btn:hover { background: var(--color-accent-08); transform: translateY(-1px); }
 
 .labtool-bilingual-frame {
   display: flex;
@@ -1899,7 +2047,7 @@ html[data-theme="light"] .grain-layer {
 }
 .labtool-bilingual-kicker {
   font-family: var(--font-mono);
-  font-size: 0.67rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-accent);
@@ -1907,19 +2055,19 @@ html[data-theme="light"] .grain-layer {
 .labtool-bilingual-title {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 1.6rem;
+  font-size: var(--text-subtitle);
   letter-spacing: -0.01em;
   color: var(--color-text-primary);
 }
 .labtool-bilingual-tag {
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
   color: var(--color-text-tertiary);
 }
 .labtool-bilingual-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .labtool-bilingual-pill {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.04em;
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-pill);
@@ -1953,7 +2101,7 @@ html[data-theme="light"] .grain-layer {
 }
 .persona-toggle__btn {
   font-family: var(--font-mono);
-  font-size: 0.64rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   color: var(--color-text-ghost);
   padding: 4px 8px;
@@ -1988,7 +2136,7 @@ html[data-theme="light"] .grain-layer {
 }
 .persona-band__kicker {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-accent);
@@ -1996,7 +2144,7 @@ html[data-theme="light"] .grain-layer {
 .persona-band__question {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  font-size: var(--text-subtitle);
   letter-spacing: -0.01em;
   color: var(--color-text-primary);
 }
@@ -2021,26 +2169,26 @@ html[data-theme="light"] .grain-layer {
   text-align: start;
 }
 .persona-band__option:hover {
-  border-color: rgb(255 107 71 / 0.4);
-  background: rgb(255 107 71 / 0.05);
+  border-color: var(--color-accent-40);
+  background: var(--color-accent-04);
   transform: translateY(-2px);
 }
 .persona-band__option-label {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: var(--text-body-sm);
   letter-spacing: -0.005em;
   color: var(--color-text-primary);
 }
 .persona-band__option-sub {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.04em;
   color: var(--color-text-tertiary);
 }
 .persona-band__skip {
-  font-family: "Montserrat", var(--font-sans);
-  font-size: 0.78rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
   color: var(--color-text-ghost);
   margin-top: 2px;
 }
@@ -2065,13 +2213,13 @@ html[data-theme="light"] .grain-layer {
 .persona-band__active-text {
   flex: 1;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   letter-spacing: 0.02em;
   color: var(--color-text-secondary);
 }
 .persona-band__active-clear {
   font-family: var(--font-mono);
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-text-ghost);
@@ -2082,7 +2230,7 @@ html[data-theme="light"] .grain-layer {
 }
 .persona-band__active-clear:hover {
   color: var(--color-accent);
-  border-color: rgb(255 107 71 / 0.4);
+  border-color: var(--color-accent-40);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -2103,7 +2251,7 @@ html[data-theme="light"] .grain-layer {
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: var(--text-micro);
   letter-spacing: 0.04em;
   color: var(--color-text-tertiary);
   padding: 6px 14px;
@@ -2117,7 +2265,7 @@ html[data-theme="light"] .grain-layer {
   color: var(--color-obsidian);
 }
 .work-filter__count {
-  font-size: 0.69rem;
+  font-size: var(--text-caption);
   opacity: 0.7;
   tabular-nums: 1;
   font-variant-numeric: tabular-nums;

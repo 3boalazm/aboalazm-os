@@ -5,6 +5,7 @@
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
@@ -24,7 +25,7 @@ export function SkillsMarquee() {
       <div className="marquee flex w-max items-center gap-4">
         {row.map((s, i) => (
           <span key={i} className="flex items-center gap-4 whitespace-nowrap font-display text-title tracking-[-0.015em] text-text-secondary">
-            {s} <span className="text-accent">✦</span>
+            {s} <Icon name="sparkle" size="0.5em" className="text-accent" />
           </span>
         ))}
       </div>
@@ -59,7 +60,7 @@ export function AboutTeaser() {
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
           {ar ? "اقرأ القصة كاملة" : "Read the about page"}
-          <span aria-hidden className="ms-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+          <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
       </div>
       <dl className="flex h-fit flex-col">
@@ -185,15 +186,15 @@ export function ClientJourneyBand() {
 
         {/* Left: copy */}
         <div className="flex flex-col gap-4">
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-accent">
+          <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">
             {kicker}
           </p>
-          <h2 className="font-display text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.05] tracking-[-0.025em] text-text-primary">
+          <h2 className="font-display text-title leading-[1.05] tracking-[-0.025em] text-text-primary">
             {heading}
           </h2>
           <p
-            className="max-w-[44ch] text-[0.875rem] leading-[1.7] text-text-secondary"
-            style={{ fontFamily: "Montserrat, system-ui" }}
+            className="max-w-[44ch] text-body-sm leading-[1.7] text-text-secondary"
+            style={{ fontFamily: "var(--font-sans)" }}
           >
             {body}
           </p>
@@ -201,14 +202,14 @@ export function ClientJourneyBand() {
             href="/start"
             className={buttonVariants({
               className:
-                "group mt-1 flex w-fit items-center gap-2 px-4 py-2 font-display text-[0.68rem] font-[800] tracking-[0.07em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
+                "group mt-1 flex w-fit items-center gap-2 px-4 py-2 font-display text-caption font-[800] tracking-[0.07em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
             })}
           >
             {cta}
             <span
               aria-hidden
-              className="transition-transform duration-base ease-physics group-hover:translate-x-0.5"
-            >→</span>
+              className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
+            ><Icon name="arrow-right" /></span>
           </Link>
         </div>
 

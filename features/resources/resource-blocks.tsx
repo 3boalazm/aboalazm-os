@@ -9,6 +9,7 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 import { pick } from "@/features/offers/offer-blocks";
 import { SPINE, type Resource } from "@/lib/resources";
@@ -49,9 +50,7 @@ export function SpineRail() {
               <p className="text-body-sm text-text-primary">{pick(s.stage, lang)}</p>
             </div>
             {i < SPINE.length - 1 && (
-              <span aria-hidden className="font-mono text-micro text-text-ghost">
-                →
-              </span>
+              <Icon name="arrow-right" className="font-mono text-text-ghost" />
             )}
           </li>
         ))}
@@ -202,13 +201,13 @@ export function ResourceCard({
             className="group inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:text-accent"
           >
             {ar ? "تحميل PDF" : "DOWNLOAD PDF"}
-            <span aria-hidden className="transition-transform duration-base ease-physics group-hover:translate-y-0.5">
-              ↓
+            <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-y-0.5">
+              <Icon name="arrow-down" />
             </span>
           </a>
         ) : (
           <span className="inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.06em] text-text-ghost">
-            <span aria-hidden>🔒</span>
+            <Icon name="lock" size="1.1em" />
             {ar ? "مقفل" : "LOCKED"}
           </span>
         )}

@@ -16,6 +16,7 @@
  */
 
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
@@ -60,7 +61,7 @@ const COPY = {
       { tag: "TIER 02", name: "Brand Identity Essentials", price: "$697 – $1,097", duration: "3 – 4 weeks", note: "The full identity core: strategy, logo system, colour, type, guidelines, 3 applications.", recommended: true },
       { tag: "TIER 03", name: "Full Brand System", price: "$1,497 – $2,997+", duration: "5 – 7 weeks", note: "Everything in Tier 02 plus extended research, full strategy doc, packaging, web, and launch support." },
     ],
-    s02pricing:  "Detailed breakdown →",
+    s02pricing:  "Detailed breakdown",
 
     /* 03 */
     s03label:    "02 / WHAT HAPPENS?",
@@ -90,7 +91,7 @@ const COPY = {
     ctaItalic:   "conversation.",
     ctaSub:      "30 minutes. No commitment. Just clarity on whether we're the right fit — and if so, exactly how we'll move.",
     ctaPrimary:  "Book a Discovery Call",
-    ctaSecondary: "View Services & Pricing →",
+    ctaSecondary: "View Services & Pricing",
 
     /* payment note */
     payNote:     "50% deposit to start · 50% before final files · No exceptions — protects both sides.",
@@ -130,7 +131,7 @@ const COPY = {
       { tag: "الفئة ٠٢", name: "أساسيات الهوية البصرية", price: "$697 – $1,097", duration: "٣ – ٤ أسابيع", note: "جوهر الهوية الكامل: استراتيجية، نظام شعار، ألوان، خطوط، دليل هوية، ٣ تطبيقات.", recommended: true },
       { tag: "الفئة ٠٣", name: "نظام براند متكامل", price: "$1,497 – $2,997+", duration: "٥ – ٧ أسابيع", note: "كل ما في الفئة ٠٢ مع بحث موسّع، وثيقة استراتيجية كاملة، تغليف، موقع، ودعم الإطلاق." },
     ],
-    s02pricing:  "التفاصيل الكاملة للتسعير →",
+    s02pricing:  "التفاصيل الكاملة للتسعير",
 
     /* 03 */
     s03label:    "٠٣ / إزاي بتشتغل؟",
@@ -160,7 +161,7 @@ const COPY = {
     ctaItalic:   "محادثة.",
     ctaSub:      "٣٠ دقيقة. بدون أي التزام. بس وضوح عن إذا كنا المناسبين لبعض — ولو أيوه، بالظبط هنتحرك إزاي.",
     ctaPrimary:  "احجز مكالمة اكتشاف",
-    ctaSecondary: "شاهد الخدمات والتسعير →",
+    ctaSecondary: "شاهد الخدمات والتسعير",
 
     /* payment note */
     payNote:     "٥٠٪ مقدّم للبدء · ٥٠٪ قبل الملفات النهائية · لا استثناءات — حمايةً للطرفين.",
@@ -291,7 +292,7 @@ export function StartView() {
           animate="visible"
         >
           <motion.p
-            className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent"
+            className="font-mono text-caption uppercase tracking-[0.16em] text-accent"
             variants={reveal.item}
           >
             {c.kicker}
@@ -306,8 +307,8 @@ export function StartView() {
           </motion.h1>
 
           <motion.p
-            className="max-w-[52ch] text-[1rem] leading-[1.7] text-text-secondary"
-            style={{ fontFamily: "Montserrat, system-ui" }}
+            className="max-w-[52ch] text-body leading-[1.7] text-text-secondary"
+            style={{ fontFamily: "var(--font-sans)" }}
             variants={reveal.item}
           >
             {lede}
@@ -318,7 +319,7 @@ export function StartView() {
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
+              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
             >
               {ar ? "احجز مكالمة مجانية" : "Book a Free Call"}
             </a>
@@ -327,10 +328,10 @@ export function StartView() {
               className={buttonVariants({
                 variant: "ghost",
                 className:
-                  "border border-[rgb(255_107_71_/_0.30)] px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
+                  "inline-flex items-center gap-1.5 border border-accent-32 px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
               })}
             >
-              {ar ? "شوف كيف بنشتغل ↓" : "See how it works ↓"}
+              <>{ar ? "شوف كيف بنشتغل" : "See how it works"} <Icon name="arrow-down" /></>
             </a>
           </motion.div>
         </motion.div>
@@ -351,14 +352,14 @@ export function StartView() {
         <div className="grid gap-6 md:grid-cols-2">
           {/* Fits */}
           <PanelCard className="flex flex-col gap-3 rounded-panel p-5 border-accent/20">
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-accent">
-              {ar ? "✓ مناسب لك" : "✓ Good fit"}
+            <p className="font-mono text-caption uppercase tracking-[0.12em] text-accent">
+              <span className="inline-flex items-center gap-1"><Icon name="check" /> {ar ? "مناسب لك" : "Good fit"}</span>
             </p>
             <ul className="flex flex-col gap-3">
               {c.fits.map((f, i) => (
                 <li key={i} className="flex items-start gap-2.5">
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                  <span className="text-[0.875rem] leading-[1.65] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+                  <span className="text-body-sm leading-[1.65] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                     {f}
                   </span>
                 </li>
@@ -368,14 +369,14 @@ export function StartView() {
 
           {/* Not fits */}
           <PanelCard className="flex flex-col gap-3 rounded-panel p-5 bg-surface-1/50">
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">
+            <p className="font-mono text-caption uppercase tracking-[0.12em] text-text-ghost">
               {c.notFitsLabel}
             </p>
             <ul className="flex flex-col gap-3">
               {c.notFits.map((f, i) => (
                 <li key={i} className="flex items-start gap-2.5">
                   <span className="mt-1.5 h-px w-3 shrink-0 bg-border-default" />
-                  <span className="text-[0.875rem] leading-[1.65] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+                  <span className="text-body-sm leading-[1.65] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>
                     {f}
                   </span>
                 </li>
@@ -386,7 +387,7 @@ export function StartView() {
 
         {/* Anti-portfolio — confident, high-status statement */}
         <div className="mt-5 border-s-2 border-accent ps-5">
-          <p className="max-w-[62ch] font-display text-[1.15rem] italic leading-[1.5] tracking-[-0.01em] text-text-primary">
+          <p className="max-w-[62ch] font-display text-subtitle italic leading-[1.5] tracking-[-0.01em] text-text-primary">
             "{c.antiPortfolio}"
           </p>
         </div>
@@ -396,7 +397,7 @@ export function StartView() {
           03 / HOW DOES IT WORK?
       ══════════════════════════════════════════════════════════ */}
       <SectionWrap id="how-it-works" n={ar ? "٠٢" : "02"} label={c.s03label} title={c.s03title} italic={c.s03italic}>
-        <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+        <p className="mb-8 max-w-[52ch] text-body-sm leading-[1.7] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>
           {s03sub}
         </p>
 
@@ -416,15 +417,15 @@ export function StartView() {
             >
               {/* node */}
               <div className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border-default bg-surface-0">
-                <span className="font-mono text-[0.55rem] text-accent">{phase.n}</span>
+                <span className="font-mono text-caption text-accent">{phase.n}</span>
               </div>
 
               <div className="flex flex-col gap-1 pt-1.5">
                 <div className="flex flex-wrap items-baseline gap-3">
-                  <p className="font-display text-[1.05rem] tracking-[-0.01em] text-text-primary">{phase.name}</p>
-                  <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-text-ghost">{phase.days}</p>
+                  <p className="font-display text-body-lg tracking-[-0.01em] text-text-primary">{phase.name}</p>
+                  <p className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{phase.days}</p>
                 </div>
-                <p className="max-w-[50ch] text-[0.85rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+                <p className="max-w-[50ch] text-body-sm leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                   {phase.body}
                 </p>
               </div>
@@ -434,8 +435,8 @@ export function StartView() {
 
         {/* payment note */}
         <div className="mt-8 flex items-center gap-2 rounded-card border border-border-subtle bg-surface-1/50 px-4 py-3">
-          <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-accent">$</span>
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.08em] text-text-ghost">{c.payNote}</p>
+          <span className="font-mono text-caption uppercase tracking-[0.1em] text-accent">$</span>
+          <p className="font-mono text-caption uppercase tracking-[0.08em] text-text-ghost">{c.payNote}</p>
         </div>
       </SectionWrap>
 
@@ -443,7 +444,7 @@ export function StartView() {
           02 / WHAT WILL I GET?
       ══════════════════════════════════════════════════════════ */}
       <SectionWrap id="what-will-i-get" n={ar ? "٠٢" : "02"} label={c.s02label} title={c.s02title} italic={c.s02italic} alt>
-        <p className="mb-6 max-w-[56ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+        <p className="mb-6 max-w-[56ch] text-body-sm leading-[1.7] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>
           {s02sub}
         </p>
 
@@ -453,8 +454,8 @@ export function StartView() {
             const isTechEmphasis = persona === "technical" && i === 2; // Tier 03 — Full System
             const emphasized = isRecommended || isTechEmphasis;
             const badgeText = isTechEmphasis
-              ? (ar ? "★ أعمق نظام" : "★ Deepest system")
-              : (ar ? "★ الأكثر طلبًا" : "★ Recommended");
+              ? (ar ? "أعمق نظام" : "Deepest system")
+              : (ar ? "الأكثر طلبًا" : "Recommended");
             return (
             <PanelCard
               key={tier.tag}
@@ -462,17 +463,17 @@ export function StartView() {
               className="relative flex flex-col gap-3 rounded-panel p-5"
             >
               {emphasized && (
-                <span className="absolute end-3 top-3 font-mono text-[0.55rem] uppercase tracking-[0.1em] text-accent">
-                  {badgeText}
+                <span className="absolute end-3 top-3 inline-flex items-center gap-1 font-mono text-caption uppercase tracking-[0.1em] text-accent">
+                  <Icon name="star-solid" size="0.9em" /> {badgeText}
                 </span>
               )}
-              <p className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-ghost">{tier.tag}</p>
-              <p className="font-display text-[1.2rem] leading-[1.1] tracking-[-0.015em] text-text-primary">
+              <p className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{tier.tag}</p>
+              <p className="font-display text-subtitle leading-[1.1] tracking-[-0.015em] text-text-primary">
                 {tier.name}
               </p>
-              <p className="font-display text-[1.5rem] tracking-[-0.01em] text-accent">{tier.price}</p>
-              <p className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-ghost">{tier.duration}</p>
-              <p className="mt-auto border-t border-border-subtle pt-3 text-[0.8rem] leading-[1.6] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+              <p className="font-display text-title tracking-[-0.01em] text-accent">{tier.price}</p>
+              <p className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{tier.duration}</p>
+              <p className="mt-auto border-t border-border-subtle pt-3 text-label leading-[1.6] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>
                 {tier.note}
               </p>
             </PanelCard>
@@ -481,8 +482,9 @@ export function StartView() {
         </div>
 
         <div className="mt-4 flex justify-center">
-          <Link href="/pricing" className="font-mono text-[0.65rem] uppercase tracking-[0.1em] text-text-ghost transition-colors duration-base ease-physics hover:text-accent">
+          <Link href="/pricing" className="inline-flex items-center gap-1 font-mono text-caption uppercase tracking-[0.1em] text-text-ghost transition-colors duration-base ease-physics hover:text-accent">
             {c.s02pricing}
+            <Icon name="arrow-right" />
           </Link>
         </div>
       </SectionWrap>
@@ -502,15 +504,15 @@ export function StartView() {
               transition={{ ...physicsSlow, delay: i * 0.12 }}
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-ghost">{step.n}</span>
+                <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{step.n}</span>
                 {i === 0 && (
-                  <span className="font-mono text-[0.55rem] uppercase tracking-[0.08em] text-accent">
+                  <span className="font-mono text-caption uppercase tracking-[0.08em] text-accent">
                     {ar ? "مجاني" : "Free"}
                   </span>
                 )}
               </div>
-              <p className="font-display text-[1.1rem] leading-[1.15] tracking-[-0.01em] text-text-primary">{step.name}</p>
-              <p className="flex-1 text-[0.82rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+              <p className="font-display text-subtitle leading-[1.15] tracking-[-0.01em] text-text-primary">{step.name}</p>
+              <p className="flex-1 text-label leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                 {step.body}
               </p>
               {"cta" in step && step.cta && (
@@ -518,9 +520,9 @@ export function StartView() {
                   href={step.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 w-fit font-mono text-[0.62rem] uppercase tracking-[0.1em] text-accent transition-colors duration-base ease-physics hover:text-text-primary"
+                  className="mt-2 inline-flex w-fit items-center gap-1 font-mono text-caption uppercase tracking-[0.1em] text-accent transition-colors duration-base ease-physics hover:text-text-primary"
                 >
-                  {step.cta} →
+                  {step.cta} <Icon name="arrow-up-right" />
                 </a>
               )}
             </motion.div>
@@ -541,11 +543,11 @@ export function StartView() {
         <div className="flex flex-col">
           {(ar ? OBJECTIONS.ar : OBJECTIONS.en).map((o, i) => (
             <details key={i} className="group border-t border-border-subtle py-3 last:border-b">
-              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 font-display text-[1rem] tracking-[-0.01em] text-text-primary transition-colors duration-base ease-physics hover:text-accent">
+              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 font-display text-body tracking-[-0.01em] text-text-primary transition-colors duration-base ease-physics hover:text-accent">
                 {o.q}
-                <span aria-hidden className="shrink-0 font-mono text-[0.9rem] text-accent transition-transform duration-base ease-physics group-open:rotate-45">+</span>
+                <span aria-hidden className="shrink-0 font-mono text-body-sm text-accent transition-transform duration-base ease-physics group-open:rotate-45">+</span>
               </summary>
-              <p className="mt-2 max-w-[64ch] text-[0.85rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+              <p className="mt-2 max-w-[64ch] text-body-sm leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                 {o.a}
               </p>
             </details>
@@ -557,7 +559,7 @@ export function StartView() {
           06 / EXPLORE THE SITE — cycle referral to every section
       ══════════════════════════════════════════════════════════ */}
       <SectionWrap id="explore" n={ar ? "٠٦" : "06"} label={ar ? "٠٦ / استكشف الموقع" : "06 / EXPLORE THE SITE"} title={ar ? "كل حاجة في مكانها" : "Everything in"} italic={ar ? "في مكانها." : "its place."}>
-        <p className="mb-8 max-w-[52ch] text-[0.875rem] leading-[1.7] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+        <p className="mb-8 max-w-[52ch] text-body-sm leading-[1.7] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>
           {ar
             ? "الموقع ده مش كتالوج — كل صفحة بتجاوب على سؤال مختلف في دماغك. استكشف من هنا."
             : "This site isn't a catalogue — every page answers a different question in your head. Explore from here."}
@@ -595,13 +597,13 @@ export function StartView() {
           viewport={{ once: true }}
           transition={physicsSlow}
         >
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent">{c.ctaKicker}</p>
+          <p className="font-mono text-caption uppercase tracking-[0.16em] text-accent">{c.ctaKicker}</p>
           <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-[-0.025em] text-text-primary">
             {c.ctaTitle} <em className="text-accent">{c.ctaItalic}</em>
           </h2>
           <p
-            className="max-w-[44ch] text-[0.9rem] leading-[1.7] text-text-secondary"
-            style={{ fontFamily: "Montserrat, system-ui" }}
+            className="max-w-[44ch] text-body-sm leading-[1.7] text-text-secondary"
+            style={{ fontFamily: "var(--font-sans)" }}
           >
             {ctaSub}
           </p>
@@ -610,7 +612,7 @@ export function StartView() {
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
+              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
             >
               {c.ctaPrimary}
             </a>
@@ -619,10 +621,11 @@ export function StartView() {
               className={buttonVariants({
                 variant: "ghost",
                 className:
-                  "border border-[rgb(255_107_71_/_0.30)] px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
+                  "inline-flex items-center gap-1.5 border border-accent-32 px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
               })}
             >
               {c.ctaSecondary}
+              <Icon name="arrow-right" />
             </Link>
           </div>
         </motion.div>
@@ -660,7 +663,7 @@ function SectionWrap({
           transition={physicsSlow}
           className="mb-8 flex flex-col gap-1"
         >
-          <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-text-ghost">{label}</p>
+          <p className="font-mono text-caption uppercase tracking-[0.14em] text-text-ghost">{label}</p>
           <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] leading-[1.05] tracking-[-0.02em] text-text-primary">
             {title} <em className="text-accent">{italic}</em>
           </h2>

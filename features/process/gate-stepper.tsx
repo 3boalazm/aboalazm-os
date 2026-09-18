@@ -16,6 +16,7 @@
  */
 
 import { useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics } from "@/lib/motion";
@@ -160,11 +161,11 @@ export function GateStepper() {
       <div className="gate-terminal__body">
         {/* section heading */}
         <div className="mb-6 flex flex-col gap-1">
-          <p className="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-accent">{t.gatesKicker}</p>
-          <h2 className="font-display text-[clamp(1.5rem,3.2vw,2.4rem)] leading-[1.05] tracking-[-0.02em] text-text-primary">
+          <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{t.gatesKicker}</p>
+          <h2 className="font-display text-title leading-[1.05] tracking-[-0.02em] text-text-primary">
             {t.gatesTitle} <em className="text-accent">{t.gatesItalic}</em>
           </h2>
-          <p className="mt-2 max-w-[56ch] text-[0.85rem] leading-[1.65] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+          <p className="mt-2 max-w-[56ch] text-body-sm leading-[1.65] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
             {t.gatesLede}
           </p>
         </div>
@@ -187,7 +188,9 @@ export function GateStepper() {
               >
                 <span className="gate-node__ring">
                   {isPast ? (
-                    <span className="gate-node__check" aria-hidden>✓</span>
+                    <span className="gate-node__check">
+                      <Icon name="check" strokeWidth={2} />
+                    </span>
                   ) : (
                     <span className="gate-node__num">{gate.id}</span>
                   )}
@@ -232,11 +235,11 @@ export function GateStepper() {
             <div className="gate-detail__grid">
               <div className="gate-detail__block">
                 <p className="gate-detail__block-label">{t.signOffLabel}</p>
-                <p className="gate-detail__block-body" style={{ fontFamily: "Montserrat, system-ui" }}>{g.signOff}</p>
+                <p className="gate-detail__block-body" style={{ fontFamily: "var(--font-sans)" }}>{g.signOff}</p>
               </div>
               <div className="gate-detail__block gate-detail__block--accent">
                 <p className="gate-detail__block-label">{t.locksLabel}</p>
-                <p className="gate-detail__block-body" style={{ fontFamily: "Montserrat, system-ui" }}>{g.locks}</p>
+                <p className="gate-detail__block-body" style={{ fontFamily: "var(--font-sans)" }}>{g.locks}</p>
               </div>
             </div>
 

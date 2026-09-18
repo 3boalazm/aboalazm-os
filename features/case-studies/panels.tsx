@@ -328,7 +328,7 @@ export function PerformancePanel({ record }: { record: CaseStudyRecord }) {
             <span
               className={[
                 "font-mono text-micro tracking-[0.10em]",
-                r.verdict === "KEEP" && "text-[#3DDC84]",
+                r.verdict === "KEEP" && "text-success",
                 r.verdict === "CHANGE" && "text-accent",
                 r.verdict === "DROP" && "text-text-ghost",
               ]

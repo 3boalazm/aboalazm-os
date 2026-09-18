@@ -1,5 +1,6 @@
 "use client";
 import { useT } from "@/hooks/use-t";
+import { Icon } from "@/components/ui/Icon";
 
 /**
  * LIVE TOKEN PLAYGROUND — "the system, hands-on."
@@ -144,9 +145,9 @@ export function TokenPlayground() {
 
         <button
           onClick={() => setT(DEFAULTS)}
-          className="self-start font-mono text-micro uppercase tracking-[0.10em] text-text-ghost transition-colors duration-base ease-physics hover:text-accent"
+          className="inline-flex items-center gap-1 self-start font-mono text-micro uppercase tracking-[0.10em] text-text-ghost transition-colors duration-base ease-physics hover:text-accent"
         >
-          [RESET → SYSTEM DEFAULTS]
+          [RESET <Icon name="arrow-right" flip={false} /> SYSTEM DEFAULTS]
         </button>
       </aside>
 

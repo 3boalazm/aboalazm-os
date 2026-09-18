@@ -1,5 +1,6 @@
 "use client";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
+import { Icon } from "@/components/ui/Icon";
 import type { Project } from "@/features/work/types";
 import { MediaCard } from "@/components/ui/MediaCard";
 
@@ -68,8 +69,8 @@ export function LivePreviewCard({ project }: { project: Project }) {
         />
         {/* Hover scrim */}
         <div className="absolute inset-0 flex items-center justify-center bg-surface-0/0 opacity-0 transition-all duration-base ease-physics group-hover:bg-surface-0/50 group-hover:opacity-100">
-          <span className="rounded-pill border border-border-strong bg-surface-0 px-2 py-1 font-mono text-micro uppercase tracking-[0.08em] text-text-primary">
-            View Live ↗
+          <span className="inline-flex items-center gap-1 rounded-pill border border-border-strong bg-surface-0 px-2 py-1 font-mono text-micro uppercase tracking-[0.08em] text-text-primary">
+            View Live <Icon name="arrow-up-right" size="0.9em" />
           </span>
         </div>
       </div>

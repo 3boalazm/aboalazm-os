@@ -9,9 +9,9 @@ import { joinClasses } from "@/lib/utils";
  */
 const TONES = {
   neutral: "border-border-subtle bg-surface-1 text-text-secondary",
-  accent: "border-accent/40 bg-accent-dim text-accent",
+  accent: "border-accent-border bg-accent-dim text-accent-text",
   outline: "border-border-default bg-transparent text-text-tertiary",
-  success: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
+  success: "border-success-border bg-success-dim text-success-text",
   creative: "border-[var(--color-creative-border)] bg-[var(--color-creative-dim)] text-[var(--color-creative-text)]",
   live: "border-[var(--color-live-border)] bg-[var(--color-live-dim)] text-[var(--color-live-text)]",
   proof: "border-[var(--color-proof-border)] bg-[var(--color-proof-dim)] text-[var(--color-proof-text)]",
