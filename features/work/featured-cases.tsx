@@ -117,6 +117,15 @@ export function FeaturedCases({
         </div>
       )}
 
+      {/* /work suppresses the visible section heading ("heading: none"), which
+          left the page as h1 "Selected Work" followed straight by h3 case
+          titles — a skipped level, and no name for the group itself. The
+          heading is restored for assistive tech only; the visual composition
+          is unchanged. */}
+      {heading === "none" ? (
+        <h2 className="sr-only">{ar ? "حالات مختارة" : "Featured cases"}</h2>
+      ) : null}
+
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {featured.map((project) => (
           <FeaturedCard key={project.slug} project={project} ar={ar} />

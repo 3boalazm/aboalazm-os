@@ -83,8 +83,17 @@ export function Nav() {
           aria-label={t.navBrandName}
           className="flex items-center gap-2"
         >
+          {/* tabIndex={-1} is load-bearing, not decoration. The press gesture
+              makes motion elements keyboard-reachable by adding tabindex="0"
+              when they have none (motion-dom: `if (!isElementKeyboardAccessible
+              (target) && !target.hasAttribute("tabindex")) target.tabIndex = 0`).
+              This orb is a decorative <span> inside a link that already has an
+              accessible name, so that produced a second, nameless, no-op tab
+              stop after the logo on every route. Declaring the attribute
+              suppresses the injection and the tap animation still works. */}
           <motion.span
             className="brand-orb h-7 w-7 md:h-8 md:w-8"
+            tabIndex={-1}
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
             transition={physics}

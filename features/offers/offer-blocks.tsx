@@ -86,9 +86,15 @@ export function TierCard({ tier }: { tier: Tier }) {
             {pick(item, lang)}
           </li>
         ))}
+        {/* Both glyphs are aria-hidden decoration, which meant an excluded
+            item ("Brand strategy") read exactly like an included one — and
+            under the Tier 02/03 heading "Everything in Tier 01, plus" that
+            reads as a promise rather than a deduction. The excluded rows now
+            carry their own label in text. */}
         {tier.excludes?.map((item) => (
           <li key={item[0]} className="flex gap-1 text-body-sm text-text-ghost">
             <span aria-hidden>✕</span>
+            <span className="sr-only">{lang === "ar" ? "غير مشمول: " : "Not included: "}</span>
             {pick(item, lang)}
           </li>
         ))}
@@ -134,8 +140,15 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
 
   return (
     <>
-      {/* ── Mobile / tablet: stacked cards ── */}
-      <div className="grid gap-2 md:hidden">
+      {/* ── Mobile / tablet: stacked cards ──
+          Mirrors the table's <caption> as a named group, so the stacked
+          presentation is announced as "Tier comparison" instead of arriving
+          as three unlabelled cards in the reading order. */}
+      <div
+        role="group"
+        aria-label={ar ? "مقارنة الفئات" : "Tier comparison"}
+        className="grid gap-2 md:hidden"
+      >
         {tiers.map((t) => (
           <div
             key={t.tag[0]}
@@ -149,9 +162,17 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
             <p className="flex items-baseline gap-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
               {pick(t.name, lang)}
               {t.recommended ? (
-                <span aria-hidden className="text-accent">
-                  ★
-                </span>
+                <>
+                  <span aria-hidden className="text-accent">
+                    ★
+                  </span>
+                  {/* The star is the only recommendation signal left in the
+                      comparison (see the note above TierCompare). aria-hidden
+                      keeps it out of the accessible name, so the same fact is
+                      carried by text — otherwise the decision aid recommends
+                      nothing at all for a non-visual reader. */}
+                  <span className="sr-only">{ar ? "الأكثر طلبًا" : "Recommended"}</span>
+                </>
               ) : null}
             </p>
             <dl className="mt-2 grid grid-cols-[5.5rem_1fr] gap-x-2 gap-y-1">
@@ -181,9 +202,15 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                 <th key={t.tag[0]} className="px-3 py-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
                   {pick(t.name, lang)}
                   {t.recommended ? (
-                    <span aria-hidden className="ms-2 text-accent">
-                      ★
-                    </span>
+                    <>
+                      <span aria-hidden className="ms-2 text-accent">
+                        ★
+                      </span>
+                      {/* Lives inside the <th>, so screen readers announce the
+                          recommendation with the column header of every cell
+                          in that column. */}
+                      <span className="sr-only">{ar ? "الأكثر طلبًا" : "Recommended"}</span>
+                    </>
                   ) : null}
                 </th>
               ))}

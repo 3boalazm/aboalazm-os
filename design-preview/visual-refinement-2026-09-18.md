@@ -267,6 +267,94 @@ typography system, orange as the brand anchor. No new dependency. Reverting is a
 | Arabic + light mode are not visually poorer | ✅ mirrored focal light; theme-aware tokens |
 | Reduced motion keeps depth via colour and composition | ✅ verified — gradient, grain, edge-light all persist |
 
-**Known limit / next step:** the mobile pricing comparison now duplicates no information,
-but it is longer than the table. It was not verified with a screen reader on a real
-device — that is the one open item worth a follow-up pass.
+**Known limit:** the mobile pricing comparison duplicates no information, but it is
+longer than the table (605px of stacked cards against 220px of table at 390px). That is
+the deliberate cost of making the third tier reachable; it is not a defect. The
+screen-reader follow-up flagged here is closed in §11.
+
+---
+
+## 11. Final accessibility pass — 18 Sep 2026
+
+Scope was the six named items, not a general audit. Method: the **real accessibility
+tree** read over CDP `Accessibility.getFullAXTree` at 390 / 768 / 1440, dark + light,
+en + ar — not source reading, and not a screenshot judgement.
+
+### 11.1 What was already correct (recorded so it is not re-litigated)
+
+| Item | Finding |
+|---|---|
+| Mobile stacked cards at 390px | `342px` wide in a `342px` wrapper, `overflowX: 0`. The table is `display: none` below `md`, so **only one presentation is ever in the a11y tree** — no double reading. On desktop the mobile block is `display: none`; the `table` is exposed with name `Tier comparison`. |
+| Table headers | Exposed as `columnheader ×4` (`FIT`, `Logo Design`, `Brand Identity Essentials`, `Full Brand System`) and `rowheader ×3` (`BEST FOR`, `FROM`, `DURATION`), `cell ×9`. Chromium derives the scopes correctly; explicit `scope` attributes would not change the computed tree, so none were added. |
+| Tier-card CTAs | Distinct accessible names in visual order: `Discuss Logo Design` → `Discuss Brand Identity Essentials` → `Discuss Full Brand System`. Tab order matches reading order at both widths. |
+| Contact form labels | Every control is wrapped in its own `<label>`; names resolve from the wrapper (`NAME`, `EMAIL`, `WHAT ARE WE BUILDING`; `الاسم`, `البريد الإلكتروني`, `ماذا نبني`). `required` is native, so `aria-required` is correctly absent. |
+| Focus outlines | Every tab stop on `/`, `/work`, `/pricing` reports a visible `1px accent` outline. |
+| Reduced motion | `atmos-field` keeps `opacity: 1` **and its gradient** while `animation-name` becomes `none`; grain stays at `0.035`; `edge-light` keeps its gradient. Depth survives through static colour and composition. |
+
+### 11.2 Defects found and fixed
+
+| # | Defect | Evidence | Fix |
+|---|---|---|---|
+| 1 | **The recommendation was unannounced in the comparison.** The tier-2 star is `aria-hidden` in both presentations, and this pass removed the duplicate `BEST FOR MOST PROJECTS` header. Result: the decision aid recommended nothing for a non-visual reader. | `recommendation nodes in region: 0` | `sr-only` text beside the star, inside the `<th>` — so the column header now computes as `Brand Identity Essentials Recommended` and is announced with **every cell in that column**. |
+| 2 | **Excluded items read as included.** `✓`/`✕` are both `aria-hidden`, so `Brand strategy` announced identically to `Mini Usage Guide` — under the Tier 02/03 heading `Everything in Tier 01, plus`, which reads as a promise. | AX nodes for `Brand strategy` and `Mini Usage Guide` were byte-identical in role and name | `sr-only` `Not included:` / `غير مشمول:` prefix on each excluded row. |
+| 3 | **The mobile comparison had no accessible name.** The desktop table has a `<caption>`; the stacked cards arrived as three unlabelled cards. | no `group`/`region`/`heading` node preceded them | `role="group"` + `aria-label="Tier comparison"` / `مقارنة الفئات` on the mobile container. |
+| 4 | **`/work` skipped a heading level, and the featured grid was unnamed.** `h1 Selected Work` → `h3` case titles. | outline `[1,3,3,3]` at both widths | `sr-only` `h2` (`Featured cases` / `حالات مختارة`) restored when the visible section heading is suppressed. Now `[1,2,3,3,3]`. |
+| 5 | **A nameless, no-op tab stop on every route.** Framer Motion makes press-gesture elements keyboard-reachable by injecting `tabindex="0"` when they have none (`motion-dom`: `if (!isElementKeyboardAccessible(target) && !target.hasAttribute("tabindex")) target.tabIndex = 0`). The decorative logo orb is a `<span>` inside a link that is already named, so tabbing past the logo landed on an unnamed element. | tab stop 2 on every route: `span`, empty name | `tabIndex={-1}` on the orb — declaring the attribute suppresses the injection; the tap animation still runs. |
+
+### 11.3 A false positive, and why it was not reported
+
+Reading `/contact` initially showed the orb still carrying `tabindex="0"` and the form
+fields as "nameless" — while every other route was correct. Both were **artefacts of the
+verification environment, not the code**:
+
+- `.next/server/app/contact.html` was a **stale prerender from the previous session's
+  production build** (15:33, before this pass). The dev server served it verbatim, so the
+  old markup was being measured. After `rm -rf .next` and a clean start, `/contact`
+  renders `tabindex="-1"` like every other route.
+- The form fields *did* look nameless only because the probe read `aria-label` and
+  `textContent` without resolving the wrapping `<label>`. Reading the real AX tree shows
+  all three controls correctly named.
+
+Neither was written up as a defect. The lesson is recorded here because a source-only or
+stale-artefact reading would have produced two confident, wrong findings.
+
+### 11.4 Considered and deliberately **not** changed
+
+- **Form-field focus ring.** `FIELD` sets `outline-none` and `focus:border-border-strong`,
+  so the site's global `:focus-visible { outline: 1px accent }` does not paint on the
+  inputs. There *is* a focus indicator — the border goes from `rgba(255,255,255,0.08)` to
+  `0.20` — so WCAG 2.4.7 is met, but it is below the AAA 2.4.11 threshold. Removing
+  `outline-none` would restore the system ring **and** change the focused appearance of
+  every field on a mouse click (browsers apply `:focus-visible` to text inputs), which is
+  a visual-direction change this pass was not authorised to make. Left as-is, flagged for
+  the designer to decide.
+- **`display: contents`** on the `<dl>` wrappers in the mobile cards. Verified exposed
+  correctly — the AX tree contains `DescriptionList → term/definition` pairs, so the
+  `dt`/`dd` association survives. No change was needed.
+- Table `scope` attributes — see 11.1; they would be a no-op on the computed tree.
+
+### 11.5 Proof that none of this changed a pixel
+
+The screenshot harness was first made **deterministic**: waiting for `document.fonts.ready`,
+loading the four site faces explicitly, decoding images, freezing animation and
+transition, and removing the dev overlay. Two captures of identical code then compared at
+`AE = 0` across all eight states — before this, the same code compared against itself
+reported 200–1900 differing pixels, which is what a font-load race looks like.
+
+With the harness proven stable, the change was stashed and the same eight states captured
+before and after:
+
+```
+pricing-1440-dark-ar   AE=0    pricing-390-light-en   AE=0
+pricing-1440-light-en  AE=0    pricing-768-light-ar   AE=0
+pricing-390-dark-ar    AE=0    work-1440-dark-en      AE=0
+pricing-390-dark-en    AE=0    work-390-dark-en       AE=0
+```
+
+**Zero pixels changed** at 390 / 768 / 1440, dark and light, English and Arabic — which is
+the expected result, since every fix is `sr-only` text, a role/aria-label, or a
+`tabindex` that was being ignored.
+
+`npm run typecheck` clean. `npm run build` succeeded (56 pages, 117s,
+`NODE_OPTIONS=--max-old-space-size=1024`). Database configuration was not modified —
+`DATABASE_URI` / `PAYLOAD_SECRET` were process env only, as in §8.
