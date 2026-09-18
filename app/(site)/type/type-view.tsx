@@ -14,13 +14,13 @@ export function TypeView() {
 
       {/* ── Header ── */}
       <div className="mb-16 border-b border-border-subtle pb-8">
-        <p className="mb-2 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-text-ghost">
+        <p className="mb-2 font-mono text-caption uppercase tracking-[0.14em] text-text-ghost">
           INTERNAL · TYPE SYSTEM
         </p>
         <h1 className="font-display text-[clamp(2.5rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-text-primary">
           GC EPIC<span className="text-accent">PRO</span>
         </h1>
-        <p className="mt-3 font-sans text-[1rem] text-text-secondary">
+        <p className="mt-3 font-sans text-body text-text-secondary">
           Headings — GC EPICPRO Extra Bold (800) · Body — Montserrat
         </p>
       </div>
@@ -43,7 +43,7 @@ export function TypeView() {
             { label: "Title — clamp(1.5rem, 2.8vw, 2.25rem)", size: "clamp(1.5rem,2.8vw,2.25rem)", lh: "1.15", ls: "-0.015em" },
           ].map(({ label, size, lh, ls }) => (
             <div key={label} className="border-b border-border-subtle/40 pb-6">
-              <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-ghost">{label}</span>
+              <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{label}</span>
               <p
                 className="font-display text-text-primary"
                 style={{ fontSize: size, lineHeight: lh, letterSpacing: ls }}
@@ -67,7 +67,7 @@ export function TypeView() {
             { label: "label  0.75rem / 500 — UI labels", text: "SELECTED WORK · 2024", weight: "500", size: "0.75rem" },
           ].map(({ label, text, weight, size }) => (
             <div key={label} className="border-b border-border-subtle/40 pb-4">
-              <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-text-ghost">{label}</span>
+              <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{label}</span>
               <p
                 className="mt-1 text-text-secondary"
                 style={{ fontFamily: "Montserrat, system-ui", fontWeight: weight, fontSize: size, lineHeight: 1.6 }}
@@ -169,7 +169,7 @@ export function TypeView() {
       <section>
         <Label>Quick reference</Label>
         <div className="mt-4 overflow-x-auto rounded-card border border-border-subtle bg-surface-1 p-6">
-          <table className="w-full text-left font-mono text-[0.68rem] text-text-secondary">
+          <table className="w-full text-left font-mono text-caption text-text-secondary">
             <thead>
               <tr className="border-b border-border-subtle text-text-ghost">
                 <th className="pb-3 pr-8">Element</th>
@@ -209,7 +209,7 @@ export function TypeView() {
 
 function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="font-mono text-[0.65rem] uppercase tracking-[0.14em] text-text-ghost">
+    <p className="font-mono text-caption uppercase tracking-[0.14em] text-text-ghost">
       {children}
     </p>
   );
@@ -217,7 +217,7 @@ function Label({ children }: { children: React.ReactNode }) {
 
 function CtxLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-3 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-text-ghost">
+    <p className="mb-3 font-mono text-caption uppercase tracking-[0.12em] text-text-ghost">
       {children}
     </p>
   );

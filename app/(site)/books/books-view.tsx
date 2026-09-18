@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
@@ -72,7 +73,7 @@ export function BooksView() {
                   <span className="inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.06em] text-accent">
                     {ar ? "اقرأ" : "READ"}
                     <span aria-hidden className="transition-transform duration-base ease-physics group-hover:translate-x-1">
-                      {ar ? "←" : "→"}
+                      <Icon name="arrow-right" />
                     </span>
                   </span>
                 </div>

@@ -110,7 +110,7 @@ export function ContactForm() {
             transition={physics}
             className="flex flex-col gap-2 py-8 text-center"
           >
-            <p className="font-mono text-micro uppercase tracking-[0.10em] text-[#3DDC84]">
+            <p className="font-mono text-micro uppercase tracking-[0.10em] text-success">
               {ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."}
             </p>
             <p className="font-display text-title tracking-[-0.015em]">

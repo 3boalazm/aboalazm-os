@@ -61,11 +61,41 @@ export const COLOR = {
     strong: "rgb(255 255 255 / 0.20)",
   },
   accent: "#FF6B47",
+  /**
+   * The sanctioned accent alpha ramp (mirrors --color-accent-* in
+   * globals.css @theme). 12 steps so any historical one-off opacity
+   * snaps within Δ ≤ 0.05. Never invent an in-between in JS either.
+   */
   accentAlpha: {
+    4: "rgb(255 107 71 / 0.04)",
     8: "rgb(255 107 71 / 0.08)",
     14: "rgb(255 107 71 / 0.14)",
+    20: "rgb(255 107 71 / 0.20)",
     24: "rgb(255 107 71 / 0.24)",
+    32: "rgb(255 107 71 / 0.32)",
     40: "rgb(255 107 71 / 0.40)",
+    48: "rgb(255 107 71 / 0.48)",
+    64: "rgb(255 107 71 / 0.64)",
+    72: "rgb(255 107 71 / 0.72)",
+    80: "rgb(255 107 71 / 0.80)",
+    88: "rgb(255 107 71 / 0.88)",
+  },
+  /** Expressive supporting roles — meaning carriers, never decoration. */
+  roles: {
+    creative: "#8B5CF6", // violet — creative intelligence / experimental
+    live: "#22D3EE", // cyan    — live system / digital surface
+    proof: "#A3E635", // lime    — shipped result / forward energy
+  },
+  /**
+   * Functional states (dark-canvas values). Light mode reassigns these
+   * in CSS; JS consumers drawing on Alabaster should read the computed
+   * custom property instead of these constants.
+   */
+  status: {
+    success: "#34D399",
+    warning: "#FBBF24",
+    danger: "#F87171",
+    info: "#60A5FA",
   },
 } as const;
 

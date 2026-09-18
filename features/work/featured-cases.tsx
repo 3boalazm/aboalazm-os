@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Badge } from "@/components/ui/Badge";
+import { Icon } from "@/components/ui/Icon";
 import { MediaCard } from "@/components/ui/MediaCard";
 import { Section, SectionLabel } from "@/components/ui/Section";
 import { buttonVariants } from "@/components/ui/Button";
@@ -109,8 +110,8 @@ export function FeaturedCases({
               className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
             >
               {ar ? "كل الأعمال" : "See all work"}
-              <span aria-hidden className="ms-1">
-                →
+              <span aria-hidden className="ms-1 inline-flex">
+                <Icon name="arrow-right" />
               </span>
             </Link>
           ) : null}
@@ -222,7 +223,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
 
       <div className="flex flex-col gap-2">
         <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
-        <h3 className="font-display text-[1.35rem] leading-[1.15] tracking-[-0.015em] text-text-primary">
+        <h3 className="font-display text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
           {name}
         </h3>
         <p className="text-body-sm text-text-secondary">{challenge}</p>
@@ -236,8 +237,8 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
           })}
         >
           {ar ? cta.ar : cta.en}
-          <span aria-hidden className="ms-1">
-            ↗
+          <span aria-hidden className="ms-1 inline-flex">
+            <Icon name="arrow-up-right" />
           </span>
         </Link>
       </div>

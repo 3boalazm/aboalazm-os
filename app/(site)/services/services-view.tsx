@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 import { PROCESS, type Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, Faq, CtaBand, pick } from "@/features/offers/offer-blocks";
@@ -77,7 +78,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         </div>
         <Link href="/process" className="group mx-auto mt-1 flex w-fit items-center gap-2 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-accent">
           {ar ? "شوف المنهجية كاملة — ٣٨ يوم بالتفصيل" : "See the full 38-day method, gate by gate"}
-          <span aria-hidden className="transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+          <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
       </section>
 
@@ -89,10 +90,10 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         </p>
         <div className="flex justify-center gap-2">
           <Link href="/pricing" className={buttonVariants({ className: "px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
-            {ar ? "التسعير التفصيلي ✦" : "View Detailed Pricing ✦"}
+            <>{ar ? "التسعير التفصيلي" : "View Detailed Pricing"} <Icon name="sparkle" size="0.9em" /></>
           </Link>
           <Link href="/agreement" className={buttonVariants({ variant: "ghost", className: "glass px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
-            {ar ? "اقرأ الاتفاقية →" : "Read Full Agreement →"}
+            <>{ar ? "اقرأ الاتفاقية" : "Read Full Agreement"} <Icon name="arrow-right" /></>
           </Link>
         </div>
       </section>

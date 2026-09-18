@@ -18,6 +18,7 @@
  */
 
 import { useEffect, useRef, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { useRouter } from "next/navigation";
 
 const PAGES: Record<string, string> = {
@@ -171,9 +172,9 @@ export function TerminalOverlay() {
           <button
             onClick={() => setOpen(false)}
             aria-label="Close terminal"
-            className="font-mono text-micro text-text-tertiary hover:text-text-primary"
+            className="inline-flex items-center gap-1 font-mono text-micro text-text-tertiary hover:text-text-primary"
           >
-            esc ✕
+            esc <Icon name="x" size="0.9em" />
           </button>
         </div>
 

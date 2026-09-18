@@ -26,6 +26,7 @@ import { useLang } from "@/components/providers/lang-provider";
  */
 import { useCallback, useRef, useState } from "react";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
 import { reveal } from "@/lib/motion";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
@@ -216,7 +217,7 @@ function LedgerRow({
               used to be the only affordance on a narrow row. */}
           <span className="mt-0.5 flex items-center gap-1 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost md:hidden">
             {destination}
-            <span aria-hidden>↗</span>
+            <Icon name="arrow-up-right" />
           </span>
         </span>
 
@@ -257,10 +258,9 @@ function LedgerRow({
         <span className="relative hidden justify-self-end font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics group-hover:text-text-primary md:block">
           {destination}
           <span
-            aria-hidden
-            className="ml-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1"
+            className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
           >
-            ↗
+            <Icon name="arrow-up-right" />
           </span>
           <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
         </span>

@@ -15,6 +15,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, physicsSlow, reveal } from "@/lib/motion";
@@ -59,7 +60,7 @@ const COPY = {
     ctaItalic: "day one.",
     ctaSub: "The whole method starts with a 30-minute discovery call. No commitment — just clarity on scope, fit, and timeline.",
     ctaPrimary: "Book a Discovery Call",
-    ctaSecondary: "See the Client Journey →",
+    ctaSecondary: "See the Client Journey",
   },
   ar: {
     kicker: "المنهجية",
@@ -82,7 +83,7 @@ const COPY = {
     ctaItalic: "اليوم الأول.",
     ctaSub: "المنهجية كلها تبدأ بمكالمة اكتشاف ٣٠ دقيقة. بدون التزام — بس وضوح عن النطاق والتوافق والجدول الزمني.",
     ctaPrimary: "احجز مكالمة اكتشاف",
-    ctaSecondary: "شوف رحلة العميل ←",
+    ctaSecondary: "شوف رحلة العميل",
   },
 } as const;
 
@@ -337,13 +338,13 @@ export function ProcessView() {
           initial="hidden"
           animate="visible"
         >
-          <motion.p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent" variants={reveal.item}>
+          <motion.p className="font-mono text-caption uppercase tracking-[0.16em] text-accent" variants={reveal.item}>
             {c.kicker}
           </motion.p>
           <motion.h1 className="font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" variants={reveal.item}>
             {c.h1a}<br /><em className="text-accent">{c.h1b}</em>
           </motion.h1>
-          <motion.p className="max-w-[56ch] text-[1rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }} variants={reveal.item}>
+          <motion.p className="max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }} variants={reveal.item}>
             {c.lede}
           </motion.p>
 
@@ -354,7 +355,7 @@ export function ProcessView() {
                 <span className="font-display text-[2rem] leading-none tracking-[-0.02em] text-text-primary">
                   {v}
                 </span>
-                <span className="mt-1 font-mono text-[0.55rem] uppercase tracking-[0.1em] text-text-ghost">{l}</span>
+                <span className="mt-1 font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{l}</span>
               </div>
             ))}
           </motion.div>
@@ -379,10 +380,10 @@ export function ProcessView() {
             ).map(([n, name], i, list) => (
               <li key={n} className="flex items-baseline gap-2">
                 <span className="font-mono text-micro text-accent">{n}</span>
-                <span className="font-display text-[1.05rem] tracking-[-0.015em] text-text-primary">{name}</span>
+                <span className="font-display text-body-lg tracking-[-0.015em] text-text-primary">{name}</span>
                 {i < list.length - 1 ? (
-                  <span aria-hidden className="hidden text-text-ghost sm:inline">
-                    →
+                  <span aria-hidden className="hidden text-text-ghost sm:inline-flex">
+                    <Icon name="arrow-right" flip={false} />
                   </span>
                 ) : null}
               </li>
@@ -440,27 +441,27 @@ export function ProcessView() {
                       "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border bg-surface-0 transition-colors duration-base ease-physics",
                       isOpen ? "border-accent" : "border-border-default group-hover:border-text-ghost",
                     ].join(" ")}>
-                      <span className={["font-mono text-[0.6rem] transition-colors duration-base", isOpen ? "text-accent" : "text-text-tertiary"].join(" ")}>
+                      <span className={["font-mono text-caption transition-colors duration-base", isOpen ? "text-accent" : "text-text-tertiary"].join(" ")}>
                         {phase.n}
                       </span>
                     </span>
 
                     <span className="flex flex-1 flex-col gap-1 pt-1">
                       <span className="flex flex-wrap items-baseline gap-3">
-                        <span className="font-display text-[1.2rem] tracking-[-0.015em] text-text-primary">{phase.name}</span>
-                        <span className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-text-ghost">{phase.days}</span>
+                        <span className="font-display text-subtitle tracking-[-0.015em] text-text-primary">{phase.name}</span>
+                        <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{phase.days}</span>
                       </span>
-                      <span className="max-w-[54ch] text-[0.85rem] leading-[1.6] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+                      <span className="max-w-[54ch] text-body-sm leading-[1.6] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                         {phase.summary}
                       </span>
                     </span>
 
                     {/* chevron */}
                     <span className={[
-                      "mt-2 shrink-0 font-mono text-[0.7rem] text-text-ghost transition-transform duration-base ease-physics",
+                      "mt-2 inline-flex shrink-0 font-mono text-caption text-text-ghost transition-transform duration-base ease-physics",
                       isOpen ? "rotate-90 text-accent" : "group-hover:text-text-tertiary",
                     ].join(" ")} aria-hidden>
-                      {ar ? "‹" : "›"}
+                      <Icon name="chevron-right" />
                     </span>
                   </button>
 
@@ -477,12 +478,12 @@ export function ProcessView() {
                         <div className="ms-[3.75rem] mb-6 grid gap-5 rounded-panel border border-border-subtle bg-surface-1 p-5 md:grid-cols-2">
                           {/* tasks */}
                           <div className="flex flex-col gap-2.5">
-                            <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-accent">{c.tasksLabel}</p>
+                            <p className="font-mono text-caption uppercase tracking-[0.1em] text-accent">{c.tasksLabel}</p>
                             <ul className="flex flex-col gap-2">
                               {phase.tasks.map((t, ti) => (
                                 <li key={ti} className="flex items-start gap-2">
                                   <span className="mt-[0.5rem] h-1 w-1 shrink-0 rounded-full bg-text-ghost" />
-                                  <span className="text-[0.8rem] leading-[1.55] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>{t}</span>
+                                  <span className="text-label leading-[1.55] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>{t}</span>
                                 </li>
                               ))}
                             </ul>
@@ -490,12 +491,12 @@ export function ProcessView() {
 
                           {/* deliverables */}
                           <div className="flex flex-col gap-2.5">
-                            <p className="font-mono text-[0.58rem] uppercase tracking-[0.1em] text-accent">{c.deliverablesLabel}</p>
+                            <p className="font-mono text-caption uppercase tracking-[0.1em] text-accent">{c.deliverablesLabel}</p>
                             <ul className="flex flex-col gap-2">
                               {phase.deliverables.map((d, di) => (
                                 <li key={di} className="flex items-start gap-2">
-                                  <span className="mt-[0.35rem] shrink-0 text-accent text-[0.7rem]">✓</span>
-                                  <span className="text-[0.8rem] leading-[1.55] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>{d}</span>
+                                  <Icon name="check" size="1em" strokeWidth={2} className="mt-[0.35rem] shrink-0 text-accent" />
+                                  <span className="text-label leading-[1.55] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>{d}</span>
                                 </li>
                               ))}
                             </ul>
@@ -503,10 +504,10 @@ export function ProcessView() {
 
                           {/* gate — full width */}
                           <div className="md:col-span-2 flex flex-col gap-2 rounded-card border border-accent/20 bg-accent/[0.04] p-4">
-                            <p className="font-mono text-[0.55rem] uppercase tracking-[0.1em] text-accent">{c.gateLabel}</p>
-                            <p className="text-[0.82rem] leading-[1.6] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>{phase.gate}</p>
+                            <p className="font-mono text-caption uppercase tracking-[0.1em] text-accent">{c.gateLabel}</p>
+                            <p className="text-label leading-[1.6] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>{phase.gate}</p>
                             {phase.payment && (
-                              <p className="mt-1 flex items-center gap-2 font-mono text-[0.6rem] uppercase tracking-[0.08em] text-text-ghost">
+                              <p className="mt-1 flex items-center gap-2 font-mono text-caption uppercase tracking-[0.08em] text-text-ghost">
                                 <span className="text-accent">$</span>{c.paymentLabel}: {phase.payment}
                               </p>
                             )}
@@ -532,7 +533,7 @@ export function ProcessView() {
             viewport={{ once: true, margin: "-80px" }}
             transition={physicsSlow}
           >
-            <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-text-ghost">{c.principlesKicker}</p>
+            <p className="font-mono text-caption uppercase tracking-[0.14em] text-text-ghost">{c.principlesKicker}</p>
             <h2 className="font-display text-[clamp(1.6rem,3.5vw,2.8rem)] leading-[1.05] tracking-[-0.02em] text-text-primary">
               {c.principlesTitle} <em className="text-accent">{c.principlesItalic}</em>
             </h2>
@@ -548,10 +549,10 @@ export function ProcessView() {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ ...physicsSlow, delay: i * 0.06 }}
               >
-                <span className="font-mono text-[0.7rem] text-accent">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-mono text-caption text-accent">{String(i + 1).padStart(2, "0")}</span>
                 <div className="flex flex-col gap-1">
-                  <p className="font-display text-[0.95rem] tracking-[-0.01em] text-text-primary">{title}</p>
-                  <p className="text-[0.8rem] leading-[1.6] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>{body}</p>
+                  <p className="font-display text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
+                  <p className="text-label leading-[1.6] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>{body}</p>
                 </div>
               </motion.div>
             ))}
@@ -568,11 +569,11 @@ export function ProcessView() {
           viewport={{ once: true }}
           transition={physicsSlow}
         >
-          <p className="font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent">{c.ctaKicker}</p>
+          <p className="font-mono text-caption uppercase tracking-[0.16em] text-accent">{c.ctaKicker}</p>
           <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-[-0.025em] text-text-primary">
             {c.ctaTitle} <em className="text-accent">{c.ctaItalic}</em>
           </h2>
-          <p className="max-w-[44ch] text-[0.9rem] leading-[1.7] text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+          <p className="max-w-[44ch] text-body-sm leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
             {c.ctaSub}
           </p>
           <div className="flex flex-wrap justify-center gap-3 pt-2">
@@ -580,7 +581,7 @@ export function ProcessView() {
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
+              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
             >
               {c.ctaPrimary}
             </a>
@@ -589,10 +590,11 @@ export function ProcessView() {
               className={buttonVariants({
                 variant: "ghost",
                 className:
-                  "border border-[rgb(255_107_71_/_0.30)] px-[24px] py-[12px] font-display font-[800] text-[0.8rem] tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
+                  "inline-flex items-center gap-1.5 border border-accent-32 px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
               })}
             >
               {c.ctaSecondary}
+              <Icon name="arrow-right" />
             </Link>
           </div>
         </motion.div>

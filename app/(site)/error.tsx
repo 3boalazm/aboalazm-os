@@ -16,6 +16,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, reveal } from "@/lib/motion";
@@ -26,14 +27,14 @@ const COPY = {
     status: "CONNECTION INTERRUPTED",
     headline: "Something didn't load.",
     body: "A temporary issue on our end — most likely the database taking a moment to respond. Try again, or head back to a known page.",
-    retry: "Try again →",
+    retry: "Try again",
     home: "Return home",
   },
   ar: {
     status: "انقطاع مؤقت في الاتصال",
     headline: "حاجة ما اتحمّلتش.",
     body: "مشكلة مؤقتة من عندنا — غالبًا قاعدة البيانات بتاخد لحظة عشان تستجيب. جرّب تاني، أو ارجع لصفحة معروفة.",
-    retry: "حاول تاني ←",
+    retry: "حاول تاني",
     home: "الرئيسية",
   },
 } as const;
@@ -88,9 +89,10 @@ export default function ErrorBoundary({
         <motion.div variants={reveal.item} className="mt-2 flex items-center gap-4">
           <Button
             onClick={reset}
-            className="px-4 py-2 font-mono text-label tracking-[0.06em] transition-opacity duration-base ease-physics hover:opacity-90"
+            className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-label tracking-[0.06em] transition-opacity duration-base ease-physics hover:opacity-90"
           >
             {copy.retry}
+            <Icon name="arrow-right" />
           </Button>
           <Link
             href="/"

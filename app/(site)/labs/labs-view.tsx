@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 import { SectionHead, CtaBand, pick } from "@/features/offers/offer-blocks";
 import { Heading } from "@/components/ui/Heading";
@@ -144,7 +145,7 @@ export function LabsView() {
           className="group mt-1 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
         >
           {ar ? "جرّب Token Playground الكامل" : "Try the full Token Playground"}
-          <span aria-hidden className="ms-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+          <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
       </section>
 
@@ -222,8 +223,8 @@ export function LabsView() {
                   {pick(step, lang)}
                 </span>
                 {i < METHOD.length - 1 && (
-                  <span aria-hidden className="font-mono text-micro text-accent">
-                    →
+                  <span aria-hidden className="inline-flex font-mono text-micro text-accent">
+                    <Icon name="arrow-right" />
                   </span>
                 )}
               </li>
@@ -257,8 +258,8 @@ export function LabsView() {
           className="group mt-1 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
         >
           {ar ? "زُر مكتبة المصادر" : "Visit the Resources library"}
-          <span aria-hidden className="ms-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1">
-            →
+          <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
+            <Icon name="arrow-right" />
           </span>
         </Link>
       </section>
