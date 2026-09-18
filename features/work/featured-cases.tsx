@@ -126,9 +126,33 @@ export function FeaturedCases({
   );
 }
 
+/**
+ * WHERE THE BUTTON ACTUALLY GOES.
+ * The audit flagged that every CTA read as a case study even when the row
+ * opened Behance or a live product. The destination is now a typed value,
+ * so the label, the arrow, and the meta line all agree — and the user
+ * never has to press to find out what kind of thing they are opening.
+ */
+type Destination = "case" | "live" | "external";
+
+function destinationOf(project: Project): Destination {
+  if (project.hasCaseStudy) return "case";
+  return project.externalUrl ? "live" : "external";
+}
+
+const DESTINATION_COPY: Record<
+  Destination,
+  { en: string; ar: string }
+> = {
+  case:     { en: "Read the case study", ar: "اقرأ دراسة الحالة" },
+  live:     { en: "Visit the live site", ar: "زور الموقع المباشر" },
+  external: { en: "Open external portfolio", ar: "افتح البورتفوليو الخارجي" },
+};
+
 function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
   const story = STORIES[project.slug];
-  const internal = project.hasCaseStudy;
+  const destination = destinationOf(project);
+  const internal = destination === "case";
   const href = internal ? `/case-studies/${project.slug}` : (project.externalUrl ?? BEHANCE);
   const name = ar && project.nameAr ? project.nameAr : project.name;
   const outcome = ar && project.outcomeAr ? project.outcomeAr : project.outcome;
@@ -136,10 +160,25 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
   const kind = project.category === "development"
     ? ar ? "منتج رقمي" : "Digital product"
     : ar ? "هوية" : "Identity";
+  const cta = DESTINATION_COPY[destination];
+
+  /* The badge carries the destination, so the CTA is confirmation rather
+     than a reveal. `case` is the default reading for a portfolio card and
+     stays quiet; the other two are worth flagging before the click. */
+  const badge =
+    destination === "case"
+      ? { label: kind, tone: "outline" as const }
+      : destination === "live"
+        ? { label: ar ? "منتج حي" : "Live product", tone: "live" as const }
+        : { label: ar ? "بورتفوليو خارجي" : "External portfolio", tone: "neutral" as const };
 
   return (
     <article className="flex flex-col gap-3">
-      <MediaCard className="relative aspect-[16/10] bg-surface-1">
+      {/* Project atmosphere lives on the media object only — never on the
+          card chrome, so the three cards stay a set rather than a rainbow.
+          The scrim sits above the image so captions keep their contrast
+          while the project's own colour still reads in the static state. */}
+      <MediaCard className="relative aspect-[16/10] overflow-hidden bg-surface-1">
         <div
           aria-hidden
           className="absolute inset-0"
@@ -148,6 +187,9 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
                          radial-gradient(120% 120% at 90% 100%, ${project.accent.secondary}, transparent 65%)`,
           }}
         />
+        {/* Glass edge — the media object reads as a lit surface rather than
+            a framed rectangle. Static, never hover-gated. */}
+        <div aria-hidden className="edge-light" />
         <Image
           src={project.thumbnail}
           alt=""
@@ -158,17 +200,23 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
             (e.currentTarget as HTMLImageElement).style.display = "none";
           }}
         />
+        <div
+          aria-hidden
+          className="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent"
+        />
+        {/* Outcome sits ON the image at the bottom, where a portfolio
+            reads it, instead of as a mono line buried under the copy. */}
+        <p className="absolute inset-x-0 bottom-0 z-elevated px-3 pb-2 font-mono text-micro uppercase tracking-[0.08em] text-alabaster/85">
+          {outcome}
+        </p>
       </MediaCard>
 
       <div className="flex flex-col gap-2">
-        <Badge tone="outline">{kind}</Badge>
+        <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
         <h3 className="font-display text-[1.35rem] leading-[1.15] tracking-[-0.015em] text-text-primary">
           {name}
         </h3>
         <p className="text-body-sm text-text-secondary">{challenge}</p>
-        <p className="font-mono text-micro uppercase tracking-[0.06em] text-text-tertiary">
-          {outcome}
-        </p>
         <Link
           href={href}
           {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
@@ -178,7 +226,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
               "mt-1 w-fit font-mono text-label tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary",
           })}
         >
-          {internal ? (ar ? "اقرأ دراسة الحالة" : "Read the case") : project.externalUrl ? (ar ? "الموقع المباشر" : "Live site") : "Behance"}
+          {ar ? cta.ar : cta.en}
           <span aria-hidden className="ms-1">
             ↗
           </span>

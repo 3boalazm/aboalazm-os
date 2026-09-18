@@ -1,11 +1,20 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import { joinClasses } from "@/lib/utils";
 
+/**
+ * Tones map onto the Expressive System Layer's semantic roles. `creative`,
+ * `live`, and `proof` are the violet / cyan / lime supporting roles — they
+ * annotate meaning (experimental, live, shipped) and never stand in for the
+ * orange brand anchor, which keeps `accent` to itself.
+ */
 const TONES = {
   neutral: "border-border-subtle bg-surface-1 text-text-secondary",
   accent: "border-accent/40 bg-accent-dim text-accent",
   outline: "border-border-default bg-transparent text-text-tertiary",
   success: "border-emerald-400/30 bg-emerald-400/10 text-emerald-300",
+  creative: "border-[var(--color-creative-border)] bg-[var(--color-creative-dim)] text-[var(--color-creative-text)]",
+  live: "border-[var(--color-live-border)] bg-[var(--color-live-dim)] text-[var(--color-live-text)]",
+  proof: "border-[var(--color-proof-border)] bg-[var(--color-proof-dim)] text-[var(--color-proof-text)]",
 } as const;
 
 const SIZES = {

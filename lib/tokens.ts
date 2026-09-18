@@ -94,6 +94,8 @@ export const GLOW_VARS = {
   x: "--glow-x",
   y: "--glow-y",
   opacity: "--glow-opacity",
+  /** Resting intensity a route keeps when nothing is in focus. */
+  floor: "--glow-floor",
 } as const;
 
 /* ── 6 · BREAKPOINTS (mirror of Tailwind defaults we rely on) ─── */

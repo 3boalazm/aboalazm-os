@@ -18,7 +18,7 @@ import { useT } from "@/hooks/use-t";
  *
  * Zero canvas, zero WebGL — ~2kb of SVG and springs.
  */
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, type CSSProperties } from "react";
 import {
   motion,
   useMotionValue,
@@ -119,15 +119,21 @@ function useMagneticNode(bx: number, by: number): NodeRig {
   return { x, y, pull, rest };
 }
 
-/* ── Visual atoms ──────────────────────────────────────────────── */
+/* ── Visual atoms ────────────────────────────────────────────────
+   Every colour here resolves through a semantic token, so the mesh keeps
+   its contrast in BOTH themes. The core used to be a hardcoded #F8F8FA,
+   which is near-invisible on the Alabaster canvas. */
 function Node({
   rig,
   label,
   delay,
+  origin = false,
 }: {
   rig: NodeRig;
   label: string;
   delay: number;
+  /** The identity origin — the one node allowed an authorial accent. */
+  origin?: boolean;
 }) {
   const labelX = useTransform(rig.x, (v) => v + 24);
   const labelY = useTransform(rig.y, (v) => v + 4);
@@ -139,22 +145,40 @@ function Node({
       animate={{ opacity: 1, scale: 1 }}
       transition={{ ...physicsSlow, delay }}
     >
+      {/* Origin ring — the brand anchor, before anything is compiled */}
+      {origin ? (
+        <motion.circle
+          cx={rig.x}
+          cy={rig.y}
+          r={26}
+          className="fill-none"
+          style={{ stroke: "var(--color-accent-40)" }}
+          strokeWidth={1}
+          strokeDasharray="2 5"
+        />
+      ) : null}
       {/* Halo */}
       <motion.circle
         cx={rig.x}
         cy={rig.y}
         r={16}
-        className="fill-none stroke-border-subtle"
+        className="fill-none"
+        style={{ stroke: "var(--color-border-strong)" }}
         strokeWidth={1}
       />
       {/* Core */}
-      <motion.circle cx={rig.x} cy={rig.y} r={4} fill="#F8F8FA" />
+      <motion.circle
+        cx={rig.x}
+        cy={rig.y}
+        r={4}
+        style={{ fill: "var(--color-text-primary)" }}
+      />
       {/* Breath */}
       <motion.circle
         cx={rig.x}
         cy={rig.y}
         r={4}
-        fill="#F8F8FA"
+        style={{ fill: "var(--color-text-primary)" }}
         animate={{ opacity: [0.35, 0], scale: [1, 3] }}
         transition={{
           duration: 3,
@@ -180,10 +204,14 @@ function Edge({
   a,
   b,
   delay,
+  spine = false,
 }: {
   a: NodeRig;
   b: NodeRig;
   delay: number;
+  /** Spine edges are the compilation path — they carry more weight than
+   *  the cross-links so the chain reads at a glance. */
+  spine?: boolean;
 }) {
   const reduceMotion = useReducedMotion();
   return (
@@ -192,10 +220,14 @@ function Edge({
       y1={a.y}
       x2={b.x}
       y2={b.y}
-      className="stroke-border-default"
-      strokeWidth={1}
+      style={{
+        stroke: spine
+          ? "var(--color-border-strong)"
+          : "var(--color-border-default)",
+      }}
+      strokeWidth={spine ? 1.25 : 1}
       initial={reduceMotion ? false : { pathLength: 0, opacity: 0 }}
-      animate={{ pathLength: 1, opacity: 1 }}
+      animate={{ pathLength: 1, opacity: spine ? 0.9 : 0.55 }}
       transition={{ duration: 1.1, ease: "easeInOut", delay }}
     />
   );
@@ -239,14 +271,36 @@ export function SystemConstellation() {
   }, []);
 
   return (
-    <div className="relative aspect-[480/560] w-full max-w-[480px]">
-      {/* Soft containment field */}
-      <div className="absolute inset-0 rounded-panel border border-border-subtle bg-surface-1/40" />
+    /* The signature asset is a composed OBJECT, not a bordered box:
+       a caption band, a light field, and the mesh. The caption used to be
+       absolutely positioned over the SVG, which collided with the
+       EXPERIENCE node's label at every size — here it owns a real band,
+       so the collision is impossible by construction. */
+    <div className="relative mx-auto w-full max-w-[520px] overflow-hidden rounded-panel border border-border-subtle bg-surface-1/40 lg:mx-0">
+      {/* Expressive colour field — violet (creative) into cyan (live).
+          The frame is no longer a monochrome grey box. */}
+      <div
+        aria-hidden
+        className="atmos-field"
+        style={
+          {
+            "--atmos-1": "var(--color-live)",
+            "--atmos-2": "var(--color-creative)",
+            "--atmos-x": "78%",
+            "--atmos-y": "12%",
+          } as CSSProperties
+        }
+      />
+      <div aria-hidden className="grain-layer" />
+
+      <p className="relative z-elevated border-b border-border-subtle px-3 py-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+        SYSTEM CONSTELLATION™ · LIVE
+      </p>
 
       <svg
         ref={ref}
         viewBox={`0 0 ${VB.w} ${VB.h}`}
-        className="relative size-full touch-none"
+        className="relative z-elevated block h-auto w-full touch-none"
         onPointerMove={onMove}
         onPointerLeave={onLeave}
         role="img"
@@ -258,6 +312,7 @@ export function SystemConstellation() {
             a={rigs[a]}
             b={rigs[b]}
             delay={0.4 + i * 0.12}
+            spine={i < 4}
           />
         ))}
         {(Object.keys(BASE) as NodeKey[]).map((k, i) => (
@@ -266,14 +321,10 @@ export function SystemConstellation() {
             rig={rigs[k]}
             label={NODES[k as keyof typeof NODES]}
             delay={0.2 + i * 0.14}
+            origin={k === "brand"}
           />
         ))}
       </svg>
-
-      {/* Caption */}
-      <p className="absolute bottom-2 left-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-        SYSTEM CONSTELLATION™ · LIVE
-      </p>
     </div>
   );
 }

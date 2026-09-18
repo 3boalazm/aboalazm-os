@@ -213,16 +213,96 @@ html[data-theme="light"] {
   --node-sot: #FFFBEB;   --node-sot-border: #D97706;  --node-sot-text: #78350F;
 }
 
+/* ═══════════════ EXPRESSIVE SYSTEM LAYER — SEMANTIC COLOR ROLES ═══════════════
+   Orange (--color-accent) stays the AUTHORIAL BRAND ANCHOR: CTAs, focus
+   rings, authorial emphasis. It does not get demoted here.
+
+   Violet / Cyan / Lime are SUPPORTING EXPRESSIVE ROLES. They carry meaning,
+   not decoration, and they never replace the anchor:
+
+     creative · violet  → creative intelligence / experimental identity
+     live     · cyan    → live system, digital surface, interaction
+     proof    · lime    → shipped result, forward energy
+
+   RULES OF USE (enforced in review, not by the compiler):
+     1. One accent family per surface. Never all three in one viewport.
+     2. Atmosphere, never paint — alpha lands between 0.10 and 0.20.
+     3. Functional states (red/amber/green) stay SEPARATE from these roles.
+     4. Every role has a -text variant: the 400-level tints fail as type on
+        Alabaster, so light mode defers to the deeper 500/600 end. */
+:root {
+  /* ── primitives ── */
+  --color-violet-500: #8B5CF6;
+  --color-violet-300: #C4B5FD;
+  --color-cyan-400:   #22D3EE;
+  --color-cyan-300:   #67E8F9;
+  --color-lime-400:   #A3E635;
+  --color-lime-300:   #BEF264;
+
+  /* ── semantic creative roles ── */
+  --color-creative: var(--color-violet-500);
+  --color-live:     var(--color-cyan-400);
+  --color-proof:    var(--color-lime-400);
+
+  /* ── quiet layers (surfaces / washes) ── */
+  --color-creative-dim: rgb(139 92 246 / 0.12);
+  --color-live-dim:     rgb(34 211 238 / 0.10);
+  --color-proof-dim:    rgb(163 230 53 / 0.10);
+
+  /* ── edge energy (1px borders, featured surfaces only) ── */
+  --color-creative-border: rgb(139 92 246 / 0.32);
+  --color-live-border:     rgb(34 211 238 / 0.28);
+  --color-proof-border:    rgb(163 230 53 / 0.28);
+
+  /* ── type-safe role tints (dark canvas) ── */
+  --color-creative-text: var(--color-violet-300);
+  --color-live-text:     var(--color-cyan-300);
+  --color-proof-text:    var(--color-lime-300);
+
+  /* Atmospheric strength. Alabaster reflects a colour wash far more
+     readily than Obsidian absorbs it, so the same alpha that reads as
+     "alive" on dark reads as "tinted" on light. Light mode gets its own
+     lower values rather than a shared one. */
+  --atmos-strength-1: 16%;
+  --atmos-strength-2: 12%;
+}
+
+html[data-theme="light"] {
+  /* Alabaster canvas: 400-level tints do not hold contrast as type. */
+  --color-creative-text: #6D28D9;
+  --color-live-text:     #0E7490;
+  --color-proof-text:    #4D7C0F;
+
+  --color-creative-dim: rgb(139 92 246 / 0.10);
+  --color-live-dim:     rgb(34 211 238 / 0.12);
+  --color-proof-dim:    rgb(163 230 53 / 0.18);
+
+  --color-creative-border: rgb(109 40 217 / 0.26);
+  --color-live-border:     rgb(14 116 144 / 0.24);
+  --color-proof-border:    rgb(77 124 15 / 0.24);
+
+  --atmos-strength-1: 10%;
+  --atmos-strength-2: 8%;
+}
+
 /* ═══════════════ ATMOSPHERIC AMBIENT GLOW — LIVING TOKENS ═══════════════
    These are NOT in @theme on purpose: they mutate at runtime.
    The use-ambient-glow hook writes them; ambient-canvas reads them.
-   Default state = colorless. The site borrows color from the work. */
+   Default state = colorless. The site borrows color from the work.
+
+   --glow-floor is the resting intensity a route keeps when no project is
+   in focus. Without it every surface that has no hover target sat at
+   opacity 0, so Work / Pricing / Contact rendered completely flat while
+   only the homepage ever showed atmosphere. Floor lets a route declare
+   "this surface is always lightly alive"; hover-driven accents still
+   raise opacity above it and settle back down to it on release. */
 :root {
   --glow-1: rgb(255 255 255 / 0.0);   /* primary project accent   */
   --glow-2: rgb(255 255 255 / 0.0);   /* secondary project accent */
   --glow-x: 50%;                      /* pointer-tracked origin   */
   --glow-y: 30%;
   --glow-opacity: 0;                  /* 0 → 1 on project focus   */
+  --glow-floor: 0;                    /* resting intensity        */
 }
 
 /* ─────────────────────────── BASE LAYER ─────────────────────────── */
@@ -370,6 +450,14 @@ html[data-theme="light"] {
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+
+    /* The ambient field must not drift. Depth survives through STATIC
+       color and composition — the gradient, grain, and material
+       contrast all remain fully visible with motion switched off. */
+    .atmos-drift {
+      animation: none !important;
+      transform: none !important;
+    }
   }
 }
 
@@ -415,6 +503,111 @@ html[data-theme="light"] {
 
 @utility text-balance-pretty {
   text-wrap: balance;
+}
+
+/* ── EXPRESSIVE SURFACE MATERIALS ────────────────────────────────────
+   Three materials, and only three, so depth comes from CONTRAST between
+   them rather than from more shadows:
+
+     matte          → most content surfaces (unchanged defaults)
+     glass          → @utility glass, floating/overlay surfaces
+     light-emitting → .atmos-field / .edge-light / .border-energy here
+
+   Every one of these is visible in the STATIC state. Nothing in this
+   block is hover-gated: the audit's core finding was that the site's
+   atmosphere only existed behind interaction. */
+
+/* Atmospheric focal gradient. One per surface, never per card.
+   Sits behind content and is clipped by its positioned parent. */
+@utility atmos-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      70% 80% at var(--atmos-x, 72%) var(--atmos-y, 18%),
+      color-mix(in srgb, var(--atmos-1, var(--color-accent)) var(--atmos-strength-1, 16%), transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      55% 65% at calc(var(--atmos-x, 72%) - 46%) calc(var(--atmos-y, 18%) + 44%),
+      color-mix(in srgb, var(--atmos-2, var(--color-creative)) var(--atmos-strength-2, 12%), transparent),
+      transparent 66%
+    );
+}
+
+/* Slow independent drift — the light source moves, the text does not.
+   Reduced motion holds the field still; depth survives through color. */
+@utility atmos-drift {
+  animation: atmos-drift 34s var(--ease-physics) infinite alternate;
+}
+@keyframes atmos-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-2.5%, 2%, 0) scale(1.06); }
+}
+
+/* Edge light — a glass highlight on the top/inner edge of a panel.
+   Reads as a lit surface rather than a bordered box. */
+@utility edge-light {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      120deg,
+      rgb(255 255 255 / 0.10),
+      transparent 28%,
+      transparent 68%,
+      color-mix(in srgb, var(--edge-light-color, var(--color-live)) 8%, transparent)
+    );
+  mix-blend-mode: screen;
+}
+html[data-theme="light"] .edge-light {
+  /* screen-blend white on Alabaster is a no-op — light mode gets a
+     soft top-down sheen instead so the material still reads. */
+  mix-blend-mode: normal;
+  background: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.55),
+    transparent 34%,
+    transparent 72%,
+    color-mix(in srgb, var(--edge-light-color, var(--color-live)) 6%, transparent)
+  );
+}
+
+/* Gradient border — 1px edge energy on FEATURED surfaces only.
+   Padding-box paints the fill, border-box paints the edge. */
+@utility border-energy {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-surface-1), var(--color-surface-1)) padding-box,
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--border-energy-1, var(--color-creative)) 40%, transparent),
+      transparent 45%,
+      color-mix(in srgb, var(--border-energy-2, var(--color-live)) 34%, transparent)
+    ) border-box;
+}
+
+/* Grain — material for the Obsidian canvas. It must read as a SURFACE,
+   never as film grain: the alpha stays far below the noise threshold at
+   reading size. Applied to the hero/featured visual only, not the body. */
+@utility grain-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+html[data-theme="light"] .grain-layer {
+  /* Dark noise, lighter touch — Alabaster shows texture far more readily. */
+  opacity: 0.022;
+  filter: invert(1);
 }
 
 @utility container-content {

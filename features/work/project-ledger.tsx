@@ -164,6 +164,14 @@ function LedgerRow({
      site), otherwise the Behance portfolio (design default). */
   const internal = project.hasCaseStudy;
   const href = internal ? `/case-studies/${project.slug}` : (project.externalUrl ?? BEHANCE);
+  /* Destination type, stated before the click. The desktop column spells
+     it out; mobile gets the same word inline since it has no Action
+     column and otherwise showed only an arrow. */
+  const destination = internal
+    ? ar ? "دراسة حالة" : "Case Study"
+    : project.externalUrl
+      ? ar ? "منتج حي" : "Live Product"
+      : ar ? "بورتفوليو خارجي" : "External Portfolio";
 
   return (
     <motion.li variants={reveal.item}>
@@ -204,6 +212,12 @@ function LedgerRow({
           <span className="mt-0.5 block font-mono text-micro text-text-tertiary md:hidden">
             {project.discipline}
           </span>
+          {/* Mobile-only destination type — replaces the bare arrow that
+              used to be the only affordance on a narrow row. */}
+          <span className="mt-0.5 flex items-center gap-1 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost md:hidden">
+            {destination}
+            <span aria-hidden>↗</span>
+          </span>
         </span>
 
         {compact ? null : (
@@ -234,20 +248,14 @@ function LedgerRow({
         {/* Strategic outcome */}
         <span className="flex items-center gap-1.5 font-mono text-label text-text-secondary">
           {ar && project.outcomeAr ? project.outcomeAr : project.outcome}
-          {/* Mobile-only open indicator — the row is a full-width Link, this makes the affordance visible */}
-          <span
-            aria-hidden
-            className="ms-auto inline-block shrink-0 text-text-ghost transition-transform duration-base ease-physics group-hover:translate-x-1 group-hover:text-accent md:hidden"
-          >
-            ↗
-          </span>
         </span>
 
-        {/* Action call — underline draw + arrow nudge */}
+        {/* Destination type — says what actually opens BEFORE the click.
+            Previously every row's affordance was a "/ / Open" string, so a
+            case file, a live product, and an external portfolio all looked
+            like the same destination. */}
         <span className="relative hidden justify-self-end font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics group-hover:text-text-primary md:block">
-          {internal ? (ar ? "ملف المشروع" : "Case File") : project.externalUrl ? (ar ? "الموقع المباشر" : "Live Site") : "Behance"}
-          <span className="text-text-ghost"> // </span>
-          {ar ? "افتح" : "Open"}
+          {destination}
           <span
             aria-hidden
             className="ml-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1"

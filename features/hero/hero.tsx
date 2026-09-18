@@ -22,6 +22,7 @@ import { useLang } from "@/components/providers/lang-provider";
  * Motion: every transition rides --ease-physics via lib/motion.
  */
 import { motion, useReducedMotion } from "framer-motion";
+import type { CSSProperties } from "react";
 import { heroLine, reveal, physics } from "@/lib/motion";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 
@@ -52,9 +53,32 @@ export function Hero() {
     : [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
-    <section className="relative flex min-h-svh flex-col bg-surface-0" style={{ isolation: "isolate" }}>
+    <section className="relative flex min-h-svh flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
+      {/* ── Expressive atmosphere — legible BEFORE any interaction ──
+          The audit's core finding: the hero's colour existed only as a
+          diffuse blurred glow whose alpha was too low to read. These two
+          static layers give the first viewport an authored light source
+          and a material surface. Both are aria-hidden, both sit under the
+          content, and neither is hover-gated.
+
+          Focal light leans right in LTR (toward the constellation) and
+          mirrors in RTL so the composition stays balanced. */}
+      <div
+        aria-hidden
+        className="atmos-field atmos-drift"
+        style={
+          {
+            "--atmos-1": "var(--color-accent)",
+            "--atmos-2": "var(--color-creative)",
+            "--atmos-x": ar ? "26%" : "74%",
+            "--atmos-y": "16%",
+          } as CSSProperties
+        }
+      />
+      <div aria-hidden className="grain-layer" />
+
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
-      <div className="container-wide grid flex-1 items-center gap-8 pb-8 pt-16 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-12 lg:pt-16 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Left — typographic architecture */}
         <div className="flex flex-col gap-4">
           {/* Live status row — in-flow micro-frame */}
@@ -131,19 +155,28 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right — signature asset layer */}
+        {/* Right — signature asset layer.
+            This used to be `justify-self-center` with no width of its own,
+            which made the frame's `w-full` resolve against an auto-width
+            parent and collapse to ~300px on a 1440 viewport — a postage
+            stamp in a large void. A definite width lets the asset scale
+            with the column and hold its side of the composition. */}
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ...physics, duration: 1.2, delay: 0.5 }}
-          className="justify-self-center lg:justify-self-end"
+          className="w-full"
         >
           <SystemConstellation />
         </motion.div>
       </div>
 
-      {/* ── 3 · Interactive metric row — bento band ── */}
-      <div className="container-wide border-t border-border-subtle py-4">
+      {/* ── 3 · Interactive metric row — bento band ──
+          `w-full` is load-bearing: as a flex child of a column container,
+          `container-wide` (margin-inline:auto, max-width, no width) shrank
+          to fit its content, so the band's top rule only spanned ~785px of
+          a 1440px viewport instead of the container. */}
+      <div className="container-wide relative z-elevated w-full border-t border-border-subtle py-4">
         <MetricRow />
       </div>
     </section>
