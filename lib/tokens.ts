@@ -87,6 +87,35 @@ export const COLOR = {
     proof: "#A3E635", // lime    — shipped result / forward energy
   },
   /**
+<<<<<<< HEAD
+=======
+   * Full role ramps (mirrors --color-cyan-* / --color-lime-* in
+   * globals.css). Tuned to sit with the coral-orange anchor: cyan is its
+   * complement, lime its warm neighbour. Dark mode reads from 300/400;
+   * light mode from 600/700 — never reach for an off-ramp hex in JS.
+   */
+  liveRamp: {
+    100: "#CFFAFE",
+    200: "#A5F3FC",
+    300: "#67E8F9", // dark-mode text tint
+    400: "#22D3EE", // role base
+    500: "#06B6D4", // hover / interactive
+    600: "#0891B2", // pressed / emphasis
+    700: "#0E7490", // light-mode text
+    800: "#155E75", // deep edge on light
+  },
+  proofRamp: {
+    100: "#ECFCCB",
+    200: "#D9F99D",
+    300: "#BEF264", // dark-mode text tint
+    400: "#A3E635", // role base
+    500: "#84CC16", // hover / interactive
+    600: "#65A30D", // pressed / emphasis
+    700: "#4D7C0F", // light-mode text
+    800: "#3F6212", // deep edge on light
+  },
+  /**
+>>>>>>> arena/01a0b5cf-aboalazm-os
    * Functional states (dark-canvas values). Light mode reassigns these
    * in CSS; JS consumers drawing on Alabaster should read the computed
    * custom property instead of these constants.

@@ -323,20 +323,63 @@ html[data-theme="light"] {
      4. Every role has a -text variant: the 400-level tints fail as type on
         Alabaster, so light mode defers to the deeper 500/600 end. */
 :root {
+<<<<<<< HEAD
   /* ── primitives — role ramps. Three steps per hue is the whole story:
        300 = type-safe tint on Obsidian · 400/500 = the role itself
        700 = type-safe step on Alabaster (assigned in the light block).
      Values track Tailwind's ramps so nobody invents a fifth hue. ── */
+=======
+  /* ── primitives — role ramps, tuned to sit with the coral-orange anchor.
+     Cyan is the ORANGE COMPLEMENT (~190°), lime is its warm neighbour
+     (~80°), so both read as family with #FF6B47 rather than as foreign
+     accents — on Obsidian in dark, on Alabaster in light.
+
+     How to reach for a step:
+       100–200  whispers / highlight washes (rare, atmosphere only)
+       300      type-safe tint on OBSIDIAN (dark mode text)
+       400      the role itself · fills, markers, glow source
+       500      interactive / hover, just past the base
+       600      pressed / emphasis on light surfaces
+       700      type-safe step on ALABASTER (light mode text)
+       800      deep edge, captions on light, never large fills
+
+     Values track Tailwind's ramps so nobody invents a fifth hue, and the
+     300/400/700 anchors stay byte-identical to the audited 2026-09-18
+     values (live surfaces keep their exact colour). ── */
+>>>>>>> arena/01a0b5cf-aboalazm-os
   --color-violet-300: #C4B5FD;
   --color-violet-400: #A78BFA;
   --color-violet-500: #8B5CF6;
   --color-violet-700: #6D28D9;
+<<<<<<< HEAD
   --color-cyan-300:   #67E8F9;
   --color-cyan-400:   #22D3EE;
   --color-cyan-700:   #0E7490;
   --color-lime-300:   #BEF264;
   --color-lime-400:   #A3E635;
   --color-lime-700:   #4D7C0F;
+=======
+
+  /* CYAN — the "live" role. Full ramp, complement of the orange anchor. */
+  --color-cyan-100:   #CFFAFE;
+  --color-cyan-200:   #A5F3FC;
+  --color-cyan-300:   #67E8F9;  /* dark-mode text tint (anchor, unchanged) */
+  --color-cyan-400:   #22D3EE;  /* role base (anchor, unchanged)           */
+  --color-cyan-500:   #06B6D4;  /* hover / interactive                     */
+  --color-cyan-600:   #0891B2;  /* pressed / emphasis                      */
+  --color-cyan-700:   #0E7490;  /* light-mode text (anchor, unchanged)     */
+  --color-cyan-800:   #155E75;  /* deep edge on light                      */
+
+  /* LIME — the "proof" role. Full ramp, warm neighbour of the anchor. */
+  --color-lime-100:   #ECFCCB;
+  --color-lime-200:   #D9F99D;
+  --color-lime-300:   #BEF264;  /* dark-mode text tint (anchor, unchanged) */
+  --color-lime-400:   #A3E635;  /* role base (anchor, unchanged)           */
+  --color-lime-500:   #84CC16;  /* hover / interactive                     */
+  --color-lime-600:   #65A30D;  /* pressed / emphasis                      */
+  --color-lime-700:   #4D7C0F;  /* light-mode text (anchor, unchanged)     */
+  --color-lime-800:   #3F6212;  /* deep edge on light                      */
+>>>>>>> arena/01a0b5cf-aboalazm-os
 
   /* ── semantic creative roles ── */
   --color-creative: var(--color-violet-500);

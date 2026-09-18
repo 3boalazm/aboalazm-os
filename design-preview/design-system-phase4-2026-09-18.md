@@ -255,3 +255,32 @@ agreement,contact,portfolio}/*    type tokens + icon migrations
 
 Reverting is one `git revert`. The DB schema, routes, data models, and every
 component API are untouched.
+<<<<<<< HEAD
+=======
+
+---
+
+## 7 · Addendum — cyan & lime ramps completed (same day)
+
+Follow-up request: cyan + lime shades that sit well with orange + black (dark)
+and orange + off-white (light). The roles existed but only as 3-step fragments
+(300/400/700). Now both are **full 8-step ramps** (100→800):
+
+| step | cyan (`live`) | lime (`proof`) | reach for it when |
+|---|---|---|---|
+| 100–200 | #CFFAFE · #A5F3FC | #ECFCCB · #D9F99D | whispers / highlight washes |
+| 300 | #67E8F9 ⚓ | #BEF264 ⚓ | text tint on **Obsidian** (dark) |
+| 400 | #22D3EE ⚓ | #A3E635 ⚓ | the role itself — fills, markers, glow |
+| 500 | #06B6D4 | #84CC16 | hover / interactive |
+| 600 | #0891B2 | #65A30D | pressed / emphasis on light |
+| 700 | #0E7490 ⚓ | #4D7C0F ⚓ | text on **Alabaster** (light) |
+| 800 | #155E75 | #3F6212 | deep edges on light, never large fills |
+
+⚓ = audited anchor, byte-identical to before — every live surface keeps its
+exact colour; only the gaps between were filled. Harmony logic: cyan ≈ 190° is
+the **complement** of the #FF6B47 anchor (~11°), lime ≈ 80° its warm neighbour —
+so both read as family with the orange on either canvas, never as foreign hues.
+Semantic tokens (`-dim`/`-border`/`-text`, both themes) unchanged — they already
+picked the theme-correct steps. JS mirror gained `COLOR.liveRamp` /
+`COLOR.proofRamp` per the both-places contract.
+>>>>>>> arena/01a0b5cf-aboalazm-os
