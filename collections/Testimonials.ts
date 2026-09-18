@@ -3,8 +3,11 @@ import type { CollectionConfig } from "payload";
 export const Testimonials: CollectionConfig = {
   slug: "testimonials",
   admin: {
+    group: "People",
     useAsTitle: "author",
+    description: "Client quotes — record № ties each quote to its source.",
     defaultColumns: ["author", "company", "record"],
+    listSearchableFields: ["author", "company"],
   },
   access: {
     read: () => true,
@@ -16,9 +19,14 @@ export const Testimonials: CollectionConfig = {
       required: true,
       maxLength: 200,
     },
-    { name: "author", type: "text", required: true },
-    { name: "role", type: "text" },
-    { name: "company", type: "text" },
+    {
+      type: "row",
+      fields: [
+        { name: "author", type: "text", required: true, admin: { width: "33.3%" } },
+        { name: "role", type: "text", admin: { width: "33.3%" } },
+        { name: "company", type: "text", admin: { width: "33.3%" } },
+      ],
+    },
     { name: "record", label: "Record №", type: "text" },
   ],
 };

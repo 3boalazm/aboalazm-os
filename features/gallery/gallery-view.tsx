@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -234,7 +235,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                   aria-label={ar ? "إغلاق" : "Close"}
                   className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  ✕
+                  <Icon name="x" size={18} />
                 </button>
                 {/* prev */}
                 <button
@@ -258,7 +259,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                   aria-label={ar ? "التالي" : "Next"}
                   className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white md:right-6"
                 >
-                  ›
+                  <Icon name="chevron-right" size={22} />
                 </button>
 
                 <motion.figure
@@ -289,7 +290,9 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                           href={p.href}
                           className="font-mono text-micro uppercase tracking-[0.05em] text-white/80 underline-offset-4 hover:underline"
                         >
-                          {ar ? p.labelAr : p.label} ↗
+                          <span className="inline-flex items-center gap-1">
+                            {ar ? p.labelAr : p.label} <Icon name="arrow-up-right" size="0.9em" />
+                          </span>
                         </Link>
                       ) : null}
                       <span className="text-body-sm text-white/90">

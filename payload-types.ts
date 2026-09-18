@@ -138,6 +138,8 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Editor logins. Registration is closed — create accounts here.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
@@ -163,6 +165,8 @@ export interface User {
   collection: 'users';
 }
 /**
+ * Image library — always fill alt/altAr for accessibility.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media".
  */
@@ -186,14 +190,14 @@ export interface Media {
   focalY?: number | null;
 }
 /**
+ * Work ledger entries. EN/AR pairs and links live in tabs; flags live in the sidebar.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "projects".
  */
 export interface Project {
   id: number;
   slug: string;
-  name: string;
-  nameAr?: string | null;
   category: 'design' | 'development';
   /**
    * Locked enum — do not add values from the dashboard.
@@ -204,22 +208,24 @@ export interface Project {
     | 'Design Infrastructure'
     | 'Identity Engineering'
     | 'Studio & Identity';
+  year: string;
+  /**
+   * If off, the row opens externalUrl (no-404 rule) instead of a case study.
+   */
+  hasCaseStudy?: boolean | null;
+  /**
+   * Tags this project for the dedicated /work-ui page.
+   */
+  isUiUx?: boolean | null;
+  name: string;
+  nameAr?: string | null;
   /**
    * Rendered as Geist Mono micro-pills.
    */
   stack?: string[] | null;
   outcome: string;
   outcomeAr?: string | null;
-  year: string;
   thumbnail: number | Media;
-  /**
-   * If off, the row opens externalUrl (no-404 rule) instead of a case study.
-   */
-  hasCaseStudy?: boolean | null;
-  /**
-   * Live site / repo / Behance link — used when there's no case study.
-   */
-  externalUrl?: string | null;
   /**
    * Ambient glow pair (rgb(...) / alpha 0.10–0.22).
    */
@@ -228,9 +234,9 @@ export interface Project {
     secondary: string;
   };
   /**
-   * Tags this project for the dedicated /work-ui page.
+   * Live site / repo / Behance link — used when there's no case study.
    */
-  isUiUx?: boolean | null;
+  externalUrl?: string | null;
   /**
    * The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.
    */
@@ -240,6 +246,8 @@ export interface Project {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Four-panel case files. EN/AR sit side by side inside each panel.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "case-studies".
  */
@@ -252,6 +260,9 @@ export interface CaseStudy {
    * Free text here (unlike Projects.discipline, which is locked).
    */
   discipline: string;
+  /**
+   * Ambient glow pair (rgb(...) / alpha 0.10–0.22).
+   */
   accent: {
     primary: string;
     secondary: string;
@@ -340,6 +351,8 @@ export interface CaseStudy {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Client quotes — record № ties each quote to its source.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "testimonials".
  */
@@ -354,6 +367,8 @@ export interface Testimonial {
   createdAt: string;
 }
 /**
+ * Notes & essays. One language per post — write the other one as a separate post.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
@@ -389,6 +404,8 @@ export interface Post {
   _status?: ('draft' | 'published') | null;
 }
 /**
+ * Emails captured at the /resources download gate — newest first.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "resource-leads".
  */
@@ -401,6 +418,8 @@ export interface ResourceLead {
   createdAt: string;
 }
 /**
+ * Humans behind the studio — order on the page follows the order field.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "team-members".
  */
@@ -428,6 +447,8 @@ export interface TeamMember {
   createdAt: string;
 }
 /**
+ * Commission briefs from the /contact form — newest first. Also emailed to the studio inbox.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "messages".
  */
@@ -436,6 +457,9 @@ export interface Message {
   name: string;
   email: string;
   company?: string | null;
+  /**
+   * What are we building — the client's own words.
+   */
   brief: string;
   timeline?: string | null;
   budget?: ('< $1K' | '$1–3K' | '$3–8K' | '$8K+') | null;
@@ -592,24 +616,24 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
-  name?: T;
-  nameAr?: T;
   category?: T;
   discipline?: T;
+  year?: T;
+  hasCaseStudy?: T;
+  isUiUx?: T;
+  name?: T;
+  nameAr?: T;
   stack?: T;
   outcome?: T;
   outcomeAr?: T;
-  year?: T;
   thumbnail?: T;
-  hasCaseStudy?: T;
-  externalUrl?: T;
   accent?:
     | T
     | {
         primary?: T;
         secondary?: T;
       };
-  isUiUx?: T;
+  externalUrl?: T;
   liveUrl?: T;
   updatedAt?: T;
   createdAt?: T;

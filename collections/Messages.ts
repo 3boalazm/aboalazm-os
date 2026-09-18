@@ -1,38 +1,57 @@
 import type { CollectionConfig } from "payload";
 
 /**
- * MESSAGES — contact form submissions. This is entirely new; the site
- * had no backend for features/contact/contact-form.tsx before (it just
- * faked a 900ms delay and showed a success state — nothing was sent
- * anywhere). Wiring the real submit is Phase 6.
- *
- * ⚠️ KNOWN GAP: the current form has no `email` input, only
- * name/company/brief/timeline/budget. There's no way to reply to a
- * submission without one. `email` is required here anyway — the form
- * needs that field added in Phase 6 before this can go live.
+ * MESSAGES — contact form submissions (features/contact/contact-form.tsx
+ * → features/contact/actions.ts). Stored here AND emailed to the studio
+ * inbox via lib/email.ts (SMTP env vars, see .env.example) — the email
+ * is best-effort; this record is the source of truth.
  */
 export const Messages: CollectionConfig = {
   slug: "messages",
   admin: {
+    group: "Inbox",
     useAsTitle: "name",
+    description: "Commission briefs from the /contact form — newest first. Also emailed to the studio inbox.",
     defaultColumns: ["name", "email", "budget", "isRead", "createdAt"],
+    listSearchableFields: ["name", "email", "company"],
   },
   access: {
-    create: () => true,
+    /* The contact form saves through the local API (server action), which
+       bypasses access control — so closing REST create plugs the public
+       spam hole without affecting submissions. */
+    create: () => false,
     read: ({ req }) => Boolean(req.user),
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => Boolean(req.user),
   },
   fields: [
-    { name: "name", type: "text", required: true },
-    { name: "email", type: "email", required: true },
-    { name: "company", type: "text" },
-    { name: "brief", type: "textarea", required: true },
-    { name: "timeline", type: "text" },
+    /* Sender — one row, so the eye reads it as a single address block. */
     {
-      name: "budget",
-      type: "select",
-      options: ["< $1K", "$1–3K", "$3–8K", "$8K+"],
+      type: "row",
+      fields: [
+        { name: "name", type: "text", required: true, admin: { width: "50%" } },
+        { name: "email", type: "email", required: true, admin: { width: "50%" } },
+      ],
+    },
+    { name: "company", type: "text" },
+    {
+      name: "brief",
+      type: "textarea",
+      required: true,
+      admin: { description: "What are we building — the client's own words." },
+    },
+    /* Qualifiers — side by side, they scan as one line. */
+    {
+      type: "row",
+      fields: [
+        { name: "timeline", type: "text", admin: { width: "50%" } },
+        {
+          name: "budget",
+          type: "select",
+          options: ["< $1K", "$1–3K", "$3–8K", "$8K+"],
+          admin: { width: "50%" },
+        },
+      ],
     },
     {
       name: "isRead",

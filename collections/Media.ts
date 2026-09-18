@@ -8,6 +8,11 @@ import type { CollectionConfig } from "payload";
  */
 export const Media: CollectionConfig = {
   slug: "media",
+  admin: {
+    group: "Portfolio",
+    useAsTitle: "alt",
+    description: "Image library — always fill alt/altAr for accessibility.",
+  },
   access: {
     read: () => true, // public site needs to render these images
   },

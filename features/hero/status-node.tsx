@@ -10,9 +10,11 @@ import { useT } from "@/hooks/use-t";
  * Reads as telemetry, not decoration.
  */
 import { motion } from "framer-motion";
-import { EASE_PHYSICS } from "@/lib/tokens";
+import { COLOR, EASE_PHYSICS } from "@/lib/tokens";
 
-const PULSE_GREEN = "#3DDC84";
+/* The system's one success green (mirrors --color-success in CSS).
+   Was a one-off #3DDC84 — unified during the 2026-09-18 palette audit. */
+const PULSE_GREEN = COLOR.status.success;
 
 export function StatusNode() {
   const { lang } = useLang();

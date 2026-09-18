@@ -18,6 +18,7 @@
  */
 
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics, physicsSlow, reveal } from "@/lib/motion";
@@ -30,7 +31,7 @@ const COPY = {
     headline:    ["MAYBE", "THEY ARE", "THERE"],
     sub:         "...but this page isn't.",
     body:        "The URL you followed doesn't exist — or the signal was never sent. Head back to a known coordinate.",
-    cta:         "Return to Base →",
+    cta:         "Return to Base",
     ctaAlt:      "View Work",
     coords:      "LAT 30.2°N · LNG 31.7°E · ALT —",
     scanTicker:  "SCANNING SIGNAL · NO RESPONSE · RETRY IN PROGRESS ·",
@@ -41,7 +42,7 @@ const COPY = {
     headline:    ["ربما", "هم هناك", "فعلًا"],
     sub:         "...لكن هذه الصفحة لا وجود لها.",
     body:        "الرابط الذي اتبعته غير موجود — أو لم تُرسَل الإشارة أصلًا. عُد إلى إحداثية معروفة.",
-    cta:         "العودة إلى القاعدة ←",
+    cta:         "العودة إلى القاعدة",
     ctaAlt:      "استعرض الأعمال",
     coords:      "خط العرض 30.2°ش · خط الطول 31.7°ق · الارتفاع —",
     scanTicker:  "· مسح الإشارة · لا استجابة · إعادة المحاولة ·",
@@ -165,17 +166,18 @@ export function NotFoundContent() {
             href="/"
             className={buttonVariants({
               className:
-                "px-[20px] py-[10px] font-display font-[800] text-[0.78rem] tracking-[0.08em] transition-transform duration-[200ms] ease-physics hover:-translate-y-[2px]",
+                "inline-flex items-center gap-1.5 px-[20px] py-[10px] font-display font-[800] text-micro tracking-[0.08em] transition-transform duration-[200ms] ease-physics hover:-translate-y-[2px]",
             })}
           >
             {copy.cta}
+            <Icon name="arrow-right" />
           </Link>
           <Link
             href="/work"
             className={buttonVariants({
               variant: "ghost",
               className:
-                "border border-[rgb(255_107_71_/_0.35)] bg-transparent px-[20px] py-[10px] font-display font-[800] text-[0.78rem] tracking-[0.08em] text-accent transition-[transform,background-color] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:bg-[rgb(255_107_71_/_0.08)]",
+                "border border-accent-border bg-transparent px-[20px] py-[10px] font-display font-[800] text-micro tracking-[0.08em] text-accent-text transition-[transform,background-color] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:bg-accent-08",
             })}
           >
             {copy.ctaAlt}

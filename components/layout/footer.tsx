@@ -7,6 +7,7 @@ import { useT } from "@/hooks/use-t";
  */
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
+import { Icon } from "@/components/ui/Icon";
 
 const COLUMNS = [
   {
@@ -91,22 +92,32 @@ export function Footer() {
               aria-label={col.head[0]}
               className="flex flex-col gap-1"
             >
-              <p className="font-display text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">
+              <p className="font-display text-caption uppercase tracking-[0.12em] text-text-ghost">
                 {ar ? col.head[1] : col.head[0]}
               </p>
               <div className="flex flex-col gap-1">
-                {col.links.map(([en, arr, href]) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
-                      ? { target: "_blank", rel: "noopener noreferrer" }
-                      : {})}
-                    className="block w-fit text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
-                  >
-                    {ar ? arr : en}
-                  </Link>
-                ))}
+                {col.links.map(([en, arr, href]) => {
+                  const label = ar ? arr : en;
+                  /* Trailing ↗/↓ used to be baked into these strings;
+                     the icon system renders them now (RTL-safe). */
+                  const outbound = label.endsWith("↗");
+                  const download = label.endsWith("↓");
+                  const text = label.replace(/\s*[↗↓]$/, "");
+                  return (
+                    <Link
+                      key={href}
+                      href={href}
+                      {...(href.startsWith("http") || href.startsWith("mailto") || href.startsWith("tel")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                      className="inline-flex w-fit items-center gap-1 text-body-sm text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+                    >
+                      {text}
+                      {outbound && <Icon name="arrow-up-right" size="0.9em" className="text-text-ghost" />}
+                      {download && <Icon name="arrow-down" size="0.9em" className="text-text-ghost" />}
+                    </Link>
+                  );
+                })}
               </div>
             </nav>
           ))}

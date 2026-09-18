@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 import type { Book } from "@/lib/books";
 
@@ -43,7 +44,7 @@ export function ReaderView({ book }: { book: Book }) {
             href="/books"
             className="shrink-0 font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
           >
-            {ar ? "← المكتبة" : "← Library"}
+            <><Icon name="arrow-left" /> {ar ? "المكتبة" : "Library"}</>
           </Link>
           <span className="hidden truncate text-body-sm text-text-secondary sm:block">
             {ar ? book.title : book.titleEn}
@@ -59,7 +60,7 @@ export function ReaderView({ book }: { book: Book }) {
           <span className="max-w-[42vw] truncate sm:max-w-[28ch]" dir="rtl">
             {activeTitle}
           </span>
-          <span aria-hidden>{menuOpen ? "✕" : "☰"}</span>
+          <Icon name={menuOpen ? "x" : "menu"} />
         </button>
       </header>
 

@@ -22,6 +22,7 @@ import { useLang } from "@/components/providers/lang-provider";
  * Motion: every transition rides --ease-physics via lib/motion.
  */
 import { motion, useReducedMotion } from "framer-motion";
+import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
 import { heroLine, reveal, physics } from "@/lib/motion";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
@@ -138,9 +139,9 @@ export function Hero() {
                 <span>{t.heroExplore}</span>
                 <span
                   aria-hidden
-                  className="inline-block transition-transform duration-base ease-physics group-hover:translate-x-1"
+                  className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
                 >
-                  →
+                  <Icon name="arrow-right" />
                 </span>
               </a>
               <a

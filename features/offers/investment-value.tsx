@@ -86,7 +86,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
         <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
           {t.title} <em className="text-accent">{t.italic}</em>
         </h2>
-        <p className="mt-1 max-w-[58ch] text-body-sm text-text-secondary" style={{ fontFamily: "Montserrat, system-ui" }}>
+        <p className="mt-1 max-w-[58ch] text-body-sm text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
           {t.lede}
         </p>
       </div>
@@ -105,10 +105,10 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
             <span className="font-display text-[clamp(2rem,4vw,2.75rem)] leading-none tracking-[-0.02em] text-text-primary">
               {m.value}
             </span>
-            <span className="font-mono text-[0.6rem] uppercase tracking-[0.1em] text-accent">
+            <span className="font-mono text-caption uppercase tracking-[0.1em] text-accent">
               {ar ? m.ar : m.en}
             </span>
-            <span className="text-[0.72rem] leading-[1.5] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>
+            <span className="text-caption leading-[1.5] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>
               {ar ? m.subAr : m.subEn}
             </span>
           </motion.div>
@@ -128,8 +128,8 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
           >
             <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
             <div className="flex flex-col gap-1">
-              <p className="font-display text-[0.95rem] tracking-[-0.01em] text-text-primary">{title}</p>
-              <p className="text-[0.8rem] leading-[1.6] text-text-tertiary" style={{ fontFamily: "Montserrat, system-ui" }}>{body}</p>
+              <p className="font-display text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
+              <p className="text-label leading-[1.6] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>{body}</p>
             </div>
           </motion.div>
         ))}
@@ -137,7 +137,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
 
       {/* honest footnote while metrics are placeholders */}
       {hasPending && (
-        <p className="font-mono text-[0.58rem] uppercase tracking-[0.08em] text-text-ghost">
+        <p className="font-mono text-caption uppercase tracking-[0.08em] text-text-ghost">
           * {t.note}
         </p>
       )}

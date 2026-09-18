@@ -7,6 +7,7 @@
 import { useLang } from "@/components/providers/lang-provider";
 import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 import { buttonVariants } from "@/components/ui/Button";
+import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
 
 export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
@@ -48,8 +49,9 @@ export function TierCard({ tier }: { tier: Tier }) {
           {pick(tier.tag, lang)}
         </span>
         {tier.recommended && (
-          <span className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            ★ {lang === "ar" ? "الأكثر طلبًا" : "Recommended"}
+          <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-[0.10em] text-accent">
+            <Icon name="star-solid" size="0.9em" />
+            {lang === "ar" ? "الأكثر طلبًا" : "Recommended"}
           </span>
         )}
       </div>
@@ -82,7 +84,7 @@ export function TierCard({ tier }: { tier: Tier }) {
       <ul className="flex flex-col gap-1">
         {tier.includes.map((item) => (
           <li key={item[0]} className="flex gap-1 text-body-sm text-text-secondary">
-            <span aria-hidden className="text-[#3DDC84]">✓</span>
+            <Icon name="check" className="text-success" />
             {pick(item, lang)}
           </li>
         ))}
@@ -93,7 +95,7 @@ export function TierCard({ tier }: { tier: Tier }) {
             carry their own label in text. */}
         {tier.excludes?.map((item) => (
           <li key={item[0]} className="flex gap-1 text-body-sm text-text-ghost">
-            <span aria-hidden>✕</span>
+            <Icon name="x" className="text-text-ghost" />
             <span className="sr-only">{lang === "ar" ? "غير مشمول: " : "Not included: "}</span>
             {pick(item, lang)}
           </li>
@@ -159,13 +161,11 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                 : "border-border-subtle bg-surface-1/40",
             ].join(" ")}
           >
-            <p className="flex items-baseline gap-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
+            <p className="flex items-baseline gap-2 font-display text-body tracking-[-0.015em] text-text-primary">
               {pick(t.name, lang)}
               {t.recommended ? (
                 <>
-                  <span aria-hidden className="text-accent">
-                    ★
-                  </span>
+                  <Icon name="star-solid" size="0.9em" className="text-accent" />
                   {/* The star is the only recommendation signal left in the
                       comparison (see the note above TierCompare). aria-hidden
                       keeps it out of the accessible name, so the same fact is
@@ -199,13 +199,11 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                 {ar ? "المعيار" : "Fit"}
               </th>
               {tiers.map((t) => (
-                <th key={t.tag[0]} className="px-3 py-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
+                <th key={t.tag[0]} className="px-3 py-2 font-display text-body tracking-[-0.015em] text-text-primary">
                   {pick(t.name, lang)}
                   {t.recommended ? (
                     <>
-                      <span aria-hidden className="ms-2 text-accent">
-                        ★
-                      </span>
+                      <Icon name="star-solid" size="0.9em" className="ms-2 text-accent" />
                       {/* Lives inside the <th>, so screen readers announce the
                           recommendation with the column header of every cell
                           in that column. */}
@@ -340,11 +338,13 @@ export function CtaBand({
         {pick(title, lang)} <em className="text-accent">{pick(italic, lang)}</em>
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <a href={primaryHref} className={buttonVariants({ className: "px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
-          {pick(primary, lang)} ✦
+        <a href={primaryHref} className={buttonVariants({ className: "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
+          {pick(primary, lang)}
+          <Icon name="sparkle" size="0.9em" />
         </a>
-        <a href={secondaryHref} className={buttonVariants({ variant: "ghost", className: "glass px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
-          {pick(secondary, lang)} →
+        <a href={secondaryHref} className={buttonVariants({ variant: "ghost", className: "glass inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
+          {pick(secondary, lang)}
+          <Icon name="arrow-right" />
         </a>
       </div>
     </section>

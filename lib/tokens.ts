@@ -61,11 +61,67 @@ export const COLOR = {
     strong: "rgb(255 255 255 / 0.20)",
   },
   accent: "#FF6B47",
+  /**
+   * The sanctioned accent alpha ramp (mirrors --color-accent-* in
+   * globals.css @theme). 12 steps so any historical one-off opacity
+   * snaps within Δ ≤ 0.05. Never invent an in-between in JS either.
+   */
   accentAlpha: {
+    4: "rgb(255 107 71 / 0.04)",
     8: "rgb(255 107 71 / 0.08)",
     14: "rgb(255 107 71 / 0.14)",
+    20: "rgb(255 107 71 / 0.20)",
     24: "rgb(255 107 71 / 0.24)",
+    32: "rgb(255 107 71 / 0.32)",
     40: "rgb(255 107 71 / 0.40)",
+    48: "rgb(255 107 71 / 0.48)",
+    64: "rgb(255 107 71 / 0.64)",
+    72: "rgb(255 107 71 / 0.72)",
+    80: "rgb(255 107 71 / 0.80)",
+    88: "rgb(255 107 71 / 0.88)",
+  },
+  /** Expressive supporting roles — meaning carriers, never decoration. */
+  roles: {
+    creative: "#8B5CF6", // violet — creative intelligence / experimental
+    live: "#22D3EE", // cyan    — live system / digital surface
+    proof: "#A3E635", // lime    — shipped result / forward energy
+  },
+  /**
+   * Full role ramps (mirrors --color-cyan-* / --color-lime-* in
+   * globals.css). Tuned to sit with the coral-orange anchor: cyan is its
+   * complement, lime its warm neighbour. Dark mode reads from 300/400;
+   * light mode from 600/700 — never reach for an off-ramp hex in JS.
+   */
+  liveRamp: {
+    100: "#CFFAFE",
+    200: "#A5F3FC",
+    300: "#67E8F9", // dark-mode text tint
+    400: "#22D3EE", // role base
+    500: "#06B6D4", // hover / interactive
+    600: "#0891B2", // pressed / emphasis
+    700: "#0E7490", // light-mode text
+    800: "#155E75", // deep edge on light
+  },
+  proofRamp: {
+    100: "#ECFCCB",
+    200: "#D9F99D",
+    300: "#BEF264", // dark-mode text tint
+    400: "#A3E635", // role base
+    500: "#84CC16", // hover / interactive
+    600: "#65A30D", // pressed / emphasis
+    700: "#4D7C0F", // light-mode text
+    800: "#3F6212", // deep edge on light
+  },
+  /**
+   * Functional states (dark-canvas values). Light mode reassigns these
+   * in CSS; JS consumers drawing on Alabaster should read the computed
+   * custom property instead of these constants.
+   */
+  status: {
+    success: "#34D399",
+    warning: "#FBBF24",
+    danger: "#F87171",
+    info: "#60A5FA",
   },
 } as const;
 

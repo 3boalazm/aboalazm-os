@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { SystemConstellation } from "@/features/hero";
 import { SingleSourceDiagram } from "@/features/why";
 import { AnchorNav } from "@/features/navigation";
@@ -234,7 +235,7 @@ export function WhyView() {
             </h2>
             <Link href="/contact" className="group font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
               {ar ? "ابدأ مشروعًا" : "START A PROJECT"}
-              <span aria-hidden className="ms-1 inline-block transition-transform duration-base ease-physics group-hover:translate-x-1">→</span>
+              <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
             </Link>
           </section>
         </div>

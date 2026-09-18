@@ -9,6 +9,7 @@
  */
 
 import { useMemo, useState } from "react";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 
 const RATIOS = [
@@ -35,7 +36,7 @@ const UI = {
     base: "Base size",
     ratio: "Scale ratio",
     copy: "Copy CSS",
-    copied: "Copied ✓",
+    copied: "Copied",
   },
   ar: {
     title: "مقياس الطباعة",
@@ -43,7 +44,7 @@ const UI = {
     base: "الحجم الأساسي",
     ratio: "نسبة التدرّج",
     copy: "نسخ CSS",
-    copied: "تم النسخ ✓",
+    copied: "تم النسخ",
   },
 } as const;
 
@@ -130,8 +131,9 @@ export function TypeScaleTool() {
 
       <div className="labtool-code">
         <pre className="labtool-code__pre">{css}</pre>
-        <button onClick={handleCopy} className="labtool-code__copy">
+        <button onClick={handleCopy} className="labtool-code__copy inline-flex items-center gap-1">
           {copied ? t.copied : t.copy}
+          {copied ? <Icon name="check" /> : null}
         </button>
       </div>
     </div>

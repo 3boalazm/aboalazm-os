@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Icon } from "@/components/ui/Icon";
 import { useRouter } from "next/navigation";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useT } from "@/hooks/use-t";
@@ -109,7 +110,9 @@ function BackToTop() {
       aria-label="Back to top"
       className="fixed bottom-6 z-40 border border-border-subtle bg-surface-1 px-3 py-2 font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary transition-colors duration-base hover:border-accent hover:text-accent ltr:right-6 rtl:left-6"
     >
-      ↑ TOP
+      <span className="inline-flex items-center gap-1">
+        <Icon name="arrow-up" /> TOP
+      </span>
     </button>
   );
 }
@@ -161,7 +164,9 @@ export function WritingDetailView({
         href="/writing"
         className="w-fit font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
       >
-        ← {t.writingSection}
+        <span className="inline-flex items-center gap-1">
+          <Icon name="arrow-left" /> {t.writingSection}
+        </span>
       </Link>
 
       <header
@@ -255,8 +260,9 @@ export function WritingDetailView({
           <motion.span
             animate={{ y: [0, 5, 0] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+            className="inline-flex"
           >
-            ↓
+            <Icon name="arrow-down" />
           </motion.span>
           {ar ? "اقرأ" : "Scroll"}
         </motion.div>
@@ -280,7 +286,9 @@ export function WritingDetailView({
               className="group flex flex-col gap-2 border-b border-border-subtle py-8 pe-6 transition-colors duration-base hover:bg-surface-1 md:border-b-0 md:border-e"
             >
               <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
-                ← {ar ? "السابق" : "Previous"} · {prev.index}
+                <span className="inline-flex items-center gap-1">
+                  <Icon name="arrow-left" /> {ar ? "السابق" : "Previous"} · {prev.index}
+                </span>
               </span>
               <span className="font-display text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
                 {prev.title}
@@ -295,7 +303,9 @@ export function WritingDetailView({
               className="group flex flex-col gap-2 py-8 ps-6 text-end transition-colors duration-base hover:bg-surface-1"
             >
               <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
-                {ar ? "التالي" : "Next"} · {next.index} →
+                <span className="inline-flex items-center justify-end gap-1">
+                  {ar ? "التالي" : "Next"} · {next.index} <Icon name="arrow-right" />
+                </span>
               </span>
               <span className="font-display text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
                 {next.title}
