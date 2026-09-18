@@ -34,18 +34,44 @@ function write(accent: ProjectAccent, opacity: number): void {
   el.style.setProperty(GLOW_VARS.opacity, String(opacity));
 }
 
+/** The route's resting intensity — what `release()` settles back to. */
+function floor(): number {
+  const el = root();
+  if (!el) return 0;
+  const v = Number.parseFloat(
+    getComputedStyle(el).getPropertyValue(GLOW_VARS.floor),
+  );
+  return Number.isFinite(v) ? v : 0;
+}
+
+/**
+ * Return to the route's floor, not to zero. Falling all the way to 0
+ * would leave a surface that has no hover target completely flat.
+ */
 function clear(): void {
   const el = root();
   if (!el) return;
-  el.style.setProperty(GLOW_VARS.opacity, "0");
+  el.style.setProperty(GLOW_VARS.opacity, String(floor()));
   // Color vars are left in place so the fade-out keeps its hue.
 }
 
-/** Declarative: mount = glow on, unmount = glow off. For routes. */
+/**
+ * Declarative: mount = atmosphere on, unmount = back to flat.
+ *
+ * `opacity` doubles as the route's FLOOR — the level the surface rests at
+ * for as long as this component is mounted. Hover-driven accents inside
+ * the route (see useAmbientGlowControls) rise above it and settle back to
+ * it, so a route reads as alive before any interaction happens.
+ */
 export function useAmbientGlow(accent: ProjectAccent, opacity = 1): void {
   useEffect(() => {
+    const el = root();
+    if (el) el.style.setProperty(GLOW_VARS.floor, String(opacity));
     write(accent, opacity);
-    return clear;
+    return () => {
+      if (el) el.style.setProperty(GLOW_VARS.floor, "0");
+      clear();
+    };
   }, [accent.primary, accent.secondary, opacity]);
 }
 

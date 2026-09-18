@@ -57,19 +57,23 @@ export function TierCard({ tier }: { tier: Tier }) {
       <p className="font-geist text-lead text-accent">{tier.price}</p>
       <p className="font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">{pick(tier.priceNote, lang)}</p>
 
-      <dl className="flex flex-col gap-0.5 border-y border-border-subtle py-2 font-mono text-micro">
-        <div className="flex gap-1">
-          <dt className="text-text-ghost">{lang === "ar" ? "الأنسب لـ:" : "Best for:"}</dt>
-          <dd className="text-text-secondary">{pick(tier.bestFor, lang)}</dd>
-        </div>
-        <div className="flex gap-1">
-          <dt className="text-text-ghost">{lang === "ar" ? "المدة:" : "Duration:"}</dt>
-          <dd className="text-text-secondary">{pick(tier.duration, lang)}</dd>
-        </div>
-        <div className="flex gap-1">
-          <dt className="text-text-ghost">{lang === "ar" ? "الدفع:" : "Payment:"}</dt>
-          <dd className="text-text-secondary">{tier.payment}</dd>
-        </div>
+      {/* Label and value stack on a phone instead of sitting side by side.
+          At 390px the inline `flex gap-1` split "Best for:" onto two lines
+          ("Best" / "for:") next to a too-narrow value column, which read as
+          broken rather than dense. */}
+      <dl className="flex flex-col gap-1 border-y border-border-subtle py-2 font-mono text-micro sm:gap-0.5">
+        {(
+          [
+            [lang === "ar" ? "الأنسب لـ:" : "Best for:", pick(tier.bestFor, lang)],
+            [lang === "ar" ? "المدة:" : "Duration:", pick(tier.duration, lang)],
+            [lang === "ar" ? "الدفع:" : "Payment:", tier.payment],
+          ] as const
+        ).map(([label, value]) => (
+          <div key={label} className="flex flex-col gap-0 sm:flex-row sm:gap-1">
+            <dt className="shrink-0 text-text-ghost">{label}</dt>
+            <dd className="text-text-secondary">{value}</dd>
+          </div>
+        ))}
       </dl>
 
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary">
@@ -82,9 +86,15 @@ export function TierCard({ tier }: { tier: Tier }) {
             {pick(item, lang)}
           </li>
         ))}
+        {/* Both glyphs are aria-hidden decoration, which meant an excluded
+            item ("Brand strategy") read exactly like an included one — and
+            under the Tier 02/03 heading "Everything in Tier 01, plus" that
+            reads as a promise rather than a deduction. The excluded rows now
+            carry their own label in text. */}
         {tier.excludes?.map((item) => (
           <li key={item[0]} className="flex gap-1 text-body-sm text-text-ghost">
             <span aria-hidden>✕</span>
+            <span className="sr-only">{lang === "ar" ? "غير مشمول: " : "Not included: "}</span>
             {pick(item, lang)}
           </li>
         ))}
@@ -104,53 +114,125 @@ export function TierCard({ tier }: { tier: Tier }) {
   );
 }
 
-/** Decision aid — read this before the three detailed cards. */
+/**
+ * Decision aid — read this before the three detailed cards.
+ *
+ * TWO PRESENTATIONS FROM ONE DATA SOURCE, not one squeezed table:
+ * the comparison carries three tiers × three fields, which at 390px is a
+ * ~584px table inside a ~342px wrapper. `overflow-x-auto` hid the third
+ * tier off-screen entirely — "Full Brand System" simply could not be
+ * compared on a phone. Below `md` the same rows stack into one card per
+ * tier; from `md` up the table returns unchanged.
+ *
+ * The `RECOMMENDED` signal lives in exactly one place here. The column
+ * header used to repeat it as "Best for most projects" while the tier
+ * card below said "★ Recommended" — two recommendation signals on one
+ * screen read as hesitation, so the header now carries a quiet star only.
+ */
 export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const FIELDS = [
+    { label: ar ? "الأنسب لـ" : "Best for", value: (t: Tier) => pick(t.bestFor, lang) },
+    { label: ar ? "يبدأ من" : "From", value: (t: Tier) => t.price },
+    { label: ar ? "المدة" : "Duration", value: (t: Tier) => pick(t.duration, lang) },
+  ] as const;
+
   return (
-    <div className="overflow-x-auto rounded-card border border-border-subtle">
-      <table className="w-full min-w-[36rem] text-start text-body-sm">
-        <caption className="sr-only">{ar ? "مقارنة الفئات" : "Tier comparison"}</caption>
-        <thead>
-          <tr className="border-b border-border-subtle bg-surface-1">
-            <th className="px-3 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
-              {ar ? "المعيار" : "Fit"}
-            </th>
-            {tiers.map((t) => (
-              <th key={t.tag[0]} className="px-3 py-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
-                {pick(t.name, lang)}
-                {t.recommended ? (
-                  <span className="ms-2 font-mono text-micro uppercase tracking-[0.08em] text-accent">
-                    {ar ? "الأنسب لمعظم المشاريع" : "Best for most projects"}
+    <>
+      {/* ── Mobile / tablet: stacked cards ──
+          Mirrors the table's <caption> as a named group, so the stacked
+          presentation is announced as "Tier comparison" instead of arriving
+          as three unlabelled cards in the reading order. */}
+      <div
+        role="group"
+        aria-label={ar ? "مقارنة الفئات" : "Tier comparison"}
+        className="grid gap-2 md:hidden"
+      >
+        {tiers.map((t) => (
+          <div
+            key={t.tag[0]}
+            className={[
+              "rounded-card border p-3",
+              t.recommended
+                ? "border-accent/40 bg-accent-08"
+                : "border-border-subtle bg-surface-1/40",
+            ].join(" ")}
+          >
+            <p className="flex items-baseline gap-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
+              {pick(t.name, lang)}
+              {t.recommended ? (
+                <>
+                  <span aria-hidden className="text-accent">
+                    ★
                   </span>
-                ) : null}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {(
-            [
-              [ar ? "الأنسب لـ" : "Best for", (t: Tier) => pick(t.bestFor, lang)],
-              [ar ? "يبدأ من" : "From", (t: Tier) => t.price],
-              [ar ? "المدة" : "Duration", (t: Tier) => pick(t.duration, lang)],
-            ] as const
-          ).map(([label, value]) => (
-            <tr key={label} className="border-b border-border-subtle last:border-0">
+                  {/* The star is the only recommendation signal left in the
+                      comparison (see the note above TierCompare). aria-hidden
+                      keeps it out of the accessible name, so the same fact is
+                      carried by text — otherwise the decision aid recommends
+                      nothing at all for a non-visual reader. */}
+                  <span className="sr-only">{ar ? "الأكثر طلبًا" : "Recommended"}</span>
+                </>
+              ) : null}
+            </p>
+            <dl className="mt-2 grid grid-cols-[5.5rem_1fr] gap-x-2 gap-y-1">
+              {FIELDS.map((f) => (
+                <div key={f.label} className="contents">
+                  <dt className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                    {f.label}
+                  </dt>
+                  <dd className="text-body-sm text-text-secondary">{f.value(t)}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Desktop: the comparison table ── */}
+      <div className="hidden overflow-x-auto rounded-card border border-border-subtle md:block">
+        <table className="w-full text-start text-body-sm">
+          <caption className="sr-only">{ar ? "مقارنة الفئات" : "Tier comparison"}</caption>
+          <thead>
+            <tr className="border-b border-border-subtle bg-surface-1">
               <th className="px-3 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
-                {label}
+                {ar ? "المعيار" : "Fit"}
               </th>
               {tiers.map((t) => (
-                <td key={t.tag[0]} className="px-3 py-2 text-text-secondary">
-                  {value(t)}
-                </td>
+                <th key={t.tag[0]} className="px-3 py-2 font-display text-[1rem] tracking-[-0.015em] text-text-primary">
+                  {pick(t.name, lang)}
+                  {t.recommended ? (
+                    <>
+                      <span aria-hidden className="ms-2 text-accent">
+                        ★
+                      </span>
+                      {/* Lives inside the <th>, so screen readers announce the
+                          recommendation with the column header of every cell
+                          in that column. */}
+                      <span className="sr-only">{ar ? "الأكثر طلبًا" : "Recommended"}</span>
+                    </>
+                  ) : null}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {FIELDS.map((f) => (
+              <tr key={f.label} className="border-b border-border-subtle last:border-0">
+                <th className="px-3 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                  {f.label}
+                </th>
+                {tiers.map((t) => (
+                  <td key={t.tag[0]} className="px-3 py-2 text-text-secondary">
+                    {f.value(t)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }
 

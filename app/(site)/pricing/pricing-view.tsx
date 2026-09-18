@@ -5,6 +5,16 @@ import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
 import { SectionHead, TierGrid, TierCompare, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
 import { InvestmentValue } from "@/features/offers/investment-value";
 import { Heading } from "@/components/ui/Heading";
+import { useAmbientGlow } from "@/hooks/use-ambient-glow";
+
+/* Route mood — pricing is the decision surface, so the atmosphere stays
+   restrained: the brand orange carries the recommendation, and proof/lime
+   only warms the far edge. This is the resting floor the tiers sit on;
+   it is deliberately the quietest of the four audited routes. */
+const PRICING_MOOD = {
+  primary: "rgb(255 107 71 / 0.10)",
+  secondary: "rgb(163 230 53 / 0.05)",
+} as const;
 
 const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
@@ -25,6 +35,7 @@ interface PricingData {
 export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  useAmbientGlow(PRICING_MOOD, 0.3);
   return (
     <main className="container-content flex flex-col gap-16 py-16">
       <header className="flex flex-col gap-3">
