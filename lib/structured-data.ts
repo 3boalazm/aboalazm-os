@@ -15,7 +15,7 @@
  * page, about page). No aspirational or unverifiable claims.
  */
 
-const SITE_URL = "https://aboalazm.com";
+import { SITE_URL } from "@/lib/site";
 
 export function getPersonSchema() {
   return {
