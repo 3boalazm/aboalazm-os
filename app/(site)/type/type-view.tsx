@@ -36,7 +36,7 @@ export function TypeView() {
       {/* ── Scale ── */}
       <section className="mb-16">
         <Label>Heading scale</Label>
-        <div className="mt-6 space-y-6 border-b border-border-subtle pb-8">
+        <div className="mt-6 space-y-6 overflow-x-auto border-b border-border-subtle pb-8">
           {[
             { label: "Hero  — clamp(3.5rem, 9vw, 8.5rem)", size: "clamp(3.5rem,9vw,8.5rem)", lh: "0.95", ls: "-0.03em" },
             { label: "Display — clamp(2.5rem, 5.5vw, 5rem)", size: "clamp(2.5rem,5.5vw,5rem)", lh: "1.02", ls: "-0.025em" },
@@ -85,7 +85,7 @@ export function TypeView() {
         <div className="mt-6 space-y-8">
 
           {/* Hero */}
-          <PanelCard className="rounded-panel p-8">
+          <PanelCard className="overflow-x-auto rounded-panel p-8">
             <CtxLabel>Hero — index page</CtxLabel>
             <h2
               className="font-display text-text-primary"
@@ -119,7 +119,7 @@ export function TypeView() {
           {/* Nav preview */}
           <PanelCard className="rounded-panel p-8">
             <CtxLabel>Nav links — GC EPICPRO at small size</CtxLabel>
-            <div className="mt-4 flex items-center gap-4">
+            <div className="mt-4 flex flex-wrap items-center gap-4">
               <span
                 className="font-display text-text-primary"
                 style={{ fontSize: "1.1rem", letterSpacing: "-0.02em" }}
