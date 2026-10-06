@@ -3,7 +3,7 @@
    ───────────────────────────────────────────────────────────────────────
    Design system ported 1:1 from Aboalazm OS (app/(site)/globals.css):
    · Canvas   : Obsidian #080710 (dark) — ink #F8F8FA in opacity steps
-   · Accent   : Studio Coral #FF6B47 — atmosphere, never paint
+   · Accent   : Studio Coral #E8632A — atmosphere, never paint
    · Borders  : white alpha 8 / 12 / 20% — never solid gray
    · Spacing  : 8px base scale · radius 12 / 24 / 999
    · Type     : GC Epicpro (EN display) · Thmanyah Serif (AR display)
@@ -51,7 +51,7 @@
   --ink-14:     rgb(248 248 250 / 0.14);
   --ink-08:     rgb(248 248 250 / 0.08);
 
-  --coral:      #FF6B47;
+  --coral:      #E8632A;
   --coral-dim:  rgb(255 107 71 / 0.14);
   --coral-ghost:rgb(255 107 71 / 0.07);
 
@@ -329,11 +329,15 @@ button { font:inherit; color:inherit; background:none; border:0; cursor:pointer;
   display:flex; align-items:center; gap:10px;
   background:rgb(13 12 24 / 0.92);
   border:1px solid var(--line-2); border-radius:999px;
-  padding:10px 14px;
+  padding:8px 12px;
   backdrop-filter:blur(14px);
   box-shadow:0 12px 40px rgb(0 0 0 / 0.5);
   font-family:var(--f-mono);
 }
+.dock-brand { color:var(--ink); font-size:9px; font-weight:700; letter-spacing:0.14em; text-decoration:none; white-space:nowrap; }
+.dock-brand span { color:var(--coral); }
+.dock-back { color:var(--ink-48); font-size:8.5px; letter-spacing:0.1em; text-decoration:none; padding:6px 8px; border-radius:999px; transition:color .2s, background .2s; }
+.dock-back:hover { color:var(--ink); background:var(--ink-08); }
 .dock-lang { display:flex; gap:2px; }
 .dock-lang button {
   font-size:8.5px; letter-spacing:0.12em; color:var(--ink-48);
@@ -348,7 +352,7 @@ button { font:inherit; color:inherit; background:none; border:0; cursor:pointer;
 }
 .dock-btn:hover { border-color:var(--ink-48); transform:translateY(-1px); }
 .dock-btn--accent { background:var(--coral); border-color:var(--coral); color:var(--obsidian); font-weight:700; }
-.dock-btn--accent:hover { background:#ff7d5c; }
+.dock-btn--accent:hover { background:#ee7545; }
 
 /* Progress overlay */
 #progress {
@@ -380,3 +384,10 @@ button { font:inherit; color:inherit; background:none; border:0; cursor:pointer;
   #dock, #progress { display:none !important; }
 }
 @page { size:A4 portrait; margin:0; }
+
+
+@media (max-width: 760px) {
+  #dock { left:12px; right:12px; bottom:12px; justify-content:center; flex-wrap:wrap; gap:6px; padding:8px 10px; }
+  .dock-brand, .dock-sep--brand, .dock-back { display:none; }
+  .dock-btn { padding:7px 10px; }
+}
