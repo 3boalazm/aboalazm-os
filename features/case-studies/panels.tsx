@@ -139,7 +139,6 @@ function CompetitorMap({
 }: {
   competitors: readonly CompetitorVector[];
 }) {
-  const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
