@@ -55,7 +55,7 @@ export function AboutTeaser() {
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. متاح حاليًا لفرص الهوية البصرية والمنتجات الرقمية (الرياض أو عن بُعد).
+            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. متاح حاليًا لفرص الهوية البصرية والمنتجات الرقمية (الرياض أو عن بُعد)."
             : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Currently open to Senior Brand Identity / Product Design opportunities | Riyadh or Remote."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
@@ -129,6 +129,7 @@ export function StatsBand() {
 export function ClientJourneyBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const reduceMotion = useReducedMotion();
   const { persona } = usePersona();
 
   const steps = ar
@@ -233,6 +234,55 @@ export function ClientJourneyBand() {
 
       </div>
     </div>
+  );
+}
+
+
+/* ── Why / value bridge — the missing trust layer between proof and process ── */
+export function WhyValueBand() {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  const items = ar
+    ? [
+        ["01", "الاستراتيجية قبل الشكل", "كل قرار بصري يبدأ من الهدف والسوق والجمهور — مش من الشكل فقط."],
+        ["02", "أنظمة مش ملفات", "النتيجة نظام يقدر الفريق يستخدمه ويتوسع به ويحافظ عليه بعد التسليم."],
+        ["03", "عربي + إنجليزي من البداية", "الهوية تُبنى للغتين في نفس المعمارية، مش ترجمة تُضاف في آخر المشروع."],
+      ]
+    : [
+        ["01", "Strategy before aesthetics", "Visual decisions start from the business, audience, and market — not decoration alone."],
+        ["02", "Systems, not files", "The deliverable is a system teams can use, scale, and maintain after handoff."],
+        ["03", "Arabic + English by design", "Both languages are designed into the architecture from the start, not translated at the end."],
+      ];
+
+  return (
+    <section className="container-content py-16 md:py-20">
+      <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        <div className="flex flex-col gap-3">
+          <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{ar ? "لماذا هذا الأسلوب" : "WHY THIS APPROACH"}</p>
+          <h2 className="max-w-[18ch] font-display text-title tracking-[-0.02em]">
+            {ar ? <>مش مجرد هوية. <em className="text-accent">نظام يشتغل.</em></> : <>Not just an identity. <em className="text-accent">A system that works.</em></>}
+          </h2>
+          <p className="max-w-[46ch] text-body-sm text-text-secondary">
+            {ar ? "ثلاثة مبادئ بسيطة تلخّص طريقة الشغل قبل ما ندخل في التفاصيل." : "Three principles that explain the work before we get into the process."}
+          </p>
+          <Link href="/why" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary focus-visible:text-text-primary">
+            {ar ? "ليه مصطفى؟" : "Why Mustafa"}
+            <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
+          </Link>
+        </div>
+        <div className="flex flex-col border-t border-border-subtle">
+          {items.map(([n, title, body]) => (
+            <div key={n} className="grid gap-2 border-b border-border-subtle py-4 sm:grid-cols-[3rem_1fr] sm:gap-4">
+              <span className="font-mono text-label text-accent">{n}</span>
+              <div className="flex flex-col gap-1">
+                <h3 className="font-display text-subtitle tracking-[-0.01em]">{title}</h3>
+                <p className="max-w-[56ch] text-body-sm text-text-secondary">{body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
