@@ -202,7 +202,7 @@ export function ClientJourneyBand() {
           {steps.map((step, i) => {
             const isActive = i === active;
             return (
-              <div key={step.n} className="min-h-[70vh] py-12 lg:min-h-[88vh] lg:py-24">
+              <div key={step.n} className="min-h-[48vh] py-10 lg:min-h-[58vh] lg:py-16">
                 <motion.div
                   initial={false}
                   animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.28, y: isActive ? 0 : 18 }}
