@@ -13,8 +13,8 @@ window.DATA = {
   identity: {
     name: "MUSTAFA ABOALAZM",
     nameAr: "مصطفى أبوالعزم",
-    role: "Systemic Identity Architect",
-    roleAr: "معماري هويات النظم",
+    role: "Senior Brand Identity Designer",
+    roleAr: "مصمم هوية بصرية أول",
     studio: "Code & Canvas — Co-Founder & Creative Lead",
     email: "Mustafaaboalazm@mail.ru",
     location: "Al Obour, Egypt — 30.1936° N, 31.4603° E",
@@ -33,8 +33,8 @@ window.DATA = {
     lineA: "MUSTAFA",
     lineB: "ABOALAZM",
     kicker: "PORTFOLIO · بورتفوليو ٢٠٢٦",
-    serif: "Systemic Identity Architect",
-    lede: "Brand identity, design systems & digital infrastructure — engineered in two languages under one doctrine.",
+    serif: "Senior Brand Identity Designer",
+    lede: "Brand identity systems & visual governance — engineered in two languages under one doctrine.",
     ledeAr: "هوية بصرية، أنظمة تصميم، وبنية رقمية — بتتبني بلغتين تحت مبدأ واحد.",
     metrics: [
       { n: "9",   suf: "YRS", l: "In practice",        c: "SINCE 2018" },

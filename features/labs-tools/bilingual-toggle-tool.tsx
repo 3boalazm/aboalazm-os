@@ -24,13 +24,13 @@ const CARD = {
   en: {
     kicker: "BRAND IDENTITY",
     title: "Aboalazm",
-    tag: "Systemic Identity Architect",
+    tag: "Senior Brand Identity Designer",
     meta: ["Strategy", "Systems", "Bilingual"],
   },
   ar: {
     kicker: "هوية بصرية",
     title: "أبوالعزم",
-    tag: "معماري الهوية الجهازية",
+    tag: "مصمم هوية بصرية أول",
     meta: ["استراتيجية", "أنظمة", "ثنائي اللغة"],
   },
 } as const;

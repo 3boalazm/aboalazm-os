@@ -46,8 +46,8 @@ export interface Project {
 export const IDENTITY = {
   name: "MUSTAFA ABOALAZM",
   nameAr: "مصطفى أبوالعزم",
-  role: "Systemic Identity Architect",
-  roleAr: "معماري هويات النظم",
+  role: "Senior Brand Identity Designer",
+  roleAr: "مصمم هوية بصرية أول",
   email: "Mustafaaboalazm@mail.ru",
   location: "Al Obour, Egypt",
   version: "V.2026 · EDITION 02",

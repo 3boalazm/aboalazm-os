@@ -25,9 +25,9 @@ export function getPersonSchema() {
     alternateName: "مصطفى أبوالعزم",
     url: SITE_URL,
     image: `${SITE_URL}/images/work/icon.png`,
-    jobTitle: "Systemic Identity Architect",
+    jobTitle: "Senior Brand Identity Designer & Visual Systems Specialist",
     description:
-      "Senior Brand Identity Designer and Co-founder of Code & Canvas, working across brand strategy, design systems, and web.",
+      "Senior Brand Identity Designer and Co-founder of Code & Canvas, working across brand strategy, bilingual visual identity systems, and design governance.",
     email: "mailto:Mustafaaboalazm@mail.ru",
     address: {
       "@type": "PostalAddress",
@@ -49,7 +49,7 @@ export function getWebSiteSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Mustafa Aboalazm — Systemic Identity Architect",
+    name: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist",
     url: SITE_URL,
     inLanguage: ["en", "ar"],
   };
