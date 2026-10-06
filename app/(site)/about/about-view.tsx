@@ -27,14 +27,14 @@ const TIMELINE = {
     ["2020–25", "Media Director & Account Manager", "Nile Pharma Food — identity from zero: +40% visibility, +25% engagement"],
     ["2020–21", "Studio Lead & Visual Director", "Learn in Arabic (MSP) — identity + DIY studio built from scratch"],
     ["2019–21", "Head of Media ×2 Seasons", "Youth Scope — full identity twice; Best Head, both seasons"],
-    ["2018 →", "Brand Consultant (Freelance)", "20+ systems across pharma, food, education, NGOs, government"],
+    ["2022 →", "Brand Identity Designer & Consultant (Freelance)", "4+ years focused on brand identity and systems; 20+ clients and organizations across pharma, food, education, NGOs, government"],
   ],
   ar: [
     ["2024 →", "شريك مؤسس ومدير إبداعي", "Code & Canvas — هوية بصرية ووب للشركات الصغيرة والمتوسطة في مصر والمنطقة"],
     ["2020–25", "مدير الميديا ومدير الحسابات", "نايل فارما فود — هوية من الصفر: +40% ظهور رقمي، +25% تفاعل"],
     ["2020–21", "مدير الاستوديو والمدير البصري", "تعلّم بالعربي (MSP) — هوية + استوديو DIY من الصفر"],
     ["2019–21", "رئيس لجنة الميديا ×2 مواسم", "Youth Scope — هوية كاملة مرتين؛ أفضل رئيس، موسمان"],
-    ["2018 →", "مستشار براند (فريلانسر)", "+20 نظام هوية في الصيدلة والغذاء والتعليم والجمعيات والحكومة"],
+    ["٢٠٢٢ ←", "مصمم هوية بصرية ومستشار (فريلانسر)", "أكثر من ٤ سنوات في الهوية والأنظمة؛ أكثر من ٢٠ عميلاً ومؤسسة في الصيدلة والغذاء والتعليم والجمعيات والحكومة"],
   ],
 } as const;
 
