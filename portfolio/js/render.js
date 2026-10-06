@@ -44,7 +44,7 @@
 
   const CHROME_BOT = `
     <div class="chrome-bot">
-      <span>aboalazm.com <span class="cb-dot">·</span> behance.net/aboalazm</span>
+      <span>aboalazm-os.vercel.app <span class="cb-dot">·</span> behance.net/aboalazm</span>
       <span>AL OBOUR · 30.1936° N 31.4603° E</span>
       <span>PORTFOLIO ${esc(D.identity.version.split("·")[0].trim())}</span>
     </div>`;
