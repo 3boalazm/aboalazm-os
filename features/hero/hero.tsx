@@ -147,7 +147,7 @@ export function Hero() {
               </a>
               <a
                 href="/cv"
-                download="Mustafa-Aboalazm-CV.pdf"
+                download="Mustafa_Taha_Brand_Identity_CV.docx"
                 className="group relative inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
               >
                 <span>{t.heroDownloadCv}</span>
