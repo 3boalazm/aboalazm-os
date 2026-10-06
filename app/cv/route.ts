@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request: Request) {
   return NextResponse.redirect(
-    new URL("/Mustafa_Taha_Brand_Identity_CV.docx", process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+    new URL("/Mustafa_Taha_Brand_Identity_CV.docx", request.url),
   );
 }
