@@ -64,6 +64,24 @@ export function ContactView() {
           </p>
         </div>
 
+        {/* Recruiter / Hiring path differentiation */}
+        <div className="mt-2 rounded-card border border-border-subtle bg-surface-1 p-3">
+          <p className="font-mono text-micro text-accent uppercase tracking-[0.08em]">
+            {ar ? "فرص التوظيف والشركات" : "Hiring & In-house Roles"}
+          </p>
+          <p className="mt-1 text-body-sm text-text-secondary">
+            {ar
+              ? "هل تتواصل بخصوص دور وظيفي كامل أو تعاقدي لمصمم هوية بصرية؟ يمكنك مراجعة وتنزيل ملف المرشح والسيرة الذاتية مباشرة."
+              : "Reaching out regarding a full-time, contract, or agency role? You can review the hiring dossier and download the CV directly."}
+          </p>
+          <a
+            href="/for-hiring"
+            className="mt-2 inline-flex items-center gap-1.5 font-mono text-micro text-text-primary underline decoration-border-default underline-offset-4 hover:text-accent"
+          >
+            <span>{ar ? "الانتقال لصفحة مسؤولي التوظيف والـ CV ←" : "Go to For Hiring Teams Dossier →"}</span>
+          </a>
+        </div>
+
         <div className="mt-2 flex flex-col border-t border-border-subtle">
           {channels.map(([tag, hint, label, href]) => (
             <a

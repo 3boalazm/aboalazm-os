@@ -47,6 +47,24 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           }
           subtitleClassName="max-w-[52ch]"
         />
+
+        {/* Studio Services vs Candidate In-House Role Notice */}
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-card border border-border-subtle bg-surface-1 p-3">
+          <div className="flex items-center gap-2">
+            <span className="size-2 rounded-pill bg-accent" />
+            <p className="font-mono text-micro text-text-secondary">
+              {ar
+                ? "تبحث عن توظيف مصطفى كعضو دائم أو متعاقد في فريقك؟"
+                : "Looking to hire Mustafa as a core team member or contract lead?"}
+            </p>
+          </div>
+          <Link
+            href="/for-hiring"
+            className="inline-flex items-center gap-1.5 font-mono text-micro font-medium text-text-primary underline decoration-border-default underline-offset-4 hover:text-accent"
+          >
+            <span>{ar ? "استعرض ملف المرشح والـ CV ←" : "Explore Candidate Dossier & CV →"}</span>
+          </Link>
+        </div>
       </header>
 
       <section className="flex flex-col gap-3">
