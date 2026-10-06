@@ -5,6 +5,7 @@ import { SkillsMarquee, AboutTeaser, HomeCta, ClientJourneyBand } from "@/featur
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SectionMarker } from "@/components/ui/section-marker";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 
 export const revalidate = 60;
 
@@ -18,6 +19,7 @@ export default async function Home() {
   const projects = await getProjects();
   return (
     <main>
+      <ScrollProgress />
       {/* 01 · Immediate clarity: who Mustafa is, what he designs, CV download, and separate hiring/client paths */}
       <Hero />
 
