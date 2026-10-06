@@ -112,7 +112,16 @@ export function StatsBand() {
             <span className="stats-dash__sub">{ar ? subAr : subEn}</span>
             <div className="stats-dash__bar" aria-hidden>
               <motion.div
-                className="stats-dash__bar-fill"
+                className={`stats-dash__bar-fill ${[
+                  "bg-secondary-cyan",
+                  "bg-secondary-mint",
+                  "bg-secondary-pink",
+                  "bg-secondary-mauve",
+                  "bg-secondary-cyan",
+                  "bg-secondary-mint",
+                  "bg-secondary-pink",
+                  "bg-secondary-mauve",
+                ][i]}`}
                 initial={reduceMotion ? false : { scaleX: 0 }}
                 whileInView={{ scaleX: bar as number }}
                 viewport={{ once: true, margin: "-40px" }}
@@ -173,7 +182,12 @@ export function ClientJourneyBand() {
             {steps.map((step, i) => (
               <span
                 key={step.n}
-                className={`h-1.5 flex-1 transition-all duration-500 ${i === active ? "bg-accent" : "bg-border-subtle"}`}
+                className={`h-1.5 flex-1 transition-all duration-500 ${i === active ? [
+  "bg-secondary-cyan",
+  "bg-secondary-mint",
+  "bg-secondary-pink",
+  "bg-secondary-mauve",
+][i] : "bg-border-subtle"}`}
                 aria-hidden
               />
             ))}
@@ -196,7 +210,12 @@ export function ClientJourneyBand() {
                   className="border-t border-border-subtle pt-6"
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <span className="font-mono text-label text-accent">{step.n}</span>
+                    <span className={`font-mono text-label ${[
+  "text-secondary-cyan",
+  "text-secondary-mint",
+  "text-secondary-pink",
+  "text-secondary-mauve",
+][i]}`}>{step.n}</span>
                     <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">{step.proof}</span>
                   </div>
                   <h3 className="mt-10 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
@@ -251,10 +270,16 @@ export function WhyValueBand() {
         </div>
         <div className="flex flex-col border-t border-border-subtle">
           {items.map(([n, title, body]) => (
-            <div key={n} className="grid gap-2 border-b border-border-subtle py-4 sm:grid-cols-[3rem_1fr] sm:gap-4">
-              <span className="font-mono text-label text-accent">{n}</span>
+            <div key={n} className={`grid gap-2 border-b border-border-subtle py-4 sm:grid-cols-[3rem_1fr] sm:gap-4 ${
+  n === "01" ? "border-s-secondary-cyan/30" : n === "02" ? "border-s-secondary-mint/30" : "border-s-secondary-pink/30"
+}`}>
+              <span className={`font-mono text-label ${
+                n === "01" ? "text-secondary-cyan" : n === "02" ? "text-secondary-mint" : "text-secondary-pink"
+              }`}>{n}</span>
               <div className="flex flex-col gap-1">
-                <h3 className="font-display text-subtitle tracking-[-0.01em]">{title}</h3>
+                <h3 className={`font-display text-subtitle tracking-[-0.01em] ${
+  n === "01" ? "text-secondary-cyan" : n === "02" ? "text-secondary-mint" : "text-secondary-pink"
+}`}>{title}</h3>
                 <p className="max-w-[56ch] text-body-sm text-text-secondary">{body}</p>
               </div>
             </div>
