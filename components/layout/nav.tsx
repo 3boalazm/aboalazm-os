@@ -33,7 +33,6 @@ const LINKS = [
    "take me with you" exit at the very end of the menu. */
 const MORE = [
   { href: "/start", en: "START HERE", ar: "ابدأ هنا" },
-  { href: "/for-hiring", en: "FOR HIRING TEAMS", ar: "مسار التوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/gallery", en: "GALLERY", ar: "المعرض" },
   { href: "/why", en: "WHY", ar: "لماذا" },
