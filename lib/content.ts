@@ -259,23 +259,32 @@ export async function getSitemapSources(): Promise<{
   posts: SitemapSource[];
   caseStudies: SitemapSource[];
 }> {
-  const payload = await getPayload();
-  const [posts, caseStudies] = await Promise.all([
-    payload.find({
-      collection: "posts",
-      limit: 100,
-      select: { slug: true, updatedAt: true },
-      overrideAccess: false,
-    }),
-    payload.find({
-      collection: "case-studies",
-      limit: 100,
-      select: { slug: true, updatedAt: true },
-      overrideAccess: false,
-    }),
-  ]);
-  const pick = (d: { slug: string; updatedAt: string }) => ({ slug: d.slug, updatedAt: d.updatedAt });
-  return { posts: posts.docs.map(pick), caseStudies: caseStudies.docs.map(pick) };
+  // Sitemap generation must remain safe when Payload/DB is unavailable
+  // (local preview, CI, or environments without CMS credentials).
+  if (!hasDb()) return { posts: [], caseStudies: [] };
+
+  try {
+    const { getPayload } = await import("./payload");
+    const payload = await getPayload();
+    const [posts, caseStudies] = await Promise.all([
+      payload.find({
+        collection: "posts",
+        limit: 100,
+        select: { slug: true, updatedAt: true },
+        overrideAccess: false,
+      }),
+      payload.find({
+        collection: "case-studies",
+        limit: 100,
+        select: { slug: true, updatedAt: true },
+        overrideAccess: false,
+      }),
+    ]);
+    const pick = (d: { slug: string; updatedAt: string }) => ({ slug: d.slug, updatedAt: d.updatedAt });
+    return { posts: posts.docs.map(pick), caseStudies: caseStudies.docs.map(pick) };
+  } catch {
+    return { posts: [], caseStudies: [] };
+  }
 }
 
 export async function getAllCaseStudySlugs(): Promise<string[]> {

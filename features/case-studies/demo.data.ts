@@ -60,8 +60,8 @@ export const NILE_PHARMA: CaseStudyRecord = {
       value: "+40%",
       label: "Online Visibility",
       labelAr: "الظهور الرقمي",
-      context: "Search impressions post-launch (Google Search Console, 6 mo audit)",
-      contextAr: "مرات الظهور بمحركات البحث (Google Search Console بعد ٦ أشهر من إطلاق الموقع)",
+      context: "Reported online visibility improvement; measurement methodology not published.",
+      contextAr: "تحسن مُبلّغ عنه في الظهور الرقمي؛ منهجية القياس غير منشورة.",
     },
     {
       value: "+25%",
@@ -74,8 +74,8 @@ export const NILE_PHARMA: CaseStudyRecord = {
       value: "5y",
       label: "System In Production",
       labelAr: "النظام في الإنتاج",
-      context: "Active brand governance across 1000+ pharmacies (2020–2025)",
-      contextAr: "حوكمة مستمرة للبراند في أكثر من ١٠٠٠ صيدلية (2020–2025)",
+      context: "Brand governance across pharmacy retail channels during the engagement (2020–2025).",
+      contextAr: "حوكمة للبراند عبر قنوات بيع الصيدليات خلال فترة العمل (2020–2025).",
     },
   ],
 
@@ -97,9 +97,9 @@ export const NILE_PHARMA: CaseStudyRecord = {
     rejectedDirectionsAr:
       "١) كليشيهات ورقة الشجر وقطرة الماء: رُفضت لأن الشركة تنتج تركيبات دوائية مصرحة وليست أعشاباً شعبية، وتحتاج مصداقية علمية.\n٢) الأزرق النيون الفاقع (#00C8D2): رُفض في تجارب الطباعة لكونه يقلل من وقار وموثوقية عبوة الدواء في الصيدلية.",
     roleAndTeam:
-      "Brand Lead & Art Director (Mustafa Aboalazm, 2020–2025). Owned the full visual transformation: identity redesign, packaging architecture, marketing campaign systems, and digital web presence. Collaborated closely with the Sales Director, Regulatory Pharmacist, and print production houses.",
+      "Official role: Media Director & Account Manager (Mustafa Aboalazm, 2020–2025). Functional scope included brand direction, identity redesign, packaging architecture, marketing campaign systems, and digital web presence. Collaborated closely with the Sales Director, Regulatory Pharmacist, and print production houses.",
     roleAndTeamAr:
-      "مدير البراند والإدارة الفنية (مصطفى أبوالعزم) من ٢٠٢٠ حتى ٢٠٢٥. قاد التحول البصري الكامل: إعادة تصميم الشعار، معمارية التغليف، أنظمة الحملات التسويقية، والموقع. بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
+      "المسمى الوظيفي الرسمي: مدير الميديا ومدير الحسابات (مصطفى أبوالعزم) من ٢٠٢٠ حتى ٢٠٢٥. شمل النطاق الوظيفي توجيه البراند، إعادة تصميم الهوية، معمارية التغليف، أنظمة الحملات التسويقية، والحضور الرقمي، بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
     whereUsed:
       "Distributed across pharmacy retail channels across Egypt, primary product carton boxes (Proxeed line), highway outdoor billboards, medical presentation flyers, official website, and bilingual Ramadan & seasonal campaigns.",
     whereUsedAr:

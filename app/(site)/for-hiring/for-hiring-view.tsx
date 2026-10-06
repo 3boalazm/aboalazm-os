@@ -48,13 +48,13 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "Dual heart + lung circular seal & monogram",
       "Bilingual Latin (Trap) & Arabic (Alexandria) typography pairing",
       "Pantone-calibrated palette (107-8 U Deep Blue + 49-16 U Crimson)",
-      "Complete 48-page brand guidelines (V2.0)",
+      "Complete brand guidelines (V2.0)",
     ],
     whatShippedAr: [
       "شعار دائري مدمج يجمع رمز القلب والرئة بدقة تشريحية",
       "مواءمة طباعية ثنائية اللغة: خط Trap اللاتيني مع خط Alexandria العربي",
       "نظام ألوان مقفل ببانتون (أزرق عميق 107-8 U وقرمزي 49-16 U)",
-      "دليل هوية متكامل من ٤٨ صفحة (V2.0)",
+      "دليل هوية متكامل (V2.0)",
     ],
     deployment:
       "Exterior hospital facade signage, 3D reception wall seal, patient wayfinding, staff uniforms, bilingual diagnosis folders, prescription stationery, and medical summit stands.",
@@ -106,8 +106,8 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "A pharma and dietary-supplements company operating for years without visual governance, resulting in fragmented packaging and weak pharmacy shelf presence against imported brands.",
     challengeAr:
       "شركة أدوية ومكملات غذائية عملت لسنوات دون حوكمة بصرية، مما نتج عنه تغليف متباين وحضور ضعيف على أرفف الصيدليات الكبرى أمام المستورد.",
-    role: "In-House Brand Lead & Art Director (2020–2025)",
-    roleAr: "مدير البراند والإدارة الفنية في الشركة (2020–2025)",
+    role: "Media Director & Account Manager (2020–2025) · functional scope: brand & art direction",
+    roleAr: "مدير الميديا ومدير الحسابات (2020–2025) · النطاق الوظيفي: توجيه البراند والإدارة الفنية",
     team: "Mustafa leading visual strategy with Sales Leadership, Regulatory Pharmacists, and Packaging Printers.",
     teamAr: "مصطفى قائداً للاستراتيجية البصرية بالتنسيق مع المبيعات والصيادلة ومطابع التغليف.",
     whatShipped: [
@@ -242,14 +242,24 @@ const TIMELINE = [
     detailAr: "إعادة بناء هوية المنظمة مرتين. قيادة فريق من ١٢ مصمماً، والفوز بجائزة أفضل رئيس لجنة للموسمين.",
   },
   {
-    period: "Jul 2017 → Present",
-    periodAr: "يوليو ٢٠١٧ ← الحاضر",
-    role: "Senior Brand Identity Designer & Consultant",
-    roleAr: "مصمم هوية بصرية مستقل",
-    company: "Studio Practice",
+    period: "2017 → 2022",
+    periodAr: "٢٠١٧ → ٢٠٢٢",
+    role: "Graphic Designer",
+    roleAr: "مصمم جرافيك",
+    company: "Independent Practice",
     companyAr: "ممارسة مستقلة",
-    detail: "20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
-    detailAr: "أكثر من ٢٠ عميلاً ومؤسسة عبر الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
+    detail: "Professional design practice across identity, digital, campaigns, and visual communication.",
+    detailAr: "ممارسة تصميم احترافية شملت الهوية والتصميم الرقمي والحملات والتواصل البصري.",
+  },
+  {
+    period: "2022 → Present",
+    periodAr: "٢٠٢٢ ← الحاضر",
+    role: "Brand Identity Designer & Consultant",
+    roleAr: "مصمم هوية بصرية ومستشار",
+    company: "Independent Practice",
+    companyAr: "ممارسة مستقلة",
+    detail: "4+ years focused on brand identity and systems; 20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
+    detailAr: "أكثر من ٤ سنوات في الهوية والأنظمة؛ أكثر من ٢٠ عميلاً ومؤسسة في الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
   },
 ];
 
@@ -283,7 +293,7 @@ export function ForHiringView() {
           subtitle={
             ar
               ? "٩+ سنوات من الممارسة المهنية في التصميم، منها ٤+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (الرياض أو عن بُعد)."
-              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand Identity Designer opportunities (Riyadh or Remote)."
+              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand & Product Designer / Brand Identity Designer opportunities (Riyadh or Remote)."
           }
         />
 
@@ -291,7 +301,7 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
             href="/cv"
-            download="Mustafa-Aboalazm-CV.pdf"
+            download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
             <span>{ar ? "تحميل السيرة الذاتية المحدثة" : "Download Updated CV"}</span>

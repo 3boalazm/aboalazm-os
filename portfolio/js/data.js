@@ -135,7 +135,7 @@ window.DATA = {
     { yr: "2020–25", role: "Media Director & Account Manager", org: "NILE PHARMA FOOD", note: "Identity from zero: +40% visibility, +25% engagement; full marketing design operation." },
     { yr: "2020–21", role: "Studio Lead & Visual Director",    org: "LEARN IN ARABIC · MSP", note: "Identity + DIY studio built from scratch — infrastructure, not just files." },
     { yr: "2019–21", role: "Head of Media ×2 Seasons",         org: "YOUTH SCOPE",    note: "Full identity rebuilt twice; Best Head of Media, both seasons." },
-    { yr: "2017 →",  role: "Senior Brand Identity Designer (Freelance)", org: "INDEPENDENT", note: "20+ local and international clients across pharma, food, education, government, and related sectors." },
+    { yr: "2022 →",  role: "Brand Identity Designer & Consultant (Freelance)", org: "INDEPENDENT", note: "4+ years focused on brand identity and systems; 20+ clients and organizations across pharma, food, education, government, and related sectors." },
   ],
 
   /* ── PROJECTS (ordered as presented) ───────────────────────────────── */

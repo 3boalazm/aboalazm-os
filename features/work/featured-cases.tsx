@@ -189,7 +189,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
           card chrome, so the three cards stay a set rather than a rainbow.
           The scrim sits above the image so captions keep their contrast
           while the project's own colour still reads in the static state. */}
-      <MediaCard className="relative aspect-[16/10] overflow-hidden bg-surface-1">
+      <MediaCard className="group relative aspect-[16/10] overflow-hidden bg-surface-1">
         <div
           aria-hidden
           className="absolute inset-0"
@@ -206,7 +206,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
           alt=""
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
-          className="object-cover"
+          className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.025]"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).style.display = "none";
           }}
@@ -234,7 +234,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
           className={buttonVariants({
             variant: "ghost",
             className:
-              "mt-1 w-fit font-mono text-label tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary",
+              "mt-1 w-fit font-mono text-label tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary focus-visible:text-text-primary",
           })}
         >
           {ar ? cta.ar : cta.en}

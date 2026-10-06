@@ -33,8 +33,8 @@ const APPROACH = {
 } as const;
 
 const NUMBERS = {
-  en: [["BRANDS DESIGNED","20+"],["YEARS OF EXPERIENCE","9+"],["INDUSTRIES SERVED","6+"],["DESIGN ASSETS DELIVERED","500+"],["IDENTITY SYSTEMS BUILT","15+"],["WEBSITES & DIGITAL EXPERIENCES","10+"]],
-  ar: [["براند مُصمَّم","20+"],["سنوات خبرة","9+"],["قطاعات تم خدمتها","6+"],["أصول تصميم مسلّمة","500+"],["نظام هوية مبني","15+"],["موقع وتجربة رقمية","10+"]],
+  en: [["CLIENTS & ORGANIZATIONS","20+"],["YEARS OF DESIGN PRACTICE","9+"],["INDUSTRIES SERVED","6+"],["DESIGN ASSETS DELIVERED","500+"],["YEARS FOCUSED ON IDENTITY","4+"],["WEBSITES & DIGITAL EXPERIENCES","10+"]],
+  ar: [["عميل ومنظمة","20+"],["سنوات ممارسة التصميم","9+"],["قطاعات تم خدمتها","6+"],["أصول تصميم مسلّمة","500+"],["سنوات تركيز على الهوية","4+"],["موقع وتجربة رقمية","10+"]],
 } as const;
 
 /* Jargon → plain-value translation — each technical term paired with
