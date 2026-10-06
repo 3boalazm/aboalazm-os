@@ -106,8 +106,8 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "A pharma and dietary-supplements company operating for years without visual governance, resulting in fragmented packaging and weak pharmacy shelf presence against imported brands.",
     challengeAr:
       "شركة أدوية ومكملات غذائية عملت لسنوات دون حوكمة بصرية، مما نتج عنه تغليف متباين وحضور ضعيف على أرفف الصيدليات الكبرى أمام المستورد.",
-    role: "In-House Brand Lead & Art Director (2020–2025)",
-    roleAr: "مدير البراند والإدارة الفنية في الشركة (2020–2025)",
+    role: "Media Director & Account Manager (2020–2025) · functional scope: brand & art direction",
+    roleAr: "مدير الميديا ومدير الحسابات (2020–2025) · النطاق الوظيفي: توجيه البراند والإدارة الفنية",
     team: "Mustafa leading visual strategy with Sales Leadership, Regulatory Pharmacists, and Packaging Printers.",
     teamAr: "مصطفى قائداً للاستراتيجية البصرية بالتنسيق مع المبيعات والصيادلة ومطابع التغليف.",
     whatShipped: [
@@ -242,14 +242,24 @@ const TIMELINE = [
     detailAr: "إعادة بناء هوية المنظمة مرتين. قيادة فريق من ١٢ مصمماً، والفوز بجائزة أفضل رئيس لجنة للموسمين.",
   },
   {
-    period: "Jul 2017 → Present",
-    periodAr: "يوليو ٢٠١٧ ← الحاضر",
-    role: "Senior Brand Identity Designer & Consultant",
-    roleAr: "مصمم هوية بصرية مستقل",
-    company: "Studio Practice",
+    period: "2017 → 2022",
+    periodAr: "٢٠١٧ → ٢٠٢٢",
+    role: "Graphic Designer",
+    roleAr: "مصمم جرافيك",
+    company: "Independent Practice",
     companyAr: "ممارسة مستقلة",
-    detail: "20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
-    detailAr: "أكثر من ٢٠ عميلاً ومؤسسة عبر الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
+    detail: "Professional design practice across identity, digital, campaigns, and visual communication.",
+    detailAr: "ممارسة تصميم احترافية شملت الهوية والتصميم الرقمي والحملات والتواصل البصري.",
+  },
+  {
+    period: "2022 → Present",
+    periodAr: "٢٠٢٢ ← الحاضر",
+    role: "Brand Identity Designer & Consultant",
+    roleAr: "مصمم هوية بصرية ومستشار",
+    company: "Independent Practice",
+    companyAr: "ممارسة مستقلة",
+    detail: "4+ years focused on brand identity and systems; 20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
+    detailAr: "أكثر من ٤ سنوات في الهوية والأنظمة؛ أكثر من ٢٠ عميلاً ومؤسسة في الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
   },
 ];
 
