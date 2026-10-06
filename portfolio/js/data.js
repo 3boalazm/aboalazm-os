@@ -117,9 +117,9 @@ window.DATA = {
   /* ── NUMBERS ───────────────────────────────────────────────────────── */
   numbers: {
     hero: [
-      { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REPORTED OUTCOME" },
-      { pre: "",  n: "LOCKED",  suf: "", l: "Design governance", c: "OPERATING PRINCIPLE" },
-      { pre: "+", n: "25", suf: "%", l: "Customer engagement — Nile Pharma", c: "REPORTED OUTCOME · 6 MONTHS" },
+      { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REPORTED BY TEAM · 2020–25" },
+      { pre: "4",  n: "+", suf: " YRS", l: "Brand identity focus", c: "PRACTICE · SINCE 2022" },
+      { pre: "+", n: "25", suf: "%", l: "Customer engagement — Nile Pharma", c: "REPORTED BY TEAM · 2020–25" },
     ],
     support: [
       { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REBRAND · 2020–25", ar: "ظهور رقمي" },
@@ -132,7 +132,7 @@ window.DATA = {
   /* ── TIMELINE (career ledger) ──────────────────────────────────────── */
   timeline: [
     { yr: "2024 →",  role: "Co-Founder & Creative Lead",      org: "CODE & CANVAS",  note: "Branding & web for SMEs across Egypt and the region — the studio runs on its own governed system." },
-    { yr: "2020–25", role: "Media Director & Account Manager", org: "NILE PHARMA FOOD", note: "Identity from zero: +40% visibility, +25% engagement; full marketing design operation." },
+    { yr: "2020–25", role: "Media Director & Account Manager", org: "NILE PHARMA FOOD", note: "Identity from zero; the team reported +40% visibility and +25% engagement across the rebrand and campaign system." },
     { yr: "2020–21", role: "Studio Lead & Visual Director",    org: "LEARN IN ARABIC · MSP", note: "Identity + DIY studio built from scratch — infrastructure, not just files." },
     { yr: "2019–21", role: "Head of Media ×2 Seasons",         org: "YOUTH SCOPE",    note: "Full identity rebuilt twice; Best Head of Media, both seasons." },
     { yr: "2022 →",  role: "Brand Identity Designer & Consultant (Freelance)", org: "INDEPENDENT", note: "4+ years focused on brand identity and systems; 20+ clients and organizations across pharma, food, education, government, and related sectors." },
@@ -218,12 +218,12 @@ window.DATA = {
       category: "REBRAND", discipline: "Systemic Identity",
       year: "2020–25", img: "npf-thumb", hasDetail: true,
       stack: ["Brand System", "WordPress", "Rebrand"],
-      outcome: "+40% online visibility · +25% engagement",
+      outcome: "Reported +40% visibility · +25% engagement",
       outcomeAr: "+٤٠٪ ظهور رقمي · +٢٥٪ تفاعل",
-      brief: "Five years as the in-house identity owner: rebrand from zero, a Proxeed product line, campaign governance, and a WordPress presence — measured in visibility, not compliments.",
+      brief: "Five years as the in-house identity owner: rebrand from zero, a Proxeed product line, campaign governance, and a WordPress presence. The team reported +40% visibility and +25% engagement across the work.",
       kpis: [
-        { n: "+40%", l: "Online visibility",   c: "REBRAND · SEO · CONTENT" },
-        { n: "+25%", l: "Audience engagement", c: "CAMPAIGN SYSTEMS" },
+        { n: "+40%", l: "Online visibility",   c: "REPORTED · REBRAND · CONTENT" },
+        { n: "+25%", l: "Audience engagement", c: "REPORTED · CAMPAIGN SYSTEMS" },
         { n: "5",    l: "Years as brand owner",c: "2020 → 2025" },
       ],
       gallery: [
