@@ -253,7 +253,7 @@ export function WhyValueBand() {
       ];
 
   return (
-    <section className="container-content py-16 md:py-20">
+    <section className="container-content rounded-panel border border-secondary-mist/20 bg-secondary-mist/[0.035] py-16 md:py-20">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div className="flex flex-col gap-3">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{ar ? "لماذا هذا الأسلوب" : "WHY THIS APPROACH"}</p>
