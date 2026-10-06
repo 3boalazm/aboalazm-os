@@ -15,7 +15,7 @@
  * page, about page). No aspirational or unverifiable claims.
  */
 
-const SITE_URL = "https://aboalazm.com";
+import { SITE_URL } from "@/lib/site";
 
 export function getPersonSchema() {
   return {
@@ -28,7 +28,7 @@ export function getPersonSchema() {
     jobTitle: "Senior Brand Identity Designer & Visual Systems Specialist",
     description:
       "Senior Brand Identity Designer and Co-founder of Code & Canvas, working across brand strategy, bilingual visual identity systems, and design governance.",
-    email: "mailto:Mustafaaboalazm@mail.ru",
+    email: "mailto:m1aboalazm@gmail.com",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Al Obour",
