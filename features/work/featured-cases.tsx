@@ -147,7 +147,8 @@ type Destination = "case" | "live" | "external";
 
 function destinationOf(project: Project): Destination {
   if (project.hasCaseStudy) return "case";
-  return project.externalUrl ? "live" : "external";
+  if (project.liveUrl) return "live";
+  return project.externalUrl ? "external" : "external";
 }
 
 const DESTINATION_COPY: Record<
@@ -163,7 +164,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
   const story = STORIES[project.slug];
   const destination = destinationOf(project);
   const internal = destination === "case";
-  const href = internal ? `/case-studies/${project.slug}` : (project.externalUrl ?? BEHANCE);
+  const href = internal ? `/case-studies/${project.slug}` : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
   const name = ar && project.nameAr ? project.nameAr : project.name;
   const outcome = ar && project.outcomeAr ? project.outcomeAr : project.outcome;
   const challenge = story ? (ar ? story.challengeAr : story.challenge) : outcome;
