@@ -82,18 +82,12 @@
   // fill total on every sheet (makeSheet reads TOTAL after pre-pass) — done above.
 
   const SECTIONS = [
-    { key: "manifesto",    no: "01", en: "Manifesto",    ar: "البيان",        pg: 3 },
-    { key: "identity",     no: "02", en: "Identity System", ar: "نظام الهوية", pg: 4 },
-    { key: "capabilities", no: "03", en: "Capabilities", ar: "القدرات",       pg: 5 },
-    { key: "numbers",      no: "04", en: "By the Numbers", ar: "بالأرقام",     pg: 6 },
-    { key: "timeline",     no: "05", en: "Career Timeline", ar: "المسيرة",     pg: 7 },
-    { key: "work",         no: "06", en: "Selected Work", ar: "الأعمال",       pg: 8 },
-    { key: "ledger",       no: "07", en: "Project Ledger", ar: "سجل المشاريع", pg: PG_LEDGER },
-    { key: "process",      no: "08", en: "Process",      ar: "المنهجية",      pg: PG_PROCESS },
-    { key: "offers",       no: "09", en: "Offers",       ar: "العروض",        pg: PG_OFFERS },
-    { key: "contact",      no: "10", en: "Contact",      ar: "التواصل",       pg: PG_CONTACT },
+    { key: "work", no: "01", en: "Selected Work", ar: "الأعمال", pg: 3 },
+    { key: "ledger", no: "02", en: "Project Ledger", ar: "سجل المشاريع", pg: PG_LEDGER },
+    { key: "process", no: "03", en: "Process", ar: "المنهجية", pg: PG_PROCESS },
+    { key: "offers", no: "04", en: "Offers", ar: "العروض", pg: PG_OFFERS },
+    { key: "contact", no: "05", en: "Contact", ar: "التواصل", pg: PG_CONTACT },
   ];
-
   /* ═══ 01 · COVER ═══════════════════════════════════════════════════ */
   function pageCover() {
     const s = makeSheet("cover", "COVER — الغلاف", 1);
