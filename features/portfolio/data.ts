@@ -46,9 +46,9 @@ export interface Project {
 export const IDENTITY = {
   name: "MUSTAFA ABOALAZM",
   nameAr: "مصطفى أبوالعزم",
-  role: "Senior Brand Identity Designer",
-  roleAr: "مصمم هوية بصرية أول",
-  email: "Mustafaaboalazm@mail.ru",
+  role: "Senior Brand & Product Designer",
+  roleAr: "مصمم براند ومنتج أول",
+  email: "m1aboalazm@gmail.com",
   location: "Al Obour, Egypt",
   version: "V.2026 · EDITION 02",
   links: [
@@ -79,8 +79,8 @@ export const PROFILE = {
   paragraph:
     "Nine years turning identity into infrastructure: strategy first, then a governed system — logo, color, type, applications — that keeps the brand itself across every team, product, and campaign.",
   stats: [
-    { n: "9", suf: "YRS", l: "In practice", c: "SINCE 2018" },
-    { n: "20", suf: "+", l: "Identity systems", c: "SHIPPED & GOVERNED" },
+    { n: "9", suf: "YRS", l: "In practice", c: "SINCE 2017" },
+    { n: "20", suf: "+", l: "Clients & organizations", c: "SHIPPED & GOVERNED" },
     { n: "05", suf: "", l: "Chapters", c: "IN THIS DECK" },
     { n: "02", suf: "×", l: "Languages", c: "AR / EN · ONE DOCTRINE" },
   ] as const,
