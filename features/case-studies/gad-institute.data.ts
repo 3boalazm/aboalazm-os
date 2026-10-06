@@ -31,7 +31,7 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     "الهوية الصحية في مصر تتجمع في قطبين: شركي-سريري (بارد، بيروقراطي) أو صيدلاني-استهلاكي (صاخب، ترويجي). GAD تحتاج صوتاً ثالثاً — الأخصائي الموثوق: أدفأ من المستشفى، وأدق من العيادة، ومقروء دولياً دون أن يفقد عروبته.",
   competitors: [
     { name: "Public-clinical A",  x: 22, y: 60 },
-    { name: "Public-clinical B",  x: 15, y: 45 },
+    { name: "Illustrative clinical B",  x: 15, y: 45 },
     { name: "Corporate-sterile C",x: 60, y: 70 },
     { name: "Corporate-sterile D",x: 70, y: 58 },
     { name: "Regional generic E", x: 38, y: 28 },
