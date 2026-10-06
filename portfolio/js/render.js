@@ -8,6 +8,9 @@
   "use strict";
 
   const D = window.DATA;
+  const PROJECT_ORDER = ["nile-pharma", "gad-institute", "code-canvas", "ahmed-bedeer", "code-canvas-dev", "reflection", "esfc", "learn-in-arabic", "youth-scope", "nile-pharma-erp", "momo-collective", "zad", "farm-console"];
+  D.projects.sort((a, b) => PROJECT_ORDER.indexOf(a.slug) - PROJECT_ORDER.indexOf(b.slug));
+  D.projects.forEach((p, i) => { p.idx = "P." + String(i + 1).padStart(2, "0"); });
   const IMG = window.IMG || {};
   const $pages = document.getElementById("pages");
 
@@ -67,7 +70,7 @@
   }
 
   /* ── page-number pre-pass ───────────────────────────────────────────── */
-  const FRONT = ["cover", "index", "manifesto", "identity", "capabilities", "numbers", "timeline"].length; // 7
+  const FRONT = ["cover", "index"].length; // 2
   let cursor = FRONT + 1; // first work page
   const projPage = {};
   for (const p of D.projects) {
@@ -640,12 +643,6 @@
   /* ── ASSEMBLE (page order) ──────────────────────────────────────────── */
   pageCover();
   pageIndex();
-  pageManifesto();
-  pageIdentity();
-  pageCapabilities();
-  pageNumbers();
-  pageTimeline();
-
   D.projects.forEach((p, i) => {
     const pageNo = projPage[p.slug];
     projectHero(p, pageNo);
