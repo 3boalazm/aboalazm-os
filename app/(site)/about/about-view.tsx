@@ -95,7 +95,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
 
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
-            href={cvUrl ?? "/mustafa-aboalazm-cv.pdf"}
+            href={cvUrl ?? "/cv"}
             download="Mustafa-Aboalazm-CV.pdf"
             className="inline-flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5"
           >
