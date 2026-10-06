@@ -9,13 +9,13 @@ import type { CSSProperties } from "react";
 
 const CHANNELS = {
   en: [
-    ["EMAIL","Best for project briefs","Mustafaaboalazm@mail.ru","mailto:Mustafaaboalazm@mail.ru"],
+    ["EMAIL","Best for project briefs","m1aboalazm@gmail.com","mailto:m1aboalazm@gmail.com"],
     ["WHATSAPP","Quick conversations","+20 109 250 0454","https://wa.me/201092500454"],
     ["LINKEDIN","Professional network","linkedin.com/in/aboalazm","https://www.linkedin.com/in/aboalazm"],
     ["BEHANCE","Full portfolio","behance.net/aboalazm","https://www.behance.net/aboalazm"],
   ],
   ar: [
-    ["إيميل","الأنسب للبريف والمشاريع","Mustafaaboalazm@mail.ru","mailto:Mustafaaboalazm@mail.ru"],
+    ["إيميل","الأنسب للبريف والمشاريع","m1aboalazm@gmail.com","mailto:m1aboalazm@gmail.com"],
     ["واتساب","محادثات سريعة","+20 109 250 0454","https://wa.me/201092500454"],
     ["لينكدإن","الشبكة المهنية","linkedin.com/in/aboalazm","https://www.linkedin.com/in/aboalazm"],
     ["بيهانس","البورتفوليو كامل","behance.net/aboalazm","https://www.behance.net/aboalazm"],
