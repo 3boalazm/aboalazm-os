@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Hero } from "@/features/hero";
 import { getProjects } from "@/lib/content";
-import { SkillsMarquee, AboutTeaser, HomeCta, ClientJourneyBand, WhyValueBand } from "@/features/home/home-bands";
+import { SkillsMarquee, AboutTeaser, HomeCta, ClientJourneyBand, WhyValueBand, HomeFaq } from "@/features/home/home-bands";
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SectionMarker } from "@/components/ui/section-marker";
@@ -49,9 +49,15 @@ export default async function Home() {
         <ScrollReveal delay={0.05}><SkillsMarquee /></ScrollReveal>
       </section>
 
-      {/* 05 · Call to Action */}
+      {/* 05 · FAQ / objection handling */}
+      <section className="narrative-section narrative-section--about">
+        <div className="container-wide"><SectionMarker index="05" label="FAQ / BEFORE START" /></div>
+        <ScrollReveal><HomeFaq /></ScrollReveal>
+      </section>
+
+      {/* 06 · Call to Action */}
       <section className="narrative-section narrative-section--cta">
-        <div className="container-wide"><SectionMarker index="05" label="NEXT / CONTACT" /></div>
+        <div className="container-wide"><SectionMarker index="06" label="NEXT / CONTACT" /></div>
         <ScrollReveal><HomeCta /></ScrollReveal>
       </section>
     </main>
