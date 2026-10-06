@@ -55,7 +55,7 @@ export function Hero() {
     : [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
-    <section className="relative flex min-h-svh flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
+    <section className="relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
       {/* ── Expressive atmosphere — legible BEFORE any interaction ──
           The audit's core finding: the hero's colour existed only as a
           diffuse blurred glow whose alpha was too low to read. These two
@@ -157,37 +157,15 @@ export function Hero() {
               </a>
             </motion.div>
 
-            {/* Clear separate pathways: For Hiring Teams vs Client Inquiries */}
-            <motion.div
-              variants={reveal.item}
-              className="mt-1 flex flex-col gap-2 rounded-card border border-border-subtle bg-surface-1/70 p-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between"
-            >
-              <div className="flex items-center gap-2">
-                <span className="size-2 rounded-pill bg-accent" />
-                <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
-                  {ar ? "مسار التوظيف:" : "For Hiring Teams:"}
-                </span>
-                <Link
-                  href="/for-hiring"
-                  className="font-mono text-micro font-medium text-text-primary underline decoration-border-default underline-offset-4 transition-colors hover:text-accent"
-                >
-                  {ar ? "ملف المرشح ودوره في المشاريع ←" : "Candidate Brief & Role Breakdown →"}
-                </Link>
-              </div>
-              <div className="flex items-center gap-2 border-t border-border-subtle pt-2 sm:border-t-0 sm:pt-0">
-                <span className="size-2 rounded-pill bg-text-ghost" />
-                <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
-                  {ar ? "مسار طلب مشروع:" : "Client Projects:"}
-                </span>
-                <Link
-                  href="/services"
-                  className="font-mono text-micro font-medium text-text-secondary underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
-                >
-                  {ar ? "خدمات الاستوديو والتسعير ←" : "Services & Pricing →"}
-                </Link>
-              </div>
+            <motion.div variants={reveal.item} className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-micro text-text-ghost">
+              <Link href="/for-hiring" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
+                {ar ? "للشركات والتوظيف ←" : "For hiring teams →"}
+              </Link>
+              <span aria-hidden>·</span>
+              <Link href="/services" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
+                {ar ? "خدمات العملاء ←" : "Client services →"}
+              </Link>
             </motion.div>
-            <PersonaHint ar={ar} />
           </motion.div>
         </div>
 
