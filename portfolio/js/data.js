@@ -117,9 +117,9 @@ window.DATA = {
   /* ── NUMBERS ───────────────────────────────────────────────────────── */
   numbers: {
     hero: [
-      { pre: "+", n: "42", suf: "%", l: "Delivery speed",       c: "TOKEN-DRIVEN HANDOFF" },
-      { pre: "",  n: "0",  suf: "%", l: "Design drift",         c: "SINGLE SOURCE OF TRUTH" },
-      { pre: "",  n: "3",  suf: "×", l: "Handoff efficiency",   c: "SYSTEM > DELIVERABLES" },
+      { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REPORTED OUTCOME" },
+      { pre: "",  n: "LOCKED",  suf: "", l: "Design governance", c: "OPERATING PRINCIPLE" },
+      { pre: "+", n: "25", suf: "%", l: "Customer engagement — Nile Pharma", c: "REPORTED OUTCOME · 6 MONTHS" },
     ],
     support: [
       { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REBRAND · 2020–25", ar: "ظهور رقمي" },
