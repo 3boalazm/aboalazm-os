@@ -78,13 +78,60 @@
         creator: "Aboalazm OS — Portfolio Edition",
       });
 
-      for (let i = 0; i < sheets.length; i++) {
+      /*
+       * Export from an isolated fixed-size clone.
+       * The live portfolio can be zoomed/responsive and some sheets contain
+       * absolute positioning. Capturing the live node directly lets those
+       * viewport transforms leak into html2canvas and produce shifted text.
+       * A detached 794×1123 clone gives the rasterizer the exact A4 canvas.
+       */
+      const exportHost = document.createElement("div");
+      exportHost.setAttribute("aria-hidden", "true");
+      Object.assign(exportHost.style, {
+        position: "fixed",
+        left: "-10000px",
+        top: "0",
+        width: "794px",
+        height: "1123px",
+        overflow: "hidden",
+        pointerEvents: "none",
+        zIndex: "-1",
+        zoom: "1",
+        transform: "none",
+      });
+      document.body.appendChild(exportHost);
+
+      try {
+        for (let i = 0; i < sheets.length; i++) {
         if (cancelled) return finish(null);
 
         lbl.textContent = `PAGE ${i + 1}/${sheets.length}`;
         bar.style.width = `${((i + 1) / sheets.length) * 92}%`;
 
-        const canvas = await html2canvas(sheets[i], {
+        const sheet = sheets[i];
+        const clone = sheet.cloneNode(true);
+        clone.style.width = "794px";
+        clone.style.height = "1123px";
+        clone.style.margin = "0";
+        clone.style.transform = "none";
+        clone.style.zoom = "1";
+        clone.style.boxShadow = "none";
+        exportHost.replaceChildren(clone);
+
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+
+        const images = Array.from(clone.querySelectorAll("img"));
+        await Promise.all(images.map(async (img) => {
+          try {
+            if (!img.complete) await new Promise((resolve) => {
+              img.addEventListener("load", resolve, { once: true });
+              img.addEventListener("error", resolve, { once: true });
+            });
+            if (img.decode) await img.decode().catch(() => {});
+          } catch {}
+        }));
+
+        const canvas = await html2canvas(clone, {
           scale: 2,
           useCORS: false,
           allowTaint: false,
@@ -96,13 +143,26 @@
           windowHeight: 1123,
           scrollX: 0,
           scrollY: 0,
+          onclone: (doc) => {
+            doc.documentElement.style.width = "794px";
+            doc.documentElement.style.height = "1123px";
+            doc.body.style.width = "794px";
+            doc.body.style.minWidth = "794px";
+            doc.body.style.margin = "0";
+            doc.body.style.zoom = "1";
+            doc.body.style.transform = "none";
+          },
         });
 
-        const img = canvas.toDataURL("image/jpeg", 0.92);
+        const img = canvas.toDataURL("image/jpeg", 0.95);
         if (i > 0) pdf.addPage("a4", "portrait");
         pdf.addImage(img, "JPEG", 0, 0, 210, 297, undefined, "FAST");
-        canvas.width = canvas.height = 0; // free memory
-        await new Promise((r) => setTimeout(r, 10)); // let the UI breathe
+        canvas.width = canvas.height = 0;
+        exportHost.replaceChildren();
+        await new Promise((r) => setTimeout(r, 10));
+      }
+      } finally {
+        exportHost.remove();
       }
 
       bar.style.width = "100%";
