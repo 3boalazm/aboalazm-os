@@ -302,12 +302,12 @@ export async function getSettings(): Promise<{ cvUrl: string | null }> {
       const payload = await getPayload();
       const settings = await payload.findGlobal({ slug: "settings" });
       const url = mediaUrl(settings.cv);
-      if (url) return { cvUrl: url };
+      if (url && url.endsWith("Mustafa_Taha_Brand_Identity_CV.docx")) return { cvUrl: "/Mustafa_Taha_Brand_Identity_CV.docx" };
     } catch {
       // Fall through
     }
   }
-  return { cvUrl: "/mustafa-aboalazm-cv.pdf" };
+  return { cvUrl: "/cv" };
 }
 
 export async function getOffers(): Promise<{
