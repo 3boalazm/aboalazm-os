@@ -30,7 +30,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
   researchSummaryAr:
     "منافسو الدواء والغذاء تجمّعوا في معسكرين: سريري-بارد أو سوق-صاخب. لا أحدهما أكسب ثقة المستهلك وحضور الرف في آن. الموضع المفتوح: مصداقية صيدلانية يحملها دفء غذائي — نظام واحد يخدم العالمين.",
   competitors: [
-    { name: "Clinical A",  x: 30, y: 55 },
+    { name: "Illustrative clinical A",  x: 30, y: 55 },
     { name: "Clinical B",  x: 22, y: 40 },
     { name: "Loud C",      x: 62, y: 18 },
     { name: "Loud D",      x: 70, y: 25 },
@@ -101,9 +101,9 @@ export const NILE_PHARMA: CaseStudyRecord = {
     roleAndTeamAr:
       "مدير البراند والإدارة الفنية (مصطفى أبوالعزم) من ٢٠٢٠ حتى ٢٠٢٥. قاد التحول البصري الكامل: إعادة تصميم الشعار، معمارية التغليف، أنظمة الحملات التسويقية، والموقع. بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
     whereUsed:
-      "Distributed across 1,000+ retail pharmacies in Egypt, primary product carton boxes (Proxeed line), highway outdoor billboards, medical presentation flyers, official website, and bilingual Ramadan & seasonal campaigns.",
+      "Distributed across pharmacy retail channels across Egypt, primary product carton boxes (Proxeed line), highway outdoor billboards, medical presentation flyers, official website, and bilingual Ramadan & seasonal campaigns.",
     whereUsedAr:
-      "معروض على أرفف أكثر من ١٠٠٠ صيدلية في مصر، علب المنتجات الدوائية (خط بروكسيد)، لوحات الطرق السريعة الإعلانية، مطبوعات المؤتمرات الطبية، الموقع الرسمي، وحملات رمضان الترويجية.",
+      "معروض على أرفف قنوات الصيدليات والبيع بالتجزئة في مصر، علب المنتجات الدوائية (خط بروكسيد)، لوحات الطرق السريعة الإعلانية، مطبوعات المؤتمرات الطبية، الموقع الرسمي، وحملات رمضان الترويجية.",
   },
 
   designProofItems: [
