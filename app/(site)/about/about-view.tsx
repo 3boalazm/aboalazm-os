@@ -75,7 +75,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
               <>{t.aboutH1a} <em>{t.aboutH1b}</em></>
             )
           }
-          titleClassName="max-w-[18ch] text-balance-pretty"
+          titleClassName="heading-fit-long max-w-[18ch] text-balance-pretty"
           subtitle={
             ar
               ? "مصطفى أبوالعزم بدأ التصميم المهني في 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد."
