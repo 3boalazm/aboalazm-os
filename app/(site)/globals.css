@@ -119,6 +119,21 @@
      aliased so borders always speak the ramp, not a one-off alpha. */
   --color-accent-border: var(--color-accent-32);
 
+  /* ══════════════ 4b · SECONDARY EXPRESSIVE PALETTE ══════════════
+     Five supporting colors requested for the portfolio. Orange remains
+     the primary authorial anchor; these create breathing room across
+     proof, process, editorial, and interaction surfaces. */
+  --color-secondary-cyan: #51E9F5;
+  --color-secondary-mint: #9DF9EF;
+  --color-secondary-mist: #EDF7F6;
+  --color-secondary-pink: #FFA8B6;
+  --color-secondary-mauve: #A28089;
+
+  --color-secondary-cyan-dim: rgb(81 233 245 / 0.14);
+  --color-secondary-mint-dim: rgb(157 249 239 / 0.12);
+  --color-secondary-pink-dim: rgb(255 168 182 / 0.14);
+  --color-secondary-mauve-dim: rgb(162 128 137 / 0.14);
+
   /* ══════════════ 4b · FUNCTIONAL STATUS COLORS ══════════════
      Success / warning / danger / info are SEMANTIC STATES, not palette
      decoration: form validation, checklist outcomes, system health.
@@ -323,74 +338,37 @@ html[data-theme="light"] {
      4. Every role has a -text variant: the 400-level tints fail as type on
         Alabaster, so light mode defers to the deeper 500/600 end. */
 :root {
-  /* ── primitives — role ramps, tuned to sit with the coral-orange anchor.
-     Cyan is the ORANGE COMPLEMENT (~190°), lime is its warm neighbour
-     (~80°), so both read as family with #FF6B47 rather than as foreign
-     accents — on Obsidian in dark, on Alabaster in light.
+  /* Legacy expressive roles remain available, but the portfolio's visible
+     secondary language now uses the five secondary brand colors above. */
+  --color-violet-300: var(--color-secondary-pink);
+  --color-violet-400: var(--color-secondary-pink);
+  --color-violet-500: #FF8FA3;
+  --color-violet-700: #C95D73;
 
-     How to reach for a step:
-       100–200  whispers / highlight washes (rare, atmosphere only)
-       300      type-safe tint on OBSIDIAN (dark mode text)
-       400      the role itself · fills, markers, glow source
-       500      interactive / hover, just past the base
-       600      pressed / emphasis on light surfaces
-       700      type-safe step on ALABASTER (light mode text)
-       800      deep edge, captions on light, never large fills
+  --color-cyan-100: var(--color-secondary-mist);
+  --color-cyan-200: var(--color-secondary-mint);
+  --color-cyan-300: var(--color-secondary-mint);
+  --color-cyan-400: var(--color-secondary-cyan);
+  --color-cyan-500: #24C9D6;
+  --color-cyan-600: #159EAA;
+  --color-cyan-700: #0B7480;
+  --color-cyan-800: #075661;
 
-     Values track Tailwind's ramps so nobody invents a fifth hue, and the
-     300/400/700 anchors stay byte-identical to the audited 2026-09-18
-     values (live surfaces keep their exact colour). ── */
-  --color-violet-300: #C4B5FD;
-  --color-violet-400: #A78BFA;
-  --color-violet-500: #8B5CF6;
-  --color-violet-700: #6D28D9;
+  --color-lime-100: #F3F8E8;
+  --color-lime-200: #E5EFD0;
+  --color-lime-300: #C9DAB5;
+  --color-lime-400: var(--color-secondary-mint);
+  --color-lime-500: #78D7C9;
+  --color-lime-600: #4BAFA2;
+  --color-lime-700: #2C766D;
+  --color-lime-800: #1D514B;
 
-  /* CYAN — the "live" role. Full ramp, complement of the orange anchor. */
-  --color-cyan-100:   #CFFAFE;
-  --color-cyan-200:   #A5F3FC;
-  --color-cyan-300:   #67E8F9;  /* dark-mode text tint (anchor, unchanged) */
-  --color-cyan-400:   #22D3EE;  /* role base (anchor, unchanged)           */
-  --color-cyan-500:   #06B6D4;  /* hover / interactive                     */
-  --color-cyan-600:   #0891B2;  /* pressed / emphasis                      */
-  --color-cyan-700:   #0E7490;  /* light-mode text (anchor, unchanged)     */
-  --color-cyan-800:   #155E75;  /* deep edge on light                      */
-
-  /* LIME — the "proof" role. Full ramp, warm neighbour of the anchor. */
-  --color-lime-100:   #ECFCCB;
-  --color-lime-200:   #D9F99D;
-  --color-lime-300:   #BEF264;  /* dark-mode text tint (anchor, unchanged) */
-  --color-lime-400:   #A3E635;  /* role base (anchor, unchanged)           */
-  --color-lime-500:   #84CC16;  /* hover / interactive                     */
-  --color-lime-600:   #65A30D;  /* pressed / emphasis                      */
-  --color-lime-700:   #4D7C0F;  /* light-mode text (anchor, unchanged)     */
-  --color-lime-800:   #3F6212;  /* deep edge on light                      */
-
-  /* ── semantic creative roles ── */
-  --color-creative: var(--color-violet-500);
-  --color-live:     var(--color-cyan-400);
-  --color-proof:    var(--color-lime-400);
-
-  /* ── quiet layers (surfaces / washes) ── */
-  --color-creative-dim: rgb(139 92 246 / 0.12);
-  --color-live-dim:     rgb(34 211 238 / 0.10);
-  --color-proof-dim:    rgb(163 230 53 / 0.10);
-
-  /* ── edge energy (1px borders, featured surfaces only) ── */
-  --color-creative-border: rgb(139 92 246 / 0.32);
-  --color-live-border:     rgb(34 211 238 / 0.28);
-  --color-proof-border:    rgb(163 230 53 / 0.28);
-
-  /* ── type-safe role tints (dark canvas) ── */
-  --color-creative-text: var(--color-violet-300);
-  --color-live-text:     var(--color-cyan-300);
-  --color-proof-text:    var(--color-lime-300);
-
-  /* Atmospheric strength. Alabaster reflects a colour wash far more
-     readily than Obsidian absorbs it, so the same alpha that reads as
-     "alive" on dark reads as "tinted" on light. Light mode gets its own
-     lower values rather than a shared one. */
-  --atmos-strength-1: 16%;
-  --atmos-strength-2: 12%;
+  --color-creative: var(--color-secondary-pink);
+  --color-creative-text: var(--color-secondary-pink);
+  --color-live: var(--color-secondary-cyan);
+  --color-live-text: var(--color-secondary-cyan);
+  --color-proof: var(--color-secondary-mint);
+  --color-proof-text: var(--color-secondary-mint);
 }
 
 html[data-theme="light"] {
