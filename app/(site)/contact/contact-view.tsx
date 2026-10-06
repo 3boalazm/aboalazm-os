@@ -9,13 +9,13 @@ import type { CSSProperties } from "react";
 
 const CHANNELS = {
   en: [
-    ["EMAIL","Best for project briefs","Mustafaaboalazm@mail.ru","mailto:Mustafaaboalazm@mail.ru"],
+    ["EMAIL","Best for project briefs","m1aboalazm@gmail.com","mailto:m1aboalazm@gmail.com"],
     ["WHATSAPP","Quick conversations","+20 109 250 0454","https://wa.me/201092500454"],
     ["LINKEDIN","Professional network","linkedin.com/in/aboalazm","https://www.linkedin.com/in/aboalazm"],
     ["BEHANCE","Full portfolio","behance.net/aboalazm","https://www.behance.net/aboalazm"],
   ],
   ar: [
-    ["إيميل","الأنسب للبريف والمشاريع","Mustafaaboalazm@mail.ru","mailto:Mustafaaboalazm@mail.ru"],
+    ["إيميل","الأنسب للبريف والمشاريع","m1aboalazm@gmail.com","mailto:m1aboalazm@gmail.com"],
     ["واتساب","محادثات سريعة","+20 109 250 0454","https://wa.me/201092500454"],
     ["لينكدإن","الشبكة المهنية","linkedin.com/in/aboalazm","https://www.linkedin.com/in/aboalazm"],
     ["بيهانس","البورتفوليو كامل","behance.net/aboalazm","https://www.behance.net/aboalazm"],
@@ -62,6 +62,24 @@ export function ContactView() {
               ? "متوسط الرد: أقل من 24 ساعة · أحد–خميس · 10ص–7م القاهرة"
               : "AVG. RESPONSE: UNDER 24H · SUN–THU · 10AM–7PM CAIRO"}
           </p>
+        </div>
+
+        {/* Recruiter / Hiring path differentiation */}
+        <div className="mt-2 rounded-card border border-border-subtle bg-surface-1 p-3">
+          <p className="font-mono text-micro text-accent uppercase tracking-[0.08em]">
+            {ar ? "فرص التوظيف والشركات" : "Hiring & In-house Roles"}
+          </p>
+          <p className="mt-1 text-body-sm text-text-secondary">
+            {ar
+              ? "هل تتواصل بخصوص دور وظيفي كامل أو تعاقدي لمصمم هوية بصرية؟ يمكنك مراجعة وتنزيل ملف المرشح والسيرة الذاتية مباشرة."
+              : "Reaching out regarding a full-time, contract, or agency role? You can review the hiring dossier and download the CV directly."}
+          </p>
+          <a
+            href="/for-hiring"
+            className="mt-2 inline-flex items-center gap-1.5 font-mono text-micro text-text-primary underline decoration-border-default underline-offset-4 hover:text-accent"
+          >
+            <span>{ar ? "الانتقال لصفحة مسؤولي التوظيف والـ CV ←" : "Go to For Hiring Teams Dossier →"}</span>
+          </a>
         </div>
 
         <div className="mt-2 flex flex-col border-t border-border-subtle">

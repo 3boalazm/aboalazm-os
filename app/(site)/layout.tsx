@@ -16,11 +16,11 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Mustafa Aboalazm — Systemic Identity Architect",
+    default: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist",
     template: "%s · Aboalazm OS",
   },
   description:
-    "Brand identity, design systems, and digital infrastructure for SaaS founders, AI startups, and design-driven teams.",
+    "Brand identities and visual systems for Arabic- and English-speaking brands. Nine years across healthcare, food, education, and consumer products.",
   icons: {
     icon: "/images/work/icon.png",
     shortcut: "/images/work/icon.png",

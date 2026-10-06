@@ -13,11 +13,11 @@ const COLUMNS = [
   {
     head: ["ENGAGE", "التعاون"],
     links: [
-      ["Start Here", "ابدأ هنا", "/start"],
+      ["For Hiring Teams", "للشركات والتوظيف", "/for-hiring"],
       ["Work", "الأعمال", "/work"],
       ["Services", "الخدمات", "/services"],
-      ["Process", "المنهجية", "/process"],
       ["Pricing", "التسعير", "/pricing"],
+      ["Start Here", "ابدأ هنا", "/start"],
       ["Contact", "تواصل", "/contact"],
     ],
   },
@@ -40,7 +40,7 @@ const COLUMNS = [
   {
     head: ["REACH", "تواصل"],
     links: [
-      ["Email ↗", "إيميل ↗", "mailto:Mustafaaboalazm@mail.ru"],
+      ["Email ↗", "إيميل ↗", "mailto:m1aboalazm@gmail.com"],
       ["WhatsApp ↗", "واتساب ↗", "https://wa.me/201092500454"],
       ["+20 109 250 0454", "+20 109 250 0454", "tel:+201092500454"],
     ],
@@ -48,6 +48,7 @@ const COLUMNS = [
   {
     head: ["PORTFOLIO", "البورتفوليو"],
     links: [
+      ["Download CV ↓", "تحميل السيرة الذاتية ↓", "/cv"],
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
       ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
       ["GitHub ↗", "جيت هب ↗", "https://github.com/3boalazm"],

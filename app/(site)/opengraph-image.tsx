@@ -3,7 +3,7 @@ import { OG_SIZE, OG_CONTENT_TYPE, ogFonts, OgCard } from "@/lib/og";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "Mustafa Aboalazm — Systemic Identity Architect";
+export const alt = "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist";
 
 export default async function Image() {
   return new ImageResponse(

@@ -18,20 +18,20 @@ import { joinClasses } from "@/lib/utils";
 import { BEHANCE } from "./projects.data";
 import type { Project } from "./types";
 
-const FEATURED_SLUGS = ["gad-institute", "nile-pharma", "code-canvas-dev"] as const;
+const FEATURED_SLUGS = ["gad-institute", "reflection", "nile-pharma"] as const;
 
 const STORIES: Record<string, { challenge: string; challengeAr: string }> = {
   "gad-institute": {
-    challenge: "A bilingual healthcare institute needed one identity that could govern print, digital, and wayfinding.",
-    challengeAr: "معهد رعاية صحية ثنائي اللغة احتاج هوية واحدة تحكم المطبوع والرقمي والإرشاد.",
+    challenge: "A specialized cardiac and pulmonary institute needed an authoritative yet warm bilingual identity to govern architectural signage and patient care.",
+    challengeAr: "معهد رعاية قلب ورئة تخصصي احتاج هوية ثنائية اللغة تجمع بين الثقة الطبية والدفء الإنساني لتطبيقها عبر اللافتات والمنصات الرقمية.",
+  },
+  "reflection": {
+    challenge: "An art and print studio needed a warm, airy editorial identity distinct from cheap poster shops and sterile art galleries.",
+    challengeAr: "استوديو فنون ومطبوعات احتاج هوية تحريرية دافئة تميزه عن متاجر البوسترات الشعبية وصالات العرض الباردة المنعزلة.",
   },
   "nile-pharma": {
-    challenge: "A pharma-food brand that had to look as rigorous as the operation behind it.",
-    challengeAr: "براند دواء وغذاء احتاج يظهر بنفس صرامة التشغيل اللي وراه.",
-  },
-  "code-canvas-dev": {
-    challenge: "A two-track studio platform that had to feel like one ecosystem in two languages.",
-    challengeAr: "منصة استوديو بمسارين احتاجت تحس كمنظومة واحدة بلغتين.",
+    challenge: "A pharma-food brand operating without visual governance that needed consumer packaging authority and bilingual shelf impact.",
+    challengeAr: "شركة مكملات غذائية وأدوية كانت تعمل دون حوكمة بصرية، فاحتاجت معمارية تغليف موحدة وحضوراً قوياً على أرفف الصيدليات.",
   },
   "ahmed-bedeer": {
     challenge: "A healthcare IT leader needed a personal brand with gravitas, not corporate stiffness.",
@@ -88,9 +88,9 @@ export function FeaturedCases({
             <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
               {heading === "home" ? (
                 ar ? (
-                  <>الدليل، مش الـ <em className="text-accent">manifest.</em></>
+                  <>هويات بصرية مختارة: <em className="text-accent">أعمال حقيقية ونتائج موثقة.</em></>
                 ) : (
-                  <>The proof, not the <em className="text-accent">manifest.</em></>
+                  <>Selected Brand Identities: <em className="text-accent">real systems in production.</em></>
                 )
               ) : ar ? (
                 <>قصص تقدر تقيس عليها <em className="text-accent">مشروعك.</em></>
@@ -100,8 +100,8 @@ export function FeaturedCases({
             </h2>
             <p className="text-body-sm text-text-secondary">
               {ar
-                ? "المشكلة، ما الذي بُني، والنتيجة — قبل الجدول والمكدس."
-                : "The problem, what shipped, and the outcome — before the stack table."}
+                ? "التحدي، ما تم تصميمه، والنتيجة — عبر الرعاية الصحية، الفنون والمطبوعات، والمنتجات الاستهلاكية."
+                : "The challenge, what was designed, and the outcome — across healthcare, editorial art & print, and consumer goods."}
             </p>
           </div>
           {showIndexLink ? (
@@ -147,7 +147,8 @@ type Destination = "case" | "live" | "external";
 
 function destinationOf(project: Project): Destination {
   if (project.hasCaseStudy) return "case";
-  return project.externalUrl ? "live" : "external";
+  if (project.liveUrl) return "live";
+  return project.externalUrl ? "external" : "external";
 }
 
 const DESTINATION_COPY: Record<
@@ -163,7 +164,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
   const story = STORIES[project.slug];
   const destination = destinationOf(project);
   const internal = destination === "case";
-  const href = internal ? `/case-studies/${project.slug}` : (project.externalUrl ?? BEHANCE);
+  const href = internal ? `/case-studies/${project.slug}` : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
   const name = ar && project.nameAr ? project.nameAr : project.name;
   const outcome = ar && project.outcomeAr ? project.outcomeAr : project.outcome;
   const challenge = story ? (ar ? story.challengeAr : story.challenge) : outcome;

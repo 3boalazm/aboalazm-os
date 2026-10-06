@@ -21,6 +21,7 @@ import { useLang } from "@/components/providers/lang-provider";
  * Canvas: bg-surface-0 (theme-reactive — Obsidian in dark, Alabaster in light).
  * Motion: every transition rides --ease-physics via lib/motion.
  */
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
@@ -130,11 +131,11 @@ export function Hero() {
               {t.heroLead}
             </motion.p>
 
-            {/* One primary action, one secondary. Promise → Proof, then convert. */}
-            <motion.div variants={reveal.item} className="flex flex-wrap items-center gap-3">
+            {/* Two clear primary actions: View Selected Work & Download CV */}
+            <motion.div variants={reveal.item} className="flex flex-wrap items-center gap-3 pt-1">
               <a
                 href="#selected-work"
-                className="group relative inline-flex items-center gap-1 rounded-pill bg-accent px-3 py-2 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
+                className="group relative inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
               >
                 <span>{t.heroExplore}</span>
                 <span
@@ -145,12 +146,46 @@ export function Hero() {
                 </span>
               </a>
               <a
-                href="/contact"
-                className="group relative px-1 py-2 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+                href="/cv"
+                download="Mustafa-Aboalazm-CV.pdf"
+                className="group relative inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
               >
-                {t.heroCommission}
-                <span className="absolute inset-x-1 bottom-1 h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
+                <span>{t.heroDownloadCv}</span>
+                <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-y-0.5">
+                  <Icon name="arrow-down" />
+                </span>
               </a>
+            </motion.div>
+
+            {/* Clear separate pathways: For Hiring Teams vs Client Inquiries */}
+            <motion.div
+              variants={reveal.item}
+              className="mt-1 flex flex-col gap-2 rounded-card border border-border-subtle bg-surface-1/70 p-3 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between"
+            >
+              <div className="flex items-center gap-2">
+                <span className="size-2 rounded-pill bg-accent" />
+                <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
+                  {ar ? "مسار التوظيف:" : "For Hiring Teams:"}
+                </span>
+                <Link
+                  href="/for-hiring"
+                  className="font-mono text-micro font-medium text-text-primary underline decoration-border-default underline-offset-4 transition-colors hover:text-accent"
+                >
+                  {ar ? "ملف المرشح ودوره في المشاريع ←" : "Candidate Brief & Role Breakdown →"}
+                </Link>
+              </div>
+              <div className="flex items-center gap-2 border-t border-border-subtle pt-2 sm:border-t-0 sm:pt-0">
+                <span className="size-2 rounded-pill bg-text-ghost" />
+                <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
+                  {ar ? "مسار طلب مشروع:" : "Client Projects:"}
+                </span>
+                <Link
+                  href="/services"
+                  className="font-mono text-micro font-medium text-text-secondary underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
+                >
+                  {ar ? "خدمات الاستوديو والتسعير ←" : "Services & Pricing →"}
+                </Link>
+              </div>
             </motion.div>
             <PersonaHint ar={ar} />
           </motion.div>

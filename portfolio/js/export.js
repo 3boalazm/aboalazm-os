@@ -72,7 +72,7 @@
       const pdf = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait", compress: true });
       pdf.setProperties({
         title: "Mustafa Aboalazm — Portfolio 2026",
-        subject: "Systemic Identity Architect — Brand Identity, Design Systems & Web",
+        subject: "Senior Brand Identity Designer — Brand Identity, Design Systems & Visual Governance",
         author: "Mustafa Aboalazm",
         keywords: "portfolio, brand identity, design systems, bilingual, Aboalazm, Code & Canvas",
         creator: "Aboalazm OS — Portfolio Edition",

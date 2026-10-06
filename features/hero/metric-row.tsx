@@ -10,18 +10,57 @@ interface Metric {
   suffix?: string;
   label: string;
   context: string;
+  detail: string;
 }
 
 const METRICS = {
   en: [
-    { prefix: "+", value: "42", suffix: "%", label: "Delivery Speed",    context: "TOKEN-DRIVEN HANDOFF"    },
-    {              value: "0",  suffix: "%", label: "Design Drift",       context: "SINGLE SOURCE OF TRUTH" },
-    {              value: "3",  suffix: "X", label: "Handoff Efficiency", context: "SYSTEM > DELIVERABLES"  },
+    {
+      prefix: "+",
+      value: "40",
+      suffix: "%",
+      label: "Online Visibility",
+      context: "NILE PHARMA FOOD · 2020–25",
+      detail: "Reported outcome from the Nile Pharma Food engagement; measurement methodology is not published here.",
+    },
+    {
+      value: "LOCKED",
+      suffix: "",
+      label: "Design Governance",
+      context: "GOVERNANCE PRINCIPLE",
+      detail: "Token-governed brand rules are the operating standard; this is not a measured performance result.",
+    },
+    {
+      value: "20",
+      suffix: "+",
+      label: "Clients & Organizations",
+      context: "9+ YEARS OF PROFESSIONAL PRACTICE · 2017–26",
+      detail: "Local and international clients across pharma, food, education, government, and related sectors",
+    },
   ],
   ar: [
-    { prefix: "+", value: "42", suffix: "%", label: "سرعة التسليم",    context: "تسليم مدفوع بالتوكنز"    },
-    {              value: "0",  suffix: "%", label: "انجراف التصميم",   context: "مصدر حقيقة واحد"         },
-    {              value: "3",  suffix: "X", label: "كفاءة التسليم",    context: "النظام > المخرجات"        },
+    {
+      prefix: "+",
+      value: "40",
+      suffix: "%",
+      label: "الظهور الرقمي",
+      context: "نايل فارما فود · 2020–25",
+      detail: "نتيجة مُبلغ عنها من مشروع نايل فارما فود؛ منهجية القياس غير منشورة هنا.",
+    },
+    {
+      value: "LOCKED",
+      suffix: "",
+      label: "حوكمة التصميم",
+      context: "مبدأ حوكمة",
+      detail: "حوكمة الهوية بالتوكنز هي معيار تشغيل؛ وليست نتيجة أداء مقاسة.",
+    },
+    {
+      value: "20",
+      suffix: "+",
+      label: "عميل ومؤسسة",
+      context: "٩+ سنوات ممارسة مهنية · 2017–26",
+      detail: "عملاء ومؤسسات محلية ودولية عبر قطاعات الأدوية والغذاء والتعليم والحكومة وغيرها",
+    },
   ],
 } as const;
 
@@ -51,9 +90,12 @@ function MetricCard({ metric }: { metric: Metric }) {
           {metric.suffix}
         </span>
       </motion.p>
-      <p className="mt-1 text-body text-text-secondary">{metric.label}</p>
-      <p className="mt-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost transition-colors duration-base ease-physics group-hover:text-text-tertiary">
+      <p className="mt-1 text-body font-medium text-text-primary">{metric.label}</p>
+      <p className="mt-0.5 font-mono text-micro uppercase tracking-[0.08em] text-accent">
         {metric.context}
+      </p>
+      <p className="mt-1 text-body-sm text-text-tertiary">
+        {metric.detail}
       </p>
     </motion.div>
   );
@@ -61,18 +103,29 @@ function MetricCard({ metric }: { metric: Metric }) {
 
 export function MetricRow() {
   const { lang } = useLang();
+  const ar = lang === "ar";
   const metrics = METRICS[lang];
   const reduceMotion = useReducedMotion();
   return (
-    <motion.div
-      variants={reveal.container}
-      initial={reduceMotion ? false : "hidden"}
-      animate="visible"
-      className="flex flex-col gap-2 sm:flex-row sm:gap-4"
-    >
-      {metrics.map((m) => (
-        <MetricCard key={m.label} metric={m} />
-      ))}
-    </motion.div>
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center justify-between">
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          {ar ? "مخرجات المشاريع ومعايير النظام" : "PROJECT OUTCOMES & SYSTEM STANDARDS"}
+        </p>
+        <p className="hidden font-mono text-micro text-text-ghost sm:inline">
+          {ar ? "أرقام موثقة بمشاريعها ومبادئ عمل" : "Project-grounded metrics & operational principles"}
+        </p>
+      </div>
+      <motion.div
+        variants={reveal.container}
+        initial={reduceMotion ? false : "hidden"}
+        animate="visible"
+        className="flex flex-col gap-2 sm:flex-row sm:gap-4"
+      >
+        {metrics.map((m) => (
+          <MetricCard key={m.label} metric={m} />
+        ))}
+      </motion.div>
+    </div>
   );
 }

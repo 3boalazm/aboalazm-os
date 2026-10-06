@@ -92,7 +92,7 @@ export function usePdfExport(containerRef: React.RefObject<HTMLDivElement | null
       const pdf = new jsPDFCtor({ unit: "mm", format: [PAGE_W, PAGE_H], orientation: "landscape", compress: true });
       pdf.setProperties({
         title: "Mustafa Aboalazm — Portfolio 2026",
-        subject: "Systemic Identity Architect — Selected Works 16:9 presentation deck",
+        subject: "Senior Brand Identity Designer — Selected Works 16:9 presentation deck",
         author: "Mustafa Aboalazm",
         keywords: "portfolio, brand identity, design systems, bilingual, Aboalazm, Code & Canvas",
         creator: "Aboalazm OS — Portfolio Deck",

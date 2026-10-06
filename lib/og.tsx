@@ -135,7 +135,7 @@ export function OgCard({
       >
         <div style={{ display: "flex", width: 28, height: 1, background: ACCENT }} />
         <div style={{ display: "flex" }}>
-          {lang === "ar" ? "مهندس الهوية النظامية" : "Systemic Identity Architect"}
+          {lang === "ar" ? "مصمم هوية بصرية أول" : "Senior Brand Identity Designer"}
         </div>
       </div>
     </div>

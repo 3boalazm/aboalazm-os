@@ -44,13 +44,13 @@ const JARGON = {
     ["Brand Tokens", "The colors, fonts, and spacing values defined once — used to keep every file, every developer, and every future designer in sync automatically."],
     ["Token-Driven Handoff", "Developers receive exact values instead of guessing from a picture — fewer back-and-forth messages, fewer mismatched colors in production."],
     ["Single Source of Truth", "One approved file feeds design, docs, and code. Nobody works from an outdated version by accident."],
-    ["0% Design Drift", "What gets approved is what ships — no surprise differences between the mockup and the live product."],
+    ["Zero Drift Standard", "Design governance principle: what gets approved in the brand book is what ships across production touchpoints, preventing rogue divergence."],
   ],
   ar: [
     ["Brand Tokens", "قيم الألوان والخطوط والمسافات تُعرَّف مرة واحدة — تُبقي كل ملف وكل مطوّر وكل مصمم مستقبلي متزامنين تلقائيًا."],
     ["Token-Driven Handoff", "المطورون يستلمون قيمًا دقيقة بدل التخمين من صورة — رسائل أقل ذهابًا وإيابًا، وألوان أقل اختلافًا في الإنتاج."],
     ["Single Source of Truth", "ملف واحد معتمد يغذّي التصميم والتوثيق والكود. لا أحد يعمل من نسخة قديمة بالخطأ."],
-    ["0% Design Drift", "ما يُعتمد هو ما يُنفَّذ — بلا فروقات مفاجئة بين الموك-أب والمنتج الفعلي."],
+    ["معيار انعدام الانحراف", "مبدأ حوكمة التصميم: ما يُعتمد في دليل البراند هو ما يُنفَّذ تماماً عبر جميع نقاط الاتصال الحية دون تفاوت."],
   ],
 } as const;
 

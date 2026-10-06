@@ -13,10 +13,10 @@ window.DATA = {
   identity: {
     name: "MUSTAFA ABOALAZM",
     nameAr: "مصطفى أبوالعزم",
-    role: "Systemic Identity Architect",
-    roleAr: "معماري هويات النظم",
+    role: "Senior Brand Identity Designer",
+    roleAr: "مصمم هوية بصرية أول",
     studio: "Code & Canvas — Co-Founder & Creative Lead",
-    email: "Mustafaaboalazm@mail.ru",
+    email: "m1aboalazm@gmail.com",
     location: "Al Obour, Egypt — 30.1936° N, 31.4603° E",
     locationAr: "العبور، مصر",
     links: [
@@ -33,12 +33,12 @@ window.DATA = {
     lineA: "MUSTAFA",
     lineB: "ABOALAZM",
     kicker: "PORTFOLIO · بورتفوليو ٢٠٢٦",
-    serif: "Systemic Identity Architect",
-    lede: "Brand identity, design systems & digital infrastructure — engineered in two languages under one doctrine.",
+    serif: "Senior Brand Identity Designer",
+    lede: "Brand identity systems & visual governance — engineered in two languages under one doctrine.",
     ledeAr: "هوية بصرية، أنظمة تصميم، وبنية رقمية — بتتبني بلغتين تحت مبدأ واحد.",
     metrics: [
-      { n: "9",   suf: "YRS", l: "In practice",        c: "SINCE 2018" },
-      { n: "20",  suf: "+",  l: "Identity systems",   c: "PHARMA · FOOD · EDU · NGO · GOV" },
+      { n: "9+",  suf: "YRS", l: "Professional practice", c: "SINCE 2017" },
+      { n: "20",  suf: "+",  l: "Clients & organizations", c: "PHARMA · FOOD · EDU · GOV · MORE" },
       { n: "2",   suf: "×",  l: "Languages, one doctrine", c: "AR / EN NATIVE OUTPUT" },
       { n: "13",  suf: "",   l: "Selected projects",  c: "THIS DOCUMENT" },
     ],
@@ -117,14 +117,14 @@ window.DATA = {
   /* ── NUMBERS ───────────────────────────────────────────────────────── */
   numbers: {
     hero: [
-      { pre: "+", n: "42", suf: "%", l: "Delivery speed",       c: "TOKEN-DRIVEN HANDOFF" },
-      { pre: "",  n: "0",  suf: "%", l: "Design drift",         c: "SINGLE SOURCE OF TRUTH" },
-      { pre: "",  n: "3",  suf: "×", l: "Handoff efficiency",   c: "SYSTEM > DELIVERABLES" },
+      { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REPORTED OUTCOME" },
+      { pre: "",  n: "LOCKED",  suf: "", l: "Design governance", c: "OPERATING PRINCIPLE" },
+      { pre: "+", n: "25", suf: "%", l: "Customer engagement — Nile Pharma", c: "REPORTED OUTCOME · 6 MONTHS" },
     ],
     support: [
       { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REBRAND · 2020–25", ar: "ظهور رقمي" },
       { pre: "+", n: "25", suf: "%", l: "Engagement — social systems",     c: "CAMPAIGN GOVERNANCE", ar: "تفاعل" },
-      { pre: "",  n: "20", suf: "+", l: "Identity systems shipped",       c: "2018 → TODAY", ar: "نظام هوية" },
+      { pre: "",  n: "20", suf: "+", l: "Clients & organizations", c: "2017 → TODAY", ar: "عميل ومؤسسة" },
       { pre: "",  n: "2",  suf: "",  l: "Seasons as Best Head of Media",  c: "YOUTH SCOPE", ar: "موسمان" },
     ],
   },
@@ -135,7 +135,7 @@ window.DATA = {
     { yr: "2020–25", role: "Media Director & Account Manager", org: "NILE PHARMA FOOD", note: "Identity from zero: +40% visibility, +25% engagement; full marketing design operation." },
     { yr: "2020–21", role: "Studio Lead & Visual Director",    org: "LEARN IN ARABIC · MSP", note: "Identity + DIY studio built from scratch — infrastructure, not just files." },
     { yr: "2019–21", role: "Head of Media ×2 Seasons",         org: "YOUTH SCOPE",    note: "Full identity rebuilt twice; Best Head of Media, both seasons." },
-    { yr: "2018 →",  role: "Brand Consultant (Freelance)",     org: "INDEPENDENT",    note: "20+ systems across pharma, food, education, NGOs, and government." },
+    { yr: "2017 →",  role: "Senior Brand Identity Designer (Freelance)", org: "INDEPENDENT", note: "20+ local and international clients across pharma, food, education, government, and related sectors." },
   ],
 
   /* ── PROJECTS (ordered as presented) ───────────────────────────────── */
