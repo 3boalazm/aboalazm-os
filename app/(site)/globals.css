@@ -2278,17 +2278,17 @@ html {
 }
 
 .narrative-section--proof {
-  padding-top: clamp(3rem, 8vw, 7rem);
+  padding-top: clamp(2.5rem, 5vw, 5rem);
 }
 
 .narrative-section--process,
 .narrative-section--about {
-  padding-top: clamp(4rem, 10vw, 9rem);
+  padding-top: clamp(3rem, 6vw, 6rem);
 }
 
 .narrative-section--cta {
-  padding-top: clamp(3rem, 8vw, 7rem);
-  padding-bottom: clamp(3rem, 8vw, 7rem);
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
 }
 
 .narrative-marker {
