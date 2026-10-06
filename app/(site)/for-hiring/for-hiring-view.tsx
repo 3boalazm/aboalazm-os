@@ -542,7 +542,7 @@ export function ForHiringView() {
 
         <div className="flex flex-wrap items-center gap-3">
           <a
-            href="mailto:Mustafaaboalazm@mail.ru"
+            href="mailto:m1aboalazm@gmail.com"
             className={buttonVariants({
               className: "px-5 py-2.5 font-mono text-label uppercase tracking-wider",
             })}
