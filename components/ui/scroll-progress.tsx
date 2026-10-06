@@ -6,12 +6,13 @@ export function ScrollProgress() {
   const { scrollYProgress } = useScroll();
   const reduceMotion = useReducedMotion();
 
+  if (reduceMotion) return null;
+
   return (
     <motion.div
       aria-hidden
       className="scroll-progress"
-      style={{ scaleX: reduceMotion ? 1 : scrollYProgress }}
-      transition={reduceMotion ? { duration: 0 } : undefined}
+      style={{ scaleX: scrollYProgress }}
     />
   );
 }
