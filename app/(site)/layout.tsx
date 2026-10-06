@@ -10,10 +10,11 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PersonaProvider } from "@/components/providers/persona-provider";
 import { TerminalOverlay } from "@/features/terminal/terminal-overlay";
 import { getPersonSchema, getWebSiteSchema } from "@/lib/structured-data";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aboalazm.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Mustafa Aboalazm — Systemic Identity Architect",
     template: "%s · Aboalazm OS",
