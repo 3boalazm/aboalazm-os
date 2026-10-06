@@ -229,15 +229,15 @@ export function ContactForm() {
             {status === "error" && (
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                 {ar
-                  ? "فشل الإرسال — تواصل عبر Mustafaaboalazm@mail.ru"
-                  : "TRANSMISSION FAILED — TRY Mustafaaboalazm@mail.ru"}
+                  ? "فشل الإرسال — تواصل عبر m1aboalazm@gmail.com"
+                  : "TRANSMISSION FAILED — TRY m1aboalazm@gmail.com"}
               </p>
             )}
             {status === "rateLimited" && (
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                 {ar
-                  ? "عدد محاولات كبير — استنى شوية أو ابعت على Mustafaaboalazm@mail.ru"
-                  : "TOO MANY ATTEMPTS — WAIT A BIT OR EMAIL Mustafaaboalazm@mail.ru"}
+                  ? "عدد محاولات كبير — استنى شوية أو ابعت على m1aboalazm@gmail.com"
+                  : "TOO MANY ATTEMPTS — WAIT A BIT OR EMAIL m1aboalazm@gmail.com"}
               </p>
             )}
             <p className="text-center font-mono text-micro text-text-ghost">
