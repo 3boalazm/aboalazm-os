@@ -66,9 +66,9 @@ export const UI = {
     capabilitiesLead:   "Change one value — spacing, radius, motion, theme — and every element recalculates in concert. That coherence is the product.",
     /* ── About ── */
     aboutSection:       "THE DESIGNER // PROFILE",
-    aboutH1a:           "Nine-plus years building brand identity",
+    aboutH1a:           "Nine-plus years in design, with 4+ years focused on brand identity",
     aboutH1b:           "and visual systems.",
-    aboutLead:          "Mustafa Aboalazm has been designing professionally since 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine.",
+    aboutLead:          "Mustafa Aboalazm has been designing professionally since 2017 — with the last 4+ years focused on brand identity and visual systems. Senior Brand & Product Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide across brand strategy, design systems, and digital products in two languages.",
     aboutDoctrine:      "DOCTRINE",
     aboutCareer:        "CAREER LEDGER",
     aboutSystem:        "Every engagement runs the same chain: brand compiles into tokens, tokens into components, components into pages, pages into experience.",
