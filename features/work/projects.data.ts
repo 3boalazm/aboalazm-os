@@ -35,7 +35,7 @@ export const PROJECTS: readonly Project[] = [
     stack: ["Brand Strategy", "Bilingual Identity", "Guidelines"],
     outcome: "Strategy → Identity → Governed System",
     outcomeAr: "استراتيجية → هوية → نظام محكوم",
-    year: "2025",
+    year: "2023",
     thumbnail: "/images/work/gad/gad-thumb.jpg",
     hasCaseStudy: true,
     accent: {
