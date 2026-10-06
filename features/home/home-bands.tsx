@@ -5,8 +5,9 @@
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
 import Link from "next/link";
+import * as React from "react";
 import { Icon } from "@/components/ui/Icon";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
@@ -130,113 +131,91 @@ export function ClientJourneyBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
   const reduceMotion = useReducedMotion();
-  const { persona } = usePersona();
+  const ref = React.useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [active, setActive] = React.useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (reduceMotion) return;
+    setActive(Math.min(3, Math.max(0, Math.floor(v * 4))));
+  });
 
   const steps = ar
     ? [
-        { n: "٠١", name: "اكتشاف\nوبحث" },
-        { n: "٠٢", name: "استراتيجية\nالبراند" },
-        { n: "٠٣", name: "مفهوم\nوتصميم" },
-        { n: "٠٤", name: "مراجعة\nوتسليم" },
+        { n: "٠١", name: "اكتشاف وبحث", short: "نفهم البراند والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
+        { n: "٠٢", name: "استراتيجية البراند", short: "نثبت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
+        { n: "٠٣", name: "مفهوم وتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
+        { n: "٠٤", name: "مراجعة وتسليم", short: "نراجع، نعتمد، ونسلّم نظامًا يقدر فريقك يستخدمه.", proof: "Guidelines + files + handover" },
       ]
     : [
-        { n: "01", name: "Discovery\n& Research" },
-        { n: "02", name: "Brand\nStrategy" },
-        { n: "03", name: "Concept\n& Design" },
-        { n: "04", name: "Refine\n& Deliver" },
+        { n: "01", name: "Discovery & Research", short: "Understand the brand, market, and audience before any visual decision.", proof: "Brief + audit + research" },
+        { n: "02", name: "Brand Strategy", short: "Lock positioning, personality, and voice before visual design begins.", proof: "Positioning + voice + direction" },
+        { n: "03", name: "Concept & Design", short: "Turn the strategy into a complete identity system built to scale.", proof: "Logo + type + colour + applications" },
+        { n: "04", name: "Refine & Deliver", short: "Review, approve, and hand over a system your team can actually run.", proof: "Guidelines + files + handover" },
       ];
 
-  const kicker = pickFor(persona, {
-    base: ar ? "كيف نشتغل" : "HOW WE WORK",
-    founder: ar ? "الجدول والعائد" : "TIMELINE & ROI",
-    technical: ar ? "المعمارية والحوكمة" : "ARCHITECTURE & GOVERNANCE",
-  });
-
-  const heading = pickFor(persona, {
-    base: ar
-      ? <>من أول ما تتواصل <em className="text-accent">لحد ما تطلق.</em></>
-      : <>From first contact <em className="text-accent">to launch day.</em></>,
-    founder: ar
-      ? <>جدول ثابت. <em className="text-accent">نتيجة مقاسة.</em></>
-      : <>A fixed timeline. <em className="text-accent">A measured outcome.</em></>,
-    technical: ar
-      ? <>أربع بوابات، <em className="text-accent">موافقة عند كل واحدة.</em></>
-      : <>Four gates, <em className="text-accent">sign-off at every one.</em></>,
-  });
-
-  const body = pickFor(persona, {
-    base: ar
-      ? "عملية واضحة من ٤ مراحل، ٣٨ يوم، موافقة كتابية عند كل محطة. تعرّف على الفلو كامل قبل ما تبدأ."
-      : "A clear 4-phase process, 38 days, written sign-off at every gate. See exactly what happens before you commit.",
-    founder: ar
-      ? "٣٨ يوم من التواصل الأول للإطلاق. ميزانيتك محمية بمواعيد دفع مرتبطة بمخرجات فعلية، مش وعود."
-      : "38 days from first contact to launch. Your budget is protected by payment gates tied to real deliverables, not promises.",
-    technical: ar
-      ? "التوكنز المعتمدة عند بوابة التصميم تبقى المصدر الوحيد للحقيقة — تسليم دقيق للمطورين، بدون انحراف."
-      : "Tokens approved at the design gate become the single source of truth — precise developer handoff, zero drift.",
-  });
-
-  const cta = pickFor(persona, {
-    base: ar ? "شوف الفلو كامل" : "See the full process",
-    founder: ar ? "شوف الجدول والتسعير" : "See timeline & pricing",
-    technical: ar ? "شوف بوابات الاعتماد" : "See the approval gates",
-  });
-
   return (
-    <div className="journey-band">
-      <div className="journey-band__inner">
-
-        {/* Left: copy */}
-        <div className="flex flex-col gap-4">
+    <section ref={ref} className="process-story relative" dir={ar ? "rtl" : "ltr"}>
+      <div className="container-content grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:self-start lg:flex lg:flex-col lg:justify-center">
           <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">
-            {kicker}
+            {ar ? "HOW WE WORK" : "HOW WE WORK"}
           </p>
-          <h2 className="font-display text-title leading-[1.05] tracking-[-0.025em] text-text-primary">
-            {heading}
+          <h2 className="mt-3 max-w-[14ch] font-display text-[clamp(2.3rem,5vw,4.5rem)] leading-[0.95] tracking-[-0.035em] text-text-primary">
+            {ar ? <>من أول تواصل <em className="text-accent">لحد الإطلاق.</em></> : <>From first contact <em className="text-accent">to launch.</em></>}
           </h2>
-          <p
-            className="max-w-[44ch] text-body-sm leading-[1.7] text-text-secondary"
-            style={{ fontFamily: "var(--font-sans)" }}
-          >
-            {body}
+          <p className="mt-5 max-w-[40ch] text-body-sm leading-[1.75] text-text-secondary">
+            {ar
+              ? "٤ مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
+              : "Four visible stages. Every stage has an output and a sign-off. You always know where the project stands."}
           </p>
-          <Link
-            href="/start"
-            className={buttonVariants({
-              className:
-                "group mt-1 flex w-fit items-center gap-2 px-4 py-2 font-display text-caption font-[800] tracking-[0.07em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
-            })}
-          >
-            {cta}
-            <span
-              aria-hidden
-              className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5"
-            ><Icon name="arrow-right" /></span>
+          <div className="mt-8 flex gap-2" aria-label={ar ? "مراحل المشروع" : "Project stages"}>
+            {steps.map((step, i) => (
+              <span
+                key={step.n}
+                className={`h-1.5 flex-1 transition-all duration-500 ${i === active ? "bg-accent" : "bg-border-subtle"}`}
+                aria-hidden
+              />
+            ))}
+          </div>
+          <Link href="/process" className="mt-8 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary focus-visible:text-text-primary">
+            {ar ? "شوف المنهجية كاملة" : "See the full method"}
+            <span aria-hidden className="ms-1">→</span>
           </Link>
         </div>
 
-        {/* Right: 4-step counter strip */}
-        <div className="journey-steps">
-          {steps.map((s, i) => (
-            <motion.div
-              key={s.n}
-              className="journey-step"
-              initial={reduceMotion ? false : { opacity: 0, x: 14 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={reduceMotion ? undefined : { duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="journey-step__n">{s.n}</span>
-              <span className="journey-step__name" style={{ whiteSpace: "pre-line" }}>{s.name}</span>
-            </motion.div>
-          ))}
+        <div className="relative">
+          {steps.map((step, i) => {
+            const isActive = i === active;
+            return (
+              <div key={step.n} className="min-h-[70vh] py-12 lg:min-h-[88vh] lg:py-24">
+                <motion.div
+                  initial={false}
+                  animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.28, y: isActive ? 0 : 18 }}
+                  transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-t border-border-subtle pt-6"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <span className="font-mono text-label text-accent">{step.n}</span>
+                    <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">{step.proof}</span>
+                  </div>
+                  <h3 className="mt-10 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
+                    {step.name}
+                  </h3>
+                  <p className="mt-6 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary">{step.short}</p>
+                  <div className="mt-12 h-px w-full bg-border-subtle" />
+                  <p className="mt-4 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                    {ar ? `بوابة ${step.n}` : `Gate ${step.n}`}
+                  </p>
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
-
       </div>
-    </div>
+    </section>
   );
 }
-
 
 /* ── Why / value bridge — the missing trust layer between proof and process ── */
 export function WhyValueBand() {
