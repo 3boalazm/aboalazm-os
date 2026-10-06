@@ -2384,3 +2384,25 @@ html {
     transition-duration: 0.001ms !important;
   }
 }
+
+
+.journey-step {
+  position: relative;
+  transition: transform var(--duration-base) var(--ease-physics),
+              border-color var(--duration-fast) var(--ease-physics);
+}
+
+.journey-step:hover {
+  transform: translateY(-2px);
+}
+
+.journey-step:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .journey-step:hover {
+    transform: none;
+  }
+}
