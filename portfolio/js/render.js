@@ -141,37 +141,38 @@
 
   /* ═══ 02 · INDEX ═══════════════════════════════════════════════════ */
   function pageIndex() {
-    const s = makeSheet("index", "INDEX — الفهرس", 2);
+    const s = makeSheet("index", "PROFILE + INDEX — الملف والفهرس", 2);
     const c = content(s);
     c.appendChild(h(`
       <div style="display:flex; flex-direction:column; height:100%;">
-        <div class="kicker">TABLE OF CONTENTS <span class="ar">الفهرس</span></div>
-        <h2 class="d2" style="margin-top:14px;">Index<span class="accent">.</span></h2>
-
-        <div class="g2" style="margin-top:22px; grid-template-columns:1.05fr 1fr; gap:36px; flex:1;">
+        <div class="kicker">PROFILE + INDEX <span class="ar">الملف + الفهرس</span></div>
+        <div style="display:grid; grid-template-columns:1.08fr .92fr; gap:34px; margin-top:18px;">
           <div>
-            ${SECTIONS.map((sec) => `
-              <div class="ix-row">
-                <span class="ix-no">${sec.no}</span>
-                <span class="ix-en">${esc(sec.en)}</span>
-                <span class="ix-ar">${esc(sec.ar)}</span>
-                <span class="ix-pg">${String(sec.pg).padStart(2, "0")}</span>
-              </div>`).join("")}
+            <p class="serif-i" style="font-size:30px; color:var(--ink-48);">I don't design brands.</p>
+            <h2 class="d1" style="font-size:62px; margin-top:0;">I build <span class="serif-i accent">systems.</span></h2>
+            <p class="lead" style="margin-top:14px; max-width:46ch;">Senior Brand Identity Designer building bilingual identity systems from strategy through governed applications — with digital products when the system needs to ship.</p>
+            <p class="ar-body" style="margin-top:7px; max-width:46ch; direction:rtl; text-align:left;">مصمم هويات بصرية يبني أنظمة ثنائية اللغة من الاستراتيجية حتى التطبيقات، مع خبرة رقمية عندما يحتاج النظام أن يتحول إلى منتج.</p>
+            <div class="g3" style="margin-top:20px; gap:10px;">
+              <div class="stat" style="border-top:2px solid var(--coral); padding-top:10px;"><div class="stat-n" style="font-size:38px;">9<span class="suf">+</span></div><div class="stat-l">YEARS DESIGN</div></div>
+              <div class="stat" style="border-top:2px solid var(--coral); padding-top:10px;"><div class="stat-n" style="font-size:38px;">4<span class="suf">+</span></div><div class="stat-l">YEARS IDENTITY</div></div>
+              <div class="stat" style="border-top:2px solid var(--coral); padding-top:10px;"><div class="stat-n" style="font-size:38px;">20<span class="suf">+</span></div><div class="stat-l">CLIENTS / ORGS</div></div>
+            </div>
           </div>
           <div>
-            <p class="micro" style="padding-bottom:10px; border-bottom:1px solid var(--line-2); color:var(--coral)">06 · SELECTED WORK — 13 PROJECTS</p>
-            ${D.projects.map((p, i) => `
+            <p class="micro" style="color:var(--coral); padding-bottom:10px; border-bottom:1px solid var(--line-2);">01 · SELECTED WORK — 13 PROJECTS</p>
+            ${D.projects.map((p) => `
               <div class="ix-sub">
                 <span class="s-no">${esc(p.idx.replace("P.", ""))}</span>
                 <span class="s-name">${esc(p.name)} <span class="s-cat">· ${esc(p.category)}</span></span>
                 <span class="s-pg">${String(projPage[p.slug]).padStart(2, "0")}</span>
               </div>`).join("")}
-            <div style="margin-top:18px;" class="chiprow">
-              <span class="chip chip--acc">BRAND IDENTITY ×7</span>
-              <span class="chip chip--acc">DEVELOPMENT ×6</span>
-              <span class="chip">5 FULL CASE FILES</span>
-            </div>
           </div>
+        </div>
+        <div style="flex:1;"></div>
+        <div style="border-top:1px solid var(--line-2); padding-top:14px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
+          <div><div class="micro" style="color:var(--coral)">MY ROLE</div><div class="body-sm" style="margin-top:4px;">Strategy · Identity · Art Direction · Governance</div></div>
+          <div><div class="micro" style="color:var(--coral)">PROOF</div><div class="body-sm" style="margin-top:4px;">Real systems, applications, and reported outcomes.</div></div>
+          <div><div class="micro" style="color:var(--coral)">NEXT</div><div class="body-sm" style="margin-top:4px;">Start with a case study, then inspect the system behind it.</div></div>
         </div>
       </div>`));
   }
