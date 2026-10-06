@@ -40,7 +40,7 @@ const COLUMNS = [
   {
     head: ["REACH", "تواصل"],
     links: [
-      ["Email ↗", "إيميل ↗", "mailto:Mustafaaboalazm@mail.ru"],
+      ["Email ↗", "إيميل ↗", "mailto:m1aboalazm@gmail.com"],
       ["WhatsApp ↗", "واتساب ↗", "https://wa.me/201092500454"],
       ["+20 109 250 0454", "+20 109 250 0454", "tel:+201092500454"],
     ],
