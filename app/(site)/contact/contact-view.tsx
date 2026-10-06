@@ -105,7 +105,7 @@ export function ContactView() {
           matte panel in a page of flat panels — a light field and a glass
           rim give it the weight its role deserves without adding any
           animated decoration. */}
-      <div className="relative">
+      <div className="relative min-w-0 overflow-hidden">
         <div
           aria-hidden
           className="atmos-field atmos-drift"
