@@ -216,11 +216,18 @@ export function ClientJourneyBand() {
 
         {/* Right: 4-step counter strip */}
         <div className="journey-steps">
-          {steps.map((s) => (
-            <div key={s.n} className="journey-step">
+          {steps.map((s, i) => (
+            <motion.div
+              key={s.n}
+              className="journey-step"
+              initial={reduceMotion ? false : { opacity: 0, x: 14 }}
+              whileInView={reduceMotion ? undefined : { opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.4 }}
+              transition={reduceMotion ? undefined : { duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
               <span className="journey-step__n">{s.n}</span>
               <span className="journey-step__name" style={{ whiteSpace: "pre-line" }}>{s.name}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
 
