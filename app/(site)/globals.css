@@ -653,6 +653,13 @@ html[data-theme="light"] {
   text-wrap: balance;
 }
 
+/* Page titles holding one long unbreakable word ("infrastructure.") are
+   wider than the 327px mobile column at text-display's 2.5rem floor. Plain
+   (unlayered) rule on purpose: it has to beat the text-display utility. */
+@media (max-width: 479px) {
+  .heading-fit-long { font-size: 1.875rem; }
+}
+
 /* ── EXPRESSIVE SURFACE MATERIALS ────────────────────────────────────
    Three materials, and only three, so depth comes from CONTRAST between
    them rather than from more shadows:
