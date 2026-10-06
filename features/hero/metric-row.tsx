@@ -110,7 +110,7 @@ export function MetricRow() {
     <div className="flex flex-col gap-2">
       <div className="flex items-center justify-between">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "معايير النظام والمخرجات الموثقة" : "SYSTEM STANDARDS & MEASURED BENCHMARKS"}
+          {ar ? "مخرجات المشاريع ومعايير النظام" : "PROJECT OUTCOMES & SYSTEM STANDARDS"}
         </p>
         <p className="hidden font-mono text-micro text-text-ghost sm:inline">
           {ar ? "أرقام موثقة بمشاريعها ومبادئ عمل" : "Project-grounded metrics & operational principles"}
