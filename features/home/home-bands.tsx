@@ -55,8 +55,8 @@ export function AboutTeaser() {
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "أقود حاليًا العمل الإبداعي في Nile Pharma Food واستوديوهي Code & Canvas — استراتيجية وإدارة فنية وحِرفة في كل بريف."
-            : "I currently lead creative work across Nile Pharma Food and my own studio Code & Canvas — bringing strategy, art direction, and craft to every brief."}
+            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد سابق لهوية Nile Pharma Food (2020–2025). متاح حاليًا لفرص مصمم هوية بصرية أول (الرياض أو عن بُعد)."
+            : "Co-Founder & Creative Lead at Code & Canvas, former Brand Lead at Nile Pharma Food (2020–2025). Currently open to Senior Brand Identity Designer opportunities | Riyadh or Remote."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
           {ar ? "اقرأ القصة كاملة" : "Read the about page"}
@@ -66,9 +66,10 @@ export function AboutTeaser() {
       <dl className="flex h-fit flex-col">
         {([
           ["SPECIALTY", "التخصص", "Brand Identity & Visual Systems", "هوية بصرية وأنظمة تصميم"],
-          ["CURRENTLY ACROSS", "حاليًا في", "Nile Pharma Food & Code & Canvas", "Nile Pharma Food وCode & Canvas"],
+          ["CURRENT ROLE", "العمل الحالي", "Creative Lead, Code & Canvas", "مدير إبداعي، Code & Canvas"],
+          ["AVAILABILITY", "الوضع الحالي", "Open to Brand Identity roles · Riyadh / Remote", "متاح لفرص مصمم هوية · الرياض / عن بُعد"],
           ["LANGUAGES", "اللغات", "Arabic (Native) · English (Professional)", "العربية (الأم) · الإنجليزية (احترافية)"],
-          ["BASED", "المقر", "Al Obour, Egypt — Open to remote", "العبور، مصر — متاح عن بُعد"],
+          ["BASED", "المقر", "Al Obour, Egypt — Open to Riyadh & Remote", "العبور، مصر — متاح للرياض وعن بُعد"],
         ] as const).map(([ken, kar, ven, var_]) => (
           <div key={ken} className="border-b border-border-subtle py-2 first:border-t">
             <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? kar : ken}</dt>

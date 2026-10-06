@@ -21,17 +21,19 @@ import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 
 const LINKS = [
-  { href: "/about",     en: "ABOUT",     ar: "نبذة"      },
-  { href: "/start",     en: "START HERE", ar: "ابدأ هنا"  },
-  { href: "/work",      en: "WORK",      ar: "الأعمال"   },
-  { href: "/services",  en: "SERVICES",  ar: "الخدمات"   },
-  { href: "/pricing",   en: "PRICING",   ar: "التسعير"   },
+  { href: "/about",      en: "ABOUT",          ar: "نبذة"       },
+  { href: "/work",       en: "WORK",           ar: "الأعمال"    },
+  { href: "/for-hiring", en: "FOR HIRING",     ar: "للتوظيف"    },
+  { href: "/services",   en: "SERVICES",       ar: "الخدمات"    },
+  { href: "/pricing",    en: "PRICING",        ar: "التسعير"    },
 ] as const;
 
 /* Secondary set — mobile panel + footer carry these.
    PORTFOLIO PDF is pinned LAST on purpose: the 16:9 slide deck is the
    "take me with you" exit at the very end of the menu. */
 const MORE = [
+  { href: "/start", en: "START HERE", ar: "ابدأ هنا" },
+  { href: "/for-hiring", en: "FOR HIRING TEAMS", ar: "مسار التوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/gallery", en: "GALLERY", ar: "المعرض" },
   { href: "/why", en: "WHY", ar: "لماذا" },

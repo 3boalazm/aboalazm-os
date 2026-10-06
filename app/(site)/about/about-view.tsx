@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { SystemConstellation } from "@/features/hero";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
@@ -39,13 +40,15 @@ const TIMELINE = {
 
 const FACTS = {
   en: [
-    ["BASED", "Al Obour, Egypt — open to remote"],
+    ["CURRENT STATUS", "Open to Brand Identity Designer roles | Riyadh / Remote"],
+    ["BASED", "Al Obour, Egypt — open to Riyadh & remote"],
     ["LANGUAGES", "Arabic (Native) · English (Professional)"],
     ["EDUCATION", "B.Sc. — Al-Azhar University · 2017–2024"],
     ["TRAINING", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
   ],
   ar: [
-    ["الموقع", "العبور، مصر — متاح للعمل عن بُعد"],
+    ["الوضع الحالي", "متاح لفرص مصمم هوية بصرية | الرياض / عن بُعد"],
+    ["الموقع", "العبور، مصر — متاح للرياض والعمل عن بُعد"],
     ["اللغات", "العربية (أصيل) · الإنجليزية (مهني)"],
     ["التعليم", "بكالوريوس — جامعة الأزهر · 2017–2024"],
     ["التدريب", "MSP · يوث سكوب · AYB · بداية · رسالة"],
@@ -90,17 +93,21 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
           ))}
         </dl>
 
-        {cvUrl && (
+        <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
-            href={cvUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-            className="inline-flex w-fit items-center gap-2 rounded-pill border border-border-default px-3 py-1.5 font-mono text-micro uppercase tracking-[0.08em] text-text-primary transition-colors duration-fast ease-physics hover:border-accent hover:text-accent"
+            href={cvUrl ?? "/mustafa-aboalazm-cv.pdf"}
+            download="Mustafa-Aboalazm-CV.pdf"
+            className="inline-flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5"
           >
-            <>{ar ? "تحميل السيرة الذاتية" : "Download CV"} <Icon name="arrow-down" /></>
+            <>{ar ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"} <Icon name="arrow-down" /></>
           </a>
-        )}
+          <Link
+            href="/for-hiring"
+            className="inline-flex w-fit items-center gap-2 rounded-pill border border-border-default px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-primary transition-colors duration-fast ease-physics hover:border-accent hover:text-accent"
+          >
+            <>{ar ? "ملف المرشح للشركات والتوظيف" : "For Hiring Teams Dossier"} <Icon name="arrow-right" /></>
+          </Link>
+        </div>
       </header>
 
       <section aria-label={t.aboutAriaDoctrine} className="flex flex-col">

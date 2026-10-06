@@ -9,6 +9,7 @@ import { useT } from "@/hooks/use-t";
  * a soft outer ring expanding on ease-physics, and a core that breathes.
  * Reads as telemetry, not decoration.
  */
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { COLOR, EASE_PHYSICS } from "@/lib/tokens";
 
@@ -17,10 +18,13 @@ import { COLOR, EASE_PHYSICS } from "@/lib/tokens";
 const PULSE_GREEN = COLOR.status.success;
 
 export function StatusNode() {
-  const { lang } = useLang();
   const t = useT();
   return (
-    <div className="glass inline-flex items-center gap-2 rounded-pill py-1 pl-2 pr-3">
+    <Link
+      href="/for-hiring"
+      className="glass group inline-flex items-center gap-2 rounded-pill py-1 pl-2 pr-3 transition-colors duration-base ease-physics hover:border-accent"
+      title={t.heroForHiringHint}
+    >
       {/* ── Node ── */}
       <span className="relative flex size-2 items-center justify-center">
         {/* Expanding ring */}
@@ -49,9 +53,9 @@ export function StatusNode() {
       </span>
 
       {/* ── Readout ── */}
-      <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-secondary">
-        {lang === "ar" ? `[${t.heroStatusOpen} · ${t.heroYear}]` : `[STATUS: OPEN FOR SELECT PROJECTS · ${t.heroYear}]`}
+      <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-secondary transition-colors duration-base ease-physics group-hover:text-text-primary">
+        [{t.heroStatusOpen} · {t.heroYear}]
       </span>
-    </div>
+    </Link>
   );
 }

@@ -40,6 +40,30 @@ export interface GalleryImage {
   h: number;
 }
 
+export interface CaseStudyOverview {
+  problem: string;
+  problemAr?: string;
+  audienceContext: string;
+  audienceContextAr?: string;
+  guidingIdea: string;
+  guidingIdeaAr?: string;
+  rejectedDirections: string;
+  rejectedDirectionsAr?: string;
+  roleAndTeam: string;
+  roleAndTeamAr?: string;
+  whereUsed: string;
+  whereUsedAr?: string;
+}
+
+export interface DesignProofItem {
+  title: string;
+  titleAr?: string;
+  description: string;
+  descriptionAr?: string;
+  image: string;
+  aspect?: string;
+}
+
 export interface CaseStudyRecord {
   slug: string;
   name: string;
@@ -56,6 +80,9 @@ export interface CaseStudyRecord {
   timelineAr?: string;
   kpis: readonly KPI[];
 
+  /* Structured 6 narrative answers */
+  narrativeAnswers?: CaseStudyOverview;
+
   /* Panel 02 — Research & Logic */
   researchSummary: string;
   researchSummaryAr?: string;
@@ -67,6 +94,9 @@ export interface CaseStudyRecord {
   tokens: readonly TokenSpec[];
   componentStates: readonly string[];
   breakpoints: readonly { bp: string; cols: string }[];
+
+  /* Design proof items — original, legible visual assets */
+  designProofItems?: readonly DesignProofItem[];
 
   /** Optional project gallery — rendered in Execution panel */
   images?: readonly GalleryImage[];

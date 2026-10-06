@@ -13,11 +13,11 @@ const COLUMNS = [
   {
     head: ["ENGAGE", "التعاون"],
     links: [
-      ["Start Here", "ابدأ هنا", "/start"],
+      ["For Hiring Teams", "للشركات والتوظيف", "/for-hiring"],
       ["Work", "الأعمال", "/work"],
       ["Services", "الخدمات", "/services"],
-      ["Process", "المنهجية", "/process"],
       ["Pricing", "التسعير", "/pricing"],
+      ["Start Here", "ابدأ هنا", "/start"],
       ["Contact", "تواصل", "/contact"],
     ],
   },
@@ -48,6 +48,7 @@ const COLUMNS = [
   {
     head: ["PORTFOLIO", "البورتفوليو"],
     links: [
+      ["Download CV (PDF) ↓", "تحميل السيرة الذاتية ↓", "/mustafa-aboalazm-cv.pdf"],
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
       ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
       ["GitHub ↗", "جيت هب ↗", "https://github.com/3boalazm"],
