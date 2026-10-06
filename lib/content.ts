@@ -249,6 +249,35 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
   return STATIC_CASE_STUDIES[slug] ?? null;
 }
 
+export interface SitemapSource {
+  slug: string;
+  updatedAt: string;
+}
+
+/** Slug + last-modified for every published post / case study (sitemap.xml). */
+export async function getSitemapSources(): Promise<{
+  posts: SitemapSource[];
+  caseStudies: SitemapSource[];
+}> {
+  const payload = await getPayload();
+  const [posts, caseStudies] = await Promise.all([
+    payload.find({
+      collection: "posts",
+      limit: 100,
+      select: { slug: true, updatedAt: true },
+      overrideAccess: false,
+    }),
+    payload.find({
+      collection: "case-studies",
+      limit: 100,
+      select: { slug: true, updatedAt: true },
+      overrideAccess: false,
+    }),
+  ]);
+  const pick = (d: { slug: string; updatedAt: string }) => ({ slug: d.slug, updatedAt: d.updatedAt });
+  return { posts: posts.docs.map(pick), caseStudies: caseStudies.docs.map(pick) };
+}
+
 export async function getAllCaseStudySlugs(): Promise<string[]> {
   if (hasDb()) {
     try {
