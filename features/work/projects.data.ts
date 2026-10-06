@@ -214,7 +214,7 @@ export const PROJECTS: readonly Project[] = [
     thumbnail: "/images/work/zad-thumb.jpg",
     hasCaseStudy: false,
     isUiUx: true,
-    liveUrl: "https://zad.codeandcanvas.net",
+    externalUrl: BEHANCE,
     accent: {
       primary: "rgb(212 175 55 / 0.20)",
       secondary: "rgb(16 90 60 / 0.12)",
