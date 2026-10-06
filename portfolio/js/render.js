@@ -438,37 +438,30 @@
           <p class="micro" style="color:var(--coral)">${esc(p.idx)} · CASE FILE — ملف المشروع</p>
           <h2 class="d3" style="margin-top:6px;">${esc(p.name)}</h2>
         </div>
-        <div style="text-align:right;">
-          <p class="micro">${esc(p.year)}</p>
-          <p class="micro" style="margin-top:4px;">${esc(p.discipline)}</p>
-        </div>
+        <div class="pj-d-meta"><p class="micro">${esc(p.year)}</p><p class="micro" style="margin-top:4px;">${esc(p.discipline)}</p></div>
       </div>
 
-      <p class="body-sm" style="margin-top:12px; max-width:78ch;">${esc(p.brief)}</p>
+      <div class="case-story">
+        <div><div class="micro" style="color:var(--coral)">01 · THE PROBLEM</div><p class="body-sm case-story__text">${esc(p.brief)}</p></div>
+        <div><div class="micro" style="color:var(--coral)">02 · MY ROLE + DECISION</div><p class="body-sm case-story__text">${esc(p.role || "Strategy, identity direction, system design and delivery.")}</p><p class="body-sm case-story__decision">${esc(p.decision || "The key decision was to make the identity behave as a governed system, not a collection of isolated assets.")}</p></div>
+      </div>
 
       <div class="pj-kpis">
-        ${p.kpis.map((k) => `
-          <div class="stat">
-            <div class="stat-n" style="font-size:44px;">${esc(k.n)}</div>
-            <div class="stat-l" style="font-size:10px;">${esc(k.l)}</div>
-            <div class="stat-c">${esc(k.c)}</div>
-          </div>`).join("")}
+        ${p.kpis.map((k) => `<div class="stat"><div class="stat-n" style="font-size:40px;">${esc(k.n)}</div><div class="stat-l" style="font-size:10px;">${esc(k.l)}</div><div class="stat-c">${esc(k.c)}</div></div>`).join("")}
       </div>
 
+      <div class="case-label micro"><span style="color:var(--coral)">03 · THE SYSTEM + APPLICATION</span><span>${esc(p.stack.join(" · "))}</span></div>
       <div class="pj-gal">
         ${p.gallery.map((g) => {
-          const card = h(`<div class="imgcard ${g.full ? "imgcard--full" : ""}" ${g.full ? 'style="height:176px"' : 'style="height:190px"'}><span class="cap">${esc(g.cap)}</span></div>`);
+          const card = h(`<div class="imgcard ${g.full ? "imgcard--full" : ""}" style="height:${g.full ? 160 : 156}px"><span class="cap">${esc(g.cap)}</span></div>`);
           bg(card, g.img);
           return card.outerHTML;
         }).join("")}
       </div>
 
-      <div class="pj-tokens">
-        ${p.tokens.map((t) => `
-          <div style="border:1px solid var(--line-1); border-radius:10px; padding:10px 12px; background:var(--surface-1);">
-            <div class="micro" style="color:var(--coral)">${esc(t.t)} · ${esc(t.v)}</div>
-            <div class="micro" style="margin-top:3px; letter-spacing:0.08em;">${esc(t.r)}</div>
-          </div>`).join("")}
+      <div class="case-outcome">
+        <div><span class="micro" style="color:var(--coral)">04 · OUTCOME</span><div class="d3" style="font-size:17px; margin-top:4px;">${esc(p.outcome)}</div></div>
+        <div class="body-sm" style="text-align:right; max-width:34ch;">${esc(p.outcomeAr)}</div>
       </div>
     </div>`));
   }
