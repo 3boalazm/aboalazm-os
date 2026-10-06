@@ -99,7 +99,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
             download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="inline-flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5"
           >
-            <>{ar ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"} <Icon name="arrow-down" /></>
+            <>{ar ? "تحميل السيرة الذاتية (Word)" : "Download CV (Word)"} <Icon name="arrow-down" /></>
           </a>
           <Link
             href="/for-hiring"
