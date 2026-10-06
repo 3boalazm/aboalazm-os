@@ -73,7 +73,7 @@ export function BeforeAfterSlider({
           <div className="flex items-center gap-2">
             <span className="size-2 rounded-pill bg-accent" />
             <span className="font-mono text-micro uppercase tracking-wider text-text-primary">
-              {afterTitle ?? (ar ? "نظام هوية موحّد ومعتمد (V2.0)" : "Governed Identity System (V2.0)")}
+              {afterTitle ?? (ar ? "نموذج نظام هوية محكوم" : "Illustrative Governed Identity System")}
             </span>
           </div>
           <span className="rounded-pill border border-border-default bg-surface-2 px-2 py-0.5 font-mono text-micro text-text-secondary">
@@ -106,13 +106,13 @@ export function BeforeAfterSlider({
               {ar ? "شعار ثنائي اللغة · ألوان بانتون مقفلة · خطوط متناغمة" : "Bilingual lockup · Pantone palette · Harmonized type"}
             </span>
             <span className="rounded-pill bg-accent px-2.5 py-1 font-mono text-micro font-medium text-obsidian">
-              {ar ? "معتمد للإنتاج" : "PRODUCTION"}
+              {ar ? "توضيحي" : "ILLUSTRATIVE"}
             </span>
           </div>
         </div>
       </div>
 
-      {/* ════ BEFORE — Audit state (clipped layer) ════ */}
+      {/* ════ BEFORE — Illustrative audit state (clipped layer) ════ */}
       <div
         className="absolute inset-0 bg-surface-0"
         style={{
@@ -191,7 +191,7 @@ export function BeforeAfterSlider({
         {ar ? "التدقيق قبل النظام" : "AUDIT // PRE-SYSTEM"}
       </span>
       <span className="pointer-events-none absolute bottom-2 right-2 rounded-pill bg-surface-0/80 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-accent backdrop-blur-sm">
-        {ar ? "النظام المعتمد" : "GOVERNED // SYSTEM"}
+        {ar ? "النظام — توضيحي" : "GOVERNED // ILLUSTRATIVE"}
       </span>
     </div>
   );
