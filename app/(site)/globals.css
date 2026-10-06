@@ -2277,3 +2277,110 @@ html[data-theme="light"] .grain-layer {
   tabular-nums: 1;
   font-variant-numeric: tabular-nums;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NARRATIVE EXPERIENCE LAYER — phases 4–7
+   Scroll is the storytelling rhythm; motion exposes hierarchy, never
+   decorates it. All interactions have a reduced-motion path.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.narrative-section {
+  position: relative;
+  scroll-margin-top: 5rem;
+}
+
+.narrative-section--proof {
+  padding-top: clamp(3rem, 8vw, 7rem);
+}
+
+.narrative-section--process,
+.narrative-section--about {
+  padding-top: clamp(4rem, 10vw, 9rem);
+}
+
+.narrative-section--cta {
+  padding-top: clamp(3rem, 8vw, 7rem);
+  padding-bottom: clamp(3rem, 8vw, 7rem);
+}
+
+.narrative-marker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-ghost);
+  font: 600 0.6875rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.narrative-marker__index {
+  color: var(--color-accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.narrative-marker__line {
+  width: clamp(2rem, 8vw, 7rem);
+  height: 1px;
+  background: var(--color-border-subtle);
+}
+
+.narrative-marker__label {
+  white-space: nowrap;
+}
+
+.section-divider {
+  width: min(100% - 2rem, 90rem);
+  height: 1px;
+  margin: clamp(2rem, 5vw, 5rem) auto 0;
+  background: var(--color-border-subtle);
+}
+
+.narrative-section .journey-band {
+  margin-top: 0;
+}
+
+.narrative-section .journey-band__inner {
+  border-top: 0;
+}
+
+@media (max-width: 767px) {
+  .narrative-marker {
+    margin-bottom: 1rem;
+  }
+
+  .narrative-marker__line {
+    width: 2rem;
+  }
+
+  .narrative-section--process,
+  .narrative-section--about {
+    padding-top: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
