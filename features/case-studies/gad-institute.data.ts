@@ -22,13 +22,13 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   kpis: [
     { value: "0",    label: "Brand system before",    labelAr: "نظام براند قبل",      context: "STARTED FROM STRATEGY",    contextAr: "بدأنا من الاستراتيجية"     },
     { value: "2",    label: "Languages, one lockup",  labelAr: "لغتان في شعار واحد",  context: "AR / EN UNIFIED",          contextAr: "عربي / إنجليزي موحّد"       },
-    { value: "4",    label: "Audiences to serve",     labelAr: "جماهير تخدمها",        context: "PATIENTS · TOURISTS · INSURERS · FAMILIES", contextAr: "مرضى · سياح · تأمين · عائلات" },
+    { value: "4",    label: "Audiences to serve",     labelAr: "جماهير تخدمها",        context: "PATIENTS · FAMILIES · INSURERS · REFERRERS", contextAr: "مرضى · عائلات · تأمين · جهات إحالة" },
   ],
 
   researchSummary:
-    "Healthcare identity in Egypt clustered into two poles: clinical-corporate (cold, bureaucratic) or consumer-pharma (loud, promotional). GAD needed a third voice — the trusted specialist: warmer than a hospital, more precise than a clinic, internationally legible without losing Egyptian rootedness.",
+    "Healthcare identity in the Saudi/Gulf market clustered into two poles: clinical-corporate (cold, bureaucratic) or consumer-facing healthcare (generic, promotional). GAD needed a third voice — the trusted specialist: warmer than a hospital, more precise than a clinic, internationally legible for a regional audience.",
   researchSummaryAr:
-    "الهوية الصحية في مصر تتجمع في قطبين: شركي-سريري (بارد، بيروقراطي) أو صيدلاني-استهلاكي (صاخب، ترويجي). GAD تحتاج صوتاً ثالثاً — الأخصائي الموثوق: أدفأ من المستشفى، وأدق من العيادة، ومقروء دولياً دون أن يفقد عروبته.",
+    "الهوية الصحية في سوق السعودية والخليج تتجمع في قطبين: مؤسسي-سريري (بارد، بيروقراطي) أو صحي استهلاكي (عام، ترويجي). احتاجت GAD صوتاً ثالثاً — الأخصائي الموثوق: أدفأ من المستشفى، وأدق من العيادة، ومقروءاً إقليمياً ودولياً.",
   competitors: [
     { name: "Public-clinical A",  x: 22, y: 60 },
     { name: "Illustrative clinical B",  x: 15, y: 45 },
@@ -63,9 +63,9 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     problemAr:
       "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى تقليدية وباردة — دون رمز يعكس تخصصه المزدوج المنقذ للحياة، ودون حوكمة بصرية على مواد التواصل مع المرضى، مع حاجة ملحة لمنافسة مجموعات صحية إقليمية ذات هوية دولية.",
     audienceContext:
-      "High-anxiety cardiac and pulmonary patients, their families seeking trusted reassurance, medical tourists traveling to Egypt, and private health insurers. In healthcare, visual inconsistency translates directly to perceived clinical risk.",
+      "High-anxiety cardiac and pulmonary patients, their families seeking trusted reassurance, patients and families in the Eastern Province and regional private health insurers. In healthcare, visual inconsistency translates directly to perceived clinical risk.",
     audienceContextAr:
-      "مرضى القلب والرئة في حالات دقيقة، عائلاتهم الباحثة عن الاطمئنان، السياحة العلاجية القادمة لمصر، وهيئات التأمين. في الرعاية الصحية، غياب الاتساق البصري يُترجم فوراً إلى انعدام أمان سريري.",
+      "مرضى القلب والرئة في حالات دقيقة، عائلاتهم الباحثة عن الاطمئنان، المرضى وعائلاتهم في المنطقة الشرقية وهيئات التأمين الصحي الخاص إقليمياً. في الرعاية الصحية، غياب الاتساق البصري يُترجم فوراً إلى انعدام أمان سريري.",
     guidingIdea:
       "The Trusted Specialist ('Closer to Every Heart') — fusing anatomical heart and lung geometry into a continuous circular seal. The gesture combines circulatory vitality and pulmonary breath in one precise, human mark.",
     guidingIdeaAr:
