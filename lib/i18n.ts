@@ -66,9 +66,9 @@ export const UI = {
     capabilitiesLead:   "Change one value — spacing, radius, motion, theme — and every element recalculates in concert. That coherence is the product.",
     /* ── About ── */
     aboutSection:       "THE DESIGNER // PROFILE",
-    aboutH1a:           "Seven years building brand identity",
+    aboutH1a:           "Nine-plus years building brand identity",
     aboutH1b:           "and visual systems.",
-    aboutLead:          "Mustafa Aboalazm started designing professionally in 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine.",
+    aboutLead:          "Mustafa Aboalazm has been designing professionally since 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine.",
     aboutDoctrine:      "DOCTRINE",
     aboutCareer:        "CAREER LEDGER",
     aboutSystem:        "Every engagement runs the same chain: brand compiles into tokens, tokens into components, components into pages, pages into experience.",
@@ -207,9 +207,9 @@ export const UI = {
     capabilitiesLead:   "غيّر قيمة واحدة — المسافات والحواف والحركة والثيم — وكل عنصر يعيد الحساب في تناغم. هذا التناسق هو المنتج.",
     /* ── About ── */
     aboutSection:       "المصمم // نبذة",
-    aboutH1a:           "سبع سنوات في تصميم الهويات",
+    aboutH1a:           "٩+ سنوات في تصميم الهويات",
     aboutH1b:           "وبناء الأنظمة البصرية.",
-    aboutLead:          "مصطفى أبوالعزم بدأ التصميم المهني في 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد.",
+    aboutLead:          "مصطفى أبوالعزم يمارس التصميم مهنياً منذ 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد.",
     aboutDoctrine:      "المبادئ",
     aboutCareer:        "المسيرة المهنية",
     aboutSystem:        "كل مشروع يسير في نفس السلسلة: البراند يُترجَم لتوكنز، التوكنز لكومبوننتس، الكومبوننتس لصفحات، الصفحات لتجربة.",
