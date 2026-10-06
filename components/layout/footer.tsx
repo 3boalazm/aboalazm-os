@@ -48,7 +48,7 @@ const COLUMNS = [
   {
     head: ["PORTFOLIO", "البورتفوليو"],
     links: [
-      ["Download CV (PDF) ↓", "تحميل السيرة الذاتية ↓", "/cv"],
+      ["Download CV ↓", "تحميل السيرة الذاتية ↓", "/cv"],
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
       ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
       ["GitHub ↗", "جيت هب ↗", "https://github.com/3boalazm"],
