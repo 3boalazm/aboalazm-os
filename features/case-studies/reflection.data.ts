@@ -30,11 +30,11 @@ export const REFLECTION: CaseStudyRecord = {
   researchSummaryAr:
     "براندات الفن والطباعة في معسكرين: شعبية (ملونة، رخيصة المظهر، عامة) أو معرض فنون راقية (بسيط، بارد، بعيد المنال). Reflection تحتاج الموضع الثالث: متميز ومتاح — طموح دون إبعاد، مميز دون صعوبة.",
   competitors: [
-    { name: "Poster mass-market A",   x: 55, y: 20 },
-    { name: "Poster mass-market B",   x: 65, y: 15 },
-    { name: "Gallery originals C",    x: 20, y: 75 },
-    { name: "Gallery originals D",    x: 15, y: 82 },
-    { name: "Generic print-on-demand E", x: 45, y: 25 },
+    { name: "Illustrative mass-market A",   x: 55, y: 20 },
+    { name: "Illustrative mass-market B",   x: 65, y: 15 },
+    { name: "Illustrative gallery C",    x: 20, y: 75 },
+    { name: "Illustrative gallery D",    x: 15, y: 82 },
+    { name: "Illustrative print-on-demand E", x: 45, y: 25 },
     { name: "Reflection",             x: 78, y: 78, isClient: true },
   ],
   visualVectors:   ["PREMIUM", "CONSIDERED", "AIRY", "STRUCTURED", "COLLECTABLE"],
