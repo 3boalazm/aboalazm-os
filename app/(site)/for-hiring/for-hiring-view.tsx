@@ -123,9 +123,9 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "حملات تسويقية: لوحات الطرق السريعة، بوستات صيدليات العزبي، والموقع الإلكتروني",
     ],
     deployment:
-      "Shelves of 1,000+ retail pharmacies across Egypt (including El Ezaby), primary product cartons, highway advertising, clinical brochures, and digital channels.",
+      "Pharmacy retail channels across Egypt, primary product cartons, highway advertising, clinical brochures, and digital channels.",
     deploymentAr:
-      "أرفف أكثر من ١٠٠٠ صيدلية في مصر (منها صيدليات العزبي)، علب المنتجات الدوائية، لوحات الطرق السريعة، والمنصات الرقمية.",
+      "قنوات الصيدليات والبيع بالتجزئة في مصر، علب المنتجات الدوائية، لوحات الطرق السريعة، والمطبوعات والمنصات الرقمية.",
     accent: "rgb(27 42 91 / 0.22)",
   },
   {
@@ -192,6 +192,16 @@ const SKILL_GROUPS = [
 
 const TIMELINE = [
   {
+    period: "Sep 2026 → Present",
+    periodAr: "سبتمبر ٢٠٢٦ ← الحاضر",
+    role: "Digital Product & Platform Lead",
+    roleAr: "قائد المنتج والمنصة الرقمية",
+    company: "Nile Pharma Food & Food Supplements",
+    companyAr: "نايل فارما فود والمكملات الغذائية",
+    detail: "Leading the company digital product and platform direction across brand, website, ERP, marketing, UX/UI, and technical coordination.",
+    detailAr: "قيادة اتجاه المنتج والمنصة الرقمية عبر الهوية والموقع وERP والتسويق وUX/UI والتنسيق التقني.",
+  },
+  {
     period: "2024 → Present",
     periodAr: "٢٠٢٤ ← الحاضر",
     role: "Co-Founder & Creative Lead",
@@ -204,12 +214,12 @@ const TIMELINE = [
   {
     period: "2020 – 2025",
     periodAr: "٢٠٢٠ – ٢٠٢٥",
-    role: "Media Director & Brand Lead",
-    roleAr: "مدير الميديا وقائد البراند",
+    role: "Media Director & Account Manager",
+    roleAr: "مدير الميديا ومدير الحسابات",
     company: "Nile Pharma Food",
     companyAr: "نايل فارما فود",
-    detail: "Five-year visual stewardship: brand rebrand from zero, packaging systems across 1,000+ pharmacies, campaigns (+40% visibility, +25% engagement).",
-    detailAr: "حوكمة بصرية لخمس سنوات: إعادة هوية كاملة من الصفر، تغليف منتجات معروض بأكثر من ١٠٠٠ صيدلية، وحملات (+٤٠٪ ظهور رقمي، +٢٥٪ تفاعل).",
+    detail: "Five-year visual stewardship: brand rebrand from zero, packaging and campaign systems, with reported +40% online visibility and +25% customer engagement within six months.",
+    detailAr: "حوكمة بصرية لخمس سنوات: إعادة هوية كاملة من الصفر، التغليف وأنظمة الحملات، مع +٤٠٪ ظهور رقمي و+٢٥٪ تفاعل مُبلّغ عنهما خلال ستة أشهر.",
   },
   {
     period: "2020 – 2021",
@@ -232,14 +242,14 @@ const TIMELINE = [
     detailAr: "إعادة بناء هوية المنظمة مرتين. قيادة فريق من ١٢ مصمماً، والفوز بجائزة أفضل رئيس لجنة للموسمين.",
   },
   {
-    period: "2018 → Present",
-    periodAr: "٢٠١٨ ← الحاضر",
-    role: "Independent Brand Identity Designer",
+    period: "Jul 2017 → Present",
+    periodAr: "يوليو ٢٠١٧ ← الحاضر",
+    role: "Senior Brand Identity Designer & Consultant",
     roleAr: "مصمم هوية بصرية مستقل",
     company: "Studio Practice",
     companyAr: "ممارسة مستقلة",
-    detail: "20+ comprehensive brand systems across healthcare, pharmaceuticals, food, NGOs, and professional services.",
-    detailAr: "أكثر من ٢٠ نظام هوية متكامل عبر قطاعات الرعاية الصحية والأدوية والغذاء والتعليم والشركات.",
+    detail: "20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
+    detailAr: "أكثر من ٢٠ عميلاً ومؤسسة عبر الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
   },
 ];
 
@@ -272,15 +282,15 @@ export function ForHiringView() {
           }
           subtitle={
             ar
-              ? "٩ سنوات من التخصص في بناء هويات بصرية ثنائية اللغة (عربي وإنجليزي)، وأنظمة تصميم متماسكة، ومعمارية تغليف ولافتات معمارية. باحث عن فرصة مصمم هوية بصرية أول دوام كامل (الرياض أو عن بُعد)."
-              : "Nine years of dedicated practice crafting bilingual brand identities (Arabic & English), governed design systems, packaging architecture, and environmental signage. Seeking full-time Senior Brand Identity Designer opportunities (Riyadh or Remote)."
+              ? "٩+ سنوات من الممارسة المهنية في التصميم، منها ٤+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (الرياض أو عن بُعد)."
+              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand Identity Designer opportunities (Riyadh or Remote)."
           }
         />
 
         {/* Primary Candidate CTAs */}
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
-            href="/mustafa-aboalazm-cv.pdf"
+            href="/cv"
             download="Mustafa-Aboalazm-CV.pdf"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
@@ -295,7 +305,7 @@ export function ForHiringView() {
             <Icon name="arrow-up-right" />
           </a>
           <a
-            href="mailto:Mustafaaboalazm@mail.ru"
+            href="mailto:m1aboalazm@gmail.com"
             className="inline-flex items-center gap-2 rounded-pill border border-border-subtle px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:border-text-primary hover:text-text-primary"
           >
             <span>{ar ? "تواصل مباشرة" : "Email Directly"}</span>
@@ -330,8 +340,8 @@ export function ForHiringView() {
       {/* ── 02 · Candidate Highlights & Quick Facts ── */}
       <section className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-12 sm:grid-cols-4">
         {[
-          [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9 Years", "2018–2026"],
-          [ar ? "أنظمة تم تسليمها" : "IDENTITY SYSTEMS SHIPPED", "20+ Systems", ar ? "دواء، صحة، غذاء، تعليم" : "Healthcare, pharma, food"],
+          [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
+          [ar ? "أنظمة تم تسليمها" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "دواء، صحة، غذاء، تعليم، حكومة" : "Healthcare, pharma, education, government"],
           [ar ? "التخصص اللغوي" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "حرفة أصلية متكافئة" : "Native typographic parity"],
           [ar ? "الموقع والجاهزية" : "LOCATION & STATUS", "Riyadh / Remote", ar ? "جاهز للانتقال أو عن بُعد" : "Open to relocation or remote"],
         ].map(([label, val, sub]) => (
