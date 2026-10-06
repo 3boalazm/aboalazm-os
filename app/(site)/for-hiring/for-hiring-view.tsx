@@ -48,13 +48,13 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "Dual heart + lung circular seal & monogram",
       "Bilingual Latin (Trap) & Arabic (Alexandria) typography pairing",
       "Pantone-calibrated palette (107-8 U Deep Blue + 49-16 U Crimson)",
-      "Complete 48-page brand guidelines (V2.0)",
+      "Complete brand guidelines (V2.0)",
     ],
     whatShippedAr: [
       "شعار دائري مدمج يجمع رمز القلب والرئة بدقة تشريحية",
       "مواءمة طباعية ثنائية اللغة: خط Trap اللاتيني مع خط Alexandria العربي",
       "نظام ألوان مقفل ببانتون (أزرق عميق 107-8 U وقرمزي 49-16 U)",
-      "دليل هوية متكامل من ٤٨ صفحة (V2.0)",
+      "دليل هوية متكامل (V2.0)",
     ],
     deployment:
       "Exterior hospital facade signage, 3D reception wall seal, patient wayfinding, staff uniforms, bilingual diagnosis folders, prescription stationery, and medical summit stands.",
@@ -283,7 +283,7 @@ export function ForHiringView() {
           subtitle={
             ar
               ? "٩+ سنوات من الممارسة المهنية في التصميم، منها ٤+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (الرياض أو عن بُعد)."
-              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand Identity Designer opportunities (Riyadh or Remote)."
+              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand & Product Designer / Brand Identity Designer opportunities (Riyadh or Remote)."
           }
         />
 
@@ -291,7 +291,7 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
             href="/cv"
-            download="Mustafa-Aboalazm-CV.pdf"
+            download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
             <span>{ar ? "تحميل السيرة الذاتية المحدثة" : "Download Updated CV"}</span>
