@@ -265,6 +265,48 @@ export function WhyValueBand() {
   );
 }
 
+/* ── FAQ / objection handling — placed late, like Blueprint's approach page ── */
+export function HomeFaq() {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  const items = ar
+    ? [
+        ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
+        ["هل الهوية بتكون عربي وإنجليزي؟", "أيوه، لو المشروع bilingual بنبني المعمارية للغتين من البداية."],
+        ["كام مدة المشروع؟", "المنهجية الأساسية ٣٨ يومًا على أربع مراحل، مع اعتماد مكتوب عند كل بوابة."],
+        ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
+        ["إزاي نبدأ؟", "مكالمة اكتشاف قصيرة لتحديد النطاق، التوافق، والجدول قبل أي التزام."],
+      ]
+    : [
+        ["Do I need to know exactly what I want?", "No. The first phase exists to understand the problem and establish the right direction before design."],
+        ["Can the identity work in Arabic and English?", "Yes. For bilingual projects, the architecture is designed for both languages from the start."],
+        ["How long does a project take?", "The core method is 38 days across four phases, with written sign-off at every gate."],
+        ["What do I receive at the end?", "A complete identity system, final production files, guidelines, and an organized handover based on scope."],
+        ["How do we start?", "A short discovery call to clarify scope, fit, and timeline before any commitment."],
+      ];
+
+  return (
+    <section className="container-content py-20 md:py-28">
+      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : "FAQ"}</p>
+          <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
+        </div>
+        <div className="border-t border-border-subtle">
+          {items.map(([q, a], i) => (
+            <details key={q} className="group border-b border-border-subtle py-5">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
+                <span>{q}</span><span className="font-mono text-label text-accent transition-transform duration-300 group-open:rotate-45">+</span>
+              </summary>
+              <p className="max-w-[60ch] pt-4 text-body-sm leading-[1.75] text-text-secondary">{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── Final CTA ── */
 export function HomeCta() {
   return (
