@@ -3,6 +3,8 @@ import { Hero } from "@/features/hero";
 import { getProjects } from "@/lib/content";
 import { SkillsMarquee, AboutTeaser, HomeCta, ClientJourneyBand } from "@/features/home/home-bands";
 import { FeaturedCases } from "@/features/work/featured-cases";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
+import { SectionMarker } from "@/components/ui/section-marker";
 
 export const revalidate = 60;
 
@@ -20,17 +22,30 @@ export default async function Home() {
       <Hero />
 
       {/* 02 · Proof first: top 3 diverse identity systems (Healthcare, Warm Editorial Art & Print, Consumer Packaging) */}
-      <FeaturedCases projects={projects} heading="home" />
+      <section className="narrative-section narrative-section--proof">
+        <div className="container-wide"><SectionMarker index="01" label="SELECTED WORK" /></div>
+        <ScrollReveal><FeaturedCases projects={projects} heading="home" /></ScrollReveal>
+      </section>
 
       {/* 03 · Process & Methodology */}
-      <ClientJourneyBand />
+      <section className="narrative-section narrative-section--process">
+        <div className="container-wide"><SectionMarker index="02" label="METHOD / PROCESS" /></div>
+        <ScrollReveal><ClientJourneyBand /></ScrollReveal>
+      </section>
 
       {/* 04 · Background & Practice */}
-      <AboutTeaser />
-      <SkillsMarquee />
+      <section className="narrative-section narrative-section--about">
+        <div className="container-wide"><SectionMarker index="03" label="PRACTICE / BACKGROUND" /></div>
+        <ScrollReveal><AboutTeaser /></ScrollReveal>
+        <div className="section-divider" aria-hidden />
+        <ScrollReveal delay={0.05}><SkillsMarquee /></ScrollReveal>
+      </section>
 
       {/* 05 · Call to Action */}
-      <HomeCta />
+      <section className="narrative-section narrative-section--cta">
+        <div className="container-wide"><SectionMarker index="04" label="NEXT / CONTACT" /></div>
+        <ScrollReveal><HomeCta /></ScrollReveal>
+      </section>
     </main>
   );
 }
