@@ -196,7 +196,10 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
       {/* ── lightbox ───────────────────────────────────────────── */}
 
       {/* ── rotating scroll gallery ────────────────────────────── */}
-      <section className="relative -mx-4 sm:-mx-6 lg:-mx-8 mt-8 border-t border-border-subtle pt-12">
+      {/* -mx-3 = the 24px container gutter (--spacing is 8px, so the old
+          -mx-4/-mx-8 overshot it). overflow-x-clip keeps the GSAP-scattered
+          cards from widening the page on narrow screens. */}
+      <section className="relative -mx-3 mt-8 overflow-x-clip border-t border-border-subtle pt-12">
         <div className="px-4 sm:px-6 lg:px-8 mb-8">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
             {ar ? "عرض بصري — اسكرول للاستكشاف" : "VISUAL REEL — SCROLL TO EXPLORE"}
