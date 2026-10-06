@@ -294,7 +294,7 @@ export function ForHiringView() {
             download="Mustafa-Aboalazm-CV.pdf"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
-            <span>{ar ? "تحميل السيرة الذاتية (PDF)" : "Download CV (PDF)"}</span>
+            <span>{ar ? "تحميل السيرة الذاتية المحدثة" : "Download Updated CV"}</span>
             <Icon name="arrow-down" />
           </a>
           <a
