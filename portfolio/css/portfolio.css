@@ -251,7 +251,14 @@ button { font:inherit; color:inherit; background:none; border:0; cursor:pointer;
 .pj-outcome .po-ar { font-family:var(--f-ar); font-size:11px; color:var(--ink-48); direction:rtl; }
 
 /* Project detail page */
-.pj-d-head { display:flex; justify-content:space-between; align-items:baseline; gap:14px; padding-bottom:12px; border-bottom:2px solid var(--coral); }
+.pj-d-head { display:flex; justify-content:space-between; align-items:flex-start; gap:18px; padding-bottom:12px; border-bottom:2px solid var(--coral); }
+.pj-d-meta { flex:0 0 auto; min-width:88px; text-align:right; }
+.case-story { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:14px; }
+.case-story__text { margin-top:5px; line-height:1.5; color:var(--ink-68); }
+.case-story__decision { margin-top:6px; color:var(--ink); font-weight:600; }
+.case-label { display:flex; justify-content:space-between; gap:16px; margin-top:12px; padding-top:10px; border-top:1px solid var(--line-1); }
+.case-outcome { display:flex; justify-content:space-between; align-items:end; gap:18px; margin-top:12px; padding-top:10px; border-top:2px solid var(--coral); }
+@media (max-width:760px) { .case-story { grid-template-columns:1fr; } .case-label { flex-direction:column; gap:4px; } }
 .pj-kpis { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:18px 0; border-bottom:1px solid var(--line-1); }
 .pj-gal { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
 .pj-gal .imgcard { height:236px; }
