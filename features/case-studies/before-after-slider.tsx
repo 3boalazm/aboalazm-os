@@ -65,6 +65,7 @@ export function BeforeAfterSlider({
       className="relative aspect-[16/10] select-none overflow-hidden rounded-card border border-border-default bg-surface-1"
       onPointerMove={onPointerMove}
       onPointerUp={() => setDragging(false)}
+      onPointerCancel={() => setDragging(false)}
     >
       {/* ════ AFTER — Governed system (base layer) ════ */}
       <div className="absolute inset-0 flex flex-col justify-between gap-3 p-4">
@@ -93,11 +94,11 @@ export function BeforeAfterSlider({
           </div>
           <div className="flex flex-col justify-between rounded-card border border-border-subtle bg-surface-2 p-3">
             <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
-              {ar ? "معايرة دقيقة" : "Calibrated"}
+              {ar ? "معيار الحوكمة" : "Governance standard"}
             </span>
-            <span className="font-display text-title leading-none text-accent">0%</span>
+            <span className="font-display text-title leading-none text-accent">LOCKED</span>
             <span className="font-mono text-micro text-text-ghost">
-              {ar ? "انحراف بالتطبيق" : "Design drift"}
+              {ar ? "مبدأ حوكمة" : "Governance principle"}
             </span>
           </div>
           <div className="col-span-3 flex items-center justify-between rounded-card border border-border-subtle bg-surface-2 px-3 py-2">
@@ -166,8 +167,8 @@ export function BeforeAfterSlider({
       <div
         role="slider"
         aria-label={t.sliderAria}
-        aria-valuemin={0}
-        aria-valuemax={100}
+        aria-valuemin={4}
+        aria-valuemax={96}
         aria-valuenow={Math.round(pos)}
         tabIndex={0}
         onPointerDown={onPointerDown}
