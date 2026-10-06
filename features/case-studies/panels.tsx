@@ -140,16 +140,18 @@ function CompetitorMap({
   competitors: readonly CompetitorVector[];
 }) {
   const t = useT();
+  const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <figure className="relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1 p-2">
       {/* Axes */}
       <span className="absolute inset-x-2 top-1/2 h-px bg-border-subtle" />
       <span className="absolute inset-y-2 left-1/2 w-px bg-border-subtle" />
       <span className="absolute bottom-1 right-2 font-mono text-micro text-text-ghost">
-        DISTINCT →
+        {ar ? "تميّز ←" : "DISTINCT →"}
       </span>
       <span className="absolute left-1 top-2 font-mono text-micro text-text-ghost [writing-mode:vertical-rl]">
-        ← SYSTEM
+        {ar ? "← نظام" : "← SYSTEM"}
       </span>
 
       {/* Vectors */}
@@ -178,8 +180,11 @@ function CompetitorMap({
         </span>
       ))}
       <figcaption className="sr-only">
-        {t.competitorMap}
+        {ar ? "خريطة تموضع توضيحية وليست دراسة سوق منشورة" : "Illustrative positioning map; not a published market study."}
       </figcaption>
+      <span className="absolute right-2 top-2 rounded-pill border border-border-subtle bg-surface-0/80 px-2 py-0.5 font-mono text-micro text-text-ghost backdrop-blur-sm">
+        {ar ? "توضيحي" : "ILLUSTRATIVE"}
+      </span>
     </figure>
   );
 }
