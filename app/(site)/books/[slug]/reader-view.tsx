@@ -17,6 +17,8 @@ export function ReaderView({ book }: { book: Book }) {
   // listen for scroll progress + active chapter from the isolated bundle
   useEffect(() => {
     function onMsg(e: MessageEvent) {
+      // only trust our own framed bundle (same window, same origin)
+      if (e.source !== iframeRef.current?.contentWindow || e.origin !== window.location.origin) return;
       const d = e.data;
       if (d && d.type === "bk-progress") {
         setPct(d.pct ?? 0);
@@ -28,7 +30,7 @@ export function ReaderView({ book }: { book: Book }) {
   }, []);
 
   function goto(id: string) {
-    iframeRef.current?.contentWindow?.postMessage({ type: "bk-goto", id }, "*");
+    iframeRef.current?.contentWindow?.postMessage({ type: "bk-goto", id }, window.location.origin);
     setMenuOpen(false);
   }
 
@@ -40,7 +42,7 @@ export function ReaderView({ book }: { book: Book }) {
     // viewport (z-nav), so the reader's own header starts just below it —
     // otherwise the Library link and chapter menu sit under the nav and
     // can't be tapped.
-    <div className="flex h-[100svh] flex-col pt-[100px]">
+    <main className="flex h-[100svh] flex-col pt-[100px]">
       {/* Reader chrome — brand header + progress */}
       <header className="relative z-elevated flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-0/95 px-4 py-2.5 backdrop-blur md:px-6">
         <div className="flex min-w-0 items-center gap-3">
@@ -50,9 +52,17 @@ export function ReaderView({ book }: { book: Book }) {
           >
             <><Icon name="arrow-left" /> {ar ? "المكتبة" : "Library"}</>
           </Link>
-          <span className="hidden truncate text-body-sm text-text-secondary sm:block">
-            {ar ? book.title : book.titleEn}
-          </span>
+          {/* h1 wraps the span so globals.css's h1 rules (weight 800, Thmanyah
+              in RTL) don't restyle the title; sr-only below sm keeps it out
+              of the layout there while staying in the a11y tree. */}
+          <h1
+            lang={ar ? "ar" : undefined}
+            className="min-w-0 [font-weight:inherit] max-sm:sr-only"
+          >
+            <span className="block truncate text-body-sm text-text-secondary">
+              {ar ? book.title : book.titleEn}
+            </span>
+          </h1>
         </div>
 
         <button
@@ -60,8 +70,15 @@ export function ReaderView({ book }: { book: Book }) {
           onClick={() => setMenuOpen((v) => !v)}
           className="flex shrink-0 items-center gap-2 rounded-pill border border-border-subtle px-3 py-1.5 font-mono text-micro uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-border-strong"
           aria-expanded={menuOpen}
+          aria-controls="reader-chapters"
         >
-          <span className="max-w-[42vw] truncate sm:max-w-[28ch]" dir="rtl">
+          {/* lang="ar" would swap in the Arabic font and zero the tracking
+              (globals.css [lang="ar"]); inherit keeps the label as drawn. */}
+          <span
+            className="max-w-[42vw] truncate [font-family:inherit] [letter-spacing:inherit] sm:max-w-[28ch]"
+            dir="rtl"
+            lang="ar"
+          >
             {activeTitle}
           </span>
           <Icon name={menuOpen ? "x" : "menu"} />
@@ -69,7 +86,7 @@ export function ReaderView({ book }: { book: Book }) {
 
         {/* chapter index drawer */}
         {menuOpen && (
-          <div className="absolute inset-x-0 top-full z-overlay max-h-[70svh] overflow-y-auto border-b border-border-subtle bg-surface-0/98 px-4 py-5 backdrop-blur md:px-6">
+          <div id="reader-chapters" className="absolute inset-x-0 top-full z-overlay max-h-[70svh] overflow-y-auto border-b border-border-subtle bg-surface-0/98 px-4 py-5 backdrop-blur md:px-6">
             <div className="container-content grid grid-cols-1 gap-6 md:grid-cols-3">
               {book.journeys.map((j, ji) => (
                 <div key={j.en} className="flex flex-col gap-2">
@@ -83,6 +100,7 @@ export function ReaderView({ book }: { book: Book }) {
                           type="button"
                           onClick={() => goto(c.id)}
                           dir="rtl"
+                          lang="ar"
                           className={[
                             "w-full rounded-card px-2 py-1.5 text-start text-body-sm transition-colors duration-base ease-physics hover:bg-surface-2",
                             c.id === active ? "text-accent" : "text-text-secondary",
@@ -108,6 +126,27 @@ export function ReaderView({ book }: { book: Book }) {
         />
       </div>
 
+      {/* Indexable text for crawlers + screen readers (the book itself lives
+          in the iframe): same blurb and chapter titles the Library card and
+          the drawer show. sr-only, not display:none, so it stays readable. */}
+      <div className="sr-only">
+        <p>{ar ? book.blurb : book.blurbEn}</p>
+        <ul>
+          {book.journeys.map((j) => (
+            <li key={j.en}>
+              {ar ? j.ar : j.en}
+              <ul>
+                {j.chapters.map((c) => (
+                  <li key={c.id} dir="rtl" lang="ar">
+                    {c.title}
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {/* the isolated book bundle */}
       <iframe
         ref={iframeRef}
@@ -115,6 +154,6 @@ export function ReaderView({ book }: { book: Book }) {
         title={book.titleEn}
         className="min-h-0 w-full flex-1 border-0 bg-[#F2EFE6]"
       />
-    </div>
+    </main>
   );
 }

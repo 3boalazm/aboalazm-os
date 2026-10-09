@@ -1,4 +1,4 @@
-<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>أساسيات التصميم الجرافيكي</title><style>
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>أساسيات التصميم الجرافيكي</title><link rel="canonical" href="/books/basics-of-design"><style>
     .sc-placeholder{background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
       border-radius:2px;box-sizing:border-box;overflow:hidden}
     @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
@@ -1442,7 +1442,7 @@ b.prev.disabled=(n===0);b.next.disabled=(n===slides.length-1);
 b.count.textContent=(n+1)+' / '+slides.length;
 b.chap.textContent=cur.dataset.chtitle||cur.dataset.journey||'';
 b.prog.style.width=((n+1)/slides.length*100)+'%';
-parent.postMessage({type:'bk-progress',pct:(n+1)/slides.length,active:cur.dataset.ch,slide:n+1,total:slides.length},'*');}
+parent.postMessage({type:'bk-progress',pct:(n+1)/slides.length,active:cur.dataset.ch,slide:n+1,total:slides.length},location.origin);}
 function next(){show(i+1)}function prev(){show(i-1)}
 b.next.onclick=next;b.prev.onclick=prev;
 addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();next();}else if(e.key==='ArrowRight'||e.key==='ArrowUp'){e.preventDefault();prev();}});
@@ -1465,6 +1465,6 @@ addEventListener('touchend',e=>{
   const dx=e.changedTouches[0].clientX-sx;
   if(Math.abs(dx)>55){dx<0?next():prev();}
 },{passive:true});
-addEventListener('message',e=>{if(e.data&&e.data.type==='bk-goto'){const t=slides.findIndex(s=>s.dataset.ch===e.data.id);if(t>=0)show(t);}});
+addEventListener('message',e=>{if(e.source===parent&&e.data&&e.data.type==='bk-goto'){const t=slides.findIndex(s=>s.dataset.ch===e.data.id);if(t>=0)show(t);}});
 show(0);
 </script></body></html>
