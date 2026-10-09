@@ -22,6 +22,8 @@ import "./portfolio.css";
 
 const TOTAL = SLIDES.total;
 const SHEET_W = 1600;
+/** at/below this width the deck reflows into stacked cards (keep in sync with portfolio.css) */
+const MOBILE_MAX = 700;
 
 /* chapter accents, tuned for the dark slide surface (data keeps the
    brand-true original in `accent`; `accentBright` is the screen-safe
@@ -294,13 +296,19 @@ export function PortfolioView() {
   const { state, progress, label, start, cancel } = usePdfExport(pagesRef);
   const [zoom, setZoom] = useState<string>("");
   const [at, setAt] = useState(1);
+  const [narrow, setNarrow] = useState(false);
+  const exporting = state === "working" || state === "saving";
+  /* phones get the stacked card layout (CSS, ≤700px) — never while exporting */
+  const mobile = narrow && !exporting;
 
   /* fit-to-width on narrow screens (never while exporting) */
   useEffect(() => {
     const fit = () => {
       if (state === "working" || state === "saving") return;
       const w = document.documentElement.clientWidth;
-      setZoom(w < SHEET_W + 48 ? String(Math.max(0.2, (w - 24) / (SHEET_W + 16))) : "");
+      const phone = w <= MOBILE_MAX;
+      setNarrow(phone);
+      setZoom(phone ? "" : w < SHEET_W + 48 ? String(Math.max(0.2, (w - 24) / (SHEET_W + 16))) : "");
     };
     fit();
     window.addEventListener("resize", fit, { passive: true });
@@ -361,7 +369,7 @@ export function PortfolioView() {
   }, []);
 
   return (
-    <div id="folio">
+    <div id="folio" className={mobile ? "is-mobile" : undefined}>
       <div className="fol-progressline" aria-hidden><i id="folio-progress" /></div>
 
       <div className="fol-viewport" style={{ zoom }}>
