@@ -28,6 +28,7 @@ const FONT_AR = "Thmanyah Serif Display";
 
 let epicproData: ArrayBuffer | null = null;
 let thmanyahData: ArrayBuffer | null = null;
+let notoData: ArrayBuffer | null = null;
 
 async function loadFont(file: string): Promise<ArrayBuffer> {
   const buf = await readFile(path.join(process.cwd(), "public/fonts", file));
@@ -37,9 +38,12 @@ async function loadFont(file: string): Promise<ArrayBuffer> {
 export async function ogFonts() {
   epicproData ??= await loadFont("Gc_Epicpro.otf");
   thmanyahData ??= await loadFont("thmanyahserifdisplay-Bold.otf");
+  notoData ??= await loadFont("noto-sans-latin-400.ttf");
   return [
     { name: FONT_EN, data: epicproData, weight: 800 as const, style: "normal" as const },
     { name: FONT_AR, data: thmanyahData, weight: 700 as const, style: "normal" as const },
+    // sentence-case body face — the two display fonts are display-only (GC EPICPRO is all-caps)
+    { name: "Noto Sans", data: notoData, weight: 400 as const, style: "normal" as const },
   ];
 }
 
