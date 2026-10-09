@@ -391,9 +391,9 @@ export function PortfolioView() {
       <nav className="fol-toolbar" aria-label="Portfolio controls">
         <Link href="/" className="tb-back">← ABOALAZM OS</Link>
         <span className="tb-sep" aria-hidden />
-        <button className="tb-btn" onClick={() => jump("cover")}>COVER</button>
-        <button className="tb-btn" onClick={() => jump("ch-code-canvas")}>WORK</button>
-        <button className="tb-btn" onClick={() => jump("contact")}>CONTACT</button>
+        <button className="tb-btn tb-jump" onClick={() => jump("cover")}>COVER</button>
+        <button className="tb-btn tb-jump" onClick={() => jump("ch-code-canvas")}>WORK</button>
+        <button className="tb-btn tb-jump" onClick={() => jump("contact")}>CONTACT</button>
         <span className="tb-sep" aria-hidden />
         <span className="tb-count"><b>{String(at).padStart(2, "0")}</b> / {String(TOTAL).padStart(2, "0")}</span>
         <span className="tb-sep" aria-hidden />

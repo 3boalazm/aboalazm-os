@@ -75,7 +75,7 @@ export function Nav() {
     >
       <div
         className={[
-          "glass flex items-center gap-2 rounded-pill py-1 pl-3 pr-1 md:gap-3",
+          "glass flex items-center gap-1 rounded-pill py-1 pl-2 pr-1 sm:gap-2 sm:pl-3 md:gap-3",
           "transition-shadow duration-base ease-physics",
           scrolled || open ? "shadow-card" : "shadow-none",
         ].join(" ")}
@@ -94,7 +94,7 @@ export function Nav() {
               stop after the logo on every route. Declaring the attribute
               suppresses the injection and the tap animation still works. */}
           <motion.span
-            className="brand-orb h-7 w-7 md:h-8 md:w-8"
+            className="brand-orb h-6 w-6 shrink-0 sm:h-7 sm:w-7 md:h-8 md:w-8"
             tabIndex={-1}
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.97 }}
@@ -105,7 +105,7 @@ export function Nav() {
             <img
               src="/images/work/icon.png"
               alt={t.navLogoAlt}
-              className="brand-orb__img h-7 w-7 md:h-8 md:w-8"
+              className="brand-orb__img h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8"
             />
           </motion.span>
           <span
@@ -117,7 +117,7 @@ export function Nav() {
         </Link>
 
         {/* Desktop links */}
-        <ul className="hidden items-center gap-2 md:flex">
+        <ul className="hidden items-center gap-2 lg:flex">
           {LINKS.map((link) => {
             const active = pathname.startsWith(link.href);
             return (
@@ -153,7 +153,7 @@ export function Nav() {
           type="button"
           onClick={toggle}
           aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-          className="rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+          className="shrink-0 rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
         >
           {lang === "ar" ? (
             "EN"
@@ -169,7 +169,7 @@ export function Nav() {
           type="button"
           onClick={toggleTheme}
           aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          className="grid size-7 place-items-center rounded-pill border border-border-subtle font-mono text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+          className="grid size-6 shrink-0 place-items-center rounded-pill border border-border-subtle max-[359px]:hidden sm:size-7 font-mono text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
         >
           <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
         </button>
@@ -178,7 +178,7 @@ export function Nav() {
           href="/contact"
           className={buttonVariants({
             className:
-              "group whitespace-nowrap px-2 py-1 font-display text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
+              "group shrink-0 whitespace-nowrap px-2 py-1 font-display text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
           {lang === "ar" ? "تواصل" : "CONTACT"}
@@ -197,7 +197,7 @@ export function Nav() {
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
-          className="grid size-8 place-items-center rounded-pill font-mono text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary md:hidden"
+          className="grid size-6 shrink-0 place-items-center rounded-pill font-mono sm:size-8 text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary lg:hidden"
         >
           <Icon name={open ? "x" : "menu"} size={16} />
         </button>
@@ -212,7 +212,7 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8, transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] } }}
             transition={physics}
-            className="glass mt-1 flex max-h-[calc(100svh-5.5rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card md:hidden"
+            className="glass mt-1 flex max-h-[calc(100svh-5.5rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card lg:hidden"
           >
             {[...LINKS, ...MORE].map((link, i) => {
               const active = pathname.startsWith(link.href);
@@ -250,6 +250,20 @@ export function Nav() {
                 </motion.li>
               );
             })}
+            {/* The bar hides its theme toggle below 360px (no room), so the
+                panel carries it there. */}
+            <li className="hidden border-t border-border-subtle pt-1 max-[359px]:block">
+              <button
+                type="button"
+                onClick={toggleTheme}
+                className="flex w-full items-center gap-1.5 rounded-card px-2 py-2 font-display text-micro uppercase tracking-[0.08em] text-text-secondary transition-colors duration-base ease-physics hover:bg-surface-2 hover:text-text-primary"
+              >
+                <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
+                {theme === "dark"
+                  ? lang === "ar" ? "الوضع الفاتح" : "LIGHT MODE"
+                  : lang === "ar" ? "الوضع الداكن" : "DARK MODE"}
+              </button>
+            </li>
           </motion.ul>
         )}
       </AnimatePresence>

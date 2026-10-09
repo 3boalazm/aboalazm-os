@@ -297,6 +297,15 @@
 .fol-toolbar .tb-btn:hover { border-color:rgba(242,236,223,0.55); }
 .fol-toolbar .tb-btn--acc { background:var(--red); border-color:var(--red); color:#16110a; font-weight:700; }
 .fol-toolbar .tb-btn--acc:hover { background:var(--red-deep); }
+
+/* phones: keep the fixed toolbar inside the viewport and simplify controls */
+@media (max-width:640px) {
+  .fol-toolbar { left:12px; right:12px; bottom:12px; flex-wrap:wrap; justify-content:center; gap:6px 8px; border-radius:22px; padding:8px 10px; }
+  .fol-toolbar .tb-sep { display:none; }
+  .fol-toolbar .tb-jump { display:none; }
+  .fol-toolbar .tb-btn { padding:8px 14px; white-space:nowrap; }
+  .fol-toolbar .tb-back { padding:6px 10px; white-space:nowrap; }
+}
 .fol-toolbar .tb-btn:disabled { opacity:0.55; cursor:wait; }
 .fol-toolbar > * { white-space:nowrap; flex:0 0 auto; }
 
