@@ -24,6 +24,7 @@ import { useLang } from "@/components/providers/lang-provider";
  * HTML instead of waiting on hydration.
  */
 import Link from "next/link";
+import { preload } from "react-dom";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
@@ -43,6 +44,10 @@ import "./hero.css";
 const ITALIC_LINE = 1;
 
 export function Hero() {
+  /* The headline is now painted in the first frame (no opacity:0 wait), so the
+     display face must be in before it, otherwise the late swap reflows the
+     headline and shifts the constellation (desktop CLS 0.06 -> 0.12). */
+  preload("/fonts/Gc_Epicpro.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   /* Home rests warm: faint coral glow — color presence without paint */
   useAmbientGlow(STUDIO_CORAL, 0.5);
   const t = useT();

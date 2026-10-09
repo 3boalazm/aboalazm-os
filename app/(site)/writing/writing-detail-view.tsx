@@ -81,7 +81,7 @@ function SideNav({ sections }: { sections: ArticleSection[] }) {
           onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })}
           title={s.text}
           className={`group flex items-center gap-2 font-mono text-micro tracking-[0.1em] transition-colors duration-base ${
-            active === s.id ? "text-accent" : "text-text-ghost hover:text-text-tertiary"
+            active === s.id ? "text-accent" : "text-text-ghost hover:text-text-secondary"
           }`}
         >
           <span

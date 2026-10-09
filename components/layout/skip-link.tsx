@@ -7,8 +7,10 @@
  * It lives in the nav, so it can't count on any page's markup: pages don't
  * give <main> an id, and the book reader has no <main> at all. After mount
  * and on every route change it looks up the first <main>, stamps id="main"
- * and tabindex="-1" on it (so the hash target resolves and the element can
- * take focus without joining the Tab order), and only then renders. No
+ * on it (so the hash target resolves), and only then renders. tabindex="-1"
+ * and the outline reset are added only on activation: a permanently
+ * focusable <main> would pick up the global focus ring when Next focuses the
+ * page segment (same-page link + Enter) or after a click inside it. No
  * <main>, no link: a skip control with nothing to skip to would be a dead
  * stop. Activation focuses first so the next Tab continues inside the page;
  * Lenis only hijacks wheel/touch, a programmatic scroll is safe.
@@ -30,12 +32,12 @@ const LABELS: Record<Lang, string | null> = {
   ar: null,
 };
 
-/* The first <main> landmark, made a valid in-page focus target. */
-function claimMain(): HTMLElement | null {
+/* The first <main> landmark; `focusable` also makes it a valid focus target. */
+function claimMain(focusable = false): HTMLElement | null {
   const main = document.querySelector<HTMLElement>("main");
   if (!main) return null;
   if (!main.id) main.id = "main";
-  if (!main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
+  if (focusable && !main.hasAttribute("tabindex")) main.setAttribute("tabindex", "-1");
   return main;
 }
 
@@ -51,7 +53,7 @@ export function SkipLink() {
 
   const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const main = claimMain();
+    const main = claimMain(true);
     if (!main) {
       setTargetId(null);
       return;
