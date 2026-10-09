@@ -164,15 +164,22 @@ function LedgerRow({
      in a new tab — the project's externalUrl if set (e.g. a live dev
      site), otherwise the Behance portfolio (design default). */
   const internal = project.hasCaseStudy;
-  const href = internal ? `/case-studies/${project.slug}` : (project.externalUrl ?? BEHANCE);
-  /* Destination type, stated before the click. The desktop column spells
-     it out; mobile gets the same word inline since it has no Action
-     column and otherwise showed only an arrow. */
+  const href = internal
+    ? `/case-studies/${project.slug}`
+    : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
+  /* Match the label to the actual URL, including local live showcases
+     that have no externalUrl. */
   const destination = internal
     ? ar ? "دراسة حالة" : "Case Study"
-    : project.externalUrl
+    : project.liveUrl
       ? ar ? "منتج حي" : "Live Product"
-      : ar ? "بورتفوليو خارجي" : "External Portfolio";
+      : project.externalUrl === BEHANCE
+        ? ar ? "بورتفوليو خارجي" : "External Portfolio"
+        : project.externalUrl && project.category === "development"
+          ? ar ? "منتج حي" : "Live Product"
+          : project.externalUrl
+            ? ar ? "رابط خارجي" : "External Link"
+            : ar ? "بورتفوليو خارجي" : "External Portfolio";
 
   return (
     <motion.li variants={reveal.item}>
