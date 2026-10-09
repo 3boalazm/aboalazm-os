@@ -1,0 +1,58 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   HERO FIRST-PAINT ENTRANCES
+   ───────────────────────────────────────────────────────────────────────
+   The hero used to hide its headline, lead, CTAs and constellation in the
+   server HTML (opacity:0 / blur / translateY(110%) inline styles) and only
+   reveal them after hydration, which pushed the mobile LCP node (the lead
+   paragraph) to ~2.1-2.5 s while FCP was ~0.7 s. These entrances are
+   CSS-only and transform-only: the text is painted visible in the very
+   first frame (no opacity:0, no filter blur), JS or no JS, and the motion
+   is a slide into place on the same house physics (--ease-entrance,
+   --duration-cinematic, --ease-physics from globals.css).
+
+   `backwards` fill (not `both`): the "from" pose applies during the
+   delay, and once finished the element simply returns to its natural
+   style, which equals the "to" pose, so no transform / stacking context
+   lingers after the entrance.
+
+   Shared with app/(site)/writing/writing-detail-view.tsx (post header).
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Headline — clip-path rise inside the overflow-hidden line wrapper.
+   Same choreography as `heroLine` in lib/motion.ts: delay 0.1s + i*0.12s. */
+@keyframes hero-line-rise {
+  from { transform: translateY(110%) rotate(1.5deg); }
+  to   { transform: none; }
+}
+.hero-line {
+  animation: hero-line-rise var(--duration-cinematic) var(--ease-entrance) backwards;
+  animation-delay: calc(0.1s + var(--i, 0) * 0.12s);
+}
+
+/* Lead, CTA row, secondary links, metric cards — transform-only rise.
+   Same stagger as `reveal.container` (0.12s base, 0.09s step), minus the
+   opacity and blur. --rise-y / --rise-duration / --rise-delay let a caller
+   tune a single element (status row drops in, post header is shorter). */
+@keyframes hero-rise {
+  from { transform: translateY(var(--rise-y, 16px)); }
+  to   { transform: none; }
+}
+.hero-rise {
+  animation: hero-rise var(--rise-duration, var(--duration-slow)) var(--ease-physics) backwards;
+  animation-delay: var(--rise-delay, calc(0.12s + var(--i, 0) * 0.09s));
+}
+
+/* Constellation wrapper — settles from a hair under full size. */
+@keyframes hero-settle {
+  from { transform: scale(0.97); }
+  to   { transform: none; }
+}
+.hero-settle {
+  animation: hero-settle var(--duration-cinematic) var(--ease-entrance) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line,
+  .hero-rise,
+  .hero-settle { animation: none; }
+}

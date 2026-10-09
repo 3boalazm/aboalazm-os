@@ -5,9 +5,11 @@
  * shows a key figure; numeric parts count up from 0 when the row
  * enters the viewport. Non-numeric values ("1:5", "20–30%") render
  * statically — no fake motion on figures that aren't single numbers.
+ * The server HTML and reduced-motion users always get the real figure;
+ * the count-up is a client-only enhancement, never a placeholder "0".
  */
 import { useEffect, useRef, useState } from "react";
-import { animate, useInView } from "framer-motion";
+import { animate, useInView, useReducedMotion } from "framer-motion";
 
 type StatItem = { value: string; label: string };
 
@@ -23,11 +25,18 @@ function parseCountable(value: string): { prefix: string; n: number; suffix: str
 function StatValue({ value }: { value: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduceMotion = useReducedMotion();
   const countable = parseCountable(value);
-  const [display, setDisplay] = useState(countable ? `${countable.prefix}0${countable.suffix}` : value);
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
     if (!inView || !countable) return;
+    if (reduceMotion) {
+      setDisplay(value);
+      return;
+    }
+    // Reset to zero only now, right before counting up, so SSR keeps the real figure.
+    setDisplay(`${countable.prefix}0${countable.suffix}`);
     const controls = animate(0, countable.n, {
       duration: 1.4,
       ease: [0.16, 1, 0.3, 1],
@@ -36,7 +45,7 @@ function StatValue({ value }: { value: string }) {
     });
     return () => controls.stop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inView]);
+  }, [inView, reduceMotion]);
 
   return (
     <span ref={ref} className="font-display text-4xl font-extrabold leading-none text-accent md:text-5xl" dir="ltr">
