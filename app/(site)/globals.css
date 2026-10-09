@@ -75,7 +75,9 @@
   --color-text-primary:   rgb(248 248 250 / 1);
   --color-text-secondary: rgb(248 248 250 / 0.68);
   --color-text-tertiary:  rgb(248 248 250 / 0.48);
-  --color-text-ghost:     rgb(248 248 250 / 0.32);
+  /* Ghost sits on tertiary's alpha: 0.32 measured 2.67:1 on Obsidian
+     (axe failure on every page); 0.48 holds 4.75:1 (AA). */
+  --color-text-ghost:     rgb(248 248 250 / 0.48);
 
   /* Light-mode counterparts (Alabaster canvas) */
   --color-ink-primary:   rgb(8 7 16 / 0.96);
