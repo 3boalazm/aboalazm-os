@@ -66,7 +66,10 @@
   font-family:var(--f-sans);
   -webkit-font-smoothing:antialiased;
 }
-#folio *, #folio *::before, #folio *::after { box-sizing:border-box; margin:0; padding:0; }
+/* :where() keeps this reset at zero specificity. As a bare `#folio *` it was
+   (1,0,0) and beat every class rule below (.fol-pages, .fol-toolbar,
+   .tb-btn … ~65 padding/margin declarations), collapsing the whole deck. */
+:where(#folio) *, :where(#folio) *::before, :where(#folio) *::after { box-sizing:border-box; margin:0; padding:0; }
 #folio img { display:block; max-width:100%; }
 #folio button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
 #folio a { color:inherit; text-decoration:none; }
@@ -295,6 +298,14 @@
 .fol-toolbar .tb-btn--acc { background:var(--red); border-color:var(--red); color:#16110a; font-weight:700; }
 .fol-toolbar .tb-btn--acc:hover { background:var(--red-deep); }
 .fol-toolbar .tb-btn:disabled { opacity:0.55; cursor:wait; }
+/* phones: the fixed pill was 447px wide with no wrap and ran off the left edge */
+@media (max-width:640px) {
+  .fol-toolbar { left:12px; right:12px; bottom:12px; flex-wrap:wrap; justify-content:center; gap:6px 8px; border-radius:22px; padding:8px 10px; }
+  .fol-toolbar .tb-sep { display:none; }
+  .fol-toolbar .tb-jump { display:none; } /* COVER / WORK / CONTACT: the deck is a short scroll on phones */
+  .fol-toolbar .tb-btn { padding:8px 14px; white-space:nowrap; }
+  .fol-toolbar .tb-back { padding:6px 10px; white-space:nowrap; }
+}
 
 .fol-progress { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; background:rgba(9,7,4,0.85); }
 .fol-progress .fp-card { width:440px; background:var(--panel); border:1px solid var(--line-soft); border-radius:18px; padding:30px; font-family:var(--f-mono); text-align:center; color:var(--ivory); }
