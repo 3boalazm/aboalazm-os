@@ -1,10 +1,17 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ScrollyCaseStudy, CaseGallery } from "@/features/case-studies";
-import { getCaseStudy, getCaseStudyGallery, getAllCaseStudySlugs } from "@/lib/content";
+import {
+  getCaseStudy as fetchCaseStudy,
+  getCaseStudyGallery,
+  getAllCaseStudySlugs,
+} from "@/lib/content";
 
 export const revalidate = 60;
 
+// Shared by generateMetadata and the page so a lookup costs one DB hit.
+const getCaseStudy = cache(fetchCaseStudy);
 
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
@@ -18,7 +25,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const record = await getCaseStudy(slug);
-  if (!record) return {};
+  // Throw here too: the Suspense boundary can flush a 200 before the page
+  // body calls notFound(), so metadata is what makes the status a real 404.
+  if (!record) notFound();
   return {
     title: `${record.name} — Case File`,
     description: record.problem.slice(0, 155),

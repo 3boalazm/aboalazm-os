@@ -33,6 +33,16 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
+  // lib/og.tsx reads the display fonts with readFile(process.cwd()/public/fonts/<var>)
+  // at request time. The file name is a variable so the tracer can't see it,
+  // and the dynamic per-slug share cards (writing / case-studies / books) ran
+  // in a serverless function without the fonts → HTTP 500. Force-include them.
+  outputFileTracingIncludes: {
+    "/**/opengraph-image*": [
+      "./public/fonts/Gc_Epicpro.otf",
+      "./public/fonts/thmanyahserifdisplay-Bold.otf",
+    ],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
@@ -47,6 +57,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],
   },
   experimental: {
+    // Own the document for unmatched URLs — see app/global-not-found.tsx.
+    globalNotFound: true,
     optimizePackageImports: ["framer-motion", "lucide-react"],
   },
 };

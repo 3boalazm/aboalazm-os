@@ -12,7 +12,7 @@
  * No external deps beyond what's already in the bundle.
  *
  * Shared between app/(site)/not-found.tsx (matched routes inside the
- * (site) route group) and the top-level app/not-found.tsx (unmatched
+ * (site) route group) and the top-level app/global-not-found.tsx (unmatched
  * URLs outside any route group) — see both files for how each wraps
  * this component with the providers it needs.
  */
