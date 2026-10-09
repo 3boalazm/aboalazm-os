@@ -75,7 +75,9 @@ export const reveal = {
   } satisfies Variants,
 };
 
-/** Hero headline — clip-path rise, the signature first impression. */
+/** Hero headline — clip-path rise, the signature first impression.
+    The home hero now runs this choreography as CSS (features/hero/hero.css)
+    so it paints before hydration; keep the two in step. */
 export const heroLine: Variants = {
   hidden: { y: "110%", rotate: 1.5 },
   visible: (i: number = 0) => ({
@@ -100,7 +102,7 @@ export const hoverLift = {
 
 /* ── GSAP defaults ─────────────────────────────────────────────── */
 /**
- * Call once in the SmoothScroll provider after registering plugins:
+ * Applied once at module scope in the SmoothScroll provider:
  *
  *   import gsap from "gsap";
  *   gsap.defaults(GSAP_DEFAULTS);

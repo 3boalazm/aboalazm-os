@@ -215,7 +215,8 @@ export function WritingDetailView({
                 {
                   "--rise-y": "28px",
                   "--rise-duration": "0.5s",
-                  "--rise-delay": `${(0.08 + i * 0.05).toFixed(2)}s`,
+                  // Stagger capped at 0.4s so a long title's last words aren't left displaced
+                  "--rise-delay": `${(0.08 + Math.min(i * 0.05, 0.4)).toFixed(2)}s`,
                 } as CSSProperties
               }
             >

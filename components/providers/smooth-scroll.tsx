@@ -41,8 +41,11 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     let tick: ((time: number) => void) | null = null;
 
     const start = async () => {
-      const { default: LenisCtor } = await import("lenis");
-      if (cancelled) return;
+      // Smoothing is an enhancement: if the chunk fails to load (offline,
+      // deploy skew) the page just keeps native scrolling.
+      const lenisModule = await import("lenis").catch(() => null);
+      if (!lenisModule || cancelled) return;
+      const LenisCtor = lenisModule.default;
 
       const lenis = new LenisCtor({
         // The same settle character as --ease-physics, expressed as lerp
@@ -56,17 +59,18 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
       tick = (time: number) => lenis.raf(time * 1000);
       gsap.ticker.add(tick);
+      // Only while Lenis runs; touch / reduced-motion visitors keep GSAP's default.
       gsap.ticker.lagSmoothing(0);
     };
 
-    const useIdle = typeof window.requestIdleCallback === "function";
-    const handle = useIdle
+    const hasIdleCallback = typeof window.requestIdleCallback === "function";
+    const handle = hasIdleCallback
       ? window.requestIdleCallback(() => void start(), { timeout: 2000 })
       : window.setTimeout(() => void start(), 200);
 
     return () => {
       cancelled = true;
-      if (useIdle) window.cancelIdleCallback(handle);
+      if (hasIdleCallback) window.cancelIdleCallback(handle);
       else window.clearTimeout(handle);
       if (tick) gsap.ticker.remove(tick);
       tick = null;
