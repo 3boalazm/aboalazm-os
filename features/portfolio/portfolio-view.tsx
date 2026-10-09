@@ -53,14 +53,20 @@ function Sheet({
   );
 }
 
-function Frame({ img, cap, no, pos, className, style }: {
+function Frame({ img, cap, no, pos, fit, bg, className, style }: {
   img: string; cap: string; no?: string; pos?: string;
+  fit?: "contain"; bg?: string;
   className?: string; style?: React.CSSProperties;
 }) {
   return (
     <div
-      className={`fol-frame${className ? ` ${className}` : ""}`}
-      style={{ backgroundImage: `url("${img}")`, ...(pos ? { backgroundPosition: pos } : null), ...style }}
+      className={`fol-frame${fit ? " fol-frame--contain" : ""}${className ? ` ${className}` : ""}`}
+      style={{
+        backgroundImage: `url("${img}")`,
+        ...(pos ? { backgroundPosition: pos } : null),
+        ...(bg ? { backgroundColor: bg } : null),
+        ...style,
+      }}
       role="img"
       aria-label={cap}
     >
@@ -205,7 +211,7 @@ function ChapterSlide({ p }: { p: Project }) {
             <div className="a">{p.outcomeAr}</div>
           </div>
         </div>
-        <Frame img={p.hero.img} cap={p.hero.cap} no={p.no} pos={p.hero.pos} className="fol-ch-hero" />
+        <Frame img={p.hero.img} cap={p.hero.cap} no={p.no} pos={p.hero.pos} fit={p.hero.fit} bg={p.hero.bg} className="fol-ch-hero" />
       </div>
     </Sheet>
   );
@@ -221,7 +227,7 @@ function FramesSlide({ p }: { p: Project }) {
       </div>
       <div className="fol-fr-grid">
         {p.frames.map((f, i) => (
-          <Frame key={f.img} img={f.img} cap={f.cap} pos={f.pos} no={`${p.no}.${i + 1}`} />
+          <Frame key={f.img} img={f.img} cap={f.cap} pos={f.pos} fit={f.fit} bg={f.bg} no={`${p.no}.${i + 1}`} />
         ))}
       </div>
       <div className="fol-fr-foot">
@@ -383,7 +389,7 @@ export function PortfolioView() {
         <span className="tb-sep" aria-hidden />
         <span className="tb-count"><b>{String(at).padStart(2, "0")}</b> / {String(TOTAL).padStart(2, "0")}</span>
         <span className="tb-sep" aria-hidden />
-        <button className="tb-btn" onClick={() => window.print()}>PRINT · طباعة</button>
+        <button className="tb-btn tb-print" onClick={() => window.print()}>PRINT · طباعة</button>
         <button className="tb-btn tb-btn--acc" onClick={start} disabled={state === "working" || state === "saving"}>
           {state === "working" || state === "saving" ? "RENDERING…" : "↓ PDF · تحميل"}
         </button>

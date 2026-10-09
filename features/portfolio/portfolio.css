@@ -66,7 +66,9 @@
   font-family:var(--f-sans);
   -webkit-font-smoothing:antialiased;
 }
-#folio *, #folio *::before, #folio *::after { box-sizing:border-box; margin:0; padding:0; }
+/* :where() keeps the reset at zero specificity — a plain `#folio *` (1,0,0)
+   outranks every `.fol-*` class and silently zeroed all slide margins/padding */
+:where(#folio) *, :where(#folio) *::before, :where(#folio) *::after { box-sizing:border-box; margin:0; padding:0; }
 #folio img { display:block; max-width:100%; }
 #folio button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
 #folio a { color:inherit; text-decoration:none; }
@@ -139,6 +141,7 @@
   background-color:var(--frame-bg); background-size:cover; background-position:center;
   outline:1px solid var(--line);
 }
+.fol-frame--contain { background-size:contain; background-repeat:no-repeat; }
 .fol-frame .cap {
   position:absolute; left:16px; bottom:16px; z-index:2;
   font-family:var(--f-mono); font-size:12px; font-weight:500;
@@ -295,6 +298,19 @@
 .fol-toolbar .tb-btn--acc { background:var(--red); border-color:var(--red); color:#16110a; font-weight:700; }
 .fol-toolbar .tb-btn--acc:hover { background:var(--red-deep); }
 .fol-toolbar .tb-btn:disabled { opacity:0.55; cursor:wait; }
+.fol-toolbar > * { white-space:nowrap; flex:0 0 auto; }
+
+/* narrow screens: a compact single-row pill (the deck itself is zoomed to fit) */
+@media (max-width:900px) {
+  .fol-toolbar { right:50%; transform:translateX(50%); bottom:12px; max-width:calc(100vw - 16px); gap:2px; padding:5px 6px; }
+  .fol-toolbar .tb-back { padding:6px 8px; font-size:11px; }
+  .fol-toolbar .tb-btn { font-size:11px; padding:7px 10px; letter-spacing:0.04em; }
+  .fol-toolbar .tb-count { font-size:11px; padding:0 4px; }
+  .fol-toolbar .tb-sep, .fol-toolbar .tb-print { display:none; }
+}
+@media (max-width:520px) {
+  .fol-toolbar .tb-back { display:none; }
+}
 
 .fol-progress { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; background:rgba(9,7,4,0.85); }
 .fol-progress .fp-card { width:440px; background:var(--panel); border:1px solid var(--line-soft); border-radius:18px; padding:30px; font-family:var(--f-mono); text-align:center; color:var(--ivory); }
