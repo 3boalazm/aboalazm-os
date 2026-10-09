@@ -422,6 +422,15 @@ export function ProcessView() {
 
             {phases.map((phase, i) => {
               const isOpen = open === phase.n;
+              const chevron = (className: string) => (
+                <span className={[
+                  "inline-flex shrink-0 font-mono text-caption text-text-ghost transition-transform duration-base ease-physics",
+                  isOpen ? "rotate-90 text-accent" : "group-hover:text-text-tertiary",
+                  className,
+                ].join(" ")} aria-hidden>
+                  <Icon name="chevron-right" />
+                </span>
+              );
               return (
                 <motion.div
                   key={phase.n}
@@ -433,10 +442,10 @@ export function ProcessView() {
                 >
                   <button
                     onClick={() => setOpen(isOpen ? null : phase.n)}
-                    className="group flex w-full flex-wrap items-start gap-x-1.5 py-5 text-start sm:flex-nowrap sm:gap-x-4"
+                    className="group flex w-full items-start gap-x-1.5 py-5 text-start sm:gap-x-4"
                     aria-expanded={isOpen}
                   >
-                    {/* node */}
+                    {/* node — 11 spacing units wide; the spine offset above is half of that */}
                     <span className={[
                       "relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full border bg-surface-0 transition-colors duration-base ease-physics",
                       isOpen ? "border-accent" : "border-border-default group-hover:border-text-ghost",
@@ -446,10 +455,15 @@ export function ProcessView() {
                       </span>
                     </span>
 
-                    <span className="flex flex-1 flex-col gap-1 pt-1">
-                      <span className="flex flex-wrap items-baseline gap-3">
-                        <span className="font-display text-subtitle tracking-[-0.015em] text-text-primary">{phase.name}</span>
+                    <span className="flex min-w-0 flex-1 flex-col gap-1 pt-1">
+                      {/* Below sm the node leaves no room for a third column ("Discovery"
+                          alone is wider than what is left), so the title block becomes a
+                          2-column grid: name on top, then days with the chevron at the end
+                          of that line — the same place for every phase and width. */}
+                      <span className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3 sm:flex sm:flex-wrap">
+                        <span className="font-display text-subtitle tracking-[-0.015em] text-text-primary max-sm:col-span-2">{phase.name}</span>
                         <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{phase.days}</span>
+                        {chevron("sm:hidden")}
                       </span>
                       <span className="max-w-[54ch] text-body-sm leading-[1.6] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                         {phase.summary}
@@ -457,12 +471,7 @@ export function ProcessView() {
                     </span>
 
                     {/* chevron */}
-                    <span className={[
-                      "ms-auto mt-2 inline-flex shrink-0 font-mono text-caption text-text-ghost transition-transform duration-base ease-physics",
-                      isOpen ? "rotate-90 text-accent" : "group-hover:text-text-tertiary",
-                    ].join(" ")} aria-hidden>
-                      <Icon name="chevron-right" />
-                    </span>
+                    {chevron("mt-2 max-sm:hidden")}
                   </button>
 
                   {/* expanded body */}
@@ -475,7 +484,7 @@ export function ProcessView() {
                         transition={{ ...physics }}
                         className="overflow-hidden"
                       >
-                        <div className="ms-[3.75rem] mb-6 grid gap-5 rounded-panel border border-border-subtle bg-surface-1 p-5 md:grid-cols-2">
+                        <div className="ms-[3.75rem] mb-6 grid gap-5 rounded-panel border border-border-subtle bg-surface-1 p-5 max-sm:ms-0 max-sm:p-3 md:grid-cols-2">
                           {/* tasks */}
                           <div className="flex flex-col gap-2.5">
                             <p className="font-mono text-caption uppercase tracking-[0.1em] text-accent">{c.tasksLabel}</p>
@@ -503,7 +512,7 @@ export function ProcessView() {
                           </div>
 
                           {/* gate — full width */}
-                          <div className="md:col-span-2 flex flex-col gap-2 rounded-card border border-accent/20 bg-accent/[0.04] p-4">
+                          <div className="md:col-span-2 flex flex-col gap-2 rounded-card border border-accent/20 bg-accent/[0.04] p-4 max-sm:p-2">
                             <p className="font-mono text-caption uppercase tracking-[0.1em] text-accent">{c.gateLabel}</p>
                             <p className="text-label leading-[1.6] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>{phase.gate}</p>
                             {phase.payment && (

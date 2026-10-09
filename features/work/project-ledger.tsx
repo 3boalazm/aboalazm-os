@@ -161,6 +161,7 @@ function LedgerRow({
   ar = false,
   compact = false,
 }: LedgerRowProps) {
+  const t = useT();
   const grid = compact ? GRID_COMPACT : GRID_FULL;
   /* No-404 rule: rows without a written case file open a fallback link
      in a new tab — the project's externalUrl if set (e.g. a live dev
@@ -207,11 +208,14 @@ function LedgerRow({
           {String(index + 1).padStart(2, "0")}
         </span>
 
-        {/* Project name — serif, slides 8px on the physics curve */}
-        <span className="overflow-hidden">
+        {/* Project name — serif, slides 8px on the physics curve. No overflow
+            clip on the cell: a grid item that clips has a 0 minimum width, so
+            the 1.5fr/1.6fr track could shrink below the longest word
+            ("Collective") and cut it. pe-1 keeps the 8px slide inside the cell. */}
+        <span className="break-words">
           <span
             className={[
-              "block font-display max-sm:pe-1 text-title leading-[1.15] tracking-[-0.015em] text-text-primary",
+              "block font-display pe-1 text-title leading-[1.15] tracking-[-0.015em] text-text-primary",
               "transition-transform duration-base ease-physics",
               isActive ? "translate-x-1 rtl:-translate-x-1" : "translate-x-0",
             ].join(" ")}
@@ -255,8 +259,12 @@ function LedgerRow({
           </span>
         )}
 
-        {/* Strategic outcome */}
-        <span className="col-start-2 flex items-center gap-1.5 font-mono text-label text-text-secondary sm:col-auto">
+        {/* Strategic outcome — below sm the column header is hidden, so the
+            line carries its own (already translated) "Outcome" label. */}
+        <span className="col-start-2 flex items-baseline gap-1.5 font-mono text-label text-text-secondary sm:col-auto">
+          <span className="shrink-0 font-mono text-micro uppercase tracking-[0.10em] sm:hidden">
+            {t.workOutcome}
+          </span>
           {ar && project.outcomeAr ? project.outcomeAr : project.outcome}
         </span>
 
