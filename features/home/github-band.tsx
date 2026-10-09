@@ -114,7 +114,7 @@ export function GithubBand() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ ...physics, delay: 0.1 }}
-          className="relative overflow-hidden rounded-panel border border-border-subtle bg-obsidian shadow-card"
+          className="relative overflow-hidden rounded-panel border border-border-subtle bg-surface-1 shadow-card"
           dir="ltr"
         >
           {/* terminal chrome */}

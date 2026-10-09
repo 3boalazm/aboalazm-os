@@ -30,19 +30,24 @@ const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("dark");
+  const [restored, setRestored] = useState(false);
 
   /* Restore persisted choice */
   useEffect(() => {
     const saved = window.localStorage.getItem("theme");
     if (saved === "light" || saved === "dark") setTheme(saved);
+    setRestored(true);
   }, []);
 
-  /* Apply to the document */
+  /* Apply to the document — only after the restore above, otherwise the
+     initial "dark" state would overwrite the data-theme the anti-flash
+     script set (and the saved choice) for a frame on every light-theme load. */
   useEffect(() => {
+    if (!restored) return;
     document.documentElement.setAttribute("data-theme", theme);
     document.documentElement.style.colorScheme = theme;
     window.localStorage.setItem("theme", theme);
-  }, [theme]);
+  }, [theme, restored]);
 
   const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
