@@ -199,22 +199,22 @@
 
 /* ── 03 · PROFILE ────────────────────────────────────────────────────── */
 .fol-prof { display:flex; flex-direction:column; height:100%; min-height:0; }
-.fol-prof-state { font-size:84px; line-height:1.04; margin-top:24px; }
+.fol-prof-state { font-size:72px; line-height:1.04; margin-top:24px; }
 .fol-prof-state .hot { color:var(--red); }
 .fol-prof-ar { font-size:30px; margin-top:14px; }
-.fol-prof-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:64px; margin-top:30px; flex:1; min-height:0; }
+.fol-prof-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:64px; margin-top:24px; flex:1; min-height:0; }
 .fol-prof-left { display:flex; flex-direction:column; min-height:0; }
 .fol-prof-p { font-size:20px; line-height:1.7; color:var(--ink-70); margin-top:2px; max-width:54ch; font-weight:500; }
 .fol-prof-chips { margin-top:26px; }
 .fol-prof-side { border-left:1px solid var(--line-soft); padding-left:52px; display:flex; flex-direction:column; min-height:0; height:100%; }
 .fol-prof-side .fol-micro { padding-bottom:14px; }
 .fol-stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:0 32px; }
-.fol-stat { padding:18px 0 16px; border-bottom:1px solid var(--line-soft); }
-.fol-stat .n { font-family:var(--f-disp); font-weight:900; font-size:56px; line-height:1; letter-spacing:-0.02em; color:var(--ivory); }
+.fol-stat { padding:14px 0 12px; border-bottom:1px solid var(--line-soft); }
+.fol-stat .n { font-family:var(--f-disp); font-weight:900; font-size:48px; line-height:1; letter-spacing:-0.02em; color:var(--ivory); }
 .fol-stat .n .suf { font-size:0.45em; color:var(--red); }
 .fol-stat .l { font-size:17px; font-weight:700; color:var(--ivory); margin-top:10px; line-height:1.3; }
 .fol-stat .c { font-family:var(--f-mono); font-size:12px; letter-spacing:0.12em; color:var(--ink-35); text-transform:uppercase; margin-top:5px; }
-.fol-prof-who { display:flex; align-items:center; gap:18px; margin-top:auto; padding-top:22px; border-top:2px solid var(--ivory); }
+.fol-prof-who { display:flex; align-items:center; gap:18px; margin-top:auto; padding-top:18px; border-top:2px solid var(--ivory); }
 .fol-prof-who .nm { font-family:var(--f-disp); font-weight:900; font-size:26px; line-height:1; }
 
 /* ── CHAPTER DIVIDER ─────────────────────────────────────────────────── */
