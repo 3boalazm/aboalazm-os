@@ -15,9 +15,11 @@ export const ResourceLeads: CollectionConfig = {
     listSearchableFields: ["email", "resource"],
   },
   access: {
-    // Public site can create a lead (the gate itself), but only the
-    // admin can read/list/export the captured list.
-    create: () => true,
+    // Leads are created only by app/api/resources (Payload local API, which
+    // skips access control) — that route owns the rate limit + email
+    // validation. Leaving REST/GraphQL create open let anyone POST straight
+    // to /api/resource-leads and bypass both, so only admins may use it.
+    create: ({ req }) => Boolean(req.user),
     read: ({ req }) => Boolean(req.user),
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => Boolean(req.user),

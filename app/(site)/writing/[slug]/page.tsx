@@ -1,9 +1,13 @@
+import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPost, getAllPostSlugs, getPosts } from "@/lib/content";
+import { getPost as fetchPost, getAllPostSlugs, getPosts } from "@/lib/content";
 import { WritingDetailView } from "../writing-detail-view";
 
 export const revalidate = 60;
+
+// Shared by generateMetadata and the page so a lookup costs one DB hit.
+const getPost = cache(fetchPost);
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -17,7 +21,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return {};
+  // Throw here too: the Suspense boundary can flush a 200 before the page
+  // body calls notFound(), so metadata is what makes the status a real 404.
+  if (!post) notFound();
   return {
     title: post.title,
     description: post.standfirst,
