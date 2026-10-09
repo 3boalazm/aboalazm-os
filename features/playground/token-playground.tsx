@@ -133,7 +133,7 @@ export function TokenPlayground() {
                   "rounded-pill px-2 py-1 font-mono text-micro uppercase tracking-[0.06em]",
                   "transition-colors duration-base ease-physics",
                   t.theme === mode
-                    ? "bg-text-primary text-obsidian"
+                    ? "bg-text-primary text-surface-0"
                     : "text-text-tertiary hover:text-text-secondary",
                 ].join(" ")}
               >

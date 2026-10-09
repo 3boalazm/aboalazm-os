@@ -219,7 +219,7 @@ export function ContactForm() {
               type="submit"
               disabled={status === "working"}
               aria-busy={status === "working"}
-              className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
+              className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-surface-0 transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
             >
               {status === "working"
                 ? (ar ? "جارٍ الإرسال…" : "WORKING…")

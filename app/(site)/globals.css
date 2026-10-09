@@ -1894,6 +1894,9 @@ html[data-theme="light"] .grain-layer {
   background: rgb(8 7 16 / 0.5);
   padding: 0.9rem 1rem;
 }
+/* On the light canvas the 50%-black wash turns a muddy grey — use the
+   elevated surface instead (code + Copy CSS button stay readable). */
+html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
 .labtool-code__pre {
   margin: 0;
   font-family: var(--font-mono);
@@ -1911,7 +1914,7 @@ html[data-theme="light"] .grain-layer {
   font-size: var(--text-caption);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   border: 1px solid var(--color-accent-32);
   border-radius: var(--radius-pill);
   padding: 4px 10px;

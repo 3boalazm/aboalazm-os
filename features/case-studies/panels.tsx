@@ -313,7 +313,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
             {t.componentStates}
           </p>
           <div className="flex flex-wrap items-center gap-2 p-3">
-            <button className="rounded-pill bg-text-primary px-2.5 py-1 font-mono text-micro text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5">
+            <button className="rounded-pill bg-text-primary px-2.5 py-1 font-mono text-micro text-surface-0 transition-transform duration-fast ease-physics hover:-translate-y-0.5">
               DEFAULT
             </button>
             <button className="rounded-pill border border-border-strong px-2.5 py-1 font-mono text-micro text-text-primary">
