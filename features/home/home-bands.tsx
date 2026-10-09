@@ -220,13 +220,13 @@ export function ClientJourneyBand() {
                 key={step.n}
                 ref={(el) => { stepRefs.current[i] = el; }}
                 data-step={i}
-                className="min-h-[40vh] py-8 lg:min-h-[52vh] lg:py-10"
+                className="min-h-[36vh] py-4 lg:min-h-[48vh] lg:py-5"
               >
                 <motion.div
                   initial={false}
                   animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-t border-border-subtle pt-6"
+                  className="border-t border-border-subtle pt-4"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <span className={`font-mono text-label ${[
@@ -237,12 +237,12 @@ export function ClientJourneyBand() {
 ][i]}`}>{step.n}</span>
                     <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">{step.proof}</span>
                   </div>
-                  <h3 className="mt-8 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
+                  <h3 className="mt-5 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
                     {step.name}
                   </h3>
-                  <p className="mt-6 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary">{step.short}</p>
-                  <div className="mt-10 h-px w-full bg-border-subtle" />
-                  <p className="mt-4 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                  <p className="mt-4 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary">{step.short}</p>
+                  <div className="mt-6 h-px w-full bg-border-subtle" />
+                  <p className="mt-3 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
                     {ar ? `بوابة ${step.n}` : `Gate ${step.n}`}
                   </p>
                 </motion.div>
