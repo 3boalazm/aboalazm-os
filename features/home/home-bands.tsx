@@ -192,7 +192,7 @@ export function ClientJourneyBand() {
               ? "٤ مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
               : "Four visible stages. Every stage has an output and a sign-off. You always know where the project stands."}
           </p>
-          <div className="mt-8 flex gap-2" aria-label={ar ? "مراحل المشروع" : "Project stages"}>
+          <div className="mt-8 flex gap-2" aria-hidden>
             {steps.map((step, i) => (
               <span
                 key={step.n}

@@ -14,11 +14,18 @@
 import { useMemo, useState } from "react";
 import { useLang } from "@/components/providers/lang-provider";
 
+/** abc, #abc, aabbcc, #aabbcc (any case) -> "#rrggbb", or null when invalid. */
+function normalizeHex(input: string): string | null {
+  const digits = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(input.trim())?.[1];
+  if (!digits) return null;
+  const full = digits.length === 3 ? digits.split("").map((c) => c + c).join("") : digits;
+  return `#${full.toLowerCase()}`;
+}
+
 function hexToRgb(hex: string): [number, number, number] | null {
-  const clean = hex.replace("#", "").trim();
-  const full = clean.length === 3 ? clean.split("").map((c) => c + c).join("") : clean;
-  if (!/^[0-9a-fA-F]{6}$/.test(full)) return null;
-  const num = parseInt(full, 16);
+  const full = normalizeHex(hex);
+  if (!full) return null;
+  const num = parseInt(full.slice(1), 16);
   return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
 }
 
@@ -82,7 +89,10 @@ export function ContrastCheckerTool() {
   const [fg, setFg] = useState("#F8F8FA");
   const [bg, setBg] = useState("#080710");
 
-  const ratio = useMemo(() => contrastRatio(fg, bg), [fg, bg]);
+  // One normalised "#rrggbb" (or null) feeds the ratio, sample and swatches.
+  const fgHex = normalizeHex(fg);
+  const bgHex = normalizeHex(bg);
+  const ratio = useMemo(() => (fgHex && bgHex ? contrastRatio(fgHex, bgHex) : null), [fgHex, bgHex]);
   const isValid = ratio !== null;
 
   const checks = isValid
@@ -103,15 +113,15 @@ export function ContrastCheckerTool() {
         <label className="labtool-field">
           <span className="labtool-field__label">{t.fg}</span>
           <div className="labtool-colorrow">
-            <input type="color" value={/^#[0-9a-fA-F]{6}$/.test(fg) ? fg : "#ffffff"} onChange={(e) => setFg(e.target.value)} className="labtool-colorswatch" />
-            <input type="text" value={fg} onChange={(e) => setFg(e.target.value)} className="labtool-colortext" spellCheck={false} />
+            <input type="color" value={fgHex ?? "#ffffff"} onChange={(e) => setFg(e.target.value)} className="labtool-colorswatch" />
+            <input type="text" value={fg} onChange={(e) => setFg(e.target.value)} aria-label={`${t.fg} (hex)`} className="labtool-colortext" spellCheck={false} />
           </div>
         </label>
         <label className="labtool-field">
           <span className="labtool-field__label">{t.bg}</span>
           <div className="labtool-colorrow">
-            <input type="color" value={/^#[0-9a-fA-F]{6}$/.test(bg) ? bg : "#000000"} onChange={(e) => setBg(e.target.value)} className="labtool-colorswatch" />
-            <input type="text" value={bg} onChange={(e) => setBg(e.target.value)} className="labtool-colortext" spellCheck={false} />
+            <input type="color" value={bgHex ?? "#000000"} onChange={(e) => setBg(e.target.value)} className="labtool-colorswatch" />
+            <input type="text" value={bg} onChange={(e) => setBg(e.target.value)} aria-label={`${t.bg} (hex)`} className="labtool-colortext" spellCheck={false} />
           </div>
         </label>
       </div>
@@ -120,7 +130,7 @@ export function ContrastCheckerTool() {
         <p className="labtool-warning">{t.invalid}</p>
       ) : (
         <>
-          <div className="labtool-samplebox" style={{ background: bg, color: fg }}>
+          <div className="labtool-samplebox" style={{ background: bgHex!, color: fgHex! }}>
             <span className="labtool-samplebox__ratio">{ratio!.toFixed(2)}:1</span>
             <span className="labtool-samplebox__text">{t.sample}</span>
           </div>

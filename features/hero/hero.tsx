@@ -19,13 +19,14 @@ import { useLang } from "@/components/providers/lang-provider";
  *
  * Spacing: 8px scale only (gap-2/3/4, py-8, pt-16 → 16/24/32/64/128).
  * Canvas: bg-surface-0 (theme-reactive — Obsidian in dark, Alabaster in light).
- * Motion: every transition rides --ease-physics via lib/motion.
+ * Motion: every transition rides --ease-physics via lib/motion; the page-load
+ * entrances are CSS keyframes (hero.css) so the text is visible in the server
+ * HTML instead of waiting on hydration.
  */
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { preload } from "react-dom";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
-import { heroLine, reveal, physics } from "@/lib/motion";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 
 /* The studio's own coral — the old site's red, worn as atmosphere */
@@ -37,19 +38,21 @@ import { usePersona } from "@/components/providers/persona-provider";
 import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
+import "./hero.css";
 
 /* Headline is dynamic — see inside Hero() */
 const ITALIC_LINE = 1;
 
 export function Hero() {
+  /* The headline is now painted in the first frame (no opacity:0 wait), so the
+     display face must be in before it, otherwise the late swap reflows the
+     headline and shifts the constellation (desktop CLS 0.06 -> 0.12). */
+  preload("/fonts/Gc_Epicpro.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   /* Home rests warm: faint coral glow — color presence without paint */
   useAmbientGlow(STUDIO_CORAL, 0.5);
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
-  /* One reduced-motion read per render — reused below instead of calling
-     a hook per headline line inside .map(). */
-  const reduceMotion = useReducedMotion();
   const HEADLINE = ar
     ? [t.heroLine1, t.heroLine2, t.heroLine3]
     : [t.heroLine1, t.heroLine2, t.heroLine3];
@@ -84,17 +87,15 @@ export function Hero() {
         {/* Left — typographic architecture */}
         <div className="flex flex-col gap-4">
           {/* Live status row — in-flow micro-frame */}
-          <motion.div
-            initial={reduceMotion ? false : { opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ ...physics, delay: 0.9 }}
-            className="flex flex-wrap items-center gap-2"
+          <div
+            className="hero-rise flex flex-wrap items-center gap-2"
+            style={{ "--rise-y": "-8px" } as CSSProperties}
           >
             <StatusNode />
             <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost lg:inline">
 {ar ? t.heroCoords : "30.1936° N, 31.4603° E · AL OBOUR"}
             </span>
-          </motion.div>
+          </div>
 
           <h1
             className="font-display tracking-[-0.03em] text-text-primary"
@@ -105,34 +106,23 @@ export function Hero() {
           >
             {HEADLINE.map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.06em]">
-                <motion.span
-                  className="block will-change-transform"
-                  custom={i}
-                  variants={heroLine}
-                  initial={reduceMotion ? false : "hidden"}
-                  animate="visible"
-                >
+                <span className="hero-line block" style={{ "--i": i } as CSSProperties}>
                   {i === ITALIC_LINE ? <em className="text-accent">{line}</em> : line}
-                </motion.span>
+                </span>
               </span>
             ))}
           </h1>
 
-          <motion.div
-            variants={reveal.container}
-            initial={reduceMotion ? false : "hidden"}
-            animate="visible"
-            className="flex flex-col gap-3"
-          >
-            <motion.p
-              variants={reveal.item}
-              className="max-w-[46ch] text-lead text-text-secondary"
+          <div className="flex flex-col gap-3">
+            <p
+              className="hero-rise max-w-[46ch] text-lead text-text-secondary"
+              style={{ "--i": 0 } as CSSProperties}
             >
               {t.heroLead}
-            </motion.p>
+            </p>
 
             {/* Two clear primary actions: View Selected Work & Download CV */}
-            <motion.div variants={reveal.item} className="flex flex-wrap items-center gap-3 pt-1">
+            <div className="hero-rise flex flex-wrap items-center gap-3 pt-1" style={{ "--i": 1 } as CSSProperties}>
               <a
                 href="#selected-work"
                 className="group relative inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
@@ -155,9 +145,12 @@ export function Hero() {
                   <Icon name="arrow-down" />
                 </span>
               </a>
-            </motion.div>
+            </div>
 
-            <motion.div variants={reveal.item} className="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-micro text-text-ghost">
+            <div
+              className="hero-rise flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-micro text-text-ghost"
+              style={{ "--i": 2 } as CSSProperties}
+            >
               <Link href="/for-hiring" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
                 {ar ? "للشركات والتوظيف ←" : "For hiring teams →"}
               </Link>
@@ -165,8 +158,8 @@ export function Hero() {
               <Link href="/services" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
                 {ar ? "خدمات العملاء ←" : "Client services →"}
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Right — signature asset layer.
@@ -175,14 +168,9 @@ export function Hero() {
             parent and collapse to ~300px on a 1440 viewport — a postage
             stamp in a large void. A definite width lets the asset scale
             with the column and hold its side of the composition. */}
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ ...physics, duration: 1.2, delay: 0.5 }}
-          className="w-full"
-        >
+        <div className="hero-settle w-full">
           <SystemConstellation />
-        </motion.div>
+        </div>
       </div>
 
       {/* ── 3 · Interactive metric row — bento band ──

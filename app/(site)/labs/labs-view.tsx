@@ -51,6 +51,7 @@ export function LabsView() {
               ? "Aboalazm Labs هو طبقة البحث والتجريب خلف Aboalazm OS — قسم الـ R&D للبراندينج وأنظمة الهوية وعمليات التصميم والتدفقات المدعومة بالذكاء الاصطناعي."
               : "Aboalazm Labs is the research and experimentation layer behind Aboalazm OS — the R&D department for branding, identity systems, design operations, and AI-powered creative workflows."
           }
+          titleClassName="heading-fit-long"
           subtitleClassName="max-w-[58ch]"
         />
         <p className="max-w-[58ch] text-body text-text-secondary">
@@ -135,7 +136,14 @@ export function LabsView() {
             ? "مش كل حاجة هنا نظرية. الأدوات دي شغالة فعليًا وبتستخدم نفس منطق الأنظمة اللي بتُبنى بيها هويات العملاء."
             : "Not everything here is theoretical. These tools actually work, running on the same systemic logic used to build client identities."}
         </p>
-        <div className="labtool-grid">
+        {/* .labtool-grid has no column template below 900px, so its implicit auto
+            column grows to the cards' min-content (a 304px card in a 272px column
+            at 320). Pin one shrinkable column, here and in each card's controls
+            grid, and let the fields and colour text inputs shrink (min-w-0) —
+            their intrinsic input width also made the two-column layout overflow
+            in AR at 900-939px. From 900px / 560px the unlayered .labtool-grid /
+            .labtool-controls two-column rules take over again, as before. */}
+        <div className="labtool-grid grid-cols-[minmax(0,1fr)] [&_.labtool-controls]:grid-cols-[minmax(0,1fr)] [&_.labtool-field]:min-w-0 [&_.labtool-colortext]:min-w-0">
           <TypeScaleTool />
           <ContrastCheckerTool />
           <BilingualToggleTool />
@@ -264,15 +272,20 @@ export function LabsView() {
         </Link>
       </section>
 
-      <CtaBand
-        kicker={["WHAT HAPPENS HERE REACHES CLIENT WORK", "ما يحدث هنا يصل إلى عمل العملاء"]}
-        title={["The future isn't more deliverables.", "المستقبل ليس مخرجات أكثر."]}
-        italic={["It's better operating systems.", "بل أنظمة تشغيل أفضل."]}
-        primary={["Start a project", "ابدأ مشروعًا"]}
-        primaryHref="/contact"
-        secondary={["Explore the OS", "استكشف الـ OS"]}
-        secondaryHref="/resources"
-      />
+      {/* "deliverables." is wider than the mobile column at text-display's 2.5rem
+          floor; CtaBand's title is out of reach from here, so shrink it the same
+          way heading-fit-long does (below 480px) through a display:contents wrapper. */}
+      <div className="contents max-[480px]:[&_p.text-display]:text-[1.875rem]">
+        <CtaBand
+          kicker={["WHAT HAPPENS HERE REACHES CLIENT WORK", "ما يحدث هنا يصل إلى عمل العملاء"]}
+          title={["The future isn't more deliverables.", "المستقبل ليس مخرجات أكثر."]}
+          italic={["It's better operating systems.", "بل أنظمة تشغيل أفضل."]}
+          primary={["Start a project", "ابدأ مشروعًا"]}
+          primaryHref="/contact"
+          secondary={["Explore the OS", "استكشف الـ OS"]}
+          secondaryHref="/resources"
+        />
+      </div>
     </main>
   );
 }

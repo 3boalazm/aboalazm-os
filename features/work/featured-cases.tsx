@@ -127,9 +127,17 @@ export function FeaturedCases({
         <h2 className="sr-only">{ar ? "حالات مختارة" : "Featured cases"}</h2>
       ) : null}
 
+      {/* /work (heading "none") opens on these cards, so its first thumbnail is
+          the LCP image and loads eagerly; on home the block sits far below the
+          hero and every thumbnail stays lazy. */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {featured.map((project) => (
-          <FeaturedCard key={project.slug} project={project} ar={ar} />
+        {featured.map((project, i) => (
+          <FeaturedCard
+            key={project.slug}
+            project={project}
+            ar={ar}
+            priority={heading === "none" && i === 0}
+          />
         ))}
       </div>
     </Section>
@@ -160,7 +168,7 @@ const DESTINATION_COPY: Record<
   external: { en: "Open external portfolio", ar: "افتح البورتفوليو الخارجي" },
 };
 
-function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
+function FeaturedCard({ project, ar, priority = false }: { project: Project; ar: boolean; priority?: boolean }) {
   const story = STORIES[project.slug];
   const destination = destinationOf(project);
   const internal = destination === "case";
@@ -206,6 +214,7 @@ function FeaturedCard({ project, ar }: { project: Project; ar: boolean }) {
           alt=""
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+          priority={priority}
           className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.025]"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).style.display = "none";

@@ -34,11 +34,13 @@ import { FloatingPreview } from "./floating-preview";
 import { BEHANCE } from "./projects.data";
 import type { Project } from "./types";
 
-/* Shared column template — header & rows must never drift apart */
+/* Shared column template — header & rows must never drift apart.
+   Below sm the outcome drops under the name (single content column), so a
+   long word like "Collective" gets the full row instead of a 1.6fr sliver. */
 const GRID_FULL =
-  "grid-cols-[2rem_1.6fr_1fr] gap-2 md:grid-cols-[2.5rem_1.5fr_1fr_1.3fr_1fr_auto] md:gap-3";
+  "grid-cols-[2rem_minmax(0,1fr)] gap-x-2 gap-y-1 sm:grid-cols-[2rem_1.6fr_1fr] sm:gap-2 md:grid-cols-[2.5rem_1.5fr_1fr_1.3fr_1fr_auto] md:gap-3";
 const GRID_COMPACT =
-  "grid-cols-[2rem_1.6fr_1fr] gap-2 md:grid-cols-[2.5rem_1.6fr_1fr_auto] md:gap-3";
+  "grid-cols-[2rem_minmax(0,1fr)] gap-x-2 gap-y-1 sm:grid-cols-[2rem_1.6fr_1fr] sm:gap-2 md:grid-cols-[2.5rem_1.6fr_1fr_auto] md:gap-3";
 
 interface ProjectLedgerProps {
   /** Now sourced from Payload upstream (see lib/content.ts) — no static fallback. */
@@ -107,7 +109,7 @@ export function ProjectLedger({
         <span>{t.workProject}</span>
         {compact ? null : <span className="hidden md:block">{t.workDiscipline}</span>}
         {compact ? null : <span className="hidden md:block">{t.workStack}</span>}
-        <span>{t.workOutcome}</span>
+        <span className="hidden sm:block">{t.workOutcome}</span>
         <span className="hidden text-right md:block">{t.workAction}</span>
       </div>
 
@@ -159,6 +161,7 @@ function LedgerRow({
   ar = false,
   compact = false,
 }: LedgerRowProps) {
+  const t = useT();
   const grid = compact ? GRID_COMPACT : GRID_FULL;
   /* No-404 rule: rows without a written case file open a fallback link
      in a new tab — the project's externalUrl if set (e.g. a live dev
@@ -205,13 +208,16 @@ function LedgerRow({
           {String(index + 1).padStart(2, "0")}
         </span>
 
-        {/* Project name — serif, slides 8px on the physics curve */}
-        <span className="overflow-hidden">
+        {/* Project name — serif, slides 8px on the physics curve. No overflow
+            clip on the cell: a grid item that clips has a 0 minimum width, so
+            the 1.5fr/1.6fr track could shrink below the longest word
+            ("Collective") and cut it. pe-1 keeps the 8px slide inside the cell. */}
+        <span className="break-words">
           <span
             className={[
-              "block font-display text-title leading-[1.15] tracking-[-0.015em] text-text-primary",
+              "block font-display pe-1 text-title leading-[1.15] tracking-[-0.015em] text-text-primary",
               "transition-transform duration-base ease-physics",
-              isActive ? "translate-x-1" : "translate-x-0",
+              isActive ? "translate-x-1 rtl:-translate-x-1" : "translate-x-0",
             ].join(" ")}
           >
             {ar && project.nameAr ? project.nameAr : project.name}
@@ -253,8 +259,12 @@ function LedgerRow({
           </span>
         )}
 
-        {/* Strategic outcome */}
-        <span className="flex items-center gap-1.5 font-mono text-label text-text-secondary">
+        {/* Strategic outcome — below sm the column header is hidden, so the
+            line carries its own (already translated) "Outcome" label. */}
+        <span className="col-start-2 flex items-baseline gap-1.5 font-mono text-label text-text-secondary sm:col-auto">
+          <span className="shrink-0 font-mono text-micro uppercase tracking-[0.10em] sm:hidden">
+            {t.workOutcome}
+          </span>
           {ar && project.outcomeAr ? project.outcomeAr : project.outcome}
         </span>
 

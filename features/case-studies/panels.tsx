@@ -1,4 +1,5 @@
 "use client";
+import { useLayoutEffect, useRef } from "react";
 import { useLang } from "@/components/providers/lang-provider";
 
 /**
@@ -134,6 +135,153 @@ export function ContextPanel({ record }: { record: CaseStudyRecord }) {
 
 /* ── 02 · RESEARCH & LOGIC ─────────────────────────────────────── */
 
+type Rect = { l: number; r: number; t: number; b: number };
+
+/* Put every label beside its own dot without covering another dot, a caption
+   or another label, and without clipping it. A label sits right of its dot in
+   the left half and left of it in the right half; when that spot is taken it
+   may flip sides and/or slide up or down, whichever costs the least travel.
+   Its width is capped to the room on the chosen side, so it wraps instead.
+   Dots are fixed; only labels move. */
+function placeLabels(fig: HTMLElement) {
+  const labels = Array.from(fig.querySelectorAll<HTMLElement>("[data-map-label]"));
+  const F = fig.getBoundingClientRect();
+  if (labels.length === 0 || F.width < 80) return;
+  const INSET = 4; // text stays this far inside the figure
+  const rel = (r: DOMRect): Rect => ({ l: r.left - F.left, r: r.right - F.left, t: r.top - F.top, b: r.bottom - F.top });
+  const grow = (r: Rect, by: number): Rect => ({ l: r.l - by, r: r.r + by, t: r.t - by, b: r.b + by });
+  const overlap = (a: Rect, b: Rect) =>
+    Math.max(0, Math.min(a.r, b.r) - Math.max(a.l, b.l)) * Math.max(0, Math.min(a.b, b.b) - Math.max(a.t, b.t));
+  const textSize = (el: HTMLElement) => {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const q = Array.from(range.getClientRects());
+    if (q.length === 0) return { w: 0, h: 0 };
+    return {
+      w: Math.max(...q.map((x) => x.right)) - Math.min(...q.map((x) => x.left)),
+      h: Math.max(...q.map((x) => x.bottom)) - Math.min(...q.map((x) => x.top)),
+    };
+  };
+
+  // Back to the stylesheet defaults, so the measurements start clean.
+  labels.forEach((el) => ["left", "right", "width", "margin-top", "text-align"].forEach((p) => el.style.removeProperty(p)));
+
+  const fixed = Array.from(fig.querySelectorAll<HTMLElement>("[data-map-fixed]")).map((el) =>
+    grow(rel(el.getBoundingClientRect()), 2),
+  );
+  const items = labels.map((el) => {
+    const dot = rel(el.parentElement!.querySelector<HTMLElement>("[data-map-dot]")!.getBoundingClientRect());
+    const first = el.dataset.mapSide === "l" ? "l" : "r";
+    const gap = parseFloat(getComputedStyle(el)[first === "l" ? "right" : "left"]) || 16; // dot edge -> label edge
+    const reach = gap - (dot.r - dot.l) / 2; // dot centre -> near edge of the label
+    const cx = (dot.l + dot.r) / 2;
+    const cy = (dot.t + dot.b) / 2;
+    // One option per side: the label wrapped to the room it has there.
+    const opts = (["r", "l"] as const).flatMap((side) => {
+      const room = side === "r" ? F.width - cx - reach - INSET : cx - reach - INSET;
+      if (room < 24) return [];
+      el.style.maxWidth = `${room}px`;
+      const { w, h } = textSize(el);
+      return [{ side, room, w, h, l: side === "r" ? cx + reach : cx - reach - w }];
+    });
+    return { el, dot, avoid: grow(dot, 2), cx, cy, gap, first, opts, client: dot.r - dot.l > 12 };
+  });
+  type Item = (typeof items)[number];
+  type Pick = { opt: Item["opts"][number]; dy: number };
+
+  const boxOf = (it: Item, p: Pick): Rect => ({
+    l: p.opt.l,
+    r: p.opt.l + p.opt.w,
+    t: it.cy + p.dy - p.opt.h / 2,
+    b: it.cy + p.dy + p.opt.h / 2,
+  });
+  // Any collision outweighs any travel; travel grows faster than linearly so
+  // one far-flung label loses to several small nudges; flipping sides is a
+  // small tax on top.
+  const costOf = (it: Item, p: Pick, others: Rect[]) => {
+    const box = boxOf(it, p);
+    let hit = box.l < INSET || box.r > F.width - INSET ? 1e4 : 0;
+    for (const o of fixed) hit += overlap(box, o);
+    for (const o of items) if (o !== it) hit += overlap(box, o.avoid);
+    for (const o of others) hit += overlap(box, o);
+    return hit * 1e3 + Math.abs(p.dy) + (p.dy * p.dy) / 32 + (p.opt.side === it.first ? 0 : 10);
+  };
+  const bestFor = (it: Item, others: Rect[]) => {
+    let best: Pick | null = null;
+    let bestCost = Infinity;
+    for (const opt of it.opts) {
+      for (let dy = Math.ceil(INSET + opt.h / 2 - it.cy); dy <= Math.floor(F.height - INSET - opt.h / 2 - it.cy); dy++) {
+        const c = costOf(it, { opt, dy }, others);
+        if (c < bestCost) {
+          best = { opt, dy };
+          bestCost = c;
+        }
+      }
+    }
+    return best;
+  };
+
+  // Place greedily in some order, then let each label re-pick its spot
+  // against the final positions of the rest until nothing improves. Greedy
+  // order matters, so start from several and keep the cheapest. The
+  // highlighted (client) label always goes first.
+  const byY = [...items].sort((a, b) => a.cy - b.cy);
+  const byX = [...items].sort((a, b) => a.cx - b.cx);
+  const tightest = [...items].sort((a, b) => Math.max(...a.opts.map((o) => o.room)) - Math.max(...b.opts.map((o) => o.room)));
+  let best: { picks: Map<Item, Pick>; total: number } | null = null;
+  for (const o of [byY, [...byY].reverse(), byX, [...byX].reverse(), tightest]) {
+    const order = [...o.filter((it) => it.client), ...o.filter((it) => !it.client)];
+    const picks = new Map<Item, Pick>();
+    const around = (it: Item) => [...picks].filter(([o2]) => o2 !== it).map(([o2, p]) => grow(boxOf(o2, p), 2));
+    for (const it of order) {
+      const p = bestFor(it, around(it));
+      if (!p) break;
+      picks.set(it, p);
+    }
+    if (picks.size < items.length) continue;
+    for (let pass = 0; pass < 8; pass++) {
+      let moved = false;
+      for (const it of order) {
+        const others = around(it);
+        const p = bestFor(it, others)!;
+        if (costOf(it, p, others) < costOf(it, picks.get(it)!, others) - 1e-6) {
+          picks.set(it, p);
+          moved = true;
+        }
+      }
+      if (!moved) break;
+    }
+    const total = items.reduce((sum, it) => sum + costOf(it, picks.get(it)!, around(it)), 0);
+    if (!best || total < best.total) best = { picks, total };
+  }
+  const leaders = Array.from(fig.querySelectorAll<SVGLineElement>("[data-map-leader]"));
+  const lead = (i: number, pts: [number, number, number, number]) =>
+    (["x1", "y1", "x2", "y2"] as const).forEach((a, n) => leaders[i]?.setAttribute(a, String(pts[n])));
+  items.forEach((it, i) => {
+    const p = best?.picks.get(it);
+    lead(i, [0, 0, 0, 0]);
+    if (!p) {
+      it.el.style.removeProperty("max-width"); // no spot found: keep the CSS placement
+      return;
+    }
+    // A label that had to slide until its dot is no longer level with it gets a
+    // thin leader from the dot to the nearest corner of the label, so it still
+    // reads as that dot's.
+    const box = boxOf(it, p);
+    const ny = Math.min(Math.max(it.cy, box.t), box.b);
+    if (Math.abs(ny - it.cy) > 0.5) {
+      lead(i, [it.cx - fig.clientLeft, it.cy - fig.clientTop, (p.opt.side === "r" ? box.l : box.r) - fig.clientLeft, ny - fig.clientTop]);
+    }
+    const right = p.opt.side === "r";
+    it.el.style.maxWidth = `${p.opt.room}px`;
+    it.el.style.width = `${Math.ceil(p.opt.w)}px`;
+    it.el.style.left = right ? `${it.gap}px` : "auto";
+    it.el.style.right = right ? "auto" : `${it.gap}px`;
+    it.el.style.textAlign = right ? "left" : "right";
+    it.el.style.marginTop = `${p.dy}px`;
+  });
+}
+
 function CompetitorMap({
   competitors,
 }: {
@@ -141,47 +289,96 @@ function CompetitorMap({
 }) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const figRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const fig = figRef.current;
+    if (!fig) return;
+    let raf = 0;
+    const run = () => placeLabels(fig);
+    // Label size follows the figure width (wrapping) and the type system:
+    // the lang provider flips <html lang/dir> after this effect and the
+    // Arabic face may still be loading, and none of that changes a label's
+    // box. Re-run from a frame callback so the pass can't loop its observers.
+    const later = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(run);
+    };
+    run();
+    const ro = new ResizeObserver(later);
+    ro.observe(fig);
+    const mo = new MutationObserver(later);
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["lang", "dir"] });
+    document.fonts?.addEventListener("loadingdone", later);
+    return () => {
+      cancelAnimationFrame(raf);
+      ro.disconnect();
+      mo.disconnect();
+      document.fonts?.removeEventListener("loadingdone", later);
+    };
+  }, [competitors]);
+
   return (
-    <figure className="relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1 p-2">
+    <figure
+      ref={figRef}
+      className="@container relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1"
+    >
       {/* Axes */}
       <span className="absolute inset-x-2 top-1/2 h-px bg-border-subtle" />
       <span className="absolute inset-y-2 left-1/2 w-px bg-border-subtle" />
-      <span className="absolute bottom-1 right-2 font-mono text-micro text-text-ghost">
+      {/* Leaders — placeLabels() draws one only for a label that sits off its dot's own height */}
+      <svg aria-hidden className="pointer-events-none absolute inset-0 size-full stroke-text-ghost">
+        {competitors.map((c) => (
+          <line key={c.name} data-map-leader strokeWidth={1} strokeOpacity={0.7} />
+        ))}
+      </svg>
+      <span data-map-fixed className="absolute bottom-1 right-2 font-mono text-micro text-text-ghost">
         {ar ? "تميّز ←" : "DISTINCT →"}
       </span>
-      <span className="absolute left-1 top-2 font-mono text-micro text-text-ghost [writing-mode:vertical-rl]">
+      <span data-map-fixed className="absolute left-1 top-2 font-mono text-micro text-text-ghost [writing-mode:vertical-rl]">
         {ar ? "← نظام" : "← SYSTEM"}
       </span>
 
-      {/* Vectors */}
-      {competitors.map((c) => (
-        <span
-          key={c.name}
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${c.x}%`, top: `${100 - c.y}%` }}
-        >
+      {/* Vectors. Past the midline the label sits left of its dot, otherwise
+          right of it, and its width is capped to the room on that side
+          (cqw = 1% of the figure) so it wraps instead of being clipped. That
+          is the first-paint placement; placeLabels() then refines it. */}
+      {competitors.map((c) => {
+        const flip = c.x > 50;
+        return (
           <span
-            className={[
-              "block rounded-pill",
-              c.isClient
-                ? "size-2 bg-accent shadow-[0_0_12px_rgb(255_107_71/0.5)]"
-                : "size-1 bg-text-tertiary",
-            ].join(" ")}
-          />
-          <span
-            className={[
-              "absolute left-2 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-micro",
-              c.isClient ? "text-text-primary" : "text-text-ghost",
-            ].join(" ")}
+            key={c.name}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${c.x}%`, top: `${100 - c.y}%` }}
           >
-            {c.name}
+            <span
+              data-map-dot
+              className={[
+                "block rounded-pill",
+                c.isClient
+                  ? "size-2 bg-accent shadow-[0_0_12px_rgb(255_107_71/0.5)]"
+                  : "size-1 bg-text-tertiary",
+              ].join(" ")}
+            />
+            <span
+              data-map-label
+              data-map-side={flip ? "l" : "r"}
+              className={[
+                "absolute top-1/2 w-max max-w-[var(--map-room)] -translate-y-1/2 font-mono text-micro",
+                flip ? "right-2 text-right" : "left-2 text-left",
+                c.isClient ? "text-text-primary" : "text-text-ghost",
+              ].join(" ")}
+              style={{ "--map-room": `calc(${flip ? c.x : 100 - c.x}cqw - 24px)` } as React.CSSProperties}
+            >
+              {c.name}
+            </span>
           </span>
-        </span>
-      ))}
+        );
+      })}
       <figcaption className="sr-only">
         {ar ? "خريطة تموضع توضيحية وليست دراسة سوق منشورة" : "Illustrative positioning map; not a published market study."}
       </figcaption>
-      <span className="absolute right-2 top-2 rounded-pill border border-border-subtle bg-surface-0/80 px-2 py-0.5 font-mono text-micro text-text-ghost backdrop-blur-sm">
+      <span data-map-fixed className="absolute right-2 top-2 rounded-pill border border-border-subtle bg-surface-0/80 px-2 py-0.5 font-mono text-micro text-text-ghost backdrop-blur-sm">
         {ar ? "توضيحي" : "ILLUSTRATIVE"}
       </span>
     </figure>
@@ -258,7 +455,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         {/* Token table — the design system core */}
-        <div className="rounded-card border border-border-subtle bg-surface-1 lg:col-span-5">
+        <div className="@container rounded-card border border-border-subtle bg-surface-1 lg:col-span-5">
           <div className="flex items-center justify-between border-b border-border-subtle px-3 py-2">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
               {t.structuralTokens}
@@ -267,13 +464,22 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
               {ar ? "قيم معتمدة وخيارات مرفوضة" : "Approved vs Rejected"}
             </span>
           </div>
-          <table className="w-full">
-            <tbody>
+          {/* The long role column leaves the token names (a hyphen can break
+              them) too little room until the card is ~900px wide; in a
+              narrower card each row stacks (token + value, then role)
+              instead. Rows become display:flex there, which drops the table
+              semantics in Safari/VoiceOver, so the roles are stated explicitly. */}
+          <table className="w-full" role="table">
+            <tbody role="rowgroup">
               {record.tokens.map((tok) => {
                 const isRejected = tok.value.toLowerCase().includes("rejected");
                 return (
-                  <tr key={tok.token} className="border-b border-border-subtle last:border-0">
-                    <td className="px-3 py-2 font-geist text-micro">
+                  <tr
+                    key={tok.token}
+                    role="row"
+                    className="border-b border-border-subtle last:border-0 @max-4xl:flex @max-4xl:flex-wrap @max-4xl:gap-x-3 @max-4xl:px-3 @max-4xl:py-2"
+                  >
+                    <td role="cell" className="px-3 py-2 font-geist text-micro @max-4xl:p-0">
                       <div className="flex items-center gap-1.5">
                         <span
                           className={`size-1.5 rounded-full ${
@@ -285,8 +491,8 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
                         </span>
                       </div>
                     </td>
-                    <td className="px-3 py-2 font-geist text-micro text-text-secondary">
-                      <div className="flex items-center gap-1.5">
+                    <td role="cell" className="px-3 py-2 font-geist text-micro text-text-secondary @max-4xl:min-w-0 @max-4xl:p-0">
+                      <div className="flex items-center gap-1.5 @max-4xl:flex-wrap @max-4xl:break-words">
                         <span>{tok.value}</span>
                         {isRejected ? (
                           <span className="rounded bg-surface-2 px-1 py-0.2 font-mono text-[9px] uppercase text-text-ghost">
@@ -299,7 +505,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
                         )}
                       </div>
                     </td>
-                    <td className="px-3 py-2 text-right font-mono text-micro text-text-ghost">
+                    <td role="cell" className="px-3 py-2 text-right font-mono text-micro text-text-ghost @max-4xl:basis-full @max-4xl:p-0 @max-4xl:text-start">
                       {ar && tok.roleAr ? tok.roleAr : tok.role}
                     </td>
                   </tr>
@@ -334,7 +540,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
           <p className="border-y border-border-subtle px-3 py-1.5 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
             {t.responsiveLayout}
           </p>
-          <div className="flex gap-4 p-3">
+          <div className="flex flex-wrap gap-x-4 gap-y-1 p-3">
             {record.breakpoints.map((b) => (
               <span key={b.bp} className="font-geist text-micro text-text-tertiary">
                 {b.bp} <span className="font-medium text-text-secondary">{b.cols}</span>

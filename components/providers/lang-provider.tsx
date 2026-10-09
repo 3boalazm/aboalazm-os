@@ -8,11 +8,19 @@
  *     IBM Plex Sans Arabic automatically (letter-spacing zeroed)
  *   · every page reads `lang` and renders its local dictionary
  * Choice persists in localStorage. Default: English.
+ *
+ * The server always renders English, so the first client render must be
+ * English too (no hydration mismatch). A saved choice is restored in a
+ * layout effect — i.e. before the browser paints the hydrated tree — and
+ * nothing is written to localStorage / <html> until that restore has run,
+ * otherwise the initial "en" would clobber the saved choice (and the
+ * lang/dir the boot script already set, see lib/boot-script.ts).
  */
 import {
   createContext,
   useContext,
   useEffect,
+  useLayoutEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -26,20 +34,25 @@ const LangContext = createContext<{ lang: Lang; toggle: () => void }>({
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("en");
+  const [restored, setRestored] = useState(false);
 
-  /* Restore persisted choice */
-  useEffect(() => {
+  /* Restore persisted choice — layout effect so the re-render with the saved
+     language lands before paint (both setStates batch into one render). */
+  useLayoutEffect(() => {
     const saved = window.localStorage.getItem("lang");
     if (saved === "ar" || saved === "en") setLang(saved);
+    setRestored(true);
   }, []);
 
-  /* Apply to the document — direction + font system flip here */
+  /* Apply to the document — direction + font system flip here. Only after
+     the restore above, or the initial "en" overwrites the saved choice. */
   useEffect(() => {
+    if (!restored) return;
     const el = document.documentElement;
     el.lang = lang;
     el.dir = lang === "ar" ? "rtl" : "ltr";
     window.localStorage.setItem("lang", lang);
-  }, [lang]);
+  }, [lang, restored]);
 
   const toggle = () => setLang((l) => (l === "en" ? "ar" : "en"));
 

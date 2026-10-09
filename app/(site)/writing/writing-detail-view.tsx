@@ -1,14 +1,17 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { useRouter } from "next/navigation";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring } from "framer-motion";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
 import { ArticleBody } from "@/features/writing/article-body";
 import { extractSections, readingMinutes, type ArticleSection } from "@/features/writing/toc";
 import type { SerializedEditorState } from "lexical";
+/* Transform-only header entrances (.hero-rise) — the title and standfirst are
+   painted visible in the server HTML instead of waiting on hydration. */
+import "@/features/hero/hero.css";
 
 interface PostSummary {
   slug: string;
@@ -78,7 +81,7 @@ function SideNav({ sections }: { sections: ArticleSection[] }) {
           onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })}
           title={s.text}
           className={`group flex items-center gap-2 font-mono text-micro tracking-[0.1em] transition-colors duration-base ${
-            active === s.id ? "text-accent" : "text-text-ghost hover:text-text-tertiary"
+            active === s.id ? "text-accent" : "text-text-ghost hover:text-text-secondary"
           }`}
         >
           <span
@@ -135,6 +138,7 @@ export function WritingDetailView({
   const { lang } = useLang();
   const router = useRouter();
   const ar = lang === "ar";
+  const reduceMotion = useReducedMotion();
   const postLang = post.lang ?? "en";
 
   // Language hot-swap: when the UI language TOGGLES while reading and a
@@ -186,11 +190,9 @@ export function WritingDetailView({
           style={{ background: "radial-gradient(closest-side, #4F46E5, transparent 70%)" }}
         />
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="mb-10 flex flex-wrap items-center gap-4"
+        <div
+          className="hero-rise mb-10 flex flex-wrap items-center gap-4"
+          style={{ "--rise-y": "8px", "--rise-duration": "0.5s", "--rise-delay": "0s" } as CSSProperties}
           dir="ltr"
         >
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
@@ -202,38 +204,39 @@ export function WritingDetailView({
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-ghost">
             Aboalazm OS / Writing
           </span>
-        </motion.div>
+        </div>
 
         <h1 className="max-w-[16ch] font-display text-display font-bold uppercase leading-[0.98] tracking-[-0.02em]">
           {titleWords.map((word, i) => (
-            <motion.span
+            <span
               key={i}
-              className="inline-block max-w-full [overflow-wrap:anywhere]"
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.08 + i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+              className="hero-rise inline-block max-w-full [overflow-wrap:anywhere]"
+              style={
+                {
+                  "--rise-y": "28px",
+                  "--rise-duration": "0.5s",
+                  // Stagger capped at 0.4s so a long title's last words aren't left displaced
+                  "--rise-delay": `${(0.08 + Math.min(i * 0.05, 0.4)).toFixed(2)}s`,
+                } as CSSProperties
+              }
             >
               {word}
               {i < titleWords.length - 1 ? " " : ""}
-            </motion.span>
+            </span>
           ))}
         </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.35 }}
-          className="mt-8 max-w-[62ch] text-lead font-medium leading-snug text-text-secondary"
+        <p
+          className="hero-rise mt-8 max-w-[62ch] text-lead font-medium leading-snug text-text-secondary"
+          style={{ "--rise-duration": "0.5s", "--rise-delay": "0.35s" } as CSSProperties}
         >
           {post.standfirst}
-        </motion.p>
+        </p>
 
         {post.topics && post.topics.length > 0 ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2"
+          <div
+            className="hero-rise mt-10 flex flex-wrap items-center gap-x-3 gap-y-2"
+            style={{ "--rise-y": "8px", "--rise-duration": "0.5s", "--rise-delay": "0.5s" } as CSSProperties}
           >
             {post.topics.map((topic, i) => (
               <span key={topic} className="flex items-center gap-3">
@@ -247,25 +250,23 @@ export function WritingDetailView({
                 ) : null}
               </span>
             ))}
-          </motion.div>
+          </div>
         ) : null}
 
-        <motion.div
+        <div
           aria-hidden
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-12 flex items-center gap-3 font-mono text-micro uppercase tracking-[0.14em] text-text-ghost"
+          className="hero-rise mt-12 flex items-center gap-3 font-mono text-micro uppercase tracking-[0.14em] text-text-ghost"
+          style={{ "--rise-y": "8px", "--rise-duration": "0.5s", "--rise-delay": "0.8s" } as CSSProperties}
         >
           <motion.span
-            animate={{ y: [0, 5, 0] }}
+            animate={reduceMotion ? undefined : { y: [0, 5, 0] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
             className="inline-flex"
           >
             <Icon name="arrow-down" />
           </motion.span>
           {ar ? "اقرأ" : "Scroll"}
-        </motion.div>
+        </div>
       </header>
 
       {post.body ? (

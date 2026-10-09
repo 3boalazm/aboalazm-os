@@ -15,9 +15,11 @@
  *           ease-physics curve.
  *
  * The component is a controlled visual: the ledger owns hover state
- * and pointer events; this layer only renders and follows.
+ * and pointer events; this layer only renders and follows. It is only
+ * mounted from lg up (below that the card is display:none anyway) and
+ * its follow loop only runs while a row is hovered.
  */
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -35,40 +37,72 @@ interface FloatingPreviewProps {
   pointer: React.RefObject<{ x: number; y: number }>;
 }
 
-export function FloatingPreview({ active, pointer }: FloatingPreviewProps) {
+export function FloatingPreview(props: FloatingPreviewProps) {
+  /* No pointer trail below lg (the card is hidden there) — don't mount it. */
+  const [desktop, setDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const sync = () => setDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  return desktop ? <PreviewLayer {...props} /> : null;
+}
+
+function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const lastX = useRef(0);
   const reduceMotion = useReducedMotion();
+  const hovering = active !== null;
 
-  /* GSAP trail engine — mounted once, runs for the component's life */
+  /* GSAP trail engine — the quickTo tweens live for the component's life and
+     run on GSAP's own ticker, so they cost nothing at rest. */
+  const trail = useRef<{
+    xTo: (v: number) => void;
+    yTo: (v: number) => void;
+    rTo: (v: number) => void;
+  } | null>(null);
   useEffect(() => {
     const el = frameRef.current;
     if (!el) return;
+    trail.current = {
+      xTo: gsap.quickTo(el, "x", { duration: 0.55, ease: "power3" }),
+      yTo: gsap.quickTo(el, "y", { duration: 0.7, ease: "power3" }),
+      rTo: gsap.quickTo(el, "rotation", { duration: 0.8, ease: "power2" }),
+    };
+    return () => {
+      trail.current = null;
+    };
+  }, []);
 
-    const xTo = gsap.quickTo(el, "x", { duration: 0.55, ease: "power3" });
-    const yTo = gsap.quickTo(el, "y", { duration: 0.7, ease: "power3" });
-    const rTo = gsap.quickTo(el, "rotation", {
-      duration: 0.8,
-      ease: "power2",
-    });
-
+  /* Follow loop — feeds the pointer into the tweens, but only while a row is
+     hovered. On leave it stops and the lean settles back to level on its own
+     tween, so an idle ledger schedules no animation frames. */
+  useEffect(() => {
+    if (!hovering) return;
+    lastX.current = pointer.current?.x ?? 0; // no stale-velocity lean on re-enter
     let raf = 0;
     const loop = () => {
       const p = pointer.current;
-      if (p) {
-        xTo(p.x + OFFSET.x);
-        yTo(p.y + OFFSET.y);
+      const t = trail.current;
+      if (p && t) {
+        t.xTo(p.x + OFFSET.x);
+        t.yTo(p.y + OFFSET.y);
         // Horizontal velocity → lean
         const vx = p.x - lastX.current;
-        rTo(gsap.utils.clamp(-MAX_LEAN, MAX_LEAN, vx * 0.35));
+        t.rTo(gsap.utils.clamp(-MAX_LEAN, MAX_LEAN, vx * 0.35));
         lastX.current = p.x;
       }
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
 
-    return () => cancelAnimationFrame(raf);
-  }, [pointer]);
+    return () => {
+      cancelAnimationFrame(raf);
+      trail.current?.rTo(0);
+    };
+  }, [hovering, pointer]);
 
   return (
     <div

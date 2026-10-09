@@ -90,7 +90,7 @@ export function Footer() {
           {COLUMNS.map((col) => (
             <nav
               key={col.head[0]}
-              aria-label={col.head[0]}
+              aria-label={ar ? col.head[1] : col.head[0]}
               className="flex flex-col gap-1"
             >
               <p className="font-display text-caption uppercase tracking-[0.12em] text-text-ghost">

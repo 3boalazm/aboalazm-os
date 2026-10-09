@@ -10,7 +10,7 @@ import { useT } from "@/hooks/use-t";
  *  · status pill moved out of the nav band (now in hero flow),
  *    so nothing collides at the top edge.
  */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
@@ -19,6 +19,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { useTheme } from "@/components/providers/theme-provider";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
+import { SkipLink } from "./skip-link";
 
 const LINKS = [
   { href: "/about",      en: "ABOUT",          ar: "نبذة"       },
@@ -46,6 +47,10 @@ const MORE = [
   { href: "/portfolio", en: "PORTFOLIO PDF ↓", ar: "بورتفوليو PDF ↓" },
 ] as const;
 
+/* Exact match or a child route — a bare startsWith made /work claim /work-ui */
+const isActive = (pathname: string, href: string) =>
+  pathname === href || pathname.startsWith(href + "/");
+
 export function Nav() {
   const t = useT();
   const pathname = usePathname();
@@ -54,6 +59,8 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const reduceMotion = useReducedMotion();
+  const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 64);
@@ -65,12 +72,37 @@ export function Nav() {
   /* Close the mobile panel on route change */
   useEffect(() => setOpen(false), [pathname]);
 
-  return (
-    <motion.nav
+  /* Close the panel and park focus on its trigger: the panel unmounts
+     under whatever link was focused, which would drop focus to <body>. */
+  const closePanel = () => {
+    setOpen(false);
+    menuButtonRef.current?.focus();
+  };
+
+  /* While the panel is open: Escape closes it (focus back on the trigger)
+     and so does a press anywhere outside the nav. */
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closePanel();
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [open]);
+
+  /* Plain <nav>: the old opacity:0 entrance left it invisible in the SSR
+     HTML (and for ~1s after hydration, or forever without JS). */
+  const nav = (
+    <nav
+      ref={navRef}
       aria-label={t.navPrimary}
-      initial={{ y: -12, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ ...physics, delay: 0.9 }}
       className="fixed left-1/2 top-2 z-nav w-max max-w-[calc(100vw-16px)] -translate-x-1/2"
     >
       <div
@@ -119,7 +151,7 @@ export function Nav() {
         {/* Desktop links */}
         <ul className="hidden items-center gap-2 lg:flex">
           {LINKS.map((link) => {
-            const active = pathname.startsWith(link.href);
+            const active = isActive(pathname, link.href);
             return (
               <li key={link.href} className="relative">
                 <Link
@@ -134,7 +166,7 @@ export function Nav() {
                   ].join(" ")}
                 >
                   {lang === "ar" ? link.ar : link.en}
-                  <span className="absolute inset-x-1 -bottom-px h-px origin-left scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
+                  <span className="absolute inset-x-1 -bottom-px h-px origin-left rtl:origin-right scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
                 </Link>
                 {active && (
                   <motion.span
@@ -153,14 +185,29 @@ export function Nav() {
           type="button"
           onClick={toggle}
           aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+          lang={lang === "ar" ? "en" : "ar"}
           className="shrink-0 rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
         >
           {lang === "ar" ? (
             "EN"
           ) : (
-            <span style={{ fontFamily: "var(--font-thmanyah)", fontSize: "1rem", lineHeight: 1, fontWeight: 500 }}>
-              ع
-            </span>
+            /* ع (U+0639) from Thmanyah Serif Display Medium, drawn as a path:
+               as text it made every English page download the 249 KB
+               thmanyahserifdisplay-Medium.otf for this one glyph. Box = the
+               glyph's advance width (0.477em) by its ink height (0.884em) at
+               1rem. The ink may overhang the advance, as it did as text; the
+               margins keep the old span's line box (14px above the baseline,
+               none of the 4.7px descender counted) so the button keeps its
+               height and the glyph its position; align-baseline undoes
+               preflight's vertical-align:middle on svg. */
+            <svg
+              aria-hidden
+              focusable="false"
+              viewBox="0 -588 477 884"
+              className="mt-[0.287rem] -mb-[0.296rem] inline-block h-[0.884rem] w-[0.477rem] overflow-visible fill-current align-baseline"
+            >
+              <path d="M452-323L443-332L354-310C315-300 279-296 246-296C138-296 67-342 67-390C67-429 133-460 210-460C279-460 349-436 385-412L395-420C369-535 301-588 233-588C146-588 54-502 54-379C54-299 94-237 174-201C106-143 25-68 25 60C25 229 165 296 295 296L535 177L535 162L320 162C181 162 43 121 43 38C43-64 252-166 388-198L419-205Z" />
+            </svg>
           )}
         </button>
 
@@ -168,7 +215,11 @@ export function Nav() {
         <button
           type="button"
           onClick={toggleTheme}
-          aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={
+            lang === "ar"
+              ? theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن"
+              : theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+          }
           className="grid size-6 shrink-0 place-items-center rounded-pill border border-border-subtle max-[359px]:hidden sm:size-7 font-mono text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
         >
           <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
@@ -192,10 +243,12 @@ export function Nav() {
 
         {/* Mobile menu trigger */}
         <button
+          ref={menuButtonRef}
           type="button"
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
+          lang={lang === "ar" ? "en" : undefined}
           onClick={() => setOpen((v) => !v)}
           className="grid size-6 shrink-0 place-items-center rounded-pill font-mono sm:size-8 text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary lg:hidden"
         >
@@ -212,10 +265,10 @@ export function Nav() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8, transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] } }}
             transition={physics}
-            className="glass mt-1 flex max-h-[calc(100svh-5.5rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card lg:hidden"
+            className="glass mt-1 flex max-h-[calc(100svh-7rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card lg:hidden"
           >
             {[...LINKS, ...MORE].map((link, i) => {
-              const active = pathname.startsWith(link.href);
+              const active = isActive(pathname, link.href);
               return (
                 <motion.li
                   key={link.href}
@@ -226,6 +279,7 @@ export function Nav() {
                   <Link
                     href={link.href}
                     aria-current={active ? "page" : undefined}
+                    onClick={closePanel}
                     className={[
                       "flex items-center gap-1.5 rounded-card px-2 py-2 font-display text-micro uppercase tracking-[0.08em]",
                       "transition-colors duration-base ease-physics",
@@ -267,6 +321,14 @@ export function Nav() {
           </motion.ul>
         )}
       </AnimatePresence>
-    </motion.nav>
+    </nav>
+  );
+
+  /* Skip link goes first so it is the first Tab stop on every page. */
+  return (
+    <>
+      <SkipLink />
+      {nav}
+    </>
   );
 }

@@ -7,6 +7,7 @@ import {
   getCaseStudyGallery,
   getAllCaseStudySlugs,
 } from "@/lib/content";
+import { truncateAtWord } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -30,7 +31,7 @@ export async function generateMetadata({
   if (!record) notFound();
   return {
     title: `${record.name} — Case File`,
-    description: record.problem.slice(0, 155),
+    description: truncateAtWord(record.problem),
   };
 }
 

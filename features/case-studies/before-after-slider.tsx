@@ -53,10 +53,15 @@ export function BeforeAfterSlider({
   );
 
   const onKeyDown = useCallback((e: React.KeyboardEvent) => {
+    // leave browser shortcuts alone (Alt+Left/Right = back/forward, Ctrl/Cmd+Home/End)
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     if (e.key === "ArrowLeft") setPos((p) => clamp(p - 5));
-    if (e.key === "ArrowRight") setPos((p) => clamp(p + 5));
-    if (e.key === "Home") setPos(4);
-    if (e.key === "End") setPos(96);
+    else if (e.key === "ArrowRight") setPos((p) => clamp(p + 5));
+    else if (e.key === "Home") setPos(4);
+    else if (e.key === "End") setPos(96);
+    else return;
+    // handled keys must not also scroll the page (End/Home jump to the page edges)
+    e.preventDefault();
   }, []);
 
   return (
