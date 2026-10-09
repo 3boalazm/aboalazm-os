@@ -72,14 +72,19 @@ export function Nav() {
   /* Close the mobile panel on route change */
   useEffect(() => setOpen(false), [pathname]);
 
+  /* Close the panel and park focus on its trigger: the panel unmounts
+     under whatever link was focused, which would drop focus to <body>. */
+  const closePanel = () => {
+    setOpen(false);
+    menuButtonRef.current?.focus();
+  };
+
   /* While the panel is open: Escape closes it (focus back on the trigger)
      and so does a press anywhere outside the nav. */
   useEffect(() => {
     if (!open) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      setOpen(false);
-      menuButtonRef.current?.focus();
+      if (e.key === "Escape") closePanel();
     };
     const onPointerDown = (e: PointerEvent) => {
       if (!navRef.current?.contains(e.target as Node)) setOpen(false);
@@ -274,7 +279,7 @@ export function Nav() {
                   <Link
                     href={link.href}
                     aria-current={active ? "page" : undefined}
-                    onClick={() => setOpen(false)}
+                    onClick={closePanel}
                     className={[
                       "flex items-center gap-1.5 rounded-card px-2 py-2 font-display text-micro uppercase tracking-[0.08em]",
                       "transition-colors duration-base ease-physics",
