@@ -12,34 +12,42 @@ import {
 const restGet = REST_GET(config);
 type RestArgs = Parameters<typeof restGet>[1];
 
+/** Largest value of a Postgres integer (int4) id column. */
+const INT4_MAX = 2_147_483_647;
+
 /**
- * GET /api/<collection>/<id> with an id the database cannot parse (serial
- * integer ids) reaches Drizzle as "NaN" and comes back as a 500. Answer with
- * the same 404 shape Payload uses for a missing document instead.
+ * GET /api/<collection>/<id> with an id the database cannot take (serial
+ * integer ids) reaches Drizzle as "NaN" or an out-of-range number and comes
+ * back as a 500. Answer with the same 404 shape Payload uses for a missing
+ * document instead.
  *
  * Only the public read path is guarded, and only for the exact shape
- * /api/<collection>/<segment>. A segment is left to Payload when it is
- * numeric, or when it is the first segment of an endpoint the collection
- * registers (count, versions, me, init, access, paste-url, …). Internal
- * payload-* collections (string keys) and collections with a custom id field
- * are never guarded.
+ * /api/<collection>/<segment>. A segment is left to Payload when it is an
+ * integer within int4 range, or when it is the first segment of a GET
+ * endpoint the collection registers (count, versions, me, init, access,
+ * paste-url, …). Internal payload-* collections (string keys) and
+ * collections with a custom id field are never guarded.
  */
 async function isUnparseableId(args: RestArgs): Promise<boolean> {
   const slug = (await args.params).slug;
   if (slug?.length !== 2) return false;
   const [collectionSlug, segment] = slug as [string, string];
-  if (/^\d+$/.test(segment) || collectionSlug.startsWith("payload-")) return false;
+  const numeric = /^\d+$/.test(segment);
+  if ((numeric && Number(segment) <= INT4_MAX) || collectionSlug.startsWith("payload-")) return false;
 
   const sanitized = await config;
   if (sanitized.db.defaultIDType !== "number") return false;
   const collection = sanitized.collections.find((c) => c.slug === collectionSlug);
   if (!collection || !Array.isArray(collection.endpoints)) return false;
   if (collection.fields.some((f) => "name" in f && f.name === "id")) return false;
+  if (numeric) return true; // digits only, but beyond int4
 
   // `/count`, `/versions`, `/access/:id?` … — a static first segment followed
   // only by optional params. `/file/:filename` needs a filename, so a bare
-  // `/file` is still just a bad id.
+  // `/file` is still just a bad id. Only GET endpoints count: a POST-only name
+  // (`/login`, `/forgot-password`) is not served for GET and falls to `/:id`.
   const isReserved = collection.endpoints.some((endpoint) => {
+    if (endpoint.method !== "get") return false;
     const [, first, ...rest] = endpoint.path.split("/");
     return first === segment && rest.every((part) => /^:\w+\?$/.test(part));
   });

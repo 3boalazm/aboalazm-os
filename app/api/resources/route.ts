@@ -2,17 +2,18 @@ import { type NextRequest, NextResponse } from "next/server";
 import { getPayload } from "@/lib/payload";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { RESOURCES } from "@/lib/resources";
+import { EMAIL_MAX, EMAIL_RE } from "@/features/contact/validate";
 
 /**
  * RESOURCE LEAD CAPTURE.
  * POST { email, resource? } → unlocks the Aboalazm OS resource downloads.
  * Persists to the `resource-leads` Payload collection. Never blocks the
  * unlock on a storage failure — the user still gets their download even
- * if the write fails.
+ * if the write fails. Protection is validation plus the per-IP limit only
+ * (no bot trap); see the note on the contact form's traps in
+ * features/contact/validate.ts.
  */
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const EMAIL_MAX = 254;
 const RESOURCE_IDS = new Set(RESOURCES.map((r) => r.id));
 
 export async function POST(req: NextRequest) {

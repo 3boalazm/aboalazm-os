@@ -17,7 +17,7 @@ export interface ContactSubmission {
   timeline?: string;
   budget?: string;
   /** Honeypot — a hidden input the real form never fills. */
-  website?: string;
+  _gotcha?: string;
   /** Milliseconds from form mount to submit, measured in the browser. */
   elapsedMs?: number;
 }
@@ -32,8 +32,13 @@ export async function submitContact(data: ContactSubmission): Promise<{ ok: bool
   /* `data` comes from a public POST, whatever the TypeScript type says. */
   const checked = validateContact(data);
   if (!checked.ok) return { ok: false, error: checked.error };
-  // Bot trap tripped: look like a success, store and email nothing.
-  if (checked.spam) return { ok: true };
+  /* Bot trap tripped: look like a success, store and email nothing. The
+     visitor sees "sent" either way, so log the reason (no PII, no message)
+     — it is the only way to notice a real person caught by a trap. */
+  if (checked.spam) {
+    console.warn(`[contact] bot trap tripped: ${checked.reason}`);
+    return { ok: true };
+  }
   const fields = checked.data;
 
   const payload = await getPayload();

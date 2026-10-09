@@ -11,6 +11,7 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
 import { submitContact } from "./actions";
+import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } from "./validate";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Status = "idle" | "working" | "sent" | "error" | "rateLimited";
@@ -81,7 +82,7 @@ export function ContactForm() {
               : ""),
           timeline: String(data.get("timeline") ?? "") || undefined,
           budget: budget ?? undefined,
-          website: String(data.get("website") ?? ""),
+          _gotcha: String(data.get("_gotcha") ?? ""),
           elapsedMs: Math.round(performance.now() - startedAt.current),
         }),
         new Promise<never>((_, reject) => {
@@ -108,12 +109,6 @@ export function ContactForm() {
 
   return (
     <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 shadow-card">
-      {/* Plain conditional, not AnimatePresence: a functional state
-          change (message sent vs. still a form) must never wait on an
-          animation library's exit-completion callback to swap content —
-          that ties a critical status transition to something that can
-          stall (slow devices, backgrounded tabs). The fade-in below is
-          decorative only; the content itself swaps instantly. */}
       {/* Live regions exist from first paint — text added together with its
           region is not announced. This one carries the confirmation; the
           form has its own polite/alert regions under the submit button. */}
@@ -144,6 +139,12 @@ export function ContactForm() {
           </motion.div>
         ) : null}
       </div>
+      {/* Plain conditionals, not AnimatePresence: a functional state change
+          (message sent vs. still a form) must never wait on an animation
+          library's exit-completion callback to swap content — that ties a
+          critical status transition to something that can stall (slow
+          devices, backgrounded tabs). The fade-in on the confirmation is
+          decorative only; the content itself swaps instantly. */}
       {status !== "sent" ? (
           <motion.form
             key="form"
@@ -153,11 +154,11 @@ export function ContactForm() {
           >
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formName}</span>
-              <input required name="name" autoComplete="name" className={FIELD} placeholder={t.formPlaceholderName} />
+              <input required name="name" autoComplete="name" maxLength={NAME_MAX} className={FIELD} placeholder={t.formPlaceholderName} />
             </label>
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formEmail}</span>
-              <input required type="email" name="email" autoComplete="email" className={FIELD} placeholder={t.formPlaceholderEmail} />
+              <input required type="email" name="email" autoComplete="email" maxLength={EMAIL_MAX} pattern={EMAIL_RE.source} className={FIELD} placeholder={t.formPlaceholderEmail} />
             </label>
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formBuilding}</span>
@@ -165,6 +166,7 @@ export function ContactForm() {
                 required={!scopeUnknown}
                 name="brief"
                 rows={4}
+                maxLength={BRIEF_MAX}
                 className={FIELD}
                 placeholder={
                   scopeUnknown
@@ -209,11 +211,11 @@ export function ContactForm() {
             <div id="contact-details" hidden={!detailsOpen} className="flex flex-col gap-2">
               <label className="flex flex-col gap-0.5">
                 <span className={LABEL}>{t.formCompany}</span>
-                <input name="company" autoComplete="organization" className={FIELD} placeholder={t.formPlaceholderCompany} />
+                <input name="company" autoComplete="organization" maxLength={COMPANY_MAX} className={FIELD} placeholder={t.formPlaceholderCompany} />
               </label>
               <label className="flex flex-col gap-0.5">
                 <span className={LABEL}>{t.formTimeline}</span>
-                <input name="timeline" className={FIELD} placeholder={t.formPlaceholderTimeline} />
+                <input name="timeline" maxLength={TIMELINE_MAX} className={FIELD} placeholder={t.formPlaceholderTimeline} />
               </label>
               <fieldset className="flex flex-col gap-1">
                 <legend className={LABEL}>{t.formBudget}</legend>
@@ -239,9 +241,11 @@ export function ContactForm() {
             </div>
 
             {/* Honeypot: invisible and unreachable for people, tempting for
-                form-filling bots. The server drops any submission that fills it. */}
+                form-filling bots. The server drops any submission that fills
+                it, so the name is deliberately not one a browser or password
+                manager would autofill (not website/url/phone…). */}
             <div aria-hidden="true" className="sr-only">
-              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+              <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
             </div>
 
             <button

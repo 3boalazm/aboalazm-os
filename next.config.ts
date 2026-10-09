@@ -36,6 +36,13 @@ const securityHeaders = [
  * max-age=0 otherwise). Fonts and the /books reader assets are only ever
  * replaced by renaming/new uuid file names, so they can be immutable;
  * /images keeps a day of freshness plus a week of stale-while-revalidate.
+ *
+ * RULE: `immutable` for a year relies on these files never being replaced in
+ * place. The font names are not hashed (Gc_Epicpro.woff2,
+ * thmanyahserifdisplay-*.otf): if a font file ever changes it must be
+ * RENAMED (and its references updated), or visitors keep the old file. The
+ * same goes for /images, which also sets /_next/image's cache lifetime (a
+ * day instead of its 60 s default): a changed image needs a new file name.
  */
 const cacheControl = (value: string) => [{ key: "Cache-Control", value }];
 
