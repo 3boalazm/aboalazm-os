@@ -57,22 +57,22 @@ export const NILE_PHARMA: CaseStudyRecord = {
 
   results: [
     {
-      value: "+40%",
-      label: "Online Visibility",
-      labelAr: "الظهور الرقمي",
-      context: "Reported online visibility improvement; measurement methodology not published.",
-      contextAr: "تحسن مُبلّغ عنه في الظهور الرقمي؛ منهجية القياس غير منشورة.",
+      value: "SYSTEM",
+      label: "Brand system",
+      labelAr: "نظام الهوية",
+      context: "Identity and visual governance across the engagement.",
+      contextAr: "الهوية والحوكمة البصرية خلال فترة العمل.",
     },
     {
-      value: "+25%",
-      label: "Customer Engagement",
-      labelAr: "تفاعل العملاء",
-      context: "Reported customer-engagement improvement across retail campaigns; measurement methodology not published.",
-      contextAr: "تحسن مُبلّغ عنه في تفاعل العملاء عبر الحملات؛ منهجية القياس غير منشورة.",
+      value: "PACK",
+      label: "Product & campaign applications",
+      labelAr: "تطبيقات المنتجات والحملات",
+      context: "Packaging, product-line applications, and campaign governance.",
+      contextAr: "التغليف وتطبيقات خطوط المنتجات وحوكمة الحملات.",
     },
     {
       value: "5y",
-      label: "Engagement Span",
+      label: "Engagement span",
       labelAr: "مدة العمل",
       context: "Five-year engagement across pharmacy retail channels (2020–2025).",
       contextAr: "فترة عمل امتدت خمس سنوات عبر قنوات بيع الصيدليات (2020–2025).",
