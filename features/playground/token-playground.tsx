@@ -82,7 +82,7 @@ export function TokenPlayground() {
   return (
     <section className="grid gap-2 lg:grid-cols-[16rem_1fr]">
       {/* ════ 1 · CONTROLS DOCK (floating left) ════ */}
-      <aside className="glass top-16 flex h-fit flex-col gap-3 rounded-panel p-3 lg:sticky">
+      <div className="glass top-16 flex h-fit flex-col gap-3 rounded-panel p-3 lg:sticky">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           TOKEN CONTROLS // LIVE
         </p>
@@ -149,7 +149,7 @@ export function TokenPlayground() {
         >
           [RESET <Icon name="arrow-right" flip={false} /> SYSTEM DEFAULTS]
         </button>
-      </aside>
+      </div>
 
       {/* ════ 2 · CANVAS PREVIEW (right frame) ════ */}
       <div

@@ -6,7 +6,7 @@
  *  laid out as a balanced masonry, with a keyboard-driven lightbox.
  * ──────────────────────────────────────────────────────────────────────── */
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useId, useRef } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import Image from "next/image";
@@ -42,6 +42,10 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
 
   const [active, setActive] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const isOpen = lightbox !== null;
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const captionId = useId();
 
   const filtered: readonly GalleryImage[] =
     active === "all"
@@ -60,10 +64,32 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
   /* keyboard + scroll-lock while lightbox is open */
   useEffect(() => {
     if (lightbox === null) return;
+    // Arrow keys follow the screen: in RTL "previous" sits on the right.
+    const step = ar ? -1 : 1;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
-      else if (e.key === "ArrowRight") go(1);
-      else if (e.key === "ArrowLeft") go(-1);
+      else if (e.key === "ArrowRight") go(step);
+      else if (e.key === "ArrowLeft") go(-step);
+      else if (e.key === "Tab") {
+        // Trap Tab inside the dialog (close / prev / next / project link).
+        const dialog = dialogRef.current;
+        if (!dialog) return;
+        const items = dialog.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (!first || !last) return;
+        const current = document.activeElement;
+        if (!dialog.contains(current)) {
+          e.preventDefault();
+          (e.shiftKey ? last : first).focus();
+        } else if (e.shiftKey && current === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && current === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
@@ -72,7 +98,19 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [lightbox, close, go]);
+  }, [lightbox, close, go, ar]);
+
+  /* move focus into the dialog on open, hand it back to the tile on close */
+  useEffect(() => {
+    if (!isOpen) return;
+    const origin = document.activeElement;
+    closeRef.current?.focus();
+    return () => {
+      if (origin instanceof HTMLElement && origin !== document.body && origin.isConnected) {
+        origin.focus({ preventScroll: true });
+      }
+    };
+  }, [isOpen]);
 
   const chips = [
     { slug: "all", label: ar ? "الكل" : "All", accent: ALL_ACCENT },
@@ -135,7 +173,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                   style={{ background: c.accent }}
                 />
                 {c.label}
-                <span className="tabular-nums opacity-50">{count}</span>
+                <span className="tabular-nums text-text-secondary">{count}</span>
               </span>
             </button>
           );
@@ -165,7 +203,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, ease: EASE }}
                 onClick={() => setLightbox(i)}
-                className={mediaCardVariants({ className: "relative mb-3 block w-full text-left md:mb-4" })}
+                className={mediaCardVariants({ className: "relative mb-3 block w-full text-start md:mb-4" })}
               >
                 <Image
                   src={img.src}
@@ -229,6 +267,10 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
             const p = projectOf(img.project);
             return (
               <motion.div
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={captionId}
                 className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm md:p-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -237,10 +279,11 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
               >
                 {/* close */}
                 <button
+                  ref={closeRef}
                   type="button"
                   onClick={close}
                   aria-label={ar ? "إغلاق" : "Close"}
-                  className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+                  className="absolute end-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   <Icon name="x" size={18} />
                 </button>
@@ -252,9 +295,9 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                     go(-1);
                   }}
                   aria-label={ar ? "السابق" : "Previous"}
-                  className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white md:left-6"
+                  className="absolute start-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white md:start-6"
                 >
-                  ‹
+                  <Icon name="chevron-left" size={22} />
                 </button>
                 {/* next */}
                 <button
@@ -264,7 +307,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                     go(1);
                   }}
                   aria-label={ar ? "التالي" : "Next"}
-                  className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white md:right-6"
+                  className="absolute end-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:bg-white/10 hover:text-white md:end-6"
                 >
                   <Icon name="chevron-right" size={22} />
                 </button>
@@ -302,7 +345,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                           </span>
                         </Link>
                       ) : null}
-                      <span className="text-body-sm text-white/90">
+                      <span id={captionId} className="text-body-sm text-white/90">
                         {ar ? img.captionAr : img.caption}
                       </span>
                     </span>

@@ -129,7 +129,7 @@ export function NotFoundContent() {
         animate="visible"
       >
         {/* Big headline — GC EPICPRO / Thmanyah */}
-        <div className="not-found-headline" aria-label={copy.headline.join(" ")}>
+        <h1 className="not-found-headline" aria-label={copy.headline.join(" ")}>
           {copy.headline.map((line, i) => (
             <motion.span
               key={i}
@@ -140,7 +140,7 @@ export function NotFoundContent() {
               {line}
             </motion.span>
           ))}
-        </div>
+        </h1>
 
         {/* Sub + body */}
         <motion.p

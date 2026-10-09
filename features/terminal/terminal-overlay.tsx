@@ -64,6 +64,7 @@ export function TerminalOverlay() {
   const [history, setHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
 
   // Ctrl+` (backtick) toggles the terminal from anywhere on the site.
   useEffect(() => {
@@ -78,9 +79,23 @@ export function TerminalOverlay() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
+  // Focus the input on open; hand focus back to whatever had it on close.
   useEffect(() => {
-    if (open) inputRef.current?.focus();
+    if (!open) return;
+    const origin = document.activeElement;
+    inputRef.current?.focus();
+    return () => {
+      if (origin instanceof HTMLElement && origin !== document.body && origin.isConnected) {
+        origin.focus();
+      }
+    };
   }, [open]);
+
+  // Keep the newest output in view.
+  useEffect(() => {
+    const el = outputRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [lines, open]);
 
   function run(raw: string) {
     const cmd = raw.trim();
@@ -161,6 +176,7 @@ export function TerminalOverlay() {
   return (
     <div
       role="dialog"
+      aria-modal="true"
       aria-label="Terminal"
       className="fixed inset-x-0 bottom-0 z-[999] flex justify-center px-3 pb-3 sm:px-0"
     >
@@ -171,14 +187,20 @@ export function TerminalOverlay() {
           </span>
           <button
             onClick={() => setOpen(false)}
-            aria-label="Close terminal"
+            aria-label="Close terminal (esc)"
             className="inline-flex items-center gap-1 font-mono text-micro text-text-tertiary hover:text-text-primary"
           >
             esc <Icon name="x" size="0.9em" />
           </button>
         </div>
 
-        <div className="max-h-52 overflow-y-auto px-3 py-2 font-mono text-body-sm">
+        <div
+          ref={outputRef}
+          role="log"
+          aria-live="polite"
+          tabIndex={0}
+          className="max-h-52 overflow-y-auto px-3 py-2 font-mono text-body-sm"
+        >
           {lines.map((l, i) => (
             <pre
               key={i}
@@ -203,6 +225,7 @@ export function TerminalOverlay() {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             onKeyDown={onKeyDown}
+            aria-label="Terminal input"
             spellCheck={false}
             autoComplete="off"
             className="flex-1 bg-transparent font-mono text-body-sm text-text-primary outline-none placeholder:text-text-ghost"

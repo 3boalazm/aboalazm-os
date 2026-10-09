@@ -348,7 +348,7 @@ export function ForHiringView() {
       </header>
 
       {/* ── 02 · Candidate Highlights & Quick Facts ── */}
-      <section className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-12 sm:grid-cols-4">
+      <dl className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-12 sm:grid-cols-4">
         {[
           [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
           [ar ? "أنظمة تم تسليمها" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "دواء، صحة، غذاء، تعليم، حكومة" : "Healthcare, pharma, education, government"],
@@ -358,10 +358,10 @@ export function ForHiringView() {
           <div key={label} className="flex flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost">{label}</dt>
             <dd className="font-display text-subtitle font-bold text-text-primary">{val}</dd>
-            <span className="font-mono text-micro text-accent">{sub}</span>
+            <dd className="font-mono text-micro text-accent">{sub}</dd>
           </div>
         ))}
-      </section>
+      </dl>
 
       {/* ── 03 · Selected Projects with Exact Role Breakdown ── */}
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-16">

@@ -269,9 +269,12 @@ export function RotatingGallery({
     ? (project?.labelAr ?? "الأعمال")
     : (project?.label  ?? "Selected Work");
 
+  /* aria-hidden: the reel is decorative — its cards are click-only divs and
+     the same images are real buttons in the grid above. */
   return (
     <div
       ref={rootRef}
+      aria-hidden="true"
       className="rotating-gallery-root relative"
       style={{ paddingTop: "5vh", paddingBottom: "15vh" }}
     >

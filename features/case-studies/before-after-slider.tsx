@@ -54,9 +54,12 @@ export function BeforeAfterSlider({
 
   const onKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") setPos((p) => clamp(p - 5));
-    if (e.key === "ArrowRight") setPos((p) => clamp(p + 5));
-    if (e.key === "Home") setPos(4);
-    if (e.key === "End") setPos(96);
+    else if (e.key === "ArrowRight") setPos((p) => clamp(p + 5));
+    else if (e.key === "Home") setPos(4);
+    else if (e.key === "End") setPos(96);
+    else return;
+    // handled keys must not also scroll the page (End/Home jump to the page edges)
+    e.preventDefault();
   }, []);
 
   return (
