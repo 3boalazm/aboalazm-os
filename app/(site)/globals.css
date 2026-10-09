@@ -2426,6 +2426,17 @@ html {
   }
 }
 
+/* The nowrap label ("PRACTICE / BACKGROUND") was the only thing wider than a
+   320px viewport. The row needs ~307px of content width (a 355px viewport
+   with the 24px gutters) once its decorative line has shrunk to 0, so below
+   that the label wraps; at 355px and up it stays nowrap, layout unchanged. */
+@media (max-width: 354px) {
+  .narrative-marker__label {
+    white-space: normal;
+    min-width: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
