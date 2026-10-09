@@ -7,7 +7,7 @@
 import Link from "next/link";
 import * as React from "react";
 import { Icon } from "@/components/ui/Icon";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
@@ -141,13 +141,27 @@ export function ClientJourneyBand() {
   const ar = lang === "ar";
   const reduceMotion = useReducedMotion();
   const ref = React.useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = React.useState(0);
 
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (reduceMotion) return;
-    setActive(Math.min(3, Math.max(0, Math.floor(v * 4))));
-  });
+  /* The active stage is whichever card sits in a thin band at the middle of
+     the viewport. (Mapping total section progress ÷ 4 drifted out of sync
+     with the cards: a card scrolled off-screen while still "active" and the
+     card actually in view stayed ghosted, so the right column read as empty.) */
+  React.useEffect(() => {
+    const els = stepRefs.current.filter((el): el is HTMLDivElement => el !== null);
+    if (els.length === 0 || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.step));
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" },
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
 
   const steps = ar
     ? [
@@ -202,10 +216,15 @@ export function ClientJourneyBand() {
           {steps.map((step, i) => {
             const isActive = i === active;
             return (
-              <div key={step.n} className="min-h-[48vh] py-10 lg:min-h-[58vh] lg:py-16">
+              <div
+                key={step.n}
+                ref={(el) => { stepRefs.current[i] = el; }}
+                data-step={i}
+                className="min-h-[40vh] py-8 lg:min-h-[52vh] lg:py-10"
+              >
                 <motion.div
                   initial={false}
-                  animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.28, y: isActive ? 0 : 18 }}
+                  animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                   className="border-t border-border-subtle pt-6"
                 >
@@ -218,11 +237,11 @@ export function ClientJourneyBand() {
 ][i]}`}>{step.n}</span>
                     <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">{step.proof}</span>
                   </div>
-                  <h3 className="mt-10 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
+                  <h3 className="mt-8 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
                     {step.name}
                   </h3>
                   <p className="mt-6 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary">{step.short}</p>
-                  <div className="mt-12 h-px w-full bg-border-subtle" />
+                  <div className="mt-10 h-px w-full bg-border-subtle" />
                   <p className="mt-4 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
                     {ar ? `بوابة ${step.n}` : `Gate ${step.n}`}
                   </p>
