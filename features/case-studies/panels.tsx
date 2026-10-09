@@ -1,4 +1,5 @@
 "use client";
+import { useLayoutEffect, useRef } from "react";
 import { useLang } from "@/components/providers/lang-provider";
 
 /**
@@ -134,6 +135,66 @@ export function ContextPanel({ record }: { record: CaseStudyRecord }) {
 
 /* ── 02 · RESEARCH & LOGIC ─────────────────────────────────────── */
 
+type Box = { left: number; right: number; top: number; bottom: number };
+
+/* Labels sit beside their dots, so two close dots can put their labels on top
+   of each other once none of them is clipped any more. Walk the labels top to
+   bottom and nudge each one down (the dot stays put) until its text clears the
+   labels and captions above it; then walk back up and lift whatever ended past
+   the bottom edge (or on top of a label below it). */
+function spreadLabels(fig: HTMLElement) {
+  const labels = Array.from(fig.querySelectorAll<HTMLElement>("[data-map-label]"));
+  labels.forEach((el) => {
+    el.style.marginTop = "0px";
+  });
+  const limit = fig.getBoundingClientRect().bottom - 4;
+  const textBox = (el: HTMLElement): Box => {
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const rects = Array.from(range.getClientRects());
+    return {
+      left: Math.min(...rects.map((r) => r.left)),
+      right: Math.max(...rects.map((r) => r.right)),
+      top: Math.min(...rects.map((r) => r.top)),
+      bottom: Math.max(...rects.map((r) => r.bottom)),
+    };
+  };
+  const hits = (a: Box, b: Box) =>
+    Math.min(a.right, b.right) - Math.max(a.left, b.left) > 0.5 &&
+    Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top) > 0.5;
+
+  const fixed = Array.from(fig.querySelectorAll<HTMLElement>("[data-map-fixed]")).map((el) =>
+    el.getBoundingClientRect(),
+  );
+  const items = labels
+    .map((el) => ({ el, box: textBox(el), dy: 0 }))
+    .sort((a, b) => a.box.top - b.box.top);
+  const at = (it: (typeof items)[number]): Box => ({ ...it.box, top: it.box.top + it.dy, bottom: it.box.bottom + it.dy });
+
+  items.forEach((it, i) => {
+    const above = [...fixed, ...items.slice(0, i).map(at)];
+    for (let n = 0; n <= above.length; n++) {
+      const hit = above.filter((o) => hits(at(it), o)).sort((a, b) => b.bottom - a.bottom)[0];
+      if (!hit) break;
+      it.dy = hit.bottom - it.box.top + 1;
+    }
+  });
+  for (let i = items.length - 1; i >= 0; i--) {
+    const it = items[i]!;
+    const below = items.slice(i + 1).map(at);
+    for (let n = 0; n <= below.length + 1; n++) {
+      const b = at(it);
+      const hit = below.filter((o) => hits(b, o)).sort((a, b) => a.top - b.top)[0];
+      const lift = Math.max(b.bottom - limit, hit ? b.bottom - hit.top + 1 : 0);
+      if (lift <= 0) break;
+      it.dy -= lift;
+    }
+  }
+  items.forEach((it) => {
+    it.el.style.marginTop = `${it.dy}px`;
+  });
+}
+
 function CompetitorMap({
   competitors,
 }: {
@@ -141,47 +202,79 @@ function CompetitorMap({
 }) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const figRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    const fig = figRef.current;
+    if (!fig) return;
+    let live = true;
+    const run = () => {
+      if (live) spreadLabels(fig);
+    };
+    run();
+    // Label wrapping follows the figure width; label size follows the web
+    // font's real glyph metrics (the Arabic face swaps in after the lang flip).
+    const ro = new ResizeObserver(run);
+    ro.observe(fig);
+    fig.querySelectorAll("[data-map-label]").forEach((el) => ro.observe(el));
+    return () => {
+      live = false;
+      ro.disconnect();
+    };
+  }, [competitors, lang]);
+
   return (
-    <figure className="relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1 p-2">
+    <figure
+      ref={figRef}
+      className="@container relative aspect-square overflow-hidden rounded-card border border-border-subtle bg-surface-1"
+    >
       {/* Axes */}
       <span className="absolute inset-x-2 top-1/2 h-px bg-border-subtle" />
       <span className="absolute inset-y-2 left-1/2 w-px bg-border-subtle" />
-      <span className="absolute bottom-1 right-2 font-mono text-micro text-text-ghost">
+      <span data-map-fixed className="absolute bottom-1 right-2 font-mono text-micro text-text-ghost">
         {ar ? "تميّز ←" : "DISTINCT →"}
       </span>
-      <span className="absolute left-1 top-2 font-mono text-micro text-text-ghost [writing-mode:vertical-rl]">
+      <span data-map-fixed className="absolute left-1 top-2 font-mono text-micro text-text-ghost [writing-mode:vertical-rl]">
         {ar ? "← نظام" : "← SYSTEM"}
       </span>
 
-      {/* Vectors */}
-      {competitors.map((c) => (
-        <span
-          key={c.name}
-          className="absolute -translate-x-1/2 -translate-y-1/2"
-          style={{ left: `${c.x}%`, top: `${100 - c.y}%` }}
-        >
+      {/* Vectors. Past the midline the label sits left of its dot, otherwise
+          right of it, and its width is capped to the room on that side
+          (cqw = 1% of the figure) so it wraps instead of being clipped. */}
+      {competitors.map((c) => {
+        const flip = c.x > 50;
+        return (
           <span
-            className={[
-              "block rounded-pill",
-              c.isClient
-                ? "size-2 bg-accent shadow-[0_0_12px_rgb(255_107_71/0.5)]"
-                : "size-1 bg-text-tertiary",
-            ].join(" ")}
-          />
-          <span
-            className={[
-              "absolute left-2 top-1/2 -translate-y-1/2 whitespace-nowrap font-mono text-micro",
-              c.isClient ? "text-text-primary" : "text-text-ghost",
-            ].join(" ")}
+            key={c.name}
+            className="absolute -translate-x-1/2 -translate-y-1/2"
+            style={{ left: `${c.x}%`, top: `${100 - c.y}%` }}
           >
-            {c.name}
+            <span
+              className={[
+                "block rounded-pill",
+                c.isClient
+                  ? "size-2 bg-accent shadow-[0_0_12px_rgb(255_107_71/0.5)]"
+                  : "size-1 bg-text-tertiary",
+              ].join(" ")}
+            />
+            <span
+              data-map-label
+              className={[
+                "absolute top-1/2 w-max -translate-y-1/2 font-mono text-micro",
+                flip ? "right-2 text-right" : "left-2 text-left",
+                c.isClient ? "text-text-primary" : "text-text-ghost",
+              ].join(" ")}
+              style={{ maxWidth: `calc(${flip ? c.x : 100 - c.x}cqw - 24px)` }}
+            >
+              {c.name}
+            </span>
           </span>
-        </span>
-      ))}
+        );
+      })}
       <figcaption className="sr-only">
         {ar ? "خريطة تموضع توضيحية وليست دراسة سوق منشورة" : "Illustrative positioning map; not a published market study."}
       </figcaption>
-      <span className="absolute right-2 top-2 rounded-pill border border-border-subtle bg-surface-0/80 px-2 py-0.5 font-mono text-micro text-text-ghost backdrop-blur-sm">
+      <span data-map-fixed className="absolute right-2 top-2 rounded-pill border border-border-subtle bg-surface-0/80 px-2 py-0.5 font-mono text-micro text-text-ghost backdrop-blur-sm">
         {ar ? "توضيحي" : "ILLUSTRATIVE"}
       </span>
     </figure>
@@ -258,7 +351,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
         {/* Token table — the design system core */}
-        <div className="rounded-card border border-border-subtle bg-surface-1 lg:col-span-5">
+        <div className="@container rounded-card border border-border-subtle bg-surface-1 lg:col-span-5">
           <div className="flex items-center justify-between border-b border-border-subtle px-3 py-2">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
               {t.structuralTokens}
@@ -267,13 +360,18 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
               {ar ? "قيم معتمدة وخيارات مرفوضة" : "Approved vs Rejected"}
             </span>
           </div>
+          {/* The three columns need ~500px; in a narrower card each row
+              stacks (token + value, then role) instead of overflowing. */}
           <table className="w-full">
             <tbody>
               {record.tokens.map((tok) => {
                 const isRejected = tok.value.toLowerCase().includes("rejected");
                 return (
-                  <tr key={tok.token} className="border-b border-border-subtle last:border-0">
-                    <td className="px-3 py-2 font-geist text-micro">
+                  <tr
+                    key={tok.token}
+                    className="border-b border-border-subtle last:border-0 @max-xl:flex @max-xl:flex-wrap @max-xl:gap-x-3 @max-xl:px-3 @max-xl:py-2"
+                  >
+                    <td className="px-3 py-2 font-geist text-micro @max-xl:p-0">
                       <div className="flex items-center gap-1.5">
                         <span
                           className={`size-1.5 rounded-full ${
@@ -285,8 +383,8 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
                         </span>
                       </div>
                     </td>
-                    <td className="px-3 py-2 font-geist text-micro text-text-secondary">
-                      <div className="flex items-center gap-1.5">
+                    <td className="px-3 py-2 font-geist text-micro text-text-secondary @max-xl:min-w-0 @max-xl:p-0">
+                      <div className="flex items-center gap-1.5 @max-xl:flex-wrap @max-xl:break-words">
                         <span>{tok.value}</span>
                         {isRejected ? (
                           <span className="rounded bg-surface-2 px-1 py-0.2 font-mono text-[9px] uppercase text-text-ghost">
@@ -299,7 +397,7 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
                         )}
                       </div>
                     </td>
-                    <td className="px-3 py-2 text-right font-mono text-micro text-text-ghost">
+                    <td className="px-3 py-2 text-right font-mono text-micro text-text-ghost @max-xl:basis-full @max-xl:p-0 @max-xl:text-start">
                       {ar && tok.roleAr ? tok.roleAr : tok.role}
                     </td>
                   </tr>

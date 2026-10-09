@@ -140,10 +140,10 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
           <li key={post.slug}>
             <Link
               href={`/writing/${post.slug}`}
-              className="group grid grid-cols-[4rem_1fr] items-baseline gap-2 border-b border-border-subtle py-3 md:grid-cols-[4rem_1fr_auto]"
+              className="group grid grid-cols-[4rem_minmax(0,1fr)] items-baseline gap-2 border-b border-border-subtle py-3 md:grid-cols-[4rem_minmax(0,1fr)_auto]"
             >
               <span className="font-mono text-micro text-text-ghost">{post.index}</span>
-              <span>
+              <span className="min-w-0 [overflow-wrap:anywhere]">
                 <span
                   className="relative font-display text-title tracking-[-0.015em] text-text-primary"
                   dir={(post.lang ?? "en") === "ar" ? "rtl" : "ltr"}

@@ -417,8 +417,8 @@ export function ProcessView() {
             {ar ? "التفاصيل مطوية عمدًا — اضغط على أي مرحلة لترى المهام والمخرجات الفعلية بداخلها." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
           </p>
           <div className="relative flex flex-col">
-            {/* connecting spine */}
-            <div className="absolute start-[1.35rem] top-6 bottom-6 w-px bg-border-subtle" aria-hidden />
+            {/* connecting spine — centred on the nodes (half of their 11-unit width, minus half its own 1px) */}
+            <div className="absolute start-[calc(var(--spacing)*11/2-0.5px)] top-6 bottom-6 w-px bg-border-subtle" aria-hidden />
 
             {phases.map((phase, i) => {
               const isOpen = open === phase.n;
@@ -433,7 +433,7 @@ export function ProcessView() {
                 >
                   <button
                     onClick={() => setOpen(isOpen ? null : phase.n)}
-                    className="group flex w-full items-start gap-4 py-5 text-start"
+                    className="group flex w-full flex-wrap items-start gap-x-1.5 py-5 text-start sm:flex-nowrap sm:gap-x-4"
                     aria-expanded={isOpen}
                   >
                     {/* node */}
@@ -458,7 +458,7 @@ export function ProcessView() {
 
                     {/* chevron */}
                     <span className={[
-                      "mt-2 inline-flex shrink-0 font-mono text-caption text-text-ghost transition-transform duration-base ease-physics",
+                      "ms-auto mt-2 inline-flex shrink-0 font-mono text-caption text-text-ghost transition-transform duration-base ease-physics",
                       isOpen ? "rotate-90 text-accent" : "group-hover:text-text-tertiary",
                     ].join(" ")} aria-hidden>
                       <Icon name="chevron-right" />

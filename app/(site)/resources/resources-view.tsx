@@ -36,6 +36,7 @@ export function ResourcesView() {
               ? "ليست ثمانية تنزيلات منفصلة، بل منهجية واحدة مترابطة لبناء البراندات بوضوح واتساق وقابلية للتوسّع — كل إطار يغذّي التالي."
               : "Not eight separate downloads — one connected methodology for building brands with clarity, consistency, and scale. Each framework feeds the next."
           }
+          titleClassName="heading-fit-long"
           subtitleClassName="max-w-[56ch]"
         />
       </header>

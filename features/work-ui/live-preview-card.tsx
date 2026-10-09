@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useRef } from "react";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
 import { Icon } from "@/components/ui/Icon";
 import type { Project } from "@/features/work/types";
@@ -7,10 +8,11 @@ import { MediaCard } from "@/components/ui/MediaCard";
 /**
  * LIVE PREVIEW CARD — a real, currently-live site rendered at its actual
  * desktop width (1440px) inside a fake browser chrome, then scaled down to
- * fit the card via a pure-CSS container-query trick (no JS/ResizeObserver
- * needed): the iframe is fixed at 1440×900, its parent has
- * `container-type: inline-size`, and `scale(100cqw / 1440)` does the rest —
- * the miniature reflows responsively with the grid.
+ * fit the card: the iframe is fixed at 1440×900 and a ResizeObserver on its
+ * frame keeps `--preview-scale` (frame width / 1440) current, so the
+ * miniature reflows responsively with the grid. (`scale(calc(100cqw / 1440))`
+ * is an invalid declaration — a length divided by a number is still a
+ * length — hence the JS-driven variable.)
  *
  * ⚠️ KNOWN LIMITATION: some sites send `X-Frame-Options: DENY` (or an
  * equivalent CSP), which blocks embedding entirely — the frame just stays
@@ -21,6 +23,16 @@ import { MediaCard } from "@/components/ui/MediaCard";
  */
 export function LivePreviewCard({ project }: { project: Project }) {
   const { engage, release } = useAmbientGlowControls();
+  const frameRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = frameRef.current;
+    if (!el) return;
+    const setScale = (width: number) => el.style.setProperty("--preview-scale", String(width / 1440));
+    setScale(el.clientWidth);
+    const ro = new ResizeObserver(([entry]) => entry && setScale(entry.contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const url = project.liveUrl!;
   let host = url;
   try {
@@ -58,14 +70,14 @@ export function LivePreviewCard({ project }: { project: Project }) {
       </div>
 
       {/* Scaled live preview */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-0" style={{ containerType: "inline-size" }}>
+      <div ref={frameRef} className="relative aspect-[16/10] w-full overflow-hidden bg-surface-0">
         <iframe
           src={url}
           title={`${project.name} — live preview`}
           loading="lazy"
           tabIndex={-1}
           className="pointer-events-none absolute left-0 top-0 origin-top-left border-0"
-          style={{ width: 1440, height: 900, transform: "scale(calc(100cqw / 1440))" }}
+          style={{ width: 1440, height: 900, transform: "scale(var(--preview-scale, 0.25))" }}
         />
         {/* Hover scrim */}
         <div className="absolute inset-0 flex items-center justify-center bg-surface-0/0 opacity-0 transition-all duration-base ease-physics group-hover:bg-surface-0/50 group-hover:opacity-100">

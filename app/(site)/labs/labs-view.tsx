@@ -51,6 +51,7 @@ export function LabsView() {
               ? "Aboalazm Labs هو طبقة البحث والتجريب خلف Aboalazm OS — قسم الـ R&D للبراندينج وأنظمة الهوية وعمليات التصميم والتدفقات المدعومة بالذكاء الاصطناعي."
               : "Aboalazm Labs is the research and experimentation layer behind Aboalazm OS — the R&D department for branding, identity systems, design operations, and AI-powered creative workflows."
           }
+          titleClassName="heading-fit-long"
           subtitleClassName="max-w-[58ch]"
         />
         <p className="max-w-[58ch] text-body text-text-secondary">
@@ -268,6 +269,7 @@ export function LabsView() {
         kicker={["WHAT HAPPENS HERE REACHES CLIENT WORK", "ما يحدث هنا يصل إلى عمل العملاء"]}
         title={["The future isn't more deliverables.", "المستقبل ليس مخرجات أكثر."]}
         italic={["It's better operating systems.", "بل أنظمة تشغيل أفضل."]}
+        titleClassName="heading-fit-long"
         primary={["Start a project", "ابدأ مشروعًا"]}
         primaryHref="/contact"
         secondary={["Explore the OS", "استكشف الـ OS"]}

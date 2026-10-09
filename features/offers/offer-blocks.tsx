@@ -9,6 +9,7 @@ import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
+import { joinClasses } from "@/lib/utils";
 
 export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
 
@@ -322,11 +323,13 @@ export function Faq({ items }: { items: readonly { q: Bi; a: Bi }[] }) {
 
 /* ── CTA band (old-site style serif moment) ── */
 export function CtaBand({
-  kicker, title, italic, primary, primaryHref, secondary, secondaryHref,
+  kicker, title, italic, primary, primaryHref, secondary, secondaryHref, titleClassName,
 }: {
   kicker: Bi; title: Bi; italic: Bi;
   primary: Bi; primaryHref: string;
   secondary: Bi; secondaryHref: string;
+  /** Per-page title override (e.g. `heading-fit-long` for a long unbreakable word). */
+  titleClassName?: string;
 }) {
   const { lang } = useLang();
   return (
@@ -334,7 +337,7 @@ export function CtaBand({
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
         — {pick(kicker, lang)} —
       </p>
-      <p className="font-display text-display tracking-[-0.025em]">
+      <p className={joinClasses("font-display text-display tracking-[-0.025em]", titleClassName)}>
         {pick(title, lang)} <em className="text-accent">{pick(italic, lang)}</em>
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
