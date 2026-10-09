@@ -45,8 +45,8 @@
   --panel:#1b1710;         /* raised panels / chips */
   --ivory:#f2ecdf;         /* primary text */
   --ink-70:rgba(242,236,223,0.72);
-  --ink-50:rgba(242,236,223,0.52);
-  --ink-35:rgba(242,236,223,0.35);
+  --ink-50:rgba(242,236,223,0.62);
+  --ink-35:rgba(242,236,223,0.48);
   --line:rgba(242,236,223,0.18);
   --line-soft:rgba(242,236,223,0.09);
   --red:#ff5233;           /* signal accent (on dark) */
@@ -66,7 +66,9 @@
   font-family:var(--f-sans);
   -webkit-font-smoothing:antialiased;
 }
-#folio *, #folio *::before, #folio *::after { box-sizing:border-box; margin:0; padding:0; }
+/* :where() keeps the reset at zero specificity — a plain `#folio *` (1,0,0)
+   outranks every `.fol-*` class and silently zeroed all slide margins/padding */
+:where(#folio) *, :where(#folio) *::before, :where(#folio) *::after { box-sizing:border-box; margin:0; padding:0; }
 #folio img { display:block; max-width:100%; }
 #folio button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
 #folio a { color:inherit; text-decoration:none; }
@@ -139,6 +141,7 @@
   background-color:var(--frame-bg); background-size:cover; background-position:center;
   outline:1px solid var(--line);
 }
+.fol-frame--contain { background-size:contain; background-repeat:no-repeat; }
 .fol-frame .cap {
   position:absolute; left:16px; bottom:16px; z-index:2;
   font-family:var(--f-mono); font-size:12px; font-weight:500;
@@ -295,6 +298,19 @@
 .fol-toolbar .tb-btn--acc { background:var(--red); border-color:var(--red); color:#16110a; font-weight:700; }
 .fol-toolbar .tb-btn--acc:hover { background:var(--red-deep); }
 .fol-toolbar .tb-btn:disabled { opacity:0.55; cursor:wait; }
+.fol-toolbar > * { white-space:nowrap; flex:0 0 auto; }
+
+/* narrow screens: a compact single-row pill (the deck itself is zoomed to fit) */
+@media (max-width:900px) {
+  .fol-toolbar { right:50%; transform:translateX(50%); bottom:12px; max-width:calc(100vw - 16px); gap:2px; padding:5px 6px; }
+  .fol-toolbar .tb-back { padding:6px 8px; font-size:11px; }
+  .fol-toolbar .tb-btn { font-size:11px; padding:7px 10px; letter-spacing:0.04em; }
+  .fol-toolbar .tb-count { font-size:11px; padding:0 4px; }
+  .fol-toolbar .tb-sep, .fol-toolbar .tb-print { display:none; }
+}
+@media (max-width:520px) {
+  .fol-toolbar .tb-back { display:none; }
+}
 
 .fol-progress { position:fixed; inset:0; z-index:100; display:flex; align-items:center; justify-content:center; background:rgba(9,7,4,0.85); }
 .fol-progress .fp-card { width:440px; background:var(--panel); border:1px solid var(--line-soft); border-radius:18px; padding:30px; font-family:var(--f-mono); text-align:center; color:var(--ivory); }
@@ -303,6 +319,95 @@
 .fol-progress #fp-bar { height:100%; width:0%; background:var(--red); border-radius:999px; }
 .fol-progress .fp-meta { font-size:12px; letter-spacing:0.1em; color:var(--ink-50); }
 .fol-progress .fp-cancel { margin-top:18px; font-size:12px; letter-spacing:0.12em; font-weight:700; color:var(--red); border:1px solid rgba(255,82,51,0.5); border-radius:999px; padding:9px 22px; }
+
+/* ── MOBILE (≤700px, screen only) ────────────────────────────────────────
+   The 1600×900 deck would shrink to ~0.23× on a phone and become unreadable,
+   so below 700px each slide reflows into a stacked card. The view adds
+   .is-mobile only while NOT exporting a PDF, and print/PDF never match
+   @media screen — the 16:9 slides are untouched everywhere else. */
+@media screen and (max-width:700px) {
+  #folio.is-mobile { --mx:18px; }
+  #folio.is-mobile .fol-pages { gap:14px; padding:20px 10px 96px; }
+  #folio.is-mobile .fol-sheet { width:100%; height:auto; border-radius:14px; display:flex; flex-direction:column; }
+  #folio.is-mobile .fol-chrome-t, #folio.is-mobile .fol-chrome-b {
+    position:static; margin:0 var(--mx); font-size:10px; letter-spacing:0.1em; gap:8px;
+  }
+  #folio.is-mobile .fol-chrome-t { margin-top:16px; padding-bottom:10px; }
+  #folio.is-mobile .fol-chrome-t .ct-name, #folio.is-mobile .fol-chrome-b span:nth-child(2) { display:none; }
+  #folio.is-mobile .fol-chrome-b { order:2; margin-bottom:14px; padding-top:10px; flex-wrap:wrap; row-gap:2px; white-space:normal; }
+  #folio.is-mobile .fol-content { position:static; order:1; margin:22px var(--mx) 24px; }
+
+  #folio.is-mobile .fol-content, #folio.is-mobile .fol-content * { min-width:0; }
+  #folio.is-mobile .fol-kicker { font-size:11px; letter-spacing:0.14em; gap:10px; }
+  #folio.is-mobile .fol-lead { font-size:17px; }
+  #folio.is-mobile .fol-ar-body { font-size:16px; }
+  #folio.is-mobile .fol-micro { font-size:11px; }
+  #folio.is-mobile .fol-chip { font-size:11px; padding:6px 12px; }
+  #folio.is-mobile .fol-frame .cap { font-size:10px; left:10px; bottom:10px; padding:6px 10px; }
+  #folio.is-mobile .fol-frame .fno { font-size:12px; left:10px; top:10px; }
+
+  /* cover */
+  #folio.is-mobile .fol-cover-grid { grid-template-columns:minmax(0,1fr); height:auto; gap:24px; }
+  #folio.is-mobile .fol-cover-title { font-size:clamp(40px, 13vw, 64px); margin-top:18px; }
+  #folio.is-mobile .fol-cover-name { margin-top:24px; }
+  #folio.is-mobile .fol-cover-name .nm { font-size:22px; }
+  #folio.is-mobile .fol-cover-name .rl { font-size:10px; }
+  #folio.is-mobile .fol-cover-meta span { font-size:10px; padding:12px 8px 0 0; }
+  #folio.is-mobile .fol-cover-meta span + span { padding-left:8px; }
+  #folio.is-mobile .fol-cover-photo { height:300px; }
+  #folio.is-mobile .fol-avatar { width:56px !important; height:56px !important; }
+
+  /* index */
+  #folio.is-mobile .fol-index-head { flex-direction:column; gap:8px; }
+  #folio.is-mobile .fol-index-head .t { font-size:clamp(38px, 12vw, 56px); }
+  #folio.is-mobile .fol-index-head .c { font-size:10px; }
+  #folio.is-mobile .fol-index-rows { margin-top:20px; }
+  #folio.is-mobile .fol-index-row { grid-template-columns:30px minmax(0,1fr) auto; gap:12px; padding:16px 2px; }
+  #folio.is-mobile .fol-index-row .no { font-size:13px; }
+  #folio.is-mobile .fol-index-row .nm b { font-size:clamp(18px, 6vw, 26px); white-space:normal; }
+  #folio.is-mobile .fol-index-row .ar, #folio.is-mobile .fol-index-row .cat, #folio.is-mobile .fol-index-row .yr { display:none; }
+  #folio.is-mobile .fol-index-row .pg { font-size:12px; }
+  #folio.is-mobile .fol-index-foot { margin-top:20px; flex-direction:column; gap:4px; }
+
+  /* profile */
+  #folio.is-mobile .fol-prof, #folio.is-mobile .fol-ct { height:auto; }
+  #folio.is-mobile .fol-prof-state { font-size:clamp(30px, 10vw, 46px); margin-top:18px; }
+  #folio.is-mobile .fol-prof-ar { font-size:20px; }
+  #folio.is-mobile .fol-prof-grid, #folio.is-mobile .fol-ct-grid { grid-template-columns:minmax(0,1fr); gap:28px; margin-top:22px; flex:none; }
+  #folio.is-mobile .fol-prof-p, #folio.is-mobile .fol-ct-note { font-size:16px; }
+  #folio.is-mobile .fol-prof-side, #folio.is-mobile .fol-ct-side { border-left:0; padding-left:0; height:auto; border-top:1px solid var(--line-soft); padding-top:20px; }
+  #folio.is-mobile .fol-stat .n { font-size:40px; }
+  #folio.is-mobile .fol-stat .l { font-size:15px; }
+  #folio.is-mobile .fol-prof-who, #folio.is-mobile .fol-ct-end { margin-top:20px; }
+  #folio.is-mobile .fol-prof-who .nm { font-size:20px; }
+
+  /* chapter divider — hero first, then the story */
+  #folio.is-mobile .fol-ch-grid { grid-template-columns:minmax(0,1fr); height:auto; gap:22px; }
+  #folio.is-mobile .fol-ch-hero { order:-1; height:240px; border-radius:16px; }
+  #folio.is-mobile .fol-ch-no { font-size:64px; }
+  #folio.is-mobile .fol-ch-cat { font-size:11px; }
+  #folio.is-mobile .fol-ch-name { font-size:clamp(32px, 10vw, 46px); }
+  #folio.is-mobile .fol-ch-ar { font-size:22px; }
+  #folio.is-mobile .fol-ch-brief { font-size:15px; margin-top:16px; }
+  #folio.is-mobile .fol-ch-outcome { margin-top:22px; }
+  #folio.is-mobile .fol-ch-outcome .v { font-size:19px; }
+
+  /* frames */
+  #folio.is-mobile .fol-fr-head .tag { display:none; }
+  #folio.is-mobile .fol-fr-head .nm { font-size:26px; }
+  #folio.is-mobile .fol-fr-grid { grid-template-columns:minmax(0,1fr); height:auto; gap:14px; }
+  #folio.is-mobile .fol-fr-grid .fol-frame { height:210px; border-radius:14px; }
+  #folio.is-mobile .fol-fr-foot { flex-wrap:wrap; gap:14px; margin-top:20px; }
+  #folio.is-mobile .fol-fr-foot .oc { flex:1 1 100%; font-size:17px; }
+  #folio.is-mobile .fol-swatches { flex-wrap:wrap; }
+
+  /* contact */
+  #folio.is-mobile .fol-ct-title { font-size:clamp(38px, 13vw, 60px); margin-top:18px; }
+  #folio.is-mobile .fol-ct-ar { font-size:22px; }
+  #folio.is-mobile .fol-ct-mail { margin-top:22px; font-size:4vw; padding:16px 16px; border-radius:12px; max-width:100%; overflow-wrap:anywhere; }
+  #folio.is-mobile .fol-ct-row .v { font-size:16px; }
+  #folio.is-mobile .fol-ct-end .t { font-size:20px; }
+}
 
 /* ── PRINT — exact 16:9 ──────────────────────────────────────────────── */
 @page { size:297mm 167mm; margin:0; }
