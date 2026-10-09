@@ -173,9 +173,13 @@ function LedgerRow({
     ? ar ? "دراسة حالة" : "Case Study"
     : project.liveUrl
       ? ar ? "منتج حي" : "Live Product"
-      : project.externalUrl
-        ? ar ? "رابط خارجي" : "External Link"
-        : ar ? "بورتفوليو خارجي" : "External Portfolio";
+      : project.externalUrl === BEHANCE
+        ? ar ? "بورتفوليو خارجي" : "External Portfolio"
+        : project.externalUrl && project.category === "development"
+          ? ar ? "منتج حي" : "Live Product"
+          : project.externalUrl
+            ? ar ? "رابط خارجي" : "External Link"
+            : ar ? "بورتفوليو خارجي" : "External Portfolio";
 
   return (
     <motion.li variants={reveal.item}>
