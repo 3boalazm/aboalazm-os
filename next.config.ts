@@ -41,6 +41,7 @@ const nextConfig: NextConfig = {
     "/**/opengraph-image*": [
       "./public/fonts/Gc_Epicpro.otf",
       "./public/fonts/thmanyahserifdisplay-Bold.otf",
+      "./public/fonts/noto-sans-latin-400.ttf",
     ],
   },
   async headers() {
