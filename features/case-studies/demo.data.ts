@@ -26,9 +26,9 @@ export const NILE_PHARMA: CaseStudyRecord = {
   ],
 
   researchSummary:
-    "Pharma-food competitors clustered in two camps: clinical-and-cold or bazaar-loud. Neither earned consumer trust and shelf presence at once. The open position: pharmaceutical credibility carried by food-grade warmth — one system serving both worlds.",
+    "Working positioning hypothesis: the brand needed to balance pharmaceutical credibility with the warmth and accessibility expected of food-supplement products. The chosen direction joined both needs in one visual system. The accompanying map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "منافسو الدواء والغذاء تجمّعوا في معسكرين: سريري-بارد أو سوق-صاخب. لا أحدهما أكسب ثقة المستهلك وحضور الرف في آن. الموضع المفتوح: مصداقية صيدلانية يحملها دفء غذائي — نظام واحد يخدم العالمين.",
+    "فرضية التموضع التي قادت العمل: احتاجت العلامة إلى الجمع بين المصداقية الصيدلانية والدفء والوضوح المتوقعين من منتجات المكملات الغذائية. وجاء الاتجاه المختار ليجمع الاحتياجين في نظام بصري واحد. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
   competitors: [
     { name: "Illustrative clinical A",  x: 30, y: 55 },
     { name: "Clinical B",  x: 22, y: 40 },
