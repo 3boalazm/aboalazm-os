@@ -80,13 +80,17 @@ export function TerminalOverlay() {
   }, []);
 
   // Focus the input on open; hand focus back to whatever had it on close.
+  // The bar is non-modal, so if focus already moved elsewhere on the page
+  // (Tab / click) leave it there; preventScroll keeps the page where it is.
   useEffect(() => {
     if (!open) return;
     const origin = document.activeElement;
     inputRef.current?.focus();
     return () => {
+      const now = document.activeElement;
+      if (now && now !== document.body) return;
       if (origin instanceof HTMLElement && origin !== document.body && origin.isConnected) {
-        origin.focus();
+        origin.focus({ preventScroll: true });
       }
     };
   }, [open]);
@@ -176,7 +180,6 @@ export function TerminalOverlay() {
   return (
     <div
       role="dialog"
-      aria-modal="true"
       aria-label="Terminal"
       className="fixed inset-x-0 bottom-0 z-[999] flex justify-center px-3 pb-3 sm:px-0"
     >
@@ -197,6 +200,7 @@ export function TerminalOverlay() {
         <div
           ref={outputRef}
           role="log"
+          aria-label="Terminal output"
           aria-live="polite"
           tabIndex={0}
           className="max-h-52 overflow-y-auto px-3 py-2 font-mono text-body-sm"

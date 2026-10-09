@@ -53,6 +53,8 @@ export function BeforeAfterSlider({
   );
 
   const onKeyDown = useCallback((e: React.KeyboardEvent) => {
+    // leave browser shortcuts alone (Alt+Left/Right = back/forward, Ctrl/Cmd+Home/End)
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
     if (e.key === "ArrowLeft") setPos((p) => clamp(p - 5));
     else if (e.key === "ArrowRight") setPos((p) => clamp(p + 5));
     else if (e.key === "Home") setPos(4);

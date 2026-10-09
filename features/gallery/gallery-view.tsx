@@ -64,7 +64,9 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
   /* keyboard + scroll-lock while lightbox is open */
   useEffect(() => {
     if (lightbox === null) return;
-    // Arrow keys follow the screen: in RTL "previous" sits on the right.
+    // Deliberate: arrow keys follow the screen, not the DOM order. In RTL the
+    // "previous" button sits on the right, so ArrowRight steps back and
+    // ArrowLeft steps forward (the reverse of the pre-fix Arabic behaviour).
     const step = ar ? -1 : 1;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -240,8 +242,9 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
       {/* ── rotating scroll gallery ────────────────────────────── */}
       {/* -mx-3 = the 24px container gutter (--spacing is 8px, so the old
           -mx-4/-mx-8 overshot it). overflow-x-clip keeps the GSAP-scattered
-          cards from widening the page on narrow screens. */}
-      <section className="relative -mx-3 mt-8 overflow-x-clip border-t border-border-subtle pt-12">
+          cards from widening the page on narrow screens. The whole section is
+          aria-hidden: the reel is click-only and mirrors the grid above. */}
+      <section aria-hidden className="relative -mx-3 mt-8 overflow-x-clip border-t border-border-subtle pt-12">
         <div className="px-4 sm:px-6 lg:px-8 mb-8">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
             {ar ? "عرض بصري — اسكرول للاستكشاف" : "VISUAL REEL — SCROLL TO EXPLORE"}
