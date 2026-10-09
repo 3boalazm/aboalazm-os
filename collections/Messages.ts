@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { BRIEF_MAX, COMPANY_MAX, NAME_MAX, TIMELINE_MAX } from "@/features/contact/validate";
 
 /**
  * MESSAGES — contact form submissions (features/contact/contact-form.tsx
@@ -29,22 +30,26 @@ export const Messages: CollectionConfig = {
     {
       type: "row",
       fields: [
-        { name: "name", type: "text", required: true, admin: { width: "50%" } },
+        { name: "name", type: "text", required: true, maxLength: NAME_MAX, admin: { width: "50%" } },
+        /* Email fields have no maxLength option; the 254 cap is enforced in
+           features/contact/validate.ts (the only write path — REST create
+           is closed above). */
         { name: "email", type: "email", required: true, admin: { width: "50%" } },
       ],
     },
-    { name: "company", type: "text" },
+    { name: "company", type: "text", maxLength: COMPANY_MAX },
     {
       name: "brief",
       type: "textarea",
       required: true,
+      maxLength: BRIEF_MAX,
       admin: { description: "What are we building — the client's own words." },
     },
     /* Qualifiers — side by side, they scan as one line. */
     {
       type: "row",
       fields: [
-        { name: "timeline", type: "text", admin: { width: "50%" } },
+        { name: "timeline", type: "text", maxLength: TIMELINE_MAX, admin: { width: "50%" } },
         {
           name: "budget",
           type: "select",

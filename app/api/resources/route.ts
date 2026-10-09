@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getPayload } from "@/lib/payload";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { RESOURCES } from "@/lib/resources";
 
 /**
  * RESOURCE LEAD CAPTURE.
@@ -11,6 +12,8 @@ import { rateLimit, getClientIp } from "@/lib/rate-limit";
  */
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_MAX = 254;
+const RESOURCE_IDS = new Set(RESOURCES.map((r) => r.id));
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
@@ -19,26 +22,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
   }
 
-  let body: { email?: string; resource?: string };
+  let body: { email?: unknown; resource?: unknown };
   try {
-    body = (await req.json()) as { email?: string; resource?: string };
+    const json: unknown = await req.json();
+    body = typeof json === "object" && json !== null ? json : {};
   } catch {
     return NextResponse.json({ ok: false, error: "bad_json" }, { status: 400 });
   }
 
-  const email = body.email?.trim().toLowerCase();
-  if (!email || !EMAIL_RE.test(email)) {
+  /* The body is untrusted JSON: only strings of a sane length get through,
+     and `resource` must be one of the ids in lib/resources.ts. */
+  const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+  if (!email || email.length > EMAIL_MAX || !EMAIL_RE.test(email)) {
     return NextResponse.json({ ok: false, error: "invalid_email" }, { status: 422 });
+  }
+
+  const resource = body.resource;
+  if (
+    resource !== undefined &&
+    (typeof resource !== "string" || !RESOURCE_IDS.has(resource))
+  ) {
+    return NextResponse.json({ ok: false, error: "invalid_resource" }, { status: 422 });
   }
 
   try {
     const payload = await getPayload();
     await payload.create({
       collection: "resource-leads",
-      data: { email, resource: body.resource, source: "resources-page" },
+      data: { email, resource, source: "resources-page" },
     });
-  } catch {
-    // swallow — the user still gets their download
+  } catch (err) {
+    // Never block the unlock — the user still gets their download.
+    console.error("[resources] lead write failed:", err);
   }
 
   return NextResponse.json({ ok: true });

@@ -31,8 +31,18 @@ const securityHeaders = [
   },
 ];
 
+/**
+ * Cache policy for self-hosted static files (public/ is served with
+ * max-age=0 otherwise). Fonts and the /books reader assets are only ever
+ * replaced by renaming/new uuid file names, so they can be immutable;
+ * /images keeps a day of freshness plus a week of stale-while-revalidate.
+ */
+const cacheControl = (value: string) => [{ key: "Cache-Control", value }];
+
 const nextConfig: NextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
+  // withPayload re-adds its own "X-Powered-By: Payload" unless this is false.
+  poweredByHeader: false,
   // lib/og.tsx reads the display fonts with readFile(process.cwd()/public/fonts/<var>)
   // at request time. The file name is a variable so the tracer can't see it,
   // and the dynamic per-slug share cards (writing / case-studies / books) ran
@@ -44,7 +54,12 @@ const nextConfig: NextConfig = {
     ],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/fonts/:path*", headers: cacheControl("public, max-age=31536000, immutable") },
+      { source: "/images/:path*", headers: cacheControl("public, max-age=86400, stale-while-revalidate=604800") },
+      { source: "/books/:slug/assets/:path*", headers: cacheControl("public, max-age=31536000, immutable") },
+    ];
   },
   images: {
     formats: ["image/avif", "image/webp"],
