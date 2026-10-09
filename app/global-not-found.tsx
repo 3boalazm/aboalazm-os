@@ -12,6 +12,7 @@
  */
 import type { Metadata } from "next";
 import { fontVariables } from "@/lib/fonts";
+import { BOOT_SCRIPT } from "@/lib/boot-script";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LangProvider } from "@/components/providers/lang-provider";
 import { NotFoundContent } from "@/features/errors/not-found-content";
@@ -26,12 +27,8 @@ export default function GlobalNotFound() {
   return (
     <html lang="en" dir="ltr" className={fontVariables} suppressHydrationWarning>
       <head>
-        {/* Same theme anti-flash script as the (site) layout. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}`,
-          }}
-        />
+        {/* Same theme + language anti-flash script as the (site) layout. */}
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
       </head>
       <body className="bg-surface-0 text-text-primary antialiased">
         <ThemeProvider>

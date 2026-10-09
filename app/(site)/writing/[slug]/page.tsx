@@ -24,9 +24,21 @@ export async function generateMetadata({
   // Throw here too: the Suspense boundary can flush a 200 before the page
   // body calls notFound(), so metadata is what makes the status a real 404.
   if (!post) notFound();
+  const isAr = post.lang === "ar";
+  // A page-level openGraph replaces the layout's, so siteName is restated.
+  // og:title / og:description are left to inherit from title / description
+  // (keeps the "· Aboalazm OS" title template identical to before).
   return {
     title: post.title,
     description: post.standfirst,
+    openGraph: {
+      type: "article",
+      locale: isAr ? "ar_EG" : "en_US",
+      alternateLocale: isAr ? "en_US" : "ar_EG",
+      siteName: "Mustafa Aboalazm OS",
+      url: `/writing/${slug}`,
+      ...(post.publishedAt ? { publishedTime: post.publishedAt } : {}),
+    },
   };
 }
 

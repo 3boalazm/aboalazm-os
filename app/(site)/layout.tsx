@@ -11,6 +11,7 @@ import { PersonaProvider } from "@/components/providers/persona-provider";
 import { TerminalOverlay } from "@/features/terminal/terminal-overlay";
 import { getPersonSchema, getWebSiteSchema } from "@/lib/structured-data";
 import { SITE_URL } from "@/lib/site";
+import { BOOT_SCRIPT } from "@/lib/boot-script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,6 +22,9 @@ export const metadata: Metadata = {
   },
   description:
     "Brand identities and visual systems for Arabic- and English-speaking brands. Nine years across healthcare, food, education, and consumer products.",
+  // './' resolves against each route's pathname + metadataBase, so every
+  // page gets a self-referencing absolute canonical.
+  alternates: { canonical: "./" },
   icons: {
     icon: "/images/work/icon.png",
     shortcut: "/images/work/icon.png",
@@ -57,16 +61,13 @@ export default function RootLayout({
   return (
     <html lang="en" dir="ltr" className={fontVariables} suppressHydrationWarning>
       <head>
-        {/* Anti-flash: set data-theme from localStorage before hydration,
-            so a returning light-mode visitor doesn't see a dark flash. A
-            plain inline script (no external src, no user input) is the
-            standard Next.js pattern for this — see ThemeProvider for the
+        {/* Anti-flash: set data-theme and lang/dir from localStorage before
+            first paint, so a returning light-mode or Arabic visitor doesn't
+            see a dark / LTR flash. A plain inline script (no external src,
+            no user input) is the standard Next.js pattern for this — see
+            lib/boot-script.ts, and ThemeProvider / LangProvider for the
             reactive half of this same mechanism. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}`,
-          }}
-        />
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         {/* JSON-LD — see lib/structured-data.ts. dangerouslySetInnerHTML is
             the standard, documented Next.js pattern for this: it's static,
             server-generated JSON with no user input, not a script-injection
