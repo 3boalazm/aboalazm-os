@@ -208,7 +208,7 @@ export const PROJECTS: Project[] = [
     scope: ["Rebrand", "Packaging", "Campaign System"],
     hero: { img: "/images/work/nile-pharma/npf-business-card-box.jpg", cap: "PACKAGING · THE BLUE BOX" },
     outcome: "Brand system · packaging · campaign governance",
-    outcomeAr: "+٤٠٪ ظهور · +٢٥٪ تفاعل",
+    outcomeAr: "نظام هوية وتغليف وحوكمة الحملات",
     brief:
       "Five years of identity ownership across the rebrand, Proxeed product applications, packaging, and campaign governance.",
     frames: [
