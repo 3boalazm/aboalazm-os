@@ -1,6 +1,7 @@
 /**
- * Pre-paint boot script — inlined in <head> of every root layout that owns a
- * <html> (the (site) layout and app/global-not-found.tsx).
+ * Pre-paint boot script — inlined in <head> by the two root layouts that
+ * serve visitor pages: app/(site)/layout.tsx and app/global-not-found.tsx.
+ * (The (print) and (payload) root layouts deliberately do not use it.)
  *
  * Restores the two returning-visitor preferences that live only in
  * localStorage, before first paint and before hydration:

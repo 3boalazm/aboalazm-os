@@ -22,9 +22,6 @@ export const metadata: Metadata = {
   },
   description:
     "Brand identities and visual systems for Arabic- and English-speaking brands. Nine years across healthcare, food, education, and consumer products.",
-  // './' resolves against each route's pathname + metadataBase, so every
-  // page gets a self-referencing absolute canonical.
-  alternates: { canonical: "./" },
   icons: {
     icon: "/images/work/icon.png",
     shortcut: "/images/work/icon.png",

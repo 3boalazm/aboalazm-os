@@ -8,6 +8,18 @@ export const revalidate = 60;
 
 // Shared by generateMetadata and the page so a lookup costs one DB hit.
 const getPost = cache(fetchPost);
+const getAllPosts = cache(getPosts);
+
+// Counterpart in the other language (slug convention: `-ar` suffix), or null
+// when the post has no pair.
+function findCounterpartSlug(
+  slug: string,
+  lang: "en" | "ar",
+  all: { slug: string }[],
+) {
+  const counterpart = lang === "ar" ? slug.replace(/-ar$/, "") : `${slug}-ar`;
+  return all.some((p) => p.slug === counterpart) ? counterpart : null;
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -25,6 +37,9 @@ export async function generateMetadata({
   // body calls notFound(), so metadata is what makes the status a real 404.
   if (!post) notFound();
   const isAr = post.lang === "ar";
+  // Only advertise the other locale when that translation really exists.
+  const hasCounterpart =
+    findCounterpartSlug(slug, post.lang ?? "en", await getAllPosts()) !== null;
   // A page-level openGraph replaces the layout's, so siteName is restated.
   // og:title / og:description are left to inherit from title / description
   // (keeps the "· Aboalazm OS" title template identical to before).
@@ -34,7 +49,7 @@ export async function generateMetadata({
     openGraph: {
       type: "article",
       locale: isAr ? "ar_EG" : "en_US",
-      alternateLocale: isAr ? "en_US" : "ar_EG",
+      ...(hasCounterpart ? { alternateLocale: isAr ? "en_US" : "ar_EG" } : {}),
       siteName: "Mustafa Aboalazm OS",
       url: `/writing/${slug}`,
       ...(post.publishedAt ? { publishedTime: post.publishedAt } : {}),
@@ -53,17 +68,14 @@ export default async function WritingDetailPage({
 
   // Prev/next within the same language, in publishedAt order
   // (getPosts is sorted newest-first).
-  const all = await getPosts();
+  const all = await getAllPosts();
   const sameLang = all.filter((p) => p.lang === (post.lang ?? "en"));
   const i = sameLang.findIndex((p) => p.slug === slug);
   const next = i > 0 ? sameLang[i - 1] : null; // newer
   const prev = i >= 0 && i < sameLang.length - 1 ? sameLang[i + 1] : null; // older
 
-  // Counterpart in the other language (slug convention: `-ar` suffix) —
-  // lets the view hot-swap the article when the UI language toggles.
-  const counterpart =
-    (post.lang ?? "en") === "ar" ? slug.replace(/-ar$/, "") : `${slug}-ar`;
-  const counterpartSlug = all.some((p) => p.slug === counterpart) ? counterpart : null;
+  // Lets the view hot-swap the article when the UI language toggles.
+  const counterpartSlug = findCounterpartSlug(slug, post.lang ?? "en", all);
 
   return (
     <WritingDetailView
