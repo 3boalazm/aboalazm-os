@@ -57,7 +57,7 @@ export const IDENTITY = {
   location: "Al Obour, Egypt",
   version: "V.2026 · EDITION 02",
   links: [
-    { label: "WEBSITE", value: "aboalazm.com" },
+    { label: "WEBSITE", value: "aboalazm-os.vercel.app" },
     { label: "STUDIO", value: "codeandcanvas.net" },
     { label: "BEHANCE", value: "behance.net/aboalazm" },
     { label: "LINKEDIN", value: "linkedin.com/in/aboalazm" },
@@ -207,10 +207,10 @@ export const PROJECTS: Project[] = [
     year: "2020–25",
     scope: ["Rebrand", "Packaging", "Campaign System"],
     hero: { img: "/images/work/nile-pharma/npf-business-card-box.jpg", cap: "PACKAGING · THE BLUE BOX" },
-    outcome: "+40% visibility · +25% engagement",
+    outcome: "Brand system · packaging · campaign governance",
     outcomeAr: "+٤٠٪ ظهور · +٢٥٪ تفاعل",
     brief:
-      "Five years as in-house identity owner: a rebrand from zero, the Proxeed product line, campaign governance, and packaging — measured in visibility, not compliments.",
+      "Five years of identity ownership across the rebrand, Proxeed product applications, packaging, and campaign governance.",
     frames: [
       { img: "/images/work/nile-pharma/npf-img-a.png", cap: "BRAND VOICE · WE CARE ABOUT YOU", fit: "contain", bg: "#fafafa" },
       { img: "/images/work/nile-pharma/npf-proxeed-post.jpg", cap: "PRODUCT CAMPAIGN · PROXEED", fit: "contain", bg: "#ffffff" },

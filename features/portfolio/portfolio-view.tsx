@@ -46,7 +46,7 @@ function Sheet({
         <span>{String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}</span>
       </div>
       <div className="fol-chrome-b">
-        <span>aboalazm.com · behance.net/aboalazm</span>
+        <span>aboalazm-os.vercel.app · behance.net/aboalazm</span>
         <span>AL OBOUR · 30.1936° N 31.4603° E</span>
         <span>{IDENTITY.version}</span>
       </div>

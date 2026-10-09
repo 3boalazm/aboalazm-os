@@ -26,9 +26,9 @@ export const NILE_PHARMA: CaseStudyRecord = {
   ],
 
   researchSummary:
-    "Pharma-food competitors clustered in two camps: clinical-and-cold or bazaar-loud. Neither earned consumer trust and shelf presence at once. The open position: pharmaceutical credibility carried by food-grade warmth — one system serving both worlds.",
+    "Working positioning hypothesis: the brand needed to balance pharmaceutical credibility with the warmth and accessibility expected of food-supplement products. The chosen direction joined both needs in one visual system. The accompanying map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "منافسو الدواء والغذاء تجمّعوا في معسكرين: سريري-بارد أو سوق-صاخب. لا أحدهما أكسب ثقة المستهلك وحضور الرف في آن. الموضع المفتوح: مصداقية صيدلانية يحملها دفء غذائي — نظام واحد يخدم العالمين.",
+    "فرضية التموضع التي قادت العمل: احتاجت العلامة إلى الجمع بين المصداقية الصيدلانية والدفء والوضوح المتوقعين من منتجات المكملات الغذائية. وجاء الاتجاه المختار ليجمع الاحتياجين في نظام بصري واحد. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
   competitors: [
     { name: "Illustrative clinical A",  x: 30, y: 55 },
     { name: "Clinical B",  x: 22, y: 40 },
@@ -57,22 +57,22 @@ export const NILE_PHARMA: CaseStudyRecord = {
 
   results: [
     {
-      value: "+40%",
-      label: "Online Visibility",
-      labelAr: "الظهور الرقمي",
-      context: "Reported online visibility improvement; measurement methodology not published.",
-      contextAr: "تحسن مُبلّغ عنه في الظهور الرقمي؛ منهجية القياس غير منشورة.",
+      value: "SYSTEM",
+      label: "Brand system",
+      labelAr: "نظام الهوية",
+      context: "Identity and visual governance across the engagement.",
+      contextAr: "الهوية والحوكمة البصرية خلال فترة العمل.",
     },
     {
-      value: "+25%",
-      label: "Customer Engagement",
-      labelAr: "تفاعل العملاء",
-      context: "Reported customer-engagement improvement across retail campaigns; measurement methodology not published.",
-      contextAr: "تحسن مُبلّغ عنه في تفاعل العملاء عبر الحملات؛ منهجية القياس غير منشورة.",
+      value: "PACK",
+      label: "Product & campaign applications",
+      labelAr: "تطبيقات المنتجات والحملات",
+      context: "Packaging, product-line applications, and campaign governance.",
+      contextAr: "التغليف وتطبيقات خطوط المنتجات وحوكمة الحملات.",
     },
     {
       value: "5y",
-      label: "Engagement Span",
+      label: "Engagement span",
       labelAr: "مدة العمل",
       context: "Five-year engagement across pharmacy retail channels (2020–2025).",
       contextAr: "فترة عمل امتدت خمس سنوات عبر قنوات بيع الصيدليات (2020–2025).",

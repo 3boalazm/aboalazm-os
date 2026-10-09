@@ -26,9 +26,9 @@ export const REFLECTION: CaseStudyRecord = {
   ],
 
   researchSummary:
-    "Art-print brands cluster into two camps: mass-market (colorful, cheap-looking, generic) or fine-art gallery (minimal, cold, inaccessible). Reflection needed the third position: premium-accessible — aspirational without alienating, distinctive without being difficult.",
+    "Working positioning hypothesis: art-print identities often lean either mass-market and promotional or minimal and gallery-like. Reflection’s chosen direction was premium-accessible — aspirational without alienating, distinctive without being difficult. The accompanying map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "براندات الفن والطباعة في معسكرين: شعبية (ملونة، رخيصة المظهر، عامة) أو معرض فنون راقية (بسيط، بارد، بعيد المنال). Reflection تحتاج الموضع الثالث: متميز ومتاح — طموح دون إبعاد، مميز دون صعوبة.",
+    "فرضية التموضع التي قادت العمل: قد تميل هويات الفن والطباعة إلى اتجاه شعبي ترويجي أو اتجاه بسيط شبيه بصالات العرض. اختارت Reflection موضعاً يجمع التميز وسهولة الاقتراب — طموحاً دون إبعاد، ومختلفاً دون تعقيد. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
   competitors: [
     { name: "Illustrative mass-market A",   x: 55, y: 20 },
     { name: "Illustrative mass-market B",   x: 65, y: 15 },
