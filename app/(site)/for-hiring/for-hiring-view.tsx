@@ -218,8 +218,8 @@ const TIMELINE = [
     roleAr: "مدير الميديا ومدير الحسابات",
     company: "Nile Pharma Food",
     companyAr: "نايل فارما فود",
-    detail: "Five-year visual stewardship: brand rebrand from zero, packaging and campaign systems, with reported +40% online visibility and +25% customer engagement within six months.",
-    detailAr: "حوكمة بصرية لخمس سنوات: إعادة هوية كاملة من الصفر، التغليف وأنظمة الحملات، مع +٤٠٪ ظهور رقمي و+٢٥٪ تفاعل مُبلّغ عنهما خلال ستة أشهر.",
+    detail: "Five-year visual stewardship across the brand rework, packaging, and campaign systems, with visual governance for the product and communication touchpoints.",
+    detailAr: "حوكمة بصرية لخمس سنوات شملت تطوير الهوية والتغليف وأنظمة الحملات، مع توحيد تطبيق الهوية عبر المنتجات ومواد التواصل.",
   },
   {
     period: "2020 – 2021",

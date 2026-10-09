@@ -22,6 +22,8 @@ import "./portfolio.css";
 
 const TOTAL = SLIDES.total;
 const SHEET_W = 1600;
+/** at/below this width the deck reflows into stacked cards (keep in sync with portfolio.css) */
+const MOBILE_MAX = 700;
 
 /* chapter accents, tuned for the dark slide surface (data keeps the
    brand-true original in `accent`; `accentBright` is the screen-safe
@@ -44,7 +46,7 @@ function Sheet({
         <span>{String(n).padStart(2, "0")} / {String(TOTAL).padStart(2, "0")}</span>
       </div>
       <div className="fol-chrome-b">
-        <span>aboalazm.com · behance.net/aboalazm</span>
+        <span>aboalazm-os.vercel.app · behance.net/aboalazm</span>
         <span>AL OBOUR · 30.1936° N 31.4603° E</span>
         <span>{IDENTITY.version}</span>
       </div>
@@ -53,14 +55,20 @@ function Sheet({
   );
 }
 
-function Frame({ img, cap, no, pos, className, style }: {
+function Frame({ img, cap, no, pos, fit, bg, className, style }: {
   img: string; cap: string; no?: string; pos?: string;
+  fit?: "contain"; bg?: string;
   className?: string; style?: React.CSSProperties;
 }) {
   return (
     <div
-      className={`fol-frame${className ? ` ${className}` : ""}`}
-      style={{ backgroundImage: `url("${img}")`, ...(pos ? { backgroundPosition: pos } : null), ...style }}
+      className={`fol-frame${fit ? " fol-frame--contain" : ""}${className ? ` ${className}` : ""}`}
+      style={{
+        backgroundImage: `url("${img}")`,
+        ...(pos ? { backgroundPosition: pos } : null),
+        ...(bg ? { backgroundColor: bg } : null),
+        ...style,
+      }}
       role="img"
       aria-label={cap}
     >
@@ -205,7 +213,7 @@ function ChapterSlide({ p }: { p: Project }) {
             <div className="a">{p.outcomeAr}</div>
           </div>
         </div>
-        <Frame img={p.hero.img} cap={p.hero.cap} no={p.no} pos={p.hero.pos} className="fol-ch-hero" />
+        <Frame img={p.hero.img} cap={p.hero.cap} no={p.no} pos={p.hero.pos} fit={p.hero.fit} bg={p.hero.bg} className="fol-ch-hero" />
       </div>
     </Sheet>
   );
@@ -221,7 +229,7 @@ function FramesSlide({ p }: { p: Project }) {
       </div>
       <div className="fol-fr-grid">
         {p.frames.map((f, i) => (
-          <Frame key={f.img} img={f.img} cap={f.cap} pos={f.pos} no={`${p.no}.${i + 1}`} />
+          <Frame key={f.img} img={f.img} cap={f.cap} pos={f.pos} fit={f.fit} bg={f.bg} no={`${p.no}.${i + 1}`} />
         ))}
       </div>
       <div className="fol-fr-foot">
@@ -288,13 +296,19 @@ export function PortfolioView() {
   const { state, progress, label, start, cancel } = usePdfExport(pagesRef);
   const [zoom, setZoom] = useState<string>("");
   const [at, setAt] = useState(1);
+  const [narrow, setNarrow] = useState(false);
+  const exporting = state === "working" || state === "saving";
+  /* phones get the stacked card layout (CSS, ≤700px) — never while exporting */
+  const mobile = narrow && !exporting;
 
   /* fit-to-width on narrow screens (never while exporting) */
   useEffect(() => {
     const fit = () => {
       if (state === "working" || state === "saving") return;
       const w = document.documentElement.clientWidth;
-      setZoom(w < SHEET_W + 48 ? String(Math.max(0.2, (w - 24) / (SHEET_W + 16))) : "");
+      const phone = w <= MOBILE_MAX;
+      setNarrow(phone);
+      setZoom(phone ? "" : w < SHEET_W + 48 ? String(Math.max(0.2, (w - 24) / (SHEET_W + 16))) : "");
     };
     fit();
     window.addEventListener("resize", fit, { passive: true });
@@ -355,7 +369,7 @@ export function PortfolioView() {
   }, []);
 
   return (
-    <div id="folio">
+    <div id="folio" className={mobile ? "is-mobile" : undefined}>
       <div className="fol-progressline" aria-hidden><i id="folio-progress" /></div>
 
       <div className="fol-viewport" style={{ zoom }}>
@@ -377,13 +391,13 @@ export function PortfolioView() {
       <nav className="fol-toolbar" aria-label="Portfolio controls">
         <Link href="/" className="tb-back">← ABOALAZM OS</Link>
         <span className="tb-sep" aria-hidden />
-        <button className="tb-btn tb-jump" onClick={() => jump("cover")}>COVER</button>
-        <button className="tb-btn tb-jump" onClick={() => jump("ch-code-canvas")}>WORK</button>
-        <button className="tb-btn tb-jump" onClick={() => jump("contact")}>CONTACT</button>
+        <button className="tb-btn" onClick={() => jump("cover")}>COVER</button>
+        <button className="tb-btn" onClick={() => jump("ch-code-canvas")}>WORK</button>
+        <button className="tb-btn" onClick={() => jump("contact")}>CONTACT</button>
         <span className="tb-sep" aria-hidden />
         <span className="tb-count"><b>{String(at).padStart(2, "0")}</b> / {String(TOTAL).padStart(2, "0")}</span>
         <span className="tb-sep" aria-hidden />
-        <button className="tb-btn" onClick={() => window.print()}>PRINT · طباعة</button>
+        <button className="tb-btn tb-print" onClick={() => window.print()}>PRINT · طباعة</button>
         <button className="tb-btn tb-btn--acc" onClick={start} disabled={state === "working" || state === "saving"}>
           {state === "working" || state === "saving" ? "RENDERING…" : "↓ PDF · تحميل"}
         </button>

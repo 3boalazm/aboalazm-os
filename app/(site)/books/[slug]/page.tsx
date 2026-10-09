@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import { BOOKS, getBook } from "@/lib/books";
 import { ReaderView } from "./reader-view";
 
+// Books are a static list — any other slug is a hard 404, not a rendered shell.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return BOOKS.map((b) => ({ slug: b.slug }));
 }
@@ -14,7 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const book = getBook(slug);
-  if (!book) return { title: "Book not found" };
+  if (!book) notFound();
   return {
     title: `${book.titleEn} — Interactive Reader`,
     description: book.blurbEn,

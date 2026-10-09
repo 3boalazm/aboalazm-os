@@ -16,12 +16,11 @@ interface Metric {
 const METRICS = {
   en: [
     {
-      prefix: "+",
-      value: "40",
-      suffix: "%",
-      label: "Online Visibility",
+      value: "5Y",
+      suffix: "",
+      label: "Identity Stewardship",
       context: "NILE PHARMA FOOD · 2020–25",
-      detail: "Reported outcome from the Nile Pharma Food engagement; measurement methodology is not published here.",
+      detail: "Five-year brand identity stewardship across the rebrand, packaging, and campaign systems.",
     },
     {
       value: "LOCKED",
@@ -40,12 +39,11 @@ const METRICS = {
   ],
   ar: [
     {
-      prefix: "+",
-      value: "40",
-      suffix: "%",
-      label: "الظهور الرقمي",
+      value: "٥ سنوات",
+      suffix: "",
+      label: "إدارة الهوية بصريًا",
       context: "نايل فارما فود · 2020–25",
-      detail: "نتيجة مُبلغ عنها من مشروع نايل فارما فود؛ منهجية القياس غير منشورة هنا.",
+      detail: "إدارة الهوية البصرية لخمس سنوات عبر إعادة الهوية والتغليف وأنظمة الحملات.",
     },
     {
       value: "LOCKED",

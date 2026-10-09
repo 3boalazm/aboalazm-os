@@ -26,9 +26,9 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   ],
 
   researchSummary:
-    "Healthcare identity in the Saudi/Gulf market clustered into two poles: clinical-corporate (cold, bureaucratic) or consumer-facing healthcare (generic, promotional). GAD needed a third voice — the trusted specialist: warmer than a hospital, more precise than a clinic, internationally legible for a regional audience.",
+    "Working positioning hypothesis: healthcare identities can feel either clinical-corporate or consumer-promotional. GAD’s chosen direction was a trusted specialist voice — warmer than a hospital, more precise than a general clinic, and legible across Arabic and English. The accompanying map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "الهوية الصحية في سوق السعودية والخليج تتجمع في قطبين: مؤسسي-سريري (بارد، بيروقراطي) أو صحي استهلاكي (عام، ترويجي). احتاجت GAD صوتاً ثالثاً — الأخصائي الموثوق: أدفأ من المستشفى، وأدق من العيادة، ومقروءاً إقليمياً ودولياً.",
+    "فرضية التموضع التي قادت العمل: قد تبدو الهويات الصحية إما مؤسسية سريرية أو ترويجية استهلاكية. اختارت GAD صوت الأخصائي الموثوق — أدفأ من المستشفى، وأدق من العيادة العامة، ومقروءاً بالعربية والإنجليزية. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
   competitors: [
     { name: "Public-clinical A",  x: 22, y: 60 },
     { name: "Illustrative clinical B",  x: 15, y: 45 },

@@ -36,7 +36,11 @@ export function ReaderView({ book }: { book: Book }) {
   const activeTitle = allChapters.find((c) => c.id === active)?.title ?? "";
 
   return (
-    <div className="flex h-[100svh] flex-col">
+    // pt-[100px]: the global floating <Nav/> is fixed at y 16–98 on every
+    // viewport (z-nav), so the reader's own header starts just below it —
+    // otherwise the Library link and chapter menu sit under the nav and
+    // can't be tapped.
+    <div className="flex h-[100svh] flex-col pt-[100px]">
       {/* Reader chrome — brand header + progress */}
       <header className="relative z-elevated flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-0/95 px-4 py-2.5 backdrop-blur md:px-6">
         <div className="flex min-w-0 items-center gap-3">
@@ -62,6 +66,38 @@ export function ReaderView({ book }: { book: Book }) {
           </span>
           <Icon name={menuOpen ? "x" : "menu"} />
         </button>
+
+        {/* chapter index drawer */}
+        {menuOpen && (
+          <div className="absolute inset-x-0 top-full z-overlay max-h-[70svh] overflow-y-auto border-b border-border-subtle bg-surface-0/98 px-4 py-5 backdrop-blur md:px-6">
+            <div className="container-content grid grid-cols-1 gap-6 md:grid-cols-3">
+              {book.journeys.map((j, ji) => (
+                <div key={j.en} className="flex flex-col gap-2">
+                  <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
+                    {String(ji + 1).padStart(2, "0")} · {ar ? j.ar : j.en}
+                  </p>
+                  <ul className="flex flex-col">
+                    {j.chapters.map((c) => (
+                      <li key={c.id}>
+                        <button
+                          type="button"
+                          onClick={() => goto(c.id)}
+                          dir="rtl"
+                          className={[
+                            "w-full rounded-card px-2 py-1.5 text-start text-body-sm transition-colors duration-base ease-physics hover:bg-surface-2",
+                            c.id === active ? "text-accent" : "text-text-secondary",
+                          ].join(" ")}
+                        >
+                          {c.title}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </header>
 
       {/* progress bar */}
@@ -71,38 +107,6 @@ export function ReaderView({ book }: { book: Book }) {
           style={{ width: `${Math.round(pct * 100)}%` }}
         />
       </div>
-
-      {/* chapter index drawer */}
-      {menuOpen && (
-        <div className="absolute inset-x-0 top-[calc(2.75rem+2px)] z-overlay max-h-[70svh] overflow-y-auto border-b border-border-subtle bg-surface-0/98 px-4 py-5 backdrop-blur md:px-6">
-          <div className="container-content grid grid-cols-1 gap-6 md:grid-cols-3">
-            {book.journeys.map((j, ji) => (
-              <div key={j.en} className="flex flex-col gap-2">
-                <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-                  {String(ji + 1).padStart(2, "0")} · {ar ? j.ar : j.en}
-                </p>
-                <ul className="flex flex-col">
-                  {j.chapters.map((c) => (
-                    <li key={c.id}>
-                      <button
-                        type="button"
-                        onClick={() => goto(c.id)}
-                        dir="rtl"
-                        className={[
-                          "w-full rounded-card px-2 py-1.5 text-start text-body-sm transition-colors duration-base ease-physics hover:bg-surface-2",
-                          c.id === active ? "text-accent" : "text-text-secondary",
-                        ].join(" ")}
-                      >
-                        {c.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* the isolated book bundle */}
       <iframe

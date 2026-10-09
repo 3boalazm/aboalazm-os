@@ -15,6 +15,11 @@ export interface Frame {
   cap: string;
   /** background-position art direction, e.g. "75% 50%" */
   pos?: string;
+  /** show the whole image (letterboxed on `bg`) instead of cropping it —
+      for covers / documents whose own text must not be cut at the edges */
+  fit?: "contain";
+  /** letterbox colour for `fit: "contain"` — match the image's edge colour */
+  bg?: string;
 }
 
 export interface Project {
@@ -52,7 +57,7 @@ export const IDENTITY = {
   location: "Al Obour, Egypt",
   version: "V.2026 · EDITION 02",
   links: [
-    { label: "WEBSITE", value: "aboalazm.com" },
+    { label: "WEBSITE", value: "aboalazm-os.vercel.app" },
     { label: "STUDIO", value: "codeandcanvas.net" },
     { label: "BEHANCE", value: "behance.net/aboalazm" },
     { label: "LINKEDIN", value: "linkedin.com/in/aboalazm" },
@@ -103,8 +108,8 @@ export const PROJECTS: Project[] = [
     brief:
       "Two disciplines — code and creative — fused into one squircle mark and one system: guidelines from day one, a gradient library, and samples that run the studio itself.",
     frames: [
-      { img: "/images/work/cc-cover.jpg", cap: "GUIDELINES V1.0 · COVER" },
-      { img: "/images/work/cc-design-samples.png", cap: "DESIGN SAMPLES · SOCIAL + WEB" },
+      { img: "/images/work/cc-cover.jpg", cap: "GUIDELINES V1.0 · COVER", fit: "contain", bg: "#180e30" },
+      { img: "/images/work/cc-design-samples.png", cap: "DESIGN SAMPLES · SOCIAL + WEB", fit: "contain", bg: "#ffffff" },
     ],
     tokens: [
       { hex: "#0B0F1A", name: "CANVAS" },
@@ -123,14 +128,14 @@ export const PROJECTS: Project[] = [
     categoryAr: "براند شخصي",
     year: "2025",
     scope: ["Personal Brand", "Monogram", "Guidelines"],
-    hero: { img: "/images/work/ahmed-bedeer-cover.jpg", cap: "COVER · THE ab MONOGRAM" },
+    hero: { img: "/images/work/ahmed-bedeer-cover.jpg", cap: "COVER · THE ab MONOGRAM", fit: "contain", bg: "#34343f" },
     outcome: "Healthcare-IT authority — MENA-ready",
     outcomeAr: "براند شخصي · تكنولوجيا معلومات صحية",
     brief:
       "A personal brand for a healthcare-IT leader: an ab quotation-mark monogram engineered to signal HL7 · FHIR · CPHIMS · HIMSS across KSA and wider MENA.",
     frames: [
       { img: "/images/work/ahmed-bedeer-mockup.jpg", cap: "IN SITU · STATIONERY" },
-      { img: "/images/work/ahmed-bedeer-construction.png", cap: "CONSTRUCTION · a + b GRID" },
+      { img: "/images/work/ahmed-bedeer-construction.png", cap: "CONSTRUCTION · a + b GRID", fit: "contain", bg: "#1c1c28" },
     ],
     tokens: [
       { hex: "#1C2B33", name: "GUNMETAL" },
@@ -149,7 +154,7 @@ export const PROJECTS: Project[] = [
     categoryAr: "براند فن",
     year: "2022",
     scope: ["Identity", "Art Direction", "Guidelines V1.0"],
-    hero: { img: "/images/work/reflection/refl-cover.png", cap: "BRAND IDENTITY · V1.0 COVER" },
+    hero: { img: "/images/work/reflection/refl-cover.png", cap: "BRAND IDENTITY · V1.0 COVER", fit: "contain", bg: "#000000" },
     outcome: "Premium art brand — built from one letter",
     outcomeAr: "براند فن متميز · مبني من حرف واحد",
     brief:
@@ -175,14 +180,14 @@ export const PROJECTS: Project[] = [
     categoryAr: "هوية طبية",
     year: "2025",
     scope: ["Brand Strategy", "Bilingual Identity", "Guidelines V2.0"],
-    hero: { img: "/images/work/gad/gad-cover.png", cap: "BRAND IDENTITY · V2.0 COVER" },
+    hero: { img: "/images/work/gad/gad-cover.png", cap: "BRAND IDENTITY · V2.0 COVER", fit: "contain", bg: "#ffffff" },
     outcome: "The trusted specialist — strategy to signage",
     outcomeAr: "استراتيجية → هوية → نظام محكوم",
     brief:
       "A heart & lungs institute as the trusted specialist — from strategy to bilingual signage.",
     frames: [
       { img: "/images/work/gad/gad-mockup-logo.jpg", cap: "SIGNAGE · RECEPTION WALL", pos: "76% 50%" },
-      { img: "/images/work/gad/gad-logo-variations.png", cap: "LOCKUPS · EN / AR · H / V" },
+      { img: "/images/work/gad/gad-logo-variations.png", cap: "LOCKUPS · EN / AR · H / V", fit: "contain", bg: "#ffffff" },
     ],
     tokens: [
       { hex: "#005895", name: "DEEP BLUE" },
@@ -202,13 +207,13 @@ export const PROJECTS: Project[] = [
     year: "2020–25",
     scope: ["Rebrand", "Packaging", "Campaign System"],
     hero: { img: "/images/work/nile-pharma/npf-business-card-box.jpg", cap: "PACKAGING · THE BLUE BOX" },
-    outcome: "+40% visibility · +25% engagement",
+    outcome: "Brand system · packaging · campaign governance",
     outcomeAr: "+٤٠٪ ظهور · +٢٥٪ تفاعل",
     brief:
-      "Five years as in-house identity owner: a rebrand from zero, the Proxeed product line, campaign governance, and packaging — measured in visibility, not compliments.",
+      "Five years of identity ownership across the rebrand, Proxeed product applications, packaging, and campaign governance.",
     frames: [
-      { img: "/images/work/nile-pharma/npf-img-a.png", cap: "BRAND VOICE · WE CARE ABOUT YOU" },
-      { img: "/images/work/nile-pharma/npf-proxeed-post.jpg", cap: "PRODUCT CAMPAIGN · PROXEED" },
+      { img: "/images/work/nile-pharma/npf-img-a.png", cap: "BRAND VOICE · WE CARE ABOUT YOU", fit: "contain", bg: "#fafafa" },
+      { img: "/images/work/nile-pharma/npf-proxeed-post.jpg", cap: "PRODUCT CAMPAIGN · PROXEED", fit: "contain", bg: "#ffffff" },
     ],
     tokens: [
       { hex: "#1B2A5B", name: "NILE NAVY" },

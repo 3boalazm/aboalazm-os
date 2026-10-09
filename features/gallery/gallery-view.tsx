@@ -118,12 +118,16 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
               type="button"
               onClick={() => setActive(c.slug)}
               aria-pressed={isActive}
-              className="rounded-pill border px-4 py-2 font-mono text-micro uppercase tracking-[0.05em] transition-all duration-200"
-              style={{
-                borderColor: isActive ? c.accent : "rgb(255 255 255 / 0.12)",
-                backgroundColor: isActive ? `${c.accent}22` : "transparent",
-                color: isActive ? "#fff" : "rgb(255 255 255 / 0.55)",
-              }}
+              className={[
+                "rounded-pill border px-4 py-2 font-mono text-micro uppercase tracking-[0.05em] transition-all duration-200",
+                // theme tokens, not hard-coded white (invisible on the light canvas)
+                isActive ? "text-text-primary" : "border-border-subtle text-text-secondary",
+              ].join(" ")}
+              style={
+                isActive
+                  ? { borderColor: c.accent, backgroundColor: `${c.accent}22` }
+                  : { backgroundColor: "transparent" }
+              }
             >
               <span className="inline-flex items-center gap-2">
                 <span
