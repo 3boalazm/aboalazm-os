@@ -17,8 +17,8 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     "معهد متخصص في رعاية القلب والرئة يعمل تحت هوية بصرية مستشفى عامة — لا شعار يُشير لتخصصه المزدوج، لا نظام يحكم التواصل مع المرضى، وطموح للتوسع إقليمياً بينما ينافس مجموعات رعاية صحية ذات هوية دولية.",
   teamScale: "Creative lead (Mustafa) · medical director · marketing manager",
   teamScaleAr: "القائد الإبداعي (مصطفى) · المدير الطبي · مدير التسويق",
-  timeline: "2023 · Complete brand system, end to end",
-  timelineAr: "2023 · نظام براند كامل من الألف للياء",
+  timeline: "2023 · 2025 · Complete brand system, end to end",
+  timelineAr: "2023 · 2025 · نظام براند كامل من الألف للياء",
   kpis: [
     { value: "0",    label: "Brand system before",    labelAr: "نظام براند قبل",      context: "STARTED FROM STRATEGY",    contextAr: "بدأنا من الاستراتيجية"     },
     { value: "2",    label: "Languages, one lockup",  labelAr: "لغتان في شعار واحد",  context: "AR / EN UNIFIED",          contextAr: "عربي / إنجليزي موحّد"       },
