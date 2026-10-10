@@ -11,7 +11,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:blob-token": "tsx --test lib/blob-token.test.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
