@@ -82,9 +82,9 @@ export const PROFILE = {
   statementHot: "I build systems.",
   statementAr: "لا أصمّم براندات — أبني أنظمة.",
   paragraph:
-    "Nine years turning identity into infrastructure: strategy first, then a governed system — logo, color, type, applications — that keeps the brand itself across every team, product, and campaign.",
+    "9+ years in design, 4+ focused on brand identity, turning identity into infrastructure: strategy first, then a governed system — logo, color, type, applications — that keeps the brand itself across every team, product, and campaign.",
   stats: [
-    { n: "9", suf: "YRS", l: "In practice", c: "SINCE 2017" },
+    { n: "9", suf: "+ YRS", l: "In design practice", c: "SINCE 2017" },
     { n: "20", suf: "+", l: "Clients & organizations", c: "SHIPPED & GOVERNED" },
     { n: "05", suf: "", l: "Chapters", c: "IN THIS DECK" },
     { n: "02", suf: "×", l: "Languages", c: "AR / EN · ONE DOCTRINE" },

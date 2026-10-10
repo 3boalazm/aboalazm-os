@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: { absolute: "Hire Mustafa Aboalazm — Senior Brand Identity Designer" },
   alternates: { canonical: "/for-hiring" },
   description:
-    "Candidate dossier for design leaders and hiring teams. Mustafa Aboalazm: Senior Brand Identity Designer with 9 years of bilingual practice across healthcare, food, and consumer brands. Open to Riyadh / Remote.",
+    "Candidate dossier for design leaders and hiring teams. Mustafa Aboalazm: Senior Brand Identity Designer with 9+ years of design experience and 4+ years focused on brand identity, across healthcare, food, and consumer brands. Open to Riyadh / Remote.",
 };
 
 export default function ForHiringPage() {

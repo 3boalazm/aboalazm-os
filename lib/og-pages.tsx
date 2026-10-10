@@ -255,7 +255,7 @@ async function vHiring() {
         <Chip>Guidelines</Chip><Chip>Healthcare</Chip><Chip>Food</Chip>
       </div>
       <div style={flex({ justifyContent: "space-between", paddingTop: 14, borderTop: `1px solid ${C.line}` })}>
-        <Label size={12}>9 years of practice</Label>
+        <Label size={12}>9+ years in design</Label>
         <Label size={12}>Cairo · GMT+3</Label>
       </div>
     </Stage>
@@ -666,7 +666,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
   home: {
     idx: "00", eyebrow: "Portfolio", tagAr: "هوية بصرية بتتبني كنظام", route: "/",
     title: ["Identity,", "built as a", "system."],
-    desc: "Mustafa Aboalazm — Senior Brand Identity Designer. Arabic + English, nine years of practice.",
+    desc: "Mustafa Aboalazm — Senior Brand Identity Designer. Arabic + English, 9+ years in design.",
     alt: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist", visual: vHome,
   },
   work: {
@@ -696,7 +696,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
   "for-hiring": {
     idx: "05", eyebrow: "For hiring teams", tagAr: "للشركات والتوظيف", route: "/for-hiring",
     title: ["For hiring", "teams."],
-    desc: "Candidate dossier: nine years of bilingual practice across healthcare, food and consumer brands.",
+    desc: "Candidate dossier: 9+ years in design, 4+ focused on brand identity, across healthcare, food and consumer brands.",
     alt: "For hiring teams — candidate dossier, open to Riyadh and remote", visual: vHiring,
   },
   services: {
@@ -714,7 +714,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
   process: {
     idx: "08", eyebrow: "Method / process", tagAr: "المنهجية", route: "/process",
     title: ["The 38-day", "method."],
-    desc: "Four phases, four gates — written sign-off at every step, nine years refined.",
+    desc: "Four phases, four gates — written sign-off at every step, refined over 9+ years.",
     alt: "Process — the 38-day, four-phase method", visual: vProcess,
   },
   why: {
