@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { PricingView } from "./pricing-view";
 import { getOffers } from "@/lib/content";
 
@@ -12,5 +14,10 @@ export const metadata: Metadata = {
 
 export default async function PricingPage() {
   const { tiers, investmentValue, alaCarte } = await getOffers();
-  return <PricingView tiers={tiers} investmentValue={investmentValue} alaCarte={alaCarte} />;
+  return (
+    <>
+      <JsonLd data={getBreadcrumbSchema([{ name: "Pricing", path: "/pricing" }])} />
+      <PricingView tiers={tiers} investmentValue={investmentValue} alaCarte={alaCarte} />
+    </>
+  );
 }

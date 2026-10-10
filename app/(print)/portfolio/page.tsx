@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import { PortfolioView } from "@/features/portfolio";
 
 export const metadata: Metadata = {
-  title: "Portfolio 2026 — 16:9 Presentation Deck · بورتفوليو",
+  title: "Mustafa Aboalazm — Portfolio 2026 (Selected Works)",
   description:
-    "14 landscape slides — 5 identity chapters (Code & Canvas, Ahmed Bedeer, Reflection, GAD, Nile Pharma), selected frames, and contact. Export to 16:9 PDF or present full-screen.",
+    "Portfolio deck of Mustafa Aboalazm, senior brand identity designer — 14 slides, 5 identity chapters (Code & Canvas, Ahmed Bedeer, Reflection, GAD, Nile Pharma). View, print, or download as a 16:9 PDF.",
+  alternates: { canonical: "/portfolio" },
 };
 
 /**

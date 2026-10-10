@@ -104,6 +104,11 @@ export function Hero() {
               lineHeight: "var(--text-hero--line-height)",
             }}
           >
+            {/* The visible headline is a statement, not the page's subject — give the
+                h1 (and the search snippet / screen readers) the person + role too. */}
+            <span className="sr-only">
+              {ar ? "مصطفى أبوالعزم — مصمم هوية بصرية أول. " : "Mustafa Aboalazm — Senior Brand Identity Designer. "}
+            </span>
             {HEADLINE.map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.06em]">
                 <span className="hero-line block" style={{ "--i": i } as CSSProperties}>

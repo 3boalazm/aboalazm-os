@@ -9,19 +9,36 @@ import { LangProvider } from "@/components/providers/lang-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PersonaProvider } from "@/components/providers/persona-provider";
 import { TerminalOverlay } from "@/features/terminal/terminal-overlay";
-import { getPersonSchema, getWebSiteSchema } from "@/lib/structured-data";
+import { getSiteGraphSchema } from "@/lib/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
 import { SITE_URL } from "@/lib/site";
 import { BOOT_SCRIPT } from "@/lib/boot-script";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Short on purpose: Google cuts titles at ~60 characters and reads the site
+  // name from here / the WebSite schema. The long tagline lives in the
+  // description instead.
   title: {
-    default: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist",
-    template: "%s · Aboalazm OS",
+    default: "Mustafa Aboalazm — Senior Brand Identity Designer",
+    template: "%s · Mustafa Aboalazm",
   },
   description:
-    "Brand identities and visual systems for Arabic- and English-speaking brands. Nine years across healthcare, food, education, and consumer products.",
+    "Mustafa Aboalazm — senior brand identity designer in Egypt. Bilingual Arabic / English identity systems, brand guidelines and strategy for MENA brands.",
+  applicationName: "Mustafa Aboalazm",
+  authors: [{ name: "Mustafa Aboalazm", url: SITE_URL }],
+  creator: "Mustafa Aboalazm",
+  // "./" resolves per page, so every route canonicalises to its own URL
+  // (previously no page had a canonical link at all).
+  alternates: { canonical: "./" },
+  // Only the snippet / preview-size allowances. index/follow are defaults and
+  // are deliberately NOT restated: spelling them out here also landed on
+  // notFound() pages, next to Next's own `noindex`, giving crawlers two
+  // conflicting robots tags on a 404.
+  robots: {
+    googleBot: { "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+  },
   icons: {
     icon: "/images/work/icon.png",
     shortcut: "/images/work/icon.png",
@@ -31,7 +48,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     alternateLocale: "ar_EG",
-    siteName: "Mustafa Aboalazm OS",
+    siteName: "Mustafa Aboalazm",
   },
   twitter: {
     card: "summary_large_image",
@@ -49,8 +66,6 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const personSchema = getPersonSchema();
-  const webSiteSchema = getWebSiteSchema();
   // suppressHydrationWarning on <html>: the anti-flash script below (and
   // the lang/theme providers) legitimately mutate <html> attributes
   // (data-theme, lang, dir) before/around hydration — React #418
@@ -65,18 +80,9 @@ export default function RootLayout({
             lib/boot-script.ts, and ThemeProvider / LangProvider for the
             reactive half of this same mechanism. */}
         <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
-        {/* JSON-LD — see lib/structured-data.ts. dangerouslySetInnerHTML is
-            the standard, documented Next.js pattern for this: it's static,
-            server-generated JSON with no user input, not a script-injection
-            risk. */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
-        />
+        {/* JSON-LD — Person + WebSite as one @graph, see lib/structured-data.ts.
+            JsonLd escapes "<" so the payload can never close the script tag. */}
+        <JsonLd data={getSiteGraphSchema()} />
       </head>
       <body className="bg-surface-0 text-text-primary antialiased">
         <AmbientCanvas />

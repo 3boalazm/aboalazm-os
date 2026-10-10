@@ -42,7 +42,7 @@ export async function generateMetadata({
     findCounterpartSlug(slug, post.lang ?? "en", await getAllPosts()) !== null;
   // A page-level openGraph replaces the layout's, so siteName is restated.
   // og:title / og:description are left to inherit from title / description
-  // (keeps the "· Aboalazm OS" title template identical to before).
+  // (so the layout's "· Mustafa Aboalazm" title template applies).
   return {
     title: post.title,
     description: post.standfirst,
@@ -50,7 +50,7 @@ export async function generateMetadata({
       type: "article",
       locale: isAr ? "ar_EG" : "en_US",
       ...(hasCounterpart ? { alternateLocale: isAr ? "en_US" : "ar_EG" } : {}),
-      siteName: "Mustafa Aboalazm OS",
+      siteName: "Mustafa Aboalazm",
       url: `/writing/${slug}`,
       ...(post.publishedAt ? { publishedTime: post.publishedAt } : {}),
     },

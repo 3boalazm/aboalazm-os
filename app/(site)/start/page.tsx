@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { StartView } from "./start-view";
 
 export const metadata: Metadata = {
@@ -7,5 +9,10 @@ export const metadata: Metadata = {
 };
 
 export default function StartPage() {
-  return <StartView />;
+  return (
+    <>
+      <JsonLd data={getBreadcrumbSchema([{ name: "Start a project", path: "/start" }])} />
+      <StartView />
+    </>
+  );
 }
