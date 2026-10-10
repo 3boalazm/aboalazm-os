@@ -108,7 +108,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 shadow-card">
+    <div className="contact-form-panel rounded-panel border border-border-subtle bg-surface-1 p-4 shadow-card">
       {/* Live regions exist from first paint — text added together with its
           region is not announced. This one carries the confirmation; the
           form has its own polite/alert regions under the submit button. */}
