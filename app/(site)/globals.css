@@ -2548,3 +2548,12 @@ html {
     transform: scaleX(1) !important;
   }
 }
+
+
+/* Contact form: the general light-theme tertiary/ghost ramp is intentionally
+   quiet, but micro-labels and placeholders in a conversion form must remain
+   readable. Scope stronger values to this panel without changing site-wide hierarchy. */
+html[data-theme="light"] .contact-form-panel {
+  --color-text-tertiary: rgb(8 7 16 / 0.68);
+  --color-text-ghost: rgb(8 7 16 / 0.60);
+}
