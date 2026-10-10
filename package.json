@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "npm run test:blob-token && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:blob-token": "tsx --test lib/blob-token.test.ts"
