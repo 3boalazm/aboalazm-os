@@ -63,7 +63,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
 
   /* keyboard + scroll-lock while lightbox is open */
   useEffect(() => {
-    if (lightbox === null) return;
+    if (!isOpen) return;
     // Deliberate: arrow keys follow the screen, not the DOM order. In RTL the
     // "previous" button sits on the right, so ArrowRight steps back and
     // ArrowLeft steps forward (the reverse of the pre-fix Arabic behaviour).
@@ -104,7 +104,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
       delete document.documentElement.dataset.modalOpen;
       window.dispatchEvent(new Event("smooth-scroll:start"));
     };
-  }, [lightbox, close, go, ar]);
+  }, [isOpen, close, go, ar]);
 
   /* move focus into the dialog on open, hand it back to the tile on close */
   useEffect(() => {
