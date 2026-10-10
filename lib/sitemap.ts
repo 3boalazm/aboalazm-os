@@ -94,7 +94,8 @@ export function buildSitemap({
 
   const projects: Entry[] = caseStudies.map((c) => ({
     url: abs(`/case-studies/${c.slug}`),
-    lastModified: c.updatedAt,
+    // static fallback entries have no real modification date — omit rather than lie
+    ...(c.updatedAt && { lastModified: c.updatedAt }),
     changeFrequency: "yearly",
     priority: 0.7,
   }));

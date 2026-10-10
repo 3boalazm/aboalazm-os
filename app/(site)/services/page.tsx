@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { ServicesView } from "./services-view";
 import { getOffers } from "@/lib/content";
 
@@ -12,5 +14,10 @@ export const metadata: Metadata = {
 
 export default async function ServicesPage() {
   const { tiers } = await getOffers();
-  return <ServicesView tiers={tiers} />;
+  return (
+    <>
+      <JsonLd data={getBreadcrumbSchema([{ name: "Services", path: "/services" }])} />
+      <ServicesView tiers={tiers} />
+    </>
+  );
 }

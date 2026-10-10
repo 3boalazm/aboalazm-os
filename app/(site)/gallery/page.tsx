@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { GalleryView } from "@/features/gallery";
 import { getGalleryData } from "@/lib/content";
 
@@ -13,5 +15,10 @@ export const metadata: Metadata = {
 
 export default async function GalleryPage() {
   const { projects, images } = await getGalleryData();
-  return <GalleryView projects={projects} images={images} />;
+  return (
+    <>
+      <JsonLd data={getBreadcrumbSchema([{ name: "Gallery", path: "/gallery" }])} />
+      <GalleryView projects={projects} images={images} />
+    </>
+  );
 }

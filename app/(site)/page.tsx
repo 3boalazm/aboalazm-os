@@ -10,9 +10,11 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist",
+  // ≤ ~60 chars so Google shows the whole title; the name leads because it is the query
+  title: "Mustafa Aboalazm — Senior Brand Identity Designer",
   description:
-    "Brand identities and visual systems for Arabic- and English-speaking brands. Nine years of practice across healthcare, food supplements, and consumer goods.",
+    "Mustafa Aboalazm — senior brand identity designer in Egypt. Bilingual Arabic / English identity systems, brand guidelines and strategy for MENA brands.",
+  alternates: { canonical: "/" },
 };
 
 export default async function Home() {

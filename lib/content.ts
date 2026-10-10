@@ -254,14 +254,21 @@ export interface SitemapSource {
   updatedAt: string;
 }
 
+/** The built-in case studies — what the site serves when the CMS has none. */
+const staticCaseStudySources = (): SitemapSource[] =>
+  Object.keys(STATIC_CASE_STUDIES).map((slug) => ({ slug, updatedAt: "" }));
+
 /** Slug + last-modified for every published post / case study (sitemap.xml). */
 export async function getSitemapSources(): Promise<{
   posts: SitemapSource[];
   caseStudies: SitemapSource[];
 }> {
   // Sitemap generation must remain safe when Payload/DB is unavailable
-  // (local preview, CI, or environments without CMS credentials).
-  if (!hasDb()) return { posts: [], caseStudies: [] };
+  // (local preview, CI, or environments without CMS credentials). The five
+  // case studies are served from STATIC_CASE_STUDIES in that case (same
+  // fallback as getAllCaseStudySlugs) — they used to be missing from
+  // /sitemap.xml, so Google was never told those pages exist.
+  if (!hasDb()) return { posts: [], caseStudies: staticCaseStudySources() };
 
   try {
     const { getPayload } = await import("./payload");
@@ -281,9 +288,11 @@ export async function getSitemapSources(): Promise<{
       }),
     ]);
     const pick = (d: { slug: string; updatedAt: string }) => ({ slug: d.slug, updatedAt: d.updatedAt });
-    return { posts: posts.docs.map(pick), caseStudies: caseStudies.docs.map(pick) };
-  } catch {
-    return { posts: [], caseStudies: [] };
+    const cms = caseStudies.docs.map(pick);
+    return { posts: posts.docs.map(pick), caseStudies: cms.length > 0 ? cms : staticCaseStudySources() };
+  } catch (err) {
+    console.error("[sitemap] CMS query failed, falling back to static case studies:", err);
+    return { posts: [], caseStudies: staticCaseStudySources() };
   }
 }
 

@@ -46,7 +46,7 @@ const PAGES: Record<string, string> = {
 const WHOAMI = [
   "mustafa aboalazm — systemic identity architect",
   "co-founder, code & canvas · al obour, egypt",
-  "nine years across pharma, education, and government.",
+  "9+ years in design across pharma, education, and government.",
 ];
 
 interface Line {

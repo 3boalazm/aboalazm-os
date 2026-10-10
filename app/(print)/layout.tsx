@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { SITE_URL } from "@/lib/site";
 
 /**
  * (PRINT) ROOT LAYOUT — dedicated chrome-free root for the landscape
@@ -9,11 +10,17 @@ import type { Metadata, Viewport } from "next";
  * print/PDF fidelity can never drift with site-theme changes.
  */
 export const metadata: Metadata = {
-  title: "Portfolio 2026 — 16:9 Presentation Deck",
+  // This root layout has no metadataBase of its own — without it the og:image /
+  // canonical URLs resolved against the per-deployment URL instead of the site.
+  metadataBase: new URL(SITE_URL),
+  title: "Mustafa Aboalazm — Portfolio 2026 (Selected Works)",
   description:
-    "The landscape presentation portfolio of Mustafa Aboalazm — 14 slides, 5 identity chapters with selected frames. Exportable to 16:9 PDF, printable 1:1.",
+    "Portfolio deck of Mustafa Aboalazm, senior brand identity designer — 14 slides, 5 bilingual identity chapters. View online, print, or download as a 16:9 PDF.",
+  alternates: { canonical: "/portfolio" },
   icons: { icon: "/images/work/icon.png" },
   robots: { index: true, follow: true },
+  openGraph: { type: "website", siteName: "Mustafa Aboalazm" },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
