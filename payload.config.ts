@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { BlocksFeature, lexicalEditor } from "@payloadcms/richtext-lexical";
 import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
+import { resolveBlobToken } from "./lib/blob-token";
 import { buildConfig } from "payload";
 
 import { Users } from "./collections/Users";
@@ -140,7 +141,8 @@ export default buildConfig({
   plugins: [
     vercelBlobStorage({
       collections: { media: true },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+      // lib/blob-token.ts: a malformed token must not crash the whole CMS
+      token: resolveBlobToken(),
     }),
   ],
 });
