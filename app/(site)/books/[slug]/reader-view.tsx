@@ -14,6 +14,16 @@ export function ReaderView({ book }: { book: Book }) {
   const [active, setActive] = useState<string>(book.journeys[0]?.chapters[0]?.id ?? "");
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Escape dismisses the chapter drawer; focus stays on its trigger button.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
+
   // listen for scroll progress + active chapter from the isolated bundle
   useEffect(() => {
     function onMsg(e: MessageEvent) {
