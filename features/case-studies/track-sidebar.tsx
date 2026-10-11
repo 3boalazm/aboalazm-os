@@ -20,21 +20,29 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { panelsFor, type PanelId } from "./types";
+import type { PanelId } from "./types";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface TrackSidebarProps {
   /** Ref to the scrolling article these panels live in */
   articleRef: React.RefObject<HTMLElement | null>;
-  /** The case study carries its brand book as a fifth panel */
-  hasBrandBook?: boolean;
+  /** Stations in reading order (from `panelsFor`) */
+  panels: readonly { id: PanelId; index: string }[];
 }
 
-export function TrackSidebar({ articleRef, hasBrandBook = false }: TrackSidebarProps) {
-  const panels = panelsFor(hasBrandBook);
+const LABEL = {
+  overview: "csOverview",
+  challenge: "csChallenge",
+  idea: "csIdea",
+  applications: "csInUse",
+  system: "csSystem",
+  outcome: "csOutcome",
+} as const;
+
+export function TrackSidebar({ articleRef, panels }: TrackSidebarProps) {
   const spineRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState<PanelId>("context");
+  const [active, setActive] = useState<PanelId>("overview");
   const t = useT();
 
   useGSAP(
@@ -71,7 +79,7 @@ export function TrackSidebar({ articleRef, hasBrandBook = false }: TrackSidebarP
         });
       });
     },
-    { dependencies: [articleRef, hasBrandBook] },
+    { dependencies: [articleRef, panels.length] },
   );
 
   return (
@@ -114,7 +122,7 @@ export function TrackSidebar({ articleRef, hasBrandBook = false }: TrackSidebarP
                       : "text-text-tertiary group-hover:text-text-secondary",
                   ].join(" ")}
                 >
-                  {t[panel.id === "context" ? "contextAudit" : panel.id === "research" ? "researchLogic" : panel.id === "execution" ? "executionGov" : panel.id === "brand-book" ? "brandBook" : "performancePM"]}
+                  {t[LABEL[panel.id]]}
                 </span>
               </a>
             );

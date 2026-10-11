@@ -17,7 +17,7 @@ export const SECTIONS = [
   { id: "bb-logo", label: "Logo" },
   { id: "bb-color", label: "Color" },
   { id: "bb-typography", label: "Typography" },
-  { id: "bb-applications", label: "Applications" },
+  { id: "bb-applications", label: "Formats" },
 ] as const;
 
 export const PRIMARY_COLORS = [

@@ -1,7 +1,7 @@
 export { ScrollyCaseStudy } from "./scrolly-case-study";
 export { BeforeAfterSlider } from "./before-after-slider";
 export { TrackSidebar } from "./track-sidebar";
-export { PANELS, BRAND_BOOK_PANEL, panelsFor } from "./types";
+export { PANEL_IDS, panelsFor } from "./types";
 export type { CaseStudyRecord, PanelId } from "./types";
 export { NILE_PHARMA, ART_REFLECTION } from "./demo.data";
 export { AHMED_BEDEER } from "./ahmed-bedeer.data";

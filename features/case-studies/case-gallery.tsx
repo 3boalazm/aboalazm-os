@@ -14,18 +14,50 @@ export interface GalleryItem {
   caption: string;
   captionAr?: string;
   span?: "full" | "half";
+  /**
+   * "slide" = a page of the guidelines document (cover, palette, type…);
+   * anything else is the identity in use. Untagged items (e.g. from the CMS)
+   * count as in-use.
+   */
+  kind?: "application" | "slide";
+}
+
+/**
+ * Halves are paired two to a row. A half left on its own (the next item is
+ * full-width, or it is the last one) would leave an empty cell, so it goes
+ * full-width instead.
+ */
+function effectiveSpans(items: readonly GalleryItem[]): ("full" | "half")[] {
+  const out: ("full" | "half")[] = [];
+  let open = -1; // index of a half waiting for a partner
+  items.forEach((item, i) => {
+    if (item.span === "full") {
+      if (open >= 0) out[open] = "full";
+      open = -1;
+      out.push("full");
+    } else if (open >= 0) {
+      out.push("half");
+      open = -1;
+    } else {
+      out.push("half");
+      open = i;
+    }
+  });
+  if (open >= 0) out[open] = "full";
+  return out;
 }
 
 export function CaseGallery({ items }: { items: readonly GalleryItem[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const spans = effectiveSpans(items);
   return (
     <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-      {items.map((item) => (
+      {items.map((item, i) => (
         <MediaCard
           key={item.src}
           as="figure"
-          className={["relative", item.span === "full" ? "md:col-span-2" : ""].join(" ")}
+          className={["relative", spans[i] === "full" ? "md:col-span-2" : ""].join(" ")}
         >
           <div className="relative aspect-[16/9]">
             <Image

@@ -322,31 +322,15 @@ export function GadBrandBook() {
         </div>
       </section>
 
-      {/* ── APPLICATIONS ── */}
+      {/* ── FORMATS ── (the mockups live in the case study's "In use" panel) */}
       <section id="bb-applications" aria-labelledby="bb-apps-title" className="py-20" style={{ background: DARKER }}>
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
-          <Chip label="Brand Applications" number="06" />
+          <Chip label="Formats & Standards" number="06" />
           <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
             <h3 id="bb-apps-title" className="font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
-              Brand<Accent>In Use</Accent>
+              Formats<Accent>&amp; Standards</Accent>
             </h3>
-            <p className="max-w-xs text-sm text-white/70">The identity applied across signage, print, exhibition and outdoor — mockups from the brand book.</p>
-          </div>
-          <div className="mb-12 grid gap-4 @2xl:grid-cols-12">
-            {[
-              { src: "gad-signage-environmental.jpg", alt: "Brushed-metal GAD logo mounted on a building facade", cap: "Environmental signage", span: "@2xl:col-span-8" },
-              { src: "gad-mockup-outdoor.jpg", alt: "GAD outdoor banner mockup", cap: "Outdoor", span: "@2xl:col-span-4" },
-              { src: "gad-mockup-logo.jpg", alt: "GAD logo on a wall — mockup", cap: "Logo wall", span: "@2xl:col-span-4" },
-              { src: "gad-mockup-card.jpg", alt: "GAD business cards in Deep Blue and white, with QR code", cap: "Business card", span: "@2xl:col-span-4" },
-              { src: "gad-mockup-exhibition.jpg", alt: "GAD exhibition stand mockup with Vision 2030 wall", cap: "Exhibition stand", span: "@2xl:col-span-4" },
-            ].map((m) => (
-              <figure key={m.src} className={m.span}>
-                <div className="relative aspect-[3/2] overflow-hidden rounded-2xl border border-white/10">
-                  <Image src={`${IMG}/${m.src}`} alt={m.alt} fill sizes="(min-width:768px) 40vw, 100vw" className="object-cover" />
-                </div>
-                <figcaption className="mt-3 text-xs font-semibold uppercase tracking-widest text-white/75">{m.cap}</figcaption>
-              </figure>
-            ))}
+            <p className="max-w-xs text-sm text-white/70">Standard sizes for digital, social and print, and who the identity speaks to.</p>
           </div>
           <ul className="grid gap-4 @xl:grid-cols-2 @3xl:grid-cols-4">
             {STANDARDS.map((s) => (
