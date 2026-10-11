@@ -31,11 +31,20 @@ const Accent = ({ children }: { children: React.ReactNode }) => (
   <span className="block" style={{ color: RED_TEXT }}>{children}</span>
 );
 
-/** The real logo is dark-on-transparent, so it always sits on a light plate. */
-function LogoPlate({ src, alt, w, h, className = "" }: { src: string; alt: string; w: number; h: number; className?: string }) {
+const PLATE_DARK = "#070D14";
+
+/**
+ * The supplied vector logos come in light-ground and dark-ground colourways;
+ * each sits on the plate it was drawn for. `dark` picks the dark plate.
+ */
+function LogoPlate({ src, alt, w, h, dark = false, className = "" }: { src: string; alt: string; w: number; h: number; dark?: boolean; className?: string }) {
   return (
-    <div className={`flex items-center justify-center rounded-2xl bg-white p-8 ${className}`}>
-      <Image src={src} alt={alt} width={w} height={h} className="h-auto max-h-full w-auto max-w-full" />
+    <div
+      className={`flex items-center justify-center rounded-2xl p-8 ${dark ? "border border-white/15" : "bg-white"} ${className}`}
+      style={dark ? { background: PLATE_DARK } : undefined}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element -- local SVG, nothing to optimise */}
+      <img src={src} alt={alt} width={w} height={h} className="h-auto max-h-full w-auto max-w-full" />
     </div>
   );
 }
@@ -235,12 +244,25 @@ export function GadBrandBook() {
               </ul>
             </div>
             <div className="space-y-4">
-              <LogoPlate src={`${IMG}/gad-logo-en.png`} alt="GAD Heart & Lungs Institute — primary English horizontal logo" w={340} h={128} className="h-52" />
-              <LogoPlate src={`${IMG}/gad-logo-ar.png`} alt="شعار مستشفى د. غنام الدوسري للقلب والرئتين — الشعار الأفقي العربي" w={425} h={128} className="h-52" />
-              <div className="grid grid-cols-3 gap-4">
-                <div className="flex aspect-square items-center justify-center rounded-2xl bg-white p-6"><Image src={`${IMG}/gad-mark.png`} alt="GAD symbol on white" width={280} height={282} className="h-full w-auto" /></div>
-                <div className="flex aspect-square items-center justify-center rounded-2xl p-6" style={{ background: BLUE_LIGHT }}><Image src={`${IMG}/gad-mark.png`} alt="GAD symbol on Sky Blue" width={280} height={282} className="h-full w-auto" /></div>
-                <div className="flex aspect-square items-center justify-center rounded-2xl p-6" style={{ background: "#D0D0D0" }}><Image src={`${IMG}/gad-mark.png`} alt="GAD symbol on Light Grey" width={280} height={282} className="h-full w-auto" /></div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <LogoPlate src={`${IMG}/gad-logo-horizontal-en.svg`} alt="GAD Heart & Lungs Institute — English horizontal logo, light background" w={306} h={106} className="h-40" />
+                <LogoPlate dark src={`${IMG}/gad-logo-horizontal-en-dark.svg`} alt="GAD Heart & Lungs Institute — English horizontal logo, dark background" w={306} h={106} className="h-40" />
+                <LogoPlate src={`${IMG}/gad-logo-horizontal-ar.svg`} alt="شعار مستشفى د. غنام الدوسري للقلب والرئتين — أفقي، خلفية فاتحة" w={397} h={106} className="h-40" />
+                <LogoPlate dark src={`${IMG}/gad-logo-horizontal-ar-dark.svg`} alt="شعار مستشفى د. غنام الدوسري للقلب والرئتين — أفقي، خلفية داكنة" w={397} h={106} className="h-40" />
+                <LogoPlate src={`${IMG}/gad-logo-vertical-en.svg`} alt="GAD Heart & Lungs Institute — English vertical logo, light background" w={261} h={321} className="h-72" />
+                <LogoPlate dark src={`${IMG}/gad-logo-vertical-en-dark.svg`} alt="GAD Heart & Lungs Institute — English vertical logo, dark background" w={261} h={321} className="h-72" />
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+                <LogoPlate src={`${IMG}/gad-mark.svg`} alt="GAD symbol on white" w={106} h={106} className="aspect-square !p-5" />
+                <div className="flex aspect-square items-center justify-center rounded-2xl p-5" style={{ background: BLUE_LIGHT }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`${IMG}/gad-mark.svg`} alt="GAD symbol on Sky Blue" width={106} height={106} className="h-full w-auto" />
+                </div>
+                <div className="flex aspect-square items-center justify-center rounded-2xl p-5" style={{ background: "#D0D0D0" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`${IMG}/gad-mark.svg`} alt="GAD symbol on Light Grey" width={106} height={106} className="h-full w-auto" />
+                </div>
+                <LogoPlate dark src={`${IMG}/gad-mark-dark.svg`} alt="GAD symbol, dark-background colourway" w={106} h={106} className="aspect-square !p-5" />
               </div>
             </div>
           </div>
@@ -349,7 +371,8 @@ export function GadBrandBook() {
 
           <div className="mt-24 text-center">
             <div className="mx-auto mb-10 flex w-fit rounded-2xl bg-white p-6">
-              <Image src={`${IMG}/gad-logo-en.png`} alt="GAD Heart & Lungs Institute logo" width={340} height={128} className="h-16 w-auto" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`${IMG}/gad-logo-horizontal-en.svg`} alt="GAD Heart & Lungs Institute logo" width={306} height={106} className="h-16 w-auto" />
             </div>
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white/65">Brand Identity V2.0 — 2025</p>
             <p className="mx-auto max-w-3xl font-bold leading-tight tracking-tight text-white/85" style={{ fontSize: "clamp(28px,3.6vw,48px)" }}>

@@ -34,7 +34,6 @@ const STATIC_ROUTES = [
   "/resources",
   "/contact",
   "/portfolio",
-  "/case-studies/gad-institute/brand-book",
 ];
 
 const STATIC_PRIORITY: Record<string, number> = {
