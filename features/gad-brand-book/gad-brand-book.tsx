@@ -2,6 +2,8 @@ import Image from "next/image";
 import { ArrowRight, Award, ChevronRight, Eye, Globe, Heart, Shield, Target, TrendingUp, Users, Zap } from "./icons";
 import { Swatch } from "./swatch";
 import { SectionNav } from "./section-nav";
+import { Anatomy } from "./anatomy";
+import { Usage } from "./usage";
 import {
   BLUE, BLUE_LIGHT, DARK, DARKER, INFOGRAPHIC_COLORS, NEUTRAL_COLORS, PRIMARY_COLORS, RED, RED_TEXT,
 } from "./tokens";
@@ -63,12 +65,6 @@ const PERSONA_BOXES = [
   { title: "Customer Experience", items: ["Build trust & emotional connection", "Comfort & transparency first", "Seamless healthcare journey", "Every patient feels valued"], color: RED_TEXT },
 ];
 
-const LOGO_PARTS = [
-  { label: "Lungs Symbol", desc: "Two stylized lungs forming a unified circular mark" },
-  { label: "Heart Symbol", desc: "Inverted drop below the lungs — life, vitality, pulse" },
-  { label: "GAD Wordmark", desc: "Bold geometric sans — authority & clarity" },
-  { label: "Institute Name", desc: "English + Arabic bilingual lockup — always together" },
-];
 
 const STANDARDS = [
   { icon: <Globe size={20} />, title: "Digital", desc: "Presentations 1920×1080 · Web Hero 1920×600 · Leaderboard 728×90" },
@@ -228,20 +224,9 @@ export function GadBrandBook() {
               <h2 id="logo-title" className="mb-8 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4vw,64px)" }}>
                 Logo<Accent>System</Accent>
               </h2>
-              <p className="mb-10 max-w-sm text-sm leading-relaxed text-white/70">
+              <p className="max-w-sm text-sm leading-relaxed text-white/70">
                 The primary logo combines a stylized heart-and-lungs symbol in Crimson Red and Deep Blue — vitality, trust, and the dual focus of cardiopulmonary care. It ships in four lockups: English and Arabic, horizontal and vertical (brand book pp. 13–14).
               </p>
-              <ul className="space-y-4">
-                {LOGO_PARTS.map((p) => (
-                  <li key={p.label} className="flex items-start gap-4 rounded-xl p-4" style={{ background: "rgb(255 255 255 / 0.04)" }}>
-                    <ArrowRight size={14} className="mt-1 shrink-0" style={{ color: RED_TEXT }} />
-                    <div>
-                      <p className="text-sm font-semibold text-white">{p.label}</p>
-                      <p className="mt-0.5 text-xs text-white/70">{p.desc}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
             </div>
             <div className="space-y-4">
               <div className="grid gap-4 sm:grid-cols-2">
@@ -265,6 +250,10 @@ export function GadBrandBook() {
                 <LogoPlate dark src={`${IMG}/gad-mark-dark.svg`} alt="GAD symbol, dark-background colourway" w={106} h={106} className="aspect-square !p-5" />
               </div>
             </div>
+          </div>
+          <div className="mb-20">
+            <h3 className="mb-8 text-2xl font-bold text-white">Anatomy of the mark</h3>
+            <Anatomy />
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             <figure className="overflow-hidden rounded-2xl border border-white/10">
@@ -383,6 +372,20 @@ export function GadBrandBook() {
               Brand identity &amp; brand book by Mustafa Aboalazm. GAD Heart &amp; Lungs Institute’s name, logo and marks belong to GAD.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* ── USAGE ── */}
+      <section id="usage" aria-labelledby="usage-title" className="py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-16">
+          <Chip label="Usage Guidelines" number="07" />
+          <h2 id="usage-title" className="mb-4 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4vw,64px)" }}>
+            Using the<Accent>Logo</Accent>
+          </h2>
+          <p className="mb-16 max-w-2xl text-sm leading-relaxed text-white/70">
+            Practical rules that extend the brand book’s symbol guidelines — clear space, sizing and common mistakes — drawn as a quick reference.
+          </p>
+          <Usage />
         </div>
       </section>
     </div>

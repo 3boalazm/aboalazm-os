@@ -18,6 +18,7 @@ export const SECTIONS = [
   { id: "color", label: "Color" },
   { id: "typography", label: "Typography" },
   { id: "applications", label: "Applications" },
+  { id: "usage", label: "Usage" },
 ] as const;
 
 export const PRIMARY_COLORS = [
