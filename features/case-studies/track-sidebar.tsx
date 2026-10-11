@@ -20,16 +20,19 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { PANELS, type PanelId } from "./types";
+import { panelsFor, type PanelId } from "./types";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 interface TrackSidebarProps {
   /** Ref to the scrolling article these panels live in */
   articleRef: React.RefObject<HTMLElement | null>;
+  /** The case study carries its brand book as a fifth panel */
+  hasBrandBook?: boolean;
 }
 
-export function TrackSidebar({ articleRef }: TrackSidebarProps) {
+export function TrackSidebar({ articleRef, hasBrandBook = false }: TrackSidebarProps) {
+  const panels = panelsFor(hasBrandBook);
   const spineRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<PanelId>("context");
   const t = useT();
@@ -57,7 +60,7 @@ export function TrackSidebar({ articleRef }: TrackSidebarProps) {
       );
 
       /* Station lights — one trigger per panel */
-      PANELS.forEach((panel) => {
+      panels.forEach((panel) => {
         const el = article.querySelector<HTMLElement>(`#${panel.id}`);
         if (!el) return;
         ScrollTrigger.create({
@@ -68,7 +71,7 @@ export function TrackSidebar({ articleRef }: TrackSidebarProps) {
         });
       });
     },
-    { dependencies: [articleRef] },
+    { dependencies: [articleRef, hasBrandBook] },
   );
 
   return (
@@ -85,7 +88,7 @@ export function TrackSidebar({ articleRef }: TrackSidebarProps) {
 
         {/* Stations */}
         <nav aria-label={t.caseStudySections} className="flex flex-col gap-4 py-1">
-          {PANELS.map((panel) => {
+          {panels.map((panel) => {
             const isActive = active === panel.id;
             return (
               <a
@@ -111,7 +114,7 @@ export function TrackSidebar({ articleRef }: TrackSidebarProps) {
                       : "text-text-tertiary group-hover:text-text-secondary",
                   ].join(" ")}
                 >
-                  {t[panel.id === "context" ? "contextAudit" : panel.id === "research" ? "researchLogic" : panel.id === "execution" ? "executionGov" : "performancePM"]}
+                  {t[panel.id === "context" ? "contextAudit" : panel.id === "research" ? "researchLogic" : panel.id === "execution" ? "executionGov" : panel.id === "brand-book" ? "brandBook" : "performancePM"]}
                 </span>
               </a>
             );

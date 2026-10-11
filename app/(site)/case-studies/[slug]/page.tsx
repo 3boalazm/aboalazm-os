@@ -8,6 +8,7 @@ import {
   getAllCaseStudySlugs,
 } from "@/lib/content";
 import { truncateAtWord } from "@/lib/seo";
+import { GadBrandBookPanel } from "@/features/gad-brand-book";
 
 export const revalidate = 60;
 
@@ -44,13 +45,18 @@ export default async function CaseStudyPage({
   const record = await getCaseStudy(slug);
   if (!record) notFound();
 
-  const gallery = await getCaseStudyGallery(slug);
+  // GAD ships its brand book inline (panel 04). The book already shows every
+  // slide the generic gallery would, so the gallery is skipped to avoid the
+  // same images twice.
+  const hasBrandBook = slug === "gad-institute";
+  const gallery = hasBrandBook ? [] : await getCaseStudyGallery(slug);
 
   return (
     <main>
       <ScrollyCaseStudy
         record={record}
         gallery={gallery.length > 0 ? <CaseGallery items={gallery} /> : undefined}
+        brandBook={hasBrandBook ? <GadBrandBookPanel index="04" /> : undefined}
       />
     </main>
   );

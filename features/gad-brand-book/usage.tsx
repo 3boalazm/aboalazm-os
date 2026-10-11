@@ -15,7 +15,7 @@ function Sub({ n, title, children }: { n: string; title: string; children?: Reac
   return (
     <div className="mb-8">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: RED_TEXT }}>{n}</p>
-      <h3 className="text-2xl font-bold text-white">{title}</h3>
+      <h5 className="text-2xl font-bold text-white">{title}</h5>
       {children && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">{children}</p>}
     </div>
   );
@@ -90,7 +90,7 @@ const DONTS: { label: string; render: () => React.ReactNode; plate?: React.CSSPr
 
 function Donts() {
   return (
-    <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
+    <ul className="grid grid-cols-2 gap-3 @2xl:grid-cols-3">
       {DONTS.map((d) => (
         <li key={d.label} className="relative flex h-44 flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl bg-white" style={d.plate}>
           <span aria-hidden className="absolute right-3 top-3 flex size-6 items-center justify-center rounded-full text-xs font-bold text-white" style={{ background: RED }}>✕</span>
@@ -102,29 +102,36 @@ function Donts() {
   );
 }
 
-const DO = [
-  "Use the master logo files — never a screenshot or a redraw",
-  "Keep the 0.5× clear space on every side",
-  "Use the approved palette: Deep Blue leads, Crimson Red accents",
-  "Pair the symbol with the full logo for new audiences",
-  "Set Arabic copy in Alexandria, English in Trap and Montserrat",
+type Rule = { t: string; src?: string };
+
+// `src` marks rules quoted from the brand book; the rest extend it.
+const DO: Rule[] = [
+  { t: "Use the original logo artwork supplied by the GAD Brand Team", src: "p.12" },
+  { t: "Keep the lock-up complete: symbol, GAD, and the name in English and Arabic", src: "p.12" },
+  { t: "Use approved colours and proportions", src: "p.14" },
+  { t: "Pair the symbol with the full logo for new audiences", src: "p.14" },
+  { t: "Keep the 0.5× clear space on every side" },
 ];
-const DONT = [
-  "Rotate, stretch, crop or recolour the logo",
-  "Add text to the symbol or modify it",
-  "Place it on busy or same-tone backgrounds",
-  "Add shadows, outlines or other effects",
+const DONT: Rule[] = [
+  { t: "Recreate, modify or realign any element of the logo", src: "p.12" },
+  { t: "Lock up website URLs or other text with the logo", src: "p.12" },
+  { t: "Translate the institute name beyond the approved Arabic and English", src: "p.12" },
+  { t: "Add text to the symbol or modify it", src: "p.14" },
+  { t: "Rotate, stretch, crop or recolour it; add shadows; use busy backgrounds" },
 ];
 
-function List({ title, items, color, mark }: { title: string; items: string[]; color: string; mark: string }) {
+function List({ title, items, color, mark }: { title: string; items: Rule[]; color: string; mark: string }) {
   return (
     <div className="rounded-2xl p-7" style={card}>
-      <h4 className="mb-4 text-sm font-bold uppercase tracking-widest" style={{ color }}>{title}</h4>
+      <h6 className="mb-4 text-sm font-bold uppercase tracking-widest" style={{ color }}>{title}</h6>
       <ul className="space-y-2.5">
-        {items.map((t) => (
-          <li key={t} className="flex gap-3 text-sm text-white/80">
+        {items.map((r) => (
+          <li key={r.t} className="flex gap-3 text-sm text-white/80">
             <span aria-hidden className="font-bold" style={{ color }}>{mark}</span>
-            {t}
+            <span>
+              {r.t}
+              {r.src && <span className="ml-2 whitespace-nowrap rounded border border-white/20 px-1.5 py-0.5 text-[11px] text-white/70">book {r.src}</span>}
+            </span>
           </li>
         ))}
       </ul>
@@ -136,7 +143,7 @@ function List({ title, items, color, mark }: { title: string; items: string[]; c
 export function Usage() {
   return (
     <div className="space-y-20">
-      <div className="grid items-start gap-10 lg:grid-cols-2">
+      <div className="grid items-start gap-10 @3xl:grid-cols-2">
         <div>
           <Sub n="A" title="Clear space — 0.5×">
             Keep the logo free of graphics, text and edges: 0.5× on every side, where x is the height of the heart-and-lungs symbol.
@@ -155,8 +162,10 @@ export function Usage() {
         <Donts />
       </div>
       <div>
-        <Sub n="D" title="Keep the heartbeat steady" />
-        <div className="grid gap-4 md:grid-cols-2">
+        <Sub n="D" title="Keep the heartbeat steady">
+          Rules tagged <span className="rounded border border-white/20 px-1.5 py-0.5 text-[11px] text-white/70">book p.12</span> are quoted from the brand book; the rest extend it.
+        </Sub>
+        <div className="grid gap-4 @2xl:grid-cols-2">
           <List title="Do" items={DO} color={BLUE_LIGHT} mark="✓" />
           <List title="Don’t" items={DONT} color={RED_TEXT} mark="✕" />
         </div>
