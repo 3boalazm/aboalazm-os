@@ -651,12 +651,12 @@ export function ExecutionPanel({ record }: { record: CaseStudyRecord }) {
 
 /* ── 04 · PERFORMANCE & POST MORTEM ────────────────────────────── */
 
-export function PerformancePanel({ record }: { record: CaseStudyRecord }) {
+export function PerformancePanel({ record, index = "04" }: { record: CaseStudyRecord; index?: string }) {
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <PanelShell id="performance" index="04" label={t.performancePM}>
+    <PanelShell id="performance" index={index} label={t.performancePM}>
       {/* Monumental callouts */}
       <div className="grid grid-cols-1 gap-4 border-b border-border-subtle pb-8 sm:grid-cols-3">
         {record.results.map((kpi) => (

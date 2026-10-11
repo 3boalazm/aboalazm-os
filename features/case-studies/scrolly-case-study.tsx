@@ -32,9 +32,12 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 export function ScrollyCaseStudy({
   record,
   gallery,
+  brandBook,
 }: {
   record: CaseStudyRecord;
   gallery?: ReactNode;
+  /** Inline brand-book panel (its own <section id="brand-book">), shown between Execution and Performance */
+  brandBook?: ReactNode;
 }) {
   const articleRef = useRef<HTMLElement>(null);
 
@@ -63,7 +66,7 @@ export function ScrollyCaseStudy({
 
   return (
     <div className="container-wide grid gap-8 py-16 lg:grid-cols-[16rem_1fr]">
-      <TrackSidebar articleRef={articleRef} />
+      <TrackSidebar articleRef={articleRef} hasBrandBook={!!brandBook} />
       <article ref={articleRef} className="flex min-w-0 flex-col">
         <header className="flex flex-col gap-2 pb-8">
           <Heading
@@ -82,7 +85,8 @@ export function ScrollyCaseStudy({
             {gallery}
           </section>
         )}
-        <PerformancePanel record={record} />
+        {brandBook}
+        <PerformancePanel record={record} index={brandBook ? "05" : "04"} />
       </article>
     </div>
   );

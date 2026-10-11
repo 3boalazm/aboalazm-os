@@ -114,4 +114,20 @@ export const PANELS = [
   { id: "performance", index: "04", label: "PERFORMANCE & POST MORTEM" },
 ] as const;
 
-export type PanelId = (typeof PANELS)[number]["id"];
+/**
+ * Optional fifth station: a case study that ships its brand book inline gets
+ * it between Execution and Performance. Indexes are renumbered when present.
+ */
+export const BRAND_BOOK_PANEL = { id: "brand-book", index: "04", label: "BRAND BOOK" } as const;
+
+export type PanelId = (typeof PANELS)[number]["id"] | typeof BRAND_BOOK_PANEL.id;
+
+/** Panels for the sidebar, in reading order. */
+export function panelsFor(hasBrandBook: boolean) {
+  if (!hasBrandBook) return PANELS.map((p) => ({ ...p }));
+  return [
+    ...PANELS.slice(0, 3).map((p) => ({ ...p })),
+    { ...BRAND_BOOK_PANEL },
+    { ...PANELS[3], index: "05" },
+  ];
+}

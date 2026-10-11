@@ -69,6 +69,16 @@ const nextConfig: NextConfig = {
       { source: "/books/:slug/assets/:path*", headers: cacheControl("public, max-age=31536000, immutable") },
     ];
   },
+  // The brand book used to live at its own URL; it is now a panel of the case study.
+  async redirects() {
+    return [
+      {
+        source: "/case-studies/gad-institute/brand-book",
+        destination: "/case-studies/gad-institute#brand-book",
+        permanent: false,
+      },
+    ];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     localPatterns: [

@@ -7,10 +7,10 @@ import { MARK_BLUE, MARK_RED, MARK_VIEWBOX } from "./mark-paths";
 type Part = 1 | 2 | 3 | 4;
 
 const PARTS: { n: Part; title: string; text: string }[] = [
-  { n: 1, title: "The circle — lungs", text: "Two arches inside a unified circular form: breath, protection, vitality." },
-  { n: 2, title: "The heart", text: "The crimson core, set where the lungs meet — the pulse of the brand." },
-  { n: 3, title: "The lock-up", text: "Symbol + GAD wordmark + institute name in English and Arabic, always together." },
-  { n: 4, title: "Symbol rules", text: "Approved colours and proportions only · never add text to, or modify, the symbol · pair with the full logo for new audiences." },
+  { n: 1, title: "Lungs symbol", text: "Two stylised lungs forming the circular mark: breath, protection, vitality." },
+  { n: 2, title: "Heart symbol", text: "The crimson core, set where the lungs meet — the pulse of the brand." },
+  { n: 3, title: "Wordmarks", text: "GAD (the international corporate wordmark), the institute name in English and the hospital name in Arabic. The lock-up always carries all of them (book p.12)." },
+  { n: 4, title: "Lock-up rules", text: "Always use the original artwork from the GAD Brand Team — never recreate, modify or realign. No URLs or other text locked up with the logo. The name is never translated beyond Arabic and English (book p.12)." },
 ];
 
 const MUTED = "#6B7A88";
@@ -26,7 +26,7 @@ export function Anatomy() {
   const red = hot === 1 ? MUTED : RED;
 
   return (
-    <div className="grid items-center gap-10 lg:grid-cols-2">
+    <div className="grid items-center gap-10 @3xl:grid-cols-2">
       <div className="flex items-center justify-center rounded-2xl bg-white p-10">
         <svg viewBox={MARK_VIEWBOX} role="img" aria-label="GAD symbol: a circle of two lung arches around a heart" className="w-56 max-w-full">
           <g fill={blue} className="transition-[fill] duration-300 motion-reduce:transition-none">
@@ -61,7 +61,7 @@ export function Anatomy() {
           </li>
         ))}
       </ul>
-      <p className="text-xs text-white/65 lg:col-span-2">
+      <p className="text-xs text-white/65 @3xl:col-span-2">
         <span style={{ color: RED_TEXT }}>Tip:</span> hover or tab through the parts — the symbol responds.
       </p>
     </div>

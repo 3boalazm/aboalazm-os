@@ -10,15 +10,14 @@ export const RED_TEXT = "#E8858B";
 export const DARK = "#0D1B2A";
 export const DARKER = "#080E16";
 
+/** Sub-sections of the brand book, in reading order (element ids carry a `bb-` prefix). */
 export const SECTIONS = [
-  { id: "cover", label: "Cover" },
-  { id: "strategy", label: "Strategy" },
-  { id: "persona", label: "Persona" },
-  { id: "logo", label: "Logo" },
-  { id: "color", label: "Color" },
-  { id: "typography", label: "Typography" },
-  { id: "applications", label: "Applications" },
-  { id: "usage", label: "Usage" },
+  { id: "bb-strategy", label: "Strategy" },
+  { id: "bb-persona", label: "Persona" },
+  { id: "bb-logo", label: "Logo" },
+  { id: "bb-color", label: "Color" },
+  { id: "bb-typography", label: "Typography" },
+  { id: "bb-applications", label: "Applications" },
 ] as const;
 
 export const PRIMARY_COLORS = [
