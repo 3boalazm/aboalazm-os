@@ -3,7 +3,9 @@ import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * SCROLLY CASE STUDY — composition root.
- * Layout: [sticky TrackSidebar | scrolling article of four panels].
+ * Layout: [sticky TrackSidebar | scrolling article of panels].
+ * Reading order: the work first (overview, in use), then the thinking and the
+ * system, then the outcome — see `panelsFor`.
  * Route-level ambient glow: the record's accent tints the whole
  * page for the duration of the read (useAmbientGlow contract).
  * Panel entrances: one ScrollTrigger.batch over [data-panel] —
@@ -17,12 +19,15 @@ import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { GSAP_DEFAULTS, SCROLL_TRIGGER_DEFAULTS } from "@/lib/motion";
 import { TrackSidebar } from "./track-sidebar";
 import {
-  ContextPanel,
-  ResearchPanel,
-  ExecutionPanel,
-  PerformancePanel,
+  OverviewPanel,
+  ChallengePanel,
+  IdeaPanel,
+  ApplicationsPanel,
+  SystemPanel,
+  OutcomePanel,
 } from "./panels";
-import type { CaseStudyRecord } from "./types";
+import { panelsFor, type CaseStudyRecord } from "./types";
+import type { GalleryItem } from "./case-gallery";
 import type { ReactNode } from "react";
 import { useT } from "@/hooks/use-t";
 import { Heading } from "@/components/ui/Heading";
@@ -31,12 +36,13 @@ gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export function ScrollyCaseStudy({
   record,
-  gallery,
+  gallery = [],
   brandBook,
 }: {
   record: CaseStudyRecord;
-  gallery?: ReactNode;
-  /** Inline brand-book panel (its own <section id="brand-book">), shown between Execution and Performance */
+  /** Project imagery; items tagged `kind: "slide"` are pages of the guidelines document */
+  gallery?: readonly GalleryItem[];
+  /** The full guidelines document, rendered inside the System panel in place of the generic token/guideline pages */
   brandBook?: ReactNode;
 }) {
   const articleRef = useRef<HTMLElement>(null);
@@ -64,9 +70,20 @@ export function ScrollyCaseStudy({
     { scope: articleRef },
   );
 
+  // First in-use image is the hero; the rest fill the "In use" panel. The
+  // document's own pages go to the System panel (or are dropped when the full
+  // brand book is shown, which already contains them).
+  const inUse = gallery.filter((g) => g.kind !== "slide");
+  const slides = brandBook ? [] : gallery.filter((g) => g.kind === "slide");
+  const hero = inUse[0];
+  const appItems = inUse.slice(1);
+  const hasApplications = appItems.length > 0 || !!record.narrativeAnswers?.whereUsed;
+  const panels = panelsFor({ applications: hasApplications });
+  const idx = (id: string) => panels.find((p) => p.id === id)!.index;
+
   return (
     <div className="container-wide grid gap-8 py-16 lg:grid-cols-[16rem_1fr]">
-      <TrackSidebar articleRef={articleRef} hasBrandBook={!!brandBook} />
+      <TrackSidebar articleRef={articleRef} panels={panels} />
       <article ref={articleRef} className="flex min-w-0 flex-col">
         <header className="flex flex-col gap-2 pb-8">
           <Heading
@@ -74,19 +91,12 @@ export function ScrollyCaseStudy({
             title={record.name}
           />
         </header>
-        <ContextPanel record={record} />
-        <ResearchPanel record={record} />
-        <ExecutionPanel record={record} />
-        {gallery && (
-          <section data-panel className="flex scroll-mt-16 flex-col gap-4 border-t border-border-subtle py-8">
-            <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              {t.galleryRendered}
-            </p>
-            {gallery}
-          </section>
-        )}
-        {brandBook}
-        <PerformancePanel record={record} index={brandBook ? "05" : "04"} />
+        <OverviewPanel record={record} index={idx("overview")} hero={hero} />
+        <ChallengePanel record={record} index={idx("challenge")} />
+        <IdeaPanel record={record} index={idx("idea")} />
+        {hasApplications && <ApplicationsPanel record={record} index={idx("applications")} items={appItems} />}
+        <SystemPanel record={record} index={idx("system")} slides={slides} brandBook={brandBook} shown={inUse.map((g) => g.src)} />
+        <OutcomePanel record={record} index={idx("outcome")} />
       </article>
     </div>
   );

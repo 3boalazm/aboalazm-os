@@ -1,14 +1,14 @@
 import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ScrollyCaseStudy, CaseGallery } from "@/features/case-studies";
+import { ScrollyCaseStudy } from "@/features/case-studies";
 import {
   getCaseStudy as fetchCaseStudy,
   getCaseStudyGallery,
   getAllCaseStudySlugs,
 } from "@/lib/content";
 import { truncateAtWord } from "@/lib/seo";
-import { GadBrandBookPanel } from "@/features/gad-brand-book";
+import { GadBrandBook } from "@/features/gad-brand-book";
 
 export const revalidate = 60;
 
@@ -45,19 +45,13 @@ export default async function CaseStudyPage({
   const record = await getCaseStudy(slug);
   if (!record) notFound();
 
-  // GAD ships its brand book inline (panel 04). The book already shows every
-  // slide the generic gallery would, so the gallery is skipped to avoid the
-  // same images twice.
-  const hasBrandBook = slug === "gad-institute";
-  const gallery = hasBrandBook ? [] : await getCaseStudyGallery(slug);
+  const gallery = await getCaseStudyGallery(slug);
+  // GAD carries its full guidelines document inline, in the System panel.
+  const brandBook = slug === "gad-institute" ? <GadBrandBook /> : undefined;
 
   return (
     <main>
-      <ScrollyCaseStudy
-        record={record}
-        gallery={gallery.length > 0 ? <CaseGallery items={gallery} /> : undefined}
-        brandBook={hasBrandBook ? <GadBrandBookPanel index="04" /> : undefined}
-      />
+      <ScrollyCaseStudy record={record} gallery={gallery} brandBook={brandBook} />
     </main>
   );
 }

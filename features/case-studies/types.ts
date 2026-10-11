@@ -106,28 +106,19 @@ export interface CaseStudyRecord {
   retro: readonly { verdict: "KEEP" | "CHANGE" | "DROP"; note: string; noteAr?: string }[];
 }
 
-/** Sidebar track definition — order is the narrative order. */
-export const PANELS = [
-  { id: "context", index: "01", label: "CONTEXT & AUDIT" },
-  { id: "research", index: "02", label: "RESEARCH & LOGIC" },
-  { id: "execution", index: "03", label: "EXECUTION & GOVERNANCE" },
-  { id: "performance", index: "04", label: "PERFORMANCE & POST MORTEM" },
-] as const;
-
 /**
- * Optional fifth station: a case study that ships its brand book inline gets
- * it between Execution and Performance. Indexes are renumbered when present.
+ * Sidebar track — the reading order of a case study:
+ * the work first (overview, applications), then the thinking and the system.
+ * Station numbers are assigned by `panelsFor`, so a case study without
+ * applications imagery simply has one fewer station.
  */
-export const BRAND_BOOK_PANEL = { id: "brand-book", index: "04", label: "BRAND BOOK" } as const;
+export const PANEL_IDS = ["overview", "challenge", "idea", "applications", "system", "outcome"] as const;
 
-export type PanelId = (typeof PANELS)[number]["id"] | typeof BRAND_BOOK_PANEL.id;
+export type PanelId = (typeof PANEL_IDS)[number];
 
-/** Panels for the sidebar, in reading order. */
-export function panelsFor(hasBrandBook: boolean) {
-  if (!hasBrandBook) return PANELS.map((p) => ({ ...p }));
-  return [
-    ...PANELS.slice(0, 3).map((p) => ({ ...p })),
-    { ...BRAND_BOOK_PANEL },
-    { ...PANELS[3], index: "05" },
-  ];
+export function panelsFor(opts: { applications: boolean }): { id: PanelId; index: string }[] {
+  return PANEL_IDS.filter((id) => id !== "applications" || opts.applications).map((id, i) => ({
+    id,
+    index: String(i + 1).padStart(2, "0"),
+  }));
 }
