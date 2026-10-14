@@ -16,6 +16,7 @@ import { Section, SectionLabel } from "@/components/ui/Section";
 import { buttonVariants } from "@/components/ui/Button";
 import { joinClasses } from "@/lib/utils";
 import { BEHANCE } from "./projects.data";
+import { cardArt } from "./card-art";
 import type { Project } from "./types";
 
 const FEATURED_SLUGS = ["gad-institute", "reflection", "nile-pharma"] as const;
@@ -210,7 +211,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
             a framed rectangle. Static, never hover-gated. */}
         <div aria-hidden className="edge-light" />
         <Image
-          src={project.thumbnail}
+          src={cardArt(project.thumbnail)}
           alt=""
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
