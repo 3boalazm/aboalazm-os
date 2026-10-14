@@ -88,7 +88,7 @@ export function OverviewPanel({
           <div className="relative aspect-[16/9]">
             <Image
               src={hero.src}
-              alt={ar && hero.captionAr ? hero.captionAr : hero.caption}
+              alt={(ar && hero.captionAr ? hero.captionAr : hero.caption) || (ar && record.nameAr ? record.nameAr : record.name)}
               fill
               priority
               sizes="(min-width:1024px) 70vw, 100vw"
@@ -495,7 +495,7 @@ export function ApplicationsPanel({
           <p className="max-w-[70ch] text-body-sm leading-relaxed text-text-secondary">{where}</p>
         </div>
       )}
-      {items.length > 0 && <CaseGallery items={items} />}
+      {items.length > 0 && <CaseGallery items={items} label={ar && record.nameAr ? record.nameAr : record.name} />}
     </PanelShell>
   );
 }
@@ -671,7 +671,7 @@ export function SystemPanel({
       {slides.length > 0 && (
         <div className="mt-4 flex flex-col gap-3 border-t border-border-subtle pt-8">
           <p className={`${FIELD_LABEL} text-accent`}>{t.csGuidelines}</p>
-          <CaseGallery items={slides} />
+          <CaseGallery items={slides} label={ar && record.nameAr ? record.nameAr : record.name} />
         </div>
       )}
     </PanelShell>
