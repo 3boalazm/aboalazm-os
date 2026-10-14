@@ -21,29 +21,27 @@ import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SkipLink } from "./skip-link";
 
+/* Primary nav — overhaul 2026-10-14: six destinations + one CTA.
+   Benchmark rule (docs/overhaul-2026-10-14/01): no world-class studio
+   runs more than 5–6 primary links. FOR HIRING deliberately left the bar:
+   the homepage now sells the studio, recruiting lives on its own page. */
 const LINKS = [
-  { href: "/about",      en: "ABOUT",          ar: "نبذة"       },
-  { href: "/work",       en: "WORK",           ar: "الأعمال"    },
-  { href: "/for-hiring", en: "FOR HIRING",     ar: "للتوظيف"    },
-  { href: "/services",   en: "SERVICES",       ar: "الخدمات"    },
-  { href: "/pricing",    en: "PRICING",        ar: "التسعير"    },
+  { href: "/work",     en: "WORK",     ar: "الأعمال"  },
+  { href: "/services", en: "SERVICES", ar: "الخدمات"  },
+  { href: "/pricing",  en: "PRICING",  ar: "التسعير"  },
+  { href: "/process",  en: "PROCESS",  ar: "المنهجية" },
+  { href: "/writing",  en: "WRITING",  ar: "مقالات"   },
+  { href: "/about",    en: "ABOUT",    ar: "نبذة"     },
 ] as const;
 
-/* Secondary set — mobile panel + footer carry these.
+/* Secondary set — the mobile panel is the only place these live outside
+   the footer. Routes stay reachable; the 12-item "MORE" sink is gone.
    PORTFOLIO PDF is pinned LAST on purpose: the 16:9 slide deck is the
    "take me with you" exit at the very end of the menu. */
 const MORE = [
-  { href: "/start", en: "START HERE", ar: "ابدأ هنا" },
+  { href: "/for-hiring", en: "FOR HIRING", ar: "للتوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
-  { href: "/gallery", en: "GALLERY", ar: "المعرض" },
-  { href: "/why", en: "WHY", ar: "لماذا" },
-  { href: "/process", en: "PROCESS", ar: "المنهجية" },
-  { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
-  { href: "/writing", en: "WRITING", ar: "مقالات" },
-  { href: "/capabilities", en: "CAPABILITIES", ar: "القدرات" },
-  { href: "/resources", en: "RESOURCES", ar: "المصادر" },
   { href: "/labs", en: "LABS", ar: "المعمل" },
-  { href: "/work-ui", en: "UI/UX SHOWCASE", ar: "معرض الواجهات" },
   { href: "/portfolio", en: "PORTFOLIO PDF ↓", ar: "بورتفوليو PDF ↓" },
 ] as const;
 
@@ -232,7 +230,20 @@ export function Nav() {
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {lang === "ar" ? "تواصل" : "CONTACT"}
+          {/* One canonical action site-wide (overhaul S1). Long label only
+              where the bar provably fits: below xl the short form keeps the
+              pill inside the viewport (overflow was QA'd at 768–910px). */}
+          {lang === "ar" ? (
+            <>
+              <span className="hidden xl:inline">ابدأ مشروعك</span>
+              <span className="xl:hidden">ابدأ</span>
+            </>
+          ) : (
+            <>
+              <span className="hidden xl:inline">START A PROJECT</span>
+              <span className="xl:hidden">START</span>
+            </>
+          )}
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"

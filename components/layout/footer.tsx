@@ -9,32 +9,38 @@ import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 
+/* Overhaul 2026-10-14 (S1): four lean columns keyed to the audience's
+   question — "how do I engage", "what is this place", "what does he think",
+   "how do I reach him". Retired pages (why/capabilities/start/work-ui) left
+   the map; everything below resolves. Dedupe rules: one CV link, one deck. */
 const COLUMNS = [
   {
     head: ["ENGAGE", "التعاون"],
     links: [
-      ["For Hiring Teams", "للشركات والتوظيف", "/for-hiring"],
-      ["Work", "الأعمال", "/work"],
+      ["Start a Project", "ابدأ مشروعك", "/contact"],
       ["Services", "الخدمات", "/services"],
       ["Pricing", "التسعير", "/pricing"],
-      ["Start Here", "ابدأ هنا", "/start"],
-      ["Contact", "تواصل", "/contact"],
+      ["For Hiring Teams", "للشركات والتوظيف", "/for-hiring"],
+      ["Agreement", "الاتفاقية", "/agreement"],
     ],
   },
   {
     head: ["STUDIO", "الاستوديو"],
     links: [
       ["About", "نبذة", "/about"],
-      ["Why", "لماذا", "/why"],
+      ["Process", "المنهجية", "/process"],
+      ["Work", "الأعمال", "/work"],
+      ["Labs", "المعمل", "/labs"],
+      ["Portfolio Deck ↓", "عرض تقديمي ↓", "/portfolio"],
+    ],
+  },
+  {
+    head: ["INSIGHTS", "الرؤى"],
+    links: [
       ["Writing", "مقالات", "/writing"],
       ["Library", "المكتبة", "/books"],
-      ["Labs", "المعمل", "/labs"],
-      ["Gallery", "المعرض", "/gallery"],
-      ["Capabilities", "القدرات", "/capabilities"],
       ["Resources", "المصادر", "/resources"],
-      ["Agreement", "الاتفاقية", "/agreement"],
-      ["UI/UX Showcase", "معرض الواجهات", "/work-ui"],
-      ["Portfolio PDF ↓", "بورتفوليو PDF ↓", "/portfolio"],
+      ["Gallery", "المعرض", "/gallery"],
     ],
   },
   {
@@ -42,17 +48,10 @@ const COLUMNS = [
     links: [
       ["Email ↗", "إيميل ↗", "mailto:m1aboalazm@gmail.com"],
       ["WhatsApp ↗", "واتساب ↗", "https://wa.me/201092500454"],
-      ["+20 109 250 0454", "+20 109 250 0454", "tel:+201092500454"],
-    ],
-  },
-  {
-    head: ["PORTFOLIO", "البورتفوليو"],
-    links: [
       ["Download CV ↓", "تحميل السيرة الذاتية ↓", "/cv"],
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],
       ["LinkedIn ↗", "لينكدإن ↗", "https://www.linkedin.com/in/aboalazm"],
       ["GitHub ↗", "جيت هب ↗", "https://github.com/3boalazm"],
-      ["Slide Deck · 16:9", "عرض تقديمي · 16:9", "/portfolio"],
     ],
   },
 ] as const;
@@ -130,7 +129,7 @@ export function Footer() {
           © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : "ALL RIGHTS RESERVED"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "دوس Ctrl + ` لمفاجأة" : "PRESS CTRL + ` FOR A SURPRISE"}
+          {ar ? "Ctrl + ` يفتح الترمينال" : "PRESS CTRL + ` FOR THE TERMINAL"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "صُمم وبُني داخل الاستوديو" : "DESIGNED & BUILT BY THE STUDIO"}
