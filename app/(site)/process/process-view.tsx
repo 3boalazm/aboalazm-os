@@ -13,12 +13,14 @@
  * Bilingual (LTR/RTL). Motion via Framer Motion. No external deps.
  */
 
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
-import { physics, physicsSlow, reveal } from "@/lib/motion";
+import { physics, physicsSlow } from "@/lib/motion";
+/* Hero entrance is CSS (.hero-rise): painted in the first frame, JS or not. */
+import "@/features/hero/hero.css";
 import { GateStepper } from "@/features/process";
 import { AnchorNav } from "@/features/navigation";
 import { buttonVariants } from "@/components/ui/Button";
@@ -332,24 +334,19 @@ export function ProcessView() {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-surface-0 px-6 py-24 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
-        <motion.div
-          className="relative z-10 flex max-w-[760px] flex-col gap-5"
-          variants={reveal.container}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.p className="font-mono text-caption uppercase tracking-[0.16em] text-accent" variants={reveal.item}>
+        <div className="relative z-10 flex max-w-[760px] flex-col gap-5">
+          <p className="hero-rise font-mono text-caption uppercase tracking-[0.16em] text-accent" style={{ "--i": 0 } as CSSProperties}>
             {c.kicker}
-          </motion.p>
-          <motion.h1 className="font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" variants={reveal.item}>
+          </p>
+          <h1 className="hero-rise font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" style={{ "--i": 1 } as CSSProperties}>
             {c.h1a}<br /><em className="text-accent">{c.h1b}</em>
-          </motion.h1>
-          <motion.p className="max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }} variants={reveal.item}>
+          </h1>
+          <p className="hero-rise max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)", "--i": 2 } as CSSProperties}>
             {c.lede}
-          </motion.p>
+          </p>
 
           {/* meta strip */}
-          <motion.div className="mt-2 flex gap-6" variants={reveal.item}>
+          <div className="hero-rise mt-2 flex gap-6" style={{ "--i": 3 } as CSSProperties}>
             {[["38", c.metaDays], ["4", c.metaGates], ["2", c.metaRounds]].map(([v, l]) => (
               <div key={l} className="flex flex-col">
                 <span className="font-display text-[2rem] leading-none tracking-[-0.02em] text-text-primary">
@@ -358,11 +355,11 @@ export function ProcessView() {
                 <span className="mt-1 font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{l}</span>
               </div>
             ))}
-          </motion.div>
+          </div>
 
-          <motion.ol
-            variants={reveal.item}
-            className="mt-4 grid max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4"
+          <ol
+            className="hero-rise mt-4 grid max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4"
+            style={{ "--i": 4 } as CSSProperties}
           >
             {(ar
               ? [
@@ -388,8 +385,8 @@ export function ProcessView() {
                 ) : null}
               </li>
             ))}
-          </motion.ol>
-        </motion.div>
+          </ol>
+        </div>
       </section>
 
       {/* ── APPROVAL GATES (interactive terminal stepper) ── */}

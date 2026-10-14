@@ -15,12 +15,15 @@
  *  05  CTA — book the call
  */
 
+import type { CSSProperties } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { motion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
-import { reveal, physicsSlow } from "@/lib/motion";
+import { physicsSlow } from "@/lib/motion";
+/* Hero entrance is CSS (.hero-rise): painted in the first frame, JS or not. */
+import "@/features/hero/hero.css";
 import { AnchorNav } from "@/features/navigation";
 import { buttonVariants } from "@/components/ui/Button";
 import { PanelCard, panelCardVariants } from "@/components/ui/PanelCard";
@@ -285,36 +288,30 @@ export function StartView() {
         {/* subtle grid */}
         <div className="pointer-events-none absolute inset-0 start-grid-bg" aria-hidden />
 
-        <motion.div
-          className="relative z-10 flex max-w-[720px] flex-col gap-5"
-          variants={reveal.container}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.p
-            className="font-mono text-caption uppercase tracking-[0.16em] text-accent"
-            variants={reveal.item}
+        <div className="relative z-10 flex max-w-[720px] flex-col gap-5">
+          <p
+            className="hero-rise font-mono text-caption uppercase tracking-[0.16em] text-accent"
+            style={{ "--i": 0 } as CSSProperties}
           >
             {c.kicker}
-          </motion.p>
+          </p>
 
-          <motion.h1
-            className="font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary"
-            variants={reveal.item}
+          <h1
+            className="hero-rise font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary"
+            style={{ "--i": 1 } as CSSProperties}
           >
             {c.h1a}<br />
             <em className="text-accent">{c.h1b}</em>
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="max-w-[52ch] text-body leading-[1.7] text-text-secondary"
-            style={{ fontFamily: "var(--font-sans)" }}
-            variants={reveal.item}
+          <p
+            className="hero-rise max-w-[52ch] text-body leading-[1.7] text-text-secondary"
+            style={{ fontFamily: "var(--font-sans)", "--i": 2 } as CSSProperties}
           >
             {lede}
-          </motion.p>
+          </p>
 
-          <motion.div className="flex flex-wrap gap-3 pt-2" variants={reveal.item}>
+          <div className="hero-rise flex flex-wrap gap-3 pt-2" style={{ "--i": 3 } as CSSProperties}>
             <a
               href="https://wa.me/201092500454"
               target="_blank"
@@ -333,8 +330,8 @@ export function StartView() {
             >
               <>{ar ? "شوف كيف بنشتغل" : "See how it works"} <Icon name="arrow-down" /></>
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* big ghost "START" background text */}
         <span
