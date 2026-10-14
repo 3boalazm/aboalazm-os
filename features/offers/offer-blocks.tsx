@@ -161,7 +161,7 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                 : "border-border-subtle bg-surface-1/40",
             ].join(" ")}
           >
-            <p className="flex items-baseline gap-2 font-display text-body tracking-[-0.015em] text-text-primary">
+            <p className="flex items-baseline gap-2 font-display font-display-sm text-body tracking-[-0.015em] text-text-primary">
               {pick(t.name, lang)}
               {t.recommended ? (
                 <>
@@ -199,7 +199,7 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                 {ar ? "المعيار" : "Fit"}
               </th>
               {tiers.map((t) => (
-                <th key={t.tag[0]} className="px-3 py-2 font-display text-body tracking-[-0.015em] text-text-primary">
+                <th key={t.tag[0]} className="px-3 py-2 font-display font-display-sm text-body tracking-[-0.015em] text-text-primary">
                   {pick(t.name, lang)}
                   {t.recommended ? (
                     <>

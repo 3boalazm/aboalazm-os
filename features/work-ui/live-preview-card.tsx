@@ -89,7 +89,7 @@ export function LivePreviewCard({ project }: { project: Project }) {
 
       {/* Caption */}
       <div className="flex items-center justify-between gap-2 px-2 py-2">
-        <span className="truncate font-display text-body leading-tight text-text-primary">{project.name}</span>
+        <span className="truncate font-display font-display-sm text-body leading-tight text-text-primary">{project.name}</span>
         <span className="shrink-0 font-mono text-micro uppercase tracking-[0.06em] text-text-tertiary">
           {project.discipline}
         </span>

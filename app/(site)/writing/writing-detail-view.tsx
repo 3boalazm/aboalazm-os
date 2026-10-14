@@ -291,7 +291,7 @@ export function WritingDetailView({
                   <Icon name="arrow-left" /> {ar ? "السابق" : "Previous"} · {prev.index}
                 </span>
               </span>
-              <span className="font-display text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
+              <span className="font-display font-display-sm text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
                 {prev.title}
               </span>
             </Link>
@@ -308,7 +308,7 @@ export function WritingDetailView({
                   {ar ? "التالي" : "Next"} · {next.index} <Icon name="arrow-right" />
                 </span>
               </span>
-              <span className="font-display text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
+              <span className="font-display font-display-sm text-lead font-bold uppercase text-text-primary transition-colors duration-base group-hover:text-accent">
                 {next.title}
               </span>
             </Link>

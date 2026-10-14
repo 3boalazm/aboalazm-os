@@ -633,7 +633,7 @@ export function SystemPanel({
             <p className={`${FIELD_LABEL} text-accent`}>
               {ar ? "إثباتات التصميم — أصول أصلية ومقروءة" : "DESIGN PROOF — ORIGINAL & LEGIBLE ARTIFACTS"}
             </p>
-            <h3 className="font-display text-subtitle text-text-primary">
+            <h3 className="font-display font-display-sm text-subtitle text-text-primary">
               {ar ? "بناء الشعار، اختبار المقروئية، وتطبيقات الإنتاج" : "Logo Construction, Scale Verification & Production Applications"}
             </h3>
           </div>
@@ -654,7 +654,7 @@ export function SystemPanel({
                   />
                 </div>
                 <div className="flex flex-col gap-1 p-3">
-                  <h4 className="font-display text-body-sm font-semibold text-text-primary">
+                  <h4 className="font-display font-display-sm text-body-sm font-semibold text-text-primary">
                     {ar && item.titleAr ? item.titleAr : item.title}
                   </h4>
                   <p className="text-body-sm text-text-secondary">

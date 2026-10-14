@@ -380,7 +380,7 @@ export function ProcessView() {
             ).map(([n, name], i, list) => (
               <li key={n} className="flex items-baseline gap-2">
                 <span className="font-mono text-micro text-accent">{n}</span>
-                <span className="font-display text-body-lg tracking-[-0.015em] text-text-primary">{name}</span>
+                <span className="font-display font-display-sm text-body-lg tracking-[-0.015em] text-text-primary">{name}</span>
                 {i < list.length - 1 ? (
                   <span aria-hidden className="hidden text-text-ghost sm:inline-flex">
                     <Icon name="arrow-right" flip={false} />
@@ -461,7 +461,7 @@ export function ProcessView() {
                           2-column grid: name on top, then days with the chevron at the end
                           of that line — the same place for every phase and width. */}
                       <span className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3 sm:flex sm:flex-wrap">
-                        <span className="font-display text-subtitle tracking-[-0.015em] text-text-primary max-sm:col-span-2">{phase.name}</span>
+                        <span className="font-display font-display-sm text-subtitle tracking-[-0.015em] text-text-primary max-sm:col-span-2">{phase.name}</span>
                         <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{phase.days}</span>
                         {chevron("sm:hidden")}
                       </span>
@@ -560,7 +560,7 @@ export function ProcessView() {
               >
                 <span className="font-mono text-caption text-accent">{String(i + 1).padStart(2, "0")}</span>
                 <div className="flex flex-col gap-1">
-                  <p className="font-display text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
+                  <p className="font-display font-display-sm text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
                   <p className="text-label leading-[1.6] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>{body}</p>
                 </div>
               </motion.div>

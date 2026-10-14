@@ -128,7 +128,7 @@ export function InvestmentValue({ metrics }: { metrics: readonly Metric[] }) {
           >
             <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
             <div className="flex flex-col gap-1">
-              <p className="font-display text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
+              <p className="font-display font-display-sm text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
               <p className="text-label leading-[1.6] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>{body}</p>
             </div>
           </motion.div>

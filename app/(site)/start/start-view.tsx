@@ -422,7 +422,7 @@ export function StartView() {
 
               <div className="flex flex-col gap-1 pt-1.5">
                 <div className="flex flex-wrap items-baseline gap-3">
-                  <p className="font-display text-body-lg tracking-[-0.01em] text-text-primary">{phase.name}</p>
+                  <p className="font-display font-display-sm text-body-lg tracking-[-0.01em] text-text-primary">{phase.name}</p>
                   <p className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{phase.days}</p>
                 </div>
                 <p className="max-w-[50ch] text-body-sm leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
@@ -468,7 +468,7 @@ export function StartView() {
                 </span>
               )}
               <p className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{tier.tag}</p>
-              <p className="font-display text-subtitle leading-[1.1] tracking-[-0.015em] text-text-primary">
+              <p className="font-display font-display-sm text-subtitle leading-[1.1] tracking-[-0.015em] text-text-primary">
                 {tier.name}
               </p>
               <p className="font-display text-title tracking-[-0.01em] text-accent">{tier.price}</p>
@@ -511,7 +511,7 @@ export function StartView() {
                   </span>
                 )}
               </div>
-              <p className="font-display text-subtitle leading-[1.15] tracking-[-0.01em] text-text-primary">{step.name}</p>
+              <p className="font-display font-display-sm text-subtitle leading-[1.15] tracking-[-0.01em] text-text-primary">{step.name}</p>
               <p className="flex-1 text-label leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
                 {step.body}
               </p>
@@ -543,7 +543,7 @@ export function StartView() {
         <div className="flex flex-col">
           {(ar ? OBJECTIONS.ar : OBJECTIONS.en).map((o, i) => (
             <details key={i} className="group border-t border-border-subtle py-3 last:border-b">
-              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 font-display text-body tracking-[-0.01em] text-text-primary transition-colors duration-base ease-physics hover:text-accent">
+              <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 font-display font-display-sm text-body tracking-[-0.01em] text-text-primary transition-colors duration-base ease-physics hover:text-accent">
                 {o.q}
                 <span aria-hidden className="shrink-0 font-mono text-body-sm text-accent transition-transform duration-base ease-physics group-open:rotate-45">+</span>
               </summary>

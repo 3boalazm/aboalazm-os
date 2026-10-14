@@ -296,7 +296,7 @@ export function WhyValueBand() {
                 n === "01" ? "text-secondary-cyan" : n === "02" ? "text-secondary-mint" : "text-secondary-pink"
               }`}>{n}</span>
               <div className="flex flex-col gap-1">
-                <h3 className={`font-display text-subtitle tracking-[-0.01em] ${
+                <h3 className={`font-display font-display-sm text-subtitle tracking-[-0.01em] ${
   n === "01" ? "text-secondary-cyan" : n === "02" ? "text-secondary-mint" : "text-secondary-pink"
 }`}>{title}</h3>
                 <p className="max-w-[56ch] text-body-sm text-text-secondary">{body}</p>
@@ -339,7 +339,7 @@ export function HomeFaq() {
         <div className="border-t border-border-subtle">
           {items.map(([q, a], i) => (
             <details key={q} className="group border-b border-border-subtle py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display font-display-sm text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
                 <span>{q}</span><span className="font-mono text-label text-accent transition-transform duration-300 group-open:rotate-45">+</span>
               </summary>
               <p className="max-w-[60ch] pt-4 text-body-sm leading-[1.75] text-text-secondary">{a}</p>

@@ -233,7 +233,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
 
       <div className="flex flex-col gap-2">
         <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
-        <h3 className="font-display text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
+        <h3 className="font-display font-display-sm text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
           {name}
         </h3>
         <p className="text-body-sm text-text-secondary">{challenge}</p>

@@ -812,6 +812,22 @@ html[data-theme="light"] {
   from { transform: translate3d(0, 0, 0) scale(1); }
   to   { transform: translate3d(-2.5%, 2%, 0) scale(1.06); }
 }
+/* Small display text. GC EPICPRO is a wide, heavy poster face and stops working
+   below ~28px: its G is a C with a hairline spur, and at 11–22px the two close
+   up — "GAD" reads "CAD", "LUNGS" reads "LUNCS", and the nav said "FOR HIRINC" /
+   "PRICINC". From the subtitle step down, display text is set in the sans at
+   Bold instead (Montserrat — a G that is a G). GC EPICPRO draws lowercase as
+   capitals, so everything set in it already read as caps: `uppercase` keeps
+   that voice. Written next to `font-display`; it only acts in LTR, so Arabic
+   keeps Thmanyah, and large display type is untouched. */
+@utility font-display-sm {
+  [dir="ltr"] & {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
 
 /* Edge light — a glass highlight on the top/inner edge of a panel.
    Reads as a lit surface rather than a bordered box. */
