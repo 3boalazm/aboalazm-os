@@ -89,9 +89,9 @@ function Win({
 async function vHome() {
   const i = await ogImgs({
     a: ["/images/work/cc-logo-hero.jpg", 460],
-    b: ["/images/work/nile-pharma/npf-business-card-box.jpg", 460],
-    c: ["/images/work/reflection/refl-cover.png", 460],
-    d: ["/images/work/gad/gad-mockup-logo.jpg", 460],
+    b: ["/images/work/nile-pharma/npf-card.jpg", 460],
+    c: ["/images/work/reflection/refl-card.jpg", 460],
+    d: ["/images/work/gad/gad-card.jpg", 460],
     icon: ["/images/work/icon.png", 160],
   });
   return (
@@ -124,16 +124,20 @@ async function vWork() {
     c: ["/images/work/reflection/refl-card.jpg", 360], d: ["/images/work/code-canvas-dev/cc-dev-thumb.jpg", 360],
     e: ["/images/work/farm-thumb.jpg", 360], f: ["/images/work/zad-thumb.jpg", 360],
   });
-  const tiles: [string, string, string][] = [
-    ["01", i.a, "Nile ERP"], ["02", i.b, "GAD Institute"], ["03", i.c, "Reflection"],
-    ["04", i.d, "Code & Canvas"], ["05", i.e, "Farm"], ["06", i.f, "ZAD"],
+  /* The console/product shots carry their own titles, and a 1.78 image cover-
+     cropped into a 1.34 tile cut them mid-word ("le Pharma ERP"). Anything
+     with type inside it is therefore shown whole; the two photographs stay
+     cover-cropped. */
+  const tiles: [string, string, string, "cover" | "contain"][] = [
+    ["01", i.a, "Nile ERP", "contain"], ["02", i.b, "GAD Institute", "cover"], ["03", i.c, "Reflection", "cover"],
+    ["04", i.d, "Code & Canvas", "contain"], ["05", i.e, "Farm", "contain"], ["06", i.f, "ZAD", "contain"],
   ];
   return (
     <Stage style={{ padding: PAD }}>
       <div style={flex({ flexWrap: "wrap", gap: 14, flex: 1 })}>
-        {tiles.map(([n, src, name]) => (
+        {tiles.map(([n, src, name, fit]) => (
           <div key={n} style={flex({ width: 206, height: 154, position: "relative" })}>
-            <Pic src={src} w="100%" h="100%" radius={16} pos="left center" />
+            <Pic src={src} w="100%" h="100%" radius={16} pos="left center" fit={fit} />
             <div style={flex({ position: "absolute", left: 10, top: 10, fontFamily: F_EN, fontSize: 13, color: C.text, background: "rgba(8,7,16,0.78)", padding: "4px 9px", borderRadius: 6 })}>{n}</div>
             <Cap>{name}</Cap>
           </div>
