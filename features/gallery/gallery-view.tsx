@@ -31,9 +31,12 @@ const ALL_ACCENT = "#FF6B47";
 interface GalleryData {
   projects: readonly GalleryProject[];
   images: readonly GalleryImage[];
+  /** Overhaul S4: /gallery merged into /work as a view toggle (301'd).
+      Embedded mode renders the wall without its own <main>/<header>. */
+  embedded?: boolean;
 }
 
-export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES }: GalleryData) {
+export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES, embedded = false }: GalleryData) {
   const projectOf = (slug: string): GalleryProject | undefined =>
     GALLERY_PROJECTS.find((p) => p.slug === slug);
   const { lang } = useLang();
@@ -123,9 +126,12 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
     })),
   ];
 
+  const Wall = embedded ? "div" : "main";
+
   return (
-    <main className="container-content flex flex-col gap-10 py-16">
+    <Wall className={embedded ? "flex flex-col gap-6" : "container-content flex flex-col gap-10 py-16"}>
       {/* ── header ─────────────────────────────────────────────── */}
+      {embedded ? null : (
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "المعرض" : "GALLERY"}
@@ -143,6 +149,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
           subtitleClassName="max-w-[56ch]"
         />
       </header>
+      )}
 
       {/* ── filter chips ───────────────────────────────────────── */}
       <div className="-mx-1 flex flex-wrap gap-2 px-1">
@@ -361,6 +368,6 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
             );
           })()}
       </AnimatePresence>
-    </main>
+    </Wall>
   );
 }

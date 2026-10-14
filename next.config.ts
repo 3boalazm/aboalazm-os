@@ -85,6 +85,13 @@ const nextConfig: NextConfig = {
         destination: "/contact",
         permanent: true,
       },
+      {
+        // Overhaul S4 (ABO-27): /gallery merged into /work as the "Wall"
+        // view toggle — same wall, one canonical home.
+        source: "/gallery",
+        destination: "/work",
+        permanent: true,
+      },
     ];
   },
   images: {

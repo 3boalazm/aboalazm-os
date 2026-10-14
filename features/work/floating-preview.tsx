@@ -10,7 +10,7 @@
  *           A third quickTo maps horizontal velocity → slight
  *           rotation, so fast sweeps make the card "lean" into
  *           the motion. Pure trail feel, zero re-renders.
- *   Framer → presence physics. AnimatePresence crossfades images
+ *   Framer → presence physics. One stable card, content swaps in place
  *           between projects; scale/opacity reveal rides the house
  *           ease-physics curve.
  *

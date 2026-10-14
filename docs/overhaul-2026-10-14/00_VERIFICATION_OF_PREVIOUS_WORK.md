@@ -55,6 +55,7 @@
 | Button primitive | ✅ تم | ✅ موجود `components/ui/Button.tsx` — 17 عنصر / 11 ملف |
 | Card primitive | ⏸️ «مبدأناش (stop condition)» | ✅ **اتبنى بعد كده** — `MediaCard.tsx` + `PanelCard.tsx` + `Section.tsx` + `Badge.tsx` موجودين، وريبورتسهم في `design-preview/sprint-card-audit.md` / `sprint-panelcard.md` / `sprint-mediacard.md`. الـ HANDOFF **محدّثش** — ده drift توثيقي فقط، مش نقص تنفيذ |
 | P0-3 — كارت الـ floating preview مش بيتسحب عند الانتقال بين الصفوف في /work | 🆕 مفتوح | ⚠️ **محتاج تحقق لايف** — الكود لسه بيستخدم AnimatePresence crossfade keyed على المشروع النشط (`floating-preview.tsx` + `project-ledger.tsx: onPointerEnter / setActive(null)` بس على مغادرة الليدجر كله). متسجّل في خطة Sprint S4 |
+| ↳ **تصحيح S4 (2026-10-14)** | ✅ **مغلق** | **التوصيف أعلاه كان لنسخة أقدم — الخطأ في قاعدة هذا التوثيق.** كود `408ec03` الحالي يستخدم `key="preview"` ثابت داخل `AnimatePresence` طفل واحد: عند الانتقال بين الصفوف نفس الكارت يُعاد ترنديره في مكانه والمحتوى يتبدّل (`key={active.slug}` على الصورة) — لا يمكن هيكليًا أن يبقى كارتان متزامنان (الـ exit يعمل فقط عند idle ⇄ hovering). تحقق كامل في `04_SPRINT4_WORK_CASES.md`؛ تنقّل الـ hover اليدوي على الـ preview متروك لنظرة عين من المالك (باب القبول الأصلي «live manual pass» غير مؤتمت من داخل الـ sandbox) |
 | Phase 3B (Visual Audit) | معلّق | ⏭️ متجاوَز — الـ overhaul ده بيتضمن QA بصري على الـ preview الشغّال |
 | أرقام العنصر الفائتة (Partial P1-3) | 🟡 جزئي | محمولة على Sprint S5 |
 

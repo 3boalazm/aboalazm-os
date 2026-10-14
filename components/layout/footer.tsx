@@ -40,7 +40,7 @@ const COLUMNS = [
       ["Writing", "مقالات", "/writing"],
       ["Library", "المكتبة", "/books"],
       ["Resources", "المصادر", "/resources"],
-      ["Gallery", "المعرض", "/gallery"],
+      ["Wall", "الحيطة", "/work"],
     ],
   },
   {

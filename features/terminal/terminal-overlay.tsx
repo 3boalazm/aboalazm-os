@@ -37,7 +37,7 @@ const PAGES: Record<string, string> = {
   labs: "/labs",
   books: "/books",
   library: "/books",
-  gallery: "/gallery",
+  gallery: "/work",
   agreement: "/agreement",
   writing: "/writing",
   contact: "/contact",

@@ -19,7 +19,6 @@ const STATIC_ROUTES = [
   "/work",
   "/for-hiring",
   "/work-ui",
-  "/gallery",
   "/services",
   "/pricing",
   "/agreement",
