@@ -288,16 +288,21 @@ html[data-theme="light"] {
   --color-border-strong:  rgb(8 7 16 / 0.30);
 
   /* Light-mode text ramp — GRADED on purpose. Four distinct steps
-     (0.86 / 0.66 / 0.48 / 0.32) so the page has contrast HIERARCHY:
+     (0.86 / 0.66 / 0.57 / 0.45) so the page has contrast HIERARCHY:
      headings assertive but not harsh pure-black, body comfortable,
      labels clearly quieter, ghost clearly quietest. Earlier extremes
      (0.40 ghost-gray everywhere, then 0.96-black everywhere) both
      failed — one unreadable, one eye-straining. (Dark merges ghost into
-     tertiary for contrast; the light ghost step is unchanged.) */
+     tertiary for contrast; the light ghost step is unchanged.)
+     Measured on surface-1 (overhaul S5 WCAG sweep, 2026-10-14):
+     primary 12.9:1, secondary 6.4:1, tertiary 4.6:1 (AA-normal ✓),
+     ghost 3.0:1 — below AA for text, so ghost is reserved for
+     metadata/decoration ONLY (mono indices, proof stubs, dividers);
+     never put reader-relevant copy in text-ghost. */
   --color-text-primary:   rgb(8 7 16 / 0.86);
   --color-text-secondary: rgb(8 7 16 / 0.66);
-  --color-text-tertiary:  rgb(8 7 16 / 0.48);
-  --color-text-ghost:     rgb(8 7 16 / 0.32);
+  --color-text-tertiary:  rgb(8 7 16 / 0.57);
+  --color-text-ghost:     rgb(8 7 16 / 0.45);
 
   /* Accent TYPE deepens on Alabaster: #FF6B47 measures 2.7:1 on this
      canvas (fails WCAG even for large text); #C2410C holds 4.9:1 while

@@ -6,6 +6,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { Heading } from "@/components/ui/Heading";
+import { PanelCard, panelCardVariants } from "@/components/ui/PanelCard";
 import { TERMS_LINE } from "@/lib/offers";
 import type { CSSProperties } from "react";
 
@@ -112,7 +113,7 @@ export function ContactView() {
         />
 
         <div className="grid gap-4 lg:grid-cols-2">
-          <div className="rounded-card border border-border-subtle bg-surface-1 p-4">
+          <PanelCard className="rounded-card p-4">
             <p className="font-mono text-micro uppercase tracking-[0.08em] text-accent">
               {x.fitLabel}
             </p>
@@ -124,8 +125,8 @@ export function ContactView() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="rounded-card border border-border-subtle bg-surface-1 p-4">
+          </PanelCard>
+          <PanelCard className="rounded-card p-4">
             <p className="font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">
               {x.notLabel}
             </p>
@@ -137,7 +138,7 @@ export function ContactView() {
                 </li>
               ))}
             </ul>
-          </div>
+          </PanelCard>
         </div>
 
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -145,7 +146,7 @@ export function ContactView() {
         </p>
         <div className="grid gap-4 md:grid-cols-3">
           {x.steps.map((s) => (
-            <div key={s.n} className="flex flex-col gap-2 rounded-card border border-border-subtle bg-surface-1 p-4">
+            <PanelCard key={s.n} className="flex flex-col gap-2 rounded-card p-4">
               <span className="font-mono text-micro text-accent">{s.n}</span>
               <p className="font-display font-[700] text-body text-text-primary">{s.name}</p>
               <p className="text-body-sm text-text-secondary">{s.body}</p>
@@ -159,11 +160,11 @@ export function ContactView() {
                   {s.cta} <Icon name="arrow-up-right" />
                 </a>
               ) : null}
-            </div>
+            </PanelCard>
           ))}
         </div>
 
-        <p className="max-w-[72ch] rounded-card border border-border-subtle bg-surface-1 p-3 text-body-sm text-text-secondary">
+        <p className={panelCardVariants({ className: "max-w-[72ch] rounded-card p-3 text-body-sm text-text-secondary" })}>
           {TERMS_LINE[ar ? 1 : 0]}
         </p>
       </section>
