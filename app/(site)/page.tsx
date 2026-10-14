@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Hero } from "@/features/hero";
+import { pickHeroWall } from "@/features/hero/hero-wall-data";
 import { getProjects, getPosts } from "@/lib/content";
 import { AboutTeaser, HomeCta, ClientJourneyBand, HomeFaq } from "@/features/home/home-bands";
-import { ProofStrip } from "@/features/home/proof-strip";
 import { StatementBand } from "@/features/home/statement-band";
 import { ServicesSnapshot } from "@/features/home/services-snapshot";
 import { InsightsTeaser } from "@/features/home/insights-teaser";
@@ -22,13 +22,12 @@ export const metadata: Metadata = {
 };
 
 /**
- * HOME — panel order after the 2026-10-14 overhaul (S2, spec §4.3).
- * Rhythm contract: marked sections (01–07) alternate with two unmarked
- * beats (ProofStrip, StatementBand) so the page no longer reads as one
- * repeated SectionMarker+ScrollingReveal pattern top to bottom.
+ * HOME — previous portfolio-first hero restored with its case-study wall and
+ * evidence row. The newer lower-page sequence remains unchanged.
  *
- *   Hero (one CTA) → Proof strip → 01 Work → Statement band →
- *   02 Offer → 03 Method → 04 Practice → 05 Thinking → 06 FAQ → 07 Next
+ *   Hero (status, name, work wall, two actions + metrics) → 01 Work →
+ *   Statement band → 02 Offer → 03 Method → 04 Practice → 05 Thinking →
+ *   06 FAQ → 07 Next
  */
 export default async function Home() {
   const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
@@ -37,11 +36,8 @@ export default async function Home() {
     <main>
       <ScrollProgress />
 
-      {/* 00 · Immediate clarity — single primary action */}
-      <Hero />
-
-      {/* 00.5 · Credibility line — unmarked on purpose (a strip, not a panel) */}
-      <ProofStrip />
+      {/* 00 · Portfolio-first hero and project proof */}
+      <Hero wall={pickHeroWall(projects)} />
 
       {/* 01 · Proof first — the work leads */}
       <section className="narrative-section narrative-section--proof">
