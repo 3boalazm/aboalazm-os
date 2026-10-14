@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Hero } from "@/features/hero";
+import { pickHeroWall } from "@/features/hero/hero-wall-data";
 import { getProjects } from "@/lib/content";
 import { SkillsMarquee, AboutTeaser, HomeCta, ClientJourneyBand, WhyValueBand, HomeFaq } from "@/features/home/home-bands";
 import { FeaturedCases } from "@/features/work/featured-cases";
@@ -25,12 +26,12 @@ export default async function Home() {
       <ScrollProgress />
 
       {/* 01 · Immediate clarity */}
-      <Hero />
+      <Hero wall={pickHeroWall(projects)} />
 
       {/* 02 · Proof first */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="01" label="SELECTED WORK" />
+          <SectionMarker index="01" label="SELECTED WORK" labelAr="أعمال مختارة" />
         </div>
         <ScrollReveal>
           <FeaturedCases projects={projects} heading="home" />
@@ -40,7 +41,7 @@ export default async function Home() {
       {/* 02.5 · Why this approach */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="02" label="WHY / VALUE" />
+          <SectionMarker index="02" label="WHY / VALUE" labelAr="لماذا / القيمة" />
         </div>
         <ScrollReveal>
           <WhyValueBand />
@@ -50,7 +51,7 @@ export default async function Home() {
       {/* 03 · Process & Methodology */}
       <section className="narrative-section narrative-section--process">
         <div className="container-wide">
-          <SectionMarker index="03" label="METHOD / PROCESS" />
+          <SectionMarker index="03" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
         </div>
         <ScrollReveal>
           <ClientJourneyBand />
@@ -60,7 +61,7 @@ export default async function Home() {
       {/* 04 · Background & Practice */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="04" label="PRACTICE / BACKGROUND" />
+          <SectionMarker index="04" label="PRACTICE / BACKGROUND" labelAr="الممارسة / الخلفية" />
         </div>
         <ScrollReveal>
           <AboutTeaser />
@@ -74,7 +75,7 @@ export default async function Home() {
       {/* 05 · FAQ / objection handling */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="05" label="FAQ / BEFORE START" />
+          <SectionMarker index="05" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
         </div>
         <ScrollReveal>
           <HomeFaq />
@@ -84,7 +85,7 @@ export default async function Home() {
       {/* 06 · Call to Action */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="06" label="NEXT / CONTACT" />
+          <SectionMarker index="06" label="NEXT / CONTACT" labelAr="التالي / تواصل" />
         </div>
         <ScrollReveal>
           <HomeCta />

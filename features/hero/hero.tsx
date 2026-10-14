@@ -38,12 +38,14 @@ import { usePersona } from "@/components/providers/persona-provider";
 import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
+import { HeroWall } from "./hero-wall";
+import type { HeroWallTile } from "./hero-wall-data";
 import "./hero.css";
 
 /* Headline is dynamic — see inside Hero() */
 const ITALIC_LINE = 1;
 
-export function Hero() {
+export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
   /* The headline is now painted in the first frame (no opacity:0 wait), so the
      display face must be in before it, otherwise the late swap reflows the
      headline and shifts the constellation (desktop CLS 0.06 -> 0.12). */
@@ -83,25 +85,47 @@ export function Hero() {
       <div aria-hidden className="grain-layer" />
 
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
-      <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-12 lg:pt-16 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:pt-14">
         {/* Left — typographic architecture */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2 lg:gap-3">
           {/* Live status row — in-flow micro-frame */}
           <div
             className="hero-rise flex flex-wrap items-center gap-2"
             style={{ "--rise-y": "-8px" } as CSSProperties}
           >
             <StatusNode />
-            <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost lg:inline">
+            <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost 2xl:inline">
 {ar ? t.heroCoords : "30.1936° N, 31.4603° E · AL OBOUR"}
             </span>
           </div>
+
+          {/* Who this is — the first thing a hiring manager looks for, and the
+              one thing the first screen never said (the nav carries only the
+              "MA" mark). Decorative here: the <h1> below already carries the
+              same name + role for search and screen readers. */}
+          <p
+            aria-hidden
+            className="hero-rise font-mono text-label uppercase tracking-[0.12em] text-text-secondary"
+            style={{ "--i": 0 } as CSSProperties}
+          >
+            {/* On a phone the name alone: the role is already in the pill above
+                ("brand identity designer roles") and a second wrapped line would
+                push the second button off the first screen. */}
+            {ar ? (
+              <>مصطفى أبوالعزم<span className="hidden sm:inline"> — مصمم هوية بصرية أول</span></>
+            ) : (
+              <>Mustafa Aboalazm<span className="hidden sm:inline"> — Senior Brand Identity Designer</span></>
+            )}
+          </p>
 
           <h1
             className="font-display tracking-[-0.03em] text-text-primary"
             style={{
               fontSize: "var(--text-hero)",
-              lineHeight: "var(--text-hero--line-height)",
+              /* 0.95 is right for the Latin caps face; Arabic needs room for its
+                 tails and dots — each line sits in an overflow-hidden wrapper
+                 (for the rise-in), so at 0.95 the last line lost its descenders. */
+              lineHeight: ar ? 1.2 : "var(--text-hero--line-height)",
             }}
           >
             {/* The visible headline is a statement, not the page's subject — give the
@@ -110,7 +134,7 @@ export function Hero() {
               {ar ? "مصطفى أبوالعزم — مصمم هوية بصرية أول. " : "Mustafa Aboalazm — Senior Brand Identity Designer. "}
             </span>
             {HEADLINE.map((line, i) => (
-              <span key={line} className="block overflow-hidden pb-[0.06em]">
+              <span key={line} className="block overflow-hidden pb-[0.06em] text-balance rtl:pb-[0.1em]">
                 <span className="hero-line block" style={{ "--i": i } as CSSProperties}>
                   {i === ITALIC_LINE ? <em className="text-accent">{line}</em> : line}
                 </span>
@@ -167,15 +191,22 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right — signature asset layer.
-            This used to be `justify-self-center` with no width of its own,
-            which made the frame's `w-full` resolve against an auto-width
-            parent and collapse to ~300px on a 1440 viewport — a postage
-            stamp in a large void. A definite width lets the asset scale
-            with the column and hold its side of the composition. */}
-        <div className="hero-settle w-full">
-          <SystemConstellation />
-        </div>
+        {/* Right — proof, not decoration.
+            The column used to hold the system constellation: an animated
+            diagram of the idea and not one pixel of the work. It now holds
+            the work (desktop only; see HeroWall). If fewer than two curated
+            cases are available it falls back to the constellation, so the
+            column is never empty. A definite `w-full` still matters: without
+            it the frame resolved against an auto-width parent and collapsed. */}
+        {wall.length >= 2 ? (
+          <div className="hero-settle hidden w-full lg:block">
+            <HeroWall tiles={wall} />
+          </div>
+        ) : (
+          <div className="hero-settle w-full">
+            <SystemConstellation />
+          </div>
+        )}
       </div>
 
       {/* ── 3 · Interactive metric row — bento band ──

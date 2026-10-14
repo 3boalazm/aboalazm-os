@@ -674,6 +674,28 @@ html[data-theme="light"] {
    *
    * We also override --font-sans so body text uses IBM Plex Sans Arabic.
    */
+  /* Accent words in a headline (<em>) are a change of colour, not a slant.
+     GC EPICPRO ships no italic, so the browser was synthesising an oblique from
+     the upright outlines — and a slanted Arabic word is never correct, which is
+     what the <em> became in RTL. Colour (text-accent) carries the emphasis. */
+  :is(h1, h2, h3, h4, .font-display) em {
+    font-style: normal;
+  }
+
+  /* Hero headline. From `lg` the hero is a two-column split and the type gets
+     ~740px, so the old 7.5vw (≈102px at 1366) wrapped the three authored lines
+     into eight and pushed the buttons below the fold on every laptop. Same
+     face and weight, sized so the authored lines fit the column — five lines
+     (60px at 1280, 64px at 1536), with the name, the work and both buttons in
+     the first screen. The coordinates row only shows from 2xl, where it fits
+     beside the status pill instead of wrapping under it.
+     Below `lg` the single-column layout keeps the original fluid size. */
+  @media (min-width: 64rem) {
+    :root {
+      --text-hero: clamp(3.5rem, 2.5rem + 1.5625vw, 4.5rem);
+    }
+  }
+
   [dir="rtl"] {
     /* Swap display font → Thmanyah Serif Display */
     --font-display: var(--font-thmanyah);
@@ -2486,6 +2508,16 @@ html {
 .narrative-section .journey-band {
   margin-top: 0;
 }
+/* Arabic is a joined script: tracking pulls the letters of a word apart and
+   there is no case to transform. Same label, set the way Arabic is set. */
+[dir="rtl"] .narrative-marker {
+  font-family: var(--font-arabic);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 
 .narrative-section .journey-band__inner {
   border-top: 0;
