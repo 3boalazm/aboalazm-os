@@ -147,7 +147,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
     { src: "/images/work/nile-pharma/npf-img-c.png",            caption: "Product flyers",            captionAr: "فلايرات المنتجات",          w: 1400, h: 700  },
     { src: "/images/work/nile-pharma/npf-img-a.png",            caption: "We care about you",         captionAr: "نهتم بك",                  w: 1400, h: 700  },
     { src: "/images/work/nile-pharma/npf-ezaby-post.jpg",       caption: "Ezaby — social post",       captionAr: "Ezaby — بوست سوشيال",      w: 1880, h: 1576 },
-    { src: "/images/work/nile-pharma/npf-logo-motion.gif",      caption: "Logo motion study",         captionAr: "دراسة حركة اللوجو",        w: 1400, h: 700  },
+    { src: "/images/work/nile-pharma/npf-logo-motion.webp",      caption: "Logo motion study",         captionAr: "دراسة حركة اللوجو",        w: 1400, h: 700  },
   ],
 
   retro: [

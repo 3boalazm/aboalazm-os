@@ -37,7 +37,7 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: "/images/work/nile-pharma/npf-img-c.png", project: "nile-pharma", caption: "Product flyers", captionAr: "فلايرات المنتجات", w: 1400, h: 700 },
   { src: "/images/work/nile-pharma/npf-img-a.png", project: "nile-pharma", caption: "We care about you", captionAr: "نهتم بك", w: 1400, h: 700 },
   { src: "/images/work/nile-pharma/npf-ezaby-post.jpg", project: "nile-pharma", caption: "Ezaby — social post", captionAr: "إزابي — بوست سوشيال", w: 1880, h: 1576 },
-  { src: "/images/work/nile-pharma/npf-logo-motion.gif", project: "nile-pharma", caption: "Logo motion study", captionAr: "دراسة حركة الشعار", w: 1400, h: 700 },
+  { src: "/images/work/nile-pharma/npf-logo-motion.webp", project: "nile-pharma", caption: "Logo motion study", captionAr: "دراسة حركة الشعار", w: 1400, h: 700 },
   { src: "/images/work/gad/gad-cover.png", project: "gad-institute", caption: "Cover", captionAr: "Cover", w: 1400, h: 933 },
   { src: "/images/work/gad/gad-logo-symbol.png", project: "gad-institute", caption: "Logo symbol", captionAr: "Logo symbol", w: 1400, h: 933 },
   { src: "/images/work/gad/gad-logo-anatomy.png", project: "gad-institute", caption: "Logo anatomy", captionAr: "Logo anatomy", w: 1400, h: 933 },

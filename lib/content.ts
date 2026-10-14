@@ -53,7 +53,7 @@ const STATIC_GALLERIES: Record<string, GalleryItem[]> = {
     { src: "/images/work/nile-pharma/npf-img-a.png", caption: "BRAND VOICE · WE CARE ABOUT YOU", captionAr: "صوت البراند · نهتم بك" },
     { src: "/images/work/nile-pharma/npf-ramadan.png", caption: "RAMADAN CAMPAIGN POST", captionAr: "منشور حملة رمضان المبارك" },
     { src: "/images/work/nile-pharma/npf-ezaby-post.jpg", caption: "RETAIL PHARMACY SOCIAL POST", captionAr: "منشور صيدليات العزبي" },
-    { src: "/images/work/nile-pharma/npf-logo-motion.gif", caption: "LOGO MOTION STUDY", captionAr: "دراسة حركة الشعار", span: "full" },
+    { src: "/images/work/nile-pharma/npf-logo-motion.webp", caption: "LOGO MOTION STUDY", captionAr: "دراسة حركة الشعار", span: "full" },
   ],
   reflection: [
     { src: "/images/work/reflection/refl-cover.png", caption: "BRAND IDENTITY · V1.0 COVER", captionAr: "هوية البراند · غلاف V1.0", span: "full", kind: "slide" },

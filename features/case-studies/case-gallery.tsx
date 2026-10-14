@@ -8,6 +8,7 @@ import { useLang } from "@/components/providers/lang-provider";
  */
 import Image from "next/image";
 import { MediaCard } from "@/components/ui/MediaCard";
+import { lightMedia } from "@/lib/light-media";
 
 export interface GalleryItem {
   src: string;
@@ -67,7 +68,7 @@ export function CaseGallery({ items, label }: { items: readonly GalleryItem[]; l
         >
           <div className="relative aspect-[16/9]">
             <Image
-              src={item.src}
+              src={lightMedia(item.src)}
               alt={(ar && item.captionAr ? item.captionAr : item.caption) || (label ? `${label} — ${i + 1}` : "")}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
