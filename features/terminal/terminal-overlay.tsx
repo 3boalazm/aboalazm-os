@@ -24,7 +24,7 @@ import { useRouter } from "next/navigation";
 const PAGES: Record<string, string> = {
   home: "/",
   about: "/about",
-  start: "/start",
+  start: "/contact",
   work: "/work",
   "work-ui": "/work-ui",
   ui: "/work-ui",

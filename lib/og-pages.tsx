@@ -19,7 +19,7 @@ export { OG_SIZE, OG_CONTENT_TYPE };
 
 export type OgPageId =
   | "home" | "work" | "gallery" | "work-ui" | "about" | "for-hiring" | "services"
-  | "pricing" | "process" | "why" | "start" | "agreement" | "contact"
+  | "pricing" | "process" | "why" | "agreement" | "contact"
   | "capabilities" | "labs" | "resources" | "books" | "writing" | "portfolio";
 
 interface PageDef {
@@ -411,32 +411,6 @@ async function vWhy() {
   );
 }
 
-async function vStart() {
-  const steps: [string, string, string][] = [
-    ["01", "Discovery", C.cyan], ["02", "Strategy", C.mint], ["03", "Concept & design", C.pink], ["04", "Refine & deliver", C.violet],
-  ];
-  return (
-    <Stage style={{ padding: 28, justifyContent: "space-between" }}>
-      <Label color={C.accent} size={14}>Your client journey</Label>
-      <div style={col({ gap: 0 })}>
-        {steps.map(([n, name, c], idx) => (
-          <div key={n} style={flex({ gap: 18, alignItems: "stretch" })}>
-            <div style={col({ alignItems: "center", width: 44 })}>
-              <div style={flex({ width: 44, height: 44, borderRadius: 999, alignItems: "center", justifyContent: "center", border: `2px solid ${c}`, color: c, fontFamily: F_EN, fontSize: 16 })}>{n}</div>
-              {idx < steps.length - 1 ? <div style={flex({ width: 2, height: 30, background: C.line })} /> : null}
-            </div>
-            <div style={col({ justifyContent: "flex-start", paddingTop: 8 })}>
-              <div style={flex({ fontFamily: F_EN, fontSize: 24 })}>{name}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div style={flex({ alignSelf: "flex-start", alignItems: "center", gap: 12, padding: "14px 24px", borderRadius: 999, background: C.accent, color: C.bg, fontFamily: F_EN, fontSize: 16, letterSpacing: "0.1em" })}>
-        BOOK THE FIRST CALL →
-      </div>
-    </Stage>
-  );
-}
 
 async function vAgreement() {
   const ph = ["Discovery call", "Kickoff & onboarding", "Discovery & research", "Brand strategy", "Concept development", "Full brand design", "Refinement & revisions", "Final delivery"];
@@ -723,17 +697,11 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     desc: "Strategy before design, one source for every output, bilingual architecture built to scale.",
     alt: "Why — the case for systemic identity", visual: vWhy,
   },
-  start: {
-    idx: "10", eyebrow: "Start", tagAr: "ابدأ مشروعك", route: "/start",
-    title: ["Start a", "project."],
-    desc: "Who it is for, what you get, how the four phases work and how to book the first call.",
-    alt: "Start — your client journey and how to book the first call", visual: vStart,
-  },
   agreement: {
     idx: "11", eyebrow: "Agreement", tagAr: "اتفاق العمل", route: "/agreement",
     title: ["Work-flow", "agreement."],
-    desc: "Eight phases, transparent terms and a 50 / 50 payment structure — stated upfront.",
-    alt: "Agreement — eight phases, transparent terms, 50/50 payments", visual: vAgreement,
+    desc: "Eight phases, transparent terms and tiered payment splits — stated upfront.",
+    alt: "Agreement — eight phases, transparent terms, tiered payments", visual: vAgreement,
   },
   contact: {
     idx: "12", eyebrow: "Contact", tagAr: "تواصل معي", route: "/contact",

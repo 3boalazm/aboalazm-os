@@ -77,6 +77,14 @@ const nextConfig: NextConfig = {
         destination: "/case-studies/gad-institute#brand-book",
         permanent: false,
       },
+      {
+        // Overhaul S3 (ABO-26): /start's journey content is absorbed into
+        // /contact (fit check + kickoff expectations + canonical terms).
+        // The route is gone; its inbound links/bookmarks land on the form.
+        source: "/start",
+        destination: "/contact",
+        permanent: true,
+      },
     ];
   },
   images: {

@@ -145,7 +145,9 @@ export function StatsBand() {
   );
 }
 
-/* ── Client Journey Band — teaser strip linking to /start ── */
+/* ── Client Journey Band — the METHOD section of the homepage funnel ──
+   (Was a /start teaser; /start was absorbed into /contact in overhaul S3.
+    The band now links deeper into /process.) */
 export function ClientJourneyBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
