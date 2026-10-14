@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Hero } from "@/features/hero";
-import { getProjects } from "@/lib/content";
-import { SkillsMarquee, AboutTeaser, HomeCta, ClientJourneyBand, WhyValueBand, HomeFaq } from "@/features/home/home-bands";
+import { getProjects, getPosts } from "@/lib/content";
+import { AboutTeaser, HomeCta, ClientJourneyBand, HomeFaq } from "@/features/home/home-bands";
+import { ProofStrip } from "@/features/home/proof-strip";
+import { StatementBand } from "@/features/home/statement-band";
+import { ServicesSnapshot } from "@/features/home/services-snapshot";
+import { InsightsTeaser } from "@/features/home/insights-teaser";
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SectionMarker } from "@/components/ui/section-marker";
@@ -17,17 +21,29 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+/**
+ * HOME — panel order after the 2026-10-14 overhaul (S2, spec §4.3).
+ * Rhythm contract: marked sections (01–07) alternate with two unmarked
+ * beats (ProofStrip, StatementBand) so the page no longer reads as one
+ * repeated SectionMarker+ScrollingReveal pattern top to bottom.
+ *
+ *   Hero (one CTA) → Proof strip → 01 Work → Statement band →
+ *   02 Offer → 03 Method → 04 Practice → 05 Thinking → 06 FAQ → 07 Next
+ */
 export default async function Home() {
-  const projects = await getProjects();
+  const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
 
   return (
     <main>
       <ScrollProgress />
 
-      {/* 01 · Immediate clarity */}
+      {/* 00 · Immediate clarity — single primary action */}
       <Hero />
 
-      {/* 02 · Proof first */}
+      {/* 00.5 · Credibility line — unmarked on purpose (a strip, not a panel) */}
+      <ProofStrip />
+
+      {/* 01 · Proof first — the work leads */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
           <SectionMarker index="01" label="SELECTED WORK" />
@@ -37,14 +53,17 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      {/* 02.5 · Why this approach */}
-      <section className="narrative-section narrative-section--proof">
+      {/* 01.5 · Manifesto beat — breaks the rhythm deliberately, no marker */}
+      <StatementBand />
+
+      {/* 02 · The offer */}
+      <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="02" label="WHY / VALUE" />
+          <SectionMarker index="02" label="SERVICES / OFFER" />
         </div>
-        <ScrollReveal>
-          <WhyValueBand />
-        </ScrollReveal>
+        <div className="container-wide">
+          <ServicesSnapshot />
+        </div>
       </section>
 
       {/* 03 · Process & Methodology */}
@@ -57,7 +76,7 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      {/* 04 · Background & Practice */}
+      {/* 04 · Background & Practice (skills live here now — marquee retired) */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
           <SectionMarker index="04" label="PRACTICE / BACKGROUND" />
@@ -65,26 +84,32 @@ export default async function Home() {
         <ScrollReveal>
           <AboutTeaser />
         </ScrollReveal>
-        <div className="section-divider" aria-hidden="true" />
-        <ScrollReveal delay={0.05}>
-          <SkillsMarquee />
-        </ScrollReveal>
       </section>
 
-      {/* 05 · FAQ / objection handling */}
+      {/* 05 · The thinking — journal teaser inside the funnel */}
+      <section className="narrative-section narrative-section--proof">
+        <div className="container-wide">
+          <SectionMarker index="05" label="WRITING / THINKING" />
+        </div>
+        <div className="container-wide">
+          <InsightsTeaser posts={posts} />
+        </div>
+      </section>
+
+      {/* 06 · FAQ / objection handling */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="05" label="FAQ / BEFORE START" />
+          <SectionMarker index="06" label="FAQ / BEFORE START" />
         </div>
         <ScrollReveal>
           <HomeFaq />
         </ScrollReveal>
       </section>
 
-      {/* 06 · Call to Action */}
+      {/* 07 · One canonical next step */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="06" label="NEXT / CONTACT" />
+          <SectionMarker index="07" label="NEXT / START" />
         </div>
         <ScrollReveal>
           <HomeCta />

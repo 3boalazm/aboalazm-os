@@ -7,6 +7,7 @@
  * understand the work.
  */
 import Image from "next/image";
+import { trackEvent } from "@/lib/analytics";
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Badge } from "@/components/ui/Badge";
@@ -239,6 +240,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
         <p className="text-body-sm text-text-secondary">{challenge}</p>
         <Link
           href={href}
+          onClick={internal ? () => trackEvent("case_study_open", { slug: project.slug, surface: "featured_card" }) : undefined}
           {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
           className={buttonVariants({
             variant: "ghost",

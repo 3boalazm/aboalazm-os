@@ -1,3 +1,5 @@
+> ⚠️ **مؤرشف (2026-10-14):** هذا الملف يصف جلسات حتى 2026-07-11 وبعض حالاته قديمة (Card primitive اتبنى بعديها فعلاً). **المرجع الحي للمشروع الآن:** `docs/overhaul-2026-10-14/02_MASTER_PLAN.md` + مشروع Linear «Aboalazm OS — Studio-grade overhaul (Oct 2026)». تحقق كامل في `docs/overhaul-2026-10-14/00_VERIFICATION_OF_PREVIOUS_WORK.md`.
+
 # HANDOFF — Aboalazm OS (سياق الجلسة السابقة)
 
 > اكتب في الشات الجديد: "اقرأ HANDOFF.md في فولدر المشروع وكمّل من حيث انتهى".

@@ -180,7 +180,7 @@ const PHASES_EN: Phase[] = [
       "Signed delivery receipt + IP transfer",
     ],
     gate: "Final sign-off and balance clear before final files are released. Protects both sides.",
-    payment: "Final 25–50% before delivery",
+    payment: "Balance before delivery: 25% (Tiers 2–3) · 50% (Tier 1)",
   },
 ];
 
@@ -277,7 +277,7 @@ const PHASES_AR: Phase[] = [
       "إيصال تسليم موقّع + نقل الملكية الفكرية",
     ],
     gate: "الاعتماد النهائي وسداد الباقي قبل تسليم الملفات النهائية. حمايةً للطرفين.",
-    payment: "الـ٢٥–٥٠٪ الأخيرة قبل التسليم",
+    payment: "الباقي قبل التسليم: ٢٥٪ (الفئتان ٢ و٣) · ٥٠٪ (الفئة ١)",
   },
 ];
 
@@ -595,7 +595,7 @@ export function ProcessView() {
               {c.ctaPrimary}
             </a>
             <Link
-              href="/start"
+              href="/contact"
               className={buttonVariants({
                 variant: "ghost",
                 className:

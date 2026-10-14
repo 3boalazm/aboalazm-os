@@ -455,6 +455,25 @@ export async function getAllPostSlugs(): Promise<string[]> {
   return [];
 }
 
+/* Static mirror of the published posts (single source: scripts/writing-posts-list.ts,
+   which also seeds the DB). Keeps /writing and the home Insights teaser fully
+   rendered when DATABASE_URI is absent — same resilience contract as getProjects. */
+import { WRITING_POSTS } from "@/scripts/writing-posts-list";
+
+function staticPosts() {
+  return [...WRITING_POSTS]
+    .sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
+    .map((d) => ({
+      index: d.index ?? "",
+      slug: d.slug,
+      title: d.title,
+      standfirst: d.standfirst ?? "",
+      publishedAt: d.publishedAt ?? "",
+      lang: (d.lang ?? "en") as "en" | "ar",
+      topics: d.topics ?? [],
+    }));
+}
+
 export async function getPosts(): Promise<
   {
     index: string;
@@ -476,20 +495,22 @@ export async function getPosts(): Promise<
         sort: "-publishedAt",
         overrideAccess: false,
       });
-      return res.docs.map((d) => ({
-        index: d.index ?? "",
-        slug: d.slug,
-        title: d.title,
-        standfirst: d.standfirst ?? "",
-        publishedAt: d.publishedAt ?? "",
-        lang: d.lang ?? "en",
-        topics: d.topics ?? [],
-      }));
+      if (res.docs.length > 0) {
+        return res.docs.map((d) => ({
+          index: d.index ?? "",
+          slug: d.slug,
+          title: d.title,
+          standfirst: d.standfirst ?? "",
+          publishedAt: d.publishedAt ?? "",
+          lang: d.lang ?? "en",
+          topics: d.topics ?? [],
+        }));
+      }
     } catch {
-      // Fall through
+      // Fall through to the static mirror
     }
   }
-  return [];
+  return staticPosts();
 }
 
 export async function getGalleryData(): Promise<{

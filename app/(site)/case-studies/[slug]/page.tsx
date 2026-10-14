@@ -2,6 +2,7 @@ import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ScrollyCaseStudy } from "@/features/case-studies";
+import { NextCaseLink } from "@/features/case-studies/next-case-link";
 import {
   getCaseStudy as fetchCaseStudy,
   getCaseStudyGallery,
@@ -49,9 +50,24 @@ export default async function CaseStudyPage({
   // GAD carries its full guidelines document inline, in the System panel.
   const brandBook = slug === "gad-institute" ? <GadBrandBook /> : undefined;
 
+  /* Overhaul S4: every case study closes with a hand-off to the next one
+     (cyclic over the published index, never a dead end). */
+  const allSlugs = await getAllCaseStudySlugs();
+  const at = allSlugs.indexOf(slug);
+  const nextSlug = at === -1 ? null : allSlugs[(at + 1) % allSlugs.length] ?? null;
+  const next = nextSlug ? await fetchCaseStudy(nextSlug) : null;
+
   return (
     <main>
       <ScrollyCaseStudy record={record} gallery={gallery} brandBook={brandBook} />
+      {next ? (
+        <NextCaseLink
+          slug={next.slug}
+          name={next.name}
+          nameAr={next.nameAr}
+          accent={next.accent}
+        />
+      ) : null}
     </main>
   );
 }
