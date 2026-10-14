@@ -1,6 +1,7 @@
 "use client";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
+import { trackEvent } from "@/lib/analytics";
 
 /**
  * VIEWPORT HERO — "Mustafa Aboalazm OS" · overhaul S2 (2026-10-14)
@@ -139,6 +140,7 @@ export function Hero() {
             <div className="hero-rise flex flex-wrap items-center gap-3 pt-1" style={{ "--i": 1 } as CSSProperties}>
               <Link
                 href="/contact"
+                onClick={() => trackEvent("cta_start_project", { placement: "hero" })}
                 className="group relative inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
               >
                 <span>{ar ? "ابدأ مشروعك" : "Start a project"}</span>

@@ -120,3 +120,70 @@ export function getBreadcrumbSchema(trail: { name: string; path: string }[]) {
     ],
   };
 }
+
+/* ── Overhaul S6 (ABO-29) — content-type schemas (QA #48) ── */
+
+/** /writing/[slug] — Article (links back to the Person/WebSite graph). */
+export function getArticleSchema(post: {
+  slug: string;
+  title: string;
+  standfirst?: string | null;
+  publishedAt?: string | null;
+  lang?: string | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${SITE_URL}/writing/${post.slug}#article`,
+    headline: post.title,
+    ...(post.standfirst ? { description: post.standfirst } : {}),
+    url: `${SITE_URL}/writing/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/writing/${post.slug}`,
+    inLanguage: post.lang === "ar" ? "ar" : "en",
+    ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
+    author: { "@id": PERSON_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+  };
+}
+
+/** /books — the shelf as an ItemList of the book records. */
+export function getBookListSchema(
+  books: readonly { slug: string; title: string; titleEn: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${SITE_URL}/books#list`,
+    name: "Library — Interactive Design Books",
+    itemListElement: books.map((b, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/books/${b.slug}`,
+      name: `${b.titleEn} — ${b.title}`,
+    })),
+  };
+}
+
+/** /books/[slug] — one Book record (Arabic interactive edition). */
+export function getBookSchema(book: {
+  slug: string;
+  title: string;
+  titleEn: string;
+  edition: string;
+  blurbEn: string;
+  chapterCount: number;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    "@id": `${SITE_URL}/books/${book.slug}#book`,
+    name: book.title,
+    alternateName: book.titleEn,
+    description: book.blurbEn,
+    bookEdition: book.edition,
+    inLanguage: "ar",
+    isPartOf: { "@id": `${SITE_URL}/books#list` },
+    url: `${SITE_URL}/books/${book.slug}`,
+    author: { "@id": PERSON_ID },
+  };
+}

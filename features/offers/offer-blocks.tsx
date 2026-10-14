@@ -5,6 +5,7 @@
  * /services, /pricing, /agreement. All read useLang().
  */
 import { useLang } from "@/components/providers/lang-provider";
+import { trackEvent } from "@/lib/analytics";
 import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -338,7 +339,7 @@ export function CtaBand({
         {pick(title, lang)} <em className="text-accent">{pick(italic, lang)}</em>
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <a href={primaryHref} className={buttonVariants({ className: "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
+        <a href={primaryHref} onClick={() => trackEvent("cta_start_project", { placement: "cta_band", href: primaryHref })} className={buttonVariants({ className: "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
           {pick(primary, lang)}
           <Icon name="sparkle" size="0.9em" />
         </a>

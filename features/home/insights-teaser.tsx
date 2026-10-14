@@ -7,6 +7,7 @@
  * back to the other language rather than rendering thin.
  */
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 
@@ -67,6 +68,7 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
           <Link
             key={p.slug}
             href={`/writing/${p.slug}`}
+            onClick={() => trackEvent("insight_open", { slug: p.slug, surface: "home_teaser" })}
             className="group flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1/40 p-3 transition-colors duration-base ease-physics hover:border-border-default md:p-4"
           >
             <div className="flex items-center justify-between gap-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">

@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 import { panelCardVariants } from "@/components/ui/PanelCard";
+import { trackEvent } from "@/lib/analytics";
 import type { ProjectAccent } from "@/lib/tokens";
 
 export function NextCaseLink({
@@ -30,6 +31,7 @@ export function NextCaseLink({
     <section className="container-wide pb-4" aria-label={ar ? "دراسة الحالة التالية" : "Next case study"}>
       <Link
         href={`/case-studies/${slug}`}
+        onClick={() => trackEvent("case_study_open", { slug, surface: "next_case" })}
         className={panelCardVariants({ className: "group relative block overflow-hidden rounded-panel px-6 py-8 transition-[border-color] duration-base ease-physics hover:border-accent" })}
       >
         <div

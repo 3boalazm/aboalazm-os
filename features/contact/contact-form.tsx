@@ -6,6 +6,7 @@
  * Fully bilingual via useT() + useLang().
  */
 import { useEffect, useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
@@ -100,6 +101,7 @@ export function ContactForm() {
       form.reset();
       setBudget(null);
       setStatus("sent");
+      trackEvent("contact_submit", { locale: ar ? "ar" : "en" });
     } catch {
       if (mounted.current) setStatus("error");
     } finally {

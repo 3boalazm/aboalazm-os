@@ -8,6 +8,7 @@ import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { Heading } from "@/components/ui/Heading";
 import { PanelCard, panelCardVariants } from "@/components/ui/PanelCard";
 import { TERMS_LINE } from "@/lib/offers";
+import { trackEvent } from "@/lib/analytics";
 import type { CSSProperties } from "react";
 
 /* ── Absorbed from /start (overhaul S3 — funnel consolidation) ──────
@@ -153,6 +154,7 @@ export function ContactView() {
               {"cta" in s && s.cta ? (
                 <a
                   href={s.href}
+                  onClick={() => trackEvent("cta_start_project", { placement: "contact_steps" })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-auto inline-flex w-fit items-center gap-1.5 font-mono text-micro uppercase tracking-[0.08em] text-text-primary underline decoration-border-default underline-offset-4 hover:text-accent"
