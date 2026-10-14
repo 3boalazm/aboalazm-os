@@ -3,71 +3,64 @@ import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
 
 /**
- * VIEWPORT HERO — "Mustafa Aboalazm OS"
+ * VIEWPORT HERO — "Mustafa Aboalazm OS" · overhaul S2 (2026-10-14)
  * ─────────────────────────────────────────────────────────────────
- * Architecture: Left-Aligned Split Hierarchy + Micro-Text Framing.
+ * The hero now resolves the site's old audience conflict: ONE primary
+ * action (Start a project → /contact) + ONE quiet secondary (See the
+ * work). "For hiring teams" survives as a tertiary text link — recruiting
+ * has its own page and no longer shares the first screen's weight.
  *
- *   ┌─[STATUS NODE]──────────────────────────────────────────────┐
- *   │                                                            │
- *   │  EDITORIAL SERIF HEADLINE          SYSTEM CONSTELLATION™   │
- *   │  (clip-path line reveals)          (magnetic SVG mesh)     │
- *   │  sub-lede + CTA                                            │
- *   │                                                            │
- *   ├─[MICRO FRAME: coordinates · scroll cue]────────────────────┤
- *   │  +42% · 0% · 3X  — monumental metric row                   │
- *   └────────────────────────────────────────────────────────────┘
+ * The System Constellation stays as the signature ambient asset; the
+ * metric data-panel moved out to ProofStrip right below the hero (and the
+ * headline still paints in the first frame — no hydration gate).
  *
- * Spacing: 8px scale only (gap-2/3/4, py-8, pt-16 → 16/24/32/64/128).
- * Canvas: bg-surface-0 (theme-reactive — Obsidian in dark, Alabaster in light).
- * Motion: every transition rides --ease-physics via lib/motion; the page-load
- * entrances are CSS keyframes (hero.css) so the text is visible in the server
- * HTML instead of waiting on hydration.
+ *   ┌─[STATUS CHIP · STUDIO]──────────────────────────────────────┐
+ *   │                                                             │
+ *   │  EDITORIAL SERIF HEADLINE           SYSTEM CONSTELLATION™   │
+ *   │  sub-lede · [START A PROJECT] [See the work]                │
+ *   │  For hiring teams → (tertiary, text only)                   │
+ *   │                                                             │
+ *   └─────────────────────────────────────────────────────────────┘
+ *   ProofStrip follows immediately (own component).
+ *
+ * Spacing: 8px scale only. Motion: CSS keyframes from hero.css so the
+ * text is visible in the server HTML (G1 contract, do not regress).
  */
 import Link from "next/link";
 import { preload } from "react-dom";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
+import { motion } from "framer-motion";
+import { COLOR, EASE_PHYSICS } from "@/lib/tokens";
 
 /* The studio's own coral — the old site's red, worn as atmosphere */
 const STUDIO_CORAL = {
   primary: "rgb(255 107 71 / 0.16)",
   secondary: "rgb(196 69 31 / 0.08)",
 } as const;
-import { usePersona } from "@/components/providers/persona-provider";
-import { StatusNode } from "./status-node";
-import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
 import "./hero.css";
 
-/* Headline is dynamic — see inside Hero() */
+/* Headline comes from the i18n dictionary (t.heroLine1..3) */
 const ITALIC_LINE = 1;
 
 export function Hero() {
-  /* The headline is now painted in the first frame (no opacity:0 wait), so the
-     display face must be in before it, otherwise the late swap reflows the
-     headline and shifts the constellation (desktop CLS 0.06 -> 0.12). */
+  /* The headline is painted in the first frame (no opacity:0 wait), so the
+     display face must arrive before it — otherwise the late swap reflows
+     the headline and shifts the constellation. Do not remove. */
   preload("/fonts/Gc_Epicpro.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   /* Home rests warm: faint coral glow — color presence without paint */
   useAmbientGlow(STUDIO_CORAL, 0.5);
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
-  const HEADLINE = ar
-    ? [t.heroLine1, t.heroLine2, t.heroLine3]
-    : [t.heroLine1, t.heroLine2, t.heroLine3];
+  const HEADLINE = [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
     <section className="relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
-      {/* ── Expressive atmosphere — legible BEFORE any interaction ──
-          The audit's core finding: the hero's colour existed only as a
-          diffuse blurred glow whose alpha was too low to read. These two
-          static layers give the first viewport an authored light source
-          and a material surface. Both are aria-hidden, both sit under the
-          content, and neither is hover-gated.
-
-          Focal light leans right in LTR (toward the constellation) and
-          mirrors in RTL so the composition stays balanced. */}
+      {/* ── Expressive atmosphere — legible BEFORE any interaction.
+          Focal light leans toward the constellation and mirrors in RTL. */}
       <div
         aria-hidden
         className="atmos-field atmos-drift"
@@ -82,18 +75,32 @@ export function Hero() {
       />
       <div aria-hidden className="grain-layer" />
 
-      {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
       <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-12 lg:pt-16 lg:grid-cols-[1.15fr_0.85fr]">
         {/* Left — typographic architecture */}
         <div className="flex flex-col gap-4">
-          {/* Live status row — in-flow micro-frame */}
+          {/* Studio status chip — the pulse node from the old hiring strip,
+              repurposed: the hero now speaks studio-first (overhaul S2).
+              Plain span, not a link: a status, not a door. */}
           <div
             className="hero-rise flex flex-wrap items-center gap-2"
             style={{ "--rise-y": "-8px" } as CSSProperties}
           >
-            <StatusNode />
+            <span className="glass inline-flex items-center gap-2 rounded-pill py-1 pl-2 pr-3">
+              <span className="relative flex size-2 items-center justify-center" aria-hidden>
+                <motion.span
+                  className="absolute inset-0 rounded-pill"
+                  style={{ backgroundColor: COLOR.status.success }}
+                  animate={{ scale: [1, 2.6], opacity: [0.45, 0] }}
+                  transition={{ duration: 2.2, ease: EASE_PHYSICS, repeat: Infinity, repeatDelay: 0.4 }}
+                />
+                <span className="relative size-1.5 rounded-pill" style={{ backgroundColor: COLOR.status.success }} />
+              </span>
+              <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-secondary">
+                {ar ? "استوديو هويات — يستقبل مشاريع جديدة · ٢٠٢٦" : "IDENTITY STUDIO — ACCEPTING NEW PROJECTS · 2026"}
+              </span>
+            </span>
             <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost lg:inline">
-{ar ? t.heroCoords : "30.1936° N, 31.4603° E · AL OBOUR"}
+              {ar ? t.heroCoords : "30.1936° N, 31.4603° E · AL OBOUR"}
             </span>
           </div>
 
@@ -126,32 +133,34 @@ export function Hero() {
               {t.heroLead}
             </p>
 
-            {/* Two clear primary actions: View Selected Work & Download CV */}
+            {/* ONE primary action + ONE quiet secondary (overhaul S2).
+                The old dual pair (View Work + Download CV) split the fold's
+                attention; CV now lives in the footer and on /for-hiring. */}
             <div className="hero-rise flex flex-wrap items-center gap-3 pt-1" style={{ "--i": 1 } as CSSProperties}>
-              <a
-                href="#selected-work"
+              <Link
+                href="/contact"
                 className="group relative inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
               >
-                <span>{t.heroExplore}</span>
+                <span>{ar ? "ابدأ مشروعك" : "Start a project"}</span>
                 <span
                   aria-hidden
                   className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
                 >
                   <Icon name="arrow-right" />
                 </span>
-              </a>
+              </Link>
               <a
-                href="/cv"
-                download="Mustafa_Taha_Brand_Identity_CV.docx"
+                href="#selected-work"
                 className="group relative inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
               >
-                <span>{t.heroDownloadCv}</span>
+                <span>{ar ? "شوف الأعمال" : "See the work"}</span>
                 <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-y-0.5">
                   <Icon name="arrow-down" />
                 </span>
               </a>
             </div>
 
+            {/* Tertiary: recruiting reads its own page — text link only. */}
             <div
               className="hero-rise flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-micro text-text-ghost"
               style={{ "--i": 2 } as CSSProperties}
@@ -159,80 +168,15 @@ export function Hero() {
               <Link href="/for-hiring" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
                 {ar ? "للشركات والتوظيف ←" : "For hiring teams →"}
               </Link>
-              <span aria-hidden>·</span>
-              <Link href="/services" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
-                {ar ? "خدمات العملاء ←" : "Client services →"}
-              </Link>
             </div>
           </div>
         </div>
 
-        {/* Right — signature asset layer.
-            This used to be `justify-self-center` with no width of its own,
-            which made the frame's `w-full` resolve against an auto-width
-            parent and collapse to ~300px on a 1440 viewport — a postage
-            stamp in a large void. A definite width lets the asset scale
-            with the column and hold its side of the composition. */}
+        {/* Right — signature ambient asset. */}
         <div className="hero-settle w-full">
           <SystemConstellation />
         </div>
       </div>
-
-      {/* ── 3 · Interactive metric row — bento band ──
-          `w-full` is load-bearing: as a flex child of a column container,
-          `container-wide` (margin-inline:auto, max-width, no width) shrank
-          to fit its content, so the band's top rule only spanned ~785px of
-          a 1440px viewport instead of the container. */}
-      <div className="container-wide relative z-elevated w-full border-t border-border-subtle py-4">
-        <MetricRow />
-      </div>
     </section>
-  );
-}
-
-/** Optional, non-blocking framing — never a header control, never required. */
-function PersonaHint({ ar }: { ar: boolean }) {
-  const { persona, setPersona } = usePersona();
-
-  if (persona) {
-    return (
-      <p className="font-mono text-micro text-text-ghost">
-        {persona === "founder"
-          ? ar
-            ? "بتتشاف نسخة النتائج والعائد."
-            : "Framed for business outcomes."
-          : ar
-            ? "بتتشاف نسخة الأنظمة والتسليم."
-            : "Framed for systems and handoff."}{" "}
-        <button
-          type="button"
-          onClick={() => setPersona(null)}
-          className="underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
-        >
-          {ar ? "ارجع للعام" : "Keep it general"}
-        </button>
-      </p>
-    );
-  }
-
-  return (
-    <p className="max-w-[46ch] font-mono text-micro text-text-ghost">
-      {ar ? "عايز الكلام يتظبط على دورك؟" : "What are you here to solve?"}{" "}
-      <button
-        type="button"
-        onClick={() => setPersona("founder")}
-        className="text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
-      >
-        {ar ? "براند يشتغل" : "A brand that performs"}
-      </button>
-      <span aria-hidden> · </span>
-      <button
-        type="button"
-        onClick={() => setPersona("technical")}
-        className="text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
-      >
-        {ar ? "نظام الفريق يقدر يبني عليه" : "A system the team can ship"}
-      </button>
-    </p>
   );
 }
