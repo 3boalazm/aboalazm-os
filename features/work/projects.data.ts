@@ -36,7 +36,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Strategy → Identity → Governed System",
     outcomeAr: "استراتيجية → هوية → نظام محكوم",
     year: "2023",
-    thumbnail: "/images/work/gad/gad-thumb.jpg",
+    thumbnail: "/images/work/gad/gad-card.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(0 88 149 / 0.20)",
@@ -53,7 +53,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Healthcare IT Personal Brand",
     outcomeAr: "براند شخصي · تكنولوجيا معلومات صحية",
     year: "2025",
-    thumbnail: "/images/work/ahmed-bedeer-mockup.jpg",
+    thumbnail: "/images/work/ahmed-bedeer-card.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(17 138 178 / 0.20)",
@@ -70,7 +70,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Brand system, packaging & campaign governance",
     outcomeAr: "نظام هوية وتغليف وحوكمة الحملات",
     year: "2020–25",
-    thumbnail: "/images/work/nile-pharma.jpg",
+    thumbnail: "/images/work/nile-pharma/npf-card.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(0 200 210 / 0.18)",
@@ -104,7 +104,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Premium Art Brand · V1.0 System",
     outcomeAr: "براند فن متميز · نظام V1.0",
     year: "2022",
-    thumbnail: "/images/work/reflection/refl-thumb.jpg",
+    thumbnail: "/images/work/reflection/refl-card.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(150 70 140 / 0.18)",

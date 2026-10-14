@@ -120,8 +120,8 @@ async function vHome() {
 
 async function vWork() {
   const i = await ogImgs({
-    a: ["/images/work/nile-erp-thumb.jpg", 360], b: ["/images/work/gad/gad-thumb.jpg", 360],
-    c: ["/images/work/reflection/refl-thumb.jpg", 360], d: ["/images/work/code-canvas-dev/cc-dev-thumb.jpg", 360],
+    a: ["/images/work/nile-erp-thumb.jpg", 360], b: ["/images/work/gad/gad-card.jpg", 360],
+    c: ["/images/work/reflection/refl-card.jpg", 360], d: ["/images/work/code-canvas-dev/cc-dev-thumb.jpg", 360],
     e: ["/images/work/farm-thumb.jpg", 360], f: ["/images/work/zad-thumb.jpg", 360],
   });
   const tiles: [string, string, string][] = [

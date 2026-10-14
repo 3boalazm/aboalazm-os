@@ -35,7 +35,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     nameAr: "معهد GAD للقلب والرئة",
     category: "Healthcare Brand Identity",
     categoryAr: "هوية رعاية صحية متخصصة",
-    thumbnail: "/images/work/gad/gad-thumb.jpg",
+    thumbnail: "/images/work/gad/gad-card.jpg",
     challenge:
       "A high-stakes specialized cardiac and pulmonary institute operating with generic, cold hospital branding — needed an authoritative, comforting bilingual brand system to govern physical architectural signage and digital care.",
     challengeAr:
@@ -68,7 +68,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     nameAr: "استوديو ريفلكشن للفنون والمطبوعات",
     category: "Editorial & Art Brand System",
     categoryAr: "هوية تحريرية وفنون مطبوعة",
-    thumbnail: "/images/work/reflection/refl-thumb.jpg",
+    thumbnail: "/images/work/reflection/refl-card.jpg",
     challenge:
       "A fine-art framing and print studio needed a warm, airy editorial identity to position it apart from cheap mass-market poster shops and cold, sterile galleries.",
     challengeAr:
@@ -101,7 +101,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     nameAr: "شركة نايل فارما فود",
     category: "Consumer Packaging & Pharma-Food",
     categoryAr: "تغليف استهلاكي وهوية دوائية غذائية",
-    thumbnail: "/images/work/nile-pharma.jpg",
+    thumbnail: "/images/work/nile-pharma/npf-card.jpg",
     challenge:
       "A pharma and dietary-supplements company operating for years without visual governance, resulting in fragmented packaging and weak pharmacy shelf presence against imported brands.",
     challengeAr:
@@ -134,7 +134,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     nameAr: "أحمد بدير",
     category: "Healthcare IT Leadership Identity",
     categoryAr: "هوية قيادية في تكنولوجيا المعلومات الصحية",
-    thumbnail: "/images/work/ahmed-bedeer-mockup.jpg",
+    thumbnail: "/images/work/ahmed-bedeer-card.jpg",
     challenge:
       "A healthcare IT executive and regional consultant needed a personal brand identity that communicated executive gravitas without corporate stiffness.",
     challengeAr:
@@ -357,7 +357,7 @@ export function ForHiringView() {
         ].map(([label, val, sub]) => (
           <div key={label} className="flex flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost">{label}</dt>
-            <dd className="font-display text-subtitle font-bold text-text-primary">{val}</dd>
+            <dd className="font-display font-display-sm text-subtitle font-bold text-text-primary">{val}</dd>
             <dd className="font-mono text-micro text-accent">{sub}</dd>
           </div>
         ))}
@@ -380,91 +380,107 @@ export function ForHiringView() {
         </div>
 
         <div className="flex flex-col gap-8">
-          {CASES_FOR_HIRING.map((project) => (
-            <article
-              key={project.slug}
-              className="flex flex-col overflow-hidden rounded-panel border border-border-subtle bg-surface-1 transition-all duration-base ease-physics hover:border-border-strong lg:grid lg:grid-cols-[14rem_1fr]"
-            >
-              {/* Thumbnail side */}
-              <div className="relative min-h-[160px] overflow-hidden bg-surface-2 lg:min-h-full">
-                <Image
-                  src={project.thumbnail}
-                  alt={ar ? project.nameAr : project.name}
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent lg:hidden" />
+          {CASES_FOR_HIRING.map((project) => {
+            /* Rendered twice on purpose: under the picture from `lg` up (so the
+               two columns balance and "who did what" sits beside the proof),
+               and in its old place between the challenge and the deliverables
+               below `lg`, where the card is a single column. */
+            const roleBlock = (
+              <div className="flex flex-col gap-1">
+                <p className="font-mono text-micro uppercase tracking-wider text-accent">
+                  {ar ? "دوري وفريق العمل" : "MY ROLE & TEAM"}
+                </p>
+                <p className="text-body-sm font-medium text-text-primary">
+                  {ar ? project.roleAr : project.role}
+                </p>
+                <p className="text-body-sm text-text-tertiary">
+                  {ar ? project.teamAr : project.team}
+                </p>
               </div>
+            );
 
-              {/* Details side */}
-              <div className="flex flex-col gap-4 p-5 lg:p-6">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-subtle pb-3">
-                  <div>
-                    <span className="font-mono text-micro uppercase tracking-wider text-accent">
-                      {ar ? project.categoryAr : project.category}
-                    </span>
-                    <h3 className="font-display text-subtitle font-bold text-text-primary">
-                      {ar ? project.nameAr : project.name}
-                    </h3>
+            return (
+              <article
+                key={project.slug}
+                className="flex flex-col overflow-hidden rounded-panel border border-border-subtle bg-surface-1 transition-all duration-base ease-physics hover:border-border-strong lg:grid lg:grid-cols-[28rem_1fr]"
+              >
+                {/* Thumbnail side — the picture is shown whole at its own 16:10, with
+                    the role underneath. It used to be `fill` + `object-cover` in a
+                    224px strip, which cropped every mark ("GA…", a black panel) and
+                    made the browser fetch a 1920px file for a 224px slot. */}
+                <div className="flex flex-col bg-surface-2 lg:border-e lg:border-border-subtle">
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                    <Image
+                      src={project.thumbnail}
+                      alt={ar ? project.nameAr : project.name}
+                      fill
+                      sizes="(min-width: 1024px) 448px, 100vw"
+                      className="object-cover"
+                    />
                   </div>
-                  <Link
-                    href={`/case-studies/${project.slug}`}
-                    className="inline-flex items-center gap-1.5 rounded-pill border border-border-default px-3 py-1 font-mono text-micro uppercase tracking-wider text-text-primary transition-colors hover:border-accent hover:text-accent"
-                  >
-                    <span>{ar ? "قراءة دراسة الحالة" : "Read Full Case Study"}</span>
-                    <Icon name="arrow-right" size="0.9em" />
-                  </Link>
+                  <div className="hidden flex-1 p-6 lg:block">{roleBlock}</div>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  <div className="flex flex-col gap-1">
-                    <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                      {ar ? "التحدي" : "THE CHALLENGE"}
-                    </p>
-                    <p className="text-body-sm text-text-secondary">
-                      {ar ? project.challengeAr : project.challenge}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-1">
-                    <p className="font-mono text-micro uppercase tracking-wider text-accent">
-                      {ar ? "دوري وفريق العمل" : "MY ROLE & TEAM"}
-                    </p>
-                    <p className="text-body-sm font-medium text-text-primary">
-                      {ar ? project.roleAr : project.role}
-                    </p>
-                    <p className="text-body-sm text-text-tertiary">
-                      {ar ? project.teamAr : project.team}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 border-t border-border-subtle pt-3 md:grid-cols-2">
-                  <div className="flex flex-col gap-1.5">
-                    <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                      {ar ? "ما تم تصميمه وتسليمه" : "DELIVERABLES SHIPPED"}
-                    </p>
-                    <ul className="flex flex-col gap-1">
-                      {(ar ? project.whatShippedAr : project.whatShipped).map((item, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-body-sm text-text-secondary">
-                          <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
+                {/* Details side */}
+                <div className="flex flex-col gap-4 p-5 lg:p-6">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-subtle pb-3">
+                    <div>
+                      <span className="font-mono text-micro uppercase tracking-wider text-accent">
+                        {ar ? project.categoryAr : project.category}
+                      </span>
+                      <h3 className="font-display font-display-sm text-subtitle font-bold text-text-primary">
+                        {ar ? project.nameAr : project.name}
+                      </h3>
+                    </div>
+                    <Link
+                      href={`/case-studies/${project.slug}`}
+                      className="inline-flex items-center gap-1.5 rounded-pill border border-border-default px-3 py-1 font-mono text-micro uppercase tracking-wider text-text-primary transition-colors hover:border-accent hover:text-accent"
+                    >
+                      <span>{ar ? "قراءة دراسة الحالة" : "Read Full Case Study"}</span>
+                      <Icon name="arrow-right" size="0.9em" />
+                    </Link>
                   </div>
 
-                  <div className="flex flex-col gap-1.5">
-                    <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                      {ar ? "أين استُخدم النظام في الواقع؟" : "DEPLOYMENT IN PRODUCTION"}
-                    </p>
-                    <p className="text-body-sm text-text-secondary">
-                      {ar ? project.deploymentAr : project.deployment}
-                    </p>
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1">
+                    <div className="flex flex-col gap-1">
+                      <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
+                        {ar ? "التحدي" : "THE CHALLENGE"}
+                      </p>
+                      <p className="text-body-sm text-text-secondary">
+                        {ar ? project.challengeAr : project.challenge}
+                      </p>
+                    </div>
+                    <div className="lg:hidden">{roleBlock}</div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-4 border-t border-border-subtle pt-3 md:grid-cols-2">
+                    <div className="flex flex-col gap-1.5">
+                      <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
+                        {ar ? "ما تم تصميمه وتسليمه" : "DELIVERABLES SHIPPED"}
+                      </p>
+                      <ul className="flex flex-col gap-1">
+                        {(ar ? project.whatShippedAr : project.whatShipped).map((item, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-body-sm text-text-secondary">
+                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="flex flex-col gap-1.5">
+                      <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
+                        {ar ? "أين استُخدم النظام في الواقع؟" : "DEPLOYMENT IN PRODUCTION"}
+                      </p>
+                      <p className="text-body-sm text-text-secondary">
+                        {ar ? project.deploymentAr : project.deployment}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </section>
 
@@ -485,7 +501,7 @@ export function ForHiringView() {
               key={group.title}
               className="flex flex-col gap-3 rounded-card border border-border-subtle bg-surface-1 p-4"
             >
-              <h3 className="font-display text-body font-bold text-text-primary border-b border-border-subtle pb-2">
+              <h3 className="font-display font-display-sm text-body font-bold text-text-primary border-b border-border-subtle pb-2">
                 {ar ? group.titleAr : group.title}
               </h3>
               <ul className="flex flex-col gap-2">
@@ -522,7 +538,7 @@ export function ForHiringView() {
                 {ar ? item.periodAr : item.period}
               </span>
               <div className="flex flex-col">
-                <span className="font-display text-body font-bold text-text-primary">
+                <span className="font-display font-display-sm text-body font-bold text-text-primary">
                   {ar ? item.roleAr : item.role}
                 </span>
                 <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
@@ -540,7 +556,7 @@ export function ForHiringView() {
       {/* ── 06 · Interview Scheduling & Contact ── */}
       <section className="flex flex-col items-center justify-between gap-6 rounded-panel border border-border-strong bg-surface-1 p-8 text-center sm:flex-row sm:text-left rtl:sm:text-right">
         <div className="flex flex-col gap-2 max-w-[50ch]">
-          <h2 className="font-display text-subtitle font-bold text-text-primary">
+          <h2 className="font-display font-display-sm text-subtitle font-bold text-text-primary">
             {ar ? "جاهز للانضمام لفريقكم؟" : "Interested in discussing an open role?"}
           </h2>
           <p className="text-body-sm text-text-secondary">
