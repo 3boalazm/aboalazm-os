@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import { test } from "node:test";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
 import { mergeCuratedDevelopmentProjects } from "./project-curation";
@@ -16,6 +18,30 @@ test("merges every approved development project without duplicate slugs", () => 
 
   for (const slug of CURATED_DEVELOPMENT_SLUGS) assert.ok(slugs.has(slug), `missing ${slug}`);
   assert.equal(slugs.size, merged.length);
+});
+
+test("every digital project has a screenshot and a production preview destination", () => {
+  const digitalProjects = PROJECTS.filter((project) => project.category === "development");
+  assert.ok(digitalProjects.length > 0, "expected digital projects in the portfolio");
+
+  for (const project of digitalProjects) {
+    assert.ok(project.thumbnail.startsWith("/images/work/"), `${project.slug} needs a screenshot preview`);
+    assert.ok(
+      existsSync(join(process.cwd(), "public", project.thumbnail.slice(1))),
+      `${project.slug} screenshot is missing: ${project.thumbnail}`,
+    );
+
+    const destination = project.liveUrl ?? project.externalUrl;
+    assert.ok(destination, `${project.slug} needs a production or external preview link`);
+    if (destination.startsWith("/")) {
+      assert.ok(
+        existsSync(join(process.cwd(), "public", destination.slice(1))),
+        `${project.slug} local demo is missing: ${destination}`,
+      );
+    } else {
+      assert.equal(new URL(destination).protocol, "https:", `${project.slug} should use a secure preview URL`);
+    }
+  }
 });
 
 test("curated records update reviewed CMS projects and preserve unrelated CMS content", () => {

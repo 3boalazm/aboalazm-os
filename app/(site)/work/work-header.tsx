@@ -27,8 +27,8 @@ export function WorkHeader() {
         titleClassName="max-w-[14ch] text-balance-pretty"
         subtitle={
           ar
-            ? "أنظمة هوية بصرية، معايير تصميم، ومعمارية تغليف — التحدي، ما تم تصميمه، والنتيجة."
-            : "Brand identity systems, visual standards, and packaging — the challenge, what was designed, and the outcome."
+            ? "استكشف الهوية البصرية والمنتجات الرقمية في مسارين منفصلين. كل منتج رقمي معه معاينة ورابط مباشر لنسخته المنشورة."
+            : "Browse brand identity and digital products in separate streams. Every digital product pairs a visual preview with a direct production link."
         }
         subtitleClassName="max-w-[56ch]"
       />

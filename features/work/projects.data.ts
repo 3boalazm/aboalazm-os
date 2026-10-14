@@ -35,6 +35,7 @@ export const PROJECTS: readonly Project[] = [
     year: "2026",
     thumbnail: "/images/work/code-canvas-dev/cc-dev-thumb.jpg",
     hasCaseStudy: false,
+    liveUrl: "https://codeandcanvas.net/",
     externalUrl: "https://codeandcanvas.net/",
     accent: {
       primary: "rgb(34 211 238 / 0.20)",

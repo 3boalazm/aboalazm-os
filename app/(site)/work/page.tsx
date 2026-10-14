@@ -9,8 +9,8 @@ export const revalidate = 60;
 
 
 export const metadata: Metadata = {
-  title: "Work — Selected cases",
-  description: "Identity systems and digital products — the problem, what shipped, and the outcome. Switch to the Wall for the full cross-project gallery.",
+  title: "Work — Identity & Digital Products",
+  description: "Explore brand identity and digital products in separate streams. Digital projects include visual previews and direct links to their production demos.",
 };
 
 export default async function WorkPage() {
