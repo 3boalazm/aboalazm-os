@@ -233,7 +233,12 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
       </MediaCard>
 
       <div className="flex flex-col gap-2">
-        <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
+        <div className="flex flex-wrap items-center gap-2">
+          {project.status === "in-progress" ? (
+            <Badge tone="creative" size="sm">{ar ? "قيد التنفيذ" : "In progress"}</Badge>
+          ) : null}
+          <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
+        </div>
         <h3 className="font-display text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
           {name}
         </h3>

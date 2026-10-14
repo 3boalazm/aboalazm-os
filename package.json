@@ -9,10 +9,11 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && next build",
+    "build": "npm run test:blob-token && npm run test:work-projects && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test:blob-token": "tsx --test lib/blob-token.test.ts"
+    "test:blob-token": "tsx --test lib/blob-token.test.ts",
+    "test:work-projects": "tsx --test features/work/project-curation.test.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

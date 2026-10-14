@@ -13,6 +13,7 @@ import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
 import type { Media, Project as PayloadProject, CaseStudy as PayloadCaseStudy } from "@/payload-types";
 
 import { PROJECTS as STATIC_PROJECTS } from "@/features/work/projects.data";
+import { mergeCuratedDevelopmentProjects } from "@/features/work/project-curation";
 import { GAD_INSTITUTE } from "@/features/case-studies/gad-institute.data";
 import { NILE_PHARMA } from "@/features/case-studies/demo.data";
 import { REFLECTION } from "@/features/case-studies/reflection.data";
@@ -113,6 +114,7 @@ function toProject(doc: PayloadProject): Project {
     outcome: doc.outcome,
     outcomeAr: doc.outcomeAr ?? undefined,
     year: doc.year,
+    status: doc.status === "in-progress" ? "in-progress" : undefined,
     thumbnail: mediaUrl(doc.thumbnail),
     hasCaseStudy: doc.hasCaseStudy ?? false,
     externalUrl: doc.externalUrl ?? undefined,
@@ -136,7 +138,9 @@ export async function getUiUxProjects(): Promise<Project[]> {
         sort: "-year",
         overrideAccess: false,
       });
-      if (res.docs.length > 0) return res.docs.map(toProject).filter((p) => p.liveUrl);
+      if (res.docs.length > 0) {
+        return mergeCuratedDevelopmentProjects(res.docs.map(toProject)).filter((p) => p.isUiUx && p.liveUrl);
+      }
     } catch {
       // Fall through to static
     }
@@ -155,7 +159,7 @@ export async function getProjects(): Promise<Project[]> {
         sort: "-year",
         overrideAccess: false,
       });
-      if (res.docs.length > 0) return res.docs.map(toProject);
+      if (res.docs.length > 0) return mergeCuratedDevelopmentProjects(res.docs.map(toProject));
     } catch {
       // Fall through to static
     }

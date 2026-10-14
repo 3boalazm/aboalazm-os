@@ -16,7 +16,7 @@ export const Projects: CollectionConfig = {
     group: "Portfolio",
     useAsTitle: "name",
     description: "Work ledger entries. EN/AR pairs and links live in tabs; flags live in the sidebar.",
-    defaultColumns: ["name", "category", "discipline", "year", "hasCaseStudy"],
+    defaultColumns: ["name", "category", "discipline", "year", "status", "hasCaseStudy"],
     listSearchableFields: ["name", "nameAr"],
   },
   versions: {
@@ -71,6 +71,19 @@ export const Projects: CollectionConfig = {
       type: "text",
       required: true,
       admin: { position: "sidebar" },
+    },
+    {
+      name: "status",
+      type: "select",
+      defaultValue: "complete",
+      options: [
+        { label: "Complete", value: "complete" },
+        { label: "In progress", value: "in-progress" },
+      ],
+      admin: {
+        position: "sidebar",
+        description: "Use In progress for active work; completed records can keep the default.",
+      },
     },
     {
       name: "hasCaseStudy",
@@ -168,8 +181,8 @@ export const Projects: CollectionConfig = {
               label: "Live Preview URL",
               type: "text",
               admin: {
-                condition: (data) => Boolean(data?.isUiUx),
-                description: "The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.",
+                condition: (data) => Boolean(data?.isUiUx || data?.category === "development"),
+                description: "Live destination for project cards; UI/UX-tagged projects also use it for the /work-ui preview.",
               },
             },
           ],
