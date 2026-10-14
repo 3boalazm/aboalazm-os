@@ -287,24 +287,50 @@ html[data-theme="light"] {
   --color-border-default: rgb(8 7 16 / 0.20);
   --color-border-strong:  rgb(8 7 16 / 0.30);
 
-  /* Light-mode text ramp — GRADED on purpose. Four distinct steps
-     (0.86 / 0.66 / 0.48 / 0.32) so the page has contrast HIERARCHY:
-     headings assertive but not harsh pure-black, body comfortable,
-     labels clearly quieter, ghost clearly quietest. Earlier extremes
-     (0.40 ghost-gray everywhere, then 0.96-black everywhere) both
-     failed — one unreadable, one eye-straining. (Dark merges ghost into
-     tertiary for contrast; the light ghost step is unchanged.) */
+  /* Light-mode text ramp — GRADED on purpose: headings assertive but not
+     harsh pure-black, body comfortable, labels clearly quieter. Earlier
+     extremes (0.40 ghost-gray everywhere, then 0.96-black everywhere) both
+     failed — one unreadable, one eye-straining.
+     The steps are 0.86 / 0.74 / 0.60, and ghost now sits on tertiary exactly
+     as it does in dark. At the old 0.48 / 0.32 the labels measured 3.5:1 and
+     2.15:1 on Alabaster (axe color-contrast: 63 nodes on Home, 90 on
+     /for-hiring, nearly all of them these two tokens). 0.60 is 5.3:1 on
+     surface-0 and 4.8:1 on surface-3 — AA on every light surface. */
   --color-text-primary:   rgb(8 7 16 / 0.86);
-  --color-text-secondary: rgb(8 7 16 / 0.66);
-  --color-text-tertiary:  rgb(8 7 16 / 0.48);
-  --color-text-ghost:     rgb(8 7 16 / 0.32);
+  --color-text-secondary: rgb(8 7 16 / 0.74);
+  --color-text-tertiary:  rgb(8 7 16 / 0.60);
+  --color-text-ghost:     rgb(8 7 16 / 0.60);
 
   /* Accent TYPE deepens on Alabaster: #FF6B47 measures 2.7:1 on this
-     canvas (fails WCAG even for large text); #C2410C holds 4.9:1 while
-     staying unmistakably in the coral family. CTA FILLS keep
-     --color-accent untouched — obsidian-on-coral already passes. */
-  --color-accent-text:   #C2410C;
-  --color-accent-border: rgb(194 65 12 / 0.35);
+     canvas (fails WCAG even for large text). #C2410C was 4.9:1 on the page
+     but 4.2:1 on surface-2, where the role/label cards sit; #B93A08 holds
+     5.4:1 / 5.0:1 / 4.6:1 on surface-0 / 1 / 2 and is still unmistakably in
+     the coral family. CTA FILLS keep --color-accent untouched —
+     obsidian-on-coral already passes. */
+  --color-accent-text:   #B93A08;
+  --color-accent-border: rgb(185 58 8 / 0.35);
+
+  /* The five supporting colours are pale on purpose (they glow on Obsidian)
+     and vanish as type on Alabaster (cyan 1.4:1, mint 1.2:1, pink 1.9:1).
+     Their text-safe counterparts, 4.6:1 or better on surface-0..2. */
+  --color-secondary-cyan-text:  #0B7480;
+  --color-secondary-mint-text:  #2C766D;
+  --color-secondary-pink-text:  #A63D55;
+  --color-secondary-mauve-text: #7A5560;
+}
+
+/* Small accent type in light mode. `text-accent` (165 uses) resolves to the
+   brand coral, which is 2.7:1 on Alabaster; in light it takes the deeper
+   accent-text member of the family instead. Zero-specificity theme selector,
+   so any hover:/group-hover: colour utility still wins over it, and the same
+   in the utilities layer so the order against `.text-accent` is a plain
+   source-order tie. Dark is untouched. */
+@layer utilities {
+  :where(html[data-theme="light"]) .text-accent { color: var(--color-accent-text); }
+  :where(html[data-theme="light"]) .text-secondary-cyan  { color: var(--color-secondary-cyan-text); }
+  :where(html[data-theme="light"]) .text-secondary-mint  { color: var(--color-secondary-mint-text); }
+  :where(html[data-theme="light"]) .text-secondary-pink  { color: var(--color-secondary-pink-text); }
+  :where(html[data-theme="light"]) .text-secondary-mauve { color: var(--color-secondary-mauve-text); }
 }
 
 /* ═══════════════ ARTICLE DIAGRAM NODE TOKENS ═══════════════
@@ -648,6 +674,28 @@ html[data-theme="light"] {
     font-weight: 800;
   }
 
+  /* Accent words in a headline (<em>) are a change of colour, not a slant.
+     GC EPICPRO ships no italic, so the browser was synthesising an oblique from
+     the upright outlines — and a slanted Arabic word is never correct, which is
+     what the <em> became in RTL. Colour (text-accent) carries the emphasis. */
+  :is(h1, h2, h3, h4, .font-display) em {
+    font-style: normal;
+  }
+
+  /* Hero headline. From `lg` the hero is a two-column split and the type gets
+     ~740px, so the old 7.5vw (≈102px at 1366) wrapped the three authored lines
+     into eight and pushed the buttons below the fold on every laptop. Same
+     face and weight, sized so the authored lines fit the column — five lines
+     (60px at 1280, 64px at 1536), with the name, the work and both buttons in
+     the first screen. The coordinates row only shows from 2xl, where it fits
+     beside the status pill instead of wrapping under it.
+     Below `lg` the single-column layout keeps the original fluid size. */
+  @media (min-width: 64rem) {
+    :root {
+      --text-hero: clamp(3.5rem, 2.5rem + 1.5625vw, 4.5rem);
+    }
+  }
+
   /*
    * BODY-TEXT FONT LOCK.
    * Running-text utilities must resolve to the sans stack (Montserrat in
@@ -674,28 +722,6 @@ html[data-theme="light"] {
    *
    * We also override --font-sans so body text uses IBM Plex Sans Arabic.
    */
-  /* Accent words in a headline (<em>) are a change of colour, not a slant.
-     GC EPICPRO ships no italic, so the browser was synthesising an oblique from
-     the upright outlines — and a slanted Arabic word is never correct, which is
-     what the <em> became in RTL. Colour (text-accent) carries the emphasis. */
-  :is(h1, h2, h3, h4, .font-display) em {
-    font-style: normal;
-  }
-
-  /* Hero headline. From `lg` the hero is a two-column split and the type gets
-     ~740px, so the old 7.5vw (≈102px at 1366) wrapped the three authored lines
-     into eight and pushed the buttons below the fold on every laptop. Same
-     face and weight, sized so the authored lines fit the column — five lines
-     (60px at 1280, 64px at 1536), with the name, the work and both buttons in
-     the first screen. The coordinates row only shows from 2xl, where it fits
-     beside the status pill instead of wrapping under it.
-     Below `lg` the single-column layout keeps the original fluid size. */
-  @media (min-width: 64rem) {
-    :root {
-      --text-hero: clamp(3.5rem, 2.5rem + 1.5625vw, 4.5rem);
-    }
-  }
-
   [dir="rtl"] {
     /* Swap display font → Thmanyah Serif Display */
     --font-display: var(--font-thmanyah);
@@ -786,6 +812,22 @@ html[data-theme="light"] {
   text-wrap: balance;
 }
 
+/* Small display text. GC EPICPRO is a wide, heavy poster face and stops working
+   below ~28px: its G is a C with a hairline spur, and at 11–22px the two close
+   up — "GAD" reads "CAD", "LUNGS" reads "LUNCS", and the nav said "FOR HIRINC" /
+   "PRICINC". From the subtitle step down, display text is set in the sans at
+   Bold instead (Montserrat — a G that is a G). GC EPICPRO draws lowercase as
+   capitals, so everything set in it already read as caps: `uppercase` keeps
+   that voice. Written next to `font-display`; it only acts in LTR, so Arabic
+   keeps Thmanyah, and large display type is untouched. */
+@utility font-display-sm {
+  [dir="ltr"] & {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
 /* Page titles holding one long unbreakable word ("infrastructure.") are
    wider than the 327px mobile column at text-display's 2.5rem floor. Plain
    (unlayered) rule on purpose: it has to beat the text-display utility. */
@@ -834,22 +876,6 @@ html[data-theme="light"] {
   from { transform: translate3d(0, 0, 0) scale(1); }
   to   { transform: translate3d(-2.5%, 2%, 0) scale(1.06); }
 }
-/* Small display text. GC EPICPRO is a wide, heavy poster face and stops working
-   below ~28px: its G is a C with a hairline spur, and at 11–22px the two close
-   up — "GAD" reads "CAD", "LUNGS" reads "LUNCS", and the nav said "FOR HIRINC" /
-   "PRICINC". From the subtitle step down, display text is set in the sans at
-   Bold instead (Montserrat — a G that is a G). GC EPICPRO draws lowercase as
-   capitals, so everything set in it already read as caps: `uppercase` keeps
-   that voice. Written next to `font-display`; it only acts in LTR, so Arabic
-   keeps Thmanyah, and large display type is untouched. */
-@utility font-display-sm {
-  [dir="ltr"] & {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-}
-
 
 /* Edge light — a glass highlight on the top/inner edge of a panel.
    Reads as a lit surface rather than a bordered box. */
@@ -1447,7 +1473,7 @@ html[data-theme="light"] .grain-layer {
   font-size: var(--text-subtitle);
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 .journey-step__name {
   font-family: var(--font-mono);
@@ -1502,7 +1528,7 @@ html[data-theme="light"] .grain-layer {
 .site-card__arrow {
   align-self: flex-end;
   font-size: var(--text-micro);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   opacity: 0;
   transform: translateX(-4px);
   transition: opacity 180ms var(--ease-physics), transform 180ms var(--ease-physics);
@@ -1567,7 +1593,7 @@ html[data-theme="light"] .grain-layer {
   letter-spacing: -0.03em;
   color: var(--color-text-primary);
 }
-.stats-dash__suffix { color: var(--color-accent); }
+.stats-dash__suffix { color: var(--color-accent-text); }
 .stats-dash__label {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
@@ -1684,7 +1710,7 @@ html[data-theme="light"] .grain-layer {
 }
 .gate-node__check {
   font-size: var(--text-label);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 .gate-node__cmd {
   font-family: var(--font-mono);
@@ -1708,7 +1734,7 @@ html[data-theme="light"] .grain-layer {
   background: var(--color-accent-08);
   transform: scale(1.08);
 }
-.gate-node--active .gate-node__num { color: var(--color-accent); }
+.gate-node--active .gate-node__num { color: var(--color-accent-text); }
 .gate-node--active .gate-node__cmd { color: var(--color-text-secondary); }
 
 /* ── detail panel ── */
@@ -1729,7 +1755,7 @@ html[data-theme="light"] .grain-layer {
   font-family: var(--font-mono);
   font-size: var(--text-label);
 }
-.gate-detail__prompt { color: var(--color-accent); }
+.gate-detail__prompt { color: var(--color-accent-text); }
 .gate-detail__cmd { color: var(--color-text-primary); }
 .gate-detail__status {
   display: inline-flex;
@@ -1784,7 +1810,7 @@ html[data-theme="light"] .grain-layer {
   font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   margin-bottom: 6px;
 }
 .gate-detail__block-body {
@@ -2176,7 +2202,7 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   border: 1px solid var(--color-accent-32);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   border-radius: var(--radius-pill);
   padding: 8px 18px;
   background: transparent;
@@ -2209,7 +2235,7 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
   font-size: var(--text-caption);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 .labtool-bilingual-title {
   font-family: var(--font-display);
@@ -2298,7 +2324,7 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
   font-size: var(--text-caption);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-accent-text);
 }
 .persona-band__question {
   font-family: var(--font-display);
@@ -2388,7 +2414,7 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
   transition: color 180ms var(--ease-physics), border-color 180ms var(--ease-physics);
 }
 .persona-band__active-clear:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   border-color: var(--color-accent-40);
 }
 
@@ -2478,8 +2504,18 @@ html {
 }
 
 .narrative-marker__index {
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   font-variant-numeric: tabular-nums;
+}
+
+/* Arabic is a joined script: tracking pulls the letters of a word apart and
+   there is no case to transform. Same label, set the way Arabic is set. */
+[dir="rtl"] .narrative-marker {
+  font-family: var(--font-arabic);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* The line is the row's only elastic part: flex-basis 0 + grow, capped at its
@@ -2508,16 +2544,6 @@ html {
 .narrative-section .journey-band {
   margin-top: 0;
 }
-/* Arabic is a joined script: tracking pulls the letters of a word apart and
-   there is no case to transform. Same label, set the way Arabic is set. */
-[dir="rtl"] .narrative-marker {
-  font-family: var(--font-arabic);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
 
 .narrative-section .journey-band__inner {
   border-top: 0;
