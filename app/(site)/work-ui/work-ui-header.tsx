@@ -13,8 +13,8 @@ export function WorkUiHeader() {
         titleClassName="max-w-[14ch] text-balance-pretty"
         subtitle={
           ar
-            ? "مش صور — دي المواقع الحقيقية شغالة لايف دلوقتي. دوس على أي واحدة تفتحها كاملة."
-            : "Not screenshots — these are the real sites, live right now. Click any card to open it in full."
+            ? "معاينات تفاعلية لمشاريع مختارة. بعض المواقع بتمنع العرض داخل الصفحة؛ افتح الكارت لمشاهدة المشروع مباشرة."
+            : "Interactive previews from selected projects. Some sites block embedding; open a card to inspect the live project."
         }
         subtitleClassName="max-w-[52ch]"
       />
