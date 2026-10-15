@@ -20,7 +20,7 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   timeline: "2023 · Complete brand system, end to end",
   timelineAr: "2023 · نظام براند كامل من الألف للياء",
   kpis: [
-    { value: "0",    label: "Brand system before",    labelAr: "نظام براند قبل",      context: "STARTED FROM STRATEGY",    contextAr: "بدأنا من الاستراتيجية"     },
+    { value: "V2.0", label: "Rebrand of the existing identity", labelAr: "إعادة بناء لهوية قائمة", context: "STARTED FROM STRATEGY",    contextAr: "بدأنا من الاستراتيجية"     },
     { value: "2",    label: "Languages, one lockup",  labelAr: "لغتان في شعار واحد",  context: "AR / EN UNIFIED",          contextAr: "عربي / إنجليزي موحّد"       },
     { value: "4",    label: "Audiences to serve",     labelAr: "جماهير تخدمها",        context: "PATIENTS · FAMILIES · INSURERS · REFERRERS", contextAr: "مرضى · عائلات · تأمين · جهات إحالة" },
   ],
