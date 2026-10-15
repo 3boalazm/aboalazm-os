@@ -224,26 +224,18 @@ export function Nav() {
         </button>
 
         <Link
-          href="/contact"
+          href="/for-hiring"
           className={buttonVariants({
             className:
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {/* One canonical action site-wide (overhaul S1). Long label only
-              where the bar provably fits: below xl the short form keeps the
-              pill inside the viewport (overflow was QA'd at 768–910px). */}
-          {lang === "ar" ? (
-            <>
-              <span className="hidden xl:inline">ابدأ مشروعك</span>
-              <span className="xl:hidden">ابدأ</span>
-            </>
-          ) : (
-            <>
-              <span className="hidden xl:inline">START A PROJECT</span>
-              <span className="xl:hidden">START</span>
-            </>
-          )}
+          {/* The bar's one action serves the owner's stated goal — a full-time
+              brand identity role in the Gulf — and lands on the candidate
+              dossier (roles, CV, the way to reach him), not on the client
+              funnel. "Start a project" stays one tap away: the hero's
+              "Client services" link, /services, /contact, the footer. */}
+          {lang === "ar" ? "وظّفني" : "HIRE ME"}
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"
