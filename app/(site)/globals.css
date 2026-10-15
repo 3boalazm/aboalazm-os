@@ -2360,7 +2360,7 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   WORK FILTER — All / Design / Development segmented control (/work)
+   WORK FILTER — separate identity / digital-product streams (/work)
    ═══════════════════════════════════════════════════════════════════════ */
 .work-filter {
   display: inline-flex;
@@ -2376,6 +2376,8 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.04em;

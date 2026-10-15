@@ -1,17 +1,10 @@
 /**
- * ONE-TIME FIX — corrects the "zad" project's liveUrl in the projects
- * collection from http:// to https://. The site's own iframe embed
- * (/work-ui) is served over HTTPS, so an http:// src there is blocked
- * as mixed content and the preview never loads.
+ * ONE-TIME CMS SYNC — update the existing Zad document to the current
+ * Vercel demo URL. The regular seed is intentionally create-only for
+ * existing slugs, so this small repair keeps the Payload record aligned.
  *
- * This is a data fix, not a schema change — the seed script in
- * scripts/seed.ts only creates documents that don't already exist by
- * slug, so re-running it does not update this field on the existing
- * "zad" record. This script updates that one field on that one
- * existing document and exits.
- *
- * Run once: `npx tsx scripts/fix-zad-live-url.ts`
- * Safe to re-run: no-ops if the URL is already https://.
+ * Run: `npx tsx scripts/fix-zad-live-url.ts`
+ * Safe to re-run: no-ops when both links already match.
  */
 import fs from "fs";
 import path from "path";
@@ -34,8 +27,7 @@ if (fs.existsSync(envPath)) {
 const config = (await import("../payload.config")).default;
 
 const SLUG = "zad";
-const WRONG_URL = "http://zad.codeandcanvas.net";
-const CORRECT_URL = "https://zad.codeandcanvas.net";
+const CORRECT_URL = "https://zadullashr.vercel.app/";
 
 async function main() {
   const payload = await getPayload({ config });
@@ -52,18 +44,18 @@ async function main() {
     process.exit(1);
   }
 
-  if (doc.liveUrl !== WRONG_URL) {
-    console.log(`liveUrl is already "${doc.liveUrl}" — no change needed.`);
+  if (doc.liveUrl === CORRECT_URL && doc.externalUrl === CORRECT_URL) {
+    console.log(`Both links already point to "${CORRECT_URL}" — no change needed.`);
     process.exit(0);
   }
 
   await payload.update({
     collection: "projects",
     id: doc.id,
-    data: { liveUrl: CORRECT_URL },
+    data: { liveUrl: CORRECT_URL, externalUrl: CORRECT_URL },
   });
 
-  console.log(`Fixed: "${SLUG}".liveUrl → "${CORRECT_URL}"`);
+  console.log(`Updated: "${SLUG}" links → "${CORRECT_URL}"`);
 }
 
 main().catch((err) => {

@@ -168,6 +168,7 @@ async function seedProjects(payload: Awaited<ReturnType<typeof getPayload>>) {
         outcome: p.outcome,
         outcomeAr: p.outcomeAr,
         year: p.year,
+        status: p.status ?? "complete",
         thumbnail,
         hasCaseStudy: p.hasCaseStudy,
         isUiUx: p.isUiUx,

@@ -58,6 +58,13 @@
   animation: hero-settle var(--duration-cinematic) var(--ease-entrance) backwards;
 }
 
+/* Keep the earlier portfolio-first hero proportions: a compact display scale
+   leaves room for the status, name, two actions and metrics above the fold. */
+.home-hero h1 em { font-style: normal; }
+@media (min-width: 64rem) {
+  .home-hero { --text-hero: clamp(3.5rem, 2.5rem + 1.5625vw, 4.5rem); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-line,
   .hero-rise,
