@@ -17,6 +17,7 @@ import { mergeCuratedDevelopmentProjects } from "@/features/work/project-curatio
 import { GAD_INSTITUTE } from "@/features/case-studies/gad-institute.data";
 import { NILE_PHARMA } from "@/features/case-studies/demo.data";
 import { applyReviewedClaims } from "@/features/case-studies/reviewed-claims";
+import { normalizeCmsText } from "./cms-text";
 import { REFLECTION } from "@/features/case-studies/reflection.data";
 import { AHMED_BEDEER } from "@/features/case-studies/ahmed-bedeer.data";
 import { CODE_CANVAS } from "@/features/case-studies/code-canvas.data";
@@ -140,7 +141,7 @@ export async function getUiUxProjects(): Promise<Project[]> {
         overrideAccess: false,
       });
       if (res.docs.length > 0) {
-        return mergeCuratedDevelopmentProjects(res.docs.map(toProject)).filter((p) => p.isUiUx && p.liveUrl);
+        return mergeCuratedDevelopmentProjects(res.docs.map((d) => normalizeCmsText(toProject(d)))).filter((p) => p.isUiUx && p.liveUrl);
       }
     } catch {
       // Fall through to static
@@ -160,7 +161,7 @@ export async function getProjects(): Promise<Project[]> {
         sort: "-year",
         overrideAccess: false,
       });
-      if (res.docs.length > 0) return mergeCuratedDevelopmentProjects(res.docs.map(toProject));
+      if (res.docs.length > 0) return mergeCuratedDevelopmentProjects(res.docs.map((d) => normalizeCmsText(toProject(d))));
     } catch {
       // Fall through to static
     }
@@ -239,7 +240,8 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
       });
       const doc = res.docs[0];
       if (doc) {
-        const record = toCaseStudy(doc);
+        // Arabic text from the row: Latin digits, and the client's own name (see cms-text.ts).
+        const record = normalizeCmsText(toCaseStudy(doc));
         const staticRecord = STATIC_CASE_STUDIES[slug];
         if (staticRecord) {
           record.narrativeAnswers = staticRecord.narrativeAnswers;
@@ -335,12 +337,14 @@ export async function getCaseStudyGallery(slug: string): Promise<GalleryItem[]> 
       });
       const doc = res.docs[0];
       if (doc && (doc.images ?? []).length > 0) {
-        return (doc.images ?? []).map((img) => ({
-          src: mediaUrl(img.image),
-          caption: img.caption ?? "",
-          captionAr: img.captionAr ?? undefined,
-          span: img.span ?? undefined,
-        }));
+        return normalizeCmsText(
+          (doc.images ?? []).map((img) => ({
+            src: mediaUrl(img.image),
+            caption: img.caption ?? "",
+            captionAr: img.captionAr ?? undefined,
+            span: img.span ?? undefined,
+          })),
+        );
       }
     } catch {
       // Fall through to static
@@ -403,7 +407,7 @@ export async function getOffers(): Promise<{
       }));
 
       if (tiers.length > 0) {
-        return { tiers, investmentValue: offers.investmentValue ?? [], alaCarte };
+        return normalizeCmsText({ tiers, investmentValue: offers.investmentValue ?? [], alaCarte });
       }
     } catch {
       // Fall through
@@ -556,7 +560,7 @@ export async function getGalleryData(): Promise<{
           }),
         );
 
-        return { projects, images };
+        return normalizeCmsText({ projects, images });
       }
     } catch {
       // Fall through
