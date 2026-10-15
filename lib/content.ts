@@ -16,6 +16,7 @@ import { PROJECTS as STATIC_PROJECTS } from "@/features/work/projects.data";
 import { mergeCuratedDevelopmentProjects } from "@/features/work/project-curation";
 import { GAD_INSTITUTE } from "@/features/case-studies/gad-institute.data";
 import { NILE_PHARMA } from "@/features/case-studies/demo.data";
+import { applyReviewedClaims } from "@/features/case-studies/reviewed-claims";
 import { REFLECTION } from "@/features/case-studies/reflection.data";
 import { AHMED_BEDEER } from "@/features/case-studies/ahmed-bedeer.data";
 import { CODE_CANVAS } from "@/features/case-studies/code-canvas.data";
@@ -244,7 +245,9 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
           record.narrativeAnswers = staticRecord.narrativeAnswers;
           record.designProofItems = staticRecord.designProofItems;
         }
-        return record;
+        // KPI / outcome tiles the reviewed source retired but the database row
+        // still holds (see reviewed-claims.ts) — narrow, exact-match only.
+        return applyReviewedClaims(record, staticRecord);
       }
     } catch {
       // Fall through to static
