@@ -1,3 +1,4 @@
+import { GAD_SHORT_AR } from "./client-names";
 // AUTO-GENERATED gallery data — cross-project image gallery.
 // Aggregates brand imagery from every case study, grouped by project.
 
@@ -20,7 +21,7 @@ export interface GalleryImage {
 
 export const GALLERY_PROJECTS: readonly GalleryProject[] = [
   { slug: "nile-pharma", label: "Nile Pharma Food", labelAr: "نايل فارما", accent: "#4263EB", href: "/case-studies/nile-pharma" },
-  { slug: "gad-institute", label: "GAD Institute", labelAr: "معهد GAD", accent: "#1E72C8", href: "/case-studies/gad-institute" },
+  { slug: "gad-institute", label: "GAD Institute", labelAr: GAD_SHORT_AR, accent: "#1E72C8", href: "/case-studies/gad-institute" },
   { slug: "reflection", label: "Reflection", labelAr: "ريفلكشن", accent: "#A06BD0", href: "/case-studies/reflection" },
   { slug: "ahmed-bedeer", label: "Ahmed Bedeer", labelAr: "أحمد بدير", accent: "#15A0C8", href: "/case-studies/ahmed-bedeer" },
   { slug: "code-canvas", label: "Code & Canvas", labelAr: "كود آند كانفاس", accent: "#8A63D2", href: "/case-studies/code-canvas" },

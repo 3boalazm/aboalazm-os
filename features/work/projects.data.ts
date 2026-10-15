@@ -4,6 +4,7 @@
  * Payload rows so newly approved work and link updates appear in either mode.
  */
 import type { Project } from "./types";
+import { GAD_NAME_AR } from "../../lib/client-names";
 
 export const BEHANCE = "https://www.behance.net/aboalazm";
 
@@ -45,7 +46,7 @@ export const PROJECTS: readonly Project[] = [
   {
     slug: "gad-institute",
     name: "GAD Heart & Lungs Institute",
-    nameAr: "معهد GAD للقلب والرئة",
+    nameAr: GAD_NAME_AR,
     category: "design",
     discipline: "Systemic Identity",
     stack: ["Brand Strategy", "Bilingual Identity", "Guidelines"],

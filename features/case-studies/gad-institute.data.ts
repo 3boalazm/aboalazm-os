@@ -1,10 +1,11 @@
 /** GAD HEART & LUNGS INSTITUTE — Complete Brand System · Healthcare */
 import type { CaseStudyRecord } from "./types";
+import { GAD_NAME_AR } from "../../lib/client-names";
 
 export const GAD_INSTITUTE: CaseStudyRecord = {
   slug: "gad-institute",
   name: "GAD Heart & Lungs Institute",
-  nameAr: "معهد GAD للقلب والرئة",
+  nameAr: GAD_NAME_AR,
   discipline: "Systemic Identity",
   accent: {
     primary: "rgb(0 88 149 / 0.22)",

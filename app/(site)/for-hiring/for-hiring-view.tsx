@@ -8,6 +8,7 @@ import { Heading } from "@/components/ui/Heading";
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
 import { buttonVariants } from "@/components/ui/Button";
+import { GAD_NAME_AR } from "@/lib/client-names";
 
 interface CaseBrief {
   slug: string;
@@ -33,7 +34,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
   {
     slug: "gad-institute",
     name: "GAD Heart & Lungs Institute",
-    nameAr: "معهد GAD للقلب والرئة",
+    nameAr: GAD_NAME_AR,
     category: "Healthcare Brand Identity",
     categoryAr: "هوية رعاية صحية متخصصة",
     thumbnail: "/images/work/gad/gad-card.jpg",
