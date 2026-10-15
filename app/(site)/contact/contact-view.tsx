@@ -149,7 +149,7 @@ export function ContactView() {
           {x.steps.map((s) => (
             <PanelCard key={s.n} className="flex flex-col gap-2 rounded-card p-4">
               <span className="font-mono text-micro text-accent">{s.n}</span>
-              <p className="font-display font-[700] text-body text-text-primary">{s.name}</p>
+              <p className="font-display font-display-sm font-[700] text-body text-text-primary">{s.name}</p>
               <p className="text-body-sm text-text-secondary">{s.body}</p>
               {"cta" in s && s.cta ? (
                 <a

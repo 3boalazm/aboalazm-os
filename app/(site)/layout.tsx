@@ -81,7 +81,7 @@ export default function RootLayout({
   // every other page the headline was first painted in the fallback and then
   // re-set when GC EPICPRO arrived ~200 ms later — an extra-wide face, so the
   // H1 wrapped onto more lines and pushed the page down (CLS /services 0.29,
-  // /for-hiring 0.17, /gallery 0.11, against Home's 0.001). 13 KB, same file.
+  // /for-hiring 0.17, against Home's 0.001). 13 KB, same file.
   preload("/fonts/Gc_Epicpro.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
 
   // suppressHydrationWarning on <html>: the anti-flash script below (and
