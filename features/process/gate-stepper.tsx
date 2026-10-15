@@ -66,7 +66,7 @@ const GATES_EN: Gate[] = [
     phase: "Closes Phase 04 — Refine & Deliver",
     signOff: "Final delivery receipt — you approve the complete system, guidelines, and file package. IP transfers on final payment.",
     locks: "The governed system is deployed. Developers receive exact token values, not guesses.",
-    payment: "Final 25–50% before files release",
+    payment: "Balance before files: 25% (Tiers 2–3) · 50% (Tier 1)",
   },
 ];
 
@@ -105,7 +105,7 @@ const GATES_AR: Gate[] = [
     phase: "يُغلق المرحلة ٠٤ — المراجعة والتسليم",
     signOff: "إيصال التسليم النهائي — توافق على النظام الكامل والدليل وحزمة الملفات. تنتقل الملكية عند الدفعة الأخيرة.",
     locks: "النظام المحكوم يُنشَر. المطورون يستلمون قيم توكنز دقيقة، لا تخمينات.",
-    payment: "الـ٢٥–٥٠٪ الأخيرة قبل تسليم الملفات",
+    payment: "الباقي قبل تسليم الملفات: ٢٥٪ (الفئتان ٢ و٣) · ٥٠٪ (الفئة ١)",
   },
 ];
 

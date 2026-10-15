@@ -14,6 +14,7 @@ import { getSiteGraphSchema } from "@/lib/structured-data";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE_URL } from "@/lib/site";
 import { BOOT_SCRIPT } from "@/lib/boot-script";
+import { PwaRegistration } from "@/components/pwa/pwa-registration";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,10 +41,19 @@ export const metadata: Metadata = {
   robots: {
     googleBot: { "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
+  manifest: "/manifest.webmanifest",
   icons: {
-    icon: "/images/work/icon.png",
+    icon: [
+      { url: "/images/work/icon.png", sizes: "256x256", type: "image/png" },
+      { url: "/icons/app-192.png", sizes: "192x192", type: "image/png" },
+    ],
     shortcut: "/images/work/icon.png",
-    apple: "/images/work/icon.png",
+    apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  appleWebApp: {
+    capable: true,
+    title: "Aboalazm",
+    statusBarStyle: "black-translucent",
   },
   openGraph: {
     type: "website",
@@ -93,6 +103,7 @@ export default function RootLayout({
         <JsonLd data={getSiteGraphSchema()} />
       </head>
       <body className="bg-surface-0 text-text-primary antialiased">
+        <PwaRegistration />
         <AmbientCanvas />
         <ThemeProvider>
           <LangProvider>

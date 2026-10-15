@@ -1,6 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
 import { Heading } from "@/components/ui/Heading";
@@ -140,6 +141,7 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
           <li key={post.slug}>
             <Link
               href={`/writing/${post.slug}`}
+              onClick={() => trackEvent("insight_open", { slug: post.slug, surface: "archive" })}
               className="group grid grid-cols-[4rem_minmax(0,1fr)] items-baseline gap-2 border-b border-border-subtle py-3 md:grid-cols-[4rem_minmax(0,1fr)_auto]"
             >
               <span className="font-mono text-micro text-text-ghost">{post.index}</span>

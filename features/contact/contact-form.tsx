@@ -6,6 +6,7 @@
  * Fully bilingual via useT() + useLang().
  */
 import { useEffect, useRef, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 import { motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
@@ -100,6 +101,7 @@ export function ContactForm() {
       form.reset();
       setBudget(null);
       setStatus("sent");
+      trackEvent("contact_submit", { locale: ar ? "ar" : "en" });
     } catch {
       if (mounted.current) setStatus("error");
     } finally {
@@ -108,7 +110,7 @@ export function ContactForm() {
   }
 
   return (
-    <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 shadow-card">
+    <div className="contact-form-panel rounded-panel border border-border-subtle bg-surface-1 p-4 shadow-card">
       {/* Live regions exist from first paint — text added together with its
           region is not announced. This one carries the confirmation; the
           form has its own polite/alert regions under the submit button. */}

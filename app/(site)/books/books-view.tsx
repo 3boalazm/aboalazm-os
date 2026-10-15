@@ -68,7 +68,10 @@ export function BooksView() {
                 </div>
                 <div className="flex items-center justify-between border-t border-border-subtle pt-4">
                   <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary">
-                    {book.chapterCount} {ar ? "فصلًا · 3 رحلات" : "chapters · 3 journeys"}
+                    {book.chapterCount}{" "}
+                    {ar
+                      ? `فصلًا · ${book.journeys.length} رحلات`
+                      : `chapters · ${book.journeys.length} journeys`}
                   </span>
                   <span className="inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.06em] text-accent">
                     {ar ? "اقرأ" : "READ"}

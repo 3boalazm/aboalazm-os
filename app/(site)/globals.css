@@ -682,20 +682,6 @@ html[data-theme="light"] {
     font-style: normal;
   }
 
-  /* Hero headline. From `lg` the hero is a two-column split and the type gets
-     ~740px, so the old 7.5vw (≈102px at 1366) wrapped the three authored lines
-     into eight and pushed the buttons below the fold on every laptop. Same
-     face and weight, sized so the authored lines fit the column — five lines
-     (60px at 1280, 64px at 1536), with the name, the work and both buttons in
-     the first screen. The coordinates row only shows from 2xl, where it fits
-     beside the status pill instead of wrapping under it.
-     Below `lg` the single-column layout keeps the original fluid size. */
-  @media (min-width: 64rem) {
-    :root {
-      --text-hero: clamp(3.5rem, 2.5rem + 1.5625vw, 4.5rem);
-    }
-  }
-
   /*
    * BODY-TEXT FONT LOCK.
    * Running-text utilities must resolve to the sans stack (Montserrat in
@@ -2419,7 +2405,7 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   WORK FILTER — All / Design / Development segmented control (/work)
+   WORK FILTER — separate identity / digital-product streams (/work)
    ═══════════════════════════════════════════════════════════════════════ */
 .work-filter {
   display: inline-flex;
@@ -2435,6 +2421,8 @@ html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
   font-family: var(--font-mono);
   font-size: var(--text-micro);
   letter-spacing: 0.04em;
@@ -2621,4 +2609,13 @@ html {
   .scroll-progress {
     transform: scaleX(1) !important;
   }
+}
+
+
+/* Contact form: the general light-theme tertiary/ghost ramp is intentionally
+   quiet, but micro-labels and placeholders in a conversion form must remain
+   readable. Scope stronger values to this panel without changing site-wide hierarchy. */
+html[data-theme="light"] .contact-form-panel {
+  --color-text-tertiary: rgb(8 7 16 / 0.68);
+  --color-text-ghost: rgb(8 7 16 / 0.60);
 }

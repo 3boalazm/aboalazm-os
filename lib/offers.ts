@@ -152,3 +152,15 @@ export const PAYMENT = {
   t23: { title: ["Tier 2 & 3 — Brand Identity", "الفئتان ٢ و٣ — الهوية البصرية"], split: "50% / 25% / 25%", steps: [["50% at Kickoff", "٥٠٪ عند البدء"], ["25% at Strategy Sign-off", "٢٥٪ عند اعتماد الاستراتيجية"], ["25% before final delivery", "٢٥٪ قبل التسليم النهائي"]] },
   methods: ["Bank transfer (local / international) · PayPal & Wise (international) · Electronic wallets (local) · Cash for in-person meetings. Transfer fees may apply.", "تحويل بنكي (محلي / دولي) · PayPal وWise (للعملاء الدوليين) · محافظ إلكترونية (محليًا) · كاش للمقابلات المباشرة. قد تُضاف رسوم تحويل حسب الوسيلة."],
 } as const;
+
+/**
+ * The one-line terms ruling — THE single source of truth (overhaul S3,
+ * QA #19-22/#66). Every page that mentions payment says exactly this or
+ * links here; never paraphrase it locally again.
+ * Rule: kickoff is always 50%; the balance depends on the tier
+ * (Tier 1: 50 before files · Tiers 2–3: 25 at strategy sign-off + 25 before delivery).
+ */
+export const TERMS_LINE: readonly [string, string] = [
+  "How payment works: 50% kickoff for every tier. The balance is due before final files — Tier 1 pays it as one 50% installment, Tiers 2–3 as 25% at strategy sign-off + 25% before delivery. No work before the deposit; no files before the balance — it protects both sides.",
+  "إزاي بيتم الدفع: ٥٠٪ مقدّم لكل الفئات. الباقي قبل تسليم الملفات النهائية — الفئة ١ دفعة واحدة ٥٠٪، والفئتان ٢ و٣: ٢٥٪ عند اعتماد الاستراتيجية + ٢٥٪ قبل التسليم. لا بدء بدون مقدّم ولا ملفات قبل الباقي — حماية للطرفين.",
+] as const;

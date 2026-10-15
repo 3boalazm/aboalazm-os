@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "@/components/providers/lang-provider";
+import { trackEvent } from "@/lib/analytics";
 import { Heading } from "@/components/ui/Heading";
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
@@ -301,6 +302,7 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-3 pt-2">
           <a
             href="/cv"
+            onClick={() => trackEvent("cv_download")}
             download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >

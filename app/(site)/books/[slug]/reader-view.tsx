@@ -10,9 +10,23 @@ export function ReaderView({ book }: { book: Book }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const chapterMenuTriggerRef = useRef<HTMLButtonElement>(null);
   const [pct, setPct] = useState(0);
   const [active, setActive] = useState<string>(book.journeys[0]?.chapters[0]?.id ?? "");
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Escape dismisses the chapter drawer; focus stays on its trigger button.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        chapterMenuTriggerRef.current?.focus();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [menuOpen]);
 
   // listen for scroll progress + active chapter from the isolated bundle
   useEffect(() => {
@@ -32,6 +46,7 @@ export function ReaderView({ book }: { book: Book }) {
   function goto(id: string) {
     iframeRef.current?.contentWindow?.postMessage({ type: "bk-goto", id }, window.location.origin);
     setMenuOpen(false);
+    chapterMenuTriggerRef.current?.focus();
   }
 
   const allChapters = book.journeys.flatMap((j) => j.chapters);
@@ -66,6 +81,7 @@ export function ReaderView({ book }: { book: Book }) {
         </div>
 
         <button
+          ref={chapterMenuTriggerRef}
           type="button"
           onClick={() => setMenuOpen((v) => !v)}
           className="flex shrink-0 items-center gap-2 rounded-pill border border-border-subtle px-3 py-1.5 font-mono text-micro uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-border-strong"

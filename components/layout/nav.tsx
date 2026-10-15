@@ -21,33 +21,29 @@ import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SkipLink } from "./skip-link";
 
+/* Primary nav — overhaul 2026-10-14: six destinations + one CTA.
+   Benchmark rule (docs/overhaul-2026-10-14/01): no world-class studio
+   runs more than 5–6 primary links. FOR HIRING deliberately left the bar:
+   the homepage now sells the studio, recruiting lives on its own page. */
 const LINKS = [
-  { href: "/about",      en: "ABOUT",          ar: "نبذة"       },
-  { href: "/work",       en: "WORK",           ar: "الأعمال"    },
-  { href: "/for-hiring", en: "FOR HIRING",     ar: "للتوظيف"    },
-  { href: "/services",   en: "SERVICES",       ar: "الخدمات"    },
-  { href: "/pricing",    en: "PRICING",        ar: "التسعير"    },
+  { href: "/work",     en: "WORK",     ar: "الأعمال"  },
+  { href: "/services", en: "SERVICES", ar: "الخدمات"  },
+  { href: "/pricing",  en: "PRICING",  ar: "التسعير"  },
+  { href: "/process",  en: "PROCESS",  ar: "المنهجية" },
+  { href: "/writing",  en: "WRITING",  ar: "مقالات"   },
+  { href: "/about",    en: "ABOUT",    ar: "نبذة"     },
 ] as const;
 
-/* Secondary set — mobile panel + footer carry these.
+/* Secondary set — the mobile panel is the only place these live outside
+   the footer. Routes stay reachable; the 12-item "MORE" sink is gone.
    PORTFOLIO PDF is pinned LAST on purpose: the 16:9 slide deck is the
    "take me with you" exit at the very end of the menu. */
 const MORE = [
-  { href: "/start", en: "START HERE", ar: "ابدأ هنا" },
+  { href: "/for-hiring", en: "FOR HIRING", ar: "للتوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
-  { href: "/gallery", en: "GALLERY", ar: "المعرض" },
-  { href: "/why", en: "WHY", ar: "لماذا" },
-  { href: "/process", en: "PROCESS", ar: "المنهجية" },
-  { href: "/agreement", en: "AGREEMENT", ar: "الاتفاقية" },
-  { href: "/writing", en: "WRITING", ar: "مقالات" },
-  { href: "/capabilities", en: "CAPABILITIES", ar: "القدرات" },
-  { href: "/resources", en: "RESOURCES", ar: "المصادر" },
   { href: "/labs", en: "LABS", ar: "المعمل" },
-  { href: "/work-ui", en: "UI/UX SHOWCASE", ar: "معرض الواجهات" },
   { href: "/portfolio", en: "PORTFOLIO PDF ↓", ar: "بورتفوليو PDF ↓" },
 ] as const;
-
-type NavLink = { readonly href: string; readonly en: string; readonly ar: string };
 
 /* Exact match or a child route — a bare startsWith made /work claim /work-ui */
 const isActive = (pathname: string, href: string) =>
@@ -74,15 +70,6 @@ export function Nav() {
   /* Close the mobile panel on route change */
   useEffect(() => setOpen(false), [pathname]);
 
-  /* The secondary set sits behind "More" so the panel opens on the five pages
-     that matter, not on a 17-row list. It opens by itself when the visitor is
-     already on one of those pages, so the current page is never hidden. */
-  const onSecondary = MORE.some((l) => isActive(pathname, l.href));
-  const [moreOpen, setMoreOpen] = useState(false);
-  useEffect(() => {
-    if (open) setMoreOpen(onSecondary);
-  }, [open, onSecondary]);
-
   /* Close the panel and park focus on its trigger: the panel unmounts
      under whatever link was focused, which would drop focus to <body>. */
   const closePanel = () => {
@@ -107,37 +94,6 @@ export function Nav() {
       document.removeEventListener("pointerdown", onPointerDown);
     };
   }, [open]);
-
-  /* One row of the mobile panel — used for both the primary and the More list. */
-  const renderItem = (link: NavLink, i: number) => {
-    const active = isActive(pathname, link.href);
-    const label = lang === "ar" ? link.ar : link.en;
-    const download = label.endsWith("↓");
-    return (
-      <motion.li
-        key={link.href}
-        initial={reduceMotion ? false : { opacity: 0, x: -8 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ ...physics, delay: 0.05 * i }}
-      >
-        <Link
-          href={link.href}
-          aria-current={active ? "page" : undefined}
-          onClick={closePanel}
-          className={[
-            "flex items-center gap-1.5 rounded-card px-2 py-2 font-display font-display-sm text-micro uppercase tracking-[0.08em]",
-            "transition-colors duration-base ease-physics",
-            active
-              ? "text-accent"
-              : "text-text-secondary hover:bg-surface-2 hover:text-text-primary",
-          ].join(" ")}
-        >
-          {label.replace(/\s*↓$/, "")}
-          {download && <Icon name="arrow-down" size="0.9em" className="text-text-ghost" />}
-        </Link>
-      </motion.li>
-    );
-  };
 
   /* Plain <nav>: the old opacity:0 entrance left it invisible in the SSR
      HTML (and for ~1s after hydration, or forever without JS). */
@@ -274,7 +230,20 @@ export function Nav() {
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {lang === "ar" ? "تواصل" : "CONTACT"}
+          {/* One canonical action site-wide (overhaul S1). Long label only
+              where the bar provably fits: below xl the short form keeps the
+              pill inside the viewport (overflow was QA'd at 768–910px). */}
+          {lang === "ar" ? (
+            <>
+              <span className="hidden xl:inline">ابدأ مشروعك</span>
+              <span className="xl:hidden">ابدأ</span>
+            </>
+          ) : (
+            <>
+              <span className="hidden xl:inline">START A PROJECT</span>
+              <span className="xl:hidden">START</span>
+            </>
+          )}
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"
@@ -309,35 +278,43 @@ export function Nav() {
             transition={physics}
             className="glass mt-1 flex max-h-[calc(100svh-7rem)] flex-col overflow-y-auto overscroll-contain rounded-panel p-2 shadow-card lg:hidden"
           >
-            {LINKS.map((link, i) => renderItem(link, i))}
-
-            <li className="mt-1 border-t border-border-subtle pt-1">
-              <button
-                type="button"
-                aria-expanded={moreOpen}
-                aria-controls="mobile-menu-more"
-                onClick={() => setMoreOpen((v) => !v)}
-                className="flex w-full items-center justify-between gap-1.5 rounded-card px-2 py-2 font-display font-display-sm text-micro uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:bg-surface-2 hover:text-text-primary"
-              >
-                <span>{lang === "ar" ? "المزيد" : "MORE"}</span>
-                <Icon
-                  name="chevron-down"
-                  size="0.9em"
-                  className={[
-                    "transition-transform duration-base ease-physics",
-                    moreOpen ? "rotate-180" : "",
-                  ].join(" ")}
-                />
-              </button>
-              {/* A bare `hidden` attribute would not hold: the `flex` class is
-                  an author-level display rule and beats the UA's [hidden]. */}
-              <ul
-                id="mobile-menu-more"
-                className={moreOpen ? "flex flex-col" : "hidden"}
-              >
-                {MORE.map((link, i) => renderItem(link, i))}
-              </ul>
-            </li>
+            {[...LINKS, ...MORE].map((link, i) => {
+              const active = isActive(pathname, link.href);
+              return (
+                <motion.li
+                  key={link.href}
+                  initial={reduceMotion ? false : { opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ ...physics, delay: 0.05 * i }}
+                >
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    onClick={closePanel}
+                    className={[
+                      "flex items-center gap-1.5 rounded-card px-2 py-2 font-display font-display-sm text-micro uppercase tracking-[0.08em]",
+                      "transition-colors duration-base ease-physics",
+                      active
+                        ? "text-accent"
+                        : "text-text-secondary hover:bg-surface-2 hover:text-text-primary",
+                    ].join(" ")}
+                  >
+                    {(() => {
+                      const label = lang === "ar" ? link.ar : link.en;
+                      const download = label.endsWith("↓");
+                      return (
+                        <>
+                          {label.replace(/\s*↓$/, "")}
+                          {download && (
+                            <Icon name="arrow-down" size="0.9em" className="text-text-ghost" />
+                          )}
+                        </>
+                      );
+                    })()}
+                  </Link>
+                </motion.li>
+              );
+            })}
             {/* The bar hides its theme toggle below 360px (no room), so the
                 panel carries it there. */}
             <li className="hidden border-t border-border-subtle pt-1 max-[359px]:block">
