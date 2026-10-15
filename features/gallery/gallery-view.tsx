@@ -66,7 +66,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
 
   /* keyboard + scroll-lock while lightbox is open */
   useEffect(() => {
-    if (lightbox === null) return;
+    if (!isOpen) return;
     // Deliberate: arrow keys follow the screen, not the DOM order. In RTL the
     // "previous" button sits on the right, so ArrowRight steps back and
     // ArrowLeft steps forward (the reverse of the pre-fix Arabic behaviour).
@@ -99,11 +99,15 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
     window.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.dataset.modalOpen = "true";
+    window.dispatchEvent(new Event("smooth-scroll:stop"));
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
+      delete document.documentElement.dataset.modalOpen;
+      window.dispatchEvent(new Event("smooth-scroll:start"));
     };
-  }, [lightbox, close, go, ar]);
+  }, [isOpen, close, go, ar]);
 
   /* move focus into the dialog on open, hand it back to the tile on close */
   useEffect(() => {
@@ -329,7 +333,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.3, ease: EASE }}
                   onClick={(e) => e.stopPropagation()}
-                  className="flex max-h-full max-w-[min(1100px,92vw)] flex-col gap-3"
+                  className="flex max-h-full max-w-[calc(100vw-8rem)] flex-col gap-3 md:max-w-[min(1100px,92vw)]"
                 >
                   <Image
                     src={img.src}
@@ -337,7 +341,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                     width={img.w}
                     height={img.h}
                     sizes="92vw"
-                    className="mx-auto max-h-[78vh] w-auto rounded-card object-contain"
+                    className="mx-auto max-h-[78vh] w-auto max-w-full rounded-card object-contain"
                   />
                   <figcaption className="flex flex-wrap items-center justify-between gap-3">
                     <span className="flex items-center gap-2">
