@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
-import { PROCESS, type Bi } from "@/lib/offers";
+import { PROCESS, TERMS_LINE, type Bi } from "@/lib/offers";
 import { SectionHead, TierGrid, Faq, CtaBand, pick } from "@/features/offers/offer-blocks";
 import { Heading } from "@/components/ui/Heading";
 import { buttonVariants } from "@/components/ui/Button";
@@ -21,7 +21,7 @@ const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ['What\'s included in a "Brand Guidelines" document?', "ماذا يتضمن دليل الهوية؟"], a: ["A 20–40 page PDF covering logo usage (do's & don'ts), color codes (HEX/RGB/CMYK/Pantone), typography hierarchy, spacing rules, voice & tone, and ready-to-use templates — designed for your team to apply the brand without me.", "ملف PDF من ٢٠–٤٠ صفحة يغطي استخدامات الشعار، أكواد الألوان، هرمية الخطوط، قواعد المسافات، نبرة الصوت، وقوالب جاهزة — ليطبّق فريقك الهوية بدوني."] },
   { q: ["How many revision rounds do I get?", "كم جولة مراجعة لديّ؟"], a: ["Two structured rounds are included. After that, additional revisions are billed hourly — not a limit on your input, but a structure that protects the strategy from ad-hoc erosion.", "جولتان منظمتان ضمن السعر، وما بعدهما يُحاسب بالساعة — ليس تقييدًا لرأيك بل حماية للاستراتيجية من التعديلات العشوائية."] },
   { q: ["Do you work with international clients?", "هل تتعامل مع عملاء دوليين؟"], a: ["Yes — most communication is over email and Notion with weekly video calls. I work in both English and Arabic, with clients across MENA and beyond.", "نعم — أغلب التواصل عبر الإيميل وNotion مع مكالمات أسبوعية، وأعمل بالعربية والإنجليزية مع عملاء في المنطقة وخارجها."] },
-  { q: ["How does payment work?", "كيف يتم الدفع؟"], a: ["50% deposit before kickoff, 50% before final file delivery. Bank transfer, Vodafone Cash, or international wire. No start without deposit, no final files without balance — protects both sides.", "٥٠٪ مقدّم قبل البدء و٥٠٪ قبل تسليم الملفات النهائية — تحويل بنكي أو فودافون كاش أو تحويل دولي. لا بداية بدون المقدّم ولا تسليم بدون الباقي، حمايةً للطرفين."] },
+  { q: ["How does payment work?", "كيف يتم الدفع؟"], a: [TERMS_LINE[0] + " Bank transfer, Vodafone Cash, or international wire.", TERMS_LINE[1] + " تحويل بنكي أو فودافون كاش أو تحويل دولي."] },
   { q: ["Can you also build the website?", "هل تبني الموقع أيضًا؟"], a: ["Yes — responsive WordPress sites (and Webflow when it fits), from landing pages to full corporate sites. Best done with the identity so the system stays cohesive.", "نعم — مواقع ووردبريس متجاوبة (وWebflow عند الحاجة)، والأفضل تنفيذها مع الهوية ليبقى النظام متماسكًا."] },
   { q: ["What if I just need a logo, not the full system?", "ماذا لو أحتاج شعارًا فقط؟"], a: ["Logo-only sprints exist under Tier 01 — but honestly, a logo without strategy is a coin flip. If budget is tight, we shrink the system, not skip the strategy.", "متاح ضمن الفئة ٠١ — لكن بصراحة: شعار بدون استراتيجية رهان عشوائي. لو الميزانية ضيقة نُصغّر النظام، لا نتخطى الاستراتيجية."] },
 ];

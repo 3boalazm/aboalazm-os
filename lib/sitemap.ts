@@ -19,7 +19,6 @@ const STATIC_ROUTES = [
   "/work",
   "/for-hiring",
   "/work-ui",
-  "/gallery",
   "/services",
   "/pricing",
   "/agreement",
@@ -27,7 +26,6 @@ const STATIC_ROUTES = [
   "/about",
   "/why",
   "/process",
-  "/start",
   "/writing",
   "/books",
   "/labs",
@@ -38,7 +36,6 @@ const STATIC_ROUTES = [
 
 const STATIC_PRIORITY: Record<string, number> = {
   "": 1,
-  "/start": 0.9,
   "/portfolio": 0.85,
 };
 

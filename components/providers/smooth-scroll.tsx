@@ -39,6 +39,10 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     let cancelled = false;
     let tick: ((time: number) => void) | null = null;
+    const stop = () => lenisRef.current?.stop();
+    const resume = () => lenisRef.current?.start();
+    window.addEventListener("smooth-scroll:stop", stop);
+    window.addEventListener("smooth-scroll:start", resume);
 
     const start = async () => {
       // Smoothing is an enhancement: if the chunk fails to load (offline,
@@ -54,6 +58,8 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         touchMultiplier: 1.4,
       });
       lenisRef.current = lenis;
+      // A modal may have opened before this idle-loaded enhancement initialized.
+      if (document.documentElement.dataset.modalOpen === "true") lenis.stop();
 
       lenis.on("scroll", updateScrollTrigger);
 
@@ -70,6 +76,8 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
 
     return () => {
       cancelled = true;
+      window.removeEventListener("smooth-scroll:stop", stop);
+      window.removeEventListener("smooth-scroll:start", resume);
       if (hasIdleCallback) window.cancelIdleCallback(handle);
       else window.clearTimeout(handle);
       if (tick) gsap.ticker.remove(tick);

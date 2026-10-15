@@ -7,6 +7,7 @@
  * understand the work.
  */
 import Image from "next/image";
+import { trackEvent } from "@/lib/analytics";
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Badge } from "@/components/ui/Badge";
@@ -19,7 +20,10 @@ import { BEHANCE } from "./projects.data";
 import { cardArt } from "./card-art";
 import type { Project } from "./types";
 
-const FEATURED_SLUGS = ["gad-institute", "reflection", "nile-pharma"] as const;
+const FEATURED_SLUGS = {
+  design: ["gad-institute", "reflection", "nile-pharma"],
+  development: ["momo-collective", "zad", "farm-console"],
+} as const;
 
 const STORIES: Record<string, { challenge: string; challengeAr: string }> = {
   "gad-institute": {
@@ -46,7 +50,8 @@ const STORIES: Record<string, { challenge: string; challengeAr: string }> = {
 
 export function pickFeatured(projects: readonly Project[], count = 3): Project[] {
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
-  const preferred = FEATURED_SLUGS.map((slug) => bySlug.get(slug)).filter((p): p is Project => Boolean(p));
+  const category = projects[0]?.category ?? "design";
+  const preferred = FEATURED_SLUGS[category].map((slug) => bySlug.get(slug)).filter((p): p is Project => Boolean(p));
   if (preferred.length >= count) return preferred.slice(0, count);
 
   const used = new Set(preferred.map((p) => p.slug));
@@ -60,6 +65,9 @@ interface FeaturedCasesProps {
   projects: readonly Project[];
   /** Home uses an in-page proof block; /work can hide the heading. */
   heading?: "home" | "page" | "none";
+  /** Keep identity work and shipped digital products as distinct showcases. */
+  variant?: "identity" | "digital";
+  sectionId?: string;
   showIndexLink?: boolean;
   contained?: boolean;
 }
@@ -67,6 +75,8 @@ interface FeaturedCasesProps {
 export function FeaturedCases({
   projects,
   heading = "home",
+  variant = "identity",
+  sectionId,
   showIndexLink = true,
   contained = true,
 }: FeaturedCasesProps) {
@@ -78,16 +88,26 @@ export function FeaturedCases({
 
   return (
     <Section
-      id="selected-work"
+      id={sectionId ?? (variant === "digital" ? "home-digital-products" : "selected-work")}
       density={contained ? "default" : "compact"}
       className={joinClasses(contained && "container-wide", "flex scroll-mt-16 flex-col gap-6")}
     >
       {heading === "none" ? null : (
         <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
           <div className="flex max-w-[46ch] flex-col gap-1">
-            <SectionLabel>{ar ? "أعمال مختارة" : "Selected work"}</SectionLabel>
+            <SectionLabel>
+              {variant === "digital"
+                ? ar ? "منتجات رقمية" : "Digital products"
+                : ar ? "أعمال مختارة" : "Selected work"}
+            </SectionLabel>
             <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-              {heading === "home" ? (
+              {variant === "digital" ? (
+                ar ? (
+                  <>منتجات رقمية <em className="text-accent">جاهزة للتجربة.</em></>
+                ) : (
+                  <>Digital products <em className="text-accent">ready to explore.</em></>
+                )
+              ) : heading === "home" ? (
                 ar ? (
                   <>هويات بصرية مختارة: <em className="text-accent">أعمال حقيقية ونتائج موثقة.</em></>
                 ) : (
@@ -100,17 +120,23 @@ export function FeaturedCases({
               )}
             </h2>
             <p className="text-body-sm text-text-secondary">
-              {ar
-                ? "التحدي، ما تم تصميمه، والنتيجة — عبر الرعاية الصحية، الفنون والمطبوعات، والمنتجات الاستهلاكية."
-                : "The challenge, what was designed, and the outcome — across healthcare, editorial art & print, and consumer goods."}
+              {variant === "digital"
+                ? ar
+                  ? "منصات وأدوات وتجارب رقمية — افتح أي مشروع لزيارة نسخته المنشورة واستكشافه مباشرة."
+                  : "Platforms, tools, and digital experiences — open a project to explore its production version."
+                : ar
+                  ? "التحدي، ما تم تصميمه، والنتيجة — عبر الرعاية الصحية، الفنون والمطبوعات، والمنتجات الاستهلاكية."
+                  : "The challenge, what was designed, and the outcome — across healthcare, editorial art & print, and consumer goods."}
             </p>
           </div>
           {showIndexLink ? (
             <Link
-              href="/work"
+              href={variant === "digital" ? "/work#digital-products" : "/work"}
               className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
             >
-              {ar ? "كل الأعمال" : "See all work"}
+              {variant === "digital"
+                ? ar ? "كل المنتجات الرقمية" : "All digital products"
+                : ar ? "كل الأعمال" : "See all work"}
               <span aria-hidden className="ms-1 inline-flex">
                 <Icon name="arrow-right" />
               </span>
@@ -125,7 +151,11 @@ export function FeaturedCases({
           heading is restored for assistive tech only; the visual composition
           is unchanged. */}
       {heading === "none" ? (
-        <h2 className="sr-only">{ar ? "حالات مختارة" : "Featured cases"}</h2>
+        <h2 className="sr-only">
+          {variant === "digital"
+            ? ar ? "منتجات رقمية مختارة" : "Featured digital products"
+            : ar ? "هويات مختارة" : "Featured identity work"}
+        </h2>
       ) : null}
 
       {/* /work (heading "none") opens on these cards, so its first thumbnail is
@@ -233,13 +263,19 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
       </MediaCard>
 
       <div className="flex flex-col gap-2">
-        <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
+        <div className="flex flex-wrap items-center gap-2">
+          {project.status === "in-progress" ? (
+            <Badge tone="creative" size="sm">{ar ? "قيد التنفيذ" : "In progress"}</Badge>
+          ) : null}
+          <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
+        </div>
         <h3 className="font-display font-display-sm text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
           {name}
         </h3>
         <p className="text-body-sm text-text-secondary">{challenge}</p>
         <Link
           href={href}
+          onClick={internal ? () => trackEvent("case_study_open", { slug: project.slug, surface: "featured_card" }) : undefined}
           {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
           className={buttonVariants({
             variant: "ghost",

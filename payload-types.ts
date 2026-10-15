@@ -210,6 +210,10 @@ export interface Project {
     | 'Studio & Identity';
   year: string;
   /**
+   * Use In progress for active work; completed records can keep the default.
+   */
+  status?: ('complete' | 'in-progress') | null;
+  /**
    * If off, the row opens externalUrl (no-404 rule) instead of a case study.
    */
   hasCaseStudy?: boolean | null;
@@ -238,7 +242,7 @@ export interface Project {
    */
   externalUrl?: string | null;
   /**
-   * The real, currently-live URL — this is what loads in the mini preview and what the Live button opens. Independent of externalUrl, since this project may also have a case study.
+   * Live destination for project cards; UI/UX-tagged projects also use it for the /work-ui preview.
    */
   liveUrl?: string | null;
   updatedAt: string;
@@ -619,6 +623,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   category?: T;
   discipline?: T;
   year?: T;
+  status?: T;
   hasCaseStudy?: T;
   isUiUx?: T;
   name?: T;

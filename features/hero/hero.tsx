@@ -5,16 +5,15 @@ import { useLang } from "@/components/providers/lang-provider";
 /**
  * VIEWPORT HERO — "Mustafa Aboalazm OS"
  * ─────────────────────────────────────────────────────────────────
- * Architecture: Left-Aligned Split Hierarchy + Micro-Text Framing.
+ * Architecture: Left-Aligned Split Hierarchy + Portfolio Work Wall.
  *
  *   ┌─[STATUS NODE]──────────────────────────────────────────────┐
  *   │                                                            │
- *   │  EDITORIAL SERIF HEADLINE          SYSTEM CONSTELLATION™   │
- *   │  (clip-path line reveals)          (magnetic SVG mesh)     │
- *   │  sub-lede + CTA                                            │
+ *   │  NAME + EDITORIAL HEADLINE          CASE-STUDY WALL      │
+ *   │  lead · [VIEW WORK] [DOWNLOAD CV]                          │
  *   │                                                            │
- *   ├─[MICRO FRAME: coordinates · scroll cue]────────────────────┤
- *   │  +42% · 0% · 3X  — monumental metric row                   │
+ *   ├─[PROJECT OUTCOMES & SYSTEM STANDARDS]─────────────────────┤
+ *   │  5Y · LOCKED · 20+ — evidence row                          │
  *   └────────────────────────────────────────────────────────────┘
  *
  * Spacing: 8px scale only (gap-2/3/4, py-8, pt-16 → 16/24/32/64/128).
@@ -28,13 +27,13 @@ import { preload } from "react-dom";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
+import { trackEvent } from "@/lib/analytics";
 
 /* The studio's own coral — the old site's red, worn as atmosphere */
 const STUDIO_CORAL = {
   primary: "rgb(255 107 71 / 0.16)",
   secondary: "rgb(196 69 31 / 0.08)",
 } as const;
-import { usePersona } from "@/components/providers/persona-provider";
 import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
@@ -46,21 +45,18 @@ import "./hero.css";
 const ITALIC_LINE = 1;
 
 export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
-  /* The headline is now painted in the first frame (no opacity:0 wait), so the
-     display face must be in before it, otherwise the late swap reflows the
-     headline and shifts the constellation (desktop CLS 0.06 -> 0.12). */
+  /* The headline is painted in the first frame. Preload the display face so
+     its late swap cannot reflow the headline or the work wall. */
   preload("/fonts/Gc_Epicpro.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
   /* Home rests warm: faint coral glow — color presence without paint */
   useAmbientGlow(STUDIO_CORAL, 0.5);
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
-  const HEADLINE = ar
-    ? [t.heroLine1, t.heroLine2, t.heroLine3]
-    : [t.heroLine1, t.heroLine2, t.heroLine3];
+  const HEADLINE = [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
-    <section className="relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
+    <section className="home-hero relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
       {/* ── Expressive atmosphere — legible BEFORE any interaction ──
           The audit's core finding: the hero's colour existed only as a
           diffuse blurred glow whose alpha was too low to read. These two
@@ -68,7 +64,7 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
           and a material surface. Both are aria-hidden, both sit under the
           content, and neither is hover-gated.
 
-          Focal light leans right in LTR (toward the constellation) and
+          Focal light leans right in LTR (toward the work wall) and
           mirrors in RTL so the composition stays balanced. */}
       <div
         aria-hidden
@@ -166,6 +162,7 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
               </a>
               <a
                 href="/cv"
+                onClick={() => trackEvent("cv_download", { placement: "hero" })}
                 download="Mustafa_Taha_Brand_Identity_CV.docx"
                 className="group relative inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
               >
@@ -218,52 +215,5 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
         <MetricRow />
       </div>
     </section>
-  );
-}
-
-/** Optional, non-blocking framing — never a header control, never required. */
-function PersonaHint({ ar }: { ar: boolean }) {
-  const { persona, setPersona } = usePersona();
-
-  if (persona) {
-    return (
-      <p className="font-mono text-micro text-text-ghost">
-        {persona === "founder"
-          ? ar
-            ? "بتتشاف نسخة النتائج والعائد."
-            : "Framed for business outcomes."
-          : ar
-            ? "بتتشاف نسخة الأنظمة والتسليم."
-            : "Framed for systems and handoff."}{" "}
-        <button
-          type="button"
-          onClick={() => setPersona(null)}
-          className="underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
-        >
-          {ar ? "ارجع للعام" : "Keep it general"}
-        </button>
-      </p>
-    );
-  }
-
-  return (
-    <p className="max-w-[46ch] font-mono text-micro text-text-ghost">
-      {ar ? "عايز الكلام يتظبط على دورك؟" : "What are you here to solve?"}{" "}
-      <button
-        type="button"
-        onClick={() => setPersona("founder")}
-        className="text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
-      >
-        {ar ? "براند يشتغل" : "A brand that performs"}
-      </button>
-      <span aria-hidden> · </span>
-      <button
-        type="button"
-        onClick={() => setPersona("technical")}
-        className="text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors duration-base ease-physics hover:text-text-secondary"
-      >
-        {ar ? "نظام الفريق يقدر يبني عليه" : "A system the team can ship"}
-      </button>
-    </p>
   );
 }

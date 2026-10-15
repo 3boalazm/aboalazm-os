@@ -16,6 +16,7 @@ export type Discipline =
 /** Top-level split shown as a filter on /work — design (brand identity)
  *  vs development (built platforms, sites, tools). */
 export type ProjectCategory = "design" | "development";
+export type ProjectStatus = "complete" | "in-progress";
 
 export interface Project {
   /** Stable id + route segment */
@@ -33,6 +34,8 @@ export interface Project {
   outcomeAr?: string;
   /** Year band for the ledger's mono index column */
   year: string;
+  /** Optional lifecycle marker; omitted records are treated as shipped. */
+  status?: ProjectStatus;
   /** Preview image for the floating cursor-trail reveal */
   thumbnail: string;
   /** Case file written? false → row opens a fallback link (no-404 rule) */
@@ -44,13 +47,9 @@ export interface Project {
    * opening Behance for a coded project would be the wrong link.
    */
   externalUrl?: string;
-  /**
-   * Tags this project for the /work-ui showcase, and gives the real,
-   * currently-live URL used both for the mini iframe preview and the
-   * "Live" button's new-tab link. Independent of externalUrl since a
-   * project can have both a case study AND a live UI/UX showcase entry.
-   */
+  /** Marks this project for the dedicated /work-ui iframe showcase. */
   isUiUx?: boolean;
+  /** Live destination used by /work cards and, when isUiUx is true, /work-ui. */
   liveUrl?: string;
   /**
    * Primary palette pair — consumed by useAmbientGlowControls to

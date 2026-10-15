@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPost as fetchPost, getAllPostSlugs, getPosts } from "@/lib/content";
 import { WritingDetailView } from "../writing-detail-view";
+import { JsonLd } from "@/components/seo/json-ld";
+import { getArticleSchema } from "@/lib/structured-data";
 
 export const revalidate = 60;
 
@@ -78,11 +80,15 @@ export default async function WritingDetailPage({
   const counterpartSlug = findCounterpartSlug(slug, post.lang ?? "en", all);
 
   return (
-    <WritingDetailView
+    <>
+      {/* Overhaul S6: Article JSON-LD (QA #48) */}
+      <JsonLd data={getArticleSchema(post)} />
+      <WritingDetailView
       post={post}
       prev={prev ? { slug: prev.slug, title: prev.title, index: prev.index } : null}
       next={next ? { slug: next.slug, title: next.title, index: next.index } : null}
       counterpartSlug={counterpartSlug}
-    />
+      />
+    </>
   );
 }

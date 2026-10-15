@@ -18,8 +18,8 @@ import {
 export { OG_SIZE, OG_CONTENT_TYPE };
 
 export type OgPageId =
-  | "home" | "work" | "gallery" | "work-ui" | "about" | "for-hiring" | "services"
-  | "pricing" | "process" | "why" | "start" | "agreement" | "contact"
+  | "home" | "work"  | "work-ui" | "about" | "for-hiring" | "services"
+  | "pricing" | "process" | "why" | "agreement" | "contact"
   | "capabilities" | "labs" | "resources" | "books" | "writing" | "portfolio";
 
 interface PageDef {
@@ -147,37 +147,6 @@ async function vWork() {
   );
 }
 
-async function vGallery() {
-  const i = await ogImgs({
-    a: ["/images/work/gad/gad-mockup-outdoor.jpg", 320], b: ["/images/work/cc-poster-mockup.jpg", 320],
-    c: ["/images/work/ahmed-bedeer-applications.jpg", 320], d: ["/images/work/gad/gad-signage-environmental.jpg", 320],
-    e: ["/images/work/gad/gad-mockup-card.jpg", 320], f: ["/images/work/reflection/refl-example.jpg", 320],
-    g: ["/images/work/nile-pharma/npf-proxeed-post.jpg", 320], h: ["/images/work/cc-closing.jpg", 320],
-    j: ["/images/work/gad/gad-mockup-exhibition.jpg", 320], k: ["/images/work/nile-pharma/npf-ezaby-post.jpg", 320],
-  });
-  return (
-    <Stage style={{ padding: PAD }}>
-      <div style={flex({ gap: 12, flex: 1 })}>
-        <div style={col({ gap: 12, flex: 1 })}>
-          <Pic src={i.a} w="100%" h={170} radius={14} />
-          <Pic src={i.b} w="100%" h={130} radius={14} />
-          <Pic src={i.c} w="100%" h={150} radius={14} />
-        </div>
-        <div style={col({ gap: 12, flex: 1, marginTop: -40 })}>
-          <Pic src={i.d} w="100%" h={120} radius={14} />
-          <Pic src={i.e} w="100%" h={190} radius={14} />
-          <Pic src={i.f} w="100%" h={140} radius={14} />
-          <Pic src={i.h} w="100%" h={90} radius={14} />
-        </div>
-        <div style={col({ gap: 12, flex: 1, marginTop: 20 })}>
-          <Pic src={i.g} w="100%" h={190} radius={14} />
-          <Pic src={i.j} w="100%" h={110} radius={14} />
-          <Pic src={i.k} w="100%" h={170} radius={14} />
-        </div>
-      </div>
-    </Stage>
-  );
-}
 
 async function vWorkUi() {
   const i = await ogImgs({ a: ["/images/work/nile-erp-thumb.jpg", 640], b: ["/images/work/farm-thumb.jpg", 640], c: ["/images/work/zad-thumb.jpg", 640] });
@@ -415,32 +384,6 @@ async function vWhy() {
   );
 }
 
-async function vStart() {
-  const steps: [string, string, string][] = [
-    ["01", "Discovery", C.cyan], ["02", "Strategy", C.mint], ["03", "Concept & design", C.pink], ["04", "Refine & deliver", C.violet],
-  ];
-  return (
-    <Stage style={{ padding: 28, justifyContent: "space-between" }}>
-      <Label color={C.accent} size={14}>Your client journey</Label>
-      <div style={col({ gap: 0 })}>
-        {steps.map(([n, name, c], idx) => (
-          <div key={n} style={flex({ gap: 18, alignItems: "stretch" })}>
-            <div style={col({ alignItems: "center", width: 44 })}>
-              <div style={flex({ width: 44, height: 44, borderRadius: 999, alignItems: "center", justifyContent: "center", border: `2px solid ${c}`, color: c, fontFamily: F_EN, fontSize: 16 })}>{n}</div>
-              {idx < steps.length - 1 ? <div style={flex({ width: 2, height: 30, background: C.line })} /> : null}
-            </div>
-            <div style={col({ justifyContent: "flex-start", paddingTop: 8 })}>
-              <div style={flex({ fontFamily: F_EN, fontSize: 24 })}>{name}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-      <div style={flex({ alignSelf: "flex-start", alignItems: "center", gap: 12, padding: "14px 24px", borderRadius: 999, background: C.accent, color: C.bg, fontFamily: F_EN, fontSize: 16, letterSpacing: "0.1em" })}>
-        BOOK THE FIRST CALL →
-      </div>
-    </Stage>
-  );
-}
 
 async function vAgreement() {
   const ph = ["Discovery call", "Kickoff & onboarding", "Discovery & research", "Brand strategy", "Concept development", "Full brand design", "Refinement & revisions", "Final delivery"];
@@ -678,14 +621,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     title: ["Selected", "cases."],
     desc: "Identity systems and digital products — the problem, what shipped, and the outcome.",
     alt: "Work — selected brand identity and product cases", visual: vWork,
-  },
-  gallery: {
-    idx: "02", eyebrow: "Gallery", tagAr: "المعرض", route: "/gallery",
-    title: ["Brand work,", "in context."],
-    desc: "Mockups, signage, packaging and campaign applications from selected projects.",
-    alt: "Gallery — selected brand work in context", visual: vGallery,
-  },
-  "work-ui": {
+  },  "work-ui": {
     idx: "03", eyebrow: "UI / UX showcase", tagAr: "واجهات ومنتجات", route: "/work-ui",
     title: ["Interfaces,", "live."],
     desc: "A focused index of interface and product work — every entry links to the real, running site.",
@@ -727,17 +663,11 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     desc: "Strategy before design, one source for every output, bilingual architecture built to scale.",
     alt: "Why — the case for systemic identity", visual: vWhy,
   },
-  start: {
-    idx: "10", eyebrow: "Start", tagAr: "ابدأ مشروعك", route: "/start",
-    title: ["Start a", "project."],
-    desc: "Who it is for, what you get, how the four phases work and how to book the first call.",
-    alt: "Start — your client journey and how to book the first call", visual: vStart,
-  },
   agreement: {
     idx: "11", eyebrow: "Agreement", tagAr: "اتفاق العمل", route: "/agreement",
     title: ["Work-flow", "agreement."],
-    desc: "Eight phases, transparent terms and a 50 / 50 payment structure — stated upfront.",
-    alt: "Agreement — eight phases, transparent terms, 50/50 payments", visual: vAgreement,
+    desc: "Eight phases, transparent terms and tiered payment splits — stated upfront.",
+    alt: "Agreement — eight phases, transparent terms, tiered payments", visual: vAgreement,
   },
   contact: {
     idx: "12", eyebrow: "Contact", tagAr: "تواصل معي", route: "/contact",

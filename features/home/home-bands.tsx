@@ -63,6 +63,16 @@ export function AboutTeaser() {
           {ar ? "اقرأ القصة كاملة" : "Read the about page"}
           <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
+        {/* The skills that used to live in the scrolling marquee — static
+            chips now (overhaul S2: the marquee was motion for its own sake
+            and repeated the same 8 words twice per row). */}
+        <ul aria-label={ar ? "التخصصات" : "Specialties"} className="mt-1 flex flex-wrap gap-1.5 border-t border-border-subtle pt-3">
+          {(ar ? SKILLS_AR : SKILLS).map((s) => (
+            <li key={s} className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro uppercase tracking-[0.08em] text-text-secondary">
+              {s}
+            </li>
+          ))}
+        </ul>
       </div>
       <dl className="flex h-fit flex-col">
         {([
@@ -135,7 +145,9 @@ export function StatsBand() {
   );
 }
 
-/* ── Client Journey Band — teaser strip linking to /start ── */
+/* ── Client Journey Band — the METHOD section of the homepage funnel ──
+   (Was a /start teaser; /start was absorbed into /contact in overhaul S3.
+    The band now links deeper into /process.) */
 export function ClientJourneyBand() {
   const { lang } = useLang();
   const ar = lang === "ar";

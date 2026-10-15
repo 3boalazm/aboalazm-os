@@ -61,8 +61,9 @@ Priority key: **P0** Must Fix (breaks something / actively wrong) · **P1** High
 - **Affected files:** `app/(site)/globals.css` only (all instances are in this one file per the grep).
 - **Migration risk:** Medium — find/replace across 49 sites in one file is mechanical but easy to fat-finger an opacity step; needs a visual diff pass (Phase 3B) after, not before.
 
-### P1-3 · [PARTIAL 2026-09-18] Reduce `/start` and `/process` arbitrary-Tailwind debt
+### P1-3 · [PARTIAL 2026-09-18 → ✅ CLOSED-BY-DESIGN 2026-10-14] Reduce `/start` and `/process` arbitrary-Tailwind debt
 - **Status:** 🟡 All **typography** arbitrary values on both pages migrated to tokens (Phase 4 §2); all **color** arbitrary values tokenized (accent-border/08). Remaining arbitrary values are layout/spacing (`px-[24px] py-[12px]` CTA paddings, `[2px]` hover lifts, `[900px]`-style max-widths) — the CTA paddings are the CSS-trio family's deliberately measured values per the Button sprint, so they stay until the spacing sprint (P3-2).
+- **S5 closure note (2026-10-14):** `/start` was DELETED in overhaul S3 (its 62-literal debt died with the route). `/process` now carries 17 literal occurrences, all in the deliberately-measured families named above (CTA paddings per Button sprint, `[2px]` lifts, layout max-widths with no token equivalent) — nothing migratable remains. Closed-by-design; the leftover families are P3-2's call when the spacing sprint happens.
 - **Source:** Audit §6
 - **What:** 62 of the 90 total arbitrary-bracket Tailwind values (`[Npx]`/`[N.Nrem]`) live in these two files alone (35 + 27). Map them onto existing spacing/type tokens where a clean match exists.
 - **Impact:** Medium — these two pages are the least systemized; fixing them closes most of the arbitrary-value gap codebase-wide in one pass.

@@ -1,6 +1,7 @@
 "use client";
 import { useT } from "@/hooks/use-t";
 import { useLang } from "@/components/providers/lang-provider";
+import { Badge } from "@/components/ui/Badge";
 
 /**
  * PROJECT LEDGER — "Engineering Ledger Layout"
@@ -213,14 +214,19 @@ function LedgerRow({
             the 1.5fr/1.6fr track could shrink below the longest word
             ("Collective") and cut it. pe-1 keeps the 8px slide inside the cell. */}
         <span className="break-words">
-          <span
-            className={[
-              "block font-display pe-1 text-title leading-[1.15] tracking-[-0.015em] text-text-primary",
-              "transition-transform duration-base ease-physics",
-              isActive ? "translate-x-1 rtl:-translate-x-1" : "translate-x-0",
-            ].join(" ")}
-          >
-            {ar && project.nameAr ? project.nameAr : project.name}
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span
+              className={[
+                "font-display pe-1 text-title leading-[1.15] tracking-[-0.015em] text-text-primary",
+                "transition-transform duration-base ease-physics",
+                isActive ? "translate-x-1 rtl:-translate-x-1" : "translate-x-0",
+              ].join(" ")}
+            >
+              {ar && project.nameAr ? project.nameAr : project.name}
+            </span>
+            {project.status === "in-progress" ? (
+              <Badge tone="creative" size="sm">{ar ? "قيد التنفيذ" : "In progress"}</Badge>
+            ) : null}
           </span>
           {/* Mobile-only: discipline shown inline since the desktop column is hidden below md */}
           <span className="mt-0.5 block font-mono text-micro text-text-tertiary md:hidden">
