@@ -56,8 +56,8 @@ export function AboutTeaser() {
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. متاح حاليًا لفرص الهوية البصرية والمنتجات الرقمية (الرياض أو عن بُعد)."
-            : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Currently open to Senior Brand Identity / Product Design opportunities | Riyadh or Remote."}
+            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. متاح حاليًا لفرص الهوية البصرية والمنتجات الرقمية (في الخليج أو عن بُعد)."
+            : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Currently open to Senior Brand Identity / Product Design opportunities | across the Gulf or remote."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
           {ar ? "اقرأ القصة كاملة" : "Read the about page"}
@@ -78,9 +78,9 @@ export function AboutTeaser() {
         {([
           ["SPECIALTY", "التخصص", "Brand Identity & Visual Systems", "هوية بصرية وأنظمة تصميم"],
           ["CURRENT ROLE", "العمل الحالي", "Creative Lead, Code & Canvas", "مدير إبداعي، Code & Canvas"],
-          ["AVAILABILITY", "الوضع الحالي", "Open to Brand Identity roles · Riyadh / Remote", "متاح لفرص مصمم هوية · الرياض / عن بُعد"],
+          ["AVAILABILITY", "الوضع الحالي", "Open to Brand Identity roles · Gulf / Remote", "متاح لفرص مصمم هوية · الخليج / عن بُعد"],
           ["LANGUAGES", "اللغات", "Arabic (Native) · English (Professional)", "العربية (الأم) · الإنجليزية (احترافية)"],
-          ["BASED", "المقر", "Al Obour, Egypt — Open to Riyadh & Remote", "العبور، مصر — متاح للرياض وعن بُعد"],
+          ["BASED", "المقر", "Al Obour, Egypt — open to the Gulf & remote", "العبور، مصر — متاح للخليج وعن بُعد"],
         ] as const).map(([ken, kar, ven, var_]) => (
           <div key={ken} className="border-b border-border-subtle py-2 first:border-t">
             <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? kar : ken}</dt>

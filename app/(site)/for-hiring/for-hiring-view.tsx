@@ -276,7 +276,7 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="live" size="md">
             <span className="size-2 rounded-pill bg-success animate-pulse" />
-            {ar ? "متاح للتوظيف | الرياض أو عن بُعد" : "AVAILABLE | RIYADH OR REMOTE"}
+            {ar ? "متاح للتوظيف | الخليج أو عن بُعد" : "AVAILABLE | GULF OR REMOTE"}
           </Badge>
           <span className="font-mono text-micro uppercase tracking-wider text-text-ghost">
             {ar ? "ملف المرشح المخصص لفرق التوظيف" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
@@ -294,8 +294,8 @@ export function ForHiringView() {
           }
           subtitle={
             ar
-              ? "9+ سنوات من الممارسة المهنية في التصميم، منها 4+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (الرياض أو عن بُعد)."
-              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand & Product Designer / Brand Identity Designer opportunities (Riyadh or Remote)."
+              ? "9+ سنوات من الممارسة المهنية في التصميم، منها 4+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (السعودية أو الإمارات أو قطر أو عن بُعد)."
+              : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand & Product Designer / Brand Identity Designer opportunities (Saudi Arabia, UAE, Qatar or remote)."
           }
         />
 
@@ -356,7 +356,7 @@ export function ForHiringView() {
           [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
           [ar ? "أنظمة تم تسليمها" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "دواء، صحة، غذاء، تعليم، حكومة" : "Healthcare, pharma, education, government"],
           [ar ? "التخصص اللغوي" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "حرفة أصلية متكافئة" : "Native typographic parity"],
-          [ar ? "الموقع والجاهزية" : "LOCATION & STATUS", "Riyadh / Remote", ar ? "جاهز للانتقال أو عن بُعد" : "Open to relocation or remote"],
+          [ar ? "الموقع والجاهزية" : "LOCATION & STATUS", "Gulf / Remote", ar ? "جاهز للانتقال (السعودية، الإمارات، قطر) أو عن بُعد" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
         ].map(([label, val, sub]) => (
           <div key={label} className="flex flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost">{label}</dt>
@@ -564,8 +564,8 @@ export function ForHiringView() {
           </h2>
           <p className="text-body-sm text-text-secondary">
             {ar
-              ? "متاح للمقابلات ومناقشة تفاصيل الشواغر لمصمم هوية بصرية أول (في الرياض أو عن بُعد). الرد سريع خلال أقل من 24 ساعة."
-              : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions in Riyadh or Remote. Typically replies within 24 hours."}
+              ? "متاح للمقابلات ومناقشة تفاصيل الشواغر لمصمم هوية بصرية أول (في الخليج أو عن بُعد). الرد سريع خلال أقل من 24 ساعة."
+              : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions across the Gulf or remote. Typically replies within 24 hours."}
           </p>
         </div>
 

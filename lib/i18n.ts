@@ -128,7 +128,7 @@ export const UI = {
     heroForHiringHint:  "Hiring a Brand Identity Designer? Explore candidate brief & roles",
     heroClientTrackHint:"Looking for studio branding? Explore services & transparent pricing",
     heroConstellationAria: "System constellation: brand compiles into tokens, tokens into components, components into pages, pages into experience",
-    heroStatusOpen:     "OPEN TO BRAND IDENTITY DESIGNER ROLES · RIYADH / REMOTE",
+    heroStatusOpen:     "OPEN TO BRAND IDENTITY DESIGNER ROLES · GULF / REMOTE",
     heroYear:           "2026",
     heroCoords:         "30.1936° N, 31.4603° E · AL OBOUR",
     /* ── Token Playground ── */
@@ -272,7 +272,7 @@ export const UI = {
     heroForHiringHint:  "تبحث عن مصمم هوية بصرية؟ اطّلع على ملف المرشح ودراسات الحالة",
     heroClientTrackHint:"تبحث عن خدمات استوديو؟ تصفح الخدمات والتسعير الشفاف",
     heroConstellationAria: "كوكبة النظام: البراند يُترجَم لتوكنز، التوكنز لكومبوننتس، الكومبوننتس لصفحات، الصفحات لتجربة",
-    heroStatusOpen:     "متاح لفرص مصمم هوية بصرية | الرياض / عن بُعد",
+    heroStatusOpen:     "متاح لفرص مصمم هوية بصرية | الخليج / عن بُعد",
     heroYear:           "2026",
     heroCoords:         "31.4603° شرق، 30.1936° شمال · العبور",
     /* ── Token Playground ── */

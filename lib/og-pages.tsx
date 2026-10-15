@@ -220,7 +220,7 @@ async function vHiring() {
         <Dot color={C.mint} size={14} />
         <div style={col({ gap: 4 })}>
           <Label color={C.mint} size={12}>Open to roles</Label>
-          <div style={flex({ fontFamily: F_EN, fontSize: 20 })}>Riyadh · Remote</div>
+          <div style={flex({ fontFamily: F_EN, fontSize: 20 })}>Gulf · Remote</div>
         </div>
       </div>
       <div style={flex({ flexWrap: "wrap", gap: 10 })}>
@@ -637,7 +637,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     idx: "05", eyebrow: "For hiring teams", tagAr: "للشركات والتوظيف", route: "/for-hiring",
     title: ["For hiring", "teams."],
     desc: "Candidate dossier: 9+ years in design, 4+ focused on brand identity, across healthcare, food and consumer brands.",
-    alt: "For hiring teams — candidate dossier, open to Riyadh and remote", visual: vHiring,
+    alt: "For hiring teams — candidate dossier, open to roles across the Gulf and remote", visual: vHiring,
   },
   services: {
     idx: "06", eyebrow: "Services", tagAr: "الخدمات", route: "/services",

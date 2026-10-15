@@ -40,14 +40,14 @@ const TIMELINE = {
 
 const FACTS = {
   en: [
-    ["CURRENT STATUS", "Open to Brand Identity Designer roles | Riyadh / Remote"],
-    ["BASED", "Al Obour, Egypt — open to Riyadh & remote"],
+    ["CURRENT STATUS", "Open to Brand Identity Designer roles | Gulf / Remote"],
+    ["BASED", "Al Obour, Egypt — open to the Gulf & remote"],
     ["LANGUAGES", "Arabic (Native) · English (Professional)"],
     ["EDUCATION", "B.Sc. — Al-Azhar University · 2017–2024"],
     ["TRAINING", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
   ],
   ar: [
-    ["الوضع الحالي", "متاح لفرص مصمم هوية بصرية | الرياض / عن بُعد"],
+    ["الوضع الحالي", "متاح لفرص مصمم هوية بصرية | الخليج / عن بُعد"],
     ["الموقع", "العبور، مصر — متاح للرياض والعمل عن بُعد"],
     ["اللغات", "العربية (أصيل) · الإنجليزية (مهني)"],
     ["التعليم", "بكالوريوس — جامعة الأزهر · 2017–2024"],
