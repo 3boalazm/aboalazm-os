@@ -222,8 +222,16 @@
   --text-body:       1rem;
   --text-body--line-height: 1.65;
 
-  --text-body-sm:    0.875rem;
-  --text-body-sm--line-height: 1.5;
+  /* Running copy — card descriptions, case-study paragraphs, FAQ answers, the
+     candidate dossier: 111 call sites, most of the text on every page. It was
+     14px (0.875rem), which put 43% of the characters on Home and 67% on
+     /for-hiring under the 16px a long read wants, grey on near-black. Raised to
+     16px (audit 5.10, approved 2026-10-15), line-height 1.6. It now equals
+     `body`; the token stays so the two can part again from one place, and so
+     none of the 111 call sites has to be touched. Labels (13px) and the 12 / 11px
+     metadata steps below are unchanged. */
+  --text-body-sm:    1rem;
+  --text-body-sm--line-height: 1.6;
 
   --text-label:      0.8125rem;
   --text-label--line-height: 1.4;
