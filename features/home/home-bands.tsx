@@ -42,7 +42,7 @@ export function AboutTeaser() {
     <section className="container-content grid gap-8 py-16 lg:grid-cols-[7fr_5fr]">
       <div className="flex flex-col gap-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "٠١ / نبذة" : "01 / ABOUT"}
+          {ar ? "01 / نبذة" : "01 / ABOUT"}
         </p>
         <h2 className="font-display text-title tracking-[-0.015em]">
           {ar ? "حِرفة بُنيت عبر " : "A craft built across "}
@@ -100,7 +100,7 @@ export function StatsBand() {
 
   // [value, suffix, EN label, AR label, EN sub, AR sub, bar 0–1]
   const stats = [
-    ["9",   "+", "Years of design practice", "سنوات ممارسة التصميم",        "Since July 2017",   "منذ يوليو ٢٠١٧",  0.7],
+    ["9",   "+", "Years of design practice", "سنوات ممارسة التصميم",        "Since July 2017",   "منذ يوليو 2017",  0.7],
     ["20",  "+", "Brands shaped",       "براند تم بناؤه",  "Local & regional",  "محلي وإقليمي",  0.85],
     ["15",  "+", "Identity systems",    "نظام هوية",        "Full brand systems","أنظمة متكاملة", 0.6],
     ["6",   "",  "Industry sectors",    "قطاعات",        "Pharma → gov",       "دواء ← حكومة",  0.5],
@@ -177,10 +177,10 @@ export function ClientJourneyBand() {
 
   const steps = ar
     ? [
-        { n: "٠١", name: "اكتشاف وبحث", short: "نفهم البراند والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
-        { n: "٠٢", name: "استراتيجية البراند", short: "نثبت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
-        { n: "٠٣", name: "مفهوم وتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
-        { n: "٠٤", name: "مراجعة وتسليم", short: "نراجع، نعتمد، ونسلّم نظامًا يقدر فريقك يستخدمه.", proof: "Guidelines + files + handover" },
+        { n: "01", name: "اكتشاف وبحث", short: "نفهم البراند والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
+        { n: "02", name: "استراتيجية البراند", short: "نثبت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
+        { n: "03", name: "مفهوم وتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
+        { n: "04", name: "مراجعة وتسليم", short: "نراجع، نعتمد، ونسلّم نظامًا يقدر فريقك يستخدمه.", proof: "Guidelines + files + handover" },
       ]
     : [
         { n: "01", name: "Discovery & Research", short: "Understand the brand, market, and audience before any visual decision.", proof: "Brief + audit + research" },
@@ -201,7 +201,7 @@ export function ClientJourneyBand() {
           </h2>
           <p className="mt-5 max-w-[40ch] text-body-sm leading-[1.75] text-text-secondary">
             {ar
-              ? "٤ مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
+              ? "4 مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
               : "Four visible stages. Every stage has an output and a sign-off. You always know where the project stands."}
           </p>
           <div className="mt-8 flex gap-2" aria-hidden>
@@ -329,7 +329,7 @@ export function HomeFaq() {
     ? [
         ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
         ["هل الهوية بتكون عربي وإنجليزي؟", "أيوه، لو المشروع bilingual بنبني المعمارية للغتين من البداية."],
-        ["كام مدة المشروع؟", "المنهجية الأساسية ٣٨ يومًا على أربع مراحل، مع اعتماد مكتوب عند كل بوابة."],
+        ["كام مدة المشروع؟", "المنهجية الأساسية 38 يومًا على أربع مراحل، مع اعتماد مكتوب عند كل بوابة."],
         ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
         ["إزاي نبدأ؟", "مكالمة اكتشاف قصيرة لتحديد النطاق، التوافق، والجدول قبل أي التزام."],
       ]

@@ -95,11 +95,11 @@ export const NILE_PHARMA: CaseStudyRecord = {
     rejectedDirections:
       "1) Cliché green leaf & water droplet symbols: Rejected because the company produces regulated pharmaceutical-grade formulations, not raw herbal teas.\n2) High-vibrancy electric cyan (#00C8D2): Rejected in packaging press proofs because it compromised the clinical seriousness required on pharmacy shelves.",
     rejectedDirectionsAr:
-      "١) كليشيهات ورقة الشجر وقطرة الماء: رُفضت لأن الشركة تنتج تركيبات دوائية مصرحة وليست أعشاباً شعبية، وتحتاج مصداقية علمية.\n٢) الأزرق النيون الفاقع (#00C8D2): رُفض في تجارب الطباعة لكونه يقلل من وقار وموثوقية عبوة الدواء في الصيدلية.",
+      "1) كليشيهات ورقة الشجر وقطرة الماء: رُفضت لأن الشركة تنتج تركيبات دوائية مصرحة وليست أعشاباً شعبية، وتحتاج مصداقية علمية.\n2) الأزرق النيون الفاقع (#00C8D2): رُفض في تجارب الطباعة لكونه يقلل من وقار وموثوقية عبوة الدواء في الصيدلية.",
     roleAndTeam:
       "Official role: Media Director & Account Manager (Mustafa Aboalazm, 2020–2025). Functional scope included brand direction, identity redesign, packaging architecture, marketing campaign systems, and digital web presence. Collaborated closely with the Sales Director, Regulatory Pharmacist, and print production houses.",
     roleAndTeamAr:
-      "المسمى الوظيفي الرسمي: مدير الميديا ومدير الحسابات (مصطفى أبوالعزم) من ٢٠٢٠ حتى ٢٠٢٥. شمل النطاق الوظيفي توجيه البراند، إعادة تصميم الهوية، معمارية التغليف، أنظمة الحملات التسويقية، والحضور الرقمي، بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
+      "المسمى الوظيفي الرسمي: مدير الميديا ومدير الحسابات (مصطفى أبوالعزم) من 2020 حتى 2025. شمل النطاق الوظيفي توجيه البراند، إعادة تصميم الهوية، معمارية التغليف، أنظمة الحملات التسويقية، والحضور الرقمي، بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
     whereUsed:
       "Distributed across pharmacy retail channels across Egypt, primary product carton boxes (Proxeed line), highway outdoor billboards, medical presentation flyers, official website, and bilingual Ramadan & seasonal campaigns.",
     whereUsedAr:

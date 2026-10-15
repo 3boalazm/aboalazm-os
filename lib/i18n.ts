@@ -180,9 +180,9 @@ export const UI = {
     bpMobile:           "موبايل",
     bpTablet:           "تابلت",
     bpDesktop:          "ديسكتوب",
-    bpCol4:             "٤ أعمدة",
-    bpCol8:             "٨ أعمدة",
-    bpCol12:            "١٢ عمود",
+    bpCol4:             "4 أعمدة",
+    bpCol8:             "8 أعمدة",
+    bpCol12:            "12 عمود",
     /* Retro verdicts */
     verdictKeep:        "احتفظ",
     verdictChange:      "غيّر",
@@ -200,7 +200,7 @@ export const UI = {
     workLedgerItalic:   "مختارة",
     workLedgerLead:     "أنظمة هوية ومنتجات رقمية — المشكلة، ما الذي بُني، والنتيجة.",
     /* ── Writing ── */
-    writingSection:     "٠٦ / مقالات",
+    writingSection:     "06 / مقالات",
     writingTitle:       "ملاحظات من النظام.",
     writingLead:        "وثائق عمل عن الهوية والتوكنز وحرفة التصميم ثنائي اللغة — مكتوبة من المشاريع، لا عنها.",
     writingFooter:      "تُنشر بشكل غير منتظم · تُكتب بعناية",
@@ -213,7 +213,7 @@ export const UI = {
     capabilitiesLead:   "غيّر قيمة واحدة — المسافات والحواف والحركة والثيم — وكل عنصر يعيد الحساب في تناغم. هذا التناسق هو المنتج.",
     /* ── About ── */
     aboutSection:       "المصمم // نبذة",
-    aboutH1a:           "٩+ سنوات في التصميم، منها ٤+ سنوات متخصصة في الهوية البصرية",
+    aboutH1a:           "9+ سنوات في التصميم، منها 4+ سنوات متخصصة في الهوية البصرية",
     aboutH1b:           "وبناء الأنظمة البصرية.",
     aboutLead:          "مصطفى أبوالعزم يمارس التصميم مهنياً منذ 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد.",
     aboutDoctrine:      "المبادئ",
@@ -242,7 +242,7 @@ export const UI = {
     whyAriaOs:          "Aboalazm OS",
     whyAriaCta:         "ابدأ مشروعًا",
     /* ── Contact ── */
-    contactSection:     "٠٧ / تواصل",
+    contactSection:     "07 / تواصل",
     contactH1a:         "قولّي عايز",
     contactH1b:         "تبني إيه.",
     contactLead:        "اسم وإيميل وجملة كافية. الشركة والميزانية والجدول يقدروا يستنوا.",

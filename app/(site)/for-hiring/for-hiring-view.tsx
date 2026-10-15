@@ -88,7 +88,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "مونوجرام حرف R الهندسي المبني بتوازن الدائرة والمثلث",
       "نظام أبيض رحب بطيف لوني محسوب من البنفسجي إلى التركواز",
       "طباعة تحريرية: خط Neue Machina للعناوين مع Quicksand للمتن",
-      "عقيدة المنطقة المحورية (صورة، عنوان، أيقونة) ودليل براند من ١٨ صفحة",
+      "عقيدة المنطقة المحورية (صورة، عنوان، أيقونة) ودليل براند من 18 صفحة",
     ],
     deployment:
       "Framed museum-grade prints, storefront signage, product authentication tags, packaging tissue and shipping tape, storefront digital presence.",
@@ -194,7 +194,7 @@ const SKILL_GROUPS = [
 const TIMELINE = [
   {
     period: "Sep 2026 → Present",
-    periodAr: "سبتمبر ٢٠٢٦ ← الحاضر",
+    periodAr: "سبتمبر 2026 ← الحاضر",
     role: "Digital Product & Platform Lead",
     roleAr: "قائد المنتج والمنصة الرقمية",
     company: "Nile Pharma Food & Food Supplements",
@@ -204,7 +204,7 @@ const TIMELINE = [
   },
   {
     period: "2024 → Present",
-    periodAr: "٢٠٢٤ ← الحاضر",
+    periodAr: "2024 ← الحاضر",
     role: "Co-Founder & Creative Lead",
     roleAr: "شريك مؤسس ومدير إبداعي",
     company: "Code & Canvas",
@@ -214,7 +214,7 @@ const TIMELINE = [
   },
   {
     period: "2020 – 2025",
-    periodAr: "٢٠٢٠ – ٢٠٢٥",
+    periodAr: "2020 – 2025",
     role: "Media Director & Account Manager",
     roleAr: "مدير الميديا ومدير الحسابات",
     company: "Nile Pharma Food",
@@ -224,7 +224,7 @@ const TIMELINE = [
   },
   {
     period: "2020 – 2021",
-    periodAr: "٢٠٢٠ – ٢٠٢١",
+    periodAr: "2020 – 2021",
     role: "Studio Lead & Visual Director",
     roleAr: "مدير الاستوديو والمدير البصري",
     company: "Learn in Arabic (MSP)",
@@ -234,17 +234,17 @@ const TIMELINE = [
   },
   {
     period: "2019 – 2021",
-    periodAr: "٢٠١٩ – ٢٠٢١",
+    periodAr: "2019 – 2021",
     role: "Head of Media (2 Consecutive Seasons)",
     roleAr: "رئيس لجنة الميديا (موسمان متتاليان)",
     company: "Youth Scope",
     companyAr: "يوث سكوب",
     detail: "Overhauled organizational identity twice. Led team of 12 designers; awarded Best Head both seasons.",
-    detailAr: "إعادة بناء هوية المنظمة مرتين. قيادة فريق من ١٢ مصمماً، والفوز بجائزة أفضل رئيس لجنة للموسمين.",
+    detailAr: "إعادة بناء هوية المنظمة مرتين. قيادة فريق من 12 مصمماً، والفوز بجائزة أفضل رئيس لجنة للموسمين.",
   },
   {
     period: "2017 → 2022",
-    periodAr: "٢٠١٧ → ٢٠٢٢",
+    periodAr: "2017 → 2022",
     role: "Graphic Designer",
     roleAr: "مصمم جرافيك",
     company: "Independent Practice",
@@ -254,13 +254,13 @@ const TIMELINE = [
   },
   {
     period: "2022 → Present",
-    periodAr: "٢٠٢٢ ← الحاضر",
+    periodAr: "2022 ← الحاضر",
     role: "Brand Identity Designer & Consultant",
     roleAr: "مصمم هوية بصرية ومستشار",
     company: "Independent Practice",
     companyAr: "ممارسة مستقلة",
     detail: "4+ years focused on brand identity and systems; 20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
-    detailAr: "أكثر من ٤ سنوات في الهوية والأنظمة؛ أكثر من ٢٠ عميلاً ومؤسسة في الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
+    detailAr: "أكثر من 4 سنوات في الهوية والأنظمة؛ أكثر من 20 عميلاً ومؤسسة في الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
   },
 ];
 
@@ -293,7 +293,7 @@ export function ForHiringView() {
           }
           subtitle={
             ar
-              ? "٩+ سنوات من الممارسة المهنية في التصميم، منها ٤+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (الرياض أو عن بُعد)."
+              ? "9+ سنوات من الممارسة المهنية في التصميم، منها 4+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (الرياض أو عن بُعد)."
               : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand & Product Designer / Brand Identity Designer opportunities (Riyadh or Remote)."
           }
         />
@@ -563,7 +563,7 @@ export function ForHiringView() {
           </h2>
           <p className="text-body-sm text-text-secondary">
             {ar
-              ? "متاح للمقابلات ومناقشة تفاصيل الشواغر لمصمم هوية بصرية أول (في الرياض أو عن بُعد). الرد سريع خلال أقل من ٢٤ ساعة."
+              ? "متاح للمقابلات ومناقشة تفاصيل الشواغر لمصمم هوية بصرية أول (في الرياض أو عن بُعد). الرد سريع خلال أقل من 24 ساعة."
               : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions in Riyadh or Remote. Typically replies within 24 hours."}
           </p>
         </div>

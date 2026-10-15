@@ -73,7 +73,7 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     rejectedDirections:
       "1) Generic medical cross and stethoscope tropes: Rejected because they commoditize the brand and fail to establish distinct trademark equity.\n2) High-saturation neon cyan (#3A86FF): Rejected during discovery for feeling like consumer software rather than clinical authority.",
     rejectedDirectionsAr:
-      "١) الصليب السريري والسماعة الطبية: رُفضا لكونهما مكررين ولا يبنيان ملكية فكرية.\n٢) الأزرق النيون الفاقع (#3A86FF): رُفض في مرحلة البحث لأنه يوحي بالبرمجيات الاستهلاكية لا الوقار والمسؤولية الطبية.",
+      "1) الصليب السريري والسماعة الطبية: رُفضا لكونهما مكررين ولا يبنيان ملكية فكرية.\n2) الأزرق النيون الفاقع (#3A86FF): رُفض في مرحلة البحث لأنه يوحي بالبرمجيات الاستهلاكية لا الوقار والمسؤولية الطبية.",
     roleAndTeam:
       "Sole Brand Identity Designer & Creative Lead (Mustafa Aboalazm). Designed the full system: brand strategy, bilingual symbol, typography system, Pantone palette, brand book (V2.0), and architectural signage specs. Collaborated with the Medical Director (anatomical accuracy) and Marketing Manager.",
     roleAndTeamAr:

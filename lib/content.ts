@@ -88,7 +88,7 @@ const STATIC_GALLERIES: Record<string, GalleryItem[]> = {
     { src: "/images/work/cc-logo-variants.jpg", caption: "LOGO VARIANTS · DARK / LIGHT / GRADIENT", captionAr: "متغيرات اللوجو · داكن / فاتح / متدرج", span: "full", kind: "slide" },
     { src: "/images/work/cc-poster-mockup.jpg", caption: "PRINT APPLICATION · POSTER MOCKUP", captionAr: "تطبيق مطبوع · ماكيت بوستر" },
     { src: "/images/work/cc-colors-dark.png", caption: "COLOR SYSTEM · DARK CANVAS", captionAr: "نظام الألوان · القماش الداكن", kind: "slide" },
-    { src: "/images/work/cc-gradients.png", caption: "GRADIENT LIBRARY · 8 VARIANTS", captionAr: "مكتبة التدرجات · ٨ متغيرات", kind: "slide" },
+    { src: "/images/work/cc-gradients.png", caption: "GRADIENT LIBRARY · 8 VARIANTS", captionAr: "مكتبة التدرجات · 8 متغيرات", kind: "slide" },
     { src: "/images/work/cc-typography.png", caption: "TYPOGRAPHY · SIGNATE GROTESK + RALEWAY + POPPINS", captionAr: "الطباعة · Signate + Raleway + Poppins", kind: "slide" },
     { src: "/images/work/cc-design-samples.png", caption: "DESIGN SAMPLES · SOCIAL + WEB", captionAr: "نماذج تصميم · سوشيال + ويب", span: "full" },
     { src: "/images/work/cc-closing.jpg", caption: "WHERE CREATIVITY MEETS TECHNOLOGY", captionAr: "حيث يلتقي الإبداع بالتكنولوجيا", span: "full", kind: "slide" },
