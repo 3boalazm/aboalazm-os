@@ -4,7 +4,6 @@
  * Payload rows so newly approved work and link updates appear in either mode.
  */
 import type { Project } from "./types";
-import { GAD_NAME_AR } from "../../lib/client-names";
 
 export const BEHANCE = "https://www.behance.net/aboalazm";
 
@@ -46,14 +45,14 @@ export const PROJECTS: readonly Project[] = [
   {
     slug: "gad-institute",
     name: "GAD Heart & Lungs Institute",
-    nameAr: GAD_NAME_AR,
+    nameAr: "معهد GAD للقلب والرئة",
     category: "design",
     discipline: "Systemic Identity",
     stack: ["Brand Strategy", "Bilingual Identity", "Guidelines"],
     outcome: "Strategy → Identity → Governed System",
     outcomeAr: "استراتيجية → هوية → نظام محكوم",
     year: "2023",
-    thumbnail: "/images/work/gad/gad-card.jpg",
+    thumbnail: "/images/work/gad/gad-thumb.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(0 88 149 / 0.20)",
@@ -70,7 +69,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Healthcare IT Personal Brand",
     outcomeAr: "براند شخصي · تكنولوجيا معلومات صحية",
     year: "2025",
-    thumbnail: "/images/work/ahmed-bedeer-card.jpg",
+    thumbnail: "/images/work/ahmed-bedeer-mockup.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(17 138 178 / 0.20)",
@@ -87,7 +86,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Brand system, packaging & campaign governance",
     outcomeAr: "نظام هوية وتغليف وحوكمة الحملات",
     year: "2020–25",
-    thumbnail: "/images/work/nile-pharma/npf-card.jpg",
+    thumbnail: "/images/work/nile-pharma.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(0 200 210 / 0.18)",
@@ -121,7 +120,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Premium Art Brand · V1.0 System",
     outcomeAr: "براند فن متميز · نظام V1.0",
     year: "2022",
-    thumbnail: "/images/work/reflection/refl-card.jpg",
+    thumbnail: "/images/work/reflection/refl-thumb.jpg",
     hasCaseStudy: true,
     accent: {
       primary: "rgb(150 70 140 / 0.18)",

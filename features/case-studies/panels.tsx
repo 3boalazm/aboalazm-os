@@ -88,7 +88,7 @@ export function OverviewPanel({
           <div className="relative aspect-[16/9]">
             <Image
               src={hero.src}
-              alt={(ar && hero.captionAr ? hero.captionAr : hero.caption) || (ar && record.nameAr ? record.nameAr : record.name)}
+              alt={ar && hero.captionAr ? hero.captionAr : hero.caption}
               fill
               priority
               sizes="(min-width:1024px) 70vw, 100vw"
@@ -495,7 +495,7 @@ export function ApplicationsPanel({
           <p className="max-w-[70ch] text-body-sm leading-relaxed text-text-secondary">{where}</p>
         </div>
       )}
-      {items.length > 0 && <CaseGallery items={items} label={ar && record.nameAr ? record.nameAr : record.name} />}
+      {items.length > 0 && <CaseGallery items={items} />}
     </PanelShell>
   );
 }
@@ -633,7 +633,7 @@ export function SystemPanel({
             <p className={`${FIELD_LABEL} text-accent`}>
               {ar ? "إثباتات التصميم — أصول أصلية ومقروءة" : "DESIGN PROOF — ORIGINAL & LEGIBLE ARTIFACTS"}
             </p>
-            <h3 className="font-display font-display-sm text-subtitle text-text-primary">
+            <h3 className="font-display text-subtitle text-text-primary">
               {ar ? "بناء الشعار، اختبار المقروئية، وتطبيقات الإنتاج" : "Logo Construction, Scale Verification & Production Applications"}
             </h3>
           </div>
@@ -654,7 +654,7 @@ export function SystemPanel({
                   />
                 </div>
                 <div className="flex flex-col gap-1 p-3">
-                  <h4 className="font-display font-display-sm text-body-sm font-semibold text-text-primary">
+                  <h4 className="font-display text-body-sm font-semibold text-text-primary">
                     {ar && item.titleAr ? item.titleAr : item.title}
                   </h4>
                   <p className="text-body-sm text-text-secondary">
@@ -671,7 +671,7 @@ export function SystemPanel({
       {slides.length > 0 && (
         <div className="mt-4 flex flex-col gap-3 border-t border-border-subtle pt-8">
           <p className={`${FIELD_LABEL} text-accent`}>{t.csGuidelines}</p>
-          <CaseGallery items={slides} label={ar && record.nameAr ? record.nameAr : record.name} />
+          <CaseGallery items={slides} />
         </div>
       )}
     </PanelShell>

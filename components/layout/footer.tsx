@@ -92,7 +92,7 @@ export function Footer() {
               aria-label={ar ? col.head[1] : col.head[0]}
               className="flex flex-col gap-1"
             >
-              <p className="font-display font-display-sm text-caption uppercase tracking-[0.12em] text-text-ghost">
+              <p className="font-display text-caption uppercase tracking-[0.12em] text-text-ghost">
                 {ar ? col.head[1] : col.head[0]}
               </p>
               <div className="flex flex-col gap-1">

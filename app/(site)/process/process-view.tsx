@@ -13,14 +13,12 @@
  * Bilingual (LTR/RTL). Motion via Framer Motion. No external deps.
  */
 
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@/components/ui/Icon";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";
-import { physics, physicsSlow } from "@/lib/motion";
-/* Hero entrance is CSS (.hero-rise): painted in the first frame, JS or not. */
-import "@/features/hero/hero.css";
+import { physics, physicsSlow, reveal } from "@/lib/motion";
 import { GateStepper } from "@/features/process";
 import { AnchorNav } from "@/features/navigation";
 import { buttonVariants } from "@/components/ui/Button";
@@ -66,7 +64,7 @@ const COPY = {
   },
   ar: {
     kicker: "المنهجية",
-    h1a: "38 يومًا،",
+    h1a: "٣٨ يومًا،",
     h1b: "أربع بوابات.",
     lede: "كل مشروع هوية بصرية يمشي على نفس العمود — تسلسل منضبط بموافقة مكتوبة عند كل بوابة. لا مفاجآت، لا توسع في النطاق، لا تخمين لمكان الشغل. افتح أي مرحلة لترى بالضبط ما يحدث بداخلها.",
     metaDays: "يومًا",
@@ -83,7 +81,7 @@ const COPY = {
     ctaKicker: "جاهز نبدأ؟",
     ctaTitle: "ابدأ من",
     ctaItalic: "اليوم الأول.",
-    ctaSub: "المنهجية كلها تبدأ بمكالمة اكتشاف 30 دقيقة. بدون التزام — بس وضوح عن النطاق والتوافق والجدول الزمني.",
+    ctaSub: "المنهجية كلها تبدأ بمكالمة اكتشاف ٣٠ دقيقة. بدون التزام — بس وضوح عن النطاق والتوافق والجدول الزمني.",
     ctaPrimary: "احجز مكالمة اكتشاف",
     ctaSecondary: "شوف رحلة العميل",
   },
@@ -188,15 +186,15 @@ const PHASES_EN: Phase[] = [
 
 const PHASES_AR: Phase[] = [
   {
-    n: "01",
+    n: "٠١",
     name: "الاكتشاف والبحث",
-    days: "الأيام 1–6",
+    days: "الأيام ١–٦",
     dayRange: [1, 6],
     summary: "تعلّم عالمك قبل تصميم أي شيء. الأساس الذي لا يعوّضه أي شعار.",
     tasks: [
       "مكالمة البدء وبريف مشروع موقّع",
       "مراجعة شاملة للبراند الحالي (إن وُجد)",
-      "تحليل المنافسين — من 5 إلى 8 مباشرين وغير مباشرين",
+      "تحليل المنافسين — من ٥ إلى ٨ مباشرين وغير مباشرين",
       "خريطة فجوات الألوان لإيجاد المساحة البصرية المفتوحة",
       "بيرسونا الجمهور والوظائف المطلوب إنجازها",
       "بحث ثقافي ولغوي (حاسم للهويات ثنائية اللغة)",
@@ -208,12 +206,12 @@ const PHASES_AR: Phase[] = [
       "بريف مشروع معتمد",
     ],
     gate: "توافق على بريف المشروع كتابيًا قبل بدء الاستراتيجية.",
-    payment: "50% مقدّم عند البدء",
+    payment: "٥٠٪ مقدّم عند البدء",
   },
   {
-    n: "02",
+    n: "٠٢",
     name: "استراتيجية البراند",
-    days: "الأيام 5–9",
+    days: "الأيام ٥–٩",
     dayRange: [5, 9],
     summary: "الغاية والتموضع ونبرة الصوت — معتمدة على الورق قبل رسم أي شكل.",
     tasks: [
@@ -231,17 +229,17 @@ const PHASES_AR: Phase[] = [
       "اتجاه بصري معتمد",
     ],
     gate: "تُعتمد الاستراتيجية قبل بدء أي تصميم بصري. ده بيقفل الباب على «مش عارف اللي عايزه» لاحقًا.",
-    payment: "25% عند اعتماد الاستراتيجية (الفئتان 2 و3)",
+    payment: "٢٥٪ عند اعتماد الاستراتيجية (الفئتان ٢ و٣)",
   },
   {
-    n: "03",
+    n: "٠٣",
     name: "المفهوم والتصميم",
-    days: "الأيام 9–27",
+    days: "الأيام ٩–٢٧",
     dayRange: [9, 27],
     summary: "عشرات الإسكتشات تُختصر لاتجاهات قليلة، ثم تُطوّر لنظام كامل.",
     tasks: [
-      "20–30 إسكتش خام — الكمية قبل الجودة",
-      "التضييق لـ2–3 اتجاهات استراتيجية",
+      "٢٠–٣٠ إسكتش خام — الكمية قبل الجودة",
+      "التضييق لـ٢–٣ اتجاهات استراتيجية",
       "استكشاف الخطوط والألوان لكل اتجاه",
       "بناء المفهوم الأساسي فيكتور بالكامل",
       "نظام الشعار: أساسي، ثانوي، مصغّر، شعار ثنائي اللغة",
@@ -250,7 +248,7 @@ const PHASES_AR: Phase[] = [
       "لقطات تقدم في منتصف المرحلة — لا مفاجآت",
     ],
     deliverables: [
-      "2–3 اتجاهات مع المنطق وراءها",
+      "٢–٣ اتجاهات مع المنطق وراءها",
       "نظام شعار كامل (الاتجاه المختار)",
       "نظام الألوان والخطوط",
       "العناصر البصرية والموك-أب الأساسية",
@@ -258,19 +256,19 @@ const PHASES_AR: Phase[] = [
     gate: "تختار اتجاهًا واحدًا، معتمدًا، قبل تطويره للشكل النهائي.",
   },
   {
-    n: "04",
+    n: "٠٤",
     name: "المراجعة والتسليم",
-    days: "الأيام 27–38",
+    days: "الأيام ٢٧–٣٨",
     dayRange: [27, 38],
     summary: "جولتا مراجعة منظمتان، اعتماد نهائي، ونظام يقدر فريقك يشغّله.",
     tasks: [
-      "جولتا المراجعة 1 و2 (حسب العقد)",
+      "جولتا المراجعة ١ و٢ (حسب العقد)",
       "سجل المراجعات يتتبع كل طلب داخل/خارج النطاق",
       "اعتماد نهائي كتابيًا",
       "حزمة الملفات: AI, EPS, SVG, PNG, JPG",
-      "دليل الهوية PDF (12–40 صفحة حسب الفئة)",
+      "دليل الهوية PDF (١٢–٤٠ صفحة حسب الفئة)",
       "مكالمة التسليم — كيفية استخدام النظام",
-      "نافذة دعم 30 يومًا بعد التسليم",
+      "نافذة دعم ٣٠ يومًا بعد التسليم",
     ],
     deliverables: [
       "كل ملفات الشعار، بكل الصيغ والنسخ",
@@ -279,7 +277,7 @@ const PHASES_AR: Phase[] = [
       "إيصال تسليم موقّع + نقل الملكية الفكرية",
     ],
     gate: "الاعتماد النهائي وسداد الباقي قبل تسليم الملفات النهائية. حمايةً للطرفين.",
-    payment: "الباقي قبل التسليم: 25% (الفئتان 2 و3) · 50% (الفئة 1)",
+    payment: "الباقي قبل التسليم: ٢٥٪ (الفئتان ٢ و٣) · ٥٠٪ (الفئة ١)",
   },
 ];
 
@@ -293,7 +291,7 @@ const PRINCIPLES = {
     ["No final files before balance", "The final payment clears before the delivery package is released."],
   ],
   ar: [
-    ["لا شغل قبل المقدّم", "دفعة الـ50% عند البدء هي ما يُطلق المشروع. لا شيء قبلها."],
+    ["لا شغل قبل المقدّم", "دفعة الـ٥٠٪ عند البدء هي ما يُطلق المشروع. لا شيء قبلها."],
     ["الاستراتيجية قبل التصميم", "دائمًا. شعار بدون استراتيجية رهان عشوائي بلا معيار للحكم."],
     ["كل اتفاق شفهي، كتابيًا", "كل قرار يُؤكَّد في إيميل أو في بريف المشروع. ده بيحمي الطرفين."],
     ["تحكّم بالإصدارات، بدون Final_FINAL", "الملفات مرقّمة بوضوح. لقطات تقدم في كل مرحلة — لا مفاجأة عند المراجعة."],
@@ -334,19 +332,24 @@ export function ProcessView() {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden bg-surface-0 px-6 py-24 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
-        <div className="relative z-10 flex max-w-[760px] flex-col gap-5">
-          <p className="hero-rise font-mono text-caption uppercase tracking-[0.16em] text-accent" style={{ "--i": 0 } as CSSProperties}>
+        <motion.div
+          className="relative z-10 flex max-w-[760px] flex-col gap-5"
+          variants={reveal.container}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.p className="font-mono text-caption uppercase tracking-[0.16em] text-accent" variants={reveal.item}>
             {c.kicker}
-          </p>
-          <h1 className="hero-rise font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" style={{ "--i": 1 } as CSSProperties}>
+          </motion.p>
+          <motion.h1 className="font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" variants={reveal.item}>
             {c.h1a}<br /><em className="text-accent">{c.h1b}</em>
-          </h1>
-          <p className="hero-rise max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)", "--i": 2 } as CSSProperties}>
+          </motion.h1>
+          <motion.p className="max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }} variants={reveal.item}>
             {c.lede}
-          </p>
+          </motion.p>
 
           {/* meta strip */}
-          <div className="hero-rise mt-2 flex gap-6" style={{ "--i": 3 } as CSSProperties}>
+          <motion.div className="mt-2 flex gap-6" variants={reveal.item}>
             {[["38", c.metaDays], ["4", c.metaGates], ["2", c.metaRounds]].map(([v, l]) => (
               <div key={l} className="flex flex-col">
                 <span className="font-display text-[2rem] leading-none tracking-[-0.02em] text-text-primary">
@@ -355,18 +358,18 @@ export function ProcessView() {
                 <span className="mt-1 font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{l}</span>
               </div>
             ))}
-          </div>
+          </motion.div>
 
-          <ol
-            className="hero-rise mt-4 grid max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4"
-            style={{ "--i": 4 } as CSSProperties}
+          <motion.ol
+            variants={reveal.item}
+            className="mt-4 grid max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4"
           >
             {(ar
               ? [
-                  ["01", "اكتشاف"],
-                  ["02", "استراتيجية"],
-                  ["03", "تصميم"],
-                  ["04", "تسليم"],
+                  ["٠١", "اكتشاف"],
+                  ["٠٢", "استراتيجية"],
+                  ["٠٣", "تصميم"],
+                  ["٠٤", "تسليم"],
                 ]
               : [
                   ["01", "Discover"],
@@ -377,7 +380,7 @@ export function ProcessView() {
             ).map(([n, name], i, list) => (
               <li key={n} className="flex items-baseline gap-2">
                 <span className="font-mono text-micro text-accent">{n}</span>
-                <span className="font-display font-display-sm text-body-lg tracking-[-0.015em] text-text-primary">{name}</span>
+                <span className="font-display text-body-lg tracking-[-0.015em] text-text-primary">{name}</span>
                 {i < list.length - 1 ? (
                   <span aria-hidden className="hidden text-text-ghost sm:inline-flex">
                     <Icon name="arrow-right" flip={false} />
@@ -385,8 +388,8 @@ export function ProcessView() {
                 ) : null}
               </li>
             ))}
-          </ol>
-        </div>
+          </motion.ol>
+        </motion.div>
       </section>
 
       {/* ── APPROVAL GATES (interactive terminal stepper) ── */}
@@ -458,7 +461,7 @@ export function ProcessView() {
                           2-column grid: name on top, then days with the chevron at the end
                           of that line — the same place for every phase and width. */}
                       <span className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-3 sm:flex sm:flex-wrap">
-                        <span className="font-display font-display-sm text-subtitle tracking-[-0.015em] text-text-primary max-sm:col-span-2">{phase.name}</span>
+                        <span className="font-display text-subtitle tracking-[-0.015em] text-text-primary max-sm:col-span-2">{phase.name}</span>
                         <span className="font-mono text-caption uppercase tracking-[0.1em] text-text-ghost">{phase.days}</span>
                         {chevron("sm:hidden")}
                       </span>
@@ -557,7 +560,7 @@ export function ProcessView() {
               >
                 <span className="font-mono text-caption text-accent">{String(i + 1).padStart(2, "0")}</span>
                 <div className="flex flex-col gap-1">
-                  <p className="font-display font-display-sm text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
+                  <p className="font-display text-body-sm tracking-[-0.01em] text-text-primary">{title}</p>
                   <p className="text-label leading-[1.6] text-text-tertiary" style={{ fontFamily: "var(--font-sans)" }}>{body}</p>
                 </div>
               </motion.div>

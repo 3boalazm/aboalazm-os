@@ -156,7 +156,7 @@ export function Nav() {
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "group relative block px-2 py-1 font-display font-display-sm text-caption uppercase tracking-[0.08em]",
+                    "group relative block px-2 py-1 font-display text-caption uppercase tracking-[0.08em]",
                     "transition-colors duration-base ease-physics",
                     active
                       ? "text-text-primary"
@@ -224,18 +224,26 @@ export function Nav() {
         </button>
 
         <Link
-          href="/for-hiring"
+          href="/contact"
           className={buttonVariants({
             className:
-              "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
+              "group shrink-0 whitespace-nowrap px-2 py-1 font-display text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {/* The bar's one action serves the owner's stated goal — a full-time
-              brand identity role in the Gulf — and lands on the candidate
-              dossier (roles, CV, the way to reach him), not on the client
-              funnel. "Start a project" stays one tap away: the hero's
-              "Client services" link, /services, /contact, the footer. */}
-          {lang === "ar" ? "وظّفني" : "HIRE ME"}
+          {/* One canonical action site-wide (overhaul S1). Long label only
+              where the bar provably fits: below xl the short form keeps the
+              pill inside the viewport (overflow was QA'd at 768–910px). */}
+          {lang === "ar" ? (
+            <>
+              <span className="hidden xl:inline">ابدأ مشروعك</span>
+              <span className="xl:hidden">ابدأ</span>
+            </>
+          ) : (
+            <>
+              <span className="hidden xl:inline">START A PROJECT</span>
+              <span className="xl:hidden">START</span>
+            </>
+          )}
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"
@@ -284,7 +292,7 @@ export function Nav() {
                     aria-current={active ? "page" : undefined}
                     onClick={closePanel}
                     className={[
-                      "flex items-center gap-1.5 rounded-card px-2 py-2 font-display font-display-sm text-micro uppercase tracking-[0.08em]",
+                      "flex items-center gap-1.5 rounded-card px-2 py-2 font-display text-micro uppercase tracking-[0.08em]",
                       "transition-colors duration-base ease-physics",
                       active
                         ? "text-accent"
@@ -313,7 +321,7 @@ export function Nav() {
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="flex w-full items-center gap-1.5 rounded-card px-2 py-2 font-display font-display-sm text-micro uppercase tracking-[0.08em] text-text-secondary transition-colors duration-base ease-physics hover:bg-surface-2 hover:text-text-primary"
+                className="flex w-full items-center gap-1.5 rounded-card px-2 py-2 font-display text-micro uppercase tracking-[0.08em] text-text-secondary transition-colors duration-base ease-physics hover:bg-surface-2 hover:text-text-primary"
               >
                 <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
                 {theme === "dark"

@@ -87,7 +87,7 @@ function makeConverters(
       if (node.tag === "h3") {
         return (
           <Reveal>
-            <h3 className="mt-8 font-display font-display-sm text-lead font-semibold uppercase tracking-[0.01em] text-text-primary">
+            <h3 className="mt-8 font-display text-lead font-semibold uppercase tracking-[0.01em] text-text-primary">
               {children}
             </h3>
           </Reveal>

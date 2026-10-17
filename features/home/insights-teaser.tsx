@@ -29,7 +29,7 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
   const mine = posts.filter((p) => p.lang === (ar ? "ar" : "en"));
   const picked = (mine.length >= 3 ? mine : [...mine, ...posts.filter((p) => !mine.includes(p))]).slice(0, 3);
 
-  const fmt = new Intl.DateTimeFormat(ar ? "ar-EG-u-nu-latn" : "en-GB", {
+  const fmt = new Intl.DateTimeFormat(ar ? "ar-EG" : "en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
