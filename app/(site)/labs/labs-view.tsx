@@ -64,7 +64,7 @@ export function LabsView() {
       {/* Why */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["01 / WHY", "01 / لماذا"]}
+          label={["01 / WHY", "٠١ / لماذا"]}
           title={["Built on testing,", "مبنيّ على"]}
           italic={["not assumption.", "الاختبار لا الافتراض."]}
         />
@@ -84,7 +84,7 @@ export function LabsView() {
       {/* Research areas */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["02 / RESEARCH AREAS", "02 / مجالات البحث"]}
+          label={["02 / RESEARCH AREAS", "٠٢ / مجالات البحث"]}
           title={["Five lines of", "خمسة خطوط"]}
           italic={["open inquiry.", "بحث مفتوحة."]}
         />
@@ -127,7 +127,7 @@ export function LabsView() {
       {/* Try them live — actual working tools, not just research descriptions */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["03 / TRY THEM LIVE", "03 / جرّبها الآن"]}
+          label={["03 / TRY THEM LIVE", "٠٣ / جرّبها الآن"]}
           title={["Working tools,", "أدوات تشتغل،"]}
           italic={["not just ideas.", "لا مجرد أفكار."]}
         />
@@ -160,7 +160,7 @@ export function LabsView() {
       {/* Active projects */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["04 / ACTIVE PROJECTS", "04 / مشاريع نشطة"]}
+          label={["04 / ACTIVE PROJECTS", "٠٤ / مشاريع نشطة"]}
           title={["What's on the", "ما يجري"]}
           italic={["bench right now.", "على الطاولة الآن."]}
         />
@@ -200,7 +200,7 @@ export function LabsView() {
       {/* Lab notes */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["05 / LAB NOTES", "05 / ملاحظات المعمل"]}
+          label={["05 / LAB NOTES", "٠٥ / ملاحظات المعمل"]}
           title={["Findings from", "ملاحظات من"]}
           italic={["inside the work.", "داخل التجارب."]}
         />
@@ -219,7 +219,7 @@ export function LabsView() {
       {/* Methodology */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["06 / METHODOLOGY", "06 / المنهجية"]}
+          label={["06 / METHODOLOGY", "٠٦ / المنهجية"]}
           title={["One cycle,", "دورة واحدة"]}
           italic={["every experiment.", "لكل تجربة."]}
         />
@@ -247,7 +247,7 @@ export function LabsView() {
       {/* Open frameworks → resources */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["07 / OPEN FRAMEWORKS", "07 / أطر منشورة"]}
+          label={["07 / OPEN FRAMEWORKS", "٠٧ / أطر منشورة"]}
           title={["Experiments that graduated to", "تجارب تخرّجت إلى"]}
           italic={["the public library.", "المكتبة العامة."]}
         />

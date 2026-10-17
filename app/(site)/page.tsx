@@ -45,7 +45,7 @@ export default async function Home() {
       {/* 01 · Identity work */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="01" label="IDENTITY / SELECTED WORK" labelAr="الهوية / أعمال مختارة" />
+          <SectionMarker index="01" label="IDENTITY / SELECTED WORK" />
         </div>
         <ScrollReveal>
           <FeaturedCases
@@ -60,7 +60,7 @@ export default async function Home() {
       {/* 02 · Development work has its own showcase and production links */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="02" label="DEVELOPMENT / DIGITAL PRODUCTS" labelAr="التطوير / المنتجات الرقمية" />
+          <SectionMarker index="02" label="DEVELOPMENT / DIGITAL PRODUCTS" />
         </div>
         <ScrollReveal>
           <FeaturedCases
@@ -78,7 +78,7 @@ export default async function Home() {
       {/* 03 · The offer */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="03" label="SERVICES / OFFER" labelAr="الخدمات / العرض" />
+          <SectionMarker index="03" label="SERVICES / OFFER" />
         </div>
         <div className="container-wide">
           <ServicesSnapshot />
@@ -88,7 +88,7 @@ export default async function Home() {
       {/* 04 · Process & Methodology */}
       <section className="narrative-section narrative-section--process">
         <div className="container-wide">
-          <SectionMarker index="04" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
+          <SectionMarker index="04" label="METHOD / PROCESS" />
         </div>
         <ScrollReveal>
           <ClientJourneyBand />
@@ -98,7 +98,7 @@ export default async function Home() {
       {/* 05 · Background & Practice (skills live here now — marquee retired) */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="05" label="PRACTICE / BACKGROUND" labelAr="الممارسة / الخلفية" />
+          <SectionMarker index="05" label="PRACTICE / BACKGROUND" />
         </div>
         <ScrollReveal>
           <AboutTeaser />
@@ -108,7 +108,7 @@ export default async function Home() {
       {/* 06 · The thinking — journal teaser inside the funnel */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="06" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
+          <SectionMarker index="06" label="WRITING / THINKING" />
         </div>
         <div className="container-wide">
           <InsightsTeaser posts={posts} />
@@ -118,7 +118,7 @@ export default async function Home() {
       {/* 07 · FAQ / objection handling */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="07" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
+          <SectionMarker index="07" label="FAQ / BEFORE START" />
         </div>
         <ScrollReveal>
           <HomeFaq />
@@ -128,7 +128,7 @@ export default async function Home() {
       {/* 08 · One canonical next step */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="08" label="NEXT / START" labelAr="التالي / ابدأ" />
+          <SectionMarker index="08" label="NEXT / START" />
         </div>
         <ScrollReveal>
           <HomeCta />

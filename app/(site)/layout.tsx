@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { preload } from "react-dom";
 import { Analytics } from "@vercel/analytics/next";
 import { fontVariables } from "@/lib/fonts";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
@@ -77,13 +76,6 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  // The display face, on every route. Only Home preloaded it (hero.tsx), so on
-  // every other page the headline was first painted in the fallback and then
-  // re-set when GC EPICPRO arrived ~200 ms later — an extra-wide face, so the
-  // H1 wrapped onto more lines and pushed the page down (CLS /services 0.29,
-  // /for-hiring 0.17, against Home's 0.001). 13 KB, same file.
-  preload("/fonts/Gc_Epicpro.woff2", { as: "font", type: "font/woff2", crossOrigin: "anonymous" });
-
   // suppressHydrationWarning on <html>: the anti-flash script below (and
   // the lang/theme providers) legitimately mutate <html> attributes
   // (data-theme, lang, dir) before/around hydration — React #418

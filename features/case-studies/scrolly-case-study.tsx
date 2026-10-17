@@ -28,7 +28,6 @@ import {
 } from "./panels";
 import { panelsFor, type CaseStudyRecord } from "./types";
 import type { GalleryItem } from "./case-gallery";
-import { splitGallery } from "./hero-pick";
 import type { ReactNode } from "react";
 import { useT } from "@/hooks/use-t";
 import { Heading } from "@/components/ui/Heading";
@@ -71,11 +70,13 @@ export function ScrollyCaseStudy({
     { scope: articleRef },
   );
 
-  // First in-use image is the hero (see hero-pick.ts for the one case that
-  // names its own); the rest fill the "In use" panel. The document's own pages
-  // go to the System panel (or are dropped when the full brand book is shown,
-  // which already contains them).
-  const { hero, appItems, slides, shown } = splitGallery(record.slug, gallery, { brandBook: !!brandBook });
+  // First in-use image is the hero; the rest fill the "In use" panel. The
+  // document's own pages go to the System panel (or are dropped when the full
+  // brand book is shown, which already contains them).
+  const inUse = gallery.filter((g) => g.kind !== "slide");
+  const slides = brandBook ? [] : gallery.filter((g) => g.kind === "slide");
+  const hero = inUse[0];
+  const appItems = inUse.slice(1);
   const hasApplications = appItems.length > 0 || !!record.narrativeAnswers?.whereUsed;
   const panels = panelsFor({ applications: hasApplications });
   const idx = (id: string) => panels.find((p) => p.id === id)!.index;
@@ -94,7 +95,7 @@ export function ScrollyCaseStudy({
         <ChallengePanel record={record} index={idx("challenge")} />
         <IdeaPanel record={record} index={idx("idea")} />
         {hasApplications && <ApplicationsPanel record={record} index={idx("applications")} items={appItems} />}
-        <SystemPanel record={record} index={idx("system")} slides={slides} brandBook={brandBook} shown={shown} />
+        <SystemPanel record={record} index={idx("system")} slides={slides} brandBook={brandBook} shown={inUse.map((g) => g.src)} />
         <OutcomePanel record={record} index={idx("outcome")} />
       </article>
     </div>

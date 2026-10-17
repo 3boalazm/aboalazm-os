@@ -16,7 +16,7 @@ export const REFLECTION: CaseStudyRecord = {
   problemAr:
     "استوديو فن ومطبوعات متميز يحتاج هوية تضعه بعيداً عن محلات الملصقات الشعبية — شيء يبدو مدروساً، قريباً من المعارض، وقابلاً للاقتناء، مع الحفاظ على وضوحه ووظيفيته عبر الأسطح الرقمية والمادية.",
   teamScale: "1 designer · founder · remote delivery",
-  teamScaleAr: "1 مصمم · المؤسس · تسليم عن بُعد",
+  teamScaleAr: "١ مصمم · المؤسس · تسليم عن بُعد",
   timeline: "Aug 2022 · 18-page brand book delivered",
   timelineAr: "أغسطس 2022 · تسليم دليل براند 18 صفحة",
   kpis: [
@@ -84,11 +84,11 @@ export const REFLECTION: CaseStudyRecord = {
     rejectedDirections:
       "1) Dark, moody cyberpunk styling: Rejected because it alienated residential interior buyers seeking warmth and light.\n2) Generic brushstroke typography: Rejected for lacking the architectural rigor needed for a bespoke framing and printing atelier.",
     rejectedDirectionsAr:
-      "1) النمط الداكن أو التقني: رُفض لأنه لا يناسب مقتني اللوحات للمنازل السكنية الباحثين عن النور والدفء.\n2) خطوط الفرشاة اليدوية العشوائية: رُفضت لافتقارها إلى الصرامة المعمارية المطلوبة لمرسم طباعة وتأطير احترافي.",
+      "١) النمط الداكن أو التقني: رُفض لأنه لا يناسب مقتني اللوحات للمنازل السكنية الباحثين عن النور والدفء.\n٢) خطوط الفرشاة اليدوية العشوائية: رُفضت لافتقارها إلى الصرامة المعمارية المطلوبة لمرسم طباعة وتأطير احترافي.",
     roleAndTeam:
       "Sole Brand Identity Designer (Mustafa Aboalazm). Defined brand positioning, symbol anatomy, dual typography pairing (Neue Machina + Quicksand), focal-area layout rules, and complete 18-page brand book.",
     roleAndTeamAr:
-      "مصمم الهوية البصرية منفرداً (مصطفى أبوالعزم). صاغ التموضع، تشريح الشعار، مواءمة الخطوط، قواعد المنطقة المحورية، والدليل الإرشادي المكون من 18 صفحة.",
+      "مصمم الهوية البصرية منفرداً (مصطفى أبوالعزم). صاغ التموضع، تشريح الشعار، مواءمة الخطوط، قواعد المنطقة المحورية، والدليل الإرشادي المكون من ١٨ صفحة.",
     whereUsed:
       "Fine-art framed prints, storefront signage, product authentication tags, packaging tissue and tape, social portfolio, and brand guidelines.",
     whereUsedAr:

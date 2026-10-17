@@ -1,4 +1,3 @@
-import { GAD_NAME_AR } from "../../lib/client-names";
 /**
  * PORTFOLIO DATA — the landscape presentation edition (/portfolio).
  * A 16:9 slide deck: cover · index · profile · 5 chapters (divider + frames)
@@ -176,7 +175,7 @@ export const PROJECTS: Project[] = [
     slug: "gad",
     no: "04",
     name: "GAD Institute",
-    nameAr: GAD_NAME_AR,
+    nameAr: "معهد جاد",
     category: "HEALTHCARE IDENTITY",
     categoryAr: "هوية طبية",
     year: "2025",

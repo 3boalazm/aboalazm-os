@@ -7,20 +7,20 @@ import { Heading } from "@/components/ui/Heading";
 import { PanelCard } from "@/components/ui/PanelCard";
 
 const PHASES: readonly { n: string; days: Bi; name: Bi; body: Bi; out: Bi }[] = [
-  { n: "01", days: ["PRE-DAY 1", "قبل اليوم 1"], name: ["Discovery Call", "مكالمة الاكتشاف"], body: ["A short call to understand the project and confirm we're fit — before any financial commitment.", "مكالمة قصيرة لفهم المشروع والتأكد من التوافق — قبل أي التزام مالي."], out: ["FIT CONFIRMED", "تأكيد التوافق"] },
-  { n: "02", days: ["DAY 1", "اليوم 1"], name: ["Kickoff & Onboarding", "البدء والتعاقد"], body: ["Contract signed, 50% deposit received, project brief approved in writing. Nothing moves before all three.", "توقيع العقد، استلام مقدّم 50%، واعتماد البريف كتابيًا. لا شيء يتحرك قبل الثلاثة."], out: ["PROJECT LIVE", "بدء المشروع"] },
-  { n: "03", days: ["DAYS 2–6", "الأيام 2–6"], name: ["Discovery & Research", "الاكتشاف والبحث"], body: ["Brand audit, competitor analysis, audience persona, cultural research. No design appears in this phase — it's the foundation everything is built on.", "مراجعة البراند، تحليل المنافسين، بيرسونا الجمهور، والبحث الثقافي. لا تصميم في هذه المرحلة — هي الأساس الذي يُبنى عليه كل شيء."], out: ["RESEARCH REPORT", "تقرير بحثي"] },
-  { n: "04", days: ["DAYS 5–9", "الأيام 5–9"], name: ["Brand Strategy", "استراتيجية البراند"], body: ["Purpose, positioning, personality, tone of voice — approved in writing before any concept is drawn.", "الغاية، التموضع، الشخصية، نبرة الصوت — تُعتمد كتابيًا قبل رسم أي مفهوم."], out: ["SIGNED STRATEGY", "استراتيجية موقّعة"] },
-  { n: "05", days: ["DAYS 9–17", "الأيام 9–17"], name: ["Concept Development", "تطوير المفاهيم"], body: ["Dozens of sketches narrowed to 2–3 directions, presented on real mockups with the strategic logic behind each.", "عشرات الإسكتشات تُختصر إلى 2–3 اتجاهات، تُعرض على موك أب حقيقي مع المنطق الاستراتيجي وراء كل اتجاه."], out: ["DIRECTION CHOSEN", "اختيار الاتجاه"] },
-  { n: "06", days: ["DAYS 17–27", "الأيام 17–27"], name: ["Full Brand Design", "تصميم الهوية الكاملة"], body: ["Logo system → colors → typography → elements → applications. The order is not negotiable.", "نظام الشعار ← الألوان ← الخطوط ← العناصر ← التطبيقات. الترتيب غير قابل للتفاوض."], out: ["FULL SYSTEM", "نظام كامل"] },
-  { n: "07", days: ["DAYS 27–34", "الأيام 27–34"], name: ["Refinement & Revisions", "المراجعة والتعديلات"], body: ["Two structured revision rounds, logged in writing. Out-of-scope requests are quoted separately.", "جولتا مراجعة منظمتان موثقتان كتابيًا، وأي طلب خارج النطاق يُسعَّر على حدة."], out: ["FINAL SIGN-OFF", "اعتماد نهائي"] },
-  { n: "08", days: ["DAYS 34–38", "الأيام 34–38"], name: ["Final Delivery", "التسليم النهائي"], body: ["Brand Guidelines PDF, all source files in every format, handover call, plus 30 days of post-launch support.", "دليل الهوية PDF، كل ملفات المصدر بكل الصيغ، مكالمة تسليم، ودعم 30 يومًا بعد الإطلاق."], out: ["FULL HANDOVER", "تسليم كامل"] },
+  { n: "01", days: ["PRE-DAY 1", "قبل اليوم ١"], name: ["Discovery Call", "مكالمة الاكتشاف"], body: ["A short call to understand the project and confirm we're fit — before any financial commitment.", "مكالمة قصيرة لفهم المشروع والتأكد من التوافق — قبل أي التزام مالي."], out: ["FIT CONFIRMED", "تأكيد التوافق"] },
+  { n: "02", days: ["DAY 1", "اليوم ١"], name: ["Kickoff & Onboarding", "البدء والتعاقد"], body: ["Contract signed, 50% deposit received, project brief approved in writing. Nothing moves before all three.", "توقيع العقد، استلام مقدّم ٥٠٪، واعتماد البريف كتابيًا. لا شيء يتحرك قبل الثلاثة."], out: ["PROJECT LIVE", "بدء المشروع"] },
+  { n: "03", days: ["DAYS 2–6", "الأيام ٢–٦"], name: ["Discovery & Research", "الاكتشاف والبحث"], body: ["Brand audit, competitor analysis, audience persona, cultural research. No design appears in this phase — it's the foundation everything is built on.", "مراجعة البراند، تحليل المنافسين، بيرسونا الجمهور، والبحث الثقافي. لا تصميم في هذه المرحلة — هي الأساس الذي يُبنى عليه كل شيء."], out: ["RESEARCH REPORT", "تقرير بحثي"] },
+  { n: "04", days: ["DAYS 5–9", "الأيام ٥–٩"], name: ["Brand Strategy", "استراتيجية البراند"], body: ["Purpose, positioning, personality, tone of voice — approved in writing before any concept is drawn.", "الغاية، التموضع، الشخصية، نبرة الصوت — تُعتمد كتابيًا قبل رسم أي مفهوم."], out: ["SIGNED STRATEGY", "استراتيجية موقّعة"] },
+  { n: "05", days: ["DAYS 9–17", "الأيام ٩–١٧"], name: ["Concept Development", "تطوير المفاهيم"], body: ["Dozens of sketches narrowed to 2–3 directions, presented on real mockups with the strategic logic behind each.", "عشرات الإسكتشات تُختصر إلى ٢–٣ اتجاهات، تُعرض على موك أب حقيقي مع المنطق الاستراتيجي وراء كل اتجاه."], out: ["DIRECTION CHOSEN", "اختيار الاتجاه"] },
+  { n: "06", days: ["DAYS 17–27", "الأيام ١٧–٢٧"], name: ["Full Brand Design", "تصميم الهوية الكاملة"], body: ["Logo system → colors → typography → elements → applications. The order is not negotiable.", "نظام الشعار ← الألوان ← الخطوط ← العناصر ← التطبيقات. الترتيب غير قابل للتفاوض."], out: ["FULL SYSTEM", "نظام كامل"] },
+  { n: "07", days: ["DAYS 27–34", "الأيام ٢٧–٣٤"], name: ["Refinement & Revisions", "المراجعة والتعديلات"], body: ["Two structured revision rounds, logged in writing. Out-of-scope requests are quoted separately.", "جولتا مراجعة منظمتان موثقتان كتابيًا، وأي طلب خارج النطاق يُسعَّر على حدة."], out: ["FINAL SIGN-OFF", "اعتماد نهائي"] },
+  { n: "08", days: ["DAYS 34–38", "الأيام ٣٤–٣٨"], name: ["Final Delivery", "التسليم النهائي"], body: ["Brand Guidelines PDF, all source files in every format, handover call, plus 30 days of post-launch support.", "دليل الهوية PDF، كل ملفات المصدر بكل الصيغ، مكالمة تسليم، ودعم ٣٠ يومًا بعد الإطلاق."], out: ["FULL HANDOVER", "تسليم كامل"] },
 ];
 
 const QUESTIONS: readonly { head: Bi; items: readonly Bi[] }[] = [
   { head: ["About the project", "عن المشروع"], items: [["Is this a brand-new identity or a rebrand?", "هوية جديدة من الصفر أم إعادة بناء لبراند قائم؟"], ["What are your core services or products?", "ما خدماتك أو منتجاتك الأساسية؟"], ["When is the planned launch? Tied to any event?", "متى الإطلاق المخطط؟ وهل مرتبط بحدث؟"]] },
   { head: ["About decision makers", "عن أصحاب القرار"], items: [["Who has final approval on the identity?", "من يملك الاعتماد النهائي للهوية؟"], ["Who reviews before them — the full circle?", "من يراجع قبله — الدائرة كاملة؟"]] },
-  { head: ["About brand & audience", "عن البراند والجمهور"], items: [["What are the 3 core values of the brand?", "ما القيم الثلاث الجوهرية للبراند؟"], ["Who is the target audience? Demographics + pain points.", "من الجمهور المستهدف؟ ديموغرافيا ونقاط ألم."], ["Top 3 competitors — what do you like / dislike about their identities?", "أهم 3 منافسين — ما يعجبك وما يزعجك في هوياتهم؟"]] },
+  { head: ["About brand & audience", "عن البراند والجمهور"], items: [["What are the 3 core values of the brand?", "ما القيم الثلاث الجوهرية للبراند؟"], ["Who is the target audience? Demographics + pain points.", "من الجمهور المستهدف؟ ديموغرافيا ونقاط ألم."], ["Top 3 competitors — what do you like / dislike about their identities?", "أهم ٣ منافسين — ما يعجبك وما يزعجك في هوياتهم؟"]] },
   { head: ["About visual direction", "عن التوجه البصري"], items: [["Bilingual brand (Arabic / English)?", "براند ثنائي اللغة (عربي / إنجليزي)؟"], ["Colors or styles you prefer or want to avoid — and why?", "ألوان أو أساليب تفضلها أو تتجنبها — ولماذا؟"], ["Required applications — website, packaging, uniform, signage?", "التطبيقات المطلوبة — موقع، تغليف، يونيفورم، لافتات؟"]] },
 ];
 
@@ -29,9 +29,9 @@ const TERMS: readonly { n: string; head: Bi; body: Bi }[] = [
   { n: "01", head: ["Scope of Work", "نطاق العمل"], body: ["The attached terms apply per signed invoice; deliverables and scope are listed in the proposal approved before kickoff.", "البنود المرفقة تخص الفاتورة الموقّعة، وتُحدَّد التسليمات والنطاق في العرض المعتمد قبل البدء."] },
   { n: "02", head: ["Commitment & Content Standards", "الالتزام والمعايير"], body: ["The designer commits to delivering the agreed designs within the agreed period, and refrains from including any material deemed religiously or socially inappropriate.", "يلتزم المصمم بتنفيذ التصاميم المتفق عليها خلال المدة المتفق عليها، مع الامتناع عن إدخال أي مواد غير لائقة دينيًا أو اجتماعيًا."] },
   { n: "03", head: ["Confidentiality", "السرية"], body: ["No project information is shared with third parties before completion — except seeking professional opinion or assistance.", "لا تُقدَّم أي معلومات لأطراف ثالثة حول التصاميم وبنود العمل قبل إتمامه — باستثناء طلب رأي أو مساعدة مهنية."] },
-  { n: "04", head: ["Portfolio Rights", "حقوق العرض"], body: ["The designer may showcase the work in his portfolio and for self-promotion after completion. If the client declines, promotional use is strictly prohibited unless compensated at 35–50% of project value, by mutual agreement.", "للمصمم الحق في عرض الأعمال في معرض أعماله وللترويج الشخصي بعد انتهاء العمل. وفي حال عدم موافقة العميل، يُمنع الاستخدام الدعائي منعًا باتًا إلا بمقابل مادي من 35–50% من قيمة العمل بالاتفاق بين الطرفين."] },
-  { n: "05", head: ["Payment Structure", "نظام الدفع"], body: ["Payments are received in two installments (50% / 50%) of the total invoice — before work begins and before final files are delivered. Tier 2 & 3 follow 50/25/25.", "تُستلم المستحقات على دفعات (50%/50%) من إجمالي الفاتورة — قبل البدء وقبل تسليم الملفات النهائية. والفئتان 2 و3 بنظام 50/25/25."] },
-  { n: "06", head: ["Payment Methods", "وسائل الدفع"], body: ["EGP or USD — cash, bank transfer, electronic wallets, or Vodafone Cash (01092500454). A 1% service fee may apply.", "بالجنيه أو الدولار — كاش، تحويل بنكي أو إلكتروني، أو فودافون كاش (01092500454) مع إضافة تكلفة خدمة 1% من قيمة المبلغ."] },
+  { n: "04", head: ["Portfolio Rights", "حقوق العرض"], body: ["The designer may showcase the work in his portfolio and for self-promotion after completion. If the client declines, promotional use is strictly prohibited unless compensated at 35–50% of project value, by mutual agreement.", "للمصمم الحق في عرض الأعمال في معرض أعماله وللترويج الشخصي بعد انتهاء العمل. وفي حال عدم موافقة العميل، يُمنع الاستخدام الدعائي منعًا باتًا إلا بمقابل مادي من ٣٥–٥٠٪ من قيمة العمل بالاتفاق بين الطرفين."] },
+  { n: "05", head: ["Payment Structure", "نظام الدفع"], body: ["Payments are received in two installments (50% / 50%) of the total invoice — before work begins and before final files are delivered. Tier 2 & 3 follow 50/25/25.", "تُستلم المستحقات على دفعات (٥٠٪/٥٠٪) من إجمالي الفاتورة — قبل البدء وقبل تسليم الملفات النهائية. والفئتان ٢ و٣ بنظام ٥٠/٢٥/٢٥."] },
+  { n: "06", head: ["Payment Methods", "وسائل الدفع"], body: ["EGP or USD — cash, bank transfer, electronic wallets, or Vodafone Cash (01092500454). A 1% service fee may apply.", "بالجنيه أو الدولار — كاش، تحويل بنكي أو إلكتروني، أو فودافون كاش (٠١٠٩٢٥٠٠٤٥٤) مع إضافة تكلفة خدمة ١٪ من قيمة المبلغ."] },
   { n: "07", head: ["Revisions", "التعديلات"], body: ["Each tier includes its stated revision rounds; revisions that don't alter the overall design substantially. Beyond the included rounds, each additional revision is billed as stated per tier.", "كل فئة تشمل جولات المراجعة المذكورة بها — تعديلات لا تغيّر التصميم العام كثيرًا. وما بعدها يُحاسب كل تعديل إضافي كما هو موضح بكل فئة."] },
   { n: "08", head: ["Additional Terms", "بنود إضافية"], body: ["Further terms may be added at the client's request upon mutual agreement.", "تُضاف أي بنود أخرى في حال طلب العميل ذلك بعد الاتفاق بين الطرفين."] },
   { n: "09", head: ["IP Transfer", "نقل الملكية"], body: ["Full design rights transfer to the client in writing after the final payment clears.", "تنتقل حقوق التصميم كاملة للعميل كتابيًا بعد سداد الدفعة الأخيرة."] },
@@ -62,7 +62,7 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
       </header>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["01 / PROCESS", "01 / المنهجية"]} title={["Eight phases.", "ثماني مراحل."]} italic={["No surprises.", "بلا مفاجآت."]} />
+        <SectionHead label={["01 / PROCESS", "٠١ / المنهجية"]} title={["Eight phases.", "ثماني مراحل."]} italic={["No surprises.", "بلا مفاجآت."]} />
         <div className="flex flex-col">
           {PHASES.map((p) => (
             <div key={p.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-3 last:border-b md:grid-cols-[2.5rem_7rem_14rem_1fr_auto]">
@@ -77,7 +77,7 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / DISCOVERY QUESTIONS", "02 / أسئلة الاكتشاف"]} title={["Before we", "قبل ما"]} italic={["start.", "نبدأ."]} />
+        <SectionHead label={["02 / DISCOVERY QUESTIONS", "٠٢ / أسئلة الاكتشاف"]} title={["Before we", "قبل ما"]} italic={["start.", "نبدأ."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar ? "ليعبّر البراند عن نشاطك بدقة، نحتاج إجابات متوافقة على هذه الأسئلة — ويلي ذلك استبيان تفصيلي بعد توقيع العقد." : "For the brand to express your business accurately, we need aligned answers to these. A detailed questionnaire follows after contract signing."}
         </p>
@@ -96,22 +96,22 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["03 / SERVICE TIERS", "03 / فئات الخدمة"]} title={["Three tiers.", "ثلاث فئات."]} italic={["One starting line.", "خط بداية واحد."]} />
+        <SectionHead label={["03 / SERVICE TIERS", "٠٣ / فئات الخدمة"]} title={["Three tiers.", "ثلاث فئات."]} italic={["One starting line.", "خط بداية واحد."]} />
         <TierGrid tiers={tiers} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / À LA CARTE", "04 / خدمات منفردة"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
+        <SectionHead label={["04 / À LA CARTE", "٠٤ / خدمات منفردة"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
         <AlaCarteTables alaCarte={alaCarte} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["05 / PAYMENT", "05 / الدفع"]} title={["How &", "كيف"]} italic={["when.", "ومتى."]} />
+        <SectionHead label={["05 / PAYMENT", "٠٥ / الدفع"]} title={["How &", "كيف"]} italic={["when.", "ومتى."]} />
         <PaymentBlock />
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["06 / TERMS", "06 / البنود"]} title={["The fine", "البنود"]} italic={["print.", "التفصيلية."]} />
+        <SectionHead label={["06 / TERMS", "٠٦ / البنود"]} title={["The fine", "البنود"]} italic={["print.", "التفصيلية."]} />
         <div className="flex flex-col">
           {TERMS.map((t) => (
             <div key={t.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-2 last:border-b md:grid-cols-[2.5rem_14rem_1fr]">

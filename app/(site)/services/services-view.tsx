@@ -17,13 +17,13 @@ const OFFERINGS: readonly { n: string; name: Bi; italic: Bi; body: Bi }[] = [
 ];
 
 const FAQ: readonly { q: Bi; a: Bi }[] = [
-  { q: ["How long does a full brand identity take?", "كم تستغرق الهوية الكاملة؟"], a: ["Roughly 5–6 weeks for a standard project — 38 days from kickoff to delivery, including discovery, strategy, two design rounds, and final files. Tighter timelines are possible at premium pricing.", "حوالي 5–6 أسابيع للمشروع القياسي — 38 يومًا من البدء للتسليم، شاملة البحث والاستراتيجية وجولتي مراجعة والملفات النهائية. الجداول الأضيق ممكنة بتسعير أعلى."] },
-  { q: ['What\'s included in a "Brand Guidelines" document?', "ماذا يتضمن دليل الهوية؟"], a: ["A 20–40 page PDF covering logo usage (do's & don'ts), color codes (HEX/RGB/CMYK/Pantone), typography hierarchy, spacing rules, voice & tone, and ready-to-use templates — designed for your team to apply the brand without me.", "ملف PDF من 20–40 صفحة يغطي استخدامات الشعار، أكواد الألوان، هرمية الخطوط، قواعد المسافات، نبرة الصوت، وقوالب جاهزة — ليطبّق فريقك الهوية بدوني."] },
+  { q: ["How long does a full brand identity take?", "كم تستغرق الهوية الكاملة؟"], a: ["Roughly 5–6 weeks for a standard project — 38 days from kickoff to delivery, including discovery, strategy, two design rounds, and final files. Tighter timelines are possible at premium pricing.", "حوالي ٥–٦ أسابيع للمشروع القياسي — ٣٨ يومًا من البدء للتسليم، شاملة البحث والاستراتيجية وجولتي مراجعة والملفات النهائية. الجداول الأضيق ممكنة بتسعير أعلى."] },
+  { q: ['What\'s included in a "Brand Guidelines" document?', "ماذا يتضمن دليل الهوية؟"], a: ["A 20–40 page PDF covering logo usage (do's & don'ts), color codes (HEX/RGB/CMYK/Pantone), typography hierarchy, spacing rules, voice & tone, and ready-to-use templates — designed for your team to apply the brand without me.", "ملف PDF من ٢٠–٤٠ صفحة يغطي استخدامات الشعار، أكواد الألوان، هرمية الخطوط، قواعد المسافات، نبرة الصوت، وقوالب جاهزة — ليطبّق فريقك الهوية بدوني."] },
   { q: ["How many revision rounds do I get?", "كم جولة مراجعة لديّ؟"], a: ["Two structured rounds are included. After that, additional revisions are billed hourly — not a limit on your input, but a structure that protects the strategy from ad-hoc erosion.", "جولتان منظمتان ضمن السعر، وما بعدهما يُحاسب بالساعة — ليس تقييدًا لرأيك بل حماية للاستراتيجية من التعديلات العشوائية."] },
   { q: ["Do you work with international clients?", "هل تتعامل مع عملاء دوليين؟"], a: ["Yes — most communication is over email and Notion with weekly video calls. I work in both English and Arabic, with clients across MENA and beyond.", "نعم — أغلب التواصل عبر الإيميل وNotion مع مكالمات أسبوعية، وأعمل بالعربية والإنجليزية مع عملاء في المنطقة وخارجها."] },
   { q: ["How does payment work?", "كيف يتم الدفع؟"], a: [TERMS_LINE[0] + " Bank transfer, Vodafone Cash, or international wire.", TERMS_LINE[1] + " تحويل بنكي أو فودافون كاش أو تحويل دولي."] },
   { q: ["Can you also build the website?", "هل تبني الموقع أيضًا؟"], a: ["Yes — responsive WordPress sites (and Webflow when it fits), from landing pages to full corporate sites. Best done with the identity so the system stays cohesive.", "نعم — مواقع ووردبريس متجاوبة (وWebflow عند الحاجة)، والأفضل تنفيذها مع الهوية ليبقى النظام متماسكًا."] },
-  { q: ["What if I just need a logo, not the full system?", "ماذا لو أحتاج شعارًا فقط؟"], a: ["Logo-only sprints exist under Tier 01 — but honestly, a logo without strategy is a coin flip. If budget is tight, we shrink the system, not skip the strategy.", "متاح ضمن الفئة 01 — لكن بصراحة: شعار بدون استراتيجية رهان عشوائي. لو الميزانية ضيقة نُصغّر النظام، لا نتخطى الاستراتيجية."] },
+  { q: ["What if I just need a logo, not the full system?", "ماذا لو أحتاج شعارًا فقط؟"], a: ["Logo-only sprints exist under Tier 01 — but honestly, a logo without strategy is a coin flip. If budget is tight, we shrink the system, not skip the strategy.", "متاح ضمن الفئة ٠١ — لكن بصراحة: شعار بدون استراتيجية رهان عشوائي. لو الميزانية ضيقة نُصغّر النظام، لا نتخطى الاستراتيجية."] },
 ];
 
 export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }) {
@@ -68,7 +68,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       </header>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["01 / OFFERINGS", "01 / الخدمات"]} title={["Five things I do", "خمسة أشياء أتقنها"]} italic={["well.", "جيدًا."]} />
+        <SectionHead label={["01 / OFFERINGS", "٠١ / الخدمات"]} title={["Five things I do", "خمسة أشياء أتقنها"]} italic={["well.", "جيدًا."]} />
         <div className="flex flex-col">
           {OFFERINGS.map((o) => (
             <div key={o.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-3 last:border-b md:grid-cols-[2.5rem_18rem_1fr]">
@@ -83,7 +83,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / PROCESS", "02 / المنهجية"]} title={["A four-act", "منهج من أربع مراحل،"]} italic={["method, refined over 9+ years.", "صُقل عبر 9+ سنوات."]} />
+        <SectionHead label={["02 / PROCESS", "٠٢ / المنهجية"]} title={["A four-act", "منهج من أربع مراحل،"]} italic={["method, refined over 9+ years.", "صُقل عبر ٩+ سنوات."]} />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((p) => (
             <div key={p.n} className="rounded-card border border-border-subtle bg-surface-1 p-3">
@@ -95,13 +95,13 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           ))}
         </div>
         <Link href="/process" className="group mx-auto mt-1 flex w-fit items-center gap-2 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-accent">
-          {ar ? "شوف المنهجية كاملة — 38 يوم بالتفصيل" : "See the full 38-day method, gate by gate"}
+          {ar ? "شوف المنهجية كاملة — ٣٨ يوم بالتفصيل" : "See the full 38-day method, gate by gate"}
           <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["03 / ENGAGEMENT", "03 / التعاقد"]} title={["Three ways to", "ثلاث طرق"]} italic={["work together.", "للعمل معًا."]} />
+        <SectionHead label={["03 / ENGAGEMENT", "٠٣ / التعاقد"]} title={["Three ways to", "ثلاث طرق"]} italic={["work together.", "للعمل معًا."]} />
         <TierGrid tiers={tiers} />
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— التسعير يختلف حسب النطاق · ريتينر مخصص متاح · خصم على الدفع الكامل مقدمًا —" : "— Project pricing varies by scope · Custom retainers available · Discount on full prepayment —"}
@@ -117,7 +117,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / FAQ", "04 / أسئلة شائعة"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
+        <SectionHead label={["04 / FAQ", "٠٤ / أسئلة شائعة"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
         <Faq items={FAQ} />
       </section>
 

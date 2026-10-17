@@ -16,7 +16,7 @@ export const AHMED_BEDEER: CaseStudyRecord = {
   problemAr:
     "استشاري تكنولوجيا معلومات صحية أول يعمل بدون أي حضور براند شخصي — لا هوية بصرية، لا تموضع رقمي موحّد، لا نظام يربط مؤهلاته الدولية بروايته المهنية. في قطاع الثقة هي المنتج، الغياب مسؤولية.",
   teamScale: "1 designer · 1 client · remote collaboration",
-  teamScaleAr: "1 مصمم · 1 عميل · تعاون عن بُعد",
+  teamScaleAr: "١ مصمم · ١ عميل · تعاون عن بُعد",
   timeline: "October 2025 · V1.0 guidelines delivered",
   timelineAr: "أكتوبر 2025 · تسليم دليل V1.0",
   kpis: [

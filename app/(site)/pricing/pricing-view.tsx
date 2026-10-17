@@ -20,7 +20,7 @@ const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
   { q: ["What if my project doesn't fit a tier exactly?", "ماذا لو لم يناسب مشروعي فئة بعينها؟"], a: ["Most don't — tiers are starting templates. After the Discovery Call, you get a custom proposal that adds, removes, or adjusts items to your actual needs.", "أغلب المشاريع كذلك — الفئات قوالب بداية. بعد مكالمة الاكتشاف يصلك عرض مخصص يضيف أو يحذف أو يعدّل البنود حسب احتياجك الفعلي."] },
   { q: ["Can I upgrade tiers during the project?", "هل يمكن الترقية أثناء المشروع؟"], a: ["Yes — I quote the upgrade delta and adjust the timeline. No re-doing finished work.", "نعم — أسعّر فرق الترقية ونعدّل الجدول، دون إعادة أي عمل منجز."] },
-  { q: ["Is there a discount for full prepayment?", "هل يوجد خصم للدفع الكامل مقدمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم — خصم 10% من إجمالي الفاتورة عند الدفع الكامل مقدمًا عند البدء."] },
+  { q: ["Is there a discount for full prepayment?", "هل يوجد خصم للدفع الكامل مقدمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم — خصم ١٠٪ من إجمالي الفاتورة عند الدفع الكامل مقدمًا عند البدء."] },
   { q: ["Do you work with international clients? What currency?", "العملاء الدوليون؟ وبأي عملة؟"], a: ["Yes, frequently. Quoted in USD by default; paid via Wise, PayPal, or international transfer. EGP equivalent for Egyptian clients on request.", "نعم باستمرار. التسعير بالدولار افتراضيًا، والدفع عبر Wise أو PayPal أو تحويل دولي — والمعادل بالجنيه متاح للعملاء المصريين."] },
   { q: ["What about revisions beyond the included rounds?", "ماذا عن التعديلات بعد الجولات المشمولة؟"], a: ["Each tier includes 2 structured rounds; additional revisions are billed hourly and logged in writing.", "كل فئة تشمل جولتين منظمتين، وما بعدهما يُحاسب بالساعة ويوثَّق كتابيًا."] },
   { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "ملفات المصدر النهائية تُسلَّم مع كل فئة بعد سداد الدفعة الأخيرة — وهي لحظة انتقال الملكية."] },
@@ -70,10 +70,10 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
       </header>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["01 / SERVICE TIERS", "01 / فئات الخدمة"]} title={["Pick the", "اختر"]} italic={["scope that fits.", "النطاق المناسب."]} />
+        <SectionHead label={["01 / SERVICE TIERS", "٠١ / فئات الخدمة"]} title={["Pick the", "اختر"]} italic={["scope that fits.", "النطاق المناسب."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar
-            ? "معظم المشاريع تبدأ من الفئة 2. الفئة 1 للقيد الميزاني، والفئة 3 للإطلاق الكامل."
+            ? "معظم المشاريع تبدأ من الفئة ٢. الفئة ١ للقيد الميزاني، والفئة ٣ للإطلاق الكامل."
             : "Most projects start at Tier 2. Tier 1 is the budget constraint; Tier 3 is a full launch system."}
         </p>
         <TierCompare tiers={tiers} />
@@ -89,7 +89,7 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / PRODUCTION MENU", "02 / قائمة الإنتاج"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
+        <SectionHead label={["02 / PRODUCTION MENU", "٠٢ / قائمة الإنتاج"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar
             ? "قائمة إنتاج منفصلة عن استثمار نظام الهوية. لمشاريع لا تحتاج فئة كاملة — أو لعملاء حاليين يحتاجون تطبيقات إضافية."
@@ -97,7 +97,7 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
         </p>
         <details className="group rounded-card border border-border-subtle bg-surface-1/40 p-3">
           <summary className="cursor-pointer font-mono text-label uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
-            {ar ? "فتح قائمة الخدمات المنفردة (15+ بند)" : "Open the à la carte list (15+ items)"}
+            {ar ? "فتح قائمة الخدمات المنفردة (١٥+ بند)" : "Open the à la carte list (15+ items)"}
           </summary>
           <div className="mt-3">
             <AlaCarteTables alaCarte={alaCarte} />
@@ -106,12 +106,12 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["03 / PAYMENT", "03 / الدفع"]} title={["How &", "كيف"]} italic={["when you pay.", "ومتى تدفع."]} />
+        <SectionHead label={["03 / PAYMENT", "٠٣ / الدفع"]} title={["How &", "كيف"]} italic={["when you pay.", "ومتى تدفع."]} />
         <PaymentBlock />
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / PRICING FAQ", "04 / أسئلة التسعير"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
+        <SectionHead label={["04 / PRICING FAQ", "٠٤ / أسئلة التسعير"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
         <Faq items={FAQ} />
       </section>
 

@@ -8,7 +8,6 @@ import { useLang } from "@/components/providers/lang-provider";
  */
 import Image from "next/image";
 import { MediaCard } from "@/components/ui/MediaCard";
-import { lightMedia } from "@/lib/light-media";
 
 export interface GalleryItem {
   src: string;
@@ -48,13 +47,7 @@ function effectiveSpans(items: readonly GalleryItem[]): ("full" | "half")[] {
   return out;
 }
 
-/**
- * `label` names the project. A CMS row's caption is an optional field, so an
- * image can arrive without one; its alt then falls back to "<project> — n"
- * instead of an empty string, which would hide an informational image
- * (a guideline page, a mock-up) from a screen reader.
- */
-export function CaseGallery({ items, label }: { items: readonly GalleryItem[]; label?: string }) {
+export function CaseGallery({ items }: { items: readonly GalleryItem[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const spans = effectiveSpans(items);
@@ -68,8 +61,8 @@ export function CaseGallery({ items, label }: { items: readonly GalleryItem[]; l
         >
           <div className="relative aspect-[16/9]">
             <Image
-              src={lightMedia(item.src)}
-              alt={(ar && item.captionAr ? item.captionAr : item.caption) || (label ? `${label} — ${i + 1}` : "")}
+              src={item.src}
+              alt={ar && item.captionAr ? item.captionAr : item.caption}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover transition-transform duration-slow ease-physics group-hover:scale-[1.02]"

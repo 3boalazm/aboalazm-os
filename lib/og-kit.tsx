@@ -89,8 +89,8 @@ export async function ogImgs<T extends string>(map: Record<T, [rel: string, widt
 
 /* ── primitives used by the page visuals ──────────────────────────────── */
 export function Pic({
-  src, w, h, radius = 16, pos = "center", fit = "cover", style,
-}: { src: string; w: number | string; h: number | string; radius?: number; pos?: string; fit?: "cover" | "contain"; style?: CSSProperties }) {
+  src, w, h, radius = 16, pos = "center", style,
+}: { src: string; w: number | string; h: number | string; radius?: number; pos?: string; style?: CSSProperties }) {
   return (
     <div
       style={flex({
@@ -100,7 +100,7 @@ export function Pic({
     >
       {src ? (
         // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-        <img src={src} width="100%" height="100%" style={{ width: "100%", height: "100%", objectFit: fit, objectPosition: pos }} />
+        <img src={src} width="100%" height="100%" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: pos }} />
       ) : null}
     </div>
   );

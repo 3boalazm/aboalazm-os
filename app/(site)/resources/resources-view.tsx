@@ -44,7 +44,7 @@ export function ResourcesView() {
       {/* The spine */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["01 / THE SPINE", "01 / العمود الفقري"]}
+          label={["01 / THE SPINE", "٠١ / العمود الفقري"]}
           title={["The operating", "نظام التشغيل"]}
           italic={["spine.", "المتسلسل."]}
         />
@@ -61,7 +61,7 @@ export function ResourcesView() {
       {/* The library */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["02 / THE LIBRARY", "02 / المكتبة"]}
+          label={["02 / THE LIBRARY", "٠٢ / المكتبة"]}
           title={ar ? ["الوثائق", ""] : ["The eight", ""]}
           italic={ar ? ["الثماني.", ""] : ["documents.", ""]}
         />

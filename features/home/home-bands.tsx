@@ -42,7 +42,7 @@ export function AboutTeaser() {
     <section className="container-content grid gap-8 py-16 lg:grid-cols-[7fr_5fr]">
       <div className="flex flex-col gap-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "01 / نبذة" : "01 / ABOUT"}
+          {ar ? "٠١ / نبذة" : "01 / ABOUT"}
         </p>
         <h2 className="font-display text-title tracking-[-0.015em]">
           {ar ? "حِرفة بُنيت عبر " : "A craft built across "}
@@ -56,8 +56,8 @@ export function AboutTeaser() {
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. متاح حاليًا لفرص الهوية البصرية والمنتجات الرقمية (في الخليج أو عن بُعد)."
-            : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Currently open to Senior Brand Identity / Product Design opportunities | across the Gulf or remote."}
+            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. متاح حاليًا لفرص الهوية البصرية والمنتجات الرقمية (الرياض أو عن بُعد)."
+            : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Currently open to Senior Brand Identity / Product Design opportunities | Riyadh or Remote."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
           {ar ? "اقرأ القصة كاملة" : "Read the about page"}
@@ -78,9 +78,9 @@ export function AboutTeaser() {
         {([
           ["SPECIALTY", "التخصص", "Brand Identity & Visual Systems", "هوية بصرية وأنظمة تصميم"],
           ["CURRENT ROLE", "العمل الحالي", "Creative Lead, Code & Canvas", "مدير إبداعي، Code & Canvas"],
-          ["AVAILABILITY", "الوضع الحالي", "Open to Brand Identity roles · Gulf / Remote", "متاح لفرص مصمم هوية · الخليج / عن بُعد"],
+          ["AVAILABILITY", "الوضع الحالي", "Open to Brand Identity roles · Riyadh / Remote", "متاح لفرص مصمم هوية · الرياض / عن بُعد"],
           ["LANGUAGES", "اللغات", "Arabic (Native) · English (Professional)", "العربية (الأم) · الإنجليزية (احترافية)"],
-          ["BASED", "المقر", "Al Obour, Egypt — open to the Gulf & remote", "العبور، مصر — متاح للخليج وعن بُعد"],
+          ["BASED", "المقر", "Al Obour, Egypt — Open to Riyadh & Remote", "العبور، مصر — متاح للرياض وعن بُعد"],
         ] as const).map(([ken, kar, ven, var_]) => (
           <div key={ken} className="border-b border-border-subtle py-2 first:border-t">
             <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? kar : ken}</dt>
@@ -100,7 +100,7 @@ export function StatsBand() {
 
   // [value, suffix, EN label, AR label, EN sub, AR sub, bar 0–1]
   const stats = [
-    ["9",   "+", "Years of design practice", "سنوات ممارسة التصميم",        "Since July 2017",   "منذ يوليو 2017",  0.7],
+    ["9",   "+", "Years of design practice", "سنوات ممارسة التصميم",        "Since July 2017",   "منذ يوليو ٢٠١٧",  0.7],
     ["20",  "+", "Brands shaped",       "براند تم بناؤه",  "Local & regional",  "محلي وإقليمي",  0.85],
     ["15",  "+", "Identity systems",    "نظام هوية",        "Full brand systems","أنظمة متكاملة", 0.6],
     ["6",   "",  "Industry sectors",    "قطاعات",        "Pharma → gov",       "دواء ← حكومة",  0.5],
@@ -177,10 +177,10 @@ export function ClientJourneyBand() {
 
   const steps = ar
     ? [
-        { n: "01", name: "اكتشاف وبحث", short: "نفهم البراند والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
-        { n: "02", name: "استراتيجية البراند", short: "نثبت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
-        { n: "03", name: "مفهوم وتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
-        { n: "04", name: "مراجعة وتسليم", short: "نراجع، نعتمد، ونسلّم نظامًا يقدر فريقك يستخدمه.", proof: "Guidelines + files + handover" },
+        { n: "٠١", name: "اكتشاف وبحث", short: "نفهم البراند والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
+        { n: "٠٢", name: "استراتيجية البراند", short: "نثبت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
+        { n: "٠٣", name: "مفهوم وتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
+        { n: "٠٤", name: "مراجعة وتسليم", short: "نراجع، نعتمد، ونسلّم نظامًا يقدر فريقك يستخدمه.", proof: "Guidelines + files + handover" },
       ]
     : [
         { n: "01", name: "Discovery & Research", short: "Understand the brand, market, and audience before any visual decision.", proof: "Brief + audit + research" },
@@ -201,7 +201,7 @@ export function ClientJourneyBand() {
           </h2>
           <p className="mt-5 max-w-[40ch] text-body-sm leading-[1.75] text-text-secondary">
             {ar
-              ? "4 مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
+              ? "٤ مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
               : "Four visible stages. Every stage has an output and a sign-off. You always know where the project stands."}
           </p>
           <div className="mt-8 flex gap-2" aria-hidden>
@@ -308,7 +308,7 @@ export function WhyValueBand() {
                 n === "01" ? "text-secondary-cyan" : n === "02" ? "text-secondary-mint" : "text-secondary-pink"
               }`}>{n}</span>
               <div className="flex flex-col gap-1">
-                <h3 className={`font-display font-display-sm text-subtitle tracking-[-0.01em] ${
+                <h3 className={`font-display text-subtitle tracking-[-0.01em] ${
   n === "01" ? "text-secondary-cyan" : n === "02" ? "text-secondary-mint" : "text-secondary-pink"
 }`}>{title}</h3>
                 <p className="max-w-[56ch] text-body-sm text-text-secondary">{body}</p>
@@ -329,7 +329,7 @@ export function HomeFaq() {
     ? [
         ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
         ["هل الهوية بتكون عربي وإنجليزي؟", "أيوه، لو المشروع bilingual بنبني المعمارية للغتين من البداية."],
-        ["كام مدة المشروع؟", "المنهجية الأساسية 38 يومًا على أربع مراحل، مع اعتماد مكتوب عند كل بوابة."],
+        ["كام مدة المشروع؟", "المنهجية الأساسية ٣٨ يومًا على أربع مراحل، مع اعتماد مكتوب عند كل بوابة."],
         ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
         ["إزاي نبدأ؟", "مكالمة اكتشاف قصيرة لتحديد النطاق، التوافق، والجدول قبل أي التزام."],
       ]
@@ -351,7 +351,7 @@ export function HomeFaq() {
         <div className="border-t border-border-subtle">
           {items.map(([q, a], i) => (
             <details key={q} className="group border-b border-border-subtle py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display font-display-sm text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
                 <span>{q}</span><span className="font-mono text-label text-accent transition-transform duration-300 group-open:rotate-45">+</span>
               </summary>
               <p className="max-w-[60ch] pt-4 text-body-sm leading-[1.75] text-text-secondary">{a}</p>

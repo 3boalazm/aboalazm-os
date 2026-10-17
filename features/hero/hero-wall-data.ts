@@ -1,5 +1,4 @@
 import type { Project } from "@/features/work/types";
-import { GAD_NAME_AR } from "../../lib/client-names";
 
 /**
  * FIRST-SCREEN PROOF — curated, art-directed, code-owned.
@@ -22,7 +21,7 @@ interface CuratedTile {
 }
 
 const CURATED: readonly CuratedTile[] = [
-  { slug: "gad-institute", src: "/images/work/gad/gad-card.jpg", name: "GAD Heart & Lungs Institute", nameAr: GAD_NAME_AR },
+  { slug: "gad-institute", src: "/images/work/gad/gad-card.jpg", name: "GAD Heart & Lungs Institute", nameAr: "معهد GAD للقلب والرئة" },
   { slug: "code-canvas", src: "/images/work/cc-logo-hero.jpg", name: "Code & Canvas", nameAr: "Code & Canvas" },
   { slug: "nile-pharma", src: "/images/work/nile-pharma/npf-card.jpg", name: "Nile Pharma Food", nameAr: "نايل فارما فود" },
 ];
