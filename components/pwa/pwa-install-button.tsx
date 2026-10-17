@@ -142,7 +142,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: "floating
         ref={buttonRef}
         type="button"
         onClick={handleInstall}
-        aria-label={ar ? "ثبّت الموقع كتطبيق" : "Install this site as an app"}
+        aria-label={variant === "inline" ? (ar ? "ثبّت Aboalazm OS كتطبيق" : "Install Aboalazm OS as an app") : (ar ? "ثبّت الموقع كتطبيق" : "Install this site as an app")}
         aria-expanded={helpOpen}
         aria-controls={helpOpen ? "pwa-install-help" : undefined}
         className={variant === "floating"
