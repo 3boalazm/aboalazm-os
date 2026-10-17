@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
+import { pickFeatured } from "./featured-cases";
 import { mergeCuratedDevelopmentProjects } from "./project-curation";
 import type { Project } from "./types";
 
@@ -44,6 +45,17 @@ test("every digital project has a screenshot and a production preview destinatio
   }
 });
 
+test("digital products feature six GitHub-reviewed projects with working preview destinations", () => {
+  const digitalProjects = PROJECTS.filter((project) => project.category === "development");
+  const featured = pickFeatured(digitalProjects);
+
+  assert.deepEqual(
+    featured.map((project) => project.slug),
+    ["nile-pharma-erp", "ummah-academy", "speech-to-text-studio", "stemforge", "momo-collective", "farm-console"],
+  );
+  assert.equal(featured.length, 6);
+});
+
 test("curated records update reviewed CMS projects and preserve unrelated CMS content", () => {
   const oldMomo: Project = {
     ...projectBySlug("momo-collective"),
@@ -65,7 +77,10 @@ test("curated records update reviewed CMS projects and preserve unrelated CMS co
   assert.equal(new Set(merged.map((project) => project.slug)).size, merged.length);
 });
 
-test("Ummah Academy retains its in-progress lifecycle status", () => {
+test("Ummah Academy reflects the multilingual PWA and in-progress status documented in its repository", () => {
   const ummah = mergeCuratedDevelopmentProjects([]).find((project) => project.slug === "ummah-academy");
-  assert.equal(ummah?.status, "in-progress");
+  assert.ok(ummah);
+  assert.deepEqual(ummah.stack, ["Astro", "5 languages · RTL", "PWA · Offline"]);
+  assert.match(ummah.outcome, /in progress — 5 languages, 23 routes, installable PWA/);
+  assert.equal(ummah.status, "in-progress");
 });
