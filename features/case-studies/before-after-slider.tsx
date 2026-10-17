@@ -82,7 +82,7 @@ export function BeforeAfterSlider({
             </span>
           </div>
           <span className="rounded-pill border border-border-default bg-surface-2 px-2 py-0.5 font-mono text-micro text-text-secondary">
-            LOCKED TOKENS
+            {ar ? "توكنز مقفلة" : "LOCKED TOKENS"}
           </span>
         </div>
 
@@ -101,7 +101,7 @@ export function BeforeAfterSlider({
             <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
               {ar ? "معيار الحوكمة" : "Governance standard"}
             </span>
-            <span className="font-display text-title leading-none text-accent">LOCKED</span>
+            <span className="font-display text-title leading-none text-accent">{ar ? "مقفل" : "LOCKED"}</span>
             <span className="font-mono text-micro text-text-ghost">
               {ar ? "مبدأ حوكمة" : "Governance principle"}
             </span>

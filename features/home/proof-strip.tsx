@@ -11,9 +11,9 @@ import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 
 const METRICS = [
-  ["9+ yrs", "practice", "٩+ سنوات", "ممارسة"],
-  ["20+", "clients & orgs", "٢٠+", "عميل ومؤسسة"],
-  ["5-yr", "longest stewardship", "٥ سنوات", "أطول شراكة"],
+  ["9+ yrs", "practice", "9+ سنوات", "ممارسة"],
+  ["20+", "clients & orgs", "20+", "عميل ومؤسسة"],
+  ["5-yr", "longest stewardship", "5 سنوات", "أطول شراكة"],
 ] as const;
 
 const SECTORS_EN = ["Pharma", "Food", "Education", "Government", "Art & Print", "Consumer"];

@@ -17,6 +17,7 @@ import { Section, SectionLabel } from "@/components/ui/Section";
 import { buttonVariants } from "@/components/ui/Button";
 import { joinClasses } from "@/lib/utils";
 import { BEHANCE } from "./projects.data";
+import { cardArt } from "./card-art";
 import type { Project } from "./types";
 
 const FEATURED_SLUGS = {
@@ -240,7 +241,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
             a framed rectangle. Static, never hover-gated. */}
         <div aria-hidden className="edge-light" />
         <Image
-          src={project.thumbnail}
+          src={cardArt(project.thumbnail)}
           alt=""
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
@@ -268,7 +269,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
           ) : null}
           <Badge tone={badge.tone} size="sm">{badge.label}</Badge>
         </div>
-        <h3 className="font-display text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
+        <h3 className="font-display font-display-sm text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
           {name}
         </h3>
         <p className="text-body-sm text-text-secondary">{challenge}</p>
