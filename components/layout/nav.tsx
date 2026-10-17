@@ -21,7 +21,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SkipLink } from "./skip-link";
 
-/* Primary nav — overhaul 2026-10-14: six destinations + one CTA.
+/* Primary nav — overhaul 2026-10-14: seven destinations + one CTA.
    Benchmark rule (docs/overhaul-2026-10-14/01): no world-class studio
    runs more than 5–6 primary links. FOR HIRING deliberately left the bar:
    the homepage now sells the studio, recruiting lives on its own page. */
