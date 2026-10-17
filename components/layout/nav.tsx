@@ -32,7 +32,7 @@ const LINKS = [
   { href: "/process",  en: "PROCESS",  ar: "المنهجية" },
   { href: "/writing",  en: "WRITING",  ar: "مقالات"   },
   { href: "/about",    en: "ABOUT",    ar: "نبذة"     },
-  { href: "/developer", en: "THE MAKER", ar: "المطوّر" },
+  { href: "/developer", en: "MAKER", ar: "المطوّر" },
 ] as const;
 
 /* Secondary set — the mobile panel is the only place these live outside
