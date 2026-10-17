@@ -21,6 +21,13 @@ test("merges every approved development project without duplicate slugs", () => 
   assert.equal(slugs.size, merged.length);
 });
 
+test("every portfolio project references an existing thumbnail asset", () => {
+  for (const project of PROJECTS) {
+    const thumbnailPath = join(process.cwd(), "public", project.thumbnail.slice(1));
+    assert.ok(existsSync(thumbnailPath), `${project.slug} thumbnail is missing: ${project.thumbnail}`);
+  }
+});
+
 test("every digital project has a screenshot and a production preview destination", () => {
   const digitalProjects = PROJECTS.filter((project) => project.category === "development");
   assert.ok(digitalProjects.length > 0, "expected digital projects in the portfolio");
