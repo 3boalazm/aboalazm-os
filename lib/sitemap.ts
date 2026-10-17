@@ -24,7 +24,6 @@ const STATIC_ROUTES = [
   "/agreement",
   "/capabilities",
   "/about",
-  "/developer",
   "/why",
   "/process",
   "/writing",
