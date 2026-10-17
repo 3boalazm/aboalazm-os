@@ -42,7 +42,30 @@ export default async function Home() {
       {/* 00 · Portfolio-first hero and project proof */}
       <Hero wall={pickHeroWall(projects)} />
 
-      {/* 01 · Identity work */}
+      {/* Install the OS itself; the floating control below handles the native prompt. */}
+      <section className="narrative-section narrative-section--cta" aria-labelledby="install-os-title">
+        <div className="container-wide">
+          <div className="rounded-card border border-border-default bg-surface-1/80 p-6 shadow-card backdrop-blur-xl sm:p-8">
+            <p className="font-mono text-micro uppercase tracking-[0.16em] text-accent">TAKE THE OS WITH YOU</p>
+            <div className="mt-3 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
+              <div>
+                <h2 id="install-os-title" className="font-display text-heading text-text-primary sm:text-display">Install Aboalazm OS</h2>
+                <p className="mt-2 max-w-2xl text-body-sm leading-relaxed text-text-secondary">
+                  Keep your personal workspace one tap away. Add Aboalazm OS to your device for a focused, app-like experience.
+                </p>
+              </div>
+              <a href="#pwa-install-control" className="inline-flex min-h-11 items-center justify-center rounded-pill bg-accent px-5 py-3 text-sm font-semibold text-obsidian transition hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent">
+                Install Aboalazm OS ↗
+              </a>
+            </div>
+            <p className="mt-4 border-t border-border-subtle pt-3 text-caption text-text-tertiary">
+              Opens in its own app window; previously visited pages may remain available offline.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 01 · Identity work */
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
           <SectionMarker index="01" label="IDENTITY / SELECTED WORK" />
