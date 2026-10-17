@@ -149,8 +149,8 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: "floating
           ? "group inline-flex items-center gap-2 rounded-pill border border-accent/45 bg-surface-1/95 px-3 py-2.5 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
           : "group inline-flex w-full items-center justify-between gap-4 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem]"}
       >
-        <span className="grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105">
-          <Icon name="download" size={17} />
+        <span className={variant === "floating" ? "grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105" : "grid size-10 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"}>
+          <Icon name="download" size={variant === "floating" ? 17 : 20} />
         </span>
         <span className="flex flex-col items-start gap-0.5">
           <span className="font-mono text-micro font-semibold uppercase tracking-[0.06em]">
