@@ -88,6 +88,7 @@ export function PwaInstallButton() {
 
   return (
     <div
+      id="pwa-install-control"
       className="fixed end-4 z-[80] flex flex-col items-end"
       style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
     >
