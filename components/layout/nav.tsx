@@ -40,7 +40,6 @@ const LINKS = [
    PORTFOLIO PDF is pinned LAST on purpose: the 16:9 slide deck is the
    "take me with you" exit at the very end of the menu. */
 const MORE = [
-  { href: "/developer", en: "THE MAKER", ar: "المطوّر" },
   { href: "/for-hiring", en: "FOR HIRING", ar: "للتوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/labs", en: "LABS", ar: "المعمل" },
