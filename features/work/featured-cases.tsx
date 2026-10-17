@@ -250,7 +250,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
             a framed rectangle. Static, never hover-gated. */}
         <div aria-hidden className="edge-light" />
         <Image
-          src={project.thumbnail}
+          src={`${project.thumbnail}?v=20261017`}
           alt=""
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
