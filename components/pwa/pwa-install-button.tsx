@@ -9,7 +9,7 @@ interface InstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 }
 
-export function PwaInstallButton() {
+export function PwaInstallButton({ variant = "floating" }: { variant?: "floating" | "inline" }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -88,8 +88,8 @@ export function PwaInstallButton() {
 
   return (
     <div
-      className="fixed end-4 z-[80] flex flex-col items-end"
-      style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
+      className={variant === "floating" ? "fixed end-4 z-[80] flex flex-col items-end" : "relative flex w-full flex-col items-start"}
+      style={variant === "floating" ? { bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" } : undefined}
     >
       {helpOpen ? (
         <section
@@ -142,20 +142,22 @@ export function PwaInstallButton() {
         ref={buttonRef}
         type="button"
         onClick={handleInstall}
-        aria-label={ar ? "ثبّت الموقع كتطبيق" : "Install this site as an app"}
+        aria-label={variant === "inline" ? (ar ? "ثبّت Aboalazm OS كتطبيق" : "Install Aboalazm OS as an app") : (ar ? "ثبّت الموقع كتطبيق" : "Install this site as an app")}
         aria-expanded={helpOpen}
         aria-controls={helpOpen ? "pwa-install-help" : undefined}
-        className="group inline-flex items-center gap-2 rounded-pill border border-accent/45 bg-surface-1/95 px-3 py-2.5 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
+        className={variant === "floating"
+          ? "group inline-flex items-center gap-2 rounded-pill border border-accent/45 bg-surface-1/95 px-3 py-2.5 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
+          : "group inline-flex w-full items-center justify-between gap-4 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem]"}
       >
-        <span className="grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105">
-          <Icon name="download" size={17} />
+        <span className={variant === "floating" ? "grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105" : "grid size-10 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"}>
+          <Icon name="download" size={variant === "floating" ? 17 : 20} />
         </span>
         <span className="flex flex-col items-start gap-0.5">
           <span className="font-mono text-micro font-semibold uppercase tracking-[0.06em]">
-            {ar ? "ثبّت التطبيق" : "Install app"}
+            {variant === "inline" ? (ar ? "ثبّت Aboalazm OS" : "GET THE OS APP") : (ar ? "ثبّت التطبيق" : "Install app")}
           </span>
           <span className="text-[0.65rem] leading-none text-text-tertiary">
-            {ar ? "أضِفه لشاشتك الرئيسية" : "Add to your home screen"}
+            {variant === "inline" ? (ar ? "تجربة كاملة من شاشتك الرئيسية" : "A full-screen experience on your device") : (ar ? "أضِفه لشاشتك الرئيسية" : "Add to your home screen")}
           </span>
         </span>
       </button>
