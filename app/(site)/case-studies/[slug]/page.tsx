@@ -10,6 +10,7 @@ import {
 } from "@/lib/content";
 import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
+import { ZadCaseStudy } from "@/features/case-studies/zad";
 import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
 import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
 import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
@@ -21,7 +22,8 @@ const getCaseStudy = cache(fetchCaseStudy);
 
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
-  return slugs.map((slug) => ({ slug }));
+  const custom = ["nile-pharma-erp", "speech-to-text-studio", "nile-pharma-storefront", "zad"];
+  return [...new Set([...slugs, ...custom])].map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -44,6 +46,13 @@ export async function generateMetadata({
       title: "Mahtool — Speech-to-Text Product Case File",
       description:
         "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
+    };
+  }
+
+  if (slug === "zad") {
+    return {
+      title: "Zad — Islamic Companion PWA Case File",
+      description: "Zad is an Arabic-first Islamic PWA: 64 pages for prayer times, Quran, adhkar, kids and daily worship tracking — offline-first and installable.",
     };
   }
 
@@ -84,6 +93,10 @@ export default async function CaseStudyPage({
 
   if (slug === "nile-pharma-storefront") {
     return <NilePharmaStorefrontCaseStudy />;
+  }
+
+  if (slug === "zad") {
+    return <ZadCaseStudy />;
   }
 
   const record = await getCaseStudy(slug);

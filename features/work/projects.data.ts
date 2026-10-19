@@ -249,10 +249,10 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "رفيق حياة إسلامي — مواقيت الصلاة، القرآن، مخطط رمضان، تعليم الأطفال",
     year: "2025–26",
     thumbnail: "/images/work/zad-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     isUiUx: true,
-    liveUrl: "https://zadullashr.vercel.app/",
-    externalUrl: "https://zadullashr.vercel.app/",
+    liveUrl: "https://zadullmuslim.vercel.app/",
+    externalUrl: "https://github.com/3boalazm/zad",
     accent: {
       primary: "rgb(212 175 55 / 0.20)",
       secondary: "rgb(16 90 60 / 0.12)",

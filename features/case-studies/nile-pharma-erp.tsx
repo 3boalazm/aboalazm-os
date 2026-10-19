@@ -1,18 +1,45 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useLang } from "@/components/providers/lang-provider";
 
-const services = [
-  ["01", "IAM", "Identity, access & permissions", "الهوية والصلاحيات والتحكم في الوصول"],
-  ["02", "Organization", "Organization & master data", "الهيكل التنظيمي والبيانات الرئيسية"],
-  ["03", "Products", "Pharmaceutical products & batches", "المنتجات الدوائية والتشغيلات"],
-  ["04", "Inventory", "Stock, FEFO & consignment", "المخزون وFEFO والكونساينمنت"],
-  ["05", "CRM", "Accounts, visits & leads", "الحسابات والزيارات والعملاء المحتملون"],
-  ["06", "Sales", "Orders, pricing & orchestration", "الطلبات والتسعير وتنسيق العمليات"],
-  ["07", "Accounting", "Invoices, payments & ledger", "الفواتير والمدفوعات ودفتر الأستاذ"],
-  ["08", "Incentives", "Incentive engine & ledger", "محرك الحوافز وسجلها"],
-  ["09", "Audit", "Unified business-event audit trail", "سجل موحد لأحداث الأعمال والتدقيق"],
+/* ——— Real showcase data ——— */
+const kpi = {
+  totalSales: "475,950.84 ج.م",
+  orders: 9,
+  pending: 3,
+  lowStock: 3,
+};
+
+const servicesGrouped = [
+  {
+    group: "العمليات التجارية",
+    groupEn: "Commercial Operations",
+    items: [
+      ["01", "Sales", "أوامر البيع والتسعير والتنسيق", "Orders, pricing & orchestration"],
+      ["02", "Inventory", "المخزون وFEFO والكونساينمنت", "Stock, FEFO & consignment"],
+      ["03", "Products", "الأصناف والتشغيلات", "Products & batches"],
+    ],
+  },
+  {
+    group: "العملاء والتحفيز",
+    groupEn: "Customer & Incentives",
+    items: [
+      ["04", "CRM", "الحسابات والزيارات والعملاء", "Accounts, visits & leads"],
+      ["05", "Incentives", "محرك الحوافز وسجله", "Incentive engine & ledger"],
+    ],
+  },
+  {
+    group: "الحوكمة والمالية",
+    groupEn: "Governance & Finance",
+    items: [
+      ["06", "Accounting", "الفواتير والمدفوعات ودفتر الأستاذ", "Invoices, payments & ledger"],
+      ["07", "IAM", "الهوية والصلاحيات", "Identity & access"],
+      ["08", "Organization", "الهيكل والبيانات الرئيسية", "Org & master data"],
+      ["09", "Audit", "سجل أحداث موحد", "Unified audit trail"],
+    ],
+  },
 ] as const;
 
 const stack = ["Next.js", "NestJS", "TypeScript", "Prisma", "PostgreSQL / Neon", "Redpanda / Kafka", "Turborepo", "Docker Compose"];
@@ -23,7 +50,8 @@ export function NilePharmaERPCaseStudy() {
 
   return (
     <main className="overflow-hidden">
-      <section className="container-wide relative flex min-h-[78svh] flex-col justify-between gap-16 py-12 md:py-20">
+      {/* ═══ 01 / INTRODUCTION — Hero proves system scale with real asset ═══ */}
+      <section className="container-wide relative flex min-h-[88svh] flex-col justify-between gap-12 py-10 md:py-16">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute -right-24 top-8 h-80 w-80 rounded-full bg-orange-500/[0.09] blur-[100px]" />
           <div className="absolute -left-24 top-56 h-72 w-72 rounded-full bg-teal-400/[0.07] blur-[100px]" />
@@ -31,242 +59,527 @@ export function NilePharmaERPCaseStudy() {
         </div>
 
         <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
-          <Link href="/work" className="transition-colors hover:text-text-primary">← {ar ? "كل الأعمال" : "All work"}</Link>
-          <span>{ar ? "ملف هندسي / 001" : "Engineering case file / 001"}</span>
+          <Link href="/work" className="transition-colors hover:text-text-primary">
+            ← {ar ? "كل الأعمال" : "All work"}
+          </Link>
+          <span>{ar ? "عرض منتج مؤسسي / 001" : "Enterprise showcase / 001"}</span>
         </div>
 
-        <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(260px,0.65fr)]">
+        <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr]">
           <div>
-            <div className="mb-6 flex flex-wrap items-center gap-2">
+            <div className="mb-5 flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-orange-400/30 bg-orange-400/[0.08] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-orange-300">
-                {ar ? "منظومة مؤسسية" : "Enterprise system"}
+                {ar ? "منظومة مؤسسية — 9 خدمات" : "Enterprise system — 9 services"}
               </span>
               <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">
-                {ar ? "قيد التطوير والتحسين" : "Active engineering"}
+                {ar ? "توزيع دوائي" : "Pharma distribution"}
               </span>
             </div>
-            <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-orange-300/80">NILE PHARMA FOOD / DIGITAL OPERATIONS</p>
-            <h1 className="max-w-5xl font-display text-[clamp(3.4rem,9vw,8.5rem)] leading-[0.88] tracking-[-0.065em] text-text-primary">
-              Nile Pharma <span className="text-text-tertiary">ERP</span>
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-orange-300/80">NILE PHARMA FOOD / DIGITAL OPERATIONS</p>
+            <h1 className="max-w-[14ch] font-display text-[clamp(2.8rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary">
+              {ar ? "منصة تشغيل" : "An integrated"}
+              <br />
+              <span className="text-text-tertiary">{ar ? "متكاملة" : "operational"}</span> {ar ? "لتوزيع الدواء." : "platform."}
             </h1>
-            <p className="mt-8 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
+            <p className="mt-6 max-w-xl text-lg leading-8 text-text-secondary">
               {ar
-                ? "منظومة تشغيل مترابطة لتوزيع المنتجات الدوائية — من إدارة المخزون والطلبات إلى المحاسبة والتدقيق."
-                : "An interconnected operating system for pharmaceutical distribution — from inventory and orders to accounting and audit."}
+                ? "ليست لوحة تحكم جميلة فقط. تسع خدمات مترابطة تدير المنتج والمخزون والمبيعات والحسابات والحوافز — وكل عملية تترك أثرًا يمكن تتبعه."
+                : "Not just a good-looking dashboard. Nine interconnected services run product, stock, sales, accounting and incentives — every operation leaves a traceable record."}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a href="/showcase/nile-erp/index.html" className="inline-flex items-center gap-2 rounded-full bg-orange-400 px-5 py-2.5 text-sm font-medium text-black transition-transform hover:-translate-y-0.5">
+                {ar ? "افتح العرض التفاعلي" : "Open live showcase"} ↗
+              </a>
+              <a href="https://github.com/3boalazm/nile-pharma-erp" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border-default px-5 py-2.5 text-sm text-text-primary hover:border-orange-400/60">
+                GitHub ↗
+              </a>
+            </div>
+            <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.10em] text-text-ghost">
+              {ar ? "العرض التفاعلي يعرض بيانات البذور الحقيقية — ليس mock عام." : "Live showcase renders real seed data — not a generic mock."}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-5 backdrop-blur-xl md:p-6">
-            <div className="mb-5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-text-tertiary">
-              <span>{ar ? "نظرة على النظام" : "System snapshot"}</span>
-              <span className="text-orange-300">NPF / ERP</span>
+          {/* Hero visual — real system snapshot, not illustration */}
+          <div className="rounded-2xl border border-border-subtle bg-white p-2 shadow-card">
+            <div className="flex items-center justify-between px-3 py-2">
+              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-ghost">Nile Pharma ERP / LIVE SHOWCASE</span>
+              <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-border-subtle p-4">
-                <p className="font-display text-4xl tracking-tight text-text-primary">09</p>
-                <p className="mt-2 text-xs text-text-tertiary">{ar ? "خدمات خلفية" : "Backend services"}</p>
+            <div className="overflow-hidden rounded-xl border border-zinc-200">
+              <Image
+                src="/images/work/nile-erp-thumb.jpg"
+                alt={ar ? "لقطة حقيقية من لوحة تحكم Nile Pharma ERP" : "Real screenshot from Nile Pharma ERP dashboard"}
+                width={1280}
+                height={800}
+                className="h-auto w-full object-cover"
+                priority
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-2 px-2 pb-2 pt-3">
+              <div className="rounded-lg bg-zinc-50 p-3">
+                <p className="font-mono text-[10px] uppercase text-zinc-500">{ar ? "إجمالي المبيعات" : "Total sales"}</p>
+                <p className="mt-1 font-display text-sm font-semibold text-zinc-900">{kpi.totalSales}</p>
               </div>
-              <div className="rounded-xl border border-border-subtle p-4">
-                <p className="font-display text-4xl tracking-tight text-text-primary">01</p>
-                <p className="mt-2 text-xs text-text-tertiary">{ar ? "طبقة عقود مشتركة" : "Shared contracts layer"}</p>
+              <div className="rounded-lg bg-zinc-50 p-3">
+                <p className="font-mono text-[10px] uppercase text-zinc-500">{ar ? "أوامر / معلقة" : "Orders / pending"}</p>
+                <p className="mt-1 font-display text-sm font-semibold text-zinc-900">
+                  {kpi.orders} / <span className="text-amber-600">{kpi.pending}</span>
+                </p>
               </div>
-              <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "النمط المعماري" : "Architecture pattern"}</p>
-                <p className="mt-2 text-sm text-text-primary">Domain services <span className="text-orange-300">→</span> Events <span className="text-orange-300">→</span> Audit trail</p>
+              <div className="rounded-lg bg-amber-50 p-3 ring-1 ring-amber-200">
+                <p className="font-mono text-[10px] uppercase text-amber-700">{ar ? "تنبيه نقص" : "Low stock"}</p>
+                <p className="mt-1 font-display text-sm font-semibold text-amber-900">{kpi.lowStock} أصناف</p>
               </div>
             </div>
-            <p className="mt-4 text-[11px] leading-relaxed text-text-tertiary">
-              {ar ? "النطاقات والأعداد مستندة إلى بنية المستودع؛ لا تمثل ادعاءً بمؤشرات أداء تجارية." : "Scope and counts reflect the repository architecture, not claimed business-performance metrics."}
-            </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-5">
-          <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">
-            <span>{ar ? "الدور: قيادة المنتج والمنصة" : "Role: Product & Platform Lead"}</span>
-            <span>{ar ? "المجال: توزيع دوائي" : "Domain: Pharma distribution"}</span>
-            <span>2025—2026</span>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <a href="https://github.com/3boalazm/nile-pharma-erp" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-border-default px-4 py-2 text-sm text-text-primary transition-colors hover:border-orange-400/60 hover:bg-orange-400/[0.06]">
-              GitHub <span aria-hidden="true">↗</span>
-            </a>
-            <a href="/showcase/nile-erp/index.html" className="inline-flex items-center gap-2 rounded-full bg-orange-400 px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5">
-              {ar ? "استكشف العرض" : "Explore showcase"} <span aria-hidden="true">↗</span>
-            </a>
-          </div>
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">
+          <span>{ar ? "الدور: قيادة المنتج والمنصة" : "Role: Product & Platform Lead"} · 2025—2026</span>
+          <span className="text-text-ghost">{ar ? "اللقطة من العرض الحقيقي public/showcase/nile-erp" : "Hero from real showcase public/showcase/nile-erp"}</span>
         </div>
       </section>
 
+      {/* ═══ 02 / THE SYSTEM — grouped by function, not long list ═══ */}
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide grid gap-10 py-16 md:grid-cols-[0.55fr_1fr] md:py-24">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">01 / {ar ? "السياق" : "Context"}</p>
-            <h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? "العمليات لا تعيش في جداول منفصلة." : "Operations don't live in isolated tables."}
-            </h2>
-          </div>
-          <div className="max-w-3xl space-y-5 text-base leading-8 text-text-secondary">
-            <p>{ar
-              ? "توزيع المنتجات الدوائية يجمع بيانات المنتجات والتشغيلات والمخزون والعملاء والطلبات والفواتير والتحصيل والحوافز. تصميم النظام يحتاج إلى ضبط العلاقات بين هذه النطاقات، وليس مجرد جمعها في لوحة تحكم واحدة."
-              : "Pharmaceutical distribution connects product and batch records, stock, customers, orders, invoices, collections and incentives. The challenge is to govern the relationships between these domains—not simply place them in one dashboard."}</p>
-            <p>{ar
-              ? "لذلك بُني المشروع كمجموعة خدمات متخصصة بعقود مشتركة وتكامل قائم على الأحداث، مع فصل واجهة الويب عن منطق الأعمال وقواعد البيانات."
-              : "The system is organized as specialized services with shared contracts and event-driven integration, while keeping the web interface separate from business logic and data stores."}</p>
-            <div className="rounded-xl border-s-2 border-orange-400 bg-orange-400/[0.04] p-5">
-              <p className="text-sm leading-7 text-text-primary">{ar
-                ? "المبدأ: كل عملية تجارية مهمة يجب أن تترك حالة واضحة، وأثرًا يمكن تتبعه، وحدودًا صريحة للصلاحيات."
-                : "Design principle: important business operations should leave an explicit state, a traceable record, and clear permission boundaries."}</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        <div className="container-wide py-16 md:py-20">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">02 / {ar ? "النظام" : "The system"}</p>
+          <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+            {ar ? "نظام واحد مترابط، لا تسع شاشات منفصلة." : "One connected system, not nine separate screens."}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-text-secondary">
+            {ar
+              ? "كل خدمة لها مسؤولية واحدة واضحة. التجميع حسب الوظيفة يسهل الفهم بدل قائمة طويلة من الأسماء التقنية."
+              : "Each service owns one clear responsibility. Grouping by function makes the scale readable instead of a long technical list."}
+          </p>
 
-      <section className="container-wide py-16 md:py-24">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">02 / {ar ? "خريطة الخدمات" : "Service map"}</p>
-            <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "تسعة نطاقات. مسؤوليات واضحة." : "Nine domains. Clear responsibilities."}</h2>
-          </div>
-          <p className="max-w-md text-sm leading-6 text-text-tertiary">{ar
-            ? "كل خدمة خلفية لها نطاق وظيفي مستقل، وتتشارك العقود والأحداث بدل ربط كل شيء داخل تطبيق واحد."
-            : "Each backend service owns a distinct responsibility, sharing contracts and events instead of coupling every workflow inside one application."}</p>
-        </div>
-
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map(([number, name, description, descriptionAr]) => (
-            <article key={name} className="group rounded-xl border border-border-subtle bg-surface-1/35 p-5 transition-colors hover:border-orange-400/40 hover:bg-surface-1/75">
-              <div className="mb-8 flex items-center justify-between">
-                <span className="font-mono text-xs text-text-ghost">{number}</span>
-                <span className="h-2 w-2 rounded-full bg-orange-400/70 transition-shadow group-hover:shadow-[0_0_18px_rgba(251,146,60,0.6)]" />
-              </div>
-              <h3 className="font-display text-2xl text-text-primary">{name}</h3>
-              <p className="mt-2 text-sm leading-6 text-text-secondary">{ar ? descriptionAr : description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide py-16 md:py-24">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">03 / {ar ? "كيف تتصل الأجزاء" : "How the system connects"}</p>
-          <div className="mt-5 grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
-            <div>
-              <h2 className="font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "واجهة واحدة. خدمات متخصصة. تدفق يمكن تتبعه." : "One interface. Specialized services. Traceable flow."}</h2>
-              <p className="mt-5 max-w-lg text-base leading-7 text-text-secondary">{ar
-                ? "واجهة Next.js تتعامل مع مسارات API من نفس النطاق، ثم يوجّهها الخادم إلى خدمات NestJS. قاعدة البيانات موزعة حسب الخدمة، وRedpanda يوفر قناة الأحداث الداخلية."
-                : "The Next.js web app uses same-origin API routes, which forward requests to NestJS services. Data is separated by service, while Redpanda carries internal events."}</p>
-            </div>
-            <div className="rounded-2xl border border-border-subtle bg-background/70 p-4 md:p-6">
-              <div className="mx-auto max-w-sm rounded-xl border border-orange-400/40 bg-orange-400/[0.07] p-4 text-center">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-orange-300">Presentation</p>
-                <p className="mt-1 font-medium text-text-primary">Next.js Web Dashboard</p>
-                <p className="mt-1 text-xs text-text-tertiary">Same-origin /api/* routes</p>
-              </div>
-              <div className="py-3 text-center font-mono text-xl text-orange-300">↓</div>
-              <div className="grid grid-cols-3 gap-2">
-                {["IAM", "Organization", "Products", "Inventory", "CRM", "Sales", "Accounting", "Incentives", "Audit"].map((name) => (
-                  <div key={name} className="flex min-h-14 items-center justify-center rounded-lg border border-border-subtle bg-surface-1 px-2 py-3 text-center text-xs text-text-secondary">{name}</div>
-                ))}
-              </div>
-              <div className="py-3 text-center font-mono text-xl text-orange-300">↕</div>
-              <div className="grid gap-2 sm:grid-cols-2">
-                <div className="rounded-lg border border-border-subtle p-4">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">Event backbone</p>
-                  <p className="mt-1 text-sm text-text-primary">Redpanda / Kafka-compatible events</p>
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            {servicesGrouped.map((g) => (
+              <div key={g.group} className="rounded-2xl border border-border-subtle bg-white p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-orange-400">{ar ? g.group : g.groupEn}</p>
+                <div className="mt-4 space-y-3">
+                  {g.items.map(([no, name, descAr, descEn]) => (
+                    <div key={name} className="flex gap-3 border-b border-zinc-100 py-3 last:border-0">
+                      <span className="font-mono text-xs text-text-ghost">{no}</span>
+                      <div>
+                        <p className="font-display text-base font-semibold text-text-primary">{name}</p>
+                        <p className="mt-1 text-xs leading-6 text-text-secondary">{ar ? descAr : descEn}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="rounded-lg border border-border-subtle p-4">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">Data layer</p>
-                  <p className="mt-1 text-sm text-text-primary">Neon PostgreSQL · per-service databases</p>
-                </div>
-              </div>
-              <p className="mt-4 text-[10px] leading-5 text-text-tertiary">{ar ? "مخطط مفاهيمي مبسط، وليس مخطط نشر كاملًا." : "Simplified conceptual diagram, not a complete deployment diagram."}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.55fr_1fr]">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">04 / {ar ? "قرارات هندسية" : "Engineering decisions"}</p>
-            <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "التفاصيل التي تمنع الفوضى." : "The details that prevent chaos."}</h2>
-          </div>
-          <div className="divide-y divide-border-subtle border-y border-border-subtle">
-            {[
-              [ar ? "العقود المشتركة" : "Shared contracts", ar ? "حزمة @nile/contracts توحّد DTOs وأنواع الأحداث بين الخدمات، ويُولّد جزء الأحداث من AsyncAPI." : "The @nile/contracts package shares DTOs and event types across services; event types are generated from AsyncAPI."],
-              [ar ? "تنسيق العمليات" : "Workflow orchestration", ar ? "عمليات البيع تستخدم نمط Saga لتنسيق الخطوات عبر الخدمات، بدل افتراض أن الطلب والمخزون والمحاسبة عملية واحدة ذرية." : "Sales workflows use a Saga orchestrator to coordinate steps across services rather than treating order, stock and accounting as one atomic operation."],
-              [ar ? "انضباط المخزون" : "Inventory discipline", ar ? "منطق FEFO والتشغيلات والتتبع والـ consignment يجعل صلاحية المنتج ومصدر المخزون جزءًا من قواعد العمل." : "FEFO, batch traceability and consignment make expiry and stock ownership part of the business rules."],
-              [ar ? "موثوقية الأحداث" : "Event reliability", ar ? "طبقة الأحداث تتعامل مع idempotency وDead Letter Queue، ويجمع Audit Aggregator الأحداث في سجل موحد." : "The event layer accounts for idempotency and a dead-letter queue; the audit aggregator consolidates business events into a unified trail."],
-              [ar ? "نشر آمن" : "Controlled deployment", ar ? "في الإنتاج، تنفذ مهمة ترحيل واحدة migrations للخدمات التسع قبل تشغيلها، مع قواعد بيانات Neon منفصلة وعدم نشر وسيط الأحداث للعامة." : "In production, one migration job applies service migrations before the backends start; services use separate Neon databases and the event broker is not publicly exposed."],
-            ].map(([title, body]) => (
-              <div key={title} className="grid gap-2 py-5 sm:grid-cols-[190px_1fr] sm:gap-6">
-                <h3 className="text-sm font-medium text-text-primary">{title}</h3>
-                <p className="text-sm leading-7 text-text-secondary">{body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ═══ 03 / PRODUCT TOUR — 6 real screens with function/decision ═══ */}
+      <section className="container-wide py-16 md:py-24">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">03 / {ar ? "جولة داخل المنصة" : "Product tour"}</p>
+        <h2 className="mt-3 max-w-[16ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+          {ar ? "داخل المنصة — كل شاشة لها وظيفة." : "Inside the platform — every screen has a job."}
+        </h2>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {/* 01 Sales */}
+          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="bg-[#0B1220] p-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">SALES · أوامر البيع</span>
+                <span className="rounded-full bg-[#14B8A6]/20 px-2 py-1 font-mono text-[10px] text-[#5EEAD4]">9 أوامر</span>
+              </div>
+              <div className="mt-3 rounded-lg bg-white/5 p-2">
+                <div className="grid grid-cols-4 gap-2 font-mono text-[10px] text-white/50">
+                  <span>SO-1001</span>
+                  <span>العزبي - المعادي</span>
+                  <span>19,360 ج.م</span>
+                  <span className="text-emerald-400">PAID</span>
+                </div>
+                <div className="mt-2 grid grid-cols-4 gap-2 font-mono text-[10px] text-white/50">
+                  <span>SO-1008</span>
+                  <span>أبو اليزيد - سموحة</span>
+                  <span>9,680 ج.م</span>
+                  <span className="text-zinc-500">CANCELLED</span>
+                </div>
+                <div className="mt-2 h-1 w-full rounded-full bg-white/10">
+                  <div className="h-full w-[78%] rounded-full bg-[#14B8A6]" />
+                </div>
+              </div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "المبيعات والطلبات" : "Sales & Orders"}</h3>
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
+                {ar ? "عرض حالات الطلب التسع: مسودة، بانتظار الموافقة، معتمد، محجوز، مفوتر، محصل، ملغي وفشل تخصيص. القرار: لا يُنشأ مخزون وهمي عند الفشل." : "Nine order states from DRAFT to PAID/CANCELLED and ALLOCATION_FAILED. Decision: no phantom stock on failure."}
+              </p>
+            </div>
+          </article>
+
+          {/* 02 Inventory */}
+          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="bg-[#0B1220] p-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">INVENTORY · المخزون</span>
+                <span className="rounded-full bg-amber-500/20 px-2 py-1 font-mono text-[10px] text-amber-300">3 تنبيه نقص</span>
+              </div>
+              <div className="mt-3 space-y-2">
+                <div className="rounded-lg bg-white p-2">
+                  <p className="font-mono text-[10px] text-zinc-500">WH-CAI · مخزن القاهرة</p>
+                  <div className="mt-2 flex justify-between font-mono text-xs">
+                    <span>BRX-PLUS-30</span>
+                    <span className="text-emerald-600">3200 / 500</span>
+                  </div>
+                  <div className="mt-1 h-1.5 rounded-full bg-zinc-100">
+                    <div className="h-full w-[92%] rounded-full bg-emerald-500" />
+                  </div>
+                </div>
+                <div className="rounded-lg bg-amber-50 p-2 ring-1 ring-amber-200">
+                  <div className="flex justify-between font-mono text-xs">
+                    <span>NLV-COLD-10</span>
+                    <span className="text-amber-700">60 / 100</span>
+                  </div>
+                  <div className="mt-1 h-1.5 rounded-full bg-amber-100">
+                    <div className="h-full w-[35%] rounded-full bg-amber-500" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "المخزون وحركاته" : "Inventory & Movements"}</h3>
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
+                {ar ? "مخزنان (القاهرة/الإسكندرية) مع FEFO حسب تاريخ الانتهاء وتتبع التشغيلات. القرار: الصرف بأقدم انتهاء أولًا." : "Two warehouses with FEFO expiry, batch trace. Decision: oldest expiry out first."}
+              </p>
+            </div>
+          </article>
+
+          {/* 03 Products */}
+          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="bg-[#0B1220] p-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">PRODUCTS · الأصناف</span>
+                <span className="font-mono text-[10px] text-white/40">8 أصناف</span>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="rounded-lg bg-white p-2">
+                  <p className="font-mono text-[10px] text-emerald-600">● ok</p>
+                  <p className="mt-1 text-xs font-semibold">بروكسيد بلس 30</p>
+                  <p className="font-mono text-[10px] text-zinc-500">849.12 ج.م</p>
+                </div>
+                <div className="rounded-lg bg-amber-50 p-2 ring-1 ring-amber-200">
+                  <p className="font-mono text-[10px] text-amber-600">● low</p>
+                  <p className="mt-1 text-xs font-semibold">بروكس ايريكس</p>
+                  <p className="font-mono text-[10px] text-zinc-500">410 / 500</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "المنتجات" : "Products & Batches"}</h3>
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
+                {ar ? "8 أصناف بأكواد BRX وNLV، كل صنف له حد أدنى وسعر. القرار: عدم عرض سعر وهمي عند عدم توفر المتغير." : "8 SKUs with min-stock and live price. Decision: omit unavailable prices instead of inventing."}
+              </p>
+            </div>
+          </article>
+
+          {/* 04 CRM */}
+          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="bg-[#0B1220] p-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">CRM · العملاء</span>
+                <span className="font-mono text-[10px] text-white/40">8 حسابات</span>
+              </div>
+              <div className="mt-3 rounded-lg bg-white p-2 font-mono text-[11px] leading-6">
+                <div className="flex justify-between">
+                  <span>PH-0001 · صيدلية العزبي</span>
+                  <span className="text-zinc-500">4,200</span>
+                </div>
+                <div className="flex justify-between text-zinc-500">
+                  <span>DR-0001 · د. محمود</span>
+                  <span>0</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>HOSP-0001 · مستشفى دلتا</span>
+                  <span className="text-amber-600">15,400</span>
+                </div>
+              </div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "العملاء (CRM)" : "CRM / Accounts"}</h3>
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
+                {ar ? "صيدليات، أطباء، مراكز ومستشفيات وموزع — كل عميل مرتبط بمندوب ورصيد. القرار: وضوح المسؤولية الإقليمية." : "Pharmacies, doctors, centers, hospitals, distributors — each tied to a rep and balance."}
+              </p>
+            </div>
+          </article>
+
+          {/* 05 Accounting */}
+          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="bg-[#0B1220] p-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">ACCOUNTING · الحسابات</span>
+                <span className="rounded-full bg-white/10 px-2 py-1 font-mono text-[10px] text-white">INV-2001</span>
+              </div>
+              <div className="mt-3 rounded-lg bg-white p-2">
+                <div className="flex justify-between font-mono text-xs">
+                  <span>INV-2001 · العزبي</span>
+                  <span className="text-emerald-600">مدفوعة بالكامل</span>
+                </div>
+                <div className="flex justify-between font-mono text-xs text-zinc-500">
+                  <span>INV-2002 · الشفاء</span>
+                  <span className="text-amber-600">مدفوعة جزئيًا 9,000/18,641</span>
+                </div>
+              </div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "الحسابات" : "Accounting & Ledger"}</h3>
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
+                {ar ? "فواتير ومدفوعات ودفتر أستاذ. الفاتورة لا تُعتبر محصلة حتى يتأكد التحصيل." : "Invoices, payments and ledger. Invoiced ≠ collected until payment confirmed."}
+              </p>
+            </div>
+          </article>
+
+          {/* 06 Incentives & Audit */}
+          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="bg-[#0B1220] p-3">
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">INCENTIVES · AUDIT</span>
+                <span className="font-mono text-[10px] text-emerald-400">AUDIT ↓</span>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="rounded-lg bg-white p-2">
+                  <p className="font-mono text-[10px] text-zinc-500">SO-1001 → 258.09</p>
+                  <p className="font-mono text-[10px] text-emerald-600">مدفوع</p>
+                </div>
+                <div className="rounded-lg bg-white/10 p-2">
+                  <p className="font-mono text-[10px] text-white">sales.order.created 09:12</p>
+                  <p className="font-mono text-[10px] text-white/60">inventory.reserved</p>
+                </div>
+              </div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "الحوافز وسجل التتبع" : "Incentives & Audit Trail"}</h3>
+              <p className="mt-2 text-sm leading-7 text-text-secondary">
+                {ar ? "حساب عمولة تلقائي وسجل أحداث موحد. كل خطوة لها طابع زمني ومرجع." : "Auto-commission and unified audit. Every step timestamped and referenced."}
+              </p>
+            </div>
+          </article>
+        </div>
+        <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.10em] text-text-ghost">
+          {ar ? "لقطات توضيحية مبنية على بيانات العرض الحقيقي public/showcase/nile-erp — ليست صور AI عامة." : "Illustrative cards built from real showcase data public/showcase/nile-erp — not generic AI images."}
+        </p>
+      </section>
+
+      {/* ═══ 04 / OPERATIONAL FLOW — one integrated scenario ═══ */}
+      <section className="border-y border-border-subtle bg-surface-1/35">
+        <div className="container-wide py-16 md:py-20">
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">04 / {ar ? "التدفق التشغيلي" : "Operational flow"}</p>
+          <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+            {ar ? "من الطلب إلى المخزون والمحاسبة — سيناريو واحد حقيقي." : "From order to inventory and accounting — one real scenario."}
+          </h2>
+
+          <div className="mt-10 overflow-hidden rounded-2xl border border-border-subtle bg-white">
+            <div className="grid gap-0 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]">
+              {/* Step 1 */}
+              <div className="p-5">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-400">01 · Sales</p>
+                <p className="mt-2 font-display text-base font-semibold text-text-primary">SO-1001</p>
+                <p className="mt-1 text-xs leading-6 text-text-secondary">{ar ? "صيدلية العزبي - المعادي · 19,360 ج.م · أحمد فتحي" : "El Ezaby - Maadi · 19,360 EGP · Ahmed Fathy"}</p>
+                <p className="mt-3 rounded-lg bg-emerald-50 px-2 py-1 font-mono text-[10px] text-emerald-700">APPROVED → ALLOCATING</p>
+              </div>
+              <div className="hidden items-center px-2 text-orange-300 md:flex">→</div>
+              {/* Step 2 */}
+              <div className="border-t border-zinc-100 p-5 md:border-l md:border-t-0">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-400">02 · Inventory</p>
+                <p className="mt-2 font-display text-base font-semibold text-text-primary">WH-CAI</p>
+                <p className="mt-1 text-xs leading-6 text-text-secondary">{ar ? "حجز  LOT-2025-A · تأكيد الحجز" : "Reserve LOT-2025-A · confirmed"}</p>
+                <p className="mt-3 rounded-lg bg-[#0B1220] px-2 py-1 font-mono text-[10px] text-emerald-400">inventory.reservation.confirmed 09:12</p>
+              </div>
+              <div className="hidden items-center px-2 text-orange-300 md:flex">→</div>
+              {/* Step 3 */}
+              <div className="border-t border-zinc-100 p-5 md:border-l md:border-t-0">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-400">03 · Accounting</p>
+                <p className="mt-2 font-display text-base font-semibold text-text-primary">INV-2001</p>
+                <p className="mt-1 text-xs leading-6 text-text-secondary">{ar ? "فاتورة 19,360 · مدفوعة بالكامل 14:30" : "Invoice 19,360 · fully paid 14:30"}</p>
+                <p className="mt-3 rounded-lg bg-zinc-50 px-2 py-1 font-mono text-[10px] text-zinc-600">accounting.invoice.issued</p>
+              </div>
+              <div className="hidden items-center px-2 text-orange-300 md:flex">→</div>
+              {/* Step 4 */}
+              <div className="border-t border-zinc-100 p-5 md:border-l md:border-t-0">
+                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-400">04 · Incentives + Audit</p>
+                <p className="mt-2 font-display text-base font-semibold text-text-primary">ilg-001</p>
+                <p className="mt-1 text-xs leading-6 text-text-secondary">{ar ? "عمولة 258.09 · سجل التتبع 14:30" : "Commission 258.09 · audit 14:30"}</p>
+                <p className="mt-3 rounded-lg bg-emerald-50 px-2 py-1 font-mono text-[10px] text-emerald-700">incentives.ledger.calculated</p>
+              </div>
+            </div>
+            <div className="border-t border-border-subtle bg-amber-50/60 px-4 py-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-amber-700">{ar ? "سيناريو فشل موثق أيضًا" : "Documented failure path also"}</p>
+              <p className="mt-1 text-xs leading-6 text-amber-900/80">
+                {ar ? "SO-1007 مستشفى دلتا: فشل التخصيص ALLOCATION_FAILED — النظام لا يخترع مخزونًا ولا يولد فاتورة وهمية." : "SO-1007 Delta Hospital: ALLOCATION_FAILED — system does not invent stock nor issue a phantom invoice."}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-xl border border-border-subtle bg-white p-4">
+            <p className="font-mono text-[10px] uppercase tracking-[0.10em] text-text-ghost">{ar ? "قيود مثبتة فقط" : "Only proven integrations"}</p>
+            <p className="mt-2 text-xs leading-6 text-text-secondary">
+              {ar
+                ? "السيناريو يعرض ما ينفذه النظام فعلًا عبر الأحداث. لا ندعي تكامل دفع خارجي أو شحن لم يُنفذ."
+                : "Scenario shows what the system actually executes via events. No claim of external payment/shipment integrations not implemented."}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 05 / ENGINEERING — clear architecture, implemented vs planned ═══ */}
+      <section className="container-wide py-16 md:py-24">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">05 / {ar ? "الهندسة" : "Engineering"}</p>
+        <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+          {ar ? "مبني كنظام، لا كمجموعة شاشات." : "Built as a system, not a collection of screens."}
+        </h2>
+
+        <div className="mt-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="rounded-2xl border border-border-subtle bg-[#0B1220] p-4 md:p-6">
+            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-white/60">ARCHITECTURE · حسب الكود الفعلي</p>
+            <div className="mx-auto mt-4 max-w-sm rounded-xl border border-[#14B8A6]/30 bg-[#14B8A6]/10 p-3 text-center">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#5EEAD4]">Presentation</p>
+              <p className="mt-1 text-sm font-semibold text-white">Next.js Web Dashboard</p>
+              <p className="mt-1 font-mono text-[10px] text-white/60">Same-origin /api/*</p>
+            </div>
+            <div className="py-2 text-center font-mono text-lg text-[#14B8A6]">↓</div>
+            <div className="grid grid-cols-3 gap-2">
+              {["IAM", "Organization", "Products", "Inventory", "CRM", "Sales", "Accounting", "Incentives", "Audit"].map((n) => (
+                <div key={n} className="flex min-h-12 items-center justify-center rounded-lg border border-white/10 bg-white/5 px-2 py-2 text-center font-mono text-[11px] text-white/80">
+                  {n}
+                </div>
+              ))}
+            </div>
+            <div className="py-2 text-center font-mono text-lg text-[#14B8A6]">↕</div>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <p className="font-mono text-[10px] uppercase text-white/50">Event backbone</p>
+                <p className="mt-1 font-mono text-xs text-white">Redpanda / Kafka events</p>
+                <p className="mt-1 font-mono text-[10px] text-emerald-400">✓ منفذ</p>
+              </div>
+              <div className="rounded-lg border border-white/10 bg-white/5 p-3">
+                <p className="font-mono text-[10px] uppercase text-white/50">Data layer</p>
+                <p className="mt-1 font-mono text-xs text-white">Neon PG · per-service DB</p>
+                <p className="mt-1 font-mono text-[10px] text-emerald-400">✓ منفذ</p>
+              </div>
+            </div>
+            <div className="mt-3 flex gap-2">
+              <span className="rounded-full bg-emerald-500/15 px-2 py-1 font-mono text-[10px] text-emerald-400">✓ منفذ: 9 خدمات + عقود مشتركة</span>
+              <span className="rounded-full bg-white/5 px-2 py-1 font-mono text-[10px] text-white/50">مخطط تبسيطي</span>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-border-subtle bg-white p-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-400">{ar ? "قرارات تمنع الفوضى" : "Decisions that prevent chaos"}</p>
+              <ul className="mt-3 space-y-2 text-sm leading-7 text-text-secondary">
+                <li>• {ar ? "عقود مشتركة @nile/contracts + AsyncAPI — منع انحراف الأنواع بين الخدمات." : "Shared @nile/contracts + AsyncAPI — prevent type drift."}</li>
+                <li>• {ar ? "Saga للمبيعات — لا عملية ذرية وهمية عبر 3 قواعد بيانات." : "Saga for sales — no fake atomic across 3 DBs."}</li>
+                <li>• {ar ? "FEFO + تتبع التشغيلات — الصلاحية جزء من المنطق." : "FEFO + batch trace — expiry is business logic."}</li>
+                <li>• {ar ? "Idempotency + DLQ + Audit Aggregator — موثوقية الأحداث." : "Idempotency + DLQ + audit aggregator — event reliability."}</li>
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-border-subtle bg-white p-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-ghost">{ar ? "تنفيذ مقابل مخطط" : "Implemented vs planned"}</p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                <div className="rounded-lg bg-emerald-50 p-3">
+                  <p className="font-mono text-[10px] uppercase text-emerald-700">✓ تم</p>
+                  <p className="mt-1 text-xs text-zinc-700">9 خدمات، عقود، أحداث، ترحيلات، showcased data</p>
+                </div>
+                <div className="rounded-lg bg-zinc-50 p-3">
+                  <p className="font-mono text-[10px] uppercase text-zinc-500">○ لاحقًا</p>
+                  <p className="mt-1 text-xs text-zinc-600">تكاملات دفع/شحن خارجية إضافية حسب احتياج العميل</p>
+                </div>
+              </div>
+              <p className="mt-3 font-mono text-[10px] leading-5 text-text-ghost">
+                {ar ? "الفصل واضح — لا نخلط المنجز بالمخطط." : "Clear separation — don't mix shipped vs planned."}
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {stack.map((s) => (
+                <span key={s} className="rounded-full border border-border-subtle bg-white px-3 py-1.5 font-mono text-xs text-text-secondary">
+                  {s}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 06 / CONTRIBUTION ═══ */}
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide grid gap-10 py-16 md:grid-cols-[0.55fr_1fr] md:py-20">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">05 / {ar ? "مجموعة التقنيات" : "Technology stack"}</p>
-            <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">{ar ? "الأدوات تخدم المعمارية." : "Tools in service of the architecture."}</h2>
-          </div>
-          <div>
-            <div className="flex flex-wrap gap-2">
-              {stack.map((item) => <span key={item} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{item}</span>)}
-            </div>
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-text-secondary">{ar
-              ? "المستودع Monorepo باستخدام pnpm وTurborepo. لكل خدمة Dockerfile ومخطط Prisma خاص بها، وتُستخدم اختبارات ومراجعات للمسارات والصلاحيات والترحيلات."
-              : "The repository is a pnpm/Turborepo monorepo. Services have their own Dockerfiles and Prisma schemas, with checks around routes, permissions and database migrations."}</p>
-          </div>
-        </div>
-      </section>
-
-      <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.55fr_1fr]">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">06 / {ar ? "الدور وحدود الحالة" : "Role & project status"}</p>
-            <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "المنتج الحقيقي أهم من الادعاءات الكبيرة." : "Evidence over inflated claims."}</h2>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">06 / {ar ? "دوري ومساهمتي" : "Contribution"}</p>
+            <h2 className="mt-3 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+              {ar ? "ماذا صممت وبنيت فعلًا." : "What I designed and built."}
+            </h2>
           </div>
           <div className="space-y-5 text-sm leading-7 text-text-secondary">
-            <p>{ar
-              ? "يشمل العمل قيادة المنتج والمنصة، وتوجيه التجربة الرقمية، والمشاركة في تصميم وتنفيذ البنية البرمجية والتنسيق بين احتياجات التشغيل والقرارات التقنية."
-              : "The work spans product and platform leadership, digital-experience direction, software architecture and implementation, and translating operational needs into technical decisions."}</p>
-            <p>{ar
-              ? "هذه الصفحة تصف البنية والخصائص الظاهرة في المصدر. لا تعرض أرقامًا مختلقة عن المستخدمين أو الإيرادات أو توفير الوقت، ولا تدّعي أن كل مسار موثق هنا خضع لاعتماد إنتاجي نهائي."
-              : "This page describes architecture and capabilities visible in source. It does not invent user, revenue or time-saved metrics, or claim every documented workflow has completed final production sign-off."}</p>
-            <div className="rounded-xl border border-border-subtle p-5">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-text-tertiary">{ar ? "الحالة" : "Status"}</p>
-              <p className="mt-2 text-text-primary">{ar ? "مشروع حي قيد التطوير والتحقق المستمر" : "Live project · ongoing development and verification"}</p>
+            <p>
+              {ar
+                ? "قيادة المنتج والمنصة: تحويل احتياجات التوزيع الدوائي إلى 9 خدمات بحدود واضحة، تصميم العقود المشتركة، اختيار Redpanda للأحداث وNeon لقواعد البيانات المنفصلة، وتوجيه تجربة الـ dashboard."
+                : "Product & platform lead: translating pharma distribution needs into 9 bounded services, designing shared contracts, choosing Redpanda for events and Neon for per-service DBs, and directing the dashboard experience."}
+            </p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-xl border border-border-subtle bg-white p-4">
+                <p className="font-mono text-[10px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="mt-2 text-sm font-medium text-text-primary">{ar ? "Saga بدل 2PC" : "Saga over 2PC"}</p>
+                <p className="mt-1 font-mono text-[10px] text-text-ghost">{ar ? "تجنب قفل موزع" : "Avoid distributed lock"}</p>
+              </div>
+              <div className="rounded-xl border border-border-subtle bg-white p-4">
+                <p className="font-mono text-[10px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="mt-2 text-sm font-medium text-text-primary">FEFO + تحفيز</p>
+                <p className="mt-1 font-mono text-[10px] text-text-ghost">{ar ? "صلاحية = منطق عمل" : "Expiry = business logic"}</p>
+              </div>
+              <div className="rounded-xl border border-border-subtle bg-white p-4">
+                <p className="font-mono text-[10px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="mt-2 text-sm font-medium text-text-primary">Audit أولًا</p>
+                <p className="mt-1 font-mono text-[10px] text-text-ghost">{ar ? "كل حدث مسجل" : "Every event logged"}</p>
+              </div>
+            </div>
+            <div className="rounded-xl border border-border-subtle bg-white p-5">
+              <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-ghost">{ar ? "الحالة والاختبارات" : "Status & tests"}</p>
+              <p className="mt-2 text-sm text-text-primary">
+                {ar ? "حي قيد التطوير — العرض التفاعلي يعمل ببيانات البذور الحقيقية، والترحيلات لكل خدمة عبر Prisma." : "Live in development — showcase runs on real seed data, migrations per service via Prisma."}
+              </p>
+              <p className="mt-2 font-mono text-[10px] leading-5 text-text-ghost">
+                {ar ? "بدون ادعاء أرقام مستخدمين أو إيرادات وهمية. ما هو موثق هنا هو المنفذ فقط." : "No invented user/revenue numbers. Documented here is what is actually shipped."}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="container-wide pb-20 md:pb-28">
-        <div className="relative overflow-hidden rounded-2xl border border-orange-400/25 bg-gradient-to-br from-orange-400/[0.10] via-surface-1/70 to-teal-400/[0.05] p-6 md:p-10">
-          <div aria-hidden="true" className="absolute -right-10 -top-16 h-48 w-48 rounded-full bg-orange-400/[0.12] blur-3xl" />
-          <div className="relative flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <section className="container-wide pb-16 md:pb-20">
+        <div className="relative overflow-hidden rounded-2xl border border-orange-400/25 bg-gradient-to-br from-orange-400/[0.10] via-white to-teal-400/[0.05] p-6 md:p-8">
+          <div aria-hidden="true" className="absolute -right-10 -top-16 h-48 w-48 rounded-full bg-orange-400/[0.10] blur-3xl" />
+          <div className="relative flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">END OF FILE / 001</p>
-              <h2 className="mt-4 max-w-2xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "من سير العمل إلى النظام." : "From workflows to systems."}</h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-text-secondary">{ar
-                ? "افتح مستودع المصدر لقراءة التنفيذ، أو انتقل إلى العرض لاستكشاف واجهة المنتج."
-                : "Open the source repository to inspect implementation, or explore the product showcase."}</p>
+              <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">END OF FILE / 001 — ENTERPRISE SHOWCASE</p>
+              <h2 className="mt-3 max-w-xl font-display text-3xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+                {ar ? "من سير العمل إلى النظام — بشكل مرئي." : "From workflows to systems — visibly."}
+              </h2>
+              <p className="mt-3 max-w-lg text-sm leading-7 text-text-secondary">
+                {ar ? "الزائر يرى حجم النظام وترابطه قبل قراءة التقنيات." : "Visitor grasps scale and connectivity before reading the stack."}
+              </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <a href="https://github.com/3boalazm/nile-pharma-erp" target="_blank" rel="noreferrer" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary transition-colors hover:border-orange-400/60">Source repository ↗</a>
-              <a href="/showcase/nile-erp/index.html" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black transition-transform hover:-translate-y-0.5">{ar ? "عرض المنتج" : "Product showcase"} ↗</a>
+              <a href="https://github.com/3boalazm/nile-pharma-erp" target="_blank" rel="noreferrer" className="rounded-full border border-border-default bg-white px-5 py-3 text-sm text-text-primary hover:border-orange-400/60">
+                Source repository ↗
+              </a>
+              <a href="/showcase/nile-erp/index.html" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">
+                {ar ? "استكشاف العرض الحي" : "Explore live showcase"} ↗
+              </a>
             </div>
           </div>
         </div>
-        <div className="mt-8 flex items-center justify-between border-t border-border-subtle pt-5 font-mono text-[10px] uppercase tracking-[0.12em] text-text-ghost">
-          <Link href="/work" className="hover:text-text-primary">← {ar ? "العودة إلى الأعمال" : "Back to work"}</Link>
-          <span>Mustafa Aboalazm / 2026</span>
+        <div className="mt-6 flex items-center justify-between border-t border-border-subtle pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-text-ghost">
+          <Link href="/work" className="hover:text-text-primary">
+            ← {ar ? "العودة إلى الأعمال" : "Back to work"}
+          </Link>
+          <span>Mustafa Aboalazm / 2026 · Enterprise Ledger</span>
         </div>
       </section>
     </main>
