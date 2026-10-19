@@ -12,6 +12,7 @@ import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
 import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
 import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
+import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
 
 export const revalidate = 60;
 
@@ -41,6 +42,12 @@ export async function generateMetadata({
       description: "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
     };
   }
+  if (slug === "nile-pharma-storefront") {
+    return {
+      title: "Nile Pharma Food Storefront — Commerce Platform Case File",
+      description: "A bilingual Next.js storefront connecting Payload CMS content to Vendure live commerce, pricing, checkout, customer accounts and operational safeguards.",
+    };
+  }
   const record = await getCaseStudy(slug);
   // Throw here too: the Suspense boundary can flush a 200 before the page
   // body calls notFound(), so metadata is what makes the status a real 404.
@@ -62,6 +69,9 @@ export default async function CaseStudyPage({
   }
   if (slug === "speech-to-text-studio") {
     return <MahtoolCaseStudy />;
+  }
+  if (slug === "nile-pharma-storefront") {
+    return <NilePharmaStorefrontCaseStudy />;
   }
   const record = await getCaseStudy(slug);
   if (!record) notFound();
