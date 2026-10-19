@@ -209,7 +209,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "Bilingual storefront with separate CMS and transactional commerce layers",
     outcomeAr: "متجر ثنائي اللغة يفصل إدارة المحتوى عن محرك التجارة والمعاملات",
     year: "2026",
-    thumbnail: "/images/work/nile-pharma.jpg",
+    thumbnail: "/images/work/nile-pharma-storefront-thumb.jpg",
     hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "https://nile-vercel-seven.vercel.app/ar",
