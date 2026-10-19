@@ -11,6 +11,7 @@ import {
 import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
 import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
+import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
 
 export const revalidate = 60;
 
@@ -34,6 +35,12 @@ export async function generateMetadata({
       description: "A nine-service pharmaceutical distribution ERP covering inventory, sales, CRM, accounting, incentives and auditable business workflows.",
     };
   }
+  if (slug === "speech-to-text-studio") {
+    return {
+      title: "Mahtool — Speech-to-Text Product Case File",
+      description: "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
+    };
+  }
   const record = await getCaseStudy(slug);
   // Throw here too: the Suspense boundary can flush a 200 before the page
   // body calls notFound(), so metadata is what makes the status a real 404.
@@ -52,6 +59,9 @@ export default async function CaseStudyPage({
   const { slug } = await params;
   if (slug === "nile-pharma-erp") {
     return <NilePharmaERPCaseStudy />;
+  }
+  if (slug === "speech-to-text-studio") {
+    return <MahtoolCaseStudy />;
   }
   const record = await getCaseStudy(slug);
   if (!record) notFound();
