@@ -49,7 +49,7 @@ export const RESOURCES: readonly Resource[] = [
     id: "R02",
     n: "02",
     slug: "audit-framework",
-    stage: ["01 · Audit", "٠١ · تشخيص"],
+    stage: ["01 · Audit", "01 · تشخيص"],
     title: ["Audit Framework", "إطار التشخيص"],
     subtitle: ["Diagnose before you design", "شخّص قبل أن تصمّم"],
     desc: [
@@ -63,12 +63,12 @@ export const RESOURCES: readonly Resource[] = [
     id: "R03",
     n: "03",
     slug: "discovery-framework",
-    stage: ["02 · Research", "٠٢ · بحث"],
+    stage: ["02 · Research", "02 · بحث"],
     title: ["Discovery Framework", "إطار الاكتشاف"],
     subtitle: ["Ask better questions", "اسأل أسئلة أفضل"],
     desc: [
       "A structured 90-minute workshop system across four tracks, producing a Discovery Report.",
-      "نظام ورشة منظّم في ٩٠ دقيقة عبر أربعة مسارات، ينتج تقرير اكتشاف.",
+      "نظام ورشة منظّم في 90 دقيقة عبر أربعة مسارات، ينتج تقرير اكتشاف.",
     ],
     feeds: "→ R01 · R05",
     file: "/resources/03-discovery-framework.pdf",
@@ -77,7 +77,7 @@ export const RESOURCES: readonly Resource[] = [
     id: "R05",
     n: "05",
     slug: "positioning-canvas",
-    stage: ["03 · Positioning", "٠٣ · تموضع"],
+    stage: ["03 · Positioning", "03 · تموضع"],
     title: ["Positioning Canvas", "كانفاس التموضع"],
     subtitle: ["Clarify what makes you different", "وضّح ما يميّزك"],
     desc: [
@@ -91,7 +91,7 @@ export const RESOURCES: readonly Resource[] = [
     id: "R04",
     n: "04",
     slug: "identity-architecture-map",
-    stage: ["04 · Architecture", "٠٤ · معمارية"],
+    stage: ["04 · Architecture", "04 · معمارية"],
     title: ["Identity Architecture Map", "خريطة معمارية الهوية"],
     subtitle: ["Design the system behind the brand", "صمّم النظام خلف البراند"],
     desc: [
@@ -105,7 +105,7 @@ export const RESOURCES: readonly Resource[] = [
     id: "R06",
     n: "06",
     slug: "design-system-starter-kit",
-    stage: ["06 · Design System", "٠٦ · نظام تصميم"],
+    stage: ["06 · Design System", "06 · نظام تصميم"],
     title: ["Design System Starter Kit", "عدة نظام التصميم"],
     subtitle: ["Build consistency faster", "ابنِ الاتساق أسرع"],
     desc: [
@@ -119,7 +119,7 @@ export const RESOURCES: readonly Resource[] = [
     id: "R07",
     n: "07",
     slug: "brand-governance-toolkit",
-    stage: ["07 · Governance", "٠٧ · حوكمة"],
+    stage: ["07 · Governance", "07 · حوكمة"],
     title: ["Brand Governance Toolkit", "عدة حوكمة البراند"],
     subtitle: ["Protect the brand over time", "احمِ البراند عبر الزمن"],
     desc: [

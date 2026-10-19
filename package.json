@@ -9,11 +9,13 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && npm run test:work-projects && next build",
+    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:blob-token": "tsx --test lib/blob-token.test.ts",
-    "test:work-projects": "tsx --test features/work/project-curation.test.ts"
+    "test:work-projects": "tsx --test features/work/project-curation.test.ts",
+    "test:case-claims": "tsx --test features/case-studies/reviewed-claims.test.ts",
+    "test:cms-text": "tsx --test lib/cms-text.test.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -1,3 +1,4 @@
+import { GAD_SHORT_AR } from "./client-names";
 // AUTO-GENERATED gallery data — cross-project image gallery.
 // Aggregates brand imagery from every case study, grouped by project.
 
@@ -20,7 +21,7 @@ export interface GalleryImage {
 
 export const GALLERY_PROJECTS: readonly GalleryProject[] = [
   { slug: "nile-pharma", label: "Nile Pharma Food", labelAr: "نايل فارما", accent: "#4263EB", href: "/case-studies/nile-pharma" },
-  { slug: "gad-institute", label: "GAD Institute", labelAr: "معهد GAD", accent: "#1E72C8", href: "/case-studies/gad-institute" },
+  { slug: "gad-institute", label: "GAD Institute", labelAr: GAD_SHORT_AR, accent: "#1E72C8", href: "/case-studies/gad-institute" },
   { slug: "reflection", label: "Reflection", labelAr: "ريفلكشن", accent: "#A06BD0", href: "/case-studies/reflection" },
   { slug: "ahmed-bedeer", label: "Ahmed Bedeer", labelAr: "أحمد بدير", accent: "#15A0C8", href: "/case-studies/ahmed-bedeer" },
   { slug: "code-canvas", label: "Code & Canvas", labelAr: "كود آند كانفاس", accent: "#8A63D2", href: "/case-studies/code-canvas" },
@@ -37,7 +38,7 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: "/images/work/nile-pharma/npf-img-c.png", project: "nile-pharma", caption: "Product flyers", captionAr: "فلايرات المنتجات", w: 1400, h: 700 },
   { src: "/images/work/nile-pharma/npf-img-a.png", project: "nile-pharma", caption: "We care about you", captionAr: "نهتم بك", w: 1400, h: 700 },
   { src: "/images/work/nile-pharma/npf-ezaby-post.jpg", project: "nile-pharma", caption: "Ezaby — social post", captionAr: "إزابي — بوست سوشيال", w: 1880, h: 1576 },
-  { src: "/images/work/nile-pharma/npf-logo-motion.gif", project: "nile-pharma", caption: "Logo motion study", captionAr: "دراسة حركة الشعار", w: 1400, h: 700 },
+  { src: "/images/work/nile-pharma/npf-logo-motion.webp", project: "nile-pharma", caption: "Logo motion study", captionAr: "دراسة حركة الشعار", w: 1400, h: 700 },
   { src: "/images/work/gad/gad-cover.png", project: "gad-institute", caption: "Cover", captionAr: "Cover", w: 1400, h: 933 },
   { src: "/images/work/gad/gad-logo-symbol.png", project: "gad-institute", caption: "Logo symbol", captionAr: "Logo symbol", w: 1400, h: 933 },
   { src: "/images/work/gad/gad-logo-anatomy.png", project: "gad-institute", caption: "Logo anatomy", captionAr: "Logo anatomy", w: 1400, h: 933 },

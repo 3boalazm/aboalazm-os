@@ -62,9 +62,9 @@ const EXPECT = {
     ],
     stepsLabel: "إزاي بنبدأ رسميًا",
     steps: [
-      { n: "٠١", name: "مكالمة اكتشاف", body: "مكالمة مجانية ٣٠ دقيقة — البراند والأهداف والجدول والميزانية. مفيش بيتش، مجرد قراءة صريحة للتوافق.", cta: "احجز المكالمة", href: "https://wa.me/201092500454" },
-      { n: "٠٢", name: "البريف والعرض", body: "بتملّي استبيان البراند. بابعتلك عرضًا محدد النطاق: المخرجات، الجدول، الاستثمار، والشروط. بتراجع ونتفق." },
-      { n: "٠٣", name: "العقد والانطلاق", body: "بتوقّع الاتفاقية وتبعت الـ٥٠٪ المقدّم، ورسميًا بدأنا. بريف المشروع يوصل لصندوق بريدك نفس اليوم." },
+      { n: "01", name: "مكالمة اكتشاف", body: "مكالمة مجانية 30 دقيقة — البراند والأهداف والجدول والميزانية. مفيش بيتش، مجرد قراءة صريحة للتوافق.", cta: "احجز المكالمة", href: "https://wa.me/201092500454" },
+      { n: "02", name: "البريف والعرض", body: "بتملّي استبيان البراند. بابعتلك عرضًا محدد النطاق: المخرجات، الجدول، الاستثمار، والشروط. بتراجع ونتفق." },
+      { n: "03", name: "العقد والانطلاق", body: "بتوقّع الاتفاقية وتبعت الـ50% المقدّم، ورسميًا بدأنا. بريف المشروع يوصل لصندوق بريدك نفس اليوم." },
     ],
   },
 } as const;
@@ -149,7 +149,7 @@ export function ContactView() {
           {x.steps.map((s) => (
             <PanelCard key={s.n} className="flex flex-col gap-2 rounded-card p-4">
               <span className="font-mono text-micro text-accent">{s.n}</span>
-              <p className="font-display font-[700] text-body text-text-primary">{s.name}</p>
+              <p className="font-display font-display-sm font-[700] text-body text-text-primary">{s.name}</p>
               <p className="text-body-sm text-text-secondary">{s.body}</p>
               {"cta" in s && s.cta ? (
                 <a

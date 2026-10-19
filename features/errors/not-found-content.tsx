@@ -84,7 +84,7 @@ export function NotFoundContent() {
       <div className="not-found-bg" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/work/error-404.png"
+          src="/images/work/error-404.webp"
           alt=""
           className="not-found-bg__img"
         />

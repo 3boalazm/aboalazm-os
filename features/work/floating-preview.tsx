@@ -25,6 +25,7 @@ import gsap from "gsap";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE_PHYSICS, DURATION } from "@/lib/tokens";
 import type { Project } from "./types";
+import { cardArt } from "./card-art";
 
 const SIZE = { w: 280, h: 200 } as const; // 8px-scale friendly footprint
 const OFFSET = { x: 24, y: -100 } as const; // cursor anchor (md gap, vertical center)
@@ -140,7 +141,7 @@ function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
             </span>
             <Image
               key={active.slug}
-              src={active.thumbnail}
+              src={cardArt(active.thumbnail)}
               alt=""
               fill
               sizes={`${SIZE.w}px`}

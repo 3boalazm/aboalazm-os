@@ -16,6 +16,8 @@ import { PROJECTS as STATIC_PROJECTS } from "@/features/work/projects.data";
 import { mergeCuratedDevelopmentProjects } from "@/features/work/project-curation";
 import { GAD_INSTITUTE } from "@/features/case-studies/gad-institute.data";
 import { NILE_PHARMA } from "@/features/case-studies/demo.data";
+import { applyReviewedClaims } from "@/features/case-studies/reviewed-claims";
+import { normalizeCmsText } from "./cms-text";
 import { REFLECTION } from "@/features/case-studies/reflection.data";
 import { AHMED_BEDEER } from "@/features/case-studies/ahmed-bedeer.data";
 import { CODE_CANVAS } from "@/features/case-studies/code-canvas.data";
@@ -54,7 +56,7 @@ const STATIC_GALLERIES: Record<string, GalleryItem[]> = {
     { src: "/images/work/nile-pharma/npf-img-a.png", caption: "BRAND VOICE · WE CARE ABOUT YOU", captionAr: "صوت البراند · نهتم بك" },
     { src: "/images/work/nile-pharma/npf-ramadan.png", caption: "RAMADAN CAMPAIGN POST", captionAr: "منشور حملة رمضان المبارك" },
     { src: "/images/work/nile-pharma/npf-ezaby-post.jpg", caption: "RETAIL PHARMACY SOCIAL POST", captionAr: "منشور صيدليات العزبي" },
-    { src: "/images/work/nile-pharma/npf-logo-motion.gif", caption: "LOGO MOTION STUDY", captionAr: "دراسة حركة الشعار", span: "full" },
+    { src: "/images/work/nile-pharma/npf-logo-motion.webp", caption: "LOGO MOTION STUDY", captionAr: "دراسة حركة الشعار", span: "full" },
   ],
   reflection: [
     { src: "/images/work/reflection/refl-cover.png", caption: "BRAND IDENTITY · V1.0 COVER", captionAr: "هوية البراند · غلاف V1.0", span: "full", kind: "slide" },
@@ -87,7 +89,7 @@ const STATIC_GALLERIES: Record<string, GalleryItem[]> = {
     { src: "/images/work/cc-logo-variants.jpg", caption: "LOGO VARIANTS · DARK / LIGHT / GRADIENT", captionAr: "متغيرات اللوجو · داكن / فاتح / متدرج", span: "full", kind: "slide" },
     { src: "/images/work/cc-poster-mockup.jpg", caption: "PRINT APPLICATION · POSTER MOCKUP", captionAr: "تطبيق مطبوع · ماكيت بوستر" },
     { src: "/images/work/cc-colors-dark.png", caption: "COLOR SYSTEM · DARK CANVAS", captionAr: "نظام الألوان · القماش الداكن", kind: "slide" },
-    { src: "/images/work/cc-gradients.png", caption: "GRADIENT LIBRARY · 8 VARIANTS", captionAr: "مكتبة التدرجات · ٨ متغيرات", kind: "slide" },
+    { src: "/images/work/cc-gradients.png", caption: "GRADIENT LIBRARY · 8 VARIANTS", captionAr: "مكتبة التدرجات · 8 متغيرات", kind: "slide" },
     { src: "/images/work/cc-typography.png", caption: "TYPOGRAPHY · SIGNATE GROTESK + RALEWAY + POPPINS", captionAr: "الطباعة · Signate + Raleway + Poppins", kind: "slide" },
     { src: "/images/work/cc-design-samples.png", caption: "DESIGN SAMPLES · SOCIAL + WEB", captionAr: "نماذج تصميم · سوشيال + ويب", span: "full" },
     { src: "/images/work/cc-closing.jpg", caption: "WHERE CREATIVITY MEETS TECHNOLOGY", captionAr: "حيث يلتقي الإبداع بالتكنولوجيا", span: "full", kind: "slide" },
@@ -139,7 +141,7 @@ export async function getUiUxProjects(): Promise<Project[]> {
         overrideAccess: false,
       });
       if (res.docs.length > 0) {
-        return mergeCuratedDevelopmentProjects(res.docs.map(toProject)).filter((p) => p.isUiUx && p.liveUrl);
+        return mergeCuratedDevelopmentProjects(res.docs.map((d) => normalizeCmsText(toProject(d)))).filter((p) => p.isUiUx && p.liveUrl);
       }
     } catch {
       // Fall through to static
@@ -159,7 +161,7 @@ export async function getProjects(): Promise<Project[]> {
         sort: "-year",
         overrideAccess: false,
       });
-      if (res.docs.length > 0) return mergeCuratedDevelopmentProjects(res.docs.map(toProject));
+      if (res.docs.length > 0) return mergeCuratedDevelopmentProjects(res.docs.map((d) => normalizeCmsText(toProject(d))));
     } catch {
       // Fall through to static
     }
@@ -238,13 +240,16 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
       });
       const doc = res.docs[0];
       if (doc) {
-        const record = toCaseStudy(doc);
+        // Arabic text from the row: Latin digits, and the client's own name (see cms-text.ts).
+        const record = normalizeCmsText(toCaseStudy(doc));
         const staticRecord = STATIC_CASE_STUDIES[slug];
         if (staticRecord) {
           record.narrativeAnswers = staticRecord.narrativeAnswers;
           record.designProofItems = staticRecord.designProofItems;
         }
-        return record;
+        // KPI / outcome tiles the reviewed source retired but the database row
+        // still holds (see reviewed-claims.ts) — narrow, exact-match only.
+        return applyReviewedClaims(record, staticRecord);
       }
     } catch {
       // Fall through to static
@@ -332,12 +337,14 @@ export async function getCaseStudyGallery(slug: string): Promise<GalleryItem[]> 
       });
       const doc = res.docs[0];
       if (doc && (doc.images ?? []).length > 0) {
-        return (doc.images ?? []).map((img) => ({
-          src: mediaUrl(img.image),
-          caption: img.caption ?? "",
-          captionAr: img.captionAr ?? undefined,
-          span: img.span ?? undefined,
-        }));
+        return normalizeCmsText(
+          (doc.images ?? []).map((img) => ({
+            src: mediaUrl(img.image),
+            caption: img.caption ?? "",
+            captionAr: img.captionAr ?? undefined,
+            span: img.span ?? undefined,
+          })),
+        );
       }
     } catch {
       // Fall through to static
@@ -400,7 +407,7 @@ export async function getOffers(): Promise<{
       }));
 
       if (tiers.length > 0) {
-        return { tiers, investmentValue: offers.investmentValue ?? [], alaCarte };
+        return normalizeCmsText({ tiers, investmentValue: offers.investmentValue ?? [], alaCarte });
       }
     } catch {
       // Fall through
@@ -553,7 +560,7 @@ export async function getGalleryData(): Promise<{
           }),
         );
 
-        return { projects, images };
+        return normalizeCmsText({ projects, images });
       }
     } catch {
       // Fall through
