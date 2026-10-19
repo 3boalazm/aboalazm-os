@@ -4,21 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 
-/* The pill used to sit on the home page from the first frame, bottom-end, with
-   no way to put it away. On a 390px phone that is exactly where the primary
-   button of the first screen is — "View selected work" read "VIEW SE…" under it
-   — and on a laptop it covered the third work tile. So: it appears once the
-   visitor has scrolled past the first screen, and it can be dismissed (kept
-   for a month). Nothing about the install flow itself changed. */
-const DISMISS_KEY = "pwa-install-dismissed-at";
-const DISMISS_DAYS = 30;
-
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: "accepted" | "dismissed"; platform: string }>;
 }
 
-export function PwaInstallButton() {
+export function PwaInstallButton({ variant = "floating" }: { variant?: "floating" | "inline" }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -27,10 +18,6 @@ export function PwaInstallButton() {
   const [installed, setInstalled] = useState(false);
   const [appleMobile, setAppleMobile] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
-  const [engaged, setEngaged] = useState(false);
-  // Hidden until storage has been read, so a visitor who dismissed it never
-  // sees it flash back in.
-  const [dismissed, setDismissed] = useState(true);
 
   useEffect(() => {
     const displayMode = window.matchMedia("(display-mode: standalone)");
@@ -67,24 +54,6 @@ export function PwaInstallButton() {
   }, []);
 
   useEffect(() => {
-    try {
-      const at = Number(window.localStorage.getItem(DISMISS_KEY));
-      setDismissed(at > 0 && Date.now() - at < DISMISS_DAYS * 24 * 60 * 60 * 1000);
-    } catch {
-      setDismissed(false);
-    }
-    const onScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.75) {
-        setEngaged(true);
-        window.removeEventListener("scroll", onScroll);
-      }
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
     if (!helpOpen) return;
     closeButtonRef.current?.focus();
     const onKeyDown = (event: KeyboardEvent) => {
@@ -115,23 +84,12 @@ export function PwaInstallButton() {
     }
   };
 
-  const dismiss = () => {
-    setDismissed(true);
-    setHelpOpen(false);
-    try {
-      window.localStorage.setItem(DISMISS_KEY, String(Date.now()));
-    } catch {
-      /* private mode: it simply comes back next visit */
-    }
-  };
-
-  if (installed || dismissed || !engaged) return null;
+  if (installed) return null;
 
   return (
     <div
-      id="pwa-install-control"
-      className="fixed end-4 z-[80] flex flex-col items-end"
-      style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" }}
+      className={variant === "floating" ? "fixed end-4 z-[80] flex flex-col items-end" : "relative flex w-full flex-col items-start"}
+      style={variant === "floating" ? { bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" } : undefined}
     >
       {helpOpen ? (
         <section
@@ -180,37 +138,29 @@ export function PwaInstallButton() {
         </section>
       ) : null}
 
-      <div className="relative">
-        <button
-          ref={buttonRef}
-          type="button"
-          onClick={handleInstall}
-          aria-label={ar ? "ثبّت الموقع كتطبيق" : "Install this site as an app"}
-          aria-expanded={helpOpen}
-          aria-controls={helpOpen ? "pwa-install-help" : undefined}
-          className="group inline-flex items-center gap-2 rounded-pill border border-accent/45 bg-surface-1/95 px-3 py-2.5 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
-        >
-          <span className="grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105">
-            <Icon name="download" size={17} />
+      <button
+        ref={buttonRef}
+        type="button"
+        onClick={handleInstall}
+        aria-label={variant === "inline" ? (ar ? "ثبّت Aboalazm OS كتطبيق" : "Install Aboalazm OS as an app") : (ar ? "ثبّت الموقع كتطبيق" : "Install this site as an app")}
+        aria-expanded={helpOpen}
+        aria-controls={helpOpen ? "pwa-install-help" : undefined}
+        className={variant === "floating"
+          ? "group inline-flex items-center gap-2 rounded-pill border border-accent/45 bg-surface-1/95 px-3 py-2.5 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
+          : "group inline-flex w-full items-center justify-between gap-4 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem]"}
+      >
+        <span className={variant === "floating" ? "grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105" : "grid size-10 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"}>
+          <Icon name="download" size={variant === "floating" ? 17 : 20} />
+        </span>
+        <span className="flex flex-col items-start gap-0.5">
+          <span className="font-mono text-micro font-semibold uppercase tracking-[0.06em]">
+            {variant === "inline" ? (ar ? "ثبّت Aboalazm OS" : "GET THE OS APP") : (ar ? "ثبّت التطبيق" : "Install app")}
           </span>
-          <span className="flex flex-col items-start gap-0.5">
-            <span className="font-mono text-micro font-semibold uppercase tracking-[0.06em]">
-              {ar ? "ثبّت التطبيق" : "Install app"}
-            </span>
-            <span className="text-[0.65rem] leading-none text-text-tertiary">
-              {ar ? "أضِفه لشاشتك الرئيسية" : "Add to your home screen"}
-            </span>
+          <span className="text-[0.65rem] leading-none text-text-tertiary">
+            {variant === "inline" ? (ar ? "تجربة كاملة من شاشتك الرئيسية" : "A full-screen experience on your device") : (ar ? "أضِفه لشاشتك الرئيسية" : "Add to your home screen")}
           </span>
-        </button>
-        <button
-          type="button"
-          onClick={dismiss}
-          aria-label={ar ? "إخفاء اقتراح التثبيت" : "Dismiss the install suggestion"}
-          className="absolute -end-1 -top-1 grid size-4 place-items-center rounded-full border border-border-default bg-surface-1 text-text-tertiary shadow-card transition-colors hover:text-text-primary focus-visible:outline-2 focus-visible:outline-accent"
-        >
-          <Icon name="x" size={12} />
-        </button>
-      </div>
+        </span>
+      </button>
     </div>
   );
 }
