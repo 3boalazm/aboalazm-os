@@ -14,6 +14,7 @@ import { ZadCaseStudy } from "@/features/case-studies/zad";
 import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
 import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
 import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
+import { UmmahAcademyCaseStudy } from "@/features/case-studies/ummah-academy";
 
 export const revalidate = 60;
 
@@ -22,7 +23,7 @@ const getCaseStudy = cache(fetchCaseStudy);
 
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
-  const custom = ["nile-pharma-erp", "speech-to-text-studio", "nile-pharma-storefront", "zad"];
+  const custom = ["nile-pharma-erp", "speech-to-text-studio", "nile-pharma-storefront", "zad", "ummah-academy"];
   return [...new Set([...slugs, ...custom])].map((slug) => ({ slug }));
 }
 
@@ -64,6 +65,14 @@ export async function generateMetadata({
     };
   }
 
+  if (slug === "ummah-academy") {
+    return {
+      title: "Ummah Academy — Live Learning Platform Case File",
+      description:
+        "A live 1-on-1 Qur'an, Tajweed, Arabic and Islamic studies academy website: five languages with full RTL, 23 routes per locale, an installable PWA and documented teacher vetting.",
+    };
+  }
+
   const record = await getCaseStudy(slug);
 
   // Throw here too: the Suspense boundary can flush a 200 before the page
@@ -97,6 +106,10 @@ export default async function CaseStudyPage({
 
   if (slug === "zad") {
     return <ZadCaseStudy />;
+  }
+
+  if (slug === "ummah-academy") {
+    return <UmmahAcademyCaseStudy />;
   }
 
   const record = await getCaseStudy(slug);

@@ -397,7 +397,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "موقع أكاديمية قيد التطوير — ٥ لغات، ٢٣ مسارًا، وتطبيق ويب قابل للتثبيت",
     year: "2026",
     thumbnail: "/images/work/ummah-academy-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     status: "in-progress",
     liveUrl: "https://ummah-academy.vercel.app/",
     accent: {
