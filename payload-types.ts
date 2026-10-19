@@ -205,6 +205,7 @@ export interface Project {
   discipline:
     | 'Systemic Identity'
     | 'Product Architecture'
+    | 'Commerce Platform'
     | 'Design Infrastructure'
     | 'Identity Engineering'
     | 'Studio & Identity';

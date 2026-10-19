@@ -57,6 +57,7 @@ export const Projects: CollectionConfig = {
       options: [
         "Systemic Identity",
         "Product Architecture",
+        "Commerce Platform",
         "Design Infrastructure",
         "Identity Engineering",
         "Studio & Identity",
