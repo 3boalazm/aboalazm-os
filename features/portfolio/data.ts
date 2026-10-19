@@ -72,7 +72,7 @@ export const COVER = {
   year: "2026",
   lede: "Brand identity systems, engineered in two languages under one doctrine.",
   ledeAr: "أنظمة هوية بصرية — بتتبني بلغتين تحت مبدأ واحد.",
-  meta: ["05 CHAPTERS", "2019 → 2026", "CAIRO · WORKS WORLDWIDE"],
+  meta: ["05 CHAPTERS", "2017 → 2026", "AL OBOUR · WORKS WORLDWIDE"],
   /** tall photographic frame on the cover */
   photo: "/images/work/nile-pharma/npf-business-card-box.jpg",
   photoCap: "NILE PHARMA — PACKAGING",
@@ -179,7 +179,7 @@ export const PROJECTS: Project[] = [
     nameAr: GAD_NAME_AR,
     category: "HEALTHCARE IDENTITY",
     categoryAr: "هوية طبية",
-    year: "2025",
+    year: "2023 · 2025",
     scope: ["Brand Strategy", "Bilingual Identity", "Guidelines V2.0"],
     hero: { img: "/images/work/gad/gad-cover.png", cap: "BRAND IDENTITY · V2.0 COVER", fit: "contain", bg: "#ffffff" },
     outcome: "The trusted specialist — strategy to signage",

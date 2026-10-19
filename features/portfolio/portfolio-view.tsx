@@ -141,7 +141,7 @@ function IndexSlide() {
         ))}
       </div>
       <div className="fol-index-foot fol-micro">
-        <span>{String(TOTAL).padStart(2, "0")} SLIDES · 05 CHAPTERS · 2019 → 2026</span>
+        <span>{String(TOTAL).padStart(2, "0")} SLIDES · 05 CHAPTERS · 2017 → 2026</span>
         <span>AR / EN — ONE DOCTRINE</span>
       </div>
     </Sheet>
