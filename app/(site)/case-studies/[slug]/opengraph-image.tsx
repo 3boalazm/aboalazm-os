@@ -7,6 +7,9 @@ export const contentType = OG_CONTENT_TYPE;
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (slug === "zad") {
+    return new ImageResponse(<OgCard eyebrow="CASE FILE" title="Zad — Islamic Companion" />, { ...OG_SIZE, fonts: await ogFonts() });
+  }
   const record = await getCaseStudy(slug);
 
   return new ImageResponse(
