@@ -61,7 +61,7 @@ export function WorkFilter({
     [filter, projects],
   );
 
-  const featured = useMemo(() => pickFeatured(filtered, 3), [filtered]);
+  const featured = useMemo(() => pickFeatured(filtered), [filtered]);
   const featuredSlugs = useMemo(() => new Set(featured.map((p) => p.slug)), [featured]);
   const rest = useMemo(
     () => filtered.filter((p) => !featuredSlugs.has(p.slug)),

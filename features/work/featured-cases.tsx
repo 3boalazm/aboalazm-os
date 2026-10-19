@@ -21,7 +21,14 @@ import type { Project } from "./types";
 
 const FEATURED_SLUGS = {
   design: ["gad-institute", "reflection", "nile-pharma"],
-  development: ["momo-collective", "zad", "farm-console"],
+  development: [
+    "nile-pharma-erp",
+    "ummah-academy",
+    "speech-to-text-studio",
+    "stemforge",
+    "momo-collective",
+    "farm-console",
+  ],
 } as const;
 
 const STORIES: Record<string, { challenge: string; challengeAr: string }> = {
@@ -47,7 +54,10 @@ const STORIES: Record<string, { challenge: string; challengeAr: string }> = {
   },
 };
 
-export function pickFeatured(projects: readonly Project[], count = 3): Project[] {
+export function pickFeatured(
+  projects: readonly Project[],
+  count = projects[0]?.category === "development" ? 6 : 3,
+): Project[] {
   const bySlug = new Map(projects.map((p) => [p.slug, p]));
   const category = projects[0]?.category ?? "design";
   const preferred = FEATURED_SLUGS[category].map((slug) => bySlug.get(slug)).filter((p): p is Project => Boolean(p));
@@ -81,7 +91,7 @@ export function FeaturedCases({
 }: FeaturedCasesProps) {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const featured = pickFeatured(projects, 3);
+  const featured = pickFeatured(projects);
 
   if (featured.length === 0) return null;
 
@@ -240,7 +250,7 @@ function FeaturedCard({ project, ar, priority = false }: { project: Project; ar:
             a framed rectangle. Static, never hover-gated. */}
         <div aria-hidden className="edge-light" />
         <Image
-          src={project.thumbnail}
+          src={`${project.thumbnail}?v=20261017`}
           alt=""
           fill
           sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
