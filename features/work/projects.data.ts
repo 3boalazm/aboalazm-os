@@ -189,7 +189,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "منظومة ERP لتوزيع الأدوية — 9 خدمات: مبيعات، مخزون، عملاء، حوافز",
     year: "2025–26",
     thumbnail: "/images/work/nile-erp-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "/showcase/nile-erp/index.html",
     accent: {
