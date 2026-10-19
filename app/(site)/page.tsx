@@ -65,7 +65,7 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 01 · Identity work */
+      {/* 01 · Identity work */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
           <SectionMarker index="01" label="IDENTITY / SELECTED WORK" />
