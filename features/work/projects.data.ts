@@ -267,7 +267,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "استوديو تفريغ ثنائي اللغة — رفع ملفات وتسجيل مباشر وانتقال تلقائي بين محركات تحويل الصوت إلى نص",
     year: "2026",
     thumbnail: "/images/work/speech-to-text-studio-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://mahtool.vercel.app/",
     accent: {
       primary: "rgb(113 106 255 / 0.20)",
