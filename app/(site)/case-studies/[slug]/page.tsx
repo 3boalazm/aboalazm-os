@@ -30,28 +30,37 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
   if (slug === "nile-pharma-erp") {
     return {
       title: "Nile Pharma ERP — Engineering Case File",
-      description: "A nine-service pharmaceutical distribution ERP covering inventory, sales, CRM, accounting, incentives and auditable business workflows.",
+      description:
+        "A nine-service pharmaceutical distribution ERP covering inventory, sales, CRM, accounting, incentives and auditable business workflows.",
     };
   }
+
   if (slug === "speech-to-text-studio") {
     return {
       title: "Mahtool — Speech-to-Text Product Case File",
-      description: "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
+      description:
+        "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
     };
   }
+
   if (slug === "nile-pharma-storefront") {
     return {
       title: "Nile Pharma Food Storefront — Commerce Platform Case File",
-      description: "A bilingual Next.js storefront connecting Payload CMS content to Vendure live commerce, pricing, checkout, customer accounts and operational safeguards.",
+      description:
+        "A bilingual Next.js storefront connecting Payload CMS content to Vendure live commerce, pricing, checkout, customer accounts and operational safeguards.",
     };
   }
+
   const record = await getCaseStudy(slug);
+
   // Throw here too: the Suspense boundary can flush a 200 before the page
   // body calls notFound(), so metadata is what makes the status a real 404.
   if (!record) notFound();
+
   return {
     title: `${record.name} — Case File`,
     description: truncateAtWord(record.problem),
@@ -64,19 +73,24 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
   if (slug === "nile-pharma-erp") {
     return <NilePharmaERPCaseStudy />;
   }
+
   if (slug === "speech-to-text-studio") {
     return <MahtoolCaseStudy />;
   }
+
   if (slug === "nile-pharma-storefront") {
     return <NilePharmaStorefrontCaseStudy />;
   }
+
   const record = await getCaseStudy(slug);
   if (!record) notFound();
 
   const gallery = await getCaseStudyGallery(slug);
+
   // GAD carries its full guidelines document inline, in the System panel.
   const brandBook = slug === "gad-institute" ? <GadBrandBook /> : undefined;
 
@@ -84,12 +98,17 @@ export default async function CaseStudyPage({
      (cyclic over the published index, never a dead end). */
   const allSlugs = await getAllCaseStudySlugs();
   const at = allSlugs.indexOf(slug);
-  const nextSlug = at === -1 ? null : allSlugs[(at + 1) % allSlugs.length] ?? null;
+  const nextSlug =
+    at === -1 ? null : allSlugs[(at + 1) % allSlugs.length] ?? null;
   const next = nextSlug ? await fetchCaseStudy(nextSlug) : null;
 
   return (
     <main>
-      <ScrollyCaseStudy record={record} gallery={gallery} brandBook={brandBook} />
+      <ScrollyCaseStudy
+        record={record}
+        gallery={gallery}
+        brandBook={brandBook}
+      />
       {next ? (
         <NextCaseLink
           slug={next.slug}
