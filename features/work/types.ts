@@ -9,6 +9,7 @@ import type { ProjectAccent } from "@/lib/tokens";
 export type Discipline =
   | "Systemic Identity"
   | "Product Architecture"
+  | "Commerce Platform"
   | "Design Infrastructure"
   | "Identity Engineering"
   | "Studio & Identity";
