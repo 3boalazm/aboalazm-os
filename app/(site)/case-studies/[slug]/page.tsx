@@ -10,6 +10,7 @@ import {
 } from "@/lib/content";
 import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
+import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
 
 export const revalidate = 60;
 
@@ -27,6 +28,12 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === "nile-pharma-erp") {
+    return {
+      title: "Nile Pharma ERP — Engineering Case File",
+      description: "A nine-service pharmaceutical distribution ERP covering inventory, sales, CRM, accounting, incentives and auditable business workflows.",
+    };
+  }
   const record = await getCaseStudy(slug);
   // Throw here too: the Suspense boundary can flush a 200 before the page
   // body calls notFound(), so metadata is what makes the status a real 404.
@@ -43,6 +50,9 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (slug === "nile-pharma-erp") {
+    return <NilePharmaERPCaseStudy />;
+  }
   const record = await getCaseStudy(slug);
   if (!record) notFound();
 
