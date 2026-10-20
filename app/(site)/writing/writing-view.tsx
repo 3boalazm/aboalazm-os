@@ -70,7 +70,7 @@ export function WritingView({ posts }: { posts: readonly WritingEntry[] }) {
   }, [visible, activeTopic, sortOrder]);
 
   return (
-    <main className="container-content flex min-h-svh flex-col gap-8 py-16">
+    <main className="container-content flex min-h-svh flex-col gap-8 py-6">
       <header className="flex flex-col gap-2">
         <Heading
           eyebrow={t.writingSection}

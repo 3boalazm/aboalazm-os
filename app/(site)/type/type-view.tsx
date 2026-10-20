@@ -10,10 +10,10 @@ const SPECIMEN_ALPHA = "ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\n0123456789";
 
 export function TypeView() {
   return (
-    <main className="min-h-screen bg-surface-0 px-6 py-16 lg:px-16">
+    <main className="min-h-screen bg-surface-0 px-6 py-6 lg:px-16">
 
       {/* ── Header ── */}
-      <div className="mb-16 border-b border-border-subtle pb-8">
+      <div className="mb-8 border-b border-border-subtle pb-8">
         <p className="mb-2 font-mono text-caption uppercase tracking-[0.14em] text-text-ghost">
           INTERNAL · TYPE SYSTEM
         </p>
@@ -26,7 +26,7 @@ export function TypeView() {
       </div>
 
       {/* ── Alphabet ── */}
-      <section className="mb-16">
+      <section className="mb-8">
         <Label>GC EPICPRO · full character set · weight 800</Label>
         <pre className="font-display mt-4 whitespace-pre-wrap text-[clamp(1.5rem,3vw,2.5rem)] leading-[1.3] tracking-[0.01em] text-text-secondary">
           {SPECIMEN_ALPHA}
@@ -34,9 +34,9 @@ export function TypeView() {
       </section>
 
       {/* ── Scale ── */}
-      <section className="mb-16">
+      <section className="mb-8">
         <Label>Heading scale</Label>
-        <div className="mt-6 space-y-6 overflow-x-auto border-b border-border-subtle pb-8">
+        <div className="mt-6 space-y-4 overflow-x-auto border-b border-border-subtle pb-8">
           {[
             { label: "Hero  — clamp(3.5rem, 9vw, 8.5rem)", size: "clamp(3.5rem,9vw,8.5rem)", lh: "0.95", ls: "-0.03em" },
             { label: "Display — clamp(2.5rem, 5.5vw, 5rem)", size: "clamp(2.5rem,5.5vw,5rem)", lh: "1.02", ls: "-0.025em" },
@@ -56,7 +56,7 @@ export function TypeView() {
       </section>
 
       {/* ── Montserrat body scale ── */}
-      <section className="mb-16">
+      <section className="mb-8">
         <Label>Montserrat · body scale</Label>
         <div className="mt-6 space-y-4">
           {[
@@ -80,12 +80,12 @@ export function TypeView() {
       </section>
 
       {/* ── Real-world contexts ── */}
-      <section className="mb-16">
+      <section className="mb-8">
         <Label>Real-world contexts</Label>
-        <div className="mt-6 space-y-8">
+        <div className="mt-6 space-y-5">
 
           {/* Hero */}
-          <PanelCard className="overflow-x-auto rounded-panel p-8">
+          <PanelCard className="overflow-x-auto rounded-panel p-5">
             <CtxLabel>Hero — index page</CtxLabel>
             <h2
               className="font-display text-text-primary"
@@ -97,7 +97,7 @@ export function TypeView() {
           </PanelCard>
 
           {/* Section title + body */}
-          <PanelCard className="rounded-panel p-8">
+          <PanelCard className="rounded-panel p-5">
             <CtxLabel>Section heading + Montserrat body</CtxLabel>
             <h3
               className="font-display text-text-primary"
@@ -117,7 +117,7 @@ export function TypeView() {
           </PanelCard>
 
           {/* Nav preview */}
-          <PanelCard className="rounded-panel p-8">
+          <PanelCard className="rounded-panel p-5">
             <CtxLabel>Nav links — GC EPICPRO at small size</CtxLabel>
             <div className="mt-4 flex flex-wrap items-center gap-4">
               <span
@@ -145,7 +145,7 @@ export function TypeView() {
           </PanelCard>
 
           {/* Footer MA */}
-          <PanelCard className="rounded-panel p-8">
+          <PanelCard className="rounded-panel p-5">
             <CtxLabel>Footer wordmark</CtxLabel>
             <p
               className="font-display text-text-primary"
@@ -168,7 +168,7 @@ export function TypeView() {
       {/* ── CSS reference ── */}
       <section>
         <Label>Quick reference</Label>
-        <div className="mt-4 overflow-x-auto rounded-card border border-border-subtle bg-surface-1 p-6">
+        <div className="mt-4 overflow-x-auto rounded-card border border-border-subtle bg-surface-1 p-4">
           <table className="w-full text-left font-mono text-caption text-text-secondary">
             <thead>
               <tr className="border-b border-border-subtle text-text-ghost">

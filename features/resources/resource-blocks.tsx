@@ -87,7 +87,7 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
   }
 
   return (
-    <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 md:p-6">
+    <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 md:p-4">
       <p className="font-mono text-label uppercase tracking-[0.06em] text-accent">
         {ar ? "وصول مجاني" : "FREE ACCESS"}
       </p>
@@ -171,7 +171,7 @@ export function ResourceCard({
       transition={physics}
       className={panelCardVariants({
         className: [
-          "flex flex-col rounded-panel p-4 md:p-5 transition-colors duration-base ease-physics",
+          "flex flex-col rounded-panel p-4 md:p-4 transition-colors duration-base ease-physics",
           resource.recommended ? "border-accent/40" : "hover:border-border-strong",
         ].join(" "),
       })}

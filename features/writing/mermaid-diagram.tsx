@@ -158,8 +158,8 @@ export function MermaidDiagram({
   }, [code, parsed]);
 
   return (
-    <figure className="my-12">
-      <div className="border border-border-subtle bg-surface-1 p-6 md:p-10">
+    <figure className="my-6">
+      <div className="border border-border-subtle bg-surface-1 p-4 md:p-6">
         <div className="mb-6 flex items-center justify-between">
           <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
             Figure{figureNo ? ` · ${String(figureNo).padStart(2, "0")}` : ""}

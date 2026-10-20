@@ -121,27 +121,27 @@ export function UmmahAcademyCaseStudy() {
   return (
     <main className="overflow-hidden">
       {/* ═══ HERO — gold glass, academy teal inside ═══ */}
-      <section className="container-wide relative flex min-h-[82svh] flex-col justify-between gap-14 py-12 md:py-20">
+      <section className="container-wide relative flex min-h-[70svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-amber-400/[0.10] blur-[100px]" />
           <div className="absolute -left-20 top-56 h-72 w-72 rounded-full bg-teal-500/[0.08] blur-[100px]" />
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/50 to-transparent" />
         </div>
 
-        <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
+        <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
           <Link href="/work" className="transition-colors hover:text-text-primary">
             ← {ar ? "كل الأعمال" : "All work"}
           </Link>
           <span>{ar ? "ملف منتج / 005" : "Product case file / 005"}</span>
         </div>
 
-        <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)]">
+        <div className="grid items-end gap-5 lg:grid-cols-[minmax(0,1.3fr)_minmax(280px,0.7fr)]">
           <div>
             <div className="mb-6 flex flex-wrap gap-2">
-              <span className="rounded-full border border-amber-300/30 bg-amber-300/[0.08] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-amber-200">
+              <span className="rounded-full border border-amber-300/30 bg-amber-300/[0.08] px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-amber-200">
                 {ar ? "منصة تعليم مباشر" : "Live learning platform"}
               </span>
-              <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">
+              <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
                 {ar ? "٥ لغات · RTL · تطبيق ويب قابل للتثبيت" : "5 languages · RTL · Installable PWA"}
               </span>
             </div>
@@ -149,15 +149,15 @@ export function UmmahAcademyCaseStudy() {
             <h1 className="max-w-5xl font-display text-[clamp(3.6rem,10vw,8.5rem)] leading-[0.84] tracking-[-0.07em] text-text-primary">
               Ummah Academy<span className="text-amber-300">.</span>
             </h1>
-            <p className="mt-8 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
+            <p className="mt-4 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
               {ar
                 ? "مش مجرد موقع كورسات. أكاديمية تعليم مباشر واحد-لواحد مع معلمين أزهريين، أربعة برامج، وموقع مهندس يبني الثقة بخمس لغات — من أول زيارة حتى حجز الحصة المجانية."
                 : "Not a course marketplace. A live 1-on-1 academy with Al-Azhar teachers, four programmes, and a website engineered to earn trust in five languages — from the first visit to the free trial booking."}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-5 backdrop-blur-xl md:p-6">
-            <div className="mb-5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-text-tertiary">
+          <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-4 backdrop-blur-xl md:p-4">
+            <div className="mb-5 flex items-center justify-between font-mono text-[12px] uppercase tracking-[0.14em] text-text-tertiary">
               <span>{ar ? "لوحة القدرات" : "Capability panel"}</span>
               <span className="text-amber-300">UA / EDU</span>
             </div>
@@ -171,7 +171,7 @@ export function UmmahAcademyCaseStudy() {
                 <p className="mt-2 text-xs text-text-tertiary">{ar ? "جافاسكريبت لكل صفحة" : "JS per page (gzipped)"}</p>
               </div>
               <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "رحلة التحويل" : "Conversion path"}</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "رحلة التحويل" : "Conversion path"}</p>
                 <p className="mt-2 text-sm text-text-primary">
                   {ar ? (
                     <>تصفح <span className="text-amber-300">→</span> اختبار التحديد <span className="text-amber-300">→</span> حسّتان مجانيتان <span className="text-amber-300">→</span> خطة شهرية</>
@@ -181,7 +181,7 @@ export function UmmahAcademyCaseStudy() {
                 </p>
               </div>
             </div>
-            <p className="mt-4 text-[11px] leading-relaxed text-text-tertiary">
+            <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">
               {ar
                 ? "الأرقام من README المشروع والنسخة المنشورة؛ المشروع قيد التطوير — البوابة التشغيلية ونقل الدومين ما زالا جاريين."
                 : "Numbers from the project README and the published site; the project is in progress — the operations portal and domain cut-over continue."}
@@ -190,7 +190,7 @@ export function UmmahAcademyCaseStudy() {
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-5">
-          <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
             <span>{ar ? "الدور: هندسة المنتج والويب" : "Role: Product & web engineering"}</span>
             <span>{ar ? "المجال: تعليم مباشر" : "Domain: Live education"}</span>
             <span>2026 →</span>
@@ -219,14 +219,14 @@ export function UmmahAcademyCaseStudy() {
 
       {/* 01 — THE PROBLEM */}
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide grid gap-10 py-16 md:grid-cols-[0.55fr_1fr] md:py-24">
+        <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">01 / {ar ? "المشكلة" : "The problem"}</p>
             <h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? "الثقة لا تُشرح. تُبنى بالوضوح." : "Trust can’t be explained. It has to be built."}
             </h2>
           </div>
-          <div className="max-w-3xl space-y-5 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
             <p>
               {ar
                 ? "الأكاديمية كانت تعمل على WordPress/Elementor: تغيير لغة يعني هشاشة، وكل صفحة ثقيلة، وقصة المنتج الحقيقية — الإجازة والتحقق من السند وسلامة الأسرة — تضيع بين القوالب."
@@ -237,7 +237,7 @@ export function UmmahAcademyCaseStudy() {
                 ? "الأسرة التي تختار معلماً لطفلها تتعامل مع الموقع كأول درس. لذلك أُعيد بناؤه من الصفر كموقع أصلي: ثابت وسريع، بخمس لغات، يشرح نفسه بالعربية والإنجليزية والألمانية والفرنسية والإيطالية — ويحترم من يقرأه."
                 : "A family choosing a teacher for their child treats the site as the first lesson. So it was rebuilt from zero as a native website: static and fast, in five languages, explaining itself in Arabic, English, German, French and Italian — respecting whoever is reading."}
             </p>
-            <div className="rounded-xl border-s-2 border-amber-300 bg-amber-300/[0.04] p-5">
+            <div className="rounded-xl border-s-2 border-amber-300 bg-amber-300/[0.04] p-4">
               <p className="text-sm leading-7 text-text-primary">
                 {ar
                   ? "الفكرة الأساسية: كل قرار في الموقع — لغة، سرعة، شفافية السعر، شرح طريقة الاختيار — هو جزء من المنتج التعليمي نفسه."
@@ -249,8 +249,8 @@ export function UmmahAcademyCaseStudy() {
       </section>
 
       {/* 02 — THE MODEL */}
-      <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.55fr_1fr]">
+      <section className="container-wide py-6 md:py-8">
+        <div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">02 / {ar ? "المنتج" : "The product"}</p>
             <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
@@ -264,22 +264,22 @@ export function UmmahAcademyCaseStudy() {
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             {programmes.map((p, i) => (
-              <article key={p.name} className="rounded-xl border border-border-subtle bg-surface-1/40 p-5 transition-colors hover:border-amber-300/40">
+              <article key={p.name} className="rounded-xl border border-border-subtle bg-surface-1/40 p-4 transition-colors hover:border-amber-300/40">
                 <div className="mb-6 flex items-center justify-between">
                   <span className="font-mono text-xs text-text-ghost">0{i + 1}</span>
                   <span className="h-2 w-2 rounded-full bg-amber-300/80" />
                 </div>
                 <h3 className="font-display text-2xl text-text-primary">{ar ? p.nameAr : p.name}</h3>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.12em] text-amber-200/80">{ar ? p.metaAr : p.meta}</p>
+                <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.12em] text-amber-200/80">{ar ? p.metaAr : p.meta}</p>
                 <p className="mt-4 text-sm leading-7 text-text-secondary">{ar ? p.bodyAr : p.body}</p>
               </article>
             ))}
           </div>
         </div>
 
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {journey.map((j) => (
-            <div key={j.step} className="rounded-xl border border-border-subtle bg-background/55 p-5">
+            <div key={j.step} className="rounded-xl border border-border-subtle bg-background/55 p-4">
               <div className="mb-6 flex items-center justify-between">
                 <span className="font-mono text-xs text-text-ghost">{j.step}</span>
                 <span className="text-amber-300">→</span>
@@ -293,7 +293,7 @@ export function UmmahAcademyCaseStudy() {
 
       {/* 03 — MULTILINGUAL ARCHITECTURE */}
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide py-16 md:py-24">
+        <div className="container-wide py-6 md:py-8">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">03 / {ar ? "العمارة اللغوية" : "Multilingual architecture"}</p>
@@ -308,9 +308,9 @@ export function UmmahAcademyCaseStudy() {
             </p>
           </div>
 
-          <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
             {locales.map((l) => (
-              <div key={l.code} className="rounded-xl border border-border-subtle bg-background/55 p-5">
+              <div key={l.code} className="rounded-xl border border-border-subtle bg-background/55 p-4">
                 <p className="font-display text-3xl text-text-primary">{l.code}</p>
                 <p className="mt-2 font-mono text-xs text-amber-200/80">{l.where}</p>
                 <p className="mt-4 text-xs leading-6 text-text-tertiary">{ar ? l.noteAr : l.note}</p>
@@ -318,7 +318,7 @@ export function UmmahAcademyCaseStudy() {
             ))}
           </div>
 
-          <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-5 md:p-7">
+          <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
             <div className="flex flex-wrap items-center gap-2 text-sm">
               {(ar
                 ? ["الزائر", "تلميح لغة", "قائمة زجاجية", "الترجمة الحقيقية", "نسخة كاملة"]
@@ -348,28 +348,28 @@ export function UmmahAcademyCaseStudy() {
       </section>
 
       {/* 04 — DESIGN SYSTEM */}
-      <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.6fr_1fr]">
+      <section className="container-wide py-6 md:py-8">
+        <div className="grid gap-5 lg:grid-cols-[0.6fr_1fr]">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">04 / {ar ? "نظام التصميم" : "The design system"}</p>
             <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? "سَكينة زجاجية. ثيمان، صفر وميض." : "Sakinah Glass. Two themes, zero flash."}
             </h2>
           </div>
-          <div className="space-y-5 text-sm leading-7 text-text-secondary">
+          <div className="space-y-3 text-sm leading-7 text-text-secondary">
             <p>
               {ar
                 ? "نظام CSS مكتوب باليد — طبقة زجاجية واحدة تحكم كل المكوّنات، بخطوط مستضافة ذاتياً وأيقونات مدمجة وقت البناء. الوضع الفاتح والداكن من نظام واحد، والخيار يُحفظ لكل متصفح، وعند غيابه يحترم تفضيل النظام."
                 : "A hand-written CSS system — one glass layer governing every component, with self-hosted fonts and icons inlined at build time. Light and dark come from the same tokens; the choice is remembered per browser, and without one the OS preference decides."}
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-border-subtle p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-amber-300">{ar ? "قبل أول رسم" : "Before first paint"}</p>
+              <div className="rounded-xl border border-border-subtle p-4">
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-300">{ar ? "قبل أول رسم" : "Before first paint"}</p>
                 <p className="mt-2 text-2xl font-display text-text-primary">0 ms</p>
                 <p className="mt-2 text-xs text-text-tertiary">{ar ? "السمة تُطبَّق قبل ظهور أي محتوى — فلا وميض أبيض" : "Theme applied before any content renders — no white flash"}</p>
               </div>
-              <div className="rounded-xl border border-amber-300/30 bg-amber-300/[0.04] p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-amber-300">{ar ? "جافاسكريبت الموقع" : "Site JavaScript"}</p>
+              <div className="rounded-xl border border-amber-300/30 bg-amber-300/[0.04] p-4">
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-300">{ar ? "جافاسكريبت الموقع" : "Site JavaScript"}</p>
                 <p className="mt-2 text-2xl font-display text-text-primary">~2 KB</p>
                 <p className="mt-2 text-xs text-text-tertiary">{ar ? "لكل صفحة مضغوطة — جزر TypeScript بلا إطار عمل وقت التشغيل" : "Per page, gzipped — vanilla TS islands, no runtime framework"}</p>
               </div>
@@ -380,14 +380,14 @@ export function UmmahAcademyCaseStudy() {
 
       {/* 05 — PWA */}
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide grid gap-10 py-16 md:grid-cols-[0.55fr_1fr] md:py-24">
+        <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">05 / {ar ? "تطبيق بلا متجر" : "An app without a store"}</p>
             <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? "يُثبَّت على الهاتف. ويظل يعمل دون اتصال." : "Installs on the phone. Still opens offline."}
             </h2>
           </div>
-          <div className="space-y-5 text-sm leading-7 text-text-secondary">
+          <div className="space-y-3 text-sm leading-7 text-text-secondary">
             <p>
               {ar
                 ? "Manifest وأيقونات مقنّعة و Service Worker يحوّلان الموقع إلى تطبيق ويب قابل للتثبيت على أندرويد وiOS. زر صغير يفتح بطاقة التثبيت: الطلب الأصلي على أندرويد، وخطوات «مشاركة ← إضافة إلى الشاشة الرئيسية» على iPhone — بالعربية والإنجليزية."
@@ -399,8 +399,8 @@ export function UmmahAcademyCaseStudy() {
                 [ar ? "دون اتصال" : "Offline", ar ? "آخر الصفحات المزارة تُفتح مجدداً" : "Last pages visited still open"],
                 [ar ? "تذكيرات" : "Reminders", ar ? "واتساب قبل الحصة بـ 15 دقيقة" : "WhatsApp 15 minutes before class"],
               ].map(([t, b]) => (
-                <div key={t} className="rounded-xl border border-border-subtle p-5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-amber-300">{t}</p>
+                <div key={t} className="rounded-xl border border-border-subtle p-4">
+                  <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-300">{t}</p>
                   <p className="mt-2 text-xs leading-6 text-text-tertiary">{b}</p>
                 </div>
               ))}
@@ -410,7 +410,7 @@ export function UmmahAcademyCaseStudy() {
       </section>
 
       {/* 06 — TRUST ENGINEERING */}
-      <section className="container-wide py-16 md:py-24">
+      <section className="container-wide py-6 md:py-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">06 / {ar ? "هندسة الثقة" : "Trust engineering"}</p>
@@ -425,9 +425,9 @@ export function UmmahAcademyCaseStudy() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
           {vetting.map(([n, title, titleAlt, titleAr, body, bodyAr]) => (
-            <article key={n} className="group rounded-xl border border-border-subtle bg-background/55 p-5 transition-colors hover:border-amber-300/40 md:p-6">
+            <article key={n} className="group rounded-xl border border-border-subtle bg-background/55 p-4 transition-colors hover:border-amber-300/40 md:p-4">
               <div className="mb-7 flex items-center justify-between">
                 <span className="font-mono text-xs text-text-ghost">{n}</span>
                 <span className="text-amber-300 transition-transform group-hover:translate-x-1">↗</span>
@@ -438,7 +438,7 @@ export function UmmahAcademyCaseStudy() {
           ))}
         </div>
 
-        <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-5 md:p-7">
+        <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
           <div className="flex flex-wrap items-center gap-2 text-sm">
             {(ar ? ["أنت", "معلمك", "معلمه", "…", "النبي ﷺ"] : ["You", "Your teacher", "Their teacher", "…", "The Prophet ﷺ"]).map((step, i) => (
               <span key={step} className="flex items-center gap-2">
@@ -463,20 +463,20 @@ export function UmmahAcademyCaseStudy() {
 
       {/* 07 — QA & PRIVACY */}
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide py-16 md:py-24">
+        <div className="container-wide py-6 md:py-8">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">07 / {ar ? "الجودة والخصوصية" : "Quality & privacy"}</p>
           <h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
             {ar ? "موقع عائلي يُختبر كمنتج برمجي." : "A family website, tested like software."}
           </h2>
-          <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {qaSuites.map(([name, body, bodyAr]) => (
-              <article key={name} className="rounded-xl border border-border-subtle bg-background/55 p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-amber-300">{name}</p>
+              <article key={name} className="rounded-xl border border-border-subtle bg-background/55 p-4">
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-300">{name}</p>
                 <p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p>
               </article>
             ))}
           </div>
-          <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-5 md:p-7">
+          <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
             <p className="text-sm leading-7 text-text-secondary">
               {ar
                 ? "الخصوصية افتراضية لا إضافية: بدون أي سكربتات خارجية أو كوكيز افتراضياً. التحليلات اختيارية — Plausible بلا كوكيز، أو Google Tag Manager خلف موافقة Consent Mode v2 بلغة الزائر. وبوابة العمليات (طلاب، أسر، معلمون، سجل حصص، اشتراكات، صلاحيات مفحوصة على الخادم) عملية Node منفصلة عن الموقع الثابت."
@@ -487,8 +487,8 @@ export function UmmahAcademyCaseStudy() {
       </section>
 
       {/* 08 — STACK */}
-      <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.55fr_1fr]">
+      <section className="container-wide py-6 md:py-8">
+        <div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">08 / {ar ? "التقنيات" : "Technology stack"}</p>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">
@@ -514,7 +514,7 @@ export function UmmahAcademyCaseStudy() {
 
       {/* HAND-OFF */}
       <section className="border-t border-border-subtle bg-surface-1/35">
-        <div className="container-wide flex flex-col gap-8 py-16 md:flex-row md:items-end md:justify-between md:py-20">
+        <div className="container-wide flex flex-col gap-8 py-6 md:flex-row md:items-end md:justify-between md:py-7">
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">HAND-OFF / 005</p>
             <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">

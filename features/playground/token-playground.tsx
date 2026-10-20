@@ -157,7 +157,7 @@ export function TokenPlayground() {
            subtree — every var(--pg-*) consumer below re-evaluates
            against the new palette with no reconciliation ambiguity. */
         key={t.theme}
-        className="overflow-hidden rounded-panel border border-border-subtle p-4 sm:p-8"
+        className="overflow-hidden rounded-panel border border-border-subtle p-4 sm:p-5"
         style={{
           /* ── THE SYNC POINT ──
              One state write lands here as CSS variables; every node

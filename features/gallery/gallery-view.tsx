@@ -133,7 +133,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
   const Wall = embedded ? "div" : "main";
 
   return (
-    <Wall className={embedded ? "flex flex-col gap-6" : "container-content flex flex-col gap-10 py-16"}>
+    <Wall className={embedded ? "flex flex-col gap-6" : "container-content flex flex-col gap-5 py-6"}>
       {/* ── header ─────────────────────────────────────────────── */}
       {embedded ? null : (
       <header className="flex flex-col gap-3">
@@ -255,8 +255,8 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
           -mx-4/-mx-8 overshot it). overflow-x-clip keeps the GSAP-scattered
           cards from widening the page on narrow screens. The whole section is
           aria-hidden: the reel is click-only and mirrors the grid above. */}
-      <section aria-hidden className="relative -mx-3 mt-8 overflow-x-clip border-t border-border-subtle pt-12">
-        <div className="px-4 sm:px-6 lg:px-8 mb-8">
+      <section aria-hidden className="relative -mx-3 mt-4 overflow-x-clip border-t border-border-subtle pt-6">
+        <div className="px-4 sm:px-6 lg:px-8 mb-4">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
             {ar ? "عرض بصري — اسكرول للاستكشاف" : "VISUAL REEL — SCROLL TO EXPLORE"}
           </p>
@@ -285,7 +285,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={captionId}
-                className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm md:p-8"
+                className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm md:p-5"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

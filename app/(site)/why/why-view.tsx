@@ -87,7 +87,7 @@ export function WhyView() {
 
       {/* ── Header + Reasons (chapter A) ── */}
       <div className="chapter-a">
-        <div className="container-content flex flex-col gap-16 py-20">
+        <div className="container-content flex flex-col gap-8 py-7">
           <header className="flex flex-col gap-4">
             <Heading
               eyebrow={ar ? "لماذا مصطفى" : "WHY MUSTAFA"}
@@ -125,7 +125,7 @@ export function WhyView() {
 
       {/* ── Jargon → Plain Terms (chapter B) ── */}
       <div className="chapter-b">
-        <div className="container-content flex flex-col gap-4 py-20">
+        <div className="container-content flex flex-col gap-4 py-7">
           <section id="jargon" className="flex flex-col gap-5">
             <div>
               <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -157,7 +157,7 @@ export function WhyView() {
 
       {/* ── Approach (chapter A) ── */}
       <div className="chapter-a">
-        <div className="container-content flex flex-col gap-16 py-20">
+        <div className="container-content flex flex-col gap-8 py-7">
           <section id="approach" aria-label={t.whyAriaApproach}>
             <p className="pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
               {ar ? "المنهجية" : "THE APPROACH"}
@@ -189,7 +189,7 @@ export function WhyView() {
 
       {/* ── Different + SSOT diagram (chapter B) ── */}
       <div className="chapter-b">
-        <div className="container-content flex flex-col gap-16 py-20">
+        <div className="container-content flex flex-col gap-8 py-7">
           <section id="different" aria-label={t.whyAriaWhat} className="flex flex-col gap-3 border-s-2 border-accent ps-5">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
               {ar ? "ما يجعل الشغل مختلفًا" : "WHAT MAKES THE WORK DIFFERENT"}
@@ -219,7 +219,7 @@ export function WhyView() {
 
       {/* ── OS + CTA (chapter A) ── */}
       <div className="chapter-a">
-        <div className="container-content flex flex-col gap-16 py-20">
+        <div className="container-content flex flex-col gap-8 py-7">
           <section id="os" aria-label={t.whyAriaOs} className="flex flex-col items-center gap-4">
             <p className="max-w-[56ch] text-center text-lead text-text-secondary">
               {ar

@@ -71,7 +71,7 @@ export function GithubBand() {
 
   return (
     <section aria-label={t.kicker} className="border-y border-border-subtle bg-surface-1">
-      <div className="container-content grid gap-8 py-16 lg:grid-cols-[6fr_5fr] lg:items-center">
+      <div className="container-content grid gap-8 py-6 lg:grid-cols-[6fr_5fr] lg:items-center">
         {/* Copy side */}
         <div className="flex flex-col gap-3">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">

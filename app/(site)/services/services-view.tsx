@@ -30,7 +30,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <main className="container-content flex flex-col gap-16 py-16">
+    <main className="container-content flex flex-col gap-8 py-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "الخدمات / التعاقد" : "SERVICES / ENGAGEMENT"}

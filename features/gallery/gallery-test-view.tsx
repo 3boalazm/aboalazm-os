@@ -68,8 +68,8 @@ export function GalleryTestView({ images, projects }: GalleryTestViewProps) {
       };
 
   return (
-    <main dir={ar ? "rtl" : "ltr"} className="container-content flex flex-col gap-10 py-14 md:gap-14 md:py-20">
-      <header className="relative overflow-hidden rounded-panel border border-border-subtle bg-surface-1 px-6 py-10 md:px-12 md:py-16">
+    <main dir={ar ? "rtl" : "ltr"} className="container-content flex flex-col gap-5 py-6 md:gap-7 md:py-7">
+      <header className="relative overflow-hidden rounded-panel border border-border-subtle bg-surface-1 px-6 py-5 md:px-12 md:py-6">
         <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
         <div className="relative max-w-3xl">
           <div className="mb-6 inline-flex items-center gap-2 rounded-pill border border-accent/30 bg-accent/10 px-3 py-1.5 font-mono text-micro uppercase tracking-[0.08em] text-accent">
@@ -78,7 +78,7 @@ export function GalleryTestView({ images, projects }: GalleryTestViewProps) {
           <p className="font-mono text-label uppercase tracking-[0.08em] text-text-tertiary">{ar ? "منظومة الهوية · في التطبيق" : "IDENTITY SYSTEMS · IN APPLICATION"}</p>
           <h1 className="mt-3 max-w-[16ch] font-display text-display leading-[0.98] tracking-[-0.04em] text-text-primary">{copy.title}</h1>
           <p className="mt-5 max-w-[58ch] text-lead text-text-secondary">{copy.intro}</p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-micro text-text-tertiary">
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-micro text-text-tertiary">
             <span>{visible.length} {copy.count}</span><span aria-hidden="true">/</span><span>{projects.length} {ar ? "مشاريع" : "projects"}</span>
           </div>
         </div>
@@ -107,14 +107,14 @@ export function GalleryTestView({ images, projects }: GalleryTestViewProps) {
             <Link href={project?.href ?? "/work"} className="block" aria-label={`${ar ? image.captionAr : image.caption} — ${project ? (ar ? project.labelAr : project.label) : ""}`}>
               <div className={`relative overflow-hidden bg-surface-2 ${index === 0 && activeKind === "all" && activeProject === "all" ? "aspect-[16/8]" : "aspect-[4/3]"}`}>
                 <Image src={image.src} alt={ar ? image.captionAr : image.caption} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
-                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/75 to-transparent px-4 pb-4 pt-12">
-                  <span className="rounded-pill border border-white/20 bg-black/25 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.08em] text-white/90 backdrop-blur-sm">{ar ? kind?.ar : kind?.en}</span>
+                <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 bg-gradient-to-t from-black/75 to-transparent px-4 pb-4 pt-6">
+                  <span className="rounded-pill border border-white/20 bg-black/25 px-2.5 py-1 font-mono text-[12px] uppercase tracking-[0.08em] text-white/90 backdrop-blur-sm">{ar ? kind?.ar : kind?.en}</span>
                   <span className="font-mono text-micro text-white/80">{String(index + 1).padStart(2, "0")}</span>
                 </div>
               </div>
-              <div className="flex items-start justify-between gap-4 p-4 md:p-5">
+              <div className="flex items-start justify-between gap-4 p-4 md:p-4">
                 <div className="min-w-0">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.1em] text-text-tertiary">{copy.project} · {project ? (ar ? project.labelAr : project.label) : ""}</p>
+                  <p className="font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">{copy.project} · {project ? (ar ? project.labelAr : project.label) : ""}</p>
                   <h2 className="mt-2 text-base font-medium leading-snug text-text-primary">{ar ? image.captionAr : image.caption}</h2>
                 </div>
                 <span className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full border border-border-subtle text-text-tertiary transition-colors group-hover:border-accent group-hover:text-accent"><Icon name="arrow-up-right" size={15} /></span>
@@ -122,7 +122,7 @@ export function GalleryTestView({ images, projects }: GalleryTestViewProps) {
             </Link>
           </article>;
         })}
-      </section> : <div className="rounded-card border border-border-subtle bg-surface-1 p-8 text-center text-text-secondary">{copy.empty}</div>}
+      </section> : <div className="rounded-card border border-border-subtle bg-surface-1 p-5 text-center text-text-secondary">{copy.empty}</div>}
 
       <footer className="flex flex-col gap-5 border-t border-border-subtle pt-7 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-[62ch] text-sm leading-relaxed text-text-tertiary">{copy.note}</p>

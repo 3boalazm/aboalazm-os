@@ -35,7 +35,7 @@ export function LabsView() {
   const ar = lang === "ar";
 
   return (
-    <main className="container-content flex flex-col gap-16 py-16">
+    <main className="container-content flex flex-col gap-8 py-6">
       {/* Header */}
       <header className="flex flex-col gap-3">
         <Heading
@@ -94,7 +94,7 @@ export function LabsView() {
               key={area.n}
               as="article"
               interactive
-              className="flex flex-col rounded-panel p-4 md:p-5"
+              className="flex flex-col rounded-panel p-4 md:p-4"
             >
               <div className="flex items-baseline justify-between">
                 <span className="font-mono text-micro text-text-ghost">{area.n}</span>
@@ -223,7 +223,7 @@ export function LabsView() {
           title={["One cycle,", "دورة واحدة"]}
           italic={["every experiment.", "لكل تجربة."]}
         />
-        <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 md:p-6">
+        <div className="rounded-panel border border-border-subtle bg-surface-1 p-4 md:p-4">
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-3">
             {METHOD.map((step, i) => (
               <li key={i} className="flex items-center gap-2">

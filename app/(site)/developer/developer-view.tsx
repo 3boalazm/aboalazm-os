@@ -20,7 +20,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
 
   return (
     <main className="overflow-hidden pb-8">
-      <section className="container-wide relative flex min-h-[calc(100svh-5rem)] flex-col justify-center gap-8 pb-12 pt-28 sm:pt-32 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-12 lg:py-32">
+      <section className="container-wide relative flex min-h-[calc(88svh-5rem)] flex-col justify-center gap-8 pb-6 pt-28 sm:pt-32 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:py-12">
         <div className="pointer-events-none absolute -start-24 top-36 -z-10 size-72 rounded-full bg-accent/10 blur-[100px]" aria-hidden />
         <div className="flex flex-col items-start">
           <div className="mb-6 inline-flex items-center gap-2 rounded-pill border border-border-subtle px-3 py-1.5 font-mono text-micro uppercase tracking-[0.12em] text-text-tertiary">
@@ -60,7 +60,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
         </div>
 
         <aside className="relative">
-          <div className="relative overflow-hidden rounded-[1.75rem] border border-border-default bg-surface-1 p-5 sm:p-7">
+          <div className="relative overflow-hidden rounded-[1.75rem] border border-border-default bg-surface-1 p-4 sm:p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="font-mono text-micro uppercase tracking-[0.13em] text-accent">ABOALAZM OS / 01</p>
@@ -92,8 +92,8 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
         </aside>
       </section>
 
-      <section className="container-wide border-t border-border-subtle py-16 sm:py-20">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <section className="container-wide border-t border-border-subtle py-6 sm:py-7">
+        <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{ar ? "02 / شغل يستاهل يتشاف" : "02 / SELECTED PROOF"}</p>
             <h2 className="mt-3 max-w-[15ch] font-display text-4xl leading-[0.98] tracking-[-0.04em] text-text-primary sm:text-6xl">
@@ -119,7 +119,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
                     <Icon name="arrow-up-right" size={16} />
                   </span>
                 </Link>
-                <div className="flex flex-1 flex-col p-4 sm:p-5">
+                <div className="flex flex-1 flex-col p-4 sm:p-4">
                   <div className="flex items-start justify-between gap-3">
                     <h3 className="font-display text-xl leading-tight tracking-tight text-text-primary sm:text-2xl">{ar ? project.nameAr ?? project.name : project.name}</h3>
                     <span className="pt-1 font-mono text-micro text-text-ghost">0{index + 1}</span>
@@ -135,7 +135,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
         </div>
       </section>
 
-      <section className="container-wide grid gap-8 border-t border-border-subtle py-16 sm:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <section className="container-wide grid gap-8 border-t border-border-subtle py-6 sm:py-7 lg:grid-cols-[0.8fr_1.2fr] lg:gap-8">
         <div>
           <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{ar ? "03 / طريقة تفكيري" : "03 / HOW I THINK"}</p>
           <h2 className="mt-3 max-w-[12ch] font-display text-4xl leading-[0.98] tracking-[-0.04em] text-text-primary sm:text-6xl">
@@ -159,8 +159,8 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
         </div>
       </section>
 
-      <section className="container-wide pb-16 sm:pb-24">
-        <div className="relative overflow-hidden rounded-[1.75rem] border border-border-default bg-surface-1 p-6 sm:p-10 lg:p-14">
+      <section className="container-wide pb-8 sm:pb-24">
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-border-default bg-surface-1 p-4 sm:p-6 lg:p-14">
           <div className="pointer-events-none absolute -end-16 -top-24 size-64 rounded-full bg-accent/10 blur-[90px]" aria-hidden />
           <div className="relative grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
             <div>

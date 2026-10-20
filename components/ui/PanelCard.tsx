@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
  * Shared box shape behind every bordered content panel in the codebase
  * (13 call sites audited — see design-preview/sprint-card-audit.md and
  * sprint-panelcard.md). Radius, padding, and layout (flex/gap) are NOT
- * defaulted here — they genuinely vary per site (p-3 to p-8, rounded-card
+ * defaulted here — they genuinely vary per site (p-3 to p-5, rounded-card
  * vs rounded-panel) and are supplied by the caller's className. Only the
  * `border` keyword and the three background/border-color states proven
  * byte-identical across ≥2 real sites are baked in; anything closer to a

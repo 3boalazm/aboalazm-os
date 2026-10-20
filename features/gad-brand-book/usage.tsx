@@ -13,7 +13,7 @@ function Mark({ size, className = "", style }: { size: number; className?: strin
 
 function Sub({ n, title, children }: { n: string; title: string; children?: React.ReactNode }) {
   return (
-    <div className="mb-8">
+    <div className="mb-4">
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: RED_TEXT }}>{n}</p>
       <h5 className="text-2xl font-bold text-white">{title}</h5>
       {children && <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">{children}</p>}
@@ -26,7 +26,7 @@ const X = MARK / 2; // clear space = 0.5 × the symbol
 
 function ClearSpace() {
   return (
-    <div className="rounded-2xl bg-white p-8">
+    <div className="rounded-2xl bg-white p-5">
       <div
         className="relative mx-auto w-fit rounded-md"
         style={{ padding: X, border: `2px dashed ${RED}` }}
@@ -38,7 +38,7 @@ function ClearSpace() {
           "left-2 top-1/2 -translate-y-1/2",
           "right-2 top-1/2 -translate-y-1/2",
         ].map((pos) => (
-          <span key={pos} className={`absolute rounded px-1.5 py-0.5 text-[11px] font-bold text-white ${pos}`} style={{ background: RED }}>0.5×</span>
+          <span key={pos} className={`absolute rounded px-1.5 py-0.5 text-[13px] font-bold text-white ${pos}`} style={{ background: RED }}>0.5×</span>
         ))}
       </div>
       <p className="mt-4 text-center text-xs text-[#33424E]">x = height of the symbol</p>
@@ -48,7 +48,7 @@ function ClearSpace() {
 
 function Sizing() {
   return (
-    <div className="rounded-2xl bg-white p-8">
+    <div className="rounded-2xl bg-white p-5">
       <div className="grid grid-cols-10 gap-1" aria-hidden>
         {Array.from({ length: 10 }, (_, i) => (
           <div
@@ -56,7 +56,7 @@ function Sizing() {
             className="flex h-20 items-end justify-center rounded-md pb-2"
             style={{ background: i === 0 ? "rgb(0 88 149 / 0.16)" : "rgb(0 88 149 / 0.07)" }}
           >
-            {i === 0 ? <Mark size={30} /> : <span className="text-[10px] text-[#33424E]">{i + 1}</span>}
+            {i === 0 ? <Mark size={30} /> : <span className="text-[12px] text-[#33424E]">{i + 1}</span>}
           </div>
         ))}
       </div>
@@ -122,7 +122,7 @@ const DONT: Rule[] = [
 
 function List({ title, items, color, mark }: { title: string; items: Rule[]; color: string; mark: string }) {
   return (
-    <div className="rounded-2xl p-7" style={card}>
+    <div className="rounded-2xl p-5" style={card}>
       <h6 className="mb-4 text-sm font-bold uppercase tracking-widest" style={{ color }}>{title}</h6>
       <ul className="space-y-2.5">
         {items.map((r) => (
@@ -130,7 +130,7 @@ function List({ title, items, color, mark }: { title: string; items: Rule[]; col
             <span aria-hidden className="font-bold" style={{ color }}>{mark}</span>
             <span>
               {r.t}
-              {r.src && <span className="ml-2 whitespace-nowrap rounded border border-white/20 px-1.5 py-0.5 text-[11px] text-white/70">book {r.src}</span>}
+              {r.src && <span className="ml-2 whitespace-nowrap rounded border border-white/20 px-1.5 py-0.5 text-[13px] text-white/70">book {r.src}</span>}
             </span>
           </li>
         ))}
@@ -143,7 +143,7 @@ function List({ title, items, color, mark }: { title: string; items: Rule[]; col
 export function Usage() {
   return (
     <div className="space-y-20">
-      <div className="grid items-start gap-10 @3xl:grid-cols-2">
+      <div className="grid items-start gap-5 @3xl:grid-cols-2">
         <div>
           <Sub n="A" title="Clear space — 0.5×">
             Keep the logo free of graphics, text and edges: 0.5× on every side, where x is the height of the heart-and-lungs symbol.
@@ -163,7 +163,7 @@ export function Usage() {
       </div>
       <div>
         <Sub n="D" title="Keep the heartbeat steady">
-          Rules tagged <span className="rounded border border-white/20 px-1.5 py-0.5 text-[11px] text-white/70">book p.12</span> are quoted from the brand book; the rest extend it.
+          Rules tagged <span className="rounded border border-white/20 px-1.5 py-0.5 text-[13px] text-white/70">book p.12</span> are quoted from the brand book; the rest extend it.
         </Sub>
         <div className="grid gap-4 @2xl:grid-cols-2">
           <List title="Do" items={DO} color={BLUE_LIGHT} mark="✓" />
