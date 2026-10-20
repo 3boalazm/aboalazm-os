@@ -10,3 +10,12 @@ export type { GalleryItem } from "./case-gallery";
 export { CODE_CANVAS } from "./code-canvas.data";
 export { GAD_INSTITUTE } from "./gad-institute.data";
 export { REFLECTION } from "./reflection.data";
+export { OltreCollectiveCaseStudy } from "./oltre-collective";
+export { FarmConsoleCaseStudy } from "./farm-console";
+
+export { ProductCase } from "./product-case";
+export { MiniExamCaseStudy } from "./mini-exam";
+export { StemForgeCaseStudy } from "./stemforge";
+export { PharmacyWebCaseStudy } from "./pharmacy-web";
+export { ContinuumCaseStudy } from "./continuum";
+export { CodeCanvasDevCaseStudy } from "./code-canvas-dev";

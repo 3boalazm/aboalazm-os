@@ -36,7 +36,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "عقلان، نظام واحد — منصة حية",
     year: "2026",
     thumbnail: "/images/work/code-canvas-dev/cc-dev-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://codeandcanvas.net/",
     externalUrl: "https://codeandcanvas.net/",
     accent: {
@@ -230,7 +230,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "متجر ستريت وير متكامل — سلة، مفضلة، برنامج ولاء، لوحة إدارة",
     year: "2026",
     thumbnail: "/images/work/oltre-collective-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "https://momo-shop.vercel.app/",
     externalUrl: "https://momo-shop.vercel.app/",
@@ -270,7 +270,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "نظام إدارة مزرعة — تتبع القطيع، الصحة، التلقيح، الحسابات",
     year: "2025–26",
     thumbnail: "/images/work/farm-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "https://farm-project-puce.vercel.app/",
     accent: {
@@ -307,7 +307,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "منصة للمعلمين لإنشاء الامتحانات وتوليد الأسئلة وتصحيحها تلقائياً وإرسال النتائج عبر واتساب",
     year: "2026",
     thumbnail: "/images/work/mini-exam-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://exam-eta-sandy.vercel.app/",
     accent: {
       primary: "rgb(129 140 248 / 0.20)",
@@ -343,7 +343,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "نظام ذاكرة شخصي للمهام والمشاريع واليوميات والمعرفة — يعمل محلياً مع مزامنة سحابية اختيارية",
     year: "2026",
     thumbnail: "/images/work/continuum-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://continuum-khaki.vercel.app/",
     accent: {
       primary: "rgb(147 130 246 / 0.20)",
@@ -361,7 +361,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "واجهة صيدلية عربية RTL — واجهة أمامية فقط، وليست نظام SaaS متكاملاً أو Backend",
     year: "2026",
     thumbnail: "/images/work/pharmacy-web-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://pharmacy-web-eight.vercel.app/",
     accent: {
       primary: "rgb(54 194 117 / 0.20)",
@@ -416,7 +416,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "مساحة لفصل مصادر الموسيقى — عزل الغناء والطبول والباص من المقطع الصوتي",
     year: "2026",
     thumbnail: "/images/work/stemforge-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://mdp-opal.vercel.app/",
     accent: {
       primary: "rgb(53 197 182 / 0.20)",

@@ -15,6 +15,13 @@ import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp"
 import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
 import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
 import { UmmahAcademyCaseStudy } from "@/features/case-studies/ummah-academy";
+import { OltreCollectiveCaseStudy } from "@/features/case-studies/oltre-collective";
+import { FarmConsoleCaseStudy } from "@/features/case-studies/farm-console";
+import { MiniExamCaseStudy } from "@/features/case-studies/mini-exam";
+import { StemForgeCaseStudy } from "@/features/case-studies/stemforge";
+import { PharmacyWebCaseStudy } from "@/features/case-studies/pharmacy-web";
+import { ContinuumCaseStudy } from "@/features/case-studies/continuum";
+import { CodeCanvasDevCaseStudy } from "@/features/case-studies/code-canvas-dev";
 
 export const revalidate = 60;
 
@@ -23,7 +30,20 @@ const getCaseStudy = cache(fetchCaseStudy);
 
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
-  const custom = ["nile-pharma-erp", "speech-to-text-studio", "nile-pharma-storefront", "zad", "ummah-academy"];
+  const custom = [
+    "nile-pharma-erp",
+    "speech-to-text-studio",
+    "nile-pharma-storefront",
+    "zad",
+    "ummah-academy",
+    "momo-collective",
+    "farm-console",
+    "mini-exam",
+    "stemforge",
+    "pharmacy-web",
+    "continuum",
+    "code-canvas-dev",
+  ];
   return [...new Set([...slugs, ...custom])].map((slug) => ({ slug }));
 }
 
@@ -73,6 +93,62 @@ export async function generateMetadata({
     };
   }
 
+  if (slug === "momo-collective") {
+    return {
+      title: "OLTRÈ Collective — Streetwear Commerce Case File",
+      description:
+        "A full-stack Egyptian streetwear store: drop-led storefront, cart and wishlist, loyalty tiers, admin analytics, EGP pricing and card, MEEZA and Vodafone Cash checkout.",
+    };
+  }
+
+  if (slug === "farm-console") {
+    return {
+      title: "Farm Console — Livestock Operations Case File",
+      description:
+        "An Arabic-first livestock management PWA for herd records, health, breeding and finance — code-gated, installable from the browser and synced in realtime.",
+    };
+  }
+
+  if (slug === "mini-exam") {
+    return {
+      title: "Mini Exam — Exam Platform Case File",
+      description:
+        "A teacher-first exam builder: two generation modes, four question types, review before publish, server-side grading and WhatsApp result delivery — with no student accounts.",
+    };
+  }
+
+  if (slug === "stemforge") {
+    return {
+      title: "StemForge — On-Device Stem Separation Case File",
+      description:
+        "Split a track into vocals, drums, bass and other inside the browser on WebGPU, with three engines, honest fallbacks and an opt-in server path.",
+    };
+  }
+
+  if (slug === "pharmacy-web") {
+    return {
+      title: "Pharmacy Web — POS Platform Case File",
+      description:
+        "A multi-tenant pharmacy SaaS frontend: 15 bounded-context modules with boundary rules enforced in CI, string money, idempotent financial POSTs and a DUR gate.",
+    };
+  }
+
+  if (slug === "continuum") {
+    return {
+      title: "Continuum — Memory OS Case File",
+      description:
+        "A twenty-one page personal workspace with no build step and local-first state: projects, tasks, journal, knowledge and bookmarks, with optional Firebase sync.",
+    };
+  }
+
+  if (slug === "code-canvas-dev") {
+    return {
+      title: "Code & Canvas — Studio Platform Case File",
+      description:
+        "A two-practice MENA studio platform: 23 fixed-scope services across technology, creative and healthcare, with published price bands and milestone-gated delivery.",
+    };
+  }
+
   const record = await getCaseStudy(slug);
 
   // Throw here too: the Suspense boundary can flush a 200 before the page
@@ -110,6 +186,35 @@ export default async function CaseStudyPage({
 
   if (slug === "ummah-academy") {
     return <UmmahAcademyCaseStudy />;
+  }
+
+  if (slug === "momo-collective") {
+    return <OltreCollectiveCaseStudy />;
+  }
+
+  if (slug === "farm-console") {
+    return <FarmConsoleCaseStudy />;
+  }
+
+
+  if (slug === "mini-exam") {
+    return <MiniExamCaseStudy />;
+  }
+
+  if (slug === "stemforge") {
+    return <StemForgeCaseStudy />;
+  }
+
+  if (slug === "pharmacy-web") {
+    return <PharmacyWebCaseStudy />;
+  }
+
+  if (slug === "continuum") {
+    return <ContinuumCaseStudy />;
+  }
+
+  if (slug === "code-canvas-dev") {
+    return <CodeCanvasDevCaseStudy />;
   }
 
   const record = await getCaseStudy(slug);
