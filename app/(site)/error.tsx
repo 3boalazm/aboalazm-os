@@ -59,7 +59,7 @@ export default function ErrorBoundary({
   return (
     <main
       dir={ar ? "rtl" : "ltr"}
-      className="flex min-h-svh flex-col items-center justify-center gap-6 bg-surface-0 px-6 text-center"
+      className="stage-bleed flex min-h-svh flex-col items-center justify-center gap-6 bg-surface-0 px-6 text-center"
     >
       <motion.div
         variants={reveal.container}

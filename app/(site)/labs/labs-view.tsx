@@ -35,7 +35,7 @@ export function LabsView() {
   const ar = lang === "ar";
 
   return (
-    <main className="container-content flex flex-col gap-8 py-6">
+    <main className="container-content flex flex-col gap-8 pb-6">
       {/* Header */}
       <header className="flex flex-col gap-3">
         <Heading

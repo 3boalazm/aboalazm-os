@@ -77,7 +77,7 @@ export function NotFoundContent() {
 
   return (
     <main
-      className="not-found-root"
+      className="not-found-root stage-bleed"
       dir={ar ? "rtl" : "ltr"}
     >
       {/* ── BG: 404 image full-bleed ─────────────────────────────── */}

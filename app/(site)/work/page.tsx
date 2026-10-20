@@ -18,7 +18,7 @@ export default async function WorkPage() {
      view (301'd) — fetch both datasets once, the toggle stays client-side. */
   const [projects, gallery] = await Promise.all([getProjects(), getGalleryData()]);
   return (
-    <main className="container-wide flex min-h-svh flex-col gap-8 py-6">
+    <main className="container-wide flex min-h-[calc(100svh-var(--nav-clearance))] flex-col gap-8 pb-6">
       <JsonLd data={getBreadcrumbSchema([{ name: "Work", path: "/work" }])} />
       <WorkHeader />
       <WorkFilter

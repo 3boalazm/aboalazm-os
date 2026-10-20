@@ -10,7 +10,7 @@ const SPECIMEN_ALPHA = "ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\n0123456789";
 
 export function TypeView() {
   return (
-    <main className="min-h-screen bg-surface-0 px-6 py-6 lg:px-16">
+    <main className="min-h-screen bg-surface-0 px-6 pb-6 lg:px-16">
 
       {/* ── Header ── */}
       <div className="mb-8 border-b border-border-subtle pb-8">

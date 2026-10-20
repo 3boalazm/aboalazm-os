@@ -37,7 +37,7 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
   const ar = lang === "ar";
   useAmbientGlow(PRICING_MOOD, 0.3);
   return (
-    <main className="container-content flex flex-col gap-8 py-6">
+    <main className="container-content flex flex-col gap-8 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "التسعير / التكلفة" : "PRICING / WHAT IT COSTS"}

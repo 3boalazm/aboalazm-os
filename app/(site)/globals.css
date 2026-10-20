@@ -283,6 +283,39 @@
   --z-cursor: 100;
 }
 
+/* ── FIXED-NAV CLEARANCE ────────────────────────────────────────────────
+   The pill nav is `fixed top-2`, so it is OUT of flow: every page's first
+   block has to reserve its height by hand. That hand-placed padding was
+   lost in the 2026-10-20 density pass (py-12 → py-6), and content began
+   rendering underneath the pill on phones (the status/availability row
+   was the visible casualty). One contract now owns it: the layout wraps
+   the page in .site-stage, which reserves exactly the pill's footprint
+   The pill measures ~50px tall (py-1 · 2 + the tallest child: the 13px
+   caption CTAs and the 14px language chip), so its bottom edge sits at
+   ~64px; +8px of air = 72px, rounded up to 80 for font-metric variance.
+
+   Nothing in a page should restate this number — use the token, or
+   .stage-bleed for self-contained full-screen states (404 / error) that
+   paint their own canvas edge to edge. */
+:root {
+  --nav-clearance: 5rem;        /* 80px — nav bottom 64 + 16 of air  */
+}
+@media (min-width: 640px) {
+  :root {
+    --nav-clearance: 5.5rem;    /* 88px — taller orb / MA wordmark   */
+  }
+}
+
+.site-stage {
+  padding-top: var(--nav-clearance);
+}
+
+/* Self-contained full-screen states (404, error boundary) already start at
+   the viewport edge and centre themselves; reclaim the reserved strip. */
+.stage-bleed {
+  margin-top: calc(var(--nav-clearance) * -1);
+}
+
 /* ═══════════════ LIGHT / DARK MODE — SEMANTIC TOKEN SWITCH ═══════════════
    The @theme block above defines the DARK values (the site's default).
    Components only ever call the semantic classes (bg-surface-1,

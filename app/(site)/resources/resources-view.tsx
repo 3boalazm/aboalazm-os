@@ -21,7 +21,7 @@ export function ResourcesView() {
   useEffect(() => setUnlocked(readUnlocked()), []);
 
   return (
-    <main className="container-content flex flex-col gap-8 py-6">
+    <main className="container-content flex flex-col gap-8 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "المصادر / قاعدة المعرفة" : "RESOURCES / KNOWLEDGE BASE"}
