@@ -230,7 +230,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "متجر ستريت وير متكامل — سلة، مفضلة، برنامج ولاء، لوحة إدارة",
     year: "2026",
     thumbnail: "/images/work/oltre-collective-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "https://momo-shop.vercel.app/",
     externalUrl: "https://momo-shop.vercel.app/",
@@ -270,7 +270,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "نظام إدارة مزرعة — تتبع القطيع، الصحة، التلقيح، الحسابات",
     year: "2025–26",
     thumbnail: "/images/work/farm-thumb.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "https://farm-project-puce.vercel.app/",
     accent: {

@@ -15,6 +15,8 @@ import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp"
 import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
 import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
 import { UmmahAcademyCaseStudy } from "@/features/case-studies/ummah-academy";
+import { OltreCollectiveCaseStudy } from "@/features/case-studies/oltre-collective";
+import { FarmConsoleCaseStudy } from "@/features/case-studies/farm-console";
 
 export const revalidate = 60;
 
@@ -23,7 +25,15 @@ const getCaseStudy = cache(fetchCaseStudy);
 
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
-  const custom = ["nile-pharma-erp", "speech-to-text-studio", "nile-pharma-storefront", "zad", "ummah-academy"];
+  const custom = [
+    "nile-pharma-erp",
+    "speech-to-text-studio",
+    "nile-pharma-storefront",
+    "zad",
+    "ummah-academy",
+    "momo-collective",
+    "farm-console",
+  ];
   return [...new Set([...slugs, ...custom])].map((slug) => ({ slug }));
 }
 
@@ -73,6 +83,22 @@ export async function generateMetadata({
     };
   }
 
+  if (slug === "momo-collective") {
+    return {
+      title: "OLTRÈ Collective — Streetwear Commerce Case File",
+      description:
+        "A full-stack Egyptian streetwear store: drop-led storefront, cart and wishlist, loyalty tiers, admin analytics, EGP pricing and card, MEEZA and Vodafone Cash checkout.",
+    };
+  }
+
+  if (slug === "farm-console") {
+    return {
+      title: "Farm Console — Livestock Operations Case File",
+      description:
+        "An Arabic-first livestock management PWA for herd records, health, breeding and finance — code-gated, installable from the browser and synced in realtime.",
+    };
+  }
+
   const record = await getCaseStudy(slug);
 
   // Throw here too: the Suspense boundary can flush a 200 before the page
@@ -110,6 +136,14 @@ export default async function CaseStudyPage({
 
   if (slug === "ummah-academy") {
     return <UmmahAcademyCaseStudy />;
+  }
+
+  if (slug === "momo-collective") {
+    return <OltreCollectiveCaseStudy />;
+  }
+
+  if (slug === "farm-console") {
+    return <FarmConsoleCaseStudy />;
   }
 
   const record = await getCaseStudy(slug);

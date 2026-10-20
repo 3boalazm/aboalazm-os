@@ -10,3 +10,5 @@ export type { GalleryItem } from "./case-gallery";
 export { CODE_CANVAS } from "./code-canvas.data";
 export { GAD_INSTITUTE } from "./gad-institute.data";
 export { REFLECTION } from "./reflection.data";
+export { OltreCollectiveCaseStudy } from "./oltre-collective";
+export { FarmConsoleCaseStudy } from "./farm-console";

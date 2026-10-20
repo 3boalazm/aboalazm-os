@@ -92,6 +92,14 @@ const nextConfig: NextConfig = {
         destination: "/work",
         permanent: true,
       },
+      {
+        // OLTRÈ's slug is the legacy "momo-collective" (the deployment host
+        // name, pinned by project-curation.test.ts). People — and the owner —
+        // look for the brand name, so the readable slug forwards to it.
+        source: "/case-studies/oltre-collective",
+        destination: "/case-studies/momo-collective",
+        permanent: true,
+      },
     ];
   },
   images: {

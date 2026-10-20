@@ -50,6 +50,17 @@ const MORE = [
 const isActive = (pathname: string, href: string) =>
   pathname === href || pathname.startsWith(href + "/");
 
+/* HEADER CONTROL SHAPE — one box for the language flip and the theme flip.
+   Both are perfect circles of identical size: 48px on phones (still a
+   comfortable 44px+ tap target), 56px from `sm` up. They used to be built
+   independently — the language switch was a content-width `px-2 py-1` pill,
+   so it rendered as an oval beside the theme's fixed square, and the two
+   read as different control families. Never restate these dimensions at a
+   call site; add to this constant. */
+const NAV_CONTROL =
+  "grid size-6 shrink-0 place-items-center rounded-full border border-border-subtle text-text-secondary " +
+  "transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary sm:size-7";
+
 export function Nav() {
   const t = useT();
   const pathname = usePathname();
@@ -179,13 +190,17 @@ export function Nav() {
           })}
         </ul>
 
-        {/* Language flip — the AR/EN switch */}
+        {/* Language flip — the AR/EN switch.
+            Shares NAV_CONTROL with the theme flip below: both are the exact
+            same circle now. It used to be a content-width `px-2 py-1` pill,
+            so next to the theme's fixed square it rendered as an oval — the
+            two controls read as different families in the bar. */}
         <button
           type="button"
           onClick={toggle}
           aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
           lang={lang === "ar" ? "en" : "ar"}
-          className="shrink-0 rounded-pill border border-border-subtle px-2 py-1 font-mono text-micro text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+          className={`${NAV_CONTROL} font-mono text-caption leading-none`}
         >
           {lang === "ar" ? (
             "EN"
@@ -203,7 +218,7 @@ export function Nav() {
               aria-hidden
               focusable="false"
               viewBox="0 -588 477 884"
-              className="mt-[0.287rem] -mb-[0.296rem] inline-block h-[0.884rem] w-[0.477rem] overflow-visible fill-current align-baseline"
+              className="h-[0.95rem] w-[0.512rem] overflow-visible fill-current"
             >
               <path d="M452-323L443-332L354-310C315-300 279-296 246-296C138-296 67-342 67-390C67-429 133-460 210-460C279-460 349-436 385-412L395-420C369-535 301-588 233-588C146-588 54-502 54-379C54-299 94-237 174-201C106-143 25-68 25 60C25 229 165 296 295 296L535 177L535 162L320 162C181 162 43 121 43 38C43-64 252-166 388-198L419-205Z" />
             </svg>
@@ -219,7 +234,7 @@ export function Nav() {
               ? theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن"
               : theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
           }
-          className="grid size-6 shrink-0 place-items-center rounded-pill border border-border-subtle max-[359px]:hidden sm:size-7 font-mono text-text-secondary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
+          className={`${NAV_CONTROL} max-[359px]:hidden`}
         >
           <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
         </button>
