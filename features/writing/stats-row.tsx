@@ -67,9 +67,9 @@ function StatValue({ value }: { value: string }) {
 export function StatsRow({ items }: { items: StatItem[] }) {
   if (!items || items.length === 0) return null;
   return (
-    <div className="my-12 grid grid-cols-2 gap-px border border-border-subtle bg-border-subtle lg:grid-cols-4">
+    <div className="my-6 grid grid-cols-2 gap-px border border-border-subtle bg-border-subtle lg:grid-cols-4">
       {items.map((item, i) => (
-        <div key={i} className="flex flex-col gap-3 bg-surface-1 p-6 md:p-8">
+        <div key={i} className="flex flex-col gap-3 bg-surface-1 p-4 md:p-5">
           <StatValue value={item.value} />
           <span className="font-mono text-micro uppercase leading-relaxed tracking-[0.1em] text-text-tertiary">
             {item.label}

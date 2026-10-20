@@ -159,7 +159,7 @@ export function WritingDetailView({
   const titleWords = post.title.split(" ");
 
   return (
-    <main className="container-content flex min-h-svh flex-col gap-10 py-16">
+    <main className="container-content flex min-h-svh flex-col gap-5 py-6">
       <ScrollProgress />
       <SideNav sections={sections} />
       <BackToTop />
@@ -191,7 +191,7 @@ export function WritingDetailView({
         />
 
         <div
-          className="hero-rise mb-10 flex flex-wrap items-center gap-4"
+          className="hero-rise mb-6 flex flex-wrap items-center gap-4"
           style={{ "--rise-y": "8px", "--rise-duration": "0.5s", "--rise-delay": "0s" } as CSSProperties}
           dir="ltr"
         >
@@ -227,7 +227,7 @@ export function WritingDetailView({
         </h1>
 
         <p
-          className="hero-rise mt-8 max-w-[62ch] text-lead font-medium leading-snug text-text-secondary"
+          className="hero-rise mt-4 max-w-[62ch] text-lead font-medium leading-snug text-text-secondary"
           style={{ "--rise-duration": "0.5s", "--rise-delay": "0.35s" } as CSSProperties}
         >
           {post.standfirst}
@@ -235,7 +235,7 @@ export function WritingDetailView({
 
         {post.topics && post.topics.length > 0 ? (
           <div
-            className="hero-rise mt-10 flex flex-wrap items-center gap-x-3 gap-y-2"
+            className="hero-rise mt-6 flex flex-wrap items-center gap-x-3 gap-y-2"
             style={{ "--rise-y": "8px", "--rise-duration": "0.5s", "--rise-delay": "0.5s" } as CSSProperties}
           >
             {post.topics.map((topic, i) => (
@@ -255,7 +255,7 @@ export function WritingDetailView({
 
         <div
           aria-hidden
-          className="hero-rise mt-12 flex items-center gap-3 font-mono text-micro uppercase tracking-[0.14em] text-text-ghost"
+          className="hero-rise mt-6 flex items-center gap-3 font-mono text-micro uppercase tracking-[0.14em] text-text-ghost"
           style={{ "--rise-y": "8px", "--rise-duration": "0.5s", "--rise-delay": "0.8s" } as CSSProperties}
         >
           <motion.span
@@ -280,7 +280,7 @@ export function WritingDetailView({
       )}
 
       {prev || next ? (
-        <footer className="mt-16 grid grid-cols-1 gap-px border-t border-border-subtle pt-0 md:grid-cols-2">
+        <footer className="mt-8 grid grid-cols-1 gap-px border-t border-border-subtle pt-0 md:grid-cols-2">
           {prev ? (
             <Link
               href={`/writing/${prev.slug}`}

@@ -568,11 +568,11 @@ export function SystemPanel({
                       <div className="flex items-center gap-1.5 @max-4xl:flex-wrap @max-4xl:break-words">
                         <span>{tok.value}</span>
                         {isRejected ? (
-                          <span className="rounded bg-surface-2 px-1 py-0.2 font-mono text-[9px] uppercase text-text-ghost">
+                          <span className="rounded bg-surface-2 px-1 py-0.2 font-mono text-[12px] uppercase text-text-ghost">
                             {ar ? "مرفوض" : "REJECTED"}
                           </span>
                         ) : (
-                          <span className="rounded bg-accent/15 px-1 py-0.2 font-mono text-[9px] uppercase text-accent">
+                          <span className="rounded bg-accent/15 px-1 py-0.2 font-mono text-[12px] uppercase text-accent">
                             {ar ? "معتمد" : "LOCKED"}
                           </span>
                         )}

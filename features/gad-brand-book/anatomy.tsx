@@ -26,8 +26,8 @@ export function Anatomy() {
   const red = hot === 1 ? MUTED : RED;
 
   return (
-    <div className="grid items-center gap-10 @3xl:grid-cols-2">
-      <div className="flex items-center justify-center rounded-2xl bg-white p-10">
+    <div className="grid items-center gap-5 @3xl:grid-cols-2">
+      <div className="flex items-center justify-center rounded-2xl bg-white p-6">
         <svg viewBox={MARK_VIEWBOX} role="img" aria-label="GAD symbol: a circle of two lung arches around a heart" className="w-56 max-w-full">
           <g fill={blue} className="transition-[fill] duration-300 motion-reduce:transition-none">
             {MARK_BLUE.map((d, i) => <path key={i} d={d} />)}

@@ -39,7 +39,7 @@ export function AboutTeaser() {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <section className="container-content grid gap-8 py-16 lg:grid-cols-[7fr_5fr]">
+    <section className="container-content grid gap-8 py-6 lg:grid-cols-[7fr_5fr]">
       <div className="flex flex-col gap-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "01 / نبذة" : "01 / ABOUT"}
@@ -191,7 +191,7 @@ export function ClientJourneyBand() {
 
   return (
     <section ref={ref} className="process-story relative" dir={ar ? "rtl" : "ltr"}>
-      <div className="container-content grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div className="container-content grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:self-start lg:flex lg:flex-col lg:justify-center">
           <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">
             {ar ? "HOW WE WORK" : "HOW WE WORK"}
@@ -204,7 +204,7 @@ export function ClientJourneyBand() {
               ? "4 مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
               : "Four visible stages. Every stage has an output and a sign-off. You always know where the project stands."}
           </p>
-          <div className="mt-8 flex gap-2" aria-hidden>
+          <div className="mt-4 flex gap-2" aria-hidden>
             {steps.map((step, i) => (
               <span
                 key={step.n}
@@ -218,7 +218,7 @@ export function ClientJourneyBand() {
               />
             ))}
           </div>
-          <Link href="/process" className="mt-8 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary focus-visible:text-text-primary">
+          <Link href="/process" className="mt-4 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary focus-visible:text-text-primary">
             {ar ? "شوف المنهجية كاملة" : "See the full method"}
             <span aria-hidden className="ms-1">→</span>
           </Link>
@@ -284,7 +284,7 @@ export function WhyValueBand() {
       ];
 
   return (
-    <section className="container-content rounded-panel border border-secondary-mist/20 bg-secondary-mist/[0.035] py-16 md:py-20">
+    <section className="container-content rounded-panel border border-secondary-mist/20 bg-secondary-mist/[0.035] py-6 md:py-7">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div className="flex flex-col gap-3">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{ar ? "لماذا هذا الأسلوب" : "WHY THIS APPROACH"}</p>
@@ -342,8 +342,8 @@ export function HomeFaq() {
       ];
 
   return (
-    <section className="container-content py-20 md:py-28">
-      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+    <section className="container-content py-7 md:py-10">
+      <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : "FAQ"}</p>
           <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>

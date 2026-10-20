@@ -8,9 +8,9 @@ export interface SectionProps extends HTMLAttributes<HTMLElement> {
 }
 
 const DENSITIES = {
-  compact: "py-8 md:py-12",
-  default: "py-12 md:py-16",
-  spacious: "py-16 md:py-24",
+  compact: "py-4 md:py-6",
+  default: "py-6 md:py-8",
+  spacious: "py-8 md:py-10",
 } as const;
 
 /**

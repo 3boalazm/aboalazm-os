@@ -332,7 +332,7 @@ export function ProcessView() {
       <AnchorNav sections={sections} />
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-surface-0 px-6 py-24 lg:px-16">
+      <section className="relative overflow-hidden bg-surface-0 px-6 py-8 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
         <div className="relative z-10 flex max-w-[760px] flex-col gap-5">
           <p className="hero-rise font-mono text-caption uppercase tracking-[0.16em] text-accent" style={{ "--i": 0 } as CSSProperties}>
@@ -405,7 +405,7 @@ export function ProcessView() {
       </section>
 
       {/* ── PHASES (progressive disclosure) ── */}
-      <section id="phases" className="chapter-a px-6 pb-16 pt-8 lg:px-16">
+      <section id="phases" className="chapter-a px-6 pb-8 pt-8 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
             {ar ? "أربع مراحل واضحة. افتح أي واحدة." : "Four clear phases. Open any one."}
@@ -481,7 +481,7 @@ export function ProcessView() {
                         transition={{ ...physics }}
                         className="overflow-hidden"
                       >
-                        <div className="ms-[3.75rem] mb-6 grid gap-5 rounded-panel border border-border-subtle bg-surface-1 p-5 max-sm:ms-0 max-sm:p-3 md:grid-cols-2">
+                        <div className="ms-[3.75rem] mb-6 grid gap-5 rounded-panel border border-border-subtle bg-surface-1 p-4 max-sm:ms-0 max-sm:p-3 md:grid-cols-2">
                           {/* tasks */}
                           <div className="flex flex-col gap-2.5">
                             <p className="font-mono text-caption uppercase tracking-[0.1em] text-accent">{c.tasksLabel}</p>
@@ -530,10 +530,10 @@ export function ProcessView() {
       </section>
 
       {/* ── OPERATING PRINCIPLES ── */}
-      <section id="principles" className="chapter-b border-t border-border-subtle px-6 py-16 lg:px-16">
+      <section id="principles" className="chapter-b border-t border-border-subtle px-6 py-6 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <motion.div
-            className="mb-8 flex flex-col gap-1"
+            className="mb-4 flex flex-col gap-1"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -567,7 +567,7 @@ export function ProcessView() {
       </section>
 
       {/* ── CTA ── */}
-      <section id="cta" className="relative overflow-hidden chapter-a border-t border-border-subtle px-6 py-20 text-center lg:px-16">
+      <section id="cta" className="relative overflow-hidden chapter-a border-t border-border-subtle px-6 py-7 text-center lg:px-16">
         <motion.div
           className="relative z-10 mx-auto flex max-w-[560px] flex-col items-center gap-5"
           initial={{ opacity: 0, y: 24 }}

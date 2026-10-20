@@ -331,7 +331,7 @@ export function CtaBand({
 }) {
   const { lang } = useLang();
   return (
-    <section className="flex flex-col items-center gap-3 border-t border-border-subtle py-16 text-center">
+    <section className="flex flex-col items-center gap-3 border-t border-border-subtle py-6 text-center">
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
         — {pick(kicker, lang)} —
       </p>

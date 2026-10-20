@@ -270,9 +270,9 @@ export function ForHiringView() {
   const ar = lang === "ar";
 
   return (
-    <main className="container-content flex flex-col gap-16 py-12 lg:py-16">
+    <main className="container-content flex flex-col gap-8 py-5 lg:py-6">
       {/* ── 01 · Hero Header & Candidacy ── */}
-      <header className="flex flex-col gap-6 border-b border-border-subtle pb-12">
+      <header className="flex flex-col gap-6 border-b border-border-subtle pb-6">
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="live" size="md">
             <span className="size-2 rounded-pill bg-success animate-pulse" />
@@ -351,7 +351,7 @@ export function ForHiringView() {
       </header>
 
       {/* ── 02 · Candidate Highlights & Quick Facts ── */}
-      <dl className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-12 sm:grid-cols-4">
+      <dl className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-6 sm:grid-cols-4">
         {[
           [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
           [ar ? "أنظمة تم تسليمها" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "دواء، صحة، غذاء، تعليم، حكومة" : "Healthcare, pharma, education, government"],
@@ -367,7 +367,7 @@ export function ForHiringView() {
       </dl>
 
       {/* ── 03 · Selected Projects with Exact Role Breakdown ── */}
-      <section className="flex flex-col gap-8 border-b border-border-subtle pb-16">
+      <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
             {ar ? "أبرز المشاريع وتفاصيل الدور الفعلي" : "SELECTED WORK & ROLE BREAKDOWN"}
@@ -421,11 +421,11 @@ export function ForHiringView() {
                       className="object-cover"
                     />
                   </div>
-                  <div className="hidden flex-1 p-6 lg:block">{roleBlock}</div>
+                  <div className="hidden flex-1 p-4 lg:block">{roleBlock}</div>
                 </div>
 
                 {/* Details side */}
-                <div className="flex flex-col gap-4 p-5 lg:p-6">
+                <div className="flex flex-col gap-4 p-4 lg:p-4">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border-subtle pb-3">
                     <div>
                       <span className="font-mono text-micro uppercase tracking-wider text-accent">
@@ -488,7 +488,7 @@ export function ForHiringView() {
       </section>
 
       {/* ── 04 · Core Competencies ── */}
-      <section className="flex flex-col gap-8 border-b border-border-subtle pb-16">
+      <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
             {ar ? "المصفوفة المهارية والقدرات" : "SKILLS & COMPETENCY MATRIX"}
@@ -521,7 +521,7 @@ export function ForHiringView() {
       </section>
 
       {/* ── 05 · Career Timeline Aligned with CV & LinkedIn ── */}
-      <section className="flex flex-col gap-8 border-b border-border-subtle pb-16">
+      <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
             {ar ? "المسيرة المهنية الموثقة" : "CAREER TIMELINE"}
@@ -557,7 +557,7 @@ export function ForHiringView() {
       </section>
 
       {/* ── 06 · Interview Scheduling & Contact ── */}
-      <section className="flex flex-col items-center justify-between gap-6 rounded-panel border border-border-strong bg-surface-1 p-8 text-center sm:flex-row sm:text-left rtl:sm:text-right">
+      <section className="flex flex-col items-center justify-between gap-6 rounded-panel border border-border-strong bg-surface-1 p-5 text-center sm:flex-row sm:text-left rtl:sm:text-right">
         <div className="flex flex-col gap-2 max-w-[50ch]">
           <h2 className="font-display font-display-sm text-subtitle font-bold text-text-primary">
             {ar ? "جاهز للانضمام لفريقكم؟" : "Interested in discussing an open role?"}

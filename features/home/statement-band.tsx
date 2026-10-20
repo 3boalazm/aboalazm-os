@@ -15,7 +15,7 @@ export function StatementBand() {
   const ar = lang === "ar";
   return (
     <section aria-label={ar ? "بيان المنهج" : "Studio statement"} className="bg-obsidian text-alabaster">
-      <div className="container-wide flex flex-col gap-6 py-20 md:py-28">
+      <div className="container-wide flex flex-col gap-6 py-7 md:py-10">
         <p className="font-mono text-micro uppercase tracking-[0.14em] text-alabaster/50">
           {ar ? "الموقف" : "THE POSITION"}
         </p>

@@ -28,7 +28,7 @@ function DataTable({ markdown }: { markdown: string }) {
   const [header, ...body] = rows;
 
   return (
-    <div className="my-10 max-w-full overflow-x-auto">
+    <div className="my-6 max-w-full overflow-x-auto">
       <table className="w-full min-w-[32rem] border-collapse text-body-sm">
         <thead>
           <tr className="border-y border-text-primary">
@@ -87,7 +87,7 @@ function makeConverters(
       if (node.tag === "h3") {
         return (
           <Reveal>
-            <h3 className="mt-8 font-display font-display-sm text-lead font-semibold uppercase tracking-[0.01em] text-text-primary">
+            <h3 className="mt-4 font-display font-display-sm text-lead font-semibold uppercase tracking-[0.01em] text-text-primary">
               {children}
             </h3>
           </Reveal>
@@ -101,7 +101,7 @@ function makeConverters(
       const id = sectionAnchor(text);
       return (
         <Reveal>
-          <div id={id} data-section-anchor className="mt-20 scroll-mt-28 first:mt-8">
+          <div id={id} data-section-anchor className="mt-10 scroll-mt-28 first:mt-4">
             {no ? (
               <span
                 aria-hidden
@@ -135,7 +135,7 @@ function makeConverters(
       if (closingQuote && text === closingQuote) {
         return (
           <Reveal>
-            <blockquote className="my-16 border-2 border-accent bg-surface-1 px-8 py-12 text-center md:px-16">
+            <blockquote className="my-8 border-2 border-accent bg-surface-1 px-8 py-5 text-center md:px-16">
               <p className="mx-auto max-w-[46ch] font-display text-title font-bold italic leading-tight text-text-primary">
                 {children}
               </p>
@@ -145,7 +145,7 @@ function makeConverters(
       }
       return (
         <Reveal>
-          <blockquote className="my-12 border-s-2 border-accent py-2 ps-6">
+          <blockquote className="my-6 border-s-2 border-accent py-2 ps-6">
             <p className="max-w-[40ch] font-display text-lead font-semibold italic leading-tight text-text-primary md:text-title">
               {children}
             </p>

@@ -16,7 +16,7 @@ import { useLang } from "@/components/providers/lang-provider";
  *   │  5Y · LOCKED · 20+ — evidence row                          │
  *   └────────────────────────────────────────────────────────────┘
  *
- * Spacing: 8px scale only (gap-2/3/4, py-8, pt-16 → 16/24/32/64/128).
+ * Spacing: 8px scale only (gap-2/3/4, py-8, pt-8 → 16/24/32/64/128).
  * Canvas: bg-surface-0 (theme-reactive — Obsidian in dark, Alabaster in light).
  * Motion: every transition rides --ease-physics via lib/motion; the page-load
  * entrances are CSS keyframes (hero.css) so the text is visible in the server
@@ -56,7 +56,7 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
   const HEADLINE = [t.heroLine1, t.heroLine2, t.heroLine3];
 
   return (
-    <section className="home-hero relative flex min-h-[calc(100svh-4rem)] flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
+    <section className="home-hero relative flex min-h-[calc(88svh-4rem)] flex-col overflow-hidden bg-surface-0" style={{ isolation: "isolate" }}>
       {/* ── Expressive atmosphere — legible BEFORE any interaction ──
           The audit's core finding: the hero's colour existed only as a
           diffuse blurred glow whose alpha was too low to read. These two
@@ -81,7 +81,7 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
       <div aria-hidden className="grain-layer" />
 
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
-      <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-12 lg:grid-cols-[1.15fr_0.85fr] lg:pt-14">
+      <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-6 lg:grid-cols-[1.15fr_0.85fr] lg:pt-14">
         {/* Left — typographic architecture */}
         <div className="flex flex-col gap-2 lg:gap-3">
           {/* Live status row — in-flow micro-frame */}

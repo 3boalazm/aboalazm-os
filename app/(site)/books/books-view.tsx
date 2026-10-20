@@ -15,7 +15,7 @@ export function BooksView() {
   const ar = lang === "ar";
 
   return (
-    <main className="container-content flex flex-col gap-14 py-16">
+    <main className="container-content flex flex-col gap-7 py-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "المكتبة" : "LIBRARY"}
@@ -52,7 +52,7 @@ export function BooksView() {
               <Link
                 href={`/books/${book.slug}`}
                 className={panelCardVariants({
-                  className: "group flex h-full flex-col justify-between gap-6 rounded-panel p-5 md:p-6 transition-colors duration-base ease-physics hover:border-accent/40",
+                  className: "group flex h-full flex-col justify-between gap-6 rounded-panel p-4 md:p-4 transition-colors duration-base ease-physics hover:border-accent/40",
                 })}
               >
                 <div className="flex flex-col gap-2">

@@ -81,7 +81,7 @@ export function ScrollyCaseStudy({
   const idx = (id: string) => panels.find((p) => p.id === id)!.index;
 
   return (
-    <div className="container-wide grid gap-8 py-16 lg:grid-cols-[16rem_1fr]">
+    <div className="container-wide grid gap-8 py-6 lg:grid-cols-[16rem_1fr]">
       <TrackSidebar articleRef={articleRef} panels={panels} />
       <article ref={articleRef} className="flex min-w-0 flex-col">
         <header className="flex flex-col gap-2 pb-8">

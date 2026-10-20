@@ -45,7 +45,7 @@ export default async function Home() {
       {/* Install the OS itself; the floating control below handles the native prompt. */}
       <section className="narrative-section narrative-section--cta" aria-labelledby="install-os-title">
         <div className="container-wide">
-          <div className="rounded-card border border-border-default bg-surface-1/80 p-6 shadow-card backdrop-blur-xl sm:p-8">
+          <div className="rounded-card border border-border-default bg-surface-1/80 p-4 shadow-card backdrop-blur-xl sm:p-5">
             <p className="font-mono text-micro uppercase tracking-[0.16em] text-accent">TAKE THE OS WITH YOU</p>
             <div className="mt-3 grid gap-5 sm:grid-cols-[1fr_auto] sm:items-end">
               <div>

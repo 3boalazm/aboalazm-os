@@ -27,32 +27,32 @@ export function MahtoolCaseStudy() {
 
   return (
     <main className="overflow-hidden">
-      <section className="container-wide relative flex min-h-[78svh] flex-col justify-between gap-14 py-12 md:py-20">
+      <section className="container-wide relative flex min-h-[68svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute -right-24 top-8 h-80 w-80 rounded-full bg-orange-500/[0.10] blur-[100px]" />
           <div className="absolute -left-20 top-56 h-72 w-72 rounded-full bg-violet-400/[0.09] blur-[100px]" />
           <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-orange-400/50 to-transparent" />
         </div>
-        <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
+        <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
           <Link href="/work" className="transition-colors hover:text-text-primary">← {ar ? "كل الأعمال" : "All work"}</Link>
           <span>{ar ? "ملف منتج / 002" : "Product case file / 002"}</span>
         </div>
 
-        <div className="grid items-end gap-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
+        <div className="grid items-end gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(280px,0.8fr)]">
           <div>
             <div className="mb-6 flex flex-wrap gap-2">
-              <span className="rounded-full border border-orange-400/30 bg-orange-400/[0.08] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-orange-300">Audio intelligence tool</span>
-              <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "ثنائي اللغة · قابل للتثبيت" : "Bilingual · Installable PWA"}</span>
+              <span className="rounded-full border border-orange-400/30 bg-orange-400/[0.08] px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">Audio intelligence tool</span>
+              <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "ثنائي اللغة · قابل للتثبيت" : "Bilingual · Installable PWA"}</span>
             </div>
             <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-orange-300/80">MAHTOOL / SPEECH-TO-TEXT STUDIO</p>
             <h1 className="max-w-5xl font-display text-[clamp(4rem,11vw,9rem)] leading-[0.82] tracking-[-0.075em] text-text-primary">Mahtool<span className="text-orange-300">.</span></h1>
-            <p className="mt-8 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
+            <p className="mt-4 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
               {ar ? "مش مجرد زرار يحوّل الصوت لنص. مساحة عمل كاملة للتفريغ الصوتي، تجمع محركات متعددة وبدائل تلقائية وتحكم في المفاتيح والاستهلاك والتصدير." : "Not just a button that turns audio into text. A full transcription workspace that brings multiple engines, automatic failover, credential controls, usage visibility and export into one place."}
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-5 backdrop-blur-xl md:p-6">
-            <div className="mb-5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-text-tertiary">
+          <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-4 backdrop-blur-xl md:p-4">
+            <div className="mb-5 flex items-center justify-between font-mono text-[12px] uppercase tracking-[0.14em] text-text-tertiary">
               <span>{ar ? "لوحة قدرات الأداة" : "Tool capability panel"}</span>
               <span className="text-orange-300">MHT / STT</span>
             </div>
@@ -60,16 +60,16 @@ export function MahtoolCaseStudy() {
               <div className="rounded-xl border border-border-subtle p-4"><p className="font-display text-4xl text-text-primary">04</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "محركات تفريغ" : "Transcription engines"}</p></div>
               <div className="rounded-xl border border-border-subtle p-4"><p className="font-display text-4xl text-text-primary">AR/EN</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "واجهة عربية وإنجليزية" : "Arabic + English UI"}</p></div>
               <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار المعالجة" : "Processing path"}</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار المعالجة" : "Processing path"}</p>
                 <p className="mt-2 text-sm text-text-primary">Input <span className="text-orange-300">→</span> Engine chain <span className="text-orange-300">→</span> Editable transcript <span className="text-orange-300">→</span> Export</p>
               </div>
             </div>
-            <p className="mt-4 text-[11px] leading-relaxed text-text-tertiary">{ar ? "القدرات موثقة من سورس المشروع وREADME؛ نجاح المحرك يعتمد على تهيئة مفاتيح الخدمة وحدودها." : "Capabilities are documented in the source and README; provider success depends on configured credentials and provider limits."}</p>
+            <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">{ar ? "القدرات موثقة من سورس المشروع وREADME؛ نجاح المحرك يعتمد على تهيئة مفاتيح الخدمة وحدودها." : "Capabilities are documented in the source and README; provider success depends on configured credentials and provider limits."}</p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-5">
-          <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">
+          <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
             <span>{ar ? "الدور: بناء المنتج والتكامل" : "Role: Product engineering & integration"}</span><span>{ar ? "المجال: صوت وذكاء اصطناعي" : "Domain: Audio tooling"}</span><span>2026</span>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -80,44 +80,44 @@ export function MahtoolCaseStudy() {
       </section>
 
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide grid gap-10 py-16 md:grid-cols-[0.55fr_1fr] md:py-24">
+        <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">01 / {ar ? "المشكلة" : "The problem"}</p><h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "المحرك الواحد نقطة فشل واحدة." : "One engine means one point of failure."}</h2></div>
-          <div className="max-w-3xl space-y-5 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
             <p>{ar ? "واجهات التفريغ البسيطة غالبًا بتربط المستخدم بمزود واحد. لما يحصل نفاد رصيد أو Rate limit أو مشكلة في الاستجابة، المستخدم يضطر يجرّب خدمة ثانية وينقل الملف والإعدادات بنفسه." : "Simple transcription interfaces often tie the user to one provider. When credits run out, rate limits hit or a response fails, the user has to switch services and repeat the workflow manually."}</p>
             <p>{ar ? "Mahtool يوحّد أربع خدمات خلف مسار API واحد، ويجرّب المحركات بالترتيب حتى ينجح أحدها أو ينتهي المسار، مع سجل محاولات منظم يساعد على فهم سبب الفشل." : "Mahtool places four providers behind one API route, tries them in sequence until one succeeds or the chain is exhausted, and returns a structured attempt trail to explain failures."}</p>
-            <div className="rounded-xl border-s-2 border-orange-400 bg-orange-400/[0.04] p-5"><p className="text-sm leading-7 text-text-primary">{ar ? "الفكرة الأساسية: المستخدم يختار طريقة العمل؛ الأداة تتولى تنسيق المحركات وحدودها ورسائل الفشل بوضوح." : "Core principle: users choose how they want to work; the tool orchestrates providers, their limits and clear failure reporting."}</p></div>
+            <div className="rounded-xl border-s-2 border-orange-400 bg-orange-400/[0.04] p-4"><p className="text-sm leading-7 text-text-primary">{ar ? "الفكرة الأساسية: المستخدم يختار طريقة العمل؛ الأداة تتولى تنسيق المحركات وحدودها ورسائل الفشل بوضوح." : "Core principle: users choose how they want to work; the tool orchestrates providers, their limits and clear failure reporting."}</p></div>
           </div>
         </div>
       </section>
 
-      <section className="container-wide py-16 md:py-24">
-        <div className="mb-10 flex flex-wrap items-end justify-between gap-6"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">02 / {ar ? "سلسلة المحركات" : "The engine chain"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "أربع خدمات. مسار واحد." : "Four providers. One workflow."}</h2></div><p className="max-w-md text-sm leading-6 text-text-tertiary">{ar ? "يمكن اختيار محرك بعينه أو ترك الأداة تدير الترتيب تلقائيًا. ويمكن تعطيل الانتقال التلقائي عند الحاجة." : "Pin a preferred engine or let the tool follow its configured order. Automatic fallback can also be turned off when needed."}</p></div>
+      <section className="container-wide py-6 md:py-8">
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-6"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">02 / {ar ? "سلسلة المحركات" : "The engine chain"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "أربع خدمات. مسار واحد." : "Four providers. One workflow."}</h2></div><p className="max-w-md text-sm leading-6 text-text-tertiary">{ar ? "يمكن اختيار محرك بعينه أو ترك الأداة تدير الترتيب تلقائيًا. ويمكن تعطيل الانتقال التلقائي عند الحاجة." : "Pin a preferred engine or let the tool follow its configured order. Automatic fallback can also be turned off when needed."}</p></div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {engines.map((engine, i) => <article key={engine.name} className="rounded-xl border border-border-subtle bg-surface-1/40 p-5 transition-colors hover:border-orange-400/40"><div className="mb-8 flex items-center justify-between"><span className="font-mono text-xs text-text-ghost">0{i + 1}</span><span className={`h-2 w-2 rounded-full ${engine.color}`} /></div><h3 className="font-display text-2xl text-text-primary">{engine.name}</h3><p className="mt-1 text-sm text-text-secondary">{engine.model}</p><p className="mt-6 border-t border-border-subtle pt-4 font-mono text-[10px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? engine.roleAr : engine.role}</p></article>)}
+          {engines.map((engine, i) => <article key={engine.name} className="rounded-xl border border-border-subtle bg-surface-1/40 p-4 transition-colors hover:border-orange-400/40"><div className="mb-4 flex items-center justify-between"><span className="font-mono text-xs text-text-ghost">0{i + 1}</span><span className={`h-2 w-2 rounded-full ${engine.color}`} /></div><h3 className="font-display text-2xl text-text-primary">{engine.name}</h3><p className="mt-1 text-sm text-text-secondary">{engine.model}</p><p className="mt-6 border-t border-border-subtle pt-4 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? engine.roleAr : engine.role}</p></article>)}
         </div>
-        <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-5 md:p-7"><div className="flex flex-wrap items-center gap-2 text-sm">{["Request", "Deepgram", "Gladia", "AssemblyAI", "Speechmatics", "Transcript"].map((step, i) => <span key={step} className="flex items-center gap-2"><span className={`rounded-lg border px-3 py-2 ${i === 0 || i === 5 ? "border-orange-400/40 bg-orange-400/[0.07] text-text-primary" : "border-border-subtle text-text-secondary"}`}>{step}</span>{i < 5 && <span className="text-orange-300">→</span>}</span>)}</div><p className="mt-4 text-xs leading-6 text-text-tertiary">{ar ? "مخطط توضيحي لسلسلة البدائل؛ المحرك المثبت أو ترتيب ENGINE_ORDER قد يغيّر نقطة البداية، ولا يتم تكرار الأخطاء غير القابلة لإعادة المحاولة بلا داعٍ." : "Illustrative fallback chain. A pinned engine or ENGINE_ORDER can change the starting point; non-retryable failures are not blindly retried."}</p></div>
+        <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5"><div className="flex flex-wrap items-center gap-2 text-sm">{["Request", "Deepgram", "Gladia", "AssemblyAI", "Speechmatics", "Transcript"].map((step, i) => <span key={step} className="flex items-center gap-2"><span className={`rounded-lg border px-3 py-2 ${i === 0 || i === 5 ? "border-orange-400/40 bg-orange-400/[0.07] text-text-primary" : "border-border-subtle text-text-secondary"}`}>{step}</span>{i < 5 && <span className="text-orange-300">→</span>}</span>)}</div><p className="mt-4 text-xs leading-6 text-text-tertiary">{ar ? "مخطط توضيحي لسلسلة البدائل؛ المحرك المثبت أو ترتيب ENGINE_ORDER قد يغيّر نقطة البداية، ولا يتم تكرار الأخطاء غير القابلة لإعادة المحاولة بلا داعٍ." : "Illustrative fallback chain. A pinned engine or ENGINE_ORDER can change the starting point; non-retryable failures are not blindly retried."}</p></div>
       </section>
 
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide py-16 md:py-24"><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">03 / {ar ? "داخل مساحة العمل" : "Inside the workspace"}</p><h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "خيارات كتير، من غير ما تتحول لفوضى." : "Lots of options, without turning into chaos."}</h2>
-          <div className="mt-10 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {capabilities.map(([n, title, body, titleAr, bodyAr]) => <article key={n} className="group rounded-xl border border-border-subtle bg-background/55 p-5 transition-colors hover:border-orange-400/40 md:p-6"><div className="mb-7 flex items-center justify-between"><span className="font-mono text-xs text-text-ghost">{n}</span><span className="text-orange-300 transition-transform group-hover:translate-x-1">↗</span></div><h3 className="font-display text-xl text-text-primary">{ar ? titleAr : title}</h3><p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p></article>)}
+        <div className="container-wide py-6 md:py-8"><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">03 / {ar ? "داخل مساحة العمل" : "Inside the workspace"}</p><h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "خيارات كتير، من غير ما تتحول لفوضى." : "Lots of options, without turning into chaos."}</h2>
+          <div className="mt-6 grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {capabilities.map(([n, title, body, titleAr, bodyAr]) => <article key={n} className="group rounded-xl border border-border-subtle bg-background/55 p-4 transition-colors hover:border-orange-400/40 md:p-4"><div className="mb-7 flex items-center justify-between"><span className="font-mono text-xs text-text-ghost">{n}</span><span className="text-orange-300 transition-transform group-hover:translate-x-1">↗</span></div><h3 className="font-display text-xl text-text-primary">{ar ? titleAr : title}</h3><p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p></article>)}
           </div>
         </div>
       </section>
 
-      <section className="container-wide py-16 md:py-24">
-        <div className="grid gap-10 lg:grid-cols-[0.6fr_1fr]"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">04 / {ar ? "ملفات كبيرة وتسجيل مباشر" : "Large files & live capture"}</p><h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "التعامل مع الصوت جزء من المنتج." : "Audio handling is part of the product."}</h2></div>
-          <div className="space-y-5 text-sm leading-7 text-text-secondary">
+      <section className="container-wide py-6 md:py-8">
+        <div className="grid gap-5 lg:grid-cols-[0.6fr_1fr]"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">04 / {ar ? "ملفات كبيرة وتسجيل مباشر" : "Large files & live capture"}</p><h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "التعامل مع الصوت جزء من المنتج." : "Audio handling is part of the product."}</h2></div>
+          <div className="space-y-3 text-sm leading-7 text-text-secondary">
             <p>{ar ? "واجهة الإدخال تدعم السحب والإفلات والاختيار من الجهاز وتسجيل المتصفح مع عداد زمني ومستوى صوت مباشر، مع إظهار المدة والحجم وشكل موجي مبني على بيانات الصوت." : "The input surface supports drag-and-drop, local file selection and browser recording with a timer and live level meter, plus duration, size and decoded waveform peaks."}</p>
-            <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-border-subtle p-5"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-300">Inline upload</p><p className="mt-2 text-2xl font-display text-text-primary">4 MB</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "حد تقريبي على Vercel بدون Blob" : "Vercel path without Blob storage"}</p></div><div className="rounded-xl border border-orange-400/30 bg-orange-400/[0.04] p-5"><p className="font-mono text-[10px] uppercase tracking-[0.12em] text-orange-300">Blob direct upload</p><p className="mt-2 text-2xl font-display text-text-primary">300 MB</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "عند ربط Vercel Blob وتهيئة الحد" : "When Vercel Blob is configured with the size ceiling"}</p></div></div>
+            <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-xl border border-border-subtle p-4"><p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">Inline upload</p><p className="mt-2 text-2xl font-display text-text-primary">4 MB</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "حد تقريبي على Vercel بدون Blob" : "Vercel path without Blob storage"}</p></div><div className="rounded-xl border border-orange-400/30 bg-orange-400/[0.04] p-4"><p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">Blob direct upload</p><p className="mt-2 text-2xl font-display text-text-primary">300 MB</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "عند ربط Vercel Blob وتهيئة الحد" : "When Vercel Blob is configured with the size ceiling"}</p></div></div>
             <p>{ar ? "الحدود مرتبطة بالاستضافة والإعدادات؛ الواجهة تقرأ القدرات الفعلية من /api/health بدل وعد المستخدم بحجم لا يمكن استقباله." : "Limits depend on hosting and configuration; the UI reads actual capabilities from /api/health instead of advertising a size the deployment cannot accept."}</p>
           </div>
         </div>
       </section>
 
       <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide grid gap-10 py-16 md:grid-cols-[0.55fr_1fr] md:py-24"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">05 / {ar ? "الخصوصية والاعتمادية" : "Privacy & reliability"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "الاختيارات الكتير محتاجة حدود واضحة." : "More options need clear boundaries."}</h2></div>
+        <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">05 / {ar ? "الخصوصية والاعتمادية" : "Privacy & reliability"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "الاختيارات الكتير محتاجة حدود واضحة." : "More options need clear boundaries."}</h2></div>
           <div className="divide-y divide-border-subtle border-y border-border-subtle">{[
             [ar ? "المفاتيح لا تصل للواجهة" : "Credentials stay server-side", ar ? "مفاتيح البيئة تمر عبر مسارات الخادم فقط. مفاتيح المستخدم محفوظة في Cookie محمية، والردود تعرض حالة مقنّعة لا القيمة السرية." : "Deployment keys are used by server routes only. User keys live in an HttpOnly cookie; responses expose masked status, never the raw secret."],
             [ar ? "حماية الروابط" : "Remote URL guard", ar ? "روابط الملفات البعيدة تخضع للتحقق من البروتوكول والعناوين العامة وإعادة التوجيه ونوع المحتوى وحجم التنزيل والمهلة الزمنية." : "Remote media links are checked for protocol, public IP resolution, redirects, content type, download size and a bounded deadline."],
@@ -127,9 +127,9 @@ export function MahtoolCaseStudy() {
         </div>
       </section>
 
-      <section className="container-wide py-16 md:py-24"><div className="grid gap-10 lg:grid-cols-[0.55fr_1fr]"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">06 / {ar ? "التقنيات" : "Technology stack"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">{ar ? "كل طبقة لها مسؤولية." : "Every layer has a job."}</h2></div><div><div className="flex flex-wrap gap-2">{stack.map((item) => <span key={item} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{item}</span>)}</div><p className="mt-6 text-sm leading-7 text-text-secondary">{ar ? "طبقة API موحدة، ومحوّلات منفصلة للمزودين، وتصنيف أخطاء قابل للقراءة برمجيًا، مع اختبارات تغطي سيناريوهات التحويل بين المحركات ومسارات المفاتيح والرفع." : "A single API route fronts separate provider adapters, machine-readable error taxonomy and tests for engine hand-offs, credential flows and upload boundaries."}</p></div></div></section>
+      <section className="container-wide py-6 md:py-8"><div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">06 / {ar ? "التقنيات" : "Technology stack"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">{ar ? "كل طبقة لها مسؤولية." : "Every layer has a job."}</h2></div><div><div className="flex flex-wrap gap-2">{stack.map((item) => <span key={item} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{item}</span>)}</div><p className="mt-6 text-sm leading-7 text-text-secondary">{ar ? "طبقة API موحدة، ومحوّلات منفصلة للمزودين، وتصنيف أخطاء قابل للقراءة برمجيًا، مع اختبارات تغطي سيناريوهات التحويل بين المحركات ومسارات المفاتيح والرفع." : "A single API route fronts separate provider adapters, machine-readable error taxonomy and tests for engine hand-offs, credential flows and upload boundaries."}</p></div></div></section>
 
-      <section className="border-t border-border-subtle bg-surface-1/35"><div className="container-wide flex flex-col gap-8 py-16 md:flex-row md:items-end md:justify-between md:py-20"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">HAND-OFF / 002</p><h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "أداة متكاملة، وحدودها واضحة." : "A capable tool, with honest boundaries."}</h2><p className="mt-5 max-w-2xl text-sm leading-7 text-text-secondary">{ar ? "Mahtool يجمع تجربة الاستخدام وتكامل المحركات والرفع والتسجيل والتصدير في منتج واحد. توفر كل ميزة فعليًا يعتمد على إعداد الاستضافة ومفاتيح المزود." : "Mahtool combines interaction design, provider orchestration, upload, recording and export in one product. Actual provider capability depends on deployment configuration and credentials."}</p></div><div className="flex shrink-0 flex-wrap gap-3"><a href="https://github.com/3boalazm/MahmoudTC-tool" target="_blank" rel="noreferrer" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-orange-400/60">Source code ↗</a><a href="https://mahtool.vercel.app/" target="_blank" rel="noreferrer" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">{ar ? "جرّب Mahtool" : "Try Mahtool"} ↗</a></div></div></section>
+      <section className="border-t border-border-subtle bg-surface-1/35"><div className="container-wide flex flex-col gap-8 py-6 md:flex-row md:items-end md:justify-between md:py-7"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">HAND-OFF / 002</p><h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "أداة متكاملة، وحدودها واضحة." : "A capable tool, with honest boundaries."}</h2><p className="mt-5 max-w-2xl text-sm leading-7 text-text-secondary">{ar ? "Mahtool يجمع تجربة الاستخدام وتكامل المحركات والرفع والتسجيل والتصدير في منتج واحد. توفر كل ميزة فعليًا يعتمد على إعداد الاستضافة ومفاتيح المزود." : "Mahtool combines interaction design, provider orchestration, upload, recording and export in one product. Actual provider capability depends on deployment configuration and credentials."}</p></div><div className="flex shrink-0 flex-wrap gap-3"><a href="https://github.com/3boalazm/MahmoudTC-tool" target="_blank" rel="noreferrer" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-orange-400/60">Source code ↗</a><a href="https://mahtool.vercel.app/" target="_blank" rel="noreferrer" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">{ar ? "جرّب Mahtool" : "Try Mahtool"} ↗</a></div></div></section>
     </main>
   );
 }

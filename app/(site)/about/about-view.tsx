@@ -64,7 +64,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
   const facts = ar ? FACTS.ar : FACTS.en;
 
   return (
-    <main className="container-content flex flex-col gap-16 py-16">
+    <main className="container-content flex flex-col gap-8 py-6">
       <header className="flex flex-col gap-4">
         <Heading
           eyebrow={ar ? t.aboutSection : t.aboutSection}

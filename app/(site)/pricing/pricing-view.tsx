@@ -37,7 +37,7 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
   const ar = lang === "ar";
   useAmbientGlow(PRICING_MOOD, 0.3);
   return (
-    <main className="container-content flex flex-col gap-16 py-16">
+    <main className="container-content flex flex-col gap-8 py-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "التسعير / التكلفة" : "PRICING / WHAT IT COSTS"}
@@ -84,7 +84,7 @@ export function PricingView({ tiers, investmentValue, alaCarte }: PricingData) {
       </section>
 
       {/* Investment value — reframes price as an asset (systemic positioning) */}
-      <section className="rounded-panel border border-border-subtle bg-surface-1/30 p-5 md:p-7">
+      <section className="rounded-panel border border-border-subtle bg-surface-1/30 p-4 md:p-5">
         <InvestmentValue metrics={investmentValue} />
       </section>
 

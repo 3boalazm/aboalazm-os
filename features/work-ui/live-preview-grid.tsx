@@ -11,7 +11,7 @@ export function LivePreviewGrid({ projects }: { projects: readonly Project[] }) 
 
   if (projects.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-1 border-y border-border-subtle py-12 text-center">
+      <div className="flex flex-col items-center gap-1 border-y border-border-subtle py-5 text-center">
         <p className="font-display text-title text-text-tertiary">
           {ar ? "لا توجد معاينات حية بعد" : "No live previews yet"}
         </p>

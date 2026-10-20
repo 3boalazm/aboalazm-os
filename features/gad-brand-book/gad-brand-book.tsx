@@ -12,7 +12,7 @@ const MUTED = "rgb(255 255 255 / 0.68)";
 
 function Chip({ label, number }: { label: string; number: string }) {
   return (
-    <div className="mb-8 flex items-center gap-3">
+    <div className="mb-4 flex items-center gap-3">
       <span className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: RED_TEXT }}>{number}</span>
       <span className="h-px w-8" style={{ background: RED }} />
       <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">{label}</span>
@@ -33,7 +33,7 @@ const PLATE_DARK = "#070D14";
 function LogoPlate({ src, alt, w, h, dark = false, className = "" }: { src: string; alt: string; w: number; h: number; dark?: boolean; className?: string }) {
   return (
     <div
-      className={`flex items-center justify-center rounded-2xl p-8 ${dark ? "border border-white/15" : "bg-white"} ${className}`}
+      className={`flex items-center justify-center rounded-2xl p-5 ${dark ? "border border-white/15" : "bg-white"} ${className}`}
       style={dark ? { background: PLATE_DARK } : undefined}
     >
       {/* eslint-disable-next-line @next/next/no-img-element -- local SVG, nothing to optimise */}
@@ -71,11 +71,11 @@ export function GadBrandBook() {
     // Site spacing is 8px per step; this page was designed on Tailwind's 4px scale.
     <div style={{ "--spacing": "4px", background: DARK, fontFamily: "var(--font-sans)" } as React.CSSProperties} className="@container text-white">
       {/* ── COVER ── */}
-      <section id="bb-cover" aria-labelledby="bb-cover-title" className="relative flex flex-col justify-end overflow-hidden py-16" style={{ background: DARKER }}>
+      <section id="bb-cover" aria-labelledby="bb-cover-title" className="relative flex flex-col justify-end overflow-hidden py-6" style={{ background: DARKER }}>
         <span aria-hidden className="pointer-events-none absolute inset-0 flex select-none items-center justify-end overflow-hidden pr-10 text-[22cqw] font-bold leading-none tracking-tighter" style={{ color: "rgb(255 255 255 / 0.03)" }}>GAD</span>
-        <div className="relative mx-auto grid w-full max-w-7xl items-end gap-12 px-6 @3xl:grid-cols-[1.1fr_0.9fr] @3xl:px-16">
+        <div className="relative mx-auto grid w-full max-w-7xl items-end gap-6 px-6 @3xl:grid-cols-[1.1fr_0.9fr] @3xl:px-16">
           <div>
-            <div className="mb-8 flex flex-wrap items-center gap-3">
+            <div className="mb-4 flex flex-wrap items-center gap-3">
               <span className="text-xs font-semibold uppercase tracking-[0.25em]" style={{ color: RED_TEXT }}>Full Brand Identity</span>
               <span className="h-px w-12" style={{ background: RED }} />
               <span className="text-xs font-semibold uppercase tracking-[0.25em] text-white/70">2025 — V2.0</span>
@@ -85,7 +85,7 @@ export function GadBrandBook() {
               <span className="block" style={{ color: BLUE_LIGHT }}>&amp; Lungs</span>
               <span className="block" style={{ color: RED_TEXT }}>Institute</span>
             </h3>
-            <p lang="ar" dir="rtl" className="mb-10 w-fit max-w-xl text-lg leading-relaxed" style={{ color: MUTED, fontFamily: "var(--font-arabic)" }}>
+            <p lang="ar" dir="rtl" className="mb-6 w-fit max-w-xl text-lg leading-relaxed" style={{ color: MUTED, fontFamily: "var(--font-arabic)" }}>
               مستشفى د. غنام الدوسري للقلب والرئتين
             </p>
             <dl className="flex flex-wrap items-center gap-x-8 gap-y-4">
@@ -104,19 +104,19 @@ export function GadBrandBook() {
       </section>
 
       {/* ── STRATEGY ── */}
-      <section id="bb-strategy" aria-labelledby="bb-strategy-title" className="py-20">
+      <section id="bb-strategy" aria-labelledby="bb-strategy-title" className="py-7">
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
           <Chip label="Brand Strategy" number="01" />
-          <div className="mb-20 grid items-start gap-16 @3xl:grid-cols-2">
+          <div className="mb-10 grid items-start gap-8 @3xl:grid-cols-2">
             <div>
-              <h3 id="bb-strategy-title" className="mb-8 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(40px,5cqw,80px)" }}>
+              <h3 id="bb-strategy-title" className="mb-4 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(40px,5cqw,80px)" }}>
                 Pioneering<Accent>Care.</Accent>
               </h3>
               <p className="max-w-md text-base leading-relaxed" style={{ color: MUTED }}>
                 GAD Heart &amp; Lungs Institute is a pioneering healthcare facility dedicated to providing world-class cardiopulmonary care in the Kingdom of Saudi Arabia and the Gulf region — combining cutting-edge medical technology, internationally recognized experts, and an unwavering patient-centered commitment.
               </p>
             </div>
-            <div className="rounded-3xl p-10" style={{ background: `linear-gradient(135deg, ${BLUE}33, ${BLUE}0d)`, border: `1px solid ${BLUE}66` }}>
+            <div className="rounded-3xl p-6" style={{ background: `linear-gradient(135deg, ${BLUE}33, ${BLUE}0d)`, border: `1px solid ${BLUE}66` }}>
               <p className="mb-2 text-xs font-semibold uppercase tracking-widest" style={{ color: RED_TEXT }}>Tagline</p>
               <p className="text-3xl font-bold text-white">“Closer to every heart”</p>
               <p className="mt-6 text-sm leading-relaxed" style={{ color: MUTED }}>
@@ -125,12 +125,12 @@ export function GadBrandBook() {
             </div>
           </div>
 
-          <div className="mb-16 grid gap-6 @2xl:grid-cols-2">
+          <div className="mb-8 grid gap-6 @2xl:grid-cols-2">
             {[
               { icon: <Eye size={22} />, label: "Vision", text: "To be the leading cardiology and pulmonology center in Saudi Arabia and the Gulf, offering innovative healthcare, excelling in diagnosis, treatment, and rehabilitation, while establishing ourselves as a hub for medical tourism and innovation." },
               { icon: <Target size={22} />, label: "Mission", text: "GAD Institute is dedicated to delivering exceptional patient-centered care through advanced medical technologies, a team of globally recognized experts, and a commitment to research and education to continuously improve outcomes for patients with heart and lung conditions." },
             ].map((i) => (
-              <div key={i.label} className="rounded-3xl p-8" style={card}>
+              <div key={i.label} className="rounded-3xl p-5" style={card}>
                 <div className="mb-5 flex items-center gap-3">
                   <span aria-hidden style={{ color: RED_TEXT }}>{i.icon}</span>
                   <h4 className="text-xs font-semibold uppercase tracking-widest text-white/75">{i.label}</h4>
@@ -140,10 +140,10 @@ export function GadBrandBook() {
             ))}
           </div>
 
-          <h4 className="mb-8 text-xs font-semibold uppercase tracking-widest text-white/70">Core Values</h4>
+          <h4 className="mb-4 text-xs font-semibold uppercase tracking-widest text-white/70">Core Values</h4>
           <ul className="grid gap-4 @xl:grid-cols-2 @3xl:grid-cols-4">
             {VALUES.map((v) => (
-              <li key={v.title} className="rounded-2xl p-6" style={card}>
+              <li key={v.title} className="rounded-2xl p-4" style={card}>
                 <span aria-hidden className="mb-4 block" style={{ color: RED_TEXT }}>{v.icon}</span>
                 <p className="mb-2 text-sm font-bold text-white">{v.title}</p>
                 <p className="text-xs leading-relaxed text-white/70">{v.desc}</p>
@@ -151,7 +151,7 @@ export function GadBrandBook() {
             ))}
           </ul>
 
-          <div className="mt-16 rounded-3xl p-10" style={{ background: `linear-gradient(135deg, ${BLUE}22, ${BLUE}08)`, border: `1px solid ${BLUE}55` }}>
+          <div className="mt-8 rounded-3xl p-6" style={{ background: `linear-gradient(135deg, ${BLUE}22, ${BLUE}08)`, border: `1px solid ${BLUE}55` }}>
             <p className="mb-4 text-xs font-semibold uppercase tracking-widest" style={{ color: BLUE_LIGHT }}>Brand Promise</p>
             <p className="max-w-3xl text-xl leading-relaxed text-white/85">
               “To provide unparalleled cardiopulmonary care by combining advanced medical expertise with compassionate, personalized service, ensuring every patient feels <strong className="font-semibold text-white">valued, supported, and empowered</strong> to achieve better health.”
@@ -161,15 +161,15 @@ export function GadBrandBook() {
       </section>
 
       {/* ── PERSONA ── */}
-      <section id="bb-persona" aria-labelledby="bb-persona-title" className="py-20" style={{ background: DARKER }}>
+      <section id="bb-persona" aria-labelledby="bb-persona-title" className="py-7" style={{ background: DARKER }}>
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
           <Chip label="Brand Persona" number="02" />
-          <div className="grid items-start gap-16 @3xl:grid-cols-3">
+          <div className="grid items-start gap-8 @3xl:grid-cols-3">
             <div>
               <h3 id="bb-persona-title" className="mb-6 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
                 The<Accent>Caregiver</Accent>Archetype
               </h3>
-              <p className="mb-8 text-sm leading-relaxed text-white/70">
+              <p className="mb-4 text-sm leading-relaxed text-white/70">
                 The Caregiver archetype represents compassion, nurturing, and a commitment to improving the lives of others — aligning with GAD’s mission to deliver exceptional, patient-centered cardiac and pulmonary care.
               </p>
               <ul className="space-y-3">
@@ -183,7 +183,7 @@ export function GadBrandBook() {
             </div>
             <div className="grid gap-6 @xl:grid-cols-2 @3xl:col-span-2">
               {PERSONA_BOXES.map((b) => (
-                <div key={b.title} className="rounded-2xl p-7" style={card}>
+                <div key={b.title} className="rounded-2xl p-5" style={card}>
                   <h4 className="mb-5 text-xs font-semibold uppercase tracking-widest" style={{ color: b.color }}>{b.title}</h4>
                   <ul className="space-y-2">
                     {b.items.map((i) => (
@@ -201,12 +201,12 @@ export function GadBrandBook() {
       </section>
 
       {/* ── LOGO ── */}
-      <section id="bb-logo" aria-labelledby="bb-logo-title" className="py-20">
+      <section id="bb-logo" aria-labelledby="bb-logo-title" className="py-7">
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
           <Chip label="Logo Guidelines" number="03" />
-          <div className="mb-20 grid gap-16 @3xl:grid-cols-2">
+          <div className="mb-10 grid gap-8 @3xl:grid-cols-2">
             <div>
-              <h3 id="bb-logo-title" className="mb-8 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
+              <h3 id="bb-logo-title" className="mb-4 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
                 Logo<Accent>System</Accent>
               </h3>
               <p className="max-w-sm text-sm leading-relaxed text-white/70">
@@ -223,21 +223,21 @@ export function GadBrandBook() {
                 <LogoPlate dark src={`${IMG}/gad-logo-vertical-en-dark.svg`} alt="GAD Heart & Lungs Institute — English vertical logo, dark background" w={261} h={321} className="h-72" />
               </div>
               <div className="grid grid-cols-4 gap-4">
-                <LogoPlate src={`${IMG}/gad-mark.svg`} alt="GAD symbol on white" w={106} h={106} className="aspect-square !p-5" />
-                <div className="flex aspect-square items-center justify-center rounded-2xl p-5" style={{ background: BLUE_LIGHT }}>
+                <LogoPlate src={`${IMG}/gad-mark.svg`} alt="GAD symbol on white" w={106} h={106} className="aspect-square !p-4" />
+                <div className="flex aspect-square items-center justify-center rounded-2xl p-4" style={{ background: BLUE_LIGHT }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`${IMG}/gad-mark.svg`} alt="GAD symbol on Sky Blue" width={106} height={106} className="h-full w-auto" />
                 </div>
-                <div className="flex aspect-square items-center justify-center rounded-2xl p-5" style={{ background: "#D0D0D0" }}>
+                <div className="flex aspect-square items-center justify-center rounded-2xl p-4" style={{ background: "#D0D0D0" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={`${IMG}/gad-mark.svg`} alt="GAD symbol on Light Grey" width={106} height={106} className="h-full w-auto" />
                 </div>
-                <LogoPlate dark src={`${IMG}/gad-mark-dark.svg`} alt="GAD symbol, dark-background colourway" w={106} h={106} className="aspect-square !p-5" />
+                <LogoPlate dark src={`${IMG}/gad-mark-dark.svg`} alt="GAD symbol, dark-background colourway" w={106} h={106} className="aspect-square !p-4" />
               </div>
             </div>
           </div>
-          <div className="mb-20">
-            <h4 className="mb-8 text-2xl font-bold text-white">Anatomy of the mark</h4>
+          <div className="mb-10">
+            <h4 className="mb-4 text-2xl font-bold text-white">Anatomy of the mark</h4>
             <Anatomy />
           </div>
           <div className="grid gap-4 @2xl:grid-cols-3">
@@ -251,9 +251,9 @@ export function GadBrandBook() {
               <Image src={`${IMG}/gad-logo-symbol.png`} alt="Brand book page 14: logo symbol usage and guidelines" width={1400} height={933} sizes="(min-width:1024px) 30vw, 100vw" className="h-auto w-full" />
             </figure>
           </div>
-          <div className="mt-24">
+          <div className="mt-10">
             <h4 className="mb-4 text-2xl font-bold text-white">Using the logo</h4>
-            <p className="mb-12 max-w-2xl text-sm leading-relaxed text-white/70">
+            <p className="mb-6 max-w-2xl text-sm leading-relaxed text-white/70">
               The brand book’s lock-up and symbol rules (pp. 12–14), plus clear space, sizing and common mistakes drawn as a quick reference.
             </p>
             <Usage />
@@ -262,21 +262,21 @@ export function GadBrandBook() {
       </section>
 
       {/* ── COLOR ── */}
-      <section id="bb-color" aria-labelledby="bb-color-title" className="py-20" style={{ background: DARKER }}>
+      <section id="bb-color" aria-labelledby="bb-color-title" className="py-7" style={{ background: DARKER }}>
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
           <Chip label="Color System" number="04" />
-          <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
             <h3 id="bb-color-title" className="font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
               Color<Accent>Palette</Accent>
             </h3>
             <p className="max-w-xs text-sm text-white/70">Bold, modern, and versatile — representing trust, vitality, and professionalism across all platforms. Tap a swatch to copy its hex.</p>
           </div>
           <h4 className="mb-6 text-xs font-semibold uppercase tracking-widest text-white/70">Primary palette</h4>
-          <div className="mb-16 grid grid-cols-2 gap-6 @3xl:grid-cols-4">{PRIMARY_COLORS.map((c) => <Swatch key={c.hex} {...c} />)}</div>
+          <div className="mb-8 grid grid-cols-2 gap-6 @3xl:grid-cols-4">{PRIMARY_COLORS.map((c) => <Swatch key={c.hex} {...c} />)}</div>
           <h4 className="mb-6 text-xs font-semibold uppercase tracking-widest text-white/70">Neutral palette</h4>
-          <div className="mb-16 grid grid-cols-2 gap-6 @3xl:grid-cols-4">{NEUTRAL_COLORS.map((c) => <Swatch key={c.hex} {...c} />)}</div>
+          <div className="mb-8 grid grid-cols-2 gap-6 @3xl:grid-cols-4">{NEUTRAL_COLORS.map((c) => <Swatch key={c.hex} {...c} />)}</div>
           <h4 className="mb-6 text-xs font-semibold uppercase tracking-widest text-white/70">Infographic palette</h4>
-          <div className="mb-16 grid grid-cols-3 gap-4 @3xl:grid-cols-6">{INFOGRAPHIC_COLORS.map((c) => <Swatch key={c.hex} {...c} />)}</div>
+          <div className="mb-8 grid grid-cols-3 gap-4 @3xl:grid-cols-6">{INFOGRAPHIC_COLORS.map((c) => <Swatch key={c.hex} {...c} />)}</div>
           <div className="grid gap-4 @2xl:grid-cols-2">
           <figure className="overflow-hidden rounded-2xl border border-white/10">
             <Image src={`${IMG}/gad-colors-primary.png`} alt="Brand book page 22: primary palette — Dark Red Pantone P 49-16 U (#AB121C) and Deep Blue Pantone P 107-8 U (#005895)" width={1400} height={933} sizes="(min-width:1024px) 45vw, 100vw" className="h-auto w-full" />
@@ -289,12 +289,12 @@ export function GadBrandBook() {
       </section>
 
       {/* ── TYPOGRAPHY ── */}
-      <section id="bb-typography" aria-labelledby="bb-type-title" className="py-20">
+      <section id="bb-typography" aria-labelledby="bb-type-title" className="py-7">
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
           <Chip label="Typography" number="05" />
-          <div className="mb-16 grid gap-16 @3xl:grid-cols-2">
+          <div className="mb-8 grid gap-8 @3xl:grid-cols-2">
             <div>
-              <h3 id="bb-type-title" className="mb-8 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
+              <h3 id="bb-type-title" className="mb-4 font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
                 Type<Accent>System</Accent>
               </h3>
               <p className="text-sm leading-relaxed text-white/70">
@@ -302,13 +302,13 @@ export function GadBrandBook() {
               </p>
             </div>
           </div>
-          <ul className="mb-8 grid gap-4 @2xl:grid-cols-3">
+          <ul className="mb-4 grid gap-4 @2xl:grid-cols-3">
             {[
               { name: "Trap", role: "Primary — headlines, display", note: "Hero sections, chapter openers, bold statements of identity." },
               { name: "Montserrat", role: "Secondary — body, UI, captions", note: "Subtitles, running text, labels and interface copy.", sample: "Closer to Every Heart" },
               { name: "Alexandria", role: "Arabic — all Arabic copy", note: "Modern, professional and highly legible at all sizes." },
             ].map((f) => (
-              <li key={f.name} className="rounded-2xl p-8" style={card}>
+              <li key={f.name} className="rounded-2xl p-5" style={card}>
                 <p className="text-lg font-bold text-white">{f.name}</p>
                 <p className="mt-1 text-xs text-white/70">{f.role}</p>
                 {f.sample && <p className="mt-6 text-2xl font-bold leading-tight text-white">{f.sample}</p>}
@@ -323,10 +323,10 @@ export function GadBrandBook() {
       </section>
 
       {/* ── FORMATS ── (the mockups live in the case study's "In use" panel) */}
-      <section id="bb-applications" aria-labelledby="bb-apps-title" className="py-20" style={{ background: DARKER }}>
+      <section id="bb-applications" aria-labelledby="bb-apps-title" className="py-7" style={{ background: DARKER }}>
         <div className="mx-auto max-w-7xl px-5 @3xl:px-10">
           <Chip label="Formats & Standards" number="06" />
-          <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
             <h3 id="bb-apps-title" className="font-bold leading-none tracking-tight text-white" style={{ fontSize: "clamp(36px,4cqw,64px)" }}>
               Formats<Accent>&amp; Standards</Accent>
             </h3>
@@ -334,7 +334,7 @@ export function GadBrandBook() {
           </div>
           <ul className="grid gap-4 @xl:grid-cols-2 @3xl:grid-cols-4">
             {STANDARDS.map((s) => (
-              <li key={s.title} className="rounded-2xl p-6" style={card}>
+              <li key={s.title} className="rounded-2xl p-4" style={card}>
                 <span aria-hidden className="mb-4 block" style={{ color: RED_TEXT }}>{s.icon}</span>
                 <p className="mb-2 text-sm font-bold text-white">{s.title}</p>
                 <p className="text-xs leading-relaxed text-white/70">{s.desc}</p>
@@ -342,8 +342,8 @@ export function GadBrandBook() {
             ))}
           </ul>
 
-          <div className="mt-24 text-center">
-            <div className="mx-auto mb-10 flex w-fit rounded-2xl bg-white p-6">
+          <div className="mt-10 text-center">
+            <div className="mx-auto mb-6 flex w-fit rounded-2xl bg-white p-4">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`${IMG}/gad-logo-horizontal-en.svg`} alt="GAD Heart & Lungs Institute logo" width={306} height={106} className="h-16 w-auto" />
             </div>
@@ -352,7 +352,7 @@ export function GadBrandBook() {
               Dedicated to caring for every heartbeat and breath.
             </p>
             <p className="mt-4 text-xl" style={{ color: RED_TEXT }}>“Closer to every heart”</p>
-            <p className="mt-12 border-t border-white/10 pt-8 text-xs text-white/65">
+            <p className="mt-6 border-t border-white/10 pt-8 text-xs text-white/65">
               Brand identity &amp; brand book by Mustafa Aboalazm. GAD Heart &amp; Lungs Institute’s name, logo and marks belong to GAD.
             </p>
           </div>

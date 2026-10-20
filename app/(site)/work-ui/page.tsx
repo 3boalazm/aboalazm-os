@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function WorkUiPage() {
   const projects = await getUiUxProjects();
   return (
-    <main className="container-wide flex min-h-svh flex-col gap-8 py-16">
+    <main className="container-wide flex min-h-svh flex-col gap-8 py-6">
       <WorkUiHeader />
       <LivePreviewGrid projects={projects} />
     </main>

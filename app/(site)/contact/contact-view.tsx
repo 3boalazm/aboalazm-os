@@ -100,7 +100,7 @@ export function ContactView() {
   useAmbientGlow(CONTACT_CORAL, 0.45);
 
   return (
-    <main className="container-wide relative flex min-h-svh flex-col gap-12 py-16">
+    <main className="container-wide relative flex min-h-svh flex-col gap-6 py-6">
       {/* ── Fit check + kickoff expectations (absorbed from /start) ── */}
       <section className="flex flex-col gap-6">
         <Heading
