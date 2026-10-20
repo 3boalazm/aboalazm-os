@@ -15,7 +15,7 @@ export function BooksView() {
   const ar = lang === "ar";
 
   return (
-    <main className="container-content flex flex-col gap-7 py-6">
+    <main className="container-content flex flex-col gap-7 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "المكتبة" : "LIBRARY"}

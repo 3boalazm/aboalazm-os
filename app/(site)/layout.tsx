@@ -110,7 +110,7 @@ export default function RootLayout({
             <PersonaProvider>
               <SmoothScroll>
                 <Nav />
-                {children}
+                <div className="site-stage">{children}</div>
                 <Footer />
               </SmoothScroll>
             </PersonaProvider>

@@ -42,7 +42,7 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <main className="container-content flex flex-col gap-8 py-6">
+    <main className="container-content flex flex-col gap-8 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "الاتفاقية / كيف نعمل" : "AGREEMENT / HOW WE WORK"}

@@ -88,6 +88,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: "floating
 
   return (
     <div
+      id={variant === "floating" ? "pwa-install-control" : undefined}
       className={variant === "floating" ? "fixed end-4 z-[80] flex flex-col items-end" : "relative flex w-full flex-col items-start"}
       style={variant === "floating" ? { bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" } : undefined}
     >
@@ -146,17 +147,19 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: "floating
         aria-expanded={helpOpen}
         aria-controls={helpOpen ? "pwa-install-help" : undefined}
         className={variant === "floating"
-          ? "group inline-flex items-center gap-2 rounded-pill border border-accent/45 bg-surface-1/95 px-3 py-2.5 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
+          ? "group inline-flex items-center gap-1.5 rounded-pill border border-accent/45 bg-surface-1/95 px-2 py-1 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:gap-2 sm:px-2.5 sm:py-1.5"
           : "group inline-flex w-full items-center justify-between gap-4 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem]"}
       >
-        <span className={variant === "floating" ? "grid size-8 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105" : "grid size-10 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"}>
-          <Icon name="download" size={variant === "floating" ? 17 : 20} />
+        <span className={variant === "floating" ? "grid size-[2.25rem] shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105 sm:size-[2.5rem]" : "grid size-10 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"}>
+          <Icon name="download" size={variant === "floating" ? 16 : 20} />
         </span>
         <span className="flex flex-col items-start gap-0.5">
-          <span className="font-mono text-micro font-semibold uppercase tracking-[0.06em]">
+          <span className="font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro">
             {variant === "inline" ? (ar ? "ثبّت Aboalazm OS" : "GET THE OS APP") : (ar ? "ثبّت التطبيق" : "Install app")}
           </span>
-          <span className="text-[0.65rem] leading-none text-text-tertiary">
+          {/* Phones get the one actionable line only — the sub-label is what
+              made the floating control a 104px-tall card over the hero. */}
+          <span className={variant === "floating" ? "hidden text-[13px] leading-none text-text-tertiary sm:block" : "text-[13px] leading-none text-text-tertiary"}>
             {variant === "inline" ? (ar ? "تجربة كاملة من شاشتك الرئيسية" : "A full-screen experience on your device") : (ar ? "أضِفه لشاشتك الرئيسية" : "Add to your home screen")}
           </span>
         </span>

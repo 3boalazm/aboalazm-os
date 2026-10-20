@@ -20,7 +20,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
 
   return (
     <main className="overflow-hidden pb-8">
-      <section className="container-wide relative flex min-h-[calc(88svh-5rem)] flex-col justify-center gap-8 pb-6 pt-28 sm:pt-32 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:py-12">
+      <section className="container-wide relative flex min-h-[calc(88svh-5rem)] flex-col justify-center gap-8 pb-6 pt-0 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:pb-12">
         <div className="pointer-events-none absolute -start-24 top-36 -z-10 size-72 rounded-full bg-accent/10 blur-[100px]" aria-hidden />
         <div className="flex flex-col items-start">
           <div className="mb-6 inline-flex items-center gap-2 rounded-pill border border-border-subtle px-3 py-1.5 font-mono text-micro uppercase tracking-[0.12em] text-text-tertiary">

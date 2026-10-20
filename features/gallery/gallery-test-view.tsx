@@ -68,7 +68,7 @@ export function GalleryTestView({ images, projects }: GalleryTestViewProps) {
       };
 
   return (
-    <main dir={ar ? "rtl" : "ltr"} className="container-content flex flex-col gap-5 py-6 md:gap-7 md:py-7">
+    <main dir={ar ? "rtl" : "ltr"} className="container-content flex flex-col gap-5 pb-6 md:gap-7 md:pb-7">
       <header className="relative overflow-hidden rounded-panel border border-border-subtle bg-surface-1 px-6 py-5 md:px-12 md:py-6">
         <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
         <div className="relative max-w-3xl">

@@ -159,7 +159,7 @@ export function WritingDetailView({
   const titleWords = post.title.split(" ");
 
   return (
-    <main className="container-content flex min-h-svh flex-col gap-5 py-6">
+    <main className="container-content flex min-h-[calc(100svh-var(--nav-clearance))] flex-col gap-5 pb-6">
       <ScrollProgress />
       <SideNav sections={sections} />
       <BackToTop />

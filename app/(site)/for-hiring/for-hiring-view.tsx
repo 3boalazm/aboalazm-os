@@ -270,7 +270,7 @@ export function ForHiringView() {
   const ar = lang === "ar";
 
   return (
-    <main className="container-content flex flex-col gap-8 py-5 lg:py-6">
+    <main className="container-content flex flex-col gap-8 pb-5 lg:pb-6">
       {/* ── 01 · Hero Header & Candidacy ── */}
       <header className="flex flex-col gap-6 border-b border-border-subtle pb-6">
         <div className="flex flex-wrap items-center gap-2">

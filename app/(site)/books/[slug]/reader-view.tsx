@@ -57,7 +57,7 @@ export function ReaderView({ book }: { book: Book }) {
     // viewport (z-nav), so the reader's own header starts just below it —
     // otherwise the Library link and chapter menu sit under the nav and
     // can't be tapped.
-    <main className="flex h-[100svh] flex-col pt-[100px]">
+    <main className="flex h-[calc(100svh-var(--nav-clearance))] flex-col">
       {/* Reader chrome — brand header + progress */}
       <header className="relative z-elevated flex items-center justify-between gap-3 border-b border-border-subtle bg-surface-0/95 px-4 py-2.5 backdrop-blur md:px-6">
         <div className="flex min-w-0 items-center gap-3">
