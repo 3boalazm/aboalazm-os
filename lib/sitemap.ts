@@ -17,6 +17,8 @@ interface Source {
 const STATIC_ROUTES = [
   "",
   "/work",
+  "/work/design",
+  "/work/development",
   "/for-hiring",
   "/work-ui",
   "/services",

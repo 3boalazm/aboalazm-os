@@ -196,7 +196,7 @@ export function OltreCollectiveCaseStudy() {
       <section className="container-wide pb-2">
         <figure className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1/40">
           <Image
-            src="/images/case-studies/oltre-collective/cover.jpg"
+            src="/images/work/dev-cards/oltre-collective-card.jpg"
             alt={ar ? "واجهة متجر أولتري كوليكتيف" : "OLTRÈ Collective storefront"}
             width={1600}
             height={900}

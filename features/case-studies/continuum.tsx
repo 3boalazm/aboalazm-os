@@ -53,7 +53,7 @@ export function ContinuumCaseStudy() {
       domain={{ en: "Domain: Personal productivity", ar: "المجال: إنتاجية شخصية" }}
       year="2026"
       cover={{
-        src: "/images/work/continuum-thumb.jpg",
+        src: "/images/work/dev-cards/continuum-card.jpg",
         alt: "Continuum — memory OS interface",
         altAr: "كونتينيوم — واجهة نظام الذاكرة",
         caption: "Workspace shell — glass surfaces, ambient motion",

@@ -100,6 +100,16 @@ const nextConfig: NextConfig = {
         destination: "/case-studies/momo-collective",
         permanent: true,
       },
+      {
+        source: "/work/identity",
+        destination: "/work/design",
+        permanent: true,
+      },
+      {
+        source: "/work/digital-products",
+        destination: "/work/development",
+        permanent: true,
+      },
     ];
   },
   images: {

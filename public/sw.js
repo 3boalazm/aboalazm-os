@@ -1,49 +1,27 @@
-/* Root-scoped PWA worker. Only public page navigations and same-origin assets
-   are cached; API, admin, and cross-origin requests always go straight through. */
-const CACHE_PREFIX = "aboalazm-os-pwa";
-const CACHE_VERSION = "v1";
-const STATIC_CACHE = `${CACHE_PREFIX}-static-${CACHE_VERSION}`;
-const PAGE_CACHE = `${CACHE_PREFIX}-pages-${CACHE_VERSION}`;
-const PRECACHE = [
+// Service Worker for Aboalazm OS PWA
+// Cache policy:
+//   - HTML navigations (/ , /work, /work/design, /work/development, etc.): network-first so published updates appear immediately.
+//   - Built assets (/_next/static/*, /fonts/*): cache-first (content-hashed or immutable).
+//   - Images (/images/*, /_next/image*): stale-while-revalidate so offline works without pinning stale thumbnails.
+//   - Admin & API (/admin*, /api*): network-only, never cached.
+
+const CACHE_VERSION = "v3";
+const STATIC_CACHE = `aboalazm-os-pwa-static-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `aboalazm-os-pwa-runtime-${CACHE_VERSION}`;
+
+const APP_SHELL = [
   "/",
-  "/offline.html",
   "/manifest.webmanifest",
-  "/icons/app-192.png",
-  "/icons/app-512.png",
-  "/icons/app-512-maskable.png",
-  "/icons/apple-touch-icon.png",
-];
-const STATIC_PREFIXES = [
-  "/_next/static/",
-  "/_next/image",
-  "/fonts/",
-  "/images/",
-  "/icons/",
+  "/favicon.svg",
+  "/images/pwa-icon-192.png",
+  "/images/pwa-icon-512.png",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
-      .then(async (cache) => {
-        await cache.addAll(PRECACHE);
-        // Cache the production JS/CSS referenced by the app shell, too, so a
-        // just-installed app has a useful offline first screen.
-        const shell = await cache.match("/");
-        const html = shell ? await shell.text() : "";
-        const assets = [
-          ...new Set(
-            html.match(/\/_next\/static\/[^\"'\s<>]+/g) ?? [],
-          ),
-        ];
-        await Promise.allSettled(
-          assets.map(async (asset) => {
-            const request = new Request(new URL(asset, self.location.origin));
-            const response = await fetch(request);
-            if (response.ok) await cache.put(request, response);
-          }),
-        );
-      })
+      .then((cache) => cache.addAll(APP_SHELL).catch(() => undefined))
       .then(() => self.skipWaiting()),
   );
 });
@@ -55,39 +33,13 @@ self.addEventListener("activate", (event) => {
       .then((keys) =>
         Promise.all(
           keys
-            .filter((key) => key.startsWith(CACHE_PREFIX) && key !== STATIC_CACHE && key !== PAGE_CACHE)
-            .map((key) => caches.delete(key)),
+            .filter((k) => k !== STATIC_CACHE && k !== RUNTIME_CACHE)
+            .map((k) => caches.delete(k)),
         ),
       )
       .then(() => self.clients.claim()),
   );
 });
-
-async function cacheFirst(request) {
-  const cache = await caches.open(STATIC_CACHE);
-  const cached = await cache.match(request);
-  if (cached) return cached;
-
-  const response = await fetch(request);
-  if (response.ok && response.type === "basic") {
-    await cache.put(request, response.clone());
-  }
-  return response;
-}
-
-async function networkFirstPage(request) {
-  const cache = await caches.open(PAGE_CACHE);
-  try {
-    const response = await fetch(request);
-    const contentType = response.headers.get("content-type") || "";
-    if (response.ok && contentType.includes("text/html")) {
-      await cache.put(request, response.clone());
-    }
-    return response;
-  } catch {
-    return (await cache.match(request)) || (await caches.match(request)) || (await caches.match("/offline.html"));
-  }
-}
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
@@ -95,15 +47,76 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
-  if (url.pathname === "/api" || url.pathname.startsWith("/api/")) return;
-  if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) return;
 
-  if (STATIC_PREFIXES.some((prefix) => url.pathname.startsWith(prefix))) {
-    event.respondWith(cacheFirst(request));
+  const { pathname } = url;
+
+  if (pathname.startsWith("/admin") || pathname.startsWith("/api")) {
     return;
   }
 
-  if (request.mode === "navigate") {
-    event.respondWith(networkFirstPage(request));
+  if (
+    request.mode === "navigate" ||
+    (request.headers.get("accept") || "").includes("text/html")
+  ) {
+    event.respondWith(networkFirst(request));
+    return;
   }
+
+  if (pathname.startsWith("/_next/static/") || pathname.startsWith("/fonts/")) {
+    event.respondWith(cacheFirst(request, STATIC_CACHE));
+    return;
+  }
+
+  if (
+    pathname.startsWith("/images/") ||
+    pathname.startsWith("/_next/image")
+  ) {
+    event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
+    return;
+  }
+
+  event.respondWith(staleWhileRevalidate(request, RUNTIME_CACHE));
 });
+
+async function networkFirst(request) {
+  const cache = await caches.open(RUNTIME_CACHE);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) {
+      cache.put(request, response.clone());
+    }
+    return response;
+  } catch (err) {
+    const cached = await cache.match(request);
+    if (cached) return cached;
+    const shell = await caches.match("/");
+    if (shell) return shell;
+    throw err;
+  }
+}
+
+async function cacheFirst(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+  if (cached) return cached;
+  const response = await fetch(request);
+  if (response && response.ok) {
+    cache.put(request, response.clone());
+  }
+  return response;
+}
+
+async function staleWhileRevalidate(request, cacheName) {
+  const cache = await caches.open(cacheName);
+  const cached = await cache.match(request);
+  const networkFetch = fetch(request)
+    .then((response) => {
+      if (response && response.ok) {
+        cache.put(request, response.clone());
+      }
+      return response;
+    })
+    .catch(() => undefined);
+
+  return cached || (await networkFetch) || Response.error();
+}

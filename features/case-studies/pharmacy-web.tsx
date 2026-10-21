@@ -55,7 +55,7 @@ export function PharmacyWebCaseStudy() {
       domain={{ en: "Domain: Pharmacy / POS", ar: "المجال: صيدلية ونقاط بيع" }}
       year="2026"
       cover={{
-        src: "/images/work/pharmacy-web-thumb.jpg",
+        src: "/images/work/dev-cards/pharmacy-web-card.jpg",
         alt: "Pharmacy Web — token-driven interface kit",
         altAr: "فارماسي ويب — طقم واجهة مبني على توكنز",
         caption: "Interface kit — token-driven, RTL-first",
