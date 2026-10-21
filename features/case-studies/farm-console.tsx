@@ -49,7 +49,7 @@ export function FarmConsoleCaseStudy() {
       domain={{ en: "Domain: Agri-tech", ar: "المجال: تقنية زراعية" }}
       year="2025–26"
       cover={{
-        src: "/images/case-studies/farm-console/cover.jpg",
+        src: "/images/work/dev-cards/farm-console-card.jpg",
         alt: "Farm Console — herd, health and finance dashboard",
         altAr: "بيان المزرعة — القطيع والصحة والحسابات",
         caption: "Operations dashboard — herd, indicators, finance",

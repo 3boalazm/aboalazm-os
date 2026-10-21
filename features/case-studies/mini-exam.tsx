@@ -53,7 +53,7 @@ export function MiniExamCaseStudy() {
       domain={{ en: "Domain: Education", ar: "المجال: تعليم" }}
       year="2026"
       cover={{
-        src: "/images/work/mini-exam-thumb.jpg",
+        src: "/images/work/dev-cards/mini-exam-card.jpg",
         alt: "Mini Exam — exam builder and question flow",
         altAr: "ميني إكزام — بناء الامتحان ومسار الأسئلة",
         caption: "Exam builder — generate, review, publish",

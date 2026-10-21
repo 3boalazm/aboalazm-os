@@ -18,7 +18,7 @@ import {
 export { OG_SIZE, OG_CONTENT_TYPE };
 
 export type OgPageId =
-  | "home" | "work"  | "work-ui" | "about" | "for-hiring" | "services"
+  | "home" | "work" | "work-design" | "work-development" | "work-ui" | "about" | "for-hiring" | "services"
   | "pricing" | "process" | "why" | "agreement" | "contact"
   | "capabilities" | "labs" | "resources" | "books" | "writing" | "portfolio";
 
@@ -120,17 +120,13 @@ async function vHome() {
 
 async function vWork() {
   const i = await ogImgs({
-    a: ["/images/work/nile-erp-thumb.jpg", 360], b: ["/images/work/gad/gad-card.jpg", 360],
-    c: ["/images/work/reflection/refl-card.jpg", 360], d: ["/images/work/code-canvas-dev/cc-dev-thumb.jpg", 360],
-    e: ["/images/work/farm-thumb.jpg", 360], f: ["/images/work/zad-thumb.jpg", 360],
+    a: ["/images/work/dev-cards/nile-erp-card.jpg", 360], b: ["/images/work/gad/gad-card.jpg", 360],
+    c: ["/images/work/reflection/refl-card.jpg", 360], d: ["/images/work/dev-cards/code-canvas-dev-card.jpg", 360],
+    e: ["/images/work/dev-cards/farm-console-card.jpg", 360], f: ["/images/work/dev-cards/zad-card.jpg", 360],
   });
-  /* The console/product shots carry their own titles, and a 1.78 image cover-
-     cropped into a 1.34 tile cut them mid-word ("le Pharma ERP"). Anything
-     with type inside it is therefore shown whole; the two photographs stay
-     cover-cropped. */
   const tiles: [string, string, string, "cover" | "contain"][] = [
-    ["01", i.a, "Nile ERP", "contain"], ["02", i.b, "GAD Institute", "cover"], ["03", i.c, "Reflection", "cover"],
-    ["04", i.d, "Code & Canvas", "contain"], ["05", i.e, "Farm", "contain"], ["06", i.f, "ZAD", "contain"],
+    ["01", i.a, "Nile ERP", "cover"], ["02", i.b, "GAD Institute", "cover"], ["03", i.c, "Reflection", "cover"],
+    ["04", i.d, "Code & Canvas", "cover"], ["05", i.e, "Farm", "cover"], ["06", i.f, "ZAD", "cover"],
   ];
   return (
     <Stage style={{ padding: PAD }}>
@@ -149,17 +145,21 @@ async function vWork() {
 
 
 async function vWorkUi() {
-  const i = await ogImgs({ a: ["/images/work/nile-erp-thumb.jpg", 640], b: ["/images/work/farm-thumb.jpg", 640], c: ["/images/work/zad-thumb.jpg", 640] });
+  const i = await ogImgs({
+    a: ["/images/work/dev-cards/nile-erp-card.jpg", 640],
+    b: ["/images/work/dev-cards/farm-console-card.jpg", 640],
+    c: ["/images/work/dev-cards/oltre-collective-card.jpg", 640],
+  });
   return (
     <Stage>
       <div style={flex({ position: "absolute", left: 18, top: 26 })}>
         <Win w={330} h={236} label="Live · Nile ERP" src={i.a} />
       </div>
       <div style={flex({ position: "absolute", right: 16, top: 150 })}>
-        <Win w={330} h={236} label="Live · Farm" src={i.b} />
+        <Win w={330} h={236} label="Live · Farm Console" src={i.b} />
       </div>
       <div style={flex({ position: "absolute", left: 40, bottom: 22 })}>
-        <Win w={290} h={190} label="Live · ZAD" src={i.c} />
+        <Win w={290} h={190} label="Live · OLTRÈ" src={i.c} />
       </div>
       <div style={flex({ position: "absolute", right: 28, bottom: 28, alignItems: "center", gap: 10, background: C.accent, color: C.bg, padding: "10px 16px", borderRadius: 999, fontFamily: F_EN, fontSize: 14, letterSpacing: "0.1em" })}>
         OPEN LIVE →
@@ -621,7 +621,20 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     title: ["Selected", "cases."],
     desc: "Identity systems and digital products — the problem, what shipped, and the outcome.",
     alt: "Work — selected brand identity and product cases", visual: vWork,
-  },  "work-ui": {
+  },
+  "work-design": {
+    idx: "01A", eyebrow: "Track 01 · Design", tagAr: "مسار التصميم", route: "/work/design",
+    title: ["Brand", "identity", "systems."],
+    desc: "All brand identity, packaging architecture, environmental signage, and governance systems.",
+    alt: "Design Track — Brand identity & visual systems archive", visual: vWork,
+  },
+  "work-development": {
+    idx: "02A", eyebrow: "Track 02 · Development", tagAr: "مسار التطوير", route: "/work/development",
+    title: ["Digital", "products,", "live."],
+    desc: "All shipped platforms, web applications, AI tools, and bilingual interfaces.",
+    alt: "Development Track — Digital products & engineering archive", visual: vWorkUi,
+  },
+  "work-ui": {
     idx: "03", eyebrow: "UI / UX showcase", tagAr: "واجهات ومنتجات", route: "/work-ui",
     title: ["Interfaces,", "live."],
     desc: "A focused index of interface and product work — every entry links to the real, running site.",

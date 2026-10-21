@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
+import { cardArt } from "./card-art";
+import { STORIES, pickFeatured } from "./featured-cases";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
-import { pickFeatured } from "./featured-cases";
 import { mergeCuratedDevelopmentProjects } from "./project-curation";
 import type { Project } from "./types";
 
@@ -13,7 +14,11 @@ const projectBySlug = (slug: string): Project => {
   return project;
 };
 
-test("merges every approved development project without duplicate slugs", () => {
+test("merges all 14 approved development projects without duplicate slugs", () => {
+  const digitalProjects = PROJECTS.filter((p) => p.category === "development");
+  assert.equal(digitalProjects.length, 14);
+  assert.equal(CURATED_DEVELOPMENT_SLUGS.length, 14);
+
   const merged = mergeCuratedDevelopmentProjects([]);
   const slugs = new Set(merged.map((project) => project.slug));
 
@@ -21,19 +26,25 @@ test("merges every approved development project without duplicate slugs", () => 
   assert.equal(slugs.size, merged.length);
 });
 
-test("every portfolio project references an existing thumbnail asset", () => {
+test("every portfolio project references an existing high-detail thumbnail asset", () => {
   for (const project of PROJECTS) {
     const thumbnailPath = join(process.cwd(), "public", project.thumbnail.slice(1));
     assert.ok(existsSync(thumbnailPath), `${project.slug} thumbnail is missing: ${project.thumbnail}`);
+    const stats = statSync(thumbnailPath);
+    const minBytes = project.category === "development" ? 50_000 : 10_000;
+    assert.ok(stats.size > minBytes, `${project.slug} thumbnail appears to be a low-detail placeholder (${stats.size} bytes)`);
   }
 });
 
-test("every digital project has a screenshot and a production preview destination", () => {
+test("every digital project uses a dedicated 16:10 dev-cards preview and maps legacy CMS basenames", () => {
   const digitalProjects = PROJECTS.filter((project) => project.category === "development");
-  assert.ok(digitalProjects.length > 0, "expected digital projects in the portfolio");
+  assert.equal(digitalProjects.length, 14);
 
   for (const project of digitalProjects) {
-    assert.ok(project.thumbnail.startsWith("/images/work/"), `${project.slug} needs a screenshot preview`);
+    assert.ok(
+      project.thumbnail.startsWith("/images/work/dev-cards/"),
+      `${project.slug} should use a cache-busted /images/work/dev-cards/ preview`,
+    );
     assert.ok(
       existsSync(join(process.cwd(), "public", project.thumbnail.slice(1))),
       `${project.slug} screenshot is missing: ${project.thumbnail}`,
@@ -49,6 +60,21 @@ test("every digital project has a screenshot and a production preview destinatio
     } else {
       assert.equal(new URL(destination).protocol, "https:", `${project.slug} should use a secure preview URL`);
     }
+  }
+
+  // Legacy Payload CMS basenames also resolve to the crisp 16:10 dev-cards assets
+  assert.equal(cardArt("/media/cc-dev-thumb.jpg"), "/images/work/dev-cards/code-canvas-dev-card.jpg");
+  assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-card.jpg");
+  assert.equal(cardArt("/media/oltre-collective-thumb.jpg"), "/images/work/dev-cards/oltre-collective-card.jpg");
+  assert.equal(cardArt("/media/farm-thumb.jpg"), "/images/work/dev-cards/farm-console-card.jpg");
+});
+
+test("every design and development project carries distinct EN + AR card narrative copy", () => {
+  for (const project of PROJECTS) {
+    const story = STORIES[project.slug];
+    assert.ok(story, `missing STORIES entry for ${project.slug}`);
+    assert.notEqual(story.challenge, project.outcome, `${project.slug} repeats outcome verbatim in EN card body`);
+    assert.notEqual(story.challengeAr, project.outcomeAr, `${project.slug} repeats outcome verbatim in AR card body`);
   }
 });
 

@@ -57,7 +57,7 @@ export function StemForgeCaseStudy() {
       domain={{ en: "Domain: Audio / ML tooling", ar: "المجال: صوت وأدوات تعلّم آلي" }}
       year="2026"
       cover={{
-        src: "/images/work/stemforge-thumb.jpg",
+        src: "/images/work/dev-cards/stemforge-card.jpg",
         alt: "StemForge — four separated stems in colour",
         altAr: "ستيم فورج — أربع مسارات مفصولة بالألوان",
         caption: "Four stems, four colours — waveform detail",

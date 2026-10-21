@@ -107,7 +107,7 @@ export function NilePharmaERPCaseStudy() {
             </div>
             <div className="overflow-hidden rounded-xl border border-zinc-200">
               <Image
-                src="/images/work/nile-erp-thumb.jpg"
+                src="/images/work/dev-cards/nile-erp-card.jpg"
                 alt={ar ? "لقطة حقيقية من لوحة تحكم Nile Pharma ERP" : "Real screenshot from Nile Pharma ERP dashboard"}
                 width={1280}
                 height={800}

@@ -59,7 +59,7 @@ export function CodeCanvasDevCaseStudy() {
       domain={{ en: "Domain: Advisory & studio", ar: "المجال: استشارات واستوديو" }}
       year="2026"
       cover={{
-        src: "/images/case-studies/code-canvas/cover.jpg",
+        src: "/images/work/dev-cards/code-canvas-dev-card.jpg",
         alt: "One static page, mirrored into English LTR and Arabic RTL",
         altAr: "صفحة ثابتة واحدة، متكررة في نسخة إنجليزية وأخرى عربية",
         caption: "One page, two mirrors — EN LTR / AR RTL",

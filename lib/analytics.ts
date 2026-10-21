@@ -11,6 +11,7 @@ import { track } from "@vercel/analytics";
 export type EventName =
   | "cta_start_project"
   | "case_study_open"
+  | "track_see_more"
   | "contact_submit"
   | "insight_open"
   | "cv_download";
