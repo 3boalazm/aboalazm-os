@@ -32,9 +32,12 @@ async function main() {
       state.migrations.some((r) => r.name === "20261024_145000_lead_pipeline") &&
       !state.migrations.some((r) => r.name === "dev" && Number(r.batch) === -1);
 
-    if (alreadyReady) {
-      console.log(JSON.stringify({ status: "already-baselined", schemaExact: audit.exactSnapshot, changedDatabase: false }, null, 2));
+    if (alreadyReady && audit.exactSnapshot) {
+      console.log(JSON.stringify({ status: "already-baselined", schemaExact: true, changedDatabase: false }, null, 2));
       return;
+    }
+    if (alreadyReady && !audit.exactSnapshot) {
+      throw new Error("Migration rows exist but the live schema does not exactly match the recorded snapshot. No database writes were made.");
     }
 
     const onlyDevMarker =
