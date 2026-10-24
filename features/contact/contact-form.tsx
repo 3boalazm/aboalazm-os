@@ -16,7 +16,7 @@ import { submitContact } from "./actions";
 import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } from "./validate";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
-type Status = "idle" | "working" | "sent" | "error" | "rateLimited";
+type Status = "idle" | "working" | "sent" | "error" | "rateLimited" | "uncertain";
 
 /** If the server action hasn't responded by this point, treat it as
  *  failed rather than leaving the button stuck on "WORKING…" forever. */
@@ -111,9 +111,12 @@ export function ContactForm({ context }: { context?: ContactContext }) {
       setBudget(null);
       setStatus("sent");
       trackEvent("contact_submit", eventContext);
-    } catch {
-      trackEvent("form_error", { ...eventContext, reason: "network_or_timeout" });
-      if (mounted.current) setStatus("error");
+    } catch (error) {
+      // A transport error or client timeout cannot prove the server failed to save.
+      // Prevent a blind resubmit, which could create a duplicate enquiry.
+      const timedOut = error instanceof Error && error.message === "timeout";
+      trackEvent("form_error", { ...eventContext, reason: timedOut ? "timeout_receipt_uncertain" : "network_receipt_uncertain" });
+      if (mounted.current) setStatus("uncertain");
     } finally {
       inFlight.current = false;
     }
@@ -277,20 +280,29 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
             </div>
 
-            <button
-              type="submit"
-              disabled={status === "working"}
-              aria-busy={status === "working"}
-              className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-surface-0 transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
-            >
-              {status === "working"
-                ? (ar ? "جارٍ الإرسال…" : "WORKING…")
-                : (ar ? "ابعت استفسارك" : "Send your enquiry")}
-            </button>
+            {status !== "uncertain" && (
+              <button
+                type="submit"
+                disabled={status === "working"}
+                aria-busy={status === "working"}
+                className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-surface-0 transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
+              >
+                {status === "working"
+                  ? (ar ? "جارٍ الإرسال…" : "WORKING…")
+                  : (ar ? "ابعت استفسارك" : "Send your enquiry")}
+              </button>
+            )}
 
             {/* Empty regions would add a flex gap of their own, so while
                 empty they pull back by exactly that gap (-mt-2 = gap-2). */}
             <div role="alert" className="empty:-mt-2">
+              {status === "uncertain" && (
+                <p className="text-body-sm text-accent">
+                  {ar
+                    ? <>ماقدرتش أتأكد إن رسالتك وصلت. ممكن تكون اتحفظت بالفعل؛ علشان نتجنب تكرار الطلب، <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">راسلني بالإيميل قبل ما تبعت النموذج مرة تانية</a>.</>
+                    : <>I couldn't confirm receipt. Your enquiry may already be saved; to avoid a duplicate, <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">email me before submitting again</a>.</>}
+                </p>
+              )}
               {status === "error" && (
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                   {ar
