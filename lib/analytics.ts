@@ -24,7 +24,7 @@ export type EventName =
   | "insight_open"
   | "cv_download";
 
-/** Allowed keys: placement / surface / slug / href / locale — see docs/EVENTS.md. */
+/** Event-specific, non-PII context fields. Keep event meanings and the property privacy contract in docs/EVENTS.md. */
 export type EventProps = Record<string, string | undefined>;
 
 export function trackEvent(name: EventName, props?: EventProps) {

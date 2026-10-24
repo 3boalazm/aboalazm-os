@@ -1,23 +1,33 @@
-# Conversion Events — Source of Truth (M6 / S6 · 2026-10-14)
+# Conversion Events — Source of Truth (M6 / S6 · 2026-10-24)
 
-Vercel Analytics (`@vercel/analytics`, mounted in `app/(site)/layout.tsx`). Every event fires via `trackEvent` in `lib/analytics.ts` — the typed `EventName` union makes a name typo a compile error. **Any rename/addition: update this file and `lib/analytics.ts` in the same commit.**
+Vercel Analytics is mounted in `app/(site)/[locale]/layout.tsx`; events are sent through `trackEvent` in `lib/analytics.ts`. Keep this document and the typed `EventName` union in sync in the same commit.
 
-Props schema: `placement` (where on the page), `surface` (which component), `slug`, `href`, `locale`.
+## Events
 
-| Event | Meaning | Fire sites (as of 2026-10-14) | Props |
-|---|---|---|---|
-| `cta_start_project` | A "Start a project / Book the call" primary CTA was clicked | `features/hero/hero.tsx` (hero primary), `features/offers/offer-blocks.tsx` `CtaBand` primary (home, services, pricing, agreement, labs), `contact-view.tsx` kickoff step "Book the Call" (wa.me) | `placement` = hero / cta_band / contact_steps · `href` (cta_band) |
-| `case_study_open` | A click into a case-study page | `features/work/featured-cases.tsx` (internal card CTA only), `features/case-studies/next-case-link.tsx` | `slug` · `surface` = featured_card / next_case |
-| `contact_submit` | Contact form reached the `sent` state (server accepted) | `features/contact/contact-form.tsx` submit success branch | `locale` = ar / en |
-| `insight_open` | A writing post was opened | `features/home/insights-teaser.tsx` (home teaser), `writing/writing-view.tsx` (archive row) | `slug` · `surface` = home_teaser / archive |
-| `cv_download` | The CV link on /for-hiring was clicked | `app/(site)/for-hiring/for-hiring-view.tsx` download anchor | — |
+| Event | Meaning | Main source | Properties |
+| --- | --- | --- | --- |
+| `cta_start_project` | A same-origin link into the contact route was clicked. This is intent, not a lead. | `components/seo/funnel-analytics.tsx` | `service`, `tier`, `source`, `placement`, `locale`, valid campaign IDs |
+| `contact_channel_click` | Email or WhatsApp link was opened. Does not prove a message was sent or a call was booked. | `components/seo/funnel-analytics.tsx` | `channel`, `source`, `placement`, `locale`, valid campaign IDs |
+| `form_start` | First focus in the enquiry form. | `features/contact/contact-form.tsx` | `service`, `tier`, `source`, `locale` |
+| `form_submit_attempt` | Browser-valid form submission was attempted. | `features/contact/contact-form.tsx` | `service`, `tier`, `source`, `locale` |
+| `form_error` | Field validation, rate limit, storage, network or uncertain-receipt failure. | `features/contact/contact-form.tsx` | Context above plus a non-PII `reason` |
+| `contact_submit` | Server confirms the enquiry was saved in the existing message store. Notification arrival is separate. | `features/contact/contact-form.tsx` after a successful server response | `service`, `tier`, `source`, `locale` |
+| `case_study_open` | A project card's media, title or primary CTA was opened. | `features/work/featured-cases.tsx` | `slug`, `surface` |
+| `track_see_more` | A visitor opened the rest of the design or development track. | `features/work/featured-cases.tsx` | `track` |
+| `insight_open` | A writing post was opened from a teaser. | `features/home/insights-teaser.tsx` and the writing archive | `slug`, `surface` |
+| `resource_unlock` | The reader gained access to a resource. | `features/resources/resource-blocks.tsx` | `resource`, `intent`, `locale` |
+| `resource_lead_saved` | The resource endpoint confirmed that its lead was saved. | `features/resources/resource-blocks.tsx` | `resource`, `intent`, `locale` |
+| `resource_download` | A resource download link was clicked. | `features/resources/resource-blocks.tsx` | `resource`, `locale` |
+| `cv_download` | The CV link was clicked on the hiring page. | `app/(site)/[locale]/for-hiring/for-hiring-view.tsx` | None |
 
-## Funnel read
-`cta_start_project → contact_submit` = pipeline conversion.
-`case_study_open` per-slug × surface tells which case/entry pulls weight.
-`insight_open` proves the thinking→funnel hypothesis from the master plan.
-`cv_download` isolates the hiring path (kept out of the studio funnel on purpose).
+## Privacy and interpretation
 
-## Notes / dev
-- Local dev won't show network calls unless Analytics debug is on (`NEXT_PUBLIC_VERCEL_ANALYTICS_DEBUG`); Vercel collects in production. The try/catch in `trackEvent` guarantees analytics never blocks a user action.
-- Bot-trap submits of the contact form return `ok` to the visitor but store nothing — consider adding `contact_submit_spam` if the dashboard ever needs the noise split (deliberately not wired now: honeypot should stay invisible).
+Event properties must stay contextual and non-identifying. Never send visitor names, email addresses, briefs, or other free-text form values. Campaign identifiers are limited to 1–80 ASCII letters, numbers, hyphens and underscores; email addresses and URLs are rejected. `source` is a bounded local path, not a full URL.
+
+These events represent different stages: `cta_start_project` is a click, `form_start` is focus, `form_submit_attempt` is an attempt, and `contact_submit` means the database accepted the enquiry. A saved enquiry can still lack an email notification if SMTP is not configured. Do not use clicks or pageviews as a proxy for qualified leads, proposals, or won projects.
+
+## Reporting limitation recorded during the 24 October 2026 audit
+
+The connected Vercel Analytics custom-event aggregation request returned HTTP 402 with a message that custom-event reporting requires a Pro or Enterprise plan. This means event definitions are in code, but event totals and conversion sequences could not be independently queried during this audit. Resolve the plan/access requirement or configure an approved alternative before using these events for quantitative conversion claims.
+
+Local development does not provide production counts. The try/catch around `trackEvent` ensures analytics failures never block a user action.
