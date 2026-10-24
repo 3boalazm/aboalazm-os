@@ -3,13 +3,13 @@
   "version": "1.0.1",
   "private": true,
   "type": "module",
-  "description": "Mustafa Aboalazm OS \u2014 Personal Design Operating System",
+  "description": "Mustafa Aboalazm OS — Personal Design Operating System",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && next build",
+    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run check:migrations && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:blob-token": "node --import tsx --test lib/blob-token.test.ts",
@@ -21,7 +21,8 @@
     "test:lead-pipeline": "node --import tsx --test lib/contact-attribution.test.ts",
     "check:contact": "node --import tsx scripts/check-contact-setup.ts",
     "check:db-ssl": "node --import tsx scripts/check-db-ssl-mode.ts",
-    "payload": "payload"
+    "payload": "payload",
+    "check:migrations": "payload migrate:status"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
