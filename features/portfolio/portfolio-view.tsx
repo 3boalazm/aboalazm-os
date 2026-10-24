@@ -12,7 +12,7 @@
  */
 
 import { useMemo, useRef, useState, useCallback, useEffect } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import {
   IDENTITY, COVER, PROFILE, PROJECTS, CONTACT, SLIDES,
   type Project,

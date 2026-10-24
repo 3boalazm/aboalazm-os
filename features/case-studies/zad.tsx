@@ -1,7 +1,8 @@
 "use client";
 
+import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 
 const stack = [
@@ -233,6 +234,7 @@ export function ZadCaseStudy() {
           </div>
         </div>
       </section>
+      <div className="container-content"><ProjectEnquiry compact service="digital-product" /></div>
 
       {/* ═══ 01 / OVERVIEW ═══ */}
       <section className="border-y border-border-subtle bg-surface-1/35">
@@ -243,7 +245,7 @@ export function ZadCaseStudy() {
               {ar ? "تطبيق واحد يرافقك، مش يشتتك." : "One companion, not a cluster of apps."}
             </h2>
           </div>
-          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             <p>
               {ar
                 ? "زاد هو PWA عربي أولًا صُمم لعشر ذي الحجة وامتد ليغطي العبادة اليومية كاملة: الصلوات الخمس في جماعة، ورد القرآن وختمته، المسبحة والتكبير، الأذكار والأدعية، ومناسك الحج ويوم عرفة والأضحية، مع مساحة للأطفال والعائلة."
@@ -280,7 +282,7 @@ export function ZadCaseStudy() {
             {ar ? "العبادة تتقطع بين تطبيقات كثيرة." : "Worship gets fragmented across apps."}
           </h2>
         </div>
-        <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
+        <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
           <p>
             {ar
               ? "الواقع العملي: تطبيق للصلاة، آخر للقرآن، ثالث للأذكار، ورابع للأطفال. كل واحد يطلب تسجيلًا مختلفًا، وإشعاراته منفصلة، ولا أحد يربط التقدم اليومي بصورة واحدة."
@@ -292,7 +294,7 @@ export function ZadCaseStudy() {
               : "Result: fragmented habits and broken streaks, especially in Dhul Hijjah where each day carries fasting, takbeer and remembrance. The need was a single companion that keeps streaks even offline."}
           </p>
           <div className="rounded-xl border-s-2 border-orange-400 bg-orange-400/[0.04] p-4">
-            <p className="text-sm leading-7 text-text-primary">
+            <p className="text-sm leading-[1.65] text-text-primary">
               {ar
                 ? "ما وراء المشكلة: ليست قلة المحتوى الديني، بل غياب تجربة يومية متماسكة تحترم اللغة العربية، الخصوصية، والعمل بدون اتصال."
                 : "Beyond content scarcity: the gap was a coherent daily experience respecting Arabic, privacy and offline use — not more religious content."}
@@ -310,7 +312,7 @@ export function ZadCaseStudy() {
               {ar ? "64 صفحة، روح واحدة." : "64 pages, one spirit."}
             </h2>
           </div>
-          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             <p>
               {ar
                 ? "الفكرة: بدل بناء تطبيق لكل عبادة، نبني نظامًا واحدًا بواجهات متعددة. كل صفحة HTML مستقلة لكنها تشترك في نفس الحالة (zad_v2)، نفس الشريط الجانبي، نفس المسبحة العائمة، ونفس لغة التصميم."
@@ -318,7 +320,7 @@ export function ZadCaseStudy() {
             </p>
             <div className="rounded-2xl border border-border-subtle bg-white p-4 md:p-4">
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">{ar ? "مبدأ المنتج" : "Product principle"}</p>
-              <p className="mt-3 text-lg font-medium leading-8 text-text-primary">
+              <p className="mt-3 text-lg font-medium leading-[1.65] text-text-primary">
                 {ar
                   ? "افتح كزائر وابدأ فورًا. أنشئ حسابًا فقط إذا أردت مزامنة. لا مزامنة تلقائية، لا فقدان بيانات عند الأوفلاين."
                   : "Open as guest and start. Create an account only if you want sync. No auto-sync, no offline data loss."}
@@ -329,7 +331,7 @@ export function ZadCaseStudy() {
                 <span className="rounded-full border border-border-subtle px-3 py-1 text-xs text-text-tertiary">PWA قابل للتثبيت</span>
               </div>
             </div>
-            <p className="text-sm leading-7">
+            <p className="text-sm leading-[1.65]">
               {ar
                 ? "الحل يعالج المشكلة بربط كل شيء في لوحة تحكم واحدة: عدّ تنازلي لعرفة، صلاة قادمة، آية المساء، محاضرات، أوسمة وإحصاءات — كلها تقرأ من نفس progresso المحلي."
                 : "The solution ties everything into one dashboard: Arafah countdown, next prayer, evening verse, lectures, badges and stats — all reading from the same local progress."}
@@ -347,7 +349,7 @@ export function ZadCaseStudy() {
               {ar ? "ما يهم فعلًا، بلغة بسيطة." : "What matters, in plain language."}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-6 text-text-tertiary">
+          <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">
             {ar
               ? "كل قدرة موثقة في السورس والصفحات الحية. لا ميزات متخيلة."
               : "Every capability is in the source and live pages. No imagined features."}
@@ -365,7 +367,7 @@ export function ZadCaseStudy() {
                 <span className="text-orange-300 transition-transform group-hover:translate-x-1">↗</span>
               </div>
               <h3 className="font-display text-xl leading-tight text-text-primary">{ar ? title : titleEn}</h3>
-              <p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? desc : descEn}</p>
+              <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? desc : descEn}</p>
             </article>
           ))}
         </div>
@@ -402,7 +404,7 @@ export function ZadCaseStudy() {
                   <p className="text-xs text-text-tertiary">{ar ? "أيقونة SVG حقيقية من الـ manifest" : "Real SVG icon from manifest.json"}</p>
                 </div>
               </div>
-              <p className="mt-4 text-xs leading-6 text-text-tertiary">
+              <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
                 {ar
                   ? "صورة الـ OG مأخوذة مباشرة من https://zadullmuslim.vercel.app/og-image.png — ليست صورة مولدة."
                   : "OG image is directly from https://zadullmuslim.vercel.app/og-image.png — not AI generated."}
@@ -418,7 +420,7 @@ export function ZadCaseStudy() {
                   <span className="flex-1 rounded-lg bg-[#c9a14a] p-3 text-center text-xs font-medium text-white">#c9a14a</span>
                   <span className="flex-1 rounded-lg bg-[#faf9f6] p-3 text-center text-xs font-medium text-zinc-700 border">#faf9f6</span>
                 </div>
-                <p className="mt-3 text-sm leading-7 text-text-secondary">
+                <p className="mt-3 text-sm leading-[1.65] text-text-secondary">
                   {ar
                     ? "أخضر عميق للثقة والسكينة، ذهبي للاحتفاء، ورمل فاتح للقراءة الطويلة. كلها معرفة كـ CSS variables."
                     : "Deep green for trust, gold for celebration, light sand for long reading — all as CSS variables."}
@@ -427,7 +429,7 @@ export function ZadCaseStudy() {
 
               <div className="rounded-2xl border border-border-subtle bg-background/60 p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">{ar ? "العربية أولًا" : "Arabic-first"}</p>
-                <ul className="mt-3 space-y-2 text-sm leading-7 text-text-secondary">
+                <ul className="mt-3 space-y-2 text-sm leading-[1.65] text-text-secondary">
                   <li>• {ar ? "dir=\"rtl\" افتراضي مع منطق logical properties" : "dir=\"rtl\" by default with logical CSS properties"}</li>
                   <li>• {ar ? "خطوط: IBM Plex Arabic + Amiri للآيات + ThmanyahSans للعناوين" : "Type: IBM Plex Arabic + Amiri for verses + ThmanyahSans for headings"}</li>
                   <li>• {ar ? "EN/FR عبر lang.js مع تبديل dir تلقائي" : "EN/FR via lang.js with automatic dir switching"}</li>
@@ -437,7 +439,7 @@ export function ZadCaseStudy() {
 
               <div className="rounded-2xl border border-orange-400/20 bg-orange-400/[0.04] p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">{ar ? "قرارات UX" : "UX decisions"}</p>
-                <p className="mt-2 text-sm leading-7 text-text-secondary">
+                <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
                   {ar
                     ? "شريط جانبي ثابت + تنقل سفلي، مسبحة عائمة لا تغطي المحتوى، command palette بـ Ctrl+K، وإمكانية وصول موثقة في ACCESSIBILITY-AUDIT-2026-08-23."
                     : "Fixed sidebar + bottom nav, non-covering floating tasbih, Ctrl+K palette and audited accessibility in ACCESSIBILITY-AUDIT-2026-08-23."}
@@ -460,7 +462,7 @@ export function ZadCaseStudy() {
                   <div className="mt-2 h-2 w-1/2 rounded-full bg-white/15" />
                 </div>
                 <p className="mt-3 text-sm font-medium text-text-primary">{item.k}</p>
-                <p className="text-xs leading-6 text-text-tertiary">{item.v}</p>
+                <p className="text-xs leading-[1.65] text-text-tertiary">{item.v}</p>
               </div>
             ))}
           </div>
@@ -483,12 +485,12 @@ export function ZadCaseStudy() {
               <div key={j.step} className="relative rounded-xl border border-border-subtle bg-white p-4">
                 <p className="font-mono text-[12px] text-orange-400">{j.step}</p>
                 <p className="mt-2 text-sm font-medium leading-tight text-text-primary">{ar ? j.title : j.titleEn}</p>
-                <p className="mt-2 text-xs leading-6 text-text-tertiary">{ar ? j.desc : j.descEn}</p>
+                <p className="mt-2 text-xs leading-[1.65] text-text-tertiary">{ar ? j.desc : j.descEn}</p>
                 <span className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-orange-300 lg:block">→</span>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-center text-xs leading-6 text-text-tertiary">
+          <p className="mt-4 text-center text-xs leading-[1.65] text-text-tertiary">
             {ar
               ? "مخطط مبسط للرحلة، ليس وثيقة معمارية عميقة. كل خطوة موثقة في js/app.js و js/sync-manager.js و api/src."
               : "Simplified journey diagram, not a deep architecture doc. Each step is in js/app.js, js/sync-manager.js and api/src."}
@@ -498,7 +500,7 @@ export function ZadCaseStudy() {
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <div className="rounded-xl border border-border-subtle p-4">
             <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-orange-300">{ar ? "محلي أولًا" : "Local-first"}</p>
-            <p className="mt-2 text-sm leading-7 text-text-secondary">
+            <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "التقدم يُحفظ في localStorage ويُستعاد فورًا. حتى لو فشل الخادم، الورد لا يضيع."
                 : "Progress lives in localStorage and restores instantly. Even if the server is down, wird is safe."}
@@ -506,7 +508,7 @@ export function ZadCaseStudy() {
           </div>
           <div className="rounded-xl border border-border-subtle p-4">
             <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-orange-300">{ar ? "بدون CORS" : "Same-origin"}</p>
-            <p className="mt-2 text-sm leading-7 text-text-secondary">
+            <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "الـ PWA لا يتصل مباشرة بـ Firebase من كل صفحة؛ الـ API على نفس النطاق يتولى الجلسات الآمنة."
                 : "PWA does not hit third-parties from every page; same-origin API handles secure sessions."}
@@ -528,7 +530,7 @@ export function ZadCaseStudy() {
           <div className="space-y-4">
             <div className="rounded-2xl border border-orange-400/20 bg-orange-400/[0.04] p-4">
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">{ar ? "عملي الموثق" : "Verified — my work"}</p>
-              <ul className="mt-3 list-disc space-y-2 ps-5 text-sm leading-7 text-text-secondary">
+              <ul className="mt-3 list-disc space-y-2 ps-5 text-sm leading-[1.65] text-text-secondary">
                 <li>{ar ? "تصميم المفهوم: 64 صفحة كـ PWA واحدة بواجهة عربية RTL أولًا." : "Concept design: 64 pages as one PWA with Arabic RTL-first UI."}</li>
                 <li>{ar ? "هندسة الواجهة: HTML/CSS/JS فانيلا مع premium-ui ودعم 3 ثيمات وRTL منطقي." : "Frontend engineering: vanilla HTML/CSS/JS with premium-ui, 3 themes and logical RTL."}</li>
                 <li>{ar ? "نظام PWA: manifest، Service Worker، offline-ui وتثبيت كتطبيق مستقل." : "PWA system: manifest, Service Worker, offline-ui and standalone install."}</li>
@@ -540,7 +542,7 @@ export function ZadCaseStudy() {
 
             <div className="rounded-2xl border border-border-subtle bg-white p-4">
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "موروث / طرف ثالث — باحترام المصدر" : "Inherited / third-party — with attribution"}</p>
-              <ul className="mt-3 list-disc space-y-1.5 ps-5 text-sm leading-7 text-text-tertiary">
+              <ul className="mt-3 list-disc space-y-1.5 ps-5 text-sm leading-[1.65] text-text-tertiary">
                 <li>{ar ? "نصوص قرآنية وأذكار: مصادر دينية عامة، ليست تأليفي." : "Quran & adhkar texts: public religious sources, not authored."}</li>
                 <li>Firebase SDK 10.12.0 · Google Fonts (IBM Plex Sans Arabic, Tajawal, Amiri) · ThmanyahSans</li>
                 <li>{ar ? "محتوى خارجي: إذاعات قرآن وبثوث YouTube / SoundCloud مضمنة." : "External content: Quran radio streams & embedded YouTube/SoundCloud."}</li>
@@ -548,7 +550,7 @@ export function ZadCaseStudy() {
               </ul>
             </div>
 
-            <p className="text-xs leading-6 text-text-ghost">
+            <p className="text-xs leading-[1.65] text-text-ghost">
               {ar
                 ? "كل commits باسم 3boalazm / Mustafa Aboalazm؛ صفحة developer.html تنسب العمل لي ولـ Code & Canvas."
                 : "All commits by 3boalazm / Mustafa Aboalazm; developer.html attributes work to me and Code & Canvas."}
@@ -571,13 +573,13 @@ export function ZadCaseStudy() {
             <div className="grid gap-3 sm:grid-cols-2">
               <div className="rounded-xl border border-emerald-200 bg-emerald-50/[0.6] p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-emerald-700">✓ {ar ? "يعمل" : "Works"}</p>
-                <p className="mt-2 text-sm leading-7 text-text-primary">
+                <p className="mt-2 text-sm leading-[1.65] text-text-primary">
                   {ar ? "PWA حي على zadullmuslim.vercel.app، قابل للتثبيت، يفتح بدون حساب، 64 صفحة تُحمّل." : "Live PWA at zadullmuslim.vercel.app, installable, opens as guest, 64 pages load."}
                 </p>
               </div>
               <div className="rounded-xl border border-emerald-200 bg-emerald-50/[0.6] p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-emerald-700">✓ {ar ? "مُختبر" : "Tested"}</p>
-                <p className="mt-2 text-sm leading-7 text-text-primary">
+                <p className="mt-2 text-sm leading-[1.65] text-text-primary">
                   {ar
                     ? "تدقيق وصول 23-08-2026، مجموعة QA، وإصلاحات RTL وheadings وService Worker."
                     : "A11y audit 23-08-2026, QA suite and fixes for RTL, headings and SW."}
@@ -585,7 +587,7 @@ export function ZadCaseStudy() {
               </div>
               <div className="rounded-xl border border-border-subtle p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-text-tertiary">{ar ? "روابط مباشرة" : "Live links"}</p>
-                <p className="mt-2 text-sm leading-7 text-text-secondary">
+                <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
                   <a href="https://zadullmuslim.vercel.app/" target="_blank" rel="noreferrer" className="text-orange-500 underline underline-offset-4">
                     zadullmuslim.vercel.app
                   </a>{" "}
@@ -597,7 +599,7 @@ export function ZadCaseStudy() {
               </div>
               <div className="rounded-xl border border-border-subtle p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-text-tertiary">{ar ? "أوفلاين حقيقي" : "Real offline"}</p>
-                <p className="mt-2 text-sm leading-7 text-text-secondary">
+                <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
                   {ar ? "القرآن والأذكار والتكبير والورد تعمل بدون نت بعد أول تحميل." : "Quran, adhkar, tasbih and wird work offline after first load."}
                 </p>
               </div>
@@ -605,7 +607,7 @@ export function ZadCaseStudy() {
 
             <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4">
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-700">⚠ {ar ? "محدوديات موثقة" : "Known limitations"}</p>
-              <ul className="mt-3 list-disc space-y-1 ps-5 text-sm leading-7 text-amber-900/80">
+              <ul className="mt-3 list-disc space-y-1 ps-5 text-sm leading-[1.65] text-amber-900/80">
                 <li>{ar ? "التسجيل معزول: لا مزامنة تلقائية حتى يطلب المستخدم الدفع." : "Registration is isolated: no auto-sync until user pushes."}</li>
                 <li>{ar ? "الـ API يحتاج DATABASE_URL وSESSION_SECRET — بدونها يعمل بوضع not_configured." : "API needs DATABASE_URL & SESSION_SECRET — otherwise runs as not_configured."}</li>
                 <li>{ar ? "مواقيت الصلاة دقيقة فقط بعد السماح بالموقع؛ وإلا تُعرض --:--." : "Prayer times need location permission; otherwise show --:--."}</li>
@@ -613,7 +615,7 @@ export function ZadCaseStudy() {
               </ul>
             </div>
 
-            <p className="text-xs leading-6 text-text-ghost">
+            <p className="text-xs leading-[1.65] text-text-ghost">
               {ar
                 ? "كل الادعاءات من السورس أو من instance حية تم فتحها. ما هو غير مؤكد حُذف."
                 : "Every claim is from source or a live instance opened. Uncertain claims were omitted."}
@@ -631,8 +633,8 @@ export function ZadCaseStudy() {
               {ar ? "لماذا زاد مفيد؟" : "Why Zad matters."}
             </h2>
           </div>
-          <div className="space-y-3 text-base leading-8 text-text-secondary">
-            <p className="text-lg font-medium leading-8 text-text-primary">
+          <div className="space-y-3 text-base leading-[1.65] text-text-secondary">
+            <p className="text-lg font-medium leading-[1.65] text-text-primary">
               {ar
                 ? "لأنه يحوّل العبادة المتقطعة إلى عادة يومية متماسكة — بدون إعلانات، بدون تعقيد، وباحترام للغة."
                 : "It turns fragmented worship into a coherent daily habit — no ads, no complexity, with language respected."}
@@ -662,7 +664,7 @@ export function ZadCaseStudy() {
               <h2 className="mt-4 max-w-2xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
                 {ar ? "من فكرة إيمانية إلى منتج يومي." : "From faithful idea to daily product."}
               </h2>
-              <p className="mt-4 max-w-xl text-sm leading-7 text-text-secondary">
+              <p className="mt-4 max-w-xl text-sm leading-[1.65] text-text-secondary">
                 {ar
                   ? "افتح زاد كزائر، جرّب المسبحة والمصحف، ثم اقرأ الكود إذا أردت العمق."
                   : "Open Zad as guest, try tasbih and Mushaf, then read the code for depth."}

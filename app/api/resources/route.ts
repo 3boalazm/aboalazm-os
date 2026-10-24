@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "rate_limited" }, { status: 429 });
   }
 
-  let body: { email?: unknown; resource?: unknown };
+  let body: { email?: unknown; resource?: unknown; intent?: unknown };
   try {
     const json: unknown = await req.json();
     body = typeof json === "object" && json !== null ? json : {};
@@ -46,16 +46,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "invalid_resource" }, { status: 422 });
   }
 
+  const intent = ["learning", "project", "team", "unspecified"].includes(String(body.intent)) ? String(body.intent) : "unspecified";
+  let leadSaved = false;
   try {
     const payload = await getPayload();
     await payload.create({
       collection: "resource-leads",
-      data: { email, resource, source: "resources-page" },
+      data: { email, resource, source: `resources-page|intent:${intent}` },
     });
+    leadSaved = true;
   } catch (err) {
     // Never block the unlock — the user still gets their download.
     console.error("[resources] lead write failed:", err);
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, leadSaved });
 }

@@ -3,19 +3,21 @@
   "version": "1.0.1",
   "private": true,
   "type": "module",
-  "description": "Mustafa Aboalazm OS — Personal Design Operating System",
+  "description": "Mustafa Aboalazm OS \u2014 Personal Design Operating System",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && next build",
+    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && npm run test:conversion && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test:blob-token": "tsx --test lib/blob-token.test.ts",
-    "test:work-projects": "tsx --test features/work/project-curation.test.ts",
-    "test:case-claims": "tsx --test features/case-studies/reviewed-claims.test.ts",
-    "test:cms-text": "tsx --test lib/cms-text.test.ts"
+    "test:blob-token": "node --import tsx --test lib/blob-token.test.ts",
+    "test:work-projects": "node --import tsx --test features/work/project-curation.test.ts",
+    "test:case-claims": "node --import tsx --test features/case-studies/reviewed-claims.test.ts",
+    "test:cms-text": "node --import tsx --test lib/cms-text.test.ts",
+    "test:conversion": "node --import tsx --test lib/conversion.test.ts",
+    "check:contact": "node --import tsx scripts/check-contact-setup.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

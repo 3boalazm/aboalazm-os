@@ -17,8 +17,9 @@
  * verified). The section prints that origin on every tile, so a reader can
  * always tell a measured fact from a claim.
  */
+import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 
 export type Accent = "amber" | "violet" | "emerald" | "cyan" | "rose";
@@ -198,7 +199,7 @@ export function ProductCase(props: ProductCaseProps) {
               {props.system.flow ? (
                 <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
                   <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار البيانات" : "Data path"}</p>
-                  <p className="mt-2 text-sm leading-7 text-text-primary">
+                  <p className="mt-2 text-sm leading-[1.65] text-text-primary">
                     {props.system.flow.a} <span className={a.text}>→</span> {props.system.flow.mid} <span className={a.text}>→</span> {props.system.flow.b}
                   </p>
                 </div>
@@ -216,13 +217,14 @@ export function ProductCase(props: ProductCaseProps) {
           </div>
           {props.cta ? (
             <div className="flex flex-wrap gap-3">
-              <a href={props.cta.href} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 ${a.button}`}>
+              <a href={props.cta.href} target={props.cta.href.startsWith("#") ? undefined : "_blank"} rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 ${a.button}`}>
                 {ar ? props.cta.ar : props.cta.en} ↗
               </a>
             </div>
           ) : null}
         </div>
       </section>
+      <div className="container-content"><ProjectEnquiry compact service="digital-product" /></div>
 
       {/* ═══ COVER ═══ */}
       <section className="container-wide pb-2">
@@ -251,12 +253,12 @@ export function ProductCase(props: ProductCaseProps) {
               {ar ? props.challenge.titleAr : props.challenge.title}
             </h2>
           </div>
-          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             {(ar ? props.challenge.paragraphsAr : props.challenge.paragraphs).map((p, i) => (
               <p key={i}>{p}</p>
             ))}
             <div className={`rounded-xl border-s-2 p-4 ${a.border.replace("border-", "border-s-2 border-")}`}>
-              <p className="text-sm leading-7 text-text-primary">{ar ? props.challenge.calloutAr : props.challenge.callout}</p>
+              <p className="text-sm leading-[1.65] text-text-primary">{ar ? props.challenge.calloutAr : props.challenge.callout}</p>
             </div>
           </div>
         </div>
@@ -271,7 +273,7 @@ export function ProductCase(props: ProductCaseProps) {
               {ar ? props.system.titleAr : props.system.title}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-6 text-text-tertiary">{ar ? props.system.asideAr : props.system.aside}</p>
+          <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">{ar ? props.system.asideAr : props.system.aside}</p>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">
@@ -283,7 +285,7 @@ export function ProductCase(props: ProductCaseProps) {
               </div>
               <h3 className="font-display text-2xl text-text-primary">{ar ? m.nameAr : m.name}</h3>
               {m.tech ? <p className={`mt-2 font-mono text-xs ${a.text}`}>{m.tech}</p> : null}
-              <p className="mt-4 text-sm leading-7 text-text-secondary">{ar ? m.detailAr : m.detail}</p>
+              <p className="mt-4 text-sm leading-[1.65] text-text-secondary">{ar ? m.detailAr : m.detail}</p>
             </article>
           ))}
         </div>
@@ -306,7 +308,7 @@ export function ProductCase(props: ProductCaseProps) {
                 <p className="mt-2 text-sm text-text-primary">{props.system.flow.bSub}</p>
               </div>
             </div>
-            <p className="mt-4 text-xs leading-6 text-text-tertiary">{ar ? props.system.flow.noteAr : props.system.flow.note}</p>
+            <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">{ar ? props.system.flow.noteAr : props.system.flow.note}</p>
           </div>
         ) : null}
       </section>
@@ -328,7 +330,7 @@ export function ProductCase(props: ProductCaseProps) {
                   <span className={a.text}>↗</span>
                 </div>
                 <h3 className="font-display text-xl text-text-primary">{ar ? d.titleAr : d.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? d.bodyAr : d.body}</p>
+                <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? d.bodyAr : d.body}</p>
               </article>
             ))}
           </div>
@@ -346,7 +348,7 @@ export function ProductCase(props: ProductCaseProps) {
             {props.rows.items.map((r) => (
               <div key={r.name} className="grid gap-2 py-5 sm:grid-cols-[190px_1fr] sm:gap-6">
                 <h3 className="text-sm font-medium text-text-primary">{ar ? r.nameAr : r.name}</h3>
-                <p className="text-sm leading-7 text-text-secondary">{ar ? r.bodyAr : r.body}</p>
+                <p className="text-sm leading-[1.65] text-text-secondary">{ar ? r.bodyAr : r.body}</p>
               </div>
             ))}
           </div>
@@ -354,7 +356,7 @@ export function ProductCase(props: ProductCaseProps) {
       ) : null}
 
       {/* ═══ 05 · EVIDENCE ═══ */}
-      <section className="border-y border-border-subtle bg-surface-1/35">
+      <section id="evidence" className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>05 / {ar ? "الأدلة" : "Evidence"}</p>
@@ -375,7 +377,7 @@ export function ProductCase(props: ProductCaseProps) {
               ))}
             </div>
             {(ar ? props.evidence.notesAr : props.evidence.notes).map((n, i) => (
-              <p key={i} className="text-xs leading-6 text-text-tertiary">{n}</p>
+              <p key={i} className="text-xs leading-[1.65] text-text-tertiary">{n}</p>
             ))}
           </div>
         </div>
@@ -396,7 +398,7 @@ export function ProductCase(props: ProductCaseProps) {
                 <span key={s} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{s}</span>
               ))}
             </div>
-            <p className="mt-6 text-sm leading-7 text-text-secondary">{ar ? props.stack.noteAr : props.stack.note}</p>
+            <p className="mt-6 text-sm leading-[1.65] text-text-secondary">{ar ? props.stack.noteAr : props.stack.note}</p>
           </div>
         </div>
       </section>
@@ -411,14 +413,14 @@ export function ProductCase(props: ProductCaseProps) {
             <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? props.handoff.titleAr : props.handoff.title}
             </h2>
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-text-secondary">{ar ? props.handoff.noteAr : props.handoff.note}</p>
+            <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? props.handoff.noteAr : props.handoff.note}</p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
             <Link href="/work" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-border-strong">
               {ar ? "كل الأعمال" : "All work"}
             </Link>
             {props.cta ? (
-              <a href={props.cta.href} target="_blank" rel="noreferrer" className={`rounded-full px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5 ${a.button}`}>
+              <a href={props.cta.href} target={props.cta.href.startsWith("#") ? undefined : "_blank"} rel="noreferrer" className={`rounded-full px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5 ${a.button}`}>
                 {ar ? props.cta.ar : props.cta.en} ↗
               </a>
             ) : null}

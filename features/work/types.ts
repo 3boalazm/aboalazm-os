@@ -52,6 +52,9 @@ export interface Project {
   isUiUx?: boolean;
   /** Live destination used by /work cards and, when isUiUx is true, /work-ui. */
   liveUrl?: string;
+  /** No public deployment is currently available; show the saved project. */
+  previewStatus?: "archived";
+  overviewOnly?: boolean;
   /**
    * Primary palette pair — consumed by useAmbientGlowControls to
    * override the global --glow-* tokens while the row is hovered.

@@ -15,9 +15,10 @@ export const EMAIL_MAX = 254;
 export const COMPANY_MAX = 200;
 export const TIMELINE_MAX = 200;
 export const BRIEF_MAX = 5000;
+/** Reserved room for bounded service/source/campaign context in the stored brief. */
+export const MESSAGE_MAX = BRIEF_MAX + 1000;
 
-/** A human cannot fill the form faster than this. Faster = script. */
-export const MIN_FILL_MS = 2000;
+/** Fill time is diagnostic only: autofill and assistive technology can be fast. */
 
 /** Shared with app/api/resources/route.ts; the form uses its `.source` as the
  *  email input's `pattern`, because `type="email"` alone accepts `a@localhost`. */
@@ -33,9 +34,8 @@ export interface ContactFields {
 }
 
 export type ContactCheck =
-  /** Bot trap tripped: answer "sent" but store and email nothing. `reason`
-   *  is for the server log only (it carries no visitor data). */
-  | { ok: true; spam: true; reason: "honeypot" | "too_fast" }
+  /** Bot trap tripped: reject without storing or emailing. `reason` is for the server log only (no visitor data). */
+  | { ok: true; spam: true; reason: "honeypot" }
   | { ok: true; spam: false; data: ContactFields }
   | { ok: false; error: "invalid" };
 
@@ -59,25 +59,11 @@ export function validateContact(input: unknown): ContactCheck {
   }
   const raw = input as Record<string, unknown>;
 
-  /* Bot traps: the honeypot (`_gotcha`, a hidden input the real form never
-     fills) and the minimum fill time. `elapsedMs` is measured by the browser
-     from mount to submit, not as a wall-clock timestamp, so a skewed device
-     clock cannot drop a real message.
-
-     Honest scope: both values come from the client and are optional here (a
-     cached older page may not send them), so a script that POSTs the server
-     action directly can omit or forge them. The traps only stop bots that
-     fill in the rendered form. A direct POST still meets the type checks and
-     length caps below and the per-IP limit in actions.ts, which counts in
-     memory per serverless instance. A shared limiter or CAPTCHA (Upstash,
-     Turnstile) is the owner's call. /api/resources has no trap at all. */
+  /* Only the honeypot can reject a rendered submission. Fast autofill is valid.
+     The server action applies validation and per-IP rate limiting as well. */
   const trap = raw._gotcha;
   if (trap !== undefined && !(typeof trap === "string" && trap.trim() === "")) {
     return { ok: true, spam: true, reason: "honeypot" };
-  }
-  const elapsed = raw.elapsedMs;
-  if (elapsed !== undefined && !(typeof elapsed === "number" && elapsed >= MIN_FILL_MS)) {
-    return { ok: true, spam: true, reason: "too_fast" };
   }
 
   const name = text(raw.name, NAME_MAX);

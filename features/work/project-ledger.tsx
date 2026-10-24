@@ -26,7 +26,7 @@ import { Badge } from "@/components/ui/Badge";
  * Spacing: 8px scale only. Pills: Geist Mono. Canvas: Obsidian.
  */
 import { useCallback, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
 import { reveal } from "@/lib/motion";
@@ -174,7 +174,7 @@ function LedgerRow({
   /* Match the label to the actual URL, including local live showcases
      that have no externalUrl. */
   const destination = internal
-    ? ar ? "دراسة حالة" : "Case Study"
+    ? project.overviewOnly ? (ar ? "عرض المشروع" : "Project overview") : (ar ? "دراسة حالة" : "Case Study")
     : project.liveUrl
       ? ar ? "منتج حي" : "Live Product"
       : project.externalUrl === BEHANCE

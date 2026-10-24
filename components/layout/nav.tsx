@@ -11,7 +11,7 @@ import { useT } from "@/hooks/use-t";
  *    so nothing collides at the top edge.
  */
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
@@ -32,7 +32,7 @@ const LINKS = [
   { href: "/process",  en: "PROCESS",  ar: "المنهجية" },
   { href: "/writing",  en: "WRITING",  ar: "مقالات"   },
   { href: "/about",    en: "ABOUT",    ar: "نبذة"     },
-  { href: "/developer", en: "MAKER", ar: "المطوّر" },
+
 ] as const;
 
 /* Secondary set — the mobile panel is the only place these live outside
@@ -40,6 +40,7 @@ const LINKS = [
    PORTFOLIO PDF is pinned LAST on purpose: the 16:9 slide deck is the
    "take me with you" exit at the very end of the menu. */
 const MORE = [
+  { href: "/developer", en: "MAKER", ar: "المطوّر" },
   { href: "/for-hiring", en: "FOR HIRING", ar: "للتوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/labs", en: "LABS", ar: "المعمل" },
@@ -63,7 +64,7 @@ const NAV_CONTROL =
 
 export function Nav() {
   const t = useT();
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
   const { lang, toggle } = useLang();
   const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
@@ -240,18 +241,13 @@ export function Nav() {
         </button>
 
         <Link
-          href="/for-hiring"
+          href="/contact"
           className={buttonVariants({
             className:
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {/* The bar's one action serves the owner's stated goal — a full-time
-              brand identity role in the Gulf — and lands on the candidate
-              dossier (roles, CV, the way to reach him), not on the client
-              funnel. "Start a project" stays one tap away: the hero's
-              "Client services" link, /services, /contact, the footer. */}
-          {lang === "ar" ? "وظّفني" : "HIRE ME"}
+          <span className="sm:hidden">{lang === "ar" ? "ابدأ مشروعك" : "PROJECT"}</span><span className="hidden sm:inline">{lang === "ar" ? "ناقش مشروعك" : "DISCUSS A PROJECT"}</span>
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"
@@ -266,7 +262,7 @@ export function Nav() {
           type="button"
           aria-expanded={open}
           aria-controls="mobile-menu"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? (lang === "ar" ? "إغلاق القائمة" : "Close menu") : (lang === "ar" ? "فتح القائمة" : "Open menu")}
           lang={lang === "ar" ? "en" : undefined}
           onClick={() => setOpen((v) => !v)}
           className="grid size-6 shrink-0 place-items-center rounded-pill font-mono sm:size-8 text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary lg:hidden"

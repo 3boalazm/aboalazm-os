@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { BRIEF_MAX, COMPANY_MAX, NAME_MAX, TIMELINE_MAX } from "@/features/contact/validate";
+import { MESSAGE_MAX, COMPANY_MAX, NAME_MAX, TIMELINE_MAX } from "@/features/contact/validate";
 
 /**
  * MESSAGES — contact form submissions (features/contact/contact-form.tsx
@@ -42,8 +42,8 @@ export const Messages: CollectionConfig = {
       name: "brief",
       type: "textarea",
       required: true,
-      maxLength: BRIEF_MAX,
-      admin: { description: "What are we building — the client's own words." },
+      maxLength: MESSAGE_MAX,
+      admin: { description: "Service, package, source and campaign context followed by the client brief." },
     },
     /* Qualifiers — side by side, they scan as one line. */
     {

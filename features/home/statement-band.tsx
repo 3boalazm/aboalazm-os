@@ -6,7 +6,7 @@
  * full-bleed obsidian panel that reads dark in both themes (it is the
  * "sudden quiet room" between the work and the offer). SSR-painted.
  */
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 

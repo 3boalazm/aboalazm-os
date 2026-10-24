@@ -1,6 +1,6 @@
 "use client";
 import { useLang } from "@/components/providers/lang-provider";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { reveal } from "@/lib/motion";
 import { LivePreviewCard } from "./live-preview-card";
 import type { Project } from "@/features/work/types";
@@ -8,6 +8,7 @@ import type { Project } from "@/features/work/types";
 export function LivePreviewGrid({ projects }: { projects: readonly Project[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const reduced = useReducedMotion();
 
   if (projects.length === 0) {
     return (
@@ -25,7 +26,7 @@ export function LivePreviewGrid({ projects }: { projects: readonly Project[] }) 
   return (
     <motion.div
       variants={reveal.container}
-      initial="hidden"
+      initial={reduced ? false : "hidden"}
       animate="visible"
       className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
     >

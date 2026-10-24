@@ -6,6 +6,8 @@
  * colors, physics motion. The gate persists unlock in localStorage so a
  * returning visitor isn't asked twice.
  */
+import { trackEvent } from "@/lib/analytics";
+import { RESOURCES } from "@/lib/resources";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
@@ -64,6 +66,8 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const [email, setEmail] = useState("");
+  const [resource, setResource] = useState("");
+  const [intent, setIntent] = useState("unspecified");
   const [state, setState] = useState<"idle" | "loading" | "error" | "rateLimited">("idle");
 
   async function submit() {
@@ -73,12 +77,15 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
       const res = await fetch("/api/resources", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, resource: resource || undefined, intent }),
       });
       if (!res.ok) {
         setState(res.status === 429 ? "rateLimited" : "error");
         return;
       }
+      const result = await res.json() as { leadSaved?: boolean };
+      trackEvent("resource_unlock", { resource: resource || "library", intent, locale: lang });
+      if (result.leadSaved) trackEvent("resource_lead_saved", { resource: resource || "library", intent, locale: lang });
       writeUnlocked();
       onUnlock();
     } catch {
@@ -97,11 +104,15 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
       </h2>
       <p className="mt-1 max-w-[46ch] text-body-sm text-text-secondary">
         {ar
-          ? "بريد إلكتروني واحد يفتح الوثائق الثماني. بلا رسائل مزعجة — تحديثات نادرة عن أدوات وأطر جديدة فقط."
-          : "One email unlocks all eight documents. No spam — only rare updates when new tools and frameworks ship."}
+          ? "بريد إلكتروني واحد يفتح الوثائق. بياناتك لتنظيم الوصول، ومش هتُضاف لقائمة تسويق تلقائيًا."
+          : "One email unlocks the documents. Your details organise access; this does not automatically subscribe you to marketing emails."}
       </p>
 
-      <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <label className="flex flex-col gap-1 text-body-sm"><span>{ar ? "أول مورد مهتم بيه (اختياري)" : "First resource of interest (optional)"}</span><select className="rounded-card border border-border-default bg-surface-2 p-1.5" value={resource} onChange={(e) => setResource(e.target.value)}><option value="">{ar ? "المكتبة كلها" : "The whole library"}</option>{RESOURCES.map((r) => <option key={r.id} value={r.id}>{pick(r.title, lang)}</option>)}</select></label>
+        <label className="flex flex-col gap-1 text-body-sm"><span>{ar ? "هتستخدمه في إيه؟ (اختياري)" : "What will you use it for? (optional)"}</span><select className="rounded-card border border-border-default bg-surface-2 p-1.5" value={intent} onChange={(e) => setIntent(e.target.value)}><option value="unspecified">{ar ? "تخطي الاختيار" : "Prefer not to say"}</option><option value="learning">{ar ? "التعلم والتجربة" : "Learning and practice"}</option><option value="project">{ar ? "مشروع لبراند أو شركة" : "A brand or company project"}</option><option value="team">{ar ? "تنظيم شغل الفريق" : "Organising team workflows"}</option></select></label>
+      </div>
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input
           type="email"
           inputMode="email"
@@ -197,6 +208,7 @@ export function ResourceCard({
         {unlocked ? (
           <a
             href={resource.file}
+            onClick={() => trackEvent("resource_download", { resource: resource.id, locale: lang })}
             download
             className="group inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:text-accent"
           >

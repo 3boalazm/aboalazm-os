@@ -37,7 +37,7 @@ export function MiniExamCaseStudy() {
         { en: "Education", ar: "تعليم" },
         { en: "AI-assisted", ar: "بمساعدة AI" },
         { en: "No student login", ar: "بدون تسجيل للطالب" },
-        { en: "Live", ar: "مباشر" },
+        { en: "Saved project", ar: "عرض محفوظ" },
       ]}
       snapshot={[
         { value: "16", label: "API route handlers", labelAr: "API route" },
@@ -60,7 +60,7 @@ export function MiniExamCaseStudy() {
         captionAr: "بناء الامتحان — توليد، مراجعة، نشر",
         tag: "LIVE / 2026",
       }}
-      cta={{ href: "https://exam-eta-sandy.vercel.app/", en: "Open Mini Exam", ar: "افتح ميني إكزام" }}
+      cta={{ href: "#evidence", en: "Explore the project", ar: "استكشف المشروع" }}
       challenge={{
         title: "Teachers lose an evening to work a spreadsheet could not do.",
         titleAr: "المعلم بيخسر ليلة في شغل الشيت معملوش.",

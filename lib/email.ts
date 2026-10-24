@@ -31,6 +31,9 @@ function buildTransport() {
     /* Port 465 implies implicit TLS; other ports upgrade via STARTTLS. */
     secure: port === 465,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
+    connectionTimeout: 4000,
+    greetingTimeout: 4000,
+    socketTimeout: 8000,
   });
 }
 
@@ -83,7 +86,7 @@ export async function sendContactNotification(d: ContactEmailPayload): Promise<b
 
   const row = (label: string, value?: string) =>
     value
-      ? `<tr><td style="padding:4px 16px 4px 0;color:#8a8a93;font-family:monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;vertical-align:top">${label}</td><td style="padding:4px 0;font-family:system-ui,sans-serif;font-size:14px;color:#14131f">${esc(value)}</td></tr>`
+      ? `<tr><td style="padding:4px 16px 4px 0;color:#8a8a93;font-family:monospace;font-size:13px;text-transform:uppercase;letter-spacing:0.06em;vertical-align:top">${label}</td><td style="padding:4px 0;font-family:system-ui,sans-serif;font-size:14px;color:#f8f8fa">${esc(value)}</td></tr>`
       : "";
 
   const html = `
@@ -99,7 +102,7 @@ export async function sendContactNotification(d: ContactEmailPayload): Promise<b
       </table>
       <p style="margin:20px 0 6px;font-family:monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a93">Brief</p>
       <p style="margin:0;font-size:14px;line-height:1.65;color:#f8f8fa;white-space:pre-wrap">${esc(d.brief)}</p>
-      <p style="margin:24px 0 0;font-size:12px;color:#5b5a63">Reply to go straight back to ${esc(d.email)} · aboalazm-os</p>
+      <p style="margin:24px 0 0;font-size:12px;color:#b1aebb">Reply to go straight back to ${esc(d.email)} · aboalazm-os</p>
     </div>
   </div>`;
 

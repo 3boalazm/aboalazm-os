@@ -1,3 +1,4 @@
+import { PROJECT_OVERVIEW_SLUGS } from "@/lib/case-registry";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
 import type { Project } from "./types";
 
@@ -14,7 +15,7 @@ export function mergeCuratedDevelopmentProjects(cmsProjects: readonly Project[])
   const merged = new Map<string, Project>();
 
   for (const project of cmsProjects) {
-    merged.set(project.slug, curatedBySlug.get(project.slug) ?? project);
+    merged.set(project.slug, curatedBySlug.get(project.slug) ?? ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(project.slug) ? { ...project, hasCaseStudy: true, overviewOnly: true } : project));
   }
 
   for (const project of curatedProjects) {

@@ -5,23 +5,23 @@
 //   - Images (/images/*, /_next/image*): stale-while-revalidate so offline works without pinning stale thumbnails.
 //   - Admin & API (/admin*, /api*): network-only, never cached.
 
-const CACHE_VERSION = "v3";
+const CACHE_VERSION = "v4";
 const STATIC_CACHE = `aboalazm-os-pwa-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `aboalazm-os-pwa-runtime-${CACHE_VERSION}`;
 
 const APP_SHELL = [
   "/",
   "/manifest.webmanifest",
-  "/favicon.svg",
-  "/images/pwa-icon-192.png",
-  "/images/pwa-icon-512.png",
+  "/offline.html",
+  "/icons/app-192.png",
+  "/icons/app-512.png",
 ];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
       .open(STATIC_CACHE)
-      .then((cache) => cache.addAll(APP_SHELL).catch(() => undefined))
+      .then((cache) => Promise.all(APP_SHELL.map((url) => cache.add(url).catch(() => console.warn("[sw] optional precache unavailable", url)))))
       .then(() => self.skipWaiting()),
   );
 });
@@ -89,7 +89,7 @@ async function networkFirst(request) {
   } catch (err) {
     const cached = await cache.match(request);
     if (cached) return cached;
-    const shell = await caches.match("/");
+    const shell = await caches.match("/offline.html");
     if (shell) return shell;
     throw err;
   }

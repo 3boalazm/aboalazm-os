@@ -1,5 +1,4 @@
 "use client";
-import { useLang } from "@/components/providers/lang-provider";
 
 /**
  * SCROLLY CASE STUDY — composition root.
@@ -30,6 +29,9 @@ import { panelsFor, type CaseStudyRecord } from "./types";
 import type { GalleryItem } from "./case-gallery";
 import { splitGallery } from "./hero-pick";
 import type { ReactNode } from "react";
+import { useLang } from "@/components/providers/lang-provider";
+import { ProjectEnquiry } from "@/features/contact/project-enquiry";
+import { useReducedMotion } from "framer-motion";
 import { useT } from "@/hooks/use-t";
 import { Heading } from "@/components/ui/Heading";
 
@@ -46,16 +48,19 @@ export function ScrollyCaseStudy({
   /** The full guidelines document, rendered inside the System panel in place of the generic token/guideline pages */
   brandBook?: ReactNode;
 }) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  const reduced = useReducedMotion();
   const articleRef = useRef<HTMLElement>(null);
 
   /* The page atmosphere belongs to this record while it's open */
   useAmbientGlow(record.accent, 0.6);
   const t = useT();
-  const { lang } = useLang();
-  const ar = lang === "ar";
+
 
   useGSAP(
     () => {
+      if (reduced) return;
       const panels = gsap.utils.toArray<HTMLElement>("[data-panel]");
       panels.forEach((panel) => {
         gsap.from(panel, {
@@ -68,7 +73,7 @@ export function ScrollyCaseStudy({
         });
       });
     },
-    { scope: articleRef },
+    { scope: articleRef, dependencies: [reduced], revertOnUpdate: true },
   );
 
   // First in-use image is the hero (see hero-pick.ts for the one case that
@@ -87,13 +92,14 @@ export function ScrollyCaseStudy({
         <header className="flex flex-col gap-2 pb-8">
           <Heading
             eyebrow={<>{t.caseFile} // {record.slug.toUpperCase()}</>}
-            title={record.name}
+            title={ar && record.nameAr ? record.nameAr : record.name}
           />
         </header>
         <OverviewPanel record={record} index={idx("overview")} hero={hero} />
         <ChallengePanel record={record} index={idx("challenge")} />
         <IdeaPanel record={record} index={idx("idea")} />
         {hasApplications && <ApplicationsPanel record={record} index={idx("applications")} items={appItems} />}
+        <ProjectEnquiry compact source={`/case-studies/${record.slug}`} />
         <SystemPanel record={record} index={idx("system")} slides={slides} brandBook={brandBook} shown={shown} />
         <OutcomePanel record={record} index={idx("outcome")} />
       </article>

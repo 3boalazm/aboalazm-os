@@ -21,6 +21,7 @@
  * aspirational or unverifiable claims.
  */
 
+import { localeHref } from "@/lib/locale";
 import { SITE_URL } from "@/lib/site";
 
 /** Stable node ids so schemas can reference each other. */
@@ -134,11 +135,11 @@ export function getArticleSchema(post: {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
-    "@id": `${SITE_URL}/writing/${post.slug}#article`,
+    "@id": `${SITE_URL}${localeHref(`/writing/${post.slug}`, post.lang === "ar" ? "ar" : "en")}#article`,
     headline: post.title,
     ...(post.standfirst ? { description: post.standfirst } : {}),
-    url: `${SITE_URL}/writing/${post.slug}`,
-    mainEntityOfPage: `${SITE_URL}/writing/${post.slug}`,
+    url: `${SITE_URL}${localeHref(`/writing/${post.slug}`, post.lang === "ar" ? "ar" : "en")}`,
+    mainEntityOfPage: `${SITE_URL}${localeHref(`/writing/${post.slug}`, post.lang === "ar" ? "ar" : "en")}`,
     inLanguage: post.lang === "ar" ? "ar" : "en",
     ...(post.publishedAt ? { datePublished: post.publishedAt } : {}),
     author: { "@id": PERSON_ID },

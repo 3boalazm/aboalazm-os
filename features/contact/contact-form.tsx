@@ -6,19 +6,22 @@
  * Fully bilingual via useT() + useLang().
  */
 import { useEffect, useRef, useState } from "react";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, readCampaign } from "@/lib/analytics";
 import { motion, useReducedMotion } from "framer-motion";
+import { SERVICES, PACKAGES, parseContactContext, type ContactContext } from "@/lib/contact-context";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
 import { submitContact } from "./actions";
+import { canSubmitContact, type ContactSubmissionStatus } from "./submission-state";
 import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } from "./validate";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
-type Status = "idle" | "working" | "sent" | "error" | "rateLimited";
+type Status = ContactSubmissionStatus;
+type NotificationStatus = "sent" | "unconfigured" | "failed";
 
-/** If the server action hasn't responded by this point, treat it as
- *  failed rather than leaving the button stuck on "WORKING…" forever. */
+/** If the server action hasn't responded by this point, receipt is uncertain.
+ *  The visitor is told to confirm by email rather than risk a duplicate. */
 const SUBMIT_TIMEOUT_MS = 20_000;
 
 const FIELD =
@@ -27,12 +30,16 @@ const FIELD =
 const LABEL =
   "font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary";
 
-export function ContactForm() {
+export function ContactForm({ context }: { context?: ContactContext }) {
   const { lang } = useLang();
   const t = useT();
   const ar = lang === "ar";
   const reduceMotion = useReducedMotion();
+  const [selection, setSelection] = useState(() => parseContactContext(context ?? {}));
+  const didStart = useRef(false);
+  const eventContext = { service: selection.service, tier: selection.tier, source: selection.source, locale: lang };
   const [status, setStatus] = useState<Status>("idle");
+  const [notificationStatus, setNotificationStatus] = useState<NotificationStatus | null>(null);
   const [budget, setBudget] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [scopeUnknown, setScopeUnknown] = useState(false);
@@ -42,7 +49,7 @@ export function ContactForm() {
      mid-request). */
   const inFlight = useRef(false);
   const mounted = useRef(true);
-  /* Mount time, for the server's "filled in faster than a human" check. */
+  /* Mount time for submission-duration diagnostics; never used to reject autofill. */
   const startedAt = useRef(0);
   useEffect(() => {
     mounted.current = true;
@@ -61,9 +68,10 @@ export function ContactForm() {
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (inFlight.current) return;
+    if (inFlight.current || !canSubmitContact(status)) return;
     inFlight.current = true;
     setStatus("working");
+    trackEvent("form_submit_attempt", eventContext);
 
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -71,6 +79,9 @@ export function ContactForm() {
     try {
       const res = await Promise.race([
         submitContact({
+          ...selection,
+          ...readCampaign(),
+          locale: lang,
           name: String(data.get("name") ?? ""),
           email: String(data.get("email") ?? ""),
           company: String(data.get("company") ?? "") || undefined,
@@ -95,15 +106,24 @@ export function ContactForm() {
 
       if (!res.ok) {
         setStatus(res.error === "rate_limited" ? "rateLimited" : "error");
+        trackEvent("form_error", { ...eventContext, reason: res.error ?? "unknown" });
         return;
       }
 
       form.reset();
       setBudget(null);
+      setNotificationStatus(res.notification);
       setStatus("sent");
-      trackEvent("contact_submit", { locale: ar ? "ar" : "en" });
-    } catch {
-      if (mounted.current) setStatus("error");
+      trackEvent("contact_submit", eventContext);
+      if (res.notification !== "sent") {
+        trackEvent("contact_notification_issue", { ...eventContext, notification_status: res.notification });
+      }
+    } catch (error) {
+      // A transport error or client timeout cannot prove the server failed to save.
+      // Prevent a blind resubmit, which could create a duplicate enquiry.
+      const timedOut = error instanceof Error && error.message === "timeout";
+      trackEvent("form_error", { ...eventContext, reason: timedOut ? "timeout_receipt_uncertain" : "network_receipt_uncertain" });
+      if (mounted.current) setStatus("uncertain");
     } finally {
       inFlight.current = false;
     }
@@ -126,17 +146,27 @@ export function ContactForm() {
             <p
               ref={sentRef}
               tabIndex={-1}
-              className="font-mono text-micro uppercase tracking-[0.10em] text-success outline-none"
+              className={`font-mono text-micro uppercase tracking-[0.10em] outline-none ${notificationStatus === "sent" ? "text-success" : "text-accent"}`}
             >
-              {ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."}
+              {notificationStatus === "sent"
+                ? ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."
+                : notificationStatus === "unconfigured"
+                  ? ar ? "تم حفظ الطلب، لكن تنبيه الإيميل غير مُعدّ حاليًا." : "SAVED, BUT EMAIL ALERTS ARE NOT CONFIGURED."
+                  : ar ? "تم حفظ الطلب، لكن فشل إرسال تنبيه الإيميل." : "SAVED, BUT THE EMAIL ALERT FAILED."}
             </p>
             <p className="font-display text-title tracking-[-0.015em]">
-              {ar ? "هكتب لك من نفس القناة." : "I'll write back on the same email."}
+              {notificationStatus === "sent"
+                ? ar ? "هكتب لك من نفس القناة." : "I'll write back on the same email."
+                : ar ? "الطلب اتحفظ، لكن خلّينا نأكد التواصل." : "Your enquiry is saved; let's make sure I see it."}
             </p>
             <p className="text-body-sm text-text-secondary">
-              {ar
-                ? "لو أسرع، واتساب والإيميل جنب النموذج."
-                : "Need something faster? Email and WhatsApp are listed beside this form."}
+              {notificationStatus === "sent"
+                ? ar
+                  ? "لو أسرع، واتساب والإيميل جنب النموذج."
+                  : "Need something faster? Email and WhatsApp are listed beside this form."
+                : ar
+                  ? <>علشان أضمن إني أشوفه، ابعتلي تأكيد على <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">الإيميل</a> أو <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">واتساب</a>.</>
+                  : <>To make sure I see it, please confirm via <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">email</a> or <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</>}
             </p>
           </motion.div>
         ) : null}
@@ -151,9 +181,26 @@ export function ContactForm() {
           <motion.form
             key="form"
             onSubmit={submit}
+            onFocusCapture={() => { if (!didStart.current) { didStart.current = true; trackEvent("form_start", eventContext); } }}
+            onInvalidCapture={() => trackEvent("form_error", { ...eventContext, reason: "invalid_field" })}
             transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: [0.7, 0, 0.84, 0] }}
             className="flex flex-col gap-2"
           >
+            <label className="flex flex-col gap-0.5">
+              <span className={LABEL}>{ar ? "محتاج مساعدة في إيه؟" : "What can I help you with?"}</span>
+              <select name="service" value={selection.service} onChange={(e) => setSelection((current) => ({ ...current, service: parseContactContext({ service: e.target.value }).service, tier: undefined }))} className={FIELD}>
+                {SERVICES.map((s) => <option key={s.id} value={s.id}>{ar ? s.ar : s.en}</option>)}
+              </select>
+            </label>
+            {selection.service === "brand-identity" && (
+              <label className="flex flex-col gap-0.5">
+                <span className={LABEL}>{ar ? "الباقة (اختياري)" : "Package (optional)"}</span>
+                <select name="tier" value={selection.tier ?? ""} onChange={(e) => setSelection((current) => ({ ...current, tier: e.target.value || undefined }))} className={FIELD}>
+                  <option value="">{ar ? "نختارها مع بعض" : "Help me choose"}</option>
+                  {PACKAGES.map((p) => <option key={p.id} value={p.id}>{ar ? p.ar : p.en}</option>)}
+                </select>
+              </label>
+            )}
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formName}</span>
               <input required name="name" autoComplete="name" maxLength={NAME_MAX} className={FIELD} placeholder={t.formPlaceholderName} />
@@ -250,20 +297,29 @@ export function ContactForm() {
               <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
             </div>
 
-            <button
-              type="submit"
-              disabled={status === "working"}
-              aria-busy={status === "working"}
-              className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-surface-0 transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
-            >
-              {status === "working"
-                ? (ar ? "جارٍ الإرسال…" : "WORKING…")
-                : t.formBegin}
-            </button>
+            {status !== "uncertain" && (
+              <button
+                type="submit"
+                disabled={status === "working"}
+                aria-busy={status === "working"}
+                className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-surface-0 transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
+              >
+                {status === "working"
+                  ? (ar ? "جارٍ الإرسال…" : "WORKING…")
+                  : (ar ? "ابعت استفسارك" : "Send your enquiry")}
+              </button>
+            )}
 
             {/* Empty regions would add a flex gap of their own, so while
                 empty they pull back by exactly that gap (-mt-2 = gap-2). */}
             <div role="alert" className="empty:-mt-2">
+              {status === "uncertain" && (
+                <p className="text-body-sm text-accent">
+                  {ar
+                    ? <>ماقدرتش أتأكد إن رسالتك وصلت. ممكن تكون اتحفظت بالفعل؛ علشان نتجنب تكرار الطلب، <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">راسلني بالإيميل قبل ما تبعت النموذج مرة تانية</a>.</>
+                    : <>I couldn't confirm receipt. Your enquiry may already be saved; to avoid a duplicate, <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">email me before submitting again</a>.</>}
+                </p>
+              )}
               {status === "error" && (
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                   {ar
@@ -281,8 +337,8 @@ export function ContactForm() {
                 </p>
               )}
             </div>
-            <p className="text-center font-mono text-micro text-text-ghost">
-              {t.formReplies}
+            <p className="text-center text-caption text-text-tertiary">
+              {ar ? "أرد بالإيميل خلال يومي عمل. بياناتك تُستخدم للرد على طلبك فقط." : "I reply by email within two working days. Your details are used to respond to your enquiry only."}
             </p>
           </motion.form>
         ) : null}

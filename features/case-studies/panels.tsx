@@ -83,6 +83,10 @@ export function OverviewPanel({
   const ar = lang === "ar";
   return (
     <PanelShell id="overview" index={index} label={t.csOverview}>
+      <div className="grid gap-3 rounded-card border border-border-default bg-surface-1 p-3 md:grid-cols-2">
+        <div><h2 className="font-display font-display-sm text-subtitle">{ar ? "المطلوب" : "The brief"}</h2><p className="mt-1 text-body-sm text-text-secondary">{ar ? record.narrativeAnswers?.problemAr ?? record.problemAr ?? record.problem : record.narrativeAnswers?.problem ?? record.problem}</p></div>
+        <div><h2 className="font-display font-display-sm text-subtitle">{ar ? "الدور والتطبيق" : "Role and application"}</h2><p className="mt-1 text-body-sm text-text-secondary">{ar ? record.narrativeAnswers?.roleAndTeamAr ?? record.teamScaleAr ?? record.teamScale : record.narrativeAnswers?.roleAndTeam ?? record.teamScale}</p>{record.narrativeAnswers?.whereUsed && <p className="mt-1 text-body-sm text-text-secondary">{ar ? record.narrativeAnswers.whereUsedAr ?? record.narrativeAnswers.whereUsed : record.narrativeAnswers.whereUsed}</p>}</div>
+      </div>
       {hero && (
         <figure className="overflow-hidden rounded-panel border border-border-subtle bg-surface-1">
           <div className="relative aspect-[16/9]">
@@ -525,7 +529,11 @@ export function SystemPanel({
   if (brandBook) {
     return (
       <PanelShell id="system" index={index} label={t.csSystem} animate={false}>
-        {brandBook}
+        <details className="rounded-card border border-border-default p-3">
+          <summary className="cursor-pointer font-display font-display-sm text-subtitle">{ar ? "افتح دليل الهوية الكامل" : "Explore the complete brand guidelines"}</summary>
+          <p className="my-2 text-body-sm text-text-secondary">{ar ? "تفاصيل البناء والقواعد والتطبيقات لمن يريد مراجعة أعمق." : "Construction, usage rules and applications for a closer review."}</p>
+          {brandBook}
+        </details>
       </PanelShell>
     );
   }

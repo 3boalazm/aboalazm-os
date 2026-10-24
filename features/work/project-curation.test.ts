@@ -51,6 +51,11 @@ test("every digital project uses a dedicated 16:10 dev-cards preview and maps le
     );
 
     const destination = project.liveUrl ?? project.externalUrl;
+    if (project.previewStatus === "archived") {
+      assert.equal(destination, undefined);
+      assert.ok(project.hasCaseStudy, `${project.slug} needs a saved overview`);
+      continue;
+    }
     assert.ok(destination, `${project.slug} needs a production or external preview link`);
     if (destination.startsWith("/")) {
       assert.ok(
@@ -67,6 +72,13 @@ test("every digital project uses a dedicated 16:10 dev-cards preview and maps le
   assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-card.jpg");
   assert.equal(cardArt("/media/oltre-collective-thumb.jpg"), "/images/work/dev-cards/oltre-collective-card.jpg");
   assert.equal(cardArt("/media/farm-thumb.jpg"), "/images/work/dev-cards/farm-console-card.jpg");
+});
+
+test("Mini Exam and Youssef Guba link to verified production previews", () => {
+  assert.equal(projectBySlug("mini-exam").liveUrl, "https://mraboqamarexams.vercel.app/");
+  assert.equal(projectBySlug("youssef-guba").liveUrl, "https://youssefguba-os.vercel.app/");
+  assert.equal(projectBySlug("mini-exam").previewStatus, undefined);
+  assert.equal(projectBySlug("youssef-guba").previewStatus, undefined);
 });
 
 test("every design and development project carries distinct EN + AR card narrative copy", () => {

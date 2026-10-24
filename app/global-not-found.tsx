@@ -16,7 +16,7 @@ import { BOOT_SCRIPT } from "@/lib/boot-script";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { LangProvider } from "@/components/providers/lang-provider";
 import { NotFoundContent } from "@/features/errors/not-found-content";
-import "./(site)/globals.css";
+import "./(site)/[locale]/globals.css";
 
 export const metadata: Metadata = {
   title: "404 — Page not found · Aboalazm OS",

@@ -4,8 +4,10 @@
  * OFFER BLOCKS — shared bilingual building blocks for
  * /services, /pricing, /agreement. All read useLang().
  */
+import Link from "@/components/ui/localized-link";
+import { contactHref, tierId } from "@/lib/contact-context";
+import { usePathname } from "next/navigation";
 import { useLang } from "@/components/providers/lang-provider";
-import { trackEvent } from "@/lib/analytics";
 import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -40,6 +42,7 @@ export function SectionHead({
 /* ── Tier card ── */
 export function TierCard({ tier }: { tier: Tier }) {
   const { lang } = useLang();
+  const source = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
   return (
     <PanelCard
       emphasis={tier.recommended ? "accent" : "dimmed"}
@@ -52,7 +55,7 @@ export function TierCard({ tier }: { tier: Tier }) {
         {tier.recommended && (
           <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-[0.10em] text-accent">
             <Icon name="star-solid" size="0.9em" />
-            {lang === "ar" ? "الأكثر طلبًا" : "Recommended"}
+            {lang === "ar" ? "موصى بها" : "Recommended"}
           </span>
         )}
       </div>
@@ -102,8 +105,8 @@ export function TierCard({ tier }: { tier: Tier }) {
           </li>
         ))}
       </ul>
-      <a
-        href="/contact"
+      <Link
+        href={contactHref({ service: "brand-identity", tier: tierId(tier.tag[0]), source })}
         className={buttonVariants({
           variant: tier.recommended ? "primary" : "ghost",
           className: tier.recommended
@@ -112,7 +115,7 @@ export function TierCard({ tier }: { tier: Tier }) {
         })}
       >
         {lang === "ar" ? `ناقش ${pick(tier.name, lang)}` : `Discuss ${pick(tier.name, lang)}`}
-      </a>
+      </Link>
     </PanelCard>
   );
 }
@@ -172,7 +175,7 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                       keeps it out of the accessible name, so the same fact is
                       carried by text — otherwise the decision aid recommends
                       nothing at all for a non-visual reader. */}
-                  <span className="sr-only">{ar ? "الأكثر طلبًا" : "Recommended"}</span>
+                  <span className="sr-only">{ar ? "موصى بها" : "Recommended"}</span>
                 </>
               ) : null}
             </p>
@@ -208,7 +211,7 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                       {/* Lives inside the <th>, so screen readers announce the
                           recommendation with the column header of every cell
                           in that column. */}
-                      <span className="sr-only">{ar ? "الأكثر طلبًا" : "Recommended"}</span>
+                      <span className="sr-only">{ar ? "موصى بها" : "Recommended"}</span>
                     </>
                   ) : null}
                 </th>
@@ -339,14 +342,14 @@ export function CtaBand({
         {pick(title, lang)} <em className="text-accent">{pick(italic, lang)}</em>
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2">
-        <a href={primaryHref} onClick={() => trackEvent("cta_start_project", { placement: "cta_band", href: primaryHref })} className={buttonVariants({ className: "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
+        <Link href={primaryHref} className={buttonVariants({ className: "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
           {pick(primary, lang)}
           <Icon name="sparkle" size="0.9em" />
-        </a>
-        <a href={secondaryHref} className={buttonVariants({ variant: "ghost", className: "glass inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
+        </Link>
+        <Link href={secondaryHref} className={buttonVariants({ variant: "ghost", className: "glass inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
           {pick(secondary, lang)}
           <Icon name="arrow-right" />
-        </a>
+        </Link>
       </div>
     </section>
   );
