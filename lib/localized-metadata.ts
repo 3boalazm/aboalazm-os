@@ -33,9 +33,18 @@ export function localizedMetadata(base: Metadata, locale: Locale, path: string, 
   const title = locale === "ar" && translated ? translated.title : base.title;
   const description = locale === "ar" && translated ? translated.description : base.description;
   const canonical = localeHref(path, locale);
+  const openGraphTitle = typeof title === "string"
+    ? title
+    : title && typeof title === "object"
+      ? ("absolute" in title && typeof title.absolute === "string"
+          ? title.absolute
+          : "default" in title && typeof title.default === "string"
+            ? title.default
+            : undefined)
+      : undefined;
   return {
     ...base, title, description,
     alternates: { canonical, languages: { en: `${SITE_URL}${path}`, ar: `${SITE_URL}${localeHref(path, "ar")}`, "x-default": `${SITE_URL}${path}` } },
-    openGraph: { ...base.openGraph, title: typeof title === "string" ? title : undefined, description: description ?? undefined, siteName: "Mustafa Aboalazm", url: canonical, locale: locale === "ar" ? "ar_EG" : "en_US", alternateLocale: locale === "ar" ? "en_US" : "ar_EG" },
+    openGraph: { ...base.openGraph, title: openGraphTitle, description: description ?? undefined, siteName: "Mustafa Aboalazm", url: canonical, locale: locale === "ar" ? "ar_EG" : "en_US", alternateLocale: locale === "ar" ? "en_US" : "ar_EG" },
   };
 }

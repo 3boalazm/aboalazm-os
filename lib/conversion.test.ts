@@ -6,10 +6,23 @@ import { validateContact, BRIEF_MAX, MESSAGE_MAX } from "@/features/contact/vali
 import { parseContactContext, contactHref, contextSummary } from "./contact-context";
 import { deliverContact } from "./contact-delivery";
 import { localeHref } from "./locale";
+import { localizedMetadata } from "./localized-metadata";
 import { buildSitemap } from "./sitemap";
 import { BUILT_IN_CASE_SLUGS } from "./case-registry";
 
 const enquiry = { name: "Test Visitor", email: "visitor@example.test", brief: "A bilingual company website", elapsedMs: 0 };
+
+test("localized metadata preserves absolute/default page titles in Open Graph", () => {
+  const base = {
+    title: { absolute: "About Mustafa Aboalazm — Senior Brand Identity Designer" },
+    description: "A profile page",
+  };
+  const en = localizedMetadata(base, "en", "/about");
+  const ar = localizedMetadata(base, "ar", "/about");
+
+  assert.equal(en.openGraph?.title, "About Mustafa Aboalazm — Senior Brand Identity Designer");
+  assert.equal(ar.openGraph?.title, "عن مصطفى أبوالعزم");
+});
 test("fast autofilled enquiries survive, while filled honeypots and malformed input are rejected", () => {
   const fast = validateContact(enquiry);
   assert.ok(fast.ok && !fast.spam);
