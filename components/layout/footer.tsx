@@ -8,6 +8,7 @@ import { useT } from "@/hooks/use-t";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
+import { CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 
 /* Overhaul 2026-10-14 (S1): four lean columns keyed to the audience's
    question — "how do I engage", "what is this place", "what does he think",
@@ -46,7 +47,7 @@ const COLUMNS = [
   {
     head: ["REACH", "تواصل"],
     links: [
-      ["Email ↗", "إيميل ↗", "mailto:m1aboalazm@gmail.com"],
+      ["Email ↗", "إيميل ↗", CONTACT_EMAIL_HREF],
       ["WhatsApp ↗", "واتساب ↗", "https://wa.me/201092500454"],
       ["Download CV ↓", "تحميل السيرة الذاتية ↓", "/cv"],
       ["Behance ↗", "بيهانس ↗", "https://www.behance.net/aboalazm"],

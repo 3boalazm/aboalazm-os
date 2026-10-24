@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { CONTACT_EMAIL } from "@/lib/contact-details";
 
 /**
  * ═══════════════════════════════════════════════════════════════
@@ -18,7 +19,7 @@ import nodemailer from "nodemailer";
  */
 
 /** Where submissions land. Overridable per environment. */
-export const NOTIFY_INBOX = process.env.CONTACT_NOTIFY_TO || "m1aboalazm@gmail.com";
+export const NOTIFY_INBOX = process.env.CONTACT_NOTIFY_TO || CONTACT_EMAIL;
 
 function buildTransport() {
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;

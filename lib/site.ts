@@ -2,13 +2,12 @@
  * Canonical origin of the site — the single source for sitemap.xml,
  * robots.txt, metadataBase (canonical + og:image URLs) and JSON-LD.
  *
- * Resolution order:
- *   1. NEXT_PUBLIC_SITE_URL   — set this once the custom domain is live.
- *   2. VERCEL_PROJECT_PRODUCTION_URL — injected by Vercel (host only).
- *   3. The production *.vercel.app host.
+ * Canonical public origin: https://aboalazm-os.vercel.app
  *
- * It used to be hard-coded to https://aboalazm.com, which doesn't resolve, so
- * the sitemap, canonical links and every og:image pointed at a dead host.
+ * Resolution order:
+ *   1. NEXT_PUBLIC_SITE_URL — the stable public origin, set in Vercel.
+ *   2. VERCEL_PROJECT_PRODUCTION_URL — injected by Vercel (host only).
+ *   3. The same stable project-domain fallback.
  */
 const FALLBACK = "https://aboalazm-os.vercel.app";
 

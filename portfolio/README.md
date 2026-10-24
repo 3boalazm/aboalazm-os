@@ -34,7 +34,7 @@ Zero build. Zero dependencies to install. Zero internet needed — يفتح من
 | 03 | Manifesto | «I don't design brands. I BUILD SYSTEMS.» + المبادئ الأربعة |
 | 04 | Identity System | الأفاتار · ألوان النظام (Obsidian/Alabaster/Coral) · الخطوط الخمسة · الحقائق |
 | 05 | Capabilities | 4 قدرات (هوية · أنظمة · ويب · منتجات) + wordwall بـ 20+ أداة |
-| 06 | By the Numbers | +42% · 0% · 3× + أرقام حقيقية (Nile Pharma +40% إلخ) |
+| 06 | By the Numbers | نطاق العمل، سنوات الخبرة، والقطاعات — من غير نسب نتائج غير موثقة |
 | 07 | Career Timeline | 2018 → 2026 · الكود & كانفاس · نايل فارما · MSP · Youth Scope |
 | 08–25 | Selected Work | **13 مشروع** — 5 منهم بملف كامل (KPIs + جاليري + توكنز) |
 | 26 | Project Ledger | جدول الـ 13 مشروع كاملين (تخصص · ستاك · نتيجة · سنة) |
@@ -88,4 +88,4 @@ portfolio/
 - الـ PDF المُصدَّر بالزر الأحسن للإرسال (محسوب بالبكسل، من غير هامش متصفح).
 
 —
-Built on the Aboalazm OS identity · Mustafa Aboalazm · [aboalazm.com](https://aboalazm.com) · [behance.net/aboalazm](https://www.behance.net/aboalazm)
+Built on the Aboalazm OS identity · Mustafa Aboalazm · [aboalazm-os.vercel.app](https://aboalazm-os.vercel.app) · [behance.net/aboalazm](https://www.behance.net/aboalazm)

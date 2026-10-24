@@ -20,7 +20,7 @@ window.DATA = {
     location: "Al Obour, Egypt — 30.1936° N, 31.4603° E",
     locationAr: "العبور، مصر",
     links: [
-      { label: "WEBSITE",  value: "aboalazm.com",                    href: "https://aboalazm.com" },
+      { label: "WEBSITE",  value: "aboalazm-os.vercel.app",         href: "https://aboalazm-os.vercel.app" },
       { label: "STUDIO",   value: "codeandcanvas.net",               href: "https://codeandcanvas.net" },
       { label: "BEHANCE",  value: "behance.net/aboalazm",            href: "https://www.behance.net/aboalazm" },
       { label: "LINKEDIN", value: "linkedin.com/in/aboalazm",        href: "https://www.linkedin.com/in/aboalazm" },
@@ -131,8 +131,9 @@ window.DATA = {
 
   /* ── TIMELINE (career ledger) ──────────────────────────────────────── */
   timeline: [
+    { yr: "2026 →",  role: "Digital Product & Platform Lead", org: "NILE PHARMA FOOD", note: "Digital presence, ERP, UX and platform direction, coordinating brand and technical delivery." },
     { yr: "2024 →",  role: "Co-Founder & Creative Lead",      org: "CODE & CANVAS",  note: "Branding & web for SMEs across Egypt and the region — the studio runs on its own governed system." },
-    { yr: "2020–25", role: "Media Director & Account Manager", org: "NILE PHARMA FOOD", note: "Identity from zero; the team reported +40% visibility and +25% engagement across the rebrand and campaign system." },
+    { yr: "2020–25", role: "Media Director & Account Manager", org: "NILE PHARMA FOOD", note: "Brand system, Proxeed product line, packaging, campaign governance and a WordPress presence." },
     { yr: "2020–21", role: "Studio Lead & Visual Director",    org: "LEARN IN ARABIC · MSP", note: "Identity + DIY studio built from scratch — infrastructure, not just files." },
     { yr: "2019–21", role: "Head of Media ×2 Seasons",         org: "YOUTH SCOPE",    note: "Full identity rebuilt twice; Best Head of Media, both seasons." },
     { yr: "2022 →",  role: "Brand Identity Designer & Consultant (Freelance)", org: "INDEPENDENT", note: "4+ years focused on brand identity and systems; 20+ clients and organizations across pharma, food, education, government, and related sectors." },
@@ -218,13 +219,13 @@ window.DATA = {
       category: "REBRAND", discipline: "Systemic Identity",
       year: "2020–25", img: "npf-thumb", hasDetail: true,
       stack: ["Brand System", "WordPress", "Rebrand"],
-      outcome: "Reported +40% visibility · +25% engagement",
-      outcomeAr: "+٤٠٪ ظهور رقمي · +٢٥٪ تفاعل",
-      brief: "Five years as the in-house identity owner: rebrand from zero, a Proxeed product line, campaign governance, and a WordPress presence. The team reported +40% visibility and +25% engagement across the work.",
+      outcome: "Brand system, packaging & campaign governance",
+      outcomeAr: "نظام هوية وتغليف وحوكمة الحملات",
+      brief: "Five years as the in-house identity owner: rebrand from zero, a Proxeed product line, campaign governance, packaging and a WordPress presence. The documented work is presented through its system and applications, without unverified performance percentages.",
       kpis: [
-        { n: "+40%", l: "Online visibility",   c: "REPORTED · REBRAND · CONTENT" },
-        { n: "+25%", l: "Audience engagement", c: "REPORTED · CAMPAIGN SYSTEMS" },
-        { n: "5",    l: "Years as brand owner",c: "2020 → 2025" },
+        { n: "5", l: "Years as brand owner", c: "2020 → 2025" },
+        { n: "4", l: "Delivery tracks", c: "IDENTITY · PACKAGING · CAMPAIGNS · WEB" },
+        { n: "1", l: "Governed brand system", c: "STRATEGY THROUGH APPLICATIONS" },
       ],
       gallery: [
         { img: "npf-img-a",     cap: "BRAND VOICE · WE CARE ABOUT YOU", full: false },

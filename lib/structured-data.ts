@@ -23,6 +23,7 @@
 
 import { localeHref } from "@/lib/locale";
 import { SITE_URL } from "@/lib/site";
+import { CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 
 /** Stable node ids so schemas can reference each other. */
 export const PERSON_ID = `${SITE_URL}/#person`;
@@ -54,7 +55,7 @@ function personNode() {
       "Design systems",
     ],
     knowsLanguage: ["ar", "en"],
-    email: "mailto:m1aboalazm@gmail.com",
+    email: CONTACT_EMAIL_HREF,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Al Obour",

@@ -1,4 +1,5 @@
 import { GAD_NAME_AR } from "../../lib/client-names";
+import { CONTACT_EMAIL } from "../../lib/contact-details";
 /**
  * PORTFOLIO DATA — the landscape presentation edition (/portfolio).
  * A 16:9 slide deck: cover · index · profile · 5 chapters (divider + frames)
@@ -54,7 +55,7 @@ export const IDENTITY = {
   nameAr: "مصطفى أبوالعزم",
   role: "Senior Brand Identity Designer",
   roleAr: "مصمم هوية بصرية أول",
-  email: "m1aboalazm@gmail.com",
+  email: CONTACT_EMAIL,
   location: "Al Obour, Egypt",
   version: "V.2026 · EDITION 02",
   links: [
