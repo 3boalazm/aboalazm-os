@@ -1,3 +1,5 @@
+import type { ClientOrigin } from "./client-origin";
+
 export interface Bilingual {
   en: string;
   ar: string;
@@ -30,6 +32,8 @@ export interface BusinessFeatureItem {
 
 export interface BusinessCaseData {
   slug: string;
+  /** Optional curated client-country detail displayed with the case-study headline. */
+  clientOrigin?: ClientOrigin;
   /** Sector / business domain badge shown in the header */
   sector: Bilingual;
   /** Direct, practical headline explaining what the project does business-wise */

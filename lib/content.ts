@@ -246,6 +246,9 @@ export async function getCaseStudy(slug: string): Promise<CaseStudyRecord | null
         if (staticRecord) {
           record.narrativeAnswers = staticRecord.narrativeAnswers;
           record.designProofItems = staticRecord.designProofItems;
+          // Client-origin metadata is curated alongside the static case file,
+          // so it survives when the CMS record supplies the remaining fields.
+          if (staticRecord.clientOrigin) record.clientOrigin = staticRecord.clientOrigin;
         }
         // KPI / outcome tiles the reviewed source retired but the database row
         // still holds (see reviewed-claims.ts) — narrow, exact-match only.

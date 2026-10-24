@@ -1,5 +1,6 @@
 /** GAD HEART & LUNGS INSTITUTE — Complete Brand System · Healthcare */
 import type { CaseStudyRecord } from "./types";
+import { GAD_CLIENT_ORIGIN } from "./client-origin";
 import { GAD_NAME_AR } from "../../lib/client-names";
 
 export const GAD_INSTITUTE: CaseStudyRecord = {
@@ -11,6 +12,7 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     primary: "rgb(0 88 149 / 0.22)",
     secondary: "rgb(171 18 28 / 0.12)",
   },
+  clientOrigin: GAD_CLIENT_ORIGIN,
 
   problem:
     "A specialist cardiac and pulmonary care institute operating under a generic hospital visual identity — no mark that signaled its dual specialization, no system governing patient-facing communications, and an ambition to expand regionally while competing against internationally branded healthcare groups.",
@@ -27,9 +29,9 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   ],
 
   researchSummary:
-    "Working positioning hypothesis: healthcare identities can feel either clinical-corporate or consumer-promotional. GAD’s chosen direction was a trusted specialist voice — warmer than a hospital, more precise than a general clinic, and legible across Arabic and English. The accompanying map is illustrative, not a named-competitor audit.",
+    "A Saudi heart-and-lung care client needed a voice between sterile institution and consumer promotion. GAD chose the trusted specialist: warm in care, precise in expertise, and clear across Arabic and English. The map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "فرضية التموضع التي قادت العمل: قد تبدو الهويات الصحية إما مؤسسية سريرية أو ترويجية استهلاكية. اختارت GAD صوت الأخصائي الموثوق — أدفأ من المستشفى، وأدق من العيادة العامة، ومقروءاً بالعربية والإنجليزية. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
+    "عميل متخصص في القلب والرئة من المملكة العربية السعودية، يحتاج إلى هوية تتجنب برودة الطابع المؤسسي ومبالغة الترويج. لذلك اختارت GAD صوت الأخصائي الموثوق: دفء في الرعاية، ودقة في التخصص، ووضوح بالعربية والإنجليزية. الخريطة توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
   competitors: [
     { name: "Public-clinical A",  x: 22, y: 60 },
     { name: "Illustrative clinical B",  x: 15, y: 45 },

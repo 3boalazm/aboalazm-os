@@ -1,10 +1,12 @@
 import { GAD_NAME_AR } from "@/lib/client-names";
+import { GAD_CLIENT_ORIGIN } from "./client-origin";
 import type { BusinessCaseData } from "./business-case.types";
 
 export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
   /* ── 01 · GAD INSTITUTE ─────────────────────────────────────────── */
   {
     slug: "gad-institute",
+    clientOrigin: GAD_CLIENT_ORIGIN,
     sector: {
       en: "Specialized Healthcare · Heart & Lungs",
       ar: "رعاية صحية تخصصية · القلب والرئتين",
