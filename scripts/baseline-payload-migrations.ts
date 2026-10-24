@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { loadEnvConfig } from "@next/env";
+import nextEnv from "@next/env";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Snapshot } from "@/lib/payload-schema-audit";
@@ -11,8 +11,8 @@ import type { Snapshot } from "@/lib/payload-schema-audit";
  * Dry-run by default. To write the migration ledger, the database owner must
  * deliberately set APPLY_PAYLOAD_MIGRATION_BASELINE=YES_ABOALZAM_OS_2026_10_24.
  */
-loadEnvConfig(process.cwd(), false);
-process.env.NODE_ENV = "production";
+nextEnv.loadEnvConfig(process.cwd(), false);
+(process.env as Record<string, string | undefined>).NODE_ENV = "production";
 const [{ default: config }, { getPayload }, { auditPayloadSchemaSnapshot, readPayloadSchemaState }, { sql }] = await Promise.all([
   import("../payload.config"),
   import("payload"),

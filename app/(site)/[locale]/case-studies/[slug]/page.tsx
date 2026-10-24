@@ -3,8 +3,12 @@ import { localizedMetadata } from "@/lib/localized-metadata";
 import type { Locale } from "@/lib/locale";
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import { ProjectOverview } from "@/features/case-studies/project-overview";
+import { CaseStudyShell } from "@/features/case-studies/case-study-shell";
+import { getBusinessCase } from "@/features/case-studies/business-cases.data";
 import { PROJECTS } from "@/features/work/projects.data";
-import { cache } from "react";
+import { projectEnquiryService } from "@/features/work/project-enquiry-service";
+import type { Project } from "@/features/work/types";
+import { cache, type ReactElement } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ScrollyCaseStudy } from "@/features/case-studies";
@@ -34,6 +38,29 @@ export const revalidate = 60;
 // Shared by generateMetadata and the page so a lookup costs one DB hit.
 const getCaseStudy = cache(fetchCaseStudy);
 
+const CUSTOM_TECHNICAL_VIEWS: Readonly<Record<string, () => ReactElement>> = {
+  "nile-pharma-erp": () => <NilePharmaERPCaseStudy />,
+  "speech-to-text-studio": () => <MahtoolCaseStudy />,
+  "nile-pharma-storefront": () => <NilePharmaStorefrontCaseStudy />,
+  zad: () => <ZadCaseStudy />,
+  "ummah-academy": () => <UmmahAcademyCaseStudy />,
+  "momo-collective": () => <OltreCollectiveCaseStudy />,
+  "farm-console": () => <FarmConsoleCaseStudy />,
+  "mini-exam": () => <MiniExamCaseStudy />,
+  stemforge: () => <StemForgeCaseStudy />,
+  "pharmacy-web": () => <PharmacyWebCaseStudy />,
+  continuum: () => <ContinuumCaseStudy />,
+  "code-canvas-dev": () => <CodeCanvasDevCaseStudy />,
+};
+
+function nextInTrack(current?: Project): Project | null {
+  if (!current) return null;
+  const peers = PROJECTS.filter((p) => p.category === current.category && p.hasCaseStudy);
+  const idx = peers.findIndex((p) => p.slug === current.slug);
+  if (idx === -1 || peers.length < 2) return null;
+  return peers[(idx + 1) % peers.length] ?? null;
+}
+
 export async function generateStaticParams() {
   const slugs = await getAllCaseStudySlugs();
   return [...new Set([...slugs, ...BUILT_IN_CASE_SLUGS])].map((slug) => ({ slug }));
@@ -48,7 +75,7 @@ async function originalMetadata({
 
   if (slug === "nile-pharma-erp") {
     return {
-      title: "Nile Pharma ERP — Engineering Case File",
+      title: "Nile Pharma ERP — Engineering & Business Case File",
       description:
         "A nine-service pharmaceutical distribution ERP covering inventory, sales, CRM, accounting, incentives and auditable business workflows.",
     };
@@ -65,7 +92,8 @@ async function originalMetadata({
   if (slug === "zad") {
     return {
       title: "Zad — Islamic Companion PWA Case File",
-      description: "Zad is an Arabic-first Islamic PWA: 64 pages for prayer times, Quran, adhkar, kids and daily worship tracking — offline-first and installable.",
+      description:
+        "Zad is an Arabic-first Islamic PWA: 64 pages for prayer times, Quran, adhkar, kids and daily worship tracking — offline-first and installable.",
     };
   }
 
@@ -142,7 +170,12 @@ async function originalMetadata({
   }
 
   const preview = PROJECTS.find((p) => p.slug === slug);
-  if ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug) && preview) return { title: `${preview.name} — Project Overview`, description: preview.outcome };
+  if ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug) && preview) {
+    return {
+      title: `${preview.name} — Case Study & Business Overview`,
+      description: preview.outcome,
+    };
+  }
   const record = await getCaseStudy(slug);
 
   // Throw here too: the Suspense boundary can flush a 200 before the page
@@ -161,91 +194,111 @@ export default async function CaseStudyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const preview = PROJECTS.find((p) => p.slug === slug);
-  if ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug) && preview) return <ProjectOverview project={preview} />;
+  const project = PROJECTS.find((p) => p.slug === slug);
 
-  if (slug === "nile-pharma-erp") {
-    return <><NilePharmaERPCaseStudy /><ProjectEnquiry service="digital-product" /></>;
+  /* 1 · Project-overview slugs (upgraded with both Technical & Business views) */
+  if ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug) && project) {
+    const nextPeer = nextInTrack(project);
+    return (
+      <CaseStudyShell
+        technicalView={<ProjectOverview project={project} />}
+        businessData={getBusinessCase(slug, project)}
+        project={project}
+        footer={
+          <>
+            <ProjectEnquiry
+              service={projectEnquiryService(project)}
+              source={`/case-studies/${slug}`}
+            />
+            {nextPeer ? (
+              <NextCaseLink
+                slug={nextPeer.slug}
+                name={nextPeer.name}
+                nameAr={nextPeer.nameAr}
+                accent={nextPeer.accent}
+              />
+            ) : null}
+          </>
+        }
+      />
+    );
   }
 
-  if (slug === "speech-to-text-studio") {
-    return <><MahtoolCaseStudy /><ProjectEnquiry service="digital-product" /></>;
+  /* 2 · Dedicated product & engineering case studies (12 slugs) */
+  const renderCustomTechnical = CUSTOM_TECHNICAL_VIEWS[slug];
+  if (renderCustomTechnical) {
+    const nextPeer = nextInTrack(project);
+    return (
+      <CaseStudyShell
+        technicalView={renderCustomTechnical()}
+        businessData={getBusinessCase(slug, project)}
+        project={project}
+        footer={
+          <>
+            <ProjectEnquiry
+              service="digital-product"
+              source={`/case-studies/${slug}`}
+            />
+            {nextPeer ? (
+              <NextCaseLink
+                slug={nextPeer.slug}
+                name={nextPeer.name}
+                nameAr={nextPeer.nameAr}
+                accent={nextPeer.accent}
+              />
+            ) : null}
+          </>
+        }
+      />
+    );
   }
 
-  if (slug === "nile-pharma-storefront") {
-    return <><NilePharmaStorefrontCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "zad") {
-    return <><ZadCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "ummah-academy") {
-    return <><UmmahAcademyCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "momo-collective") {
-    return <><OltreCollectiveCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "farm-console") {
-    return <><FarmConsoleCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-
-  if (slug === "mini-exam") {
-    return <><MiniExamCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "stemforge") {
-    return <><StemForgeCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "pharmacy-web") {
-    return <><PharmacyWebCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "continuum") {
-    return <><ContinuumCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
-  if (slug === "code-canvas-dev") {
-    return <><CodeCanvasDevCaseStudy /><ProjectEnquiry service="digital-product" /></>;
-  }
-
+  /* 3 · CMS / static brand identity scrolly case studies */
   const record = await getCaseStudy(slug);
   if (!record) notFound();
 
   const gallery = await getCaseStudyGallery(slug);
-
-  // GAD carries its full guidelines document inline, in the System panel.
   const brandBook = slug === "gad-institute" ? <GadBrandBook /> : undefined;
 
-  /* Overhaul S4: every case study closes with a hand-off to the next one
-     (cyclic over the published index, never a dead end). */
   const allSlugs = await getAllCaseStudySlugs();
   const at = allSlugs.indexOf(slug);
   const nextSlug =
     at === -1 ? null : allSlugs[(at + 1) % allSlugs.length] ?? null;
-  const next = nextSlug ? await fetchCaseStudy(nextSlug) : null;
+  const nextRecord = nextSlug ? await fetchCaseStudy(nextSlug) : null;
+  const nextPeer = nextRecord ?? nextInTrack(project);
 
   return (
-    <main>
-      <ScrollyCaseStudy
-        record={record}
-        gallery={gallery}
-        brandBook={brandBook}
-      />
-      <ProjectEnquiry service="brand-identity" source={`/case-studies/${slug}`} />
-      {next ? (
-        <NextCaseLink
-          slug={next.slug}
-          name={next.name}
-          nameAr={next.nameAr}
-          accent={next.accent}
+    <CaseStudyShell
+      technicalView={
+        <ScrollyCaseStudy
+          record={record}
+          gallery={gallery}
+          brandBook={brandBook}
         />
-      ) : null}
-    </main>
+      }
+      businessData={getBusinessCase(slug, project, record)}
+      project={project}
+      fallbackName={record.name}
+      fallbackNameAr={record.nameAr}
+      fallbackYear={record.timeline}
+      fallbackThumbnail={gallery[0]?.src}
+      footer={
+        <>
+          <ProjectEnquiry
+            service={project ? projectEnquiryService(project) : "brand-identity"}
+            source={`/case-studies/${slug}`}
+          />
+          {nextPeer ? (
+            <NextCaseLink
+              slug={nextPeer.slug}
+              name={nextPeer.name}
+              nameAr={nextPeer.nameAr}
+              accent={nextPeer.accent}
+            />
+          ) : null}
+        </>
+      }
+    />
   );
 }
 

@@ -17,9 +17,11 @@ import { withPayload } from "@payloadcms/next/withPayload";
  * Embedding *other* sites (/work-ui previews) is unaffected — that is
  * governed by those sites' headers, not ours.
  */
+const isVercelDeployment = Boolean(process.env.VERCEL);
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  ...(isVercelDeployment ? [{ key: "X-Frame-Options", value: "SAMEORIGIN" }] : []),
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
     key: "Permissions-Policy",
@@ -27,7 +29,9 @@ const securityHeaders = [
   },
   {
     key: "Content-Security-Policy",
-    value: "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'",
+    value: isVercelDeployment
+      ? "frame-ancestors 'self'; base-uri 'self'; object-src 'none'; form-action 'self'"
+      : "base-uri 'self'; object-src 'none'; form-action 'self'",
   },
 ];
 

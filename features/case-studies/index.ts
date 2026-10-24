@@ -19,3 +19,7 @@ export { StemForgeCaseStudy } from "./stemforge";
 export { PharmacyWebCaseStudy } from "./pharmacy-web";
 export { ContinuumCaseStudy } from "./continuum";
 export { CodeCanvasDevCaseStudy } from "./code-canvas-dev";
+export { CaseStudyShell } from "./case-study-shell";
+export { BusinessCaseView } from "./business-case-view";
+export { BUSINESS_CASES, getBusinessCase } from "./business-cases.data";
+export type { BusinessCaseData, CaseViewMode } from "./business-case.types";

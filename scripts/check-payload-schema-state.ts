@@ -1,5 +1,5 @@
 import fs from "node:fs";
-import { loadEnvConfig } from "@next/env";
+import nextEnv from "@next/env";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { Snapshot } from "@/lib/payload-schema-audit";
@@ -8,8 +8,8 @@ import type { Snapshot } from "@/lib/payload-schema-audit";
  * Explicitly use production semantics before loading Payload: schema push is
  * allowed only from local development, never from Preview/Production builds.
  */
-loadEnvConfig(process.cwd(), false);
-process.env.NODE_ENV = "production";
+nextEnv.loadEnvConfig(process.cwd(), false);
+(process.env as Record<string, string | undefined>).NODE_ENV = "production";
 const [{ default: config }, { getPayload }, { auditPayloadSchemaSnapshot, readPayloadSchemaState }] = await Promise.all([
   import("../payload.config"),
   import("payload"),

@@ -102,7 +102,7 @@ export function ZadCaseStudy() {
   const ar = lang === "ar";
 
   return (
-    <main className="overflow-hidden">
+    <div className="overflow-hidden">
       {/* ═══ HERO — orange glass parent, Zad green/gold inside ═══ */}
       <section className="container-wide relative flex min-h-[70svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -697,6 +697,6 @@ export function ZadCaseStudy() {
           <span>Mustafa Aboalazm / 2026</span>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

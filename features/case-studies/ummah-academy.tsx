@@ -120,7 +120,7 @@ export function UmmahAcademyCaseStudy() {
   const ar = lang === "ar";
 
   return (
-    <main className="overflow-hidden">
+    <div className="overflow-hidden">
       {/* ═══ HERO — gold glass, academy teal inside ═══ */}
       <section className="container-wide relative flex min-h-[70svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -548,6 +548,6 @@ export function UmmahAcademyCaseStudy() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
