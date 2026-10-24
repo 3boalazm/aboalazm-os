@@ -34,6 +34,7 @@ import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import { useReducedMotion } from "framer-motion";
 import { useT } from "@/hooks/use-t";
 import { Heading } from "@/components/ui/Heading";
+import { ClientOriginStamp } from "./client-origin-stamp";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -94,6 +95,9 @@ export function ScrollyCaseStudy({
             eyebrow={<>{t.caseFile} // {record.slug.toUpperCase()}</>}
             title={ar && record.nameAr ? record.nameAr : record.name}
           />
+          {record.clientOrigin ? (
+            <ClientOriginStamp origin={record.clientOrigin} ar={ar} />
+          ) : null}
         </header>
         <OverviewPanel record={record} index={idx("overview")} hero={hero} />
         <ChallengePanel record={record} index={idx("challenge")} />

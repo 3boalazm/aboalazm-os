@@ -14,6 +14,7 @@ import { projectEnquiryService } from "@/features/work/project-enquiry-service";
 import { contactHref } from "@/lib/contact-context";
 import type { Project } from "@/features/work/types";
 import type { BusinessCaseData, Bilingual } from "./business-case.types";
+import { ClientOriginStamp } from "./client-origin-stamp";
 
 const pick = (text: Bilingual, ar: boolean) => (ar ? text.ar : text.en);
 
@@ -117,6 +118,9 @@ export function BusinessCaseView({
               <p className="max-w-[46ch] font-display text-subtitle leading-[1.3] text-accent">
                 {pick(data.headline, ar)}
               </p>
+              {data.clientOrigin ? (
+                <ClientOriginStamp origin={data.clientOrigin} ar={ar} />
+              ) : null}
             </div>
 
             <p className="max-w-[64ch] text-body leading-[1.7] text-text-secondary">

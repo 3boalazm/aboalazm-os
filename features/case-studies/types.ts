@@ -5,6 +5,7 @@
  * Execution → Impact. Field names align with collections/CaseStudies.ts.
  */
 import type { ProjectAccent } from "@/lib/tokens";
+import type { ClientOrigin } from "./client-origin";
 
 export interface KPI {
   value: string;
@@ -70,6 +71,8 @@ export interface CaseStudyRecord {
   nameAr?: string;
   discipline: string;
   accent: ProjectAccent;
+  /** Curated client-country detail; optional because it is not part of the CMS schema. */
+  clientOrigin?: ClientOrigin;
 
   /* Panel 01 — Context & Audit */
   problem: string;

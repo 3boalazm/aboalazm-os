@@ -5,6 +5,7 @@ import { test } from "node:test";
 import { BUILT_IN_CASE_SLUGS, PROJECT_OVERVIEW_SLUGS } from "@/lib/case-registry";
 import { PROJECTS } from "@/features/work/projects.data";
 import { BUSINESS_CASES, getBusinessCase } from "./business-cases.data";
+import { GAD_INSTITUTE } from "./gad-institute.data";
 import { OVERVIEW_TECHNICAL_CASES } from "./overview-technical.data";
 
 test("every built-in project has a complete bilingual Business Overview specification", () => {
@@ -30,6 +31,18 @@ test("every built-in project has a complete bilingual Business Overview specific
   for (const project of PROJECTS) {
     assert.ok(BUSINESS_CASES[project.slug], `missing BUSINESS_CASES for ledger project ${project.slug}`);
   }
+});
+
+test("GAD's client origin is explicit and consistent in both case-study views", () => {
+  const expected = {
+    code: "KSA",
+    country: "Saudi Arabia",
+    countryAr: "المملكة العربية السعودية",
+  };
+  assert.deepEqual(GAD_INSTITUTE.clientOrigin, expected);
+  assert.deepEqual(BUSINESS_CASES["gad-institute"]?.clientOrigin, expected);
+  assert.match(GAD_INSTITUTE.researchSummary, /Saudi/i);
+  assert.match(GAD_INSTITUTE.researchSummaryAr ?? "", /المملكة العربية السعودية/);
 });
 
 test("every project-overview slug has a structured Technical Case Study spec with an existing cover image", () => {
