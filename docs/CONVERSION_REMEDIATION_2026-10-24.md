@@ -84,3 +84,13 @@ A Vercel Preview build for code commit `a8979e72257d185786bea685702b8145e3f5c389
 - Added the current Digital Product & Platform Lead role to the bilingual About timeline and portfolio-deck timeline.
 - Added a build-gated consistency test for email links, canonical origin, portfolio website URL, current role and retired outcome metrics.
 - Remaining: `SMTP_PASS` (Gmail App Password) is still missing, so a real email notification/inbox arrival is not verified. Mobile/Arabic RTL screenshot QA, real lead qualification outcomes, and defensible source material for any future outcome metrics remain outstanding.
+## Follow-up: CRM attribution, profile copy and diagnostics — 24 October 2026
+
+- `collections/Messages.ts` now models lead acquisition and sales-stage information in structured, filterable fields: service, package tier, source page, language, bounded UTM source/medium/campaign IDs, lead stage, close reason, proposal value and won value.
+- `features/contact/actions.ts` saves sanitized attribution metadata on the same Messages record as the actual enquiry. The original source-page/campaign context remains in the readable brief for backwards compatibility.
+- Lead stage starts at `new` and is manually maintained in Payload Admin. The path is `new → qualified → proposal-sent → won`, with `lost` and `not-a-fit` outcomes. Proposal and won amounts are manually entered USD values only when those business events actually occur.
+- Historical Messages records do not receive invented attribution or stage values. Existing rows should remain unclassified unless a corresponding source or outcome can be substantiated.
+- Vercel custom-event totals remain plan-blocked; the first-party Messages pipeline is a reporting fallback for submitted enquiries and real sales progress, not for pageviews, form starts or anonymous visitor journeys.
+- Added `docs/PROFILE_SYNC_2026-10-24.md` with copy-ready LinkedIn/Behance text, role timeline, offer priorities and the shared contact/site details. External profiles themselves were not edited because no authenticated write integration is connected.
+- Added `scripts/check-db-ssl-mode.ts` and `npm run check:db-ssl`. It reports only sanitized SSL-mode metadata from a locally available `DATABASE_URI` and never prints credentials. The current Vercel connection does not expose the Sensitive database URI, so no SSL mode was changed blindly.
+- The Gmail App Password still requires the account owner. `SMTP_PASS` remains unset; real email notification delivery is unverified.
