@@ -23,7 +23,8 @@
     "check:db-ssl": "node --import tsx scripts/check-db-ssl-mode.ts",
     "payload": "payload",
     "check:migrations": "payload migrate:status",
-    "check:db-schema": "node --import tsx scripts/check-payload-schema-state.ts"
+    "check:db-schema": "node --import tsx scripts/check-payload-schema-state.ts",
+    "baseline:migrations": "node --import tsx scripts/baseline-payload-migrations.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
