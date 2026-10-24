@@ -21,9 +21,14 @@ test("localized metadata preserves absolute/default page titles in Open Graph", 
   };
   const en = localizedMetadata(base, "en", "/about");
   const ar = localizedMetadata(base, "ar", "/about");
+  const defaultTitle = localizedMetadata({
+    title: { default: "Pricing", template: "%s · Mustafa Aboalazm" },
+    description: "Pricing page",
+  }, "en", "/pricing");
 
   assert.equal(en.openGraph?.title, "About Mustafa Aboalazm — Senior Brand Identity Designer");
   assert.equal(ar.openGraph?.title, "عن مصطفى أبوالعزم");
+  assert.equal(defaultTitle.openGraph?.title, "Pricing");
 });
 test("case-study enquiry context matches the project track", () => {
   const project = (slug: string) => {

@@ -34,8 +34,7 @@ export interface ContactFields {
 }
 
 export type ContactCheck =
-  /** Bot trap tripped: answer "sent" but store and email nothing. `reason`
-   *  is for the server log only (it carries no visitor data). */
+  /** Bot trap tripped: reject without storing or emailing. `reason` is for the server log only (no visitor data). */
   | { ok: true; spam: true; reason: "honeypot" }
   | { ok: true; spam: false; data: ContactFields }
   | { ok: false; error: "invalid" };
