@@ -52,7 +52,7 @@ async function main() {
         FROM information_schema.columns
         WHERE table_schema = 'public' AND table_name = 'messages'
       `);
-      const available = new Map((columnResult.rows as Array<{ column_name: string; udt_name: string }>).map((row) => [row.column_name, row.udt_name]));
+      const available = new Map((columnResult.rows as Array<{ column_name: string; udt_name: string }>).map((row) => [row.column_name, row.udt_name] as const));
       report.messageColumns = RELEVANT_COLUMNS.filter((name) => available.has(name)).map((name) => ({ name, type: available.get(name) }));
       report.missingLeadColumns = RELEVANT_COLUMNS.filter((name) => ["service", "package_tier", "source_page", "locale", "utm_source", "utm_medium", "utm_campaign", "lead_stage", "closed_reason", "proposal_value", "won_value"].includes(name) && !available.has(name));
     } else {
@@ -65,7 +65,7 @@ async function main() {
       FROM information_schema.columns
       WHERE table_schema = 'public'
     `);
-    const actualColumns = new Map((actualColumnResult.rows as Array<{ table_name: string; column_name: string; udt_name: string }>).map((row) => [`public.${row.table_name}.${row.column_name}`, row.udt_name]));
+    const actualColumns = new Map((actualColumnResult.rows as Array<{ table_name: string; column_name: string; udt_name: string }>).map((row) => [`public.${row.table_name}.${row.column_name}`, row.udt_name] as const));
     const expectedTables = Object.entries(snapshot.tables);
     const missingTables: string[] = [];
     const missingColumns: string[] = [];
