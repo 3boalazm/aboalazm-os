@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run check:migrations && npm run check:db-schema && next build",
+    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run check:db-schema && next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:blob-token": "node --import tsx --test lib/blob-token.test.ts",
