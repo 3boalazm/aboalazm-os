@@ -13,8 +13,9 @@
  * projects.data.ts, and is labelled as such rather than presented as an
  * audited screenshot.
  */
+import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 
 const layers = [
@@ -167,7 +168,7 @@ export function OltreCollectiveCaseStudy() {
               </div>
               <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار البيانات" : "Data path"}</p>
-                <p className="mt-2 text-sm leading-7 text-text-primary">Storefront <span className="text-amber-300">→</span> Drizzle <span className="text-amber-300">→</span> PostgreSQL <span className="text-amber-300">→</span> Admin</p>
+                <p className="mt-2 text-sm leading-[1.65] text-text-primary">Storefront <span className="text-amber-300">→</span> Drizzle <span className="text-amber-300">→</span> PostgreSQL <span className="text-amber-300">→</span> Admin</p>
               </div>
             </div>
             <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">
@@ -191,6 +192,7 @@ export function OltreCollectiveCaseStudy() {
           </div>
         </div>
       </section>
+      <div className="container-content"><ProjectEnquiry compact service="digital-product" /></div>
 
       {/* ═══ COVER ═══ */}
       <section className="container-wide pb-2">
@@ -219,7 +221,7 @@ export function OltreCollectiveCaseStudy() {
               {ar ? "براند بيتنفّس بالدروب — ومحتاج متجر يجاريه." : "A brand that sells in drops needs a shop that can keep up."}
             </h2>
           </div>
-          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             <p>
               {ar
                 ? "براندات الستريت وير عمرها ما بتبيع من كتالوج ثابت. كل دروب ليه كمية محدودة ولحظة إطلاق وزخم على السوشيال ميديا. المتجر لازم يستقبل موجة زيارات في نفس اللحظة، ويعرض المنتجات اللي خلصت بوضوح، ويحوّل الاهتمام لطلب بدفع سهل."
@@ -231,7 +233,7 @@ export function OltreCollectiveCaseStudy() {
                 : "The second half of the problem is that a brand is not just a storefront. Behind it sit inventory, orders, customers, loyalty tiers and staff permissions. If the shop and the dashboard speak different data, the breakage shows up in the first drop that sells out."}
             </p>
             <div className="rounded-xl border-s-2 border-amber-400 bg-amber-400/[0.04] p-4">
-              <p className="text-sm leading-7 text-text-primary">
+              <p className="text-sm leading-[1.65] text-text-primary">
                 {ar
                   ? "القرار الأساسي: متجر واحد، وقاعدة بيانات واحدة، ودفع بالطريقة اللي الناس هنا بتدفع بيها."
                   : "The core decision: one storefront, one database, and payment in the form people here actually use."}
@@ -250,7 +252,7 @@ export function OltreCollectiveCaseStudy() {
               {ar ? "أربع طبقات، طريق واحد للبيانات." : "Four layers, one path for the data."}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-6 text-text-tertiary">
+          <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">
             {ar
               ? "الواجهة بتقرأ من نفس الـ schema اللي لوحة الإدارة بتكتب فيه — من غير تصدير ليلي ولا مصدر حقيقة تاني."
               : "The shopfront reads the same schema the admin writes to — no nightly export, no second source of truth."}
@@ -266,7 +268,7 @@ export function OltreCollectiveCaseStudy() {
               </div>
               <h3 className="font-display text-2xl text-text-primary">{layer.name}</h3>
               <p className="mt-2 font-mono text-xs text-amber-300">{layer.tech}</p>
-              <p className="mt-4 text-sm leading-7 text-text-secondary">{ar ? layer.detailAr : layer.detail}</p>
+              <p className="mt-4 text-sm leading-[1.65] text-text-secondary">{ar ? layer.detailAr : layer.detail}</p>
             </article>
           ))}
         </div>
@@ -288,7 +290,7 @@ export function OltreCollectiveCaseStudy() {
               <p className="mt-2 text-sm text-text-primary">{ar ? "مصدر الحقيقة" : "Source of truth"}</p>
             </div>
           </div>
-          <p className="mt-4 text-xs leading-6 text-text-tertiary">
+          <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
             {ar ? "رسم مبسط لمسار البيانات حسب حزمة التقنيات المعلنة للمشروع." : "A simplified data-path view based on the project's declared stack."}
           </p>
         </div>
@@ -305,7 +307,7 @@ export function OltreCollectiveCaseStudy() {
             {journeys.map(([name, body, nameAr, bodyAr]) => (
               <div key={name} className="grid gap-2 py-5 sm:grid-cols-[170px_1fr] sm:gap-6">
                 <h3 className="text-sm font-medium text-text-primary">{ar ? nameAr : name}</h3>
-                <p className="text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p>
+                <p className="text-sm leading-[1.65] text-text-secondary">{ar ? bodyAr : body}</p>
               </div>
             ))}
           </div>
@@ -328,7 +330,7 @@ export function OltreCollectiveCaseStudy() {
                 <span className="text-amber-300">↗</span>
               </div>
               <h3 className="font-display text-xl text-text-primary">{ar ? titleAr : title}</h3>
-              <p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p>
+              <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? bodyAr : body}</p>
             </article>
           ))}
         </div>
@@ -352,12 +354,12 @@ export function OltreCollectiveCaseStudy() {
                 </div>
               ))}
             </div>
-            <p className="text-xs leading-6 text-text-tertiary">
+            <p className="text-xs leading-[1.65] text-text-tertiary">
               {ar
                 ? "الأرقام دي مقروءة من المتجر المباشر وقت كتابة الملف. اللوحة والولاء والتحليلات جزء من نطاق المشروع المعلن، لكنها تحتاج تسجيل دخول إداري — فمش معروضة هنا كسكرين شوت مُتحقق منه."
                 : "These figures were read off the live storefront while writing this file. The dashboard, loyalty and analytics are part of the declared project scope, but sit behind staff authentication — so they are not presented here as verified screenshots."}
             </p>
-            <p className="text-xs leading-6 text-text-tertiary">
+            <p className="text-xs leading-[1.65] text-text-tertiary">
               {ar
                 ? "مفيش في الملف ده أرقام مبيعات أو تحويل أو نمو، لأن مفيش مصدر موثق ليها."
                 : "No sales, conversion or growth figures appear in this file, because there is no reviewed source for them."}
@@ -381,7 +383,7 @@ export function OltreCollectiveCaseStudy() {
                 <span key={item} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{item}</span>
               ))}
             </div>
-            <p className="mt-6 text-sm leading-7 text-text-secondary">
+            <p className="mt-6 text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "المشروع متجر شغال بيتصفح ويتبض منه، مش واجهة تسويقية. ده الفرق اللي بيخلّي الملف ده يتكلم عن قرارات الدفع والمخزون، مش عن موك أب."
                 : "This is a storefront you can browse and buy from, not a marketing skin. That is why this file talks about payment and inventory decisions rather than mockups."}
@@ -398,7 +400,7 @@ export function OltreCollectiveCaseStudy() {
             <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? "براند بيتباع بالدروب، ومتجر جاهز لكل دروب." : "A drop-led brand with a shop that is ready for the next one."}
             </h2>
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-text-secondary">
+            <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "الخطوة التالية هي التوسع في الكتالوج والمرتجعات، مع الحفاظ على نفس قاعدة البيانات اللي بتشغّل اللوحة."
                 : "The next step is scaling catalogue and returns, without splitting the single database that already runs the dashboard."}

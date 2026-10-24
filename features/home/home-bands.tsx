@@ -4,7 +4,7 @@
  * HOME BANDS — the sections the old home had, in the new system's
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import * as React from "react";
 import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
@@ -328,15 +328,15 @@ export function HomeFaq() {
   const items = ar
     ? [
         ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
-        ["هل الهوية بتكون عربي وإنجليزي؟", "أيوه، لو المشروع bilingual بنبني المعمارية للغتين من البداية."],
-        ["كام مدة المشروع؟", "المنهجية الأساسية 38 يومًا على أربع مراحل، مع اعتماد مكتوب عند كل بوابة."],
+        ["هل الهوية بتكون عربي وإنجليزي؟", "متاح. الباقة المتكاملة تشمل الشعار باللغتين؛ في الباقات الأصغر نؤكد اللغة المطلوبة وتكلفة النسخة الإضافية قبل البدء."],
+        ["كام مدة المشروع؟", "الشعار 7–10 أيام، الهوية 3–4 أسابيع، والنظام المتكامل 5–7 أسابيع. نؤكد الجدول في العرض حسب النطاق والاعتمادات."],
         ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
         ["إزاي نبدأ؟", "مكالمة اكتشاف قصيرة لتحديد النطاق، التوافق، والجدول قبل أي التزام."],
       ]
     : [
         ["Do I need to know exactly what I want?", "No. The first phase exists to understand the problem and establish the right direction before design."],
-        ["Can the identity work in Arabic and English?", "Yes. For bilingual projects, the architecture is designed for both languages from the start."],
-        ["How long does a project take?", "The core method is 38 days across four phases, with written sign-off at every gate."],
+        ["Can the identity work in Arabic and English?", "Yes. The full system includes Arabic/English lockups. For smaller tiers, the required language and any additional version are confirmed before kickoff."],
+        ["How long does a project take?", "Logo: 7–10 days. Identity: 3–4 weeks. Full system: 5–7 weeks. The proposal confirms the schedule, scope and approval milestones."],
         ["What do I receive at the end?", "A complete identity system, final production files, guidelines, and an organized handover based on scope."],
         ["How do we start?", "A short discovery call to clarify scope, fit, and timeline before any commitment."],
       ];

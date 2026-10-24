@@ -46,7 +46,6 @@ export const GALLERY_IMAGES: readonly GalleryImage[] = [
   { src: "/images/work/gad/gad-colors-primary.png", project: "gad-institute", caption: "Colors primary", captionAr: "Colors primary", w: 1400, h: 933 },
   { src: "/images/work/gad/gad-colors-infographic.png", project: "gad-institute", caption: "Colors infographic", captionAr: "Colors infographic", w: 1400, h: 933 },
   { src: "/images/work/gad/gad-typography.png", project: "gad-institute", caption: "Typography", captionAr: "Typography", w: 1400, h: 933 },
-  { src: "/images/work/gad/gad-mockup-logo.jpg", project: "gad-institute", caption: "Mockup logo", captionAr: "Mockup logo", w: 1600, h: 1067 },
   { src: "/images/work/gad/gad-mockup-card.jpg", project: "gad-institute", caption: "Mockup card", captionAr: "Mockup card", w: 1600, h: 1067 },
   { src: "/images/work/gad/gad-mockup-outdoor.jpg", project: "gad-institute", caption: "Mockup outdoor", captionAr: "Mockup outdoor", w: 1600, h: 1067 },
   { src: "/images/work/gad/gad-mockup-exhibition.jpg", project: "gad-institute", caption: "Mockup exhibition", captionAr: "Mockup exhibition", w: 1600, h: 1067 },

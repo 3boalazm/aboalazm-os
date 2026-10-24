@@ -17,7 +17,7 @@
  * this component with the providers it needs.
  */
 
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { Icon } from "@/components/ui/Icon";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLang } from "@/components/providers/lang-provider";

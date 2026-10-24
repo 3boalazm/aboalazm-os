@@ -7,7 +7,7 @@
  * The link borrows the NEXT record's accent as a faint field, so the
  * hand-off already feels like a different project before the click.
  */
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 import { panelCardVariants } from "@/components/ui/PanelCard";

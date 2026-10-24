@@ -22,12 +22,11 @@ import { useLang } from "@/components/providers/lang-provider";
  * entrances are CSS keyframes (hero.css) so the text is visible in the server
  * HTML instead of waiting on hydration.
  */
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { preload } from "react-dom";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
-import { trackEvent } from "@/lib/analytics";
 
 /* The studio's own coral — the old site's red, worn as atmosphere */
 const STUDIO_CORAL = {
@@ -146,30 +145,12 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
               {t.heroLead}
             </p>
 
-            {/* Two clear primary actions: View Selected Work & Download CV */}
-            <div className="hero-rise flex flex-wrap items-center gap-3 pt-1" style={{ "--i": 1 } as CSSProperties}>
-              <a
-                href="#selected-work"
-                className="group relative inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
-              >
-                <span>{t.heroExplore}</span>
-                <span
-                  aria-hidden
-                  className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"
-                >
-                  <Icon name="arrow-right" />
-                </span>
-              </a>
-              <a
-                href="/cv"
-                onClick={() => trackEvent("cv_download", { placement: "hero" })}
-                download="Mustafa_Taha_Brand_Identity_CV.docx"
-                className="group relative inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
-              >
-                <span>{t.heroDownloadCv}</span>
-                <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-y-0.5">
-                  <Icon name="arrow-down" />
-                </span>
+            <div className="hero-rise flex flex-wrap items-center gap-2 pt-1" style={{ "--i": 1 } as CSSProperties}>
+              <Link href="/contact?source=%2F" className="inline-flex min-h-6 items-center gap-2 rounded-pill bg-accent px-3 py-1.5 font-mono text-label text-obsidian">
+                {ar ? "ناقش مشروعك" : "Discuss your project"} <Icon name="arrow-right" />
+              </Link>
+              <a href="#selected-work" className="inline-flex min-h-6 items-center gap-2 rounded-pill border border-border-default px-3 py-1.5 font-mono text-label text-text-primary">
+                {ar ? "شاهد الأعمال" : "View selected work"} <Icon name="arrow-down" />
               </a>
             </div>
 

@@ -10,7 +10,8 @@
  * the project `in-progress` — the marketing site is live while the
  * operations portal and the WordPress cut-over continue.
  */
-import Link from "next/link";
+import { ProjectEnquiry } from "@/features/contact/project-enquiry";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 
 const programmes = [
@@ -216,6 +217,7 @@ export function UmmahAcademyCaseStudy() {
           </div>
         </div>
       </section>
+      <div className="container-content"><ProjectEnquiry compact service="digital-product" /></div>
 
       {/* 01 — THE PROBLEM */}
       <section className="border-y border-border-subtle bg-surface-1/35">
@@ -226,7 +228,7 @@ export function UmmahAcademyCaseStudy() {
               {ar ? "الثقة لا تُشرح. تُبنى بالوضوح." : "Trust can’t be explained. It has to be built."}
             </h2>
           </div>
-          <div className="max-w-3xl space-y-3 text-base leading-8 text-text-secondary">
+          <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             <p>
               {ar
                 ? "الأكاديمية كانت تعمل على WordPress/Elementor: تغيير لغة يعني هشاشة، وكل صفحة ثقيلة، وقصة المنتج الحقيقية — الإجازة والتحقق من السند وسلامة الأسرة — تضيع بين القوالب."
@@ -238,7 +240,7 @@ export function UmmahAcademyCaseStudy() {
                 : "A family choosing a teacher for their child treats the site as the first lesson. So it was rebuilt from zero as a native website: static and fast, in five languages, explaining itself in Arabic, English, German, French and Italian — respecting whoever is reading."}
             </p>
             <div className="rounded-xl border-s-2 border-amber-300 bg-amber-300/[0.04] p-4">
-              <p className="text-sm leading-7 text-text-primary">
+              <p className="text-sm leading-[1.65] text-text-primary">
                 {ar
                   ? "الفكرة الأساسية: كل قرار في الموقع — لغة، سرعة، شفافية السعر، شرح طريقة الاختيار — هو جزء من المنتج التعليمي نفسه."
                   : "Core principle: every decision in the site — language, speed, pricing clarity, how vetting works — is part of the learning product itself."}
@@ -256,7 +258,7 @@ export function UmmahAcademyCaseStudy() {
             <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? "أربعة برامج. مسار واحد واضح." : "Four programmes. One clear path."}
             </h2>
-            <p className="mt-5 max-w-md text-sm leading-6 text-text-tertiary">
+            <p className="mt-5 max-w-md text-sm leading-[1.65] text-text-tertiary">
               {ar
                 ? "المتعلم — طفل أو بالغ — يبدأ من هدفه، لا من قائمة محتوى. وكل مسار ينتهي بحصتين مجانيتين قبل أي التزام."
                 : "The learner — child or adult — starts from a goal, not a content catalogue. And every path ends in two free lessons before any commitment."}
@@ -271,7 +273,7 @@ export function UmmahAcademyCaseStudy() {
                 </div>
                 <h3 className="font-display text-2xl text-text-primary">{ar ? p.nameAr : p.name}</h3>
                 <p className="mt-1 font-mono text-[12px] uppercase tracking-[0.12em] text-amber-200/80">{ar ? p.metaAr : p.meta}</p>
-                <p className="mt-4 text-sm leading-7 text-text-secondary">{ar ? p.bodyAr : p.body}</p>
+                <p className="mt-4 text-sm leading-[1.65] text-text-secondary">{ar ? p.bodyAr : p.body}</p>
               </article>
             ))}
           </div>
@@ -285,7 +287,7 @@ export function UmmahAcademyCaseStudy() {
                 <span className="text-amber-300">→</span>
               </div>
               <h3 className="text-sm font-medium text-text-primary">{ar ? j.titleAr : j.title}</h3>
-              <p className="mt-2 text-xs leading-6 text-text-tertiary">{ar ? j.descAr : j.desc}</p>
+              <p className="mt-2 text-xs leading-[1.65] text-text-tertiary">{ar ? j.descAr : j.desc}</p>
             </div>
           ))}
         </div>
@@ -301,7 +303,7 @@ export function UmmahAcademyCaseStudy() {
                 {ar ? "الترجمة بنية، لا إضافة." : "Translation as architecture, not a plugin."}
               </h2>
             </div>
-            <p className="max-w-md text-sm leading-6 text-text-tertiary">
+            <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">
               {ar
                 ? "كل مسار موجود بكل لغة، وكل لغة لها مسارات مقالاتها المحلية. قائمة اللغة لا تُسقطك على صفحة 404 أبداً — تفتح الترجمة الحقيقية أو أقرب قسم منها."
                 : "Every route exists in every language, and each language owns its localised article slugs. The language menu can never 404 — it opens the true translation, or the closest section to it."}
@@ -313,7 +315,7 @@ export function UmmahAcademyCaseStudy() {
               <div key={l.code} className="rounded-xl border border-border-subtle bg-background/55 p-4">
                 <p className="font-display text-3xl text-text-primary">{l.code}</p>
                 <p className="mt-2 font-mono text-xs text-amber-200/80">{l.where}</p>
-                <p className="mt-4 text-xs leading-6 text-text-tertiary">{ar ? l.noteAr : l.note}</p>
+                <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">{ar ? l.noteAr : l.note}</p>
               </div>
             ))}
           </div>
@@ -338,7 +340,7 @@ export function UmmahAcademyCaseStudy() {
                 </span>
               ))}
             </div>
-            <p className="mt-4 text-xs leading-6 text-text-tertiary">
+            <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
               {ar
                 ? "الموقع لا يحوّل الزائر بلغة المتصفح أبداً — يلمّح فقط. والبناء الإنتاجي يفشل على لغة ناقصة، وفاحص لاحق يرصد أي نص إنجليزي تسرب للنسخ المترجمة، مع روابط hreflang متبادلة و sitemap لكل اللغات."
                 : "The site never redirects by browser language — it only hints. Production builds fail on a half-translated locale, a post-build checker flags any English leak on the translated pages, and reciprocal hreflang plus a five-locale sitemap keep search honest."}
@@ -356,7 +358,7 @@ export function UmmahAcademyCaseStudy() {
               {ar ? "سَكينة زجاجية. ثيمان، صفر وميض." : "Sakinah Glass. Two themes, zero flash."}
             </h2>
           </div>
-          <div className="space-y-3 text-sm leading-7 text-text-secondary">
+          <div className="space-y-3 text-sm leading-[1.65] text-text-secondary">
             <p>
               {ar
                 ? "نظام CSS مكتوب باليد — طبقة زجاجية واحدة تحكم كل المكوّنات، بخطوط مستضافة ذاتياً وأيقونات مدمجة وقت البناء. الوضع الفاتح والداكن من نظام واحد، والخيار يُحفظ لكل متصفح، وعند غيابه يحترم تفضيل النظام."
@@ -387,7 +389,7 @@ export function UmmahAcademyCaseStudy() {
               {ar ? "يُثبَّت على الهاتف. ويظل يعمل دون اتصال." : "Installs on the phone. Still opens offline."}
             </h2>
           </div>
-          <div className="space-y-3 text-sm leading-7 text-text-secondary">
+          <div className="space-y-3 text-sm leading-[1.65] text-text-secondary">
             <p>
               {ar
                 ? "Manifest وأيقونات مقنّعة و Service Worker يحوّلان الموقع إلى تطبيق ويب قابل للتثبيت على أندرويد وiOS. زر صغير يفتح بطاقة التثبيت: الطلب الأصلي على أندرويد، وخطوات «مشاركة ← إضافة إلى الشاشة الرئيسية» على iPhone — بالعربية والإنجليزية."
@@ -401,7 +403,7 @@ export function UmmahAcademyCaseStudy() {
               ].map(([t, b]) => (
                 <div key={t} className="rounded-xl border border-border-subtle p-4">
                   <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-300">{t}</p>
-                  <p className="mt-2 text-xs leading-6 text-text-tertiary">{b}</p>
+                  <p className="mt-2 text-xs leading-[1.65] text-text-tertiary">{b}</p>
                 </div>
               ))}
             </div>
@@ -418,7 +420,7 @@ export function UmmahAcademyCaseStudy() {
               {ar ? "سلسلة الإسناد، موثقة خطوة بخطوة." : "The chain of transmission, documented stage by stage."}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-6 text-text-tertiary">
+          <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">
             {ar
               ? "كل معلم يحمل إجازة — سلسلة موثقة من التدريس تصل إلى النبي ﷺ — ويجتاز أربع مراحل قبل أول حصة وبعدها."
               : "Every teacher holds an Ijazah — a documented chain of transmission back to the Prophet ﷺ — and passes four stages, before the first class and after it."}
@@ -433,7 +435,7 @@ export function UmmahAcademyCaseStudy() {
                 <span className="text-amber-300 transition-transform group-hover:translate-x-1">↗</span>
               </div>
               <h3 className="font-display text-xl text-text-primary">{ar ? titleAr : title}</h3>
-              <p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p>
+              <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? bodyAr : body}</p>
             </article>
           ))}
         </div>
@@ -453,7 +455,7 @@ export function UmmahAcademyCaseStudy() {
               </span>
             ))}
           </div>
-          <p className="mt-4 text-xs leading-6 text-text-tertiary">
+          <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
             {ar
               ? "سلسلة الإسناد معروضة للمتعلم بوضوح — لأنه جزء من قيمة الدرس نفسه. ومعها: طريقة الإتقان للحفظ، وتقرير بعد كل حصة، ومعلمات للنساء والبنات، وخطط شهرية شفافة من 40 إلى 128 دولاراً مع حصتين مجانيتين أولاً."
               : "The Sanad chain is shown to the learner plainly — it is part of the lesson’s value. Alongside it: thematic Itqan memorisation, a report after every session, female teachers for women and girls, and transparent plans from $40 to $128 a month — two free lessons first."}
@@ -472,12 +474,12 @@ export function UmmahAcademyCaseStudy() {
             {qaSuites.map(([name, body, bodyAr]) => (
               <article key={name} className="rounded-xl border border-border-subtle bg-background/55 p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-300">{name}</p>
-                <p className="mt-3 text-sm leading-7 text-text-secondary">{ar ? bodyAr : body}</p>
+                <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? bodyAr : body}</p>
               </article>
             ))}
           </div>
           <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
-            <p className="text-sm leading-7 text-text-secondary">
+            <p className="text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "الخصوصية افتراضية لا إضافية: بدون أي سكربتات خارجية أو كوكيز افتراضياً. التحليلات اختيارية — Plausible بلا كوكيز، أو Google Tag Manager خلف موافقة Consent Mode v2 بلغة الزائر. وبوابة العمليات (طلاب، أسر، معلمون، سجل حصص، اشتراكات، صلاحيات مفحوصة على الخادم) عملية Node منفصلة عن الموقع الثابت."
                 : "Privacy is the default, not an add-on: with no analytics variables set, the site ships no third-party scripts and no cookies. Analytics stay optional — cookieless Plausible, or GTM behind Consent Mode v2 in the visitor’s language. The operations portal (students, families, teachers, session ledger, subscriptions, server-checked permissions) runs as a separate Node process beside the static site."}
@@ -503,7 +505,7 @@ export function UmmahAcademyCaseStudy() {
                 </span>
               ))}
             </div>
-            <p className="mt-6 text-sm leading-7 text-text-secondary">
+            <p className="mt-6 text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "خرج ثابت من Astro، وتعليمات TypeScript خفيفة، وخدمة تعمل على أي استضافة. النسخة التجريبية على Vercel، والإنتاج مستهدف على Hostinger مع بوابة العمليات كتطبيق Node. كل البناء يمر باختبارات الروابط واللغات وإمكانية الوصول والـ PWA."
                 : "Static output from Astro, light TypeScript islands, and hosting that can be moved anywhere. The preview runs on Vercel; production targets Hostinger with the portal as a Node app. Every build passes the link, i18n, accessibility and PWA suites."}
@@ -520,7 +522,7 @@ export function UmmahAcademyCaseStudy() {
             <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? "منتج ثقة، مهندس كبرمجيات." : "A trust product, engineered like software."}
             </h2>
-            <p className="mt-5 max-w-2xl text-sm leading-7 text-text-secondary">
+            <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">
               {ar
                 ? "الموقع حي وقابل للتثبيت بخمس لغات، وقصة المنتج — من سلسلة الإسناد إلى التقارير وخطط الأسعار — مبنية في الواجهة نفسها. ما زال قيد التطوير: بوابة العمليات ونقل الدومين من WordPress مستمران — وهذا سبب علامته كمشروع جارٍ في السجل."
                 : "The site is live and installable in five languages, and the product story — from the Sanad chain to session reports and pricing — is built into the interface itself. It stays in progress: the operations portal and the WordPress domain cut-over continue — which is why the ledger marks it as ongoing."}

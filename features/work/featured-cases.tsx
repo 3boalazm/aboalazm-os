@@ -7,7 +7,7 @@
  * leading to its dedicated page (/work/design and /work/development).
  */
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
 import { Badge } from "@/components/ui/Badge";
@@ -269,8 +269,8 @@ export function FeaturedCases({
             <p className="text-body-sm text-text-secondary">
               {variant === "digital"
                 ? ar
-                  ? "منصات وأدوات وتجارب رقمية — افتح أي مشروع لزيارة نسخته المنشورة واستكشافه مباشرة."
-                  : "Platforms, tools, and digital experiences — open a project to explore its production version."
+                  ? "منصات وأدوات وتجارب رقمية — استكشف التفاصيل والعرض المرئي، وجرّب المعاينة العامة لما تكون متاحة."
+                  : "Platforms, tools and digital experiences — explore the details, visual overview and available public previews."
                 : ar
                   ? "التحدي، ما تم تصميمه، والنتيجة — عبر الرعاية الصحية، الفنون والمطبوعات، والمنتجات الاستهلاكية."
                   : "The challenge, what was designed, and the outcome — across healthcare, editorial art & print, and consumer goods."}

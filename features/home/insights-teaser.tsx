@@ -6,7 +6,7 @@
  * sit inside the funnel. Prefers posts in the current UI language, falls
  * back to the other language rather than rendering thin.
  */
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";

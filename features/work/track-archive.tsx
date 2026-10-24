@@ -6,7 +6,7 @@
  *   - /work/development  -> all Digital Products & Engineering projects (14)
  */
 import { useMemo, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Badge } from "@/components/ui/Badge";
 import { buttonVariants } from "@/components/ui/Button";
@@ -54,7 +54,7 @@ export function TrackArchive({
   const [subFilter, setSubFilter] = useState<SubFilter>("all");
 
   const caseStudyProjects = useMemo(
-    () => projects.filter((p) => p.hasCaseStudy),
+    () => projects.filter((p) => p.hasCaseStudy && !p.overviewOnly),
     [projects],
   );
 

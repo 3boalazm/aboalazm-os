@@ -6,7 +6,8 @@
  * the home page can never drift from /pricing. Recommended tier carries the
  * accent edge; every card ends on /pricing, not a fake checkout.
  */
-import Link from "next/link";
+import { ServicePaths } from "@/features/offers/service-paths";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
@@ -17,13 +18,14 @@ export function ServicesSnapshot() {
   const ar = lang === "ar";
   return (
     <div className="flex flex-col gap-6">
+      <ServicePaths />
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
         <div className="flex max-w-[46ch] flex-col gap-1">
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
             {ar ? (
-              <>ثلاث طرق للشغل معايا. <em className="text-accent">واحدة أكيد بتشبه مشروعك.</em></>
+              <>باقات الهوية البصرية. <em className="text-accent">نختار البداية المناسبة.</em></>
             ) : (
-              <>Three ways to engage. <em className="text-accent">One of them fits your brief.</em></>
+              <>Identity packages. <em className="text-accent">Choose your starting point.</em></>
             )}
           </h2>
           <p className="text-body-sm text-text-secondary">
@@ -54,7 +56,7 @@ export function ServicesSnapshot() {
             >
               {recommended ? (
                 <span className="absolute -top-2.5 start-4 rounded-pill bg-accent px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-obsidian">
-                  {ar ? "الأكثر اختيارًا" : "Most chosen"}
+                  {ar ? "موصى بها" : "Recommended"}
                 </span>
               ) : null}
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? tier.tag[1] : tier.tag[0]}</p>

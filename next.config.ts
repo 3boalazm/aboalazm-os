@@ -71,7 +71,7 @@ const nextConfig: NextConfig = {
   },
   // The brand book used to live at its own URL; it is now a panel of the case study.
   async redirects() {
-    return [
+    const redirects = [
       {
         source: "/case-studies/gad-institute/brand-book",
         destination: "/case-studies/gad-institute#brand-book",
@@ -111,6 +111,7 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
     ];
+    return [...redirects, ...redirects.map((entry) => ({ ...entry, source: `/ar${entry.source}`, destination: `/ar${entry.destination}` }))];
   },
   images: {
     formats: ["image/avif", "image/webp"],

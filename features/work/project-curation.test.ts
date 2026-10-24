@@ -51,6 +51,11 @@ test("every digital project uses a dedicated 16:10 dev-cards preview and maps le
     );
 
     const destination = project.liveUrl ?? project.externalUrl;
+    if (project.previewStatus === "archived") {
+      assert.equal(destination, undefined);
+      assert.ok(project.hasCaseStudy, `${project.slug} needs a saved overview`);
+      continue;
+    }
     assert.ok(destination, `${project.slug} needs a production or external preview link`);
     if (destination.startsWith("/")) {
       assert.ok(

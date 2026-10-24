@@ -133,6 +133,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     slug: "esfc",
+    overviewOnly: true,
     name: "Egypt SEG Field Camp",
     nameAr: "مخيم SEG مصر الميداني",
     category: "design",
@@ -142,7 +143,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "هوية الفعالية والتواصل البصري",
     year: "2020",
     thumbnail: "/images/work/esfc.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     accent: {
       primary: "rgb(255 200 60 / 0.18)",
       secondary: "rgb(255 107 71 / 0.10)",
@@ -150,6 +151,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     slug: "learn-in-arabic",
+    overviewOnly: true,
     name: "Learn in Arabic",
     nameAr: "تعلّم بالعربي",
     category: "design",
@@ -159,7 +161,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "استوديو من الصفر",
     year: "2020–21",
     thumbnail: "/images/work/learn-in-arabic.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     accent: {
       primary: "rgb(96 165 250 / 0.20)",
       secondary: "rgb(45 212 191 / 0.10)",
@@ -167,6 +169,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     slug: "youth-scope",
+    overviewOnly: true,
     name: "Youth Scope",
     nameAr: "Youth Scope",
     category: "design",
@@ -176,7 +179,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "من الصفر، مرتين",
     year: "2019–21",
     thumbnail: "/images/work/youth-scope.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     accent: {
       primary: "rgb(61 220 132 / 0.18)",
       secondary: "rgb(150 220 61 / 0.10)",
@@ -310,7 +313,7 @@ export const PROJECTS: readonly Project[] = [
     year: "2026",
     thumbnail: "/images/work/dev-cards/mini-exam-card.jpg",
     hasCaseStudy: true,
-    liveUrl: "https://exam-eta-sandy.vercel.app/",
+    previewStatus: "archived",
     accent: {
       primary: "rgb(129 140 248 / 0.20)",
       secondary: "rgb(246 196 83 / 0.12)",
@@ -318,6 +321,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     slug: "ahmed-kamar",
+    overviewOnly: true,
     name: "Ahmed Kamar",
     nameAr: "أحمد كمار",
     category: "development",
@@ -327,7 +331,7 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "بورتفوليو محلل بيانات — أعمال مختارة ومنهجية ومهارات وسيرة ذاتية قابلة للطباعة",
     year: "2026",
     thumbnail: "/images/work/dev-cards/ahmed-kamar-card.jpg",
-    hasCaseStudy: false,
+    hasCaseStudy: true,
     liveUrl: "https://ahmed-kamar-portfolio.vercel.app/",
     accent: {
       primary: "rgb(73 167 232 / 0.20)",
@@ -372,6 +376,7 @@ export const PROJECTS: readonly Project[] = [
   },
   {
     slug: "youssef-guba",
+    overviewOnly: true,
     name: "Youssef Guba",
     nameAr: "يوسف جوبا",
     category: "development",
@@ -381,8 +386,8 @@ export const PROJECTS: readonly Project[] = [
     outcomeAr: "نظام بورتفوليو شخصي ليوسف جوبا — الأعمال والكتابة والملف الشخصي",
     year: "2026",
     thumbnail: "/images/work/dev-cards/youssef-guba-card.jpg",
-    hasCaseStudy: false,
-    liveUrl: "https://youssefguba.vercel.app/",
+    hasCaseStudy: true,
+    previewStatus: "archived",
     accent: {
       primary: "rgb(217 182 110 / 0.20)",
       secondary: "rgb(138 107 214 / 0.12)",

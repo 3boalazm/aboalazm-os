@@ -1,3 +1,4 @@
+import { BUILT_IN_CASE_SLUGS } from "@/lib/case-registry";
 /**
  * CONTENT ADAPTERS — bridge Payload's document shape to the exact
  * `Project` / `CaseStudyRecord` types the UI already consumes.
@@ -34,7 +35,6 @@ const STATIC_CASE_STUDIES: Record<string, CaseStudyRecord> = {
 const STATIC_GALLERIES: Record<string, GalleryItem[]> = {
   "gad-institute": [
     { src: "/images/work/gad/gad-signage-environmental.jpg", caption: "ENVIRONMENTAL · FACADE SIGN", captionAr: "البيئي · لافتة الواجهة", span: "full" },
-    { src: "/images/work/gad/gad-mockup-logo.jpg", caption: "BRAND MARK · HEART + LUNG, FUSED", captionAr: "الشعار · قلب + رئة، مدموجان", span: "full" },
     { src: "/images/work/gad/gad-cover.png", caption: "BRAND IDENTITY · V2.0 COVER", captionAr: "هوية البراند · غلاف V2.0", kind: "slide" },
     { src: "/images/work/gad/gad-logo-anatomy.png", caption: "LOGO ANATOMY · LOCKUP ELEMENTS", captionAr: "تشريح اللوجو · عناصر الـ Lockup", kind: "slide" },
     { src: "/images/work/gad/gad-logo-variations.png", caption: "VARIATIONS · EN / AR · H / V", captionAr: "المتغيرات · إنجليزي / عربي · أفقي / عمودي", span: "full", kind: "slide" },
@@ -265,7 +265,7 @@ export interface SitemapSource {
 
 /** The built-in case studies — what the site serves when the CMS has none. */
 const staticCaseStudySources = (): SitemapSource[] =>
-  Object.keys(STATIC_CASE_STUDIES).map((slug) => ({ slug, updatedAt: "" }));
+  BUILT_IN_CASE_SLUGS.map((slug) => ({ slug, updatedAt: "" }));
 
 /** Slug + last-modified for every published post / case study (sitemap.xml). */
 export async function getSitemapSources(): Promise<{
@@ -277,7 +277,7 @@ export async function getSitemapSources(): Promise<{
   // case studies are served from STATIC_CASE_STUDIES in that case (same
   // fallback as getAllCaseStudySlugs) — they used to be missing from
   // /sitemap.xml, so Google was never told those pages exist.
-  if (!hasDb()) return { posts: [], caseStudies: staticCaseStudySources() };
+  if (!hasDb()) return { posts: WRITING_POSTS.map((p) => ({ slug: p.slug, updatedAt: "" })), caseStudies: staticCaseStudySources() };
 
   try {
     const { getPayload } = await import("./payload");
@@ -298,10 +298,12 @@ export async function getSitemapSources(): Promise<{
     ]);
     const pick = (d: { slug: string; updatedAt: string }) => ({ slug: d.slug, updatedAt: d.updatedAt });
     const cms = caseStudies.docs.map(pick);
-    return { posts: posts.docs.map(pick), caseStudies: cms.length > 0 ? cms : staticCaseStudySources() };
+    const bySlug = new Map(staticCaseStudySources().map((c) => [c.slug, c]));
+    for (const c of cms) bySlug.set(c.slug, c);
+    return { posts: posts.docs.map(pick), caseStudies: [...bySlug.values()] };
   } catch (err) {
     console.error("[sitemap] CMS query failed, falling back to static case studies:", err);
-    return { posts: [], caseStudies: staticCaseStudySources() };
+    return { posts: WRITING_POSTS.map((p) => ({ slug: p.slug, updatedAt: "" })), caseStudies: staticCaseStudySources() };
   }
 }
 
@@ -316,12 +318,12 @@ export async function getAllCaseStudySlugs(): Promise<string[]> {
         select: { slug: true },
         overrideAccess: false,
       });
-      if (res.docs.length > 0) return res.docs.map((d) => d.slug);
+      if (res.docs.length > 0) return [...new Set([...BUILT_IN_CASE_SLUGS, ...res.docs.map((d) => d.slug)])];
     } catch {
       // Fall through
     }
   }
-  return Object.keys(STATIC_CASE_STUDIES);
+  return [...BUILT_IN_CASE_SLUGS];
 }
 
 export async function getCaseStudyGallery(slug: string): Promise<GalleryItem[]> {
@@ -343,7 +345,7 @@ export async function getCaseStudyGallery(slug: string): Promise<GalleryItem[]> 
             caption: img.caption ?? "",
             captionAr: img.captionAr ?? undefined,
             span: img.span ?? undefined,
-          })),
+          })).filter((image) => !/gad-mockup-logo(?:-\d+)?\./i.test(image.src)),
         );
       }
     } catch {
@@ -444,7 +446,13 @@ export async function getPost(slug: string) {
       // Fall through
     }
   }
-  return null;
+  const post = WRITING_POSTS.find((p) => p.slug === slug);
+  if (!post) return null;
+  const [{ ARTICLE_BODIES, toLexical }, { SYSTEMS_BODIES_EN }, { SYSTEMS_BODIES_AR }] = await Promise.all([
+    import("@/scripts/writing-content"), import("@/scripts/writing-systems-en"), import("@/scripts/writing-systems-ar"),
+  ]);
+  const blocks = ARTICLE_BODIES[slug] ?? SYSTEMS_BODIES_EN[slug] ?? SYSTEMS_BODIES_AR[slug];
+  return blocks ? { ...post, body: toLexical(blocks, post.lang === "ar" ? "rtl" : "ltr") } : null;
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
@@ -463,7 +471,7 @@ export async function getAllPostSlugs(): Promise<string[]> {
       // Fall through
     }
   }
-  return [];
+  return WRITING_POSTS.map((p) => p.slug);
 }
 
 /* Static mirror of the published posts (single source: scripts/writing-posts-list.ts,
@@ -587,5 +595,5 @@ export async function getGalleryData(): Promise<{
     })),
   );
 
-  return { projects, images };
+  return { projects, images: images.filter((image) => !/gad-mockup-logo(?:-\d+)?\./i.test(image.src)) };
 }

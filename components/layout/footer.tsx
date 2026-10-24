@@ -5,7 +5,7 @@ import { useT } from "@/hooks/use-t";
  * FOOTER — old-site structure (Pages / Reach / Portfolio) in the
  * new system's voice. Bilingual via useLang.
  */
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
 

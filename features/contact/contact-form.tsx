@@ -6,8 +6,9 @@
  * Fully bilingual via useT() + useLang().
  */
 import { useEffect, useRef, useState } from "react";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, readCampaign } from "@/lib/analytics";
 import { motion, useReducedMotion } from "framer-motion";
+import { SERVICES, PACKAGES, parseContactContext, type ContactContext } from "@/lib/contact-context";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
@@ -27,11 +28,14 @@ const FIELD =
 const LABEL =
   "font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary";
 
-export function ContactForm() {
+export function ContactForm({ context }: { context?: ContactContext }) {
   const { lang } = useLang();
   const t = useT();
   const ar = lang === "ar";
   const reduceMotion = useReducedMotion();
+  const [selection, setSelection] = useState(() => parseContactContext(context ?? {}));
+  const didStart = useRef(false);
+  const eventContext = { service: selection.service, tier: selection.tier, source: selection.source, locale: lang };
   const [status, setStatus] = useState<Status>("idle");
   const [budget, setBudget] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
@@ -64,6 +68,7 @@ export function ContactForm() {
     if (inFlight.current) return;
     inFlight.current = true;
     setStatus("working");
+    trackEvent("form_submit_attempt", eventContext);
 
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -71,6 +76,9 @@ export function ContactForm() {
     try {
       const res = await Promise.race([
         submitContact({
+          ...selection,
+          ...readCampaign(),
+          locale: lang,
           name: String(data.get("name") ?? ""),
           email: String(data.get("email") ?? ""),
           company: String(data.get("company") ?? "") || undefined,
@@ -95,14 +103,16 @@ export function ContactForm() {
 
       if (!res.ok) {
         setStatus(res.error === "rate_limited" ? "rateLimited" : "error");
+        trackEvent("form_error", { ...eventContext, reason: res.error ?? "unknown" });
         return;
       }
 
       form.reset();
       setBudget(null);
       setStatus("sent");
-      trackEvent("contact_submit", { locale: ar ? "ar" : "en" });
+      trackEvent("contact_submit", eventContext);
     } catch {
+      trackEvent("form_error", { ...eventContext, reason: "network_or_timeout" });
       if (mounted.current) setStatus("error");
     } finally {
       inFlight.current = false;
@@ -151,9 +161,26 @@ export function ContactForm() {
           <motion.form
             key="form"
             onSubmit={submit}
+            onFocusCapture={() => { if (!didStart.current) { didStart.current = true; trackEvent("form_start", eventContext); } }}
+            onInvalidCapture={() => trackEvent("form_error", { ...eventContext, reason: "invalid_field" })}
             transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: [0.7, 0, 0.84, 0] }}
             className="flex flex-col gap-2"
           >
+            <label className="flex flex-col gap-0.5">
+              <span className={LABEL}>{ar ? "محتاج مساعدة في إيه؟" : "What can I help you with?"}</span>
+              <select name="service" value={selection.service} onChange={(e) => setSelection((current) => ({ ...current, service: parseContactContext({ service: e.target.value }).service, tier: undefined }))} className={FIELD}>
+                {SERVICES.map((s) => <option key={s.id} value={s.id}>{ar ? s.ar : s.en}</option>)}
+              </select>
+            </label>
+            {selection.service === "brand-identity" && (
+              <label className="flex flex-col gap-0.5">
+                <span className={LABEL}>{ar ? "الباقة (اختياري)" : "Package (optional)"}</span>
+                <select name="tier" value={selection.tier ?? ""} onChange={(e) => setSelection((current) => ({ ...current, tier: e.target.value || undefined }))} className={FIELD}>
+                  <option value="">{ar ? "نختارها مع بعض" : "Help me choose"}</option>
+                  {PACKAGES.map((p) => <option key={p.id} value={p.id}>{ar ? p.ar : p.en}</option>)}
+                </select>
+              </label>
+            )}
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formName}</span>
               <input required name="name" autoComplete="name" maxLength={NAME_MAX} className={FIELD} placeholder={t.formPlaceholderName} />
@@ -258,7 +285,7 @@ export function ContactForm() {
             >
               {status === "working"
                 ? (ar ? "جارٍ الإرسال…" : "WORKING…")
-                : t.formBegin}
+                : (ar ? "ابعت استفسارك" : "Send your enquiry")}
             </button>
 
             {/* Empty regions would add a flex gap of their own, so while
@@ -281,8 +308,8 @@ export function ContactForm() {
                 </p>
               )}
             </div>
-            <p className="text-center font-mono text-micro text-text-ghost">
-              {t.formReplies}
+            <p className="text-center text-caption text-text-tertiary">
+              {ar ? "أرد بالإيميل خلال يومي عمل. بياناتك تُستخدم للرد على طلبك فقط." : "I reply by email within two working days. Your details are used to respond to your enquiry only."}
             </p>
           </motion.form>
         ) : null}

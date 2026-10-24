@@ -161,6 +161,6 @@ export const PAYMENT = {
  * (Tier 1: 50 before files · Tiers 2–3: 25 at strategy sign-off + 25 before delivery).
  */
 export const TERMS_LINE: readonly [string, string] = [
-  "How payment works: 50% kickoff for every tier. The balance is due before final files — Tier 1 pays it as one 50% installment, Tiers 2–3 as 25% at strategy sign-off + 25% before delivery. No work before the deposit; no files before the balance — it protects both sides.",
-  "إزاي بيتم الدفع: 50% مقدّم لكل الفئات. الباقي قبل تسليم الملفات النهائية — الفئة 1 دفعة واحدة 50%، والفئتان 2 و3: 25% عند اعتماد الاستراتيجية + 25% قبل التسليم. لا بدء بدون مقدّم ولا ملفات قبل الباقي — حماية للطرفين.",
+  "How payment works: 50% kickoff for every tier. The balance is due before final files — Tier 1 pays it as one 50% installment, Tiers 2–3 as 25% at strategy sign-off + 25% before delivery. The agreed scope and milestones are confirmed in writing before kickoff.",
+  "إزاي بيتم الدفع: 50% مقدّم لكل الفئات. الباقي قبل تسليم الملفات النهائية — الفئة 1 دفعة واحدة 50%، والفئتان 2 و3: 25% عند اعتماد الاستراتيجية + 25% قبل التسليم. بنتفق كتابيًا على النطاق والمراحل قبل البدء.",
 ] as const;

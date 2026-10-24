@@ -1,0 +1,2673 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   MUSTAFA ABOALAZM OS — GLOBAL DESIGN TOKEN LAYER
+   Tailwind CSS v4 · CSS-first configuration
+   ───────────────────────────────────────────────────────────────────────
+   DNA: 40% Quiet Luxury · 25% Strategic Expert · 20% Design Engineer
+        10% Creative Authority · 5% Technical Wizard
+
+   RULES OF THE SYSTEM
+   1. Every value in the UI traces back to a token in this file.
+   2. Spacing base = 8px → p-1/p-2/p-3/p-4/p-8/p-16 are the ONLY rhythm.
+   3. One easing curve: --ease-physics. No exceptions without review.
+   4. Color is SEMANTIC. Surfaces/text ride the surface-border-text
+      ramps; meaning rides named roles — accent (the orange anchor),
+      creative/live/proof (supporting roles), success/warning/danger/
+      info (functional states). Atmosphere comes from --glow-* and the
+      atmos utilities. Never raw hex or one-off rgb() in components;
+      accent opacities come ONLY from the --color-accent-NN ramp.
+   5. Icons come from components/ui/Icon — never raw Unicode glyphs.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* Montserrat (EN body) + IBM Plex Sans Arabic (AR body) are self-hosted from
+   /public/fonts — see the @font-face rules in the BASE LAYER below. There is
+   no fonts.googleapis.com @import any more (render-blocking 3-hop chain).
+   Keep the Tailwind import as the FIRST rule: an @import placed after it
+   would sit after real rules once Tailwind expands inline at build time —
+   invalid per spec. */
+@import "tailwindcss";
+
+/* ───────────────────────────── @theme ─────────────────────────────────
+   Everything declared here generates real Tailwind utilities:
+   --color-obsidian → bg-obsidian / text-obsidian / border-obsidian
+   --radius-card    → rounded-card
+   --ease-physics   → ease-physics
+   ──────────────────────────────────────────────────────────────────── */
+@theme {
+  /* ══════════════ 1 · SPACING — STRICT 8px SCALE ══════════════
+     Base multiplier = 8px. Numeric utilities map directly:
+     p-1 = 8 · p-2 = 16 · p-3 = 24 · p-4 = 32 · p-8 = 64 · p-16 = 128 */
+  --spacing: 8px;
+
+  /* ══════════════ 2 · BORDER RADIUS ══════════════ */
+  --radius-card:  12px;   /* cards, inputs, media frames        */
+  --radius-panel: 24px;   /* bento tiles, modals, hero surfaces */
+  --radius-pill:  999px;  /* nav, buttons, tags, badges         */
+
+  /* ══════════════ 3 · MOTION — PHYSICS LANGUAGE ══════════════
+     ease-physics: fast exit, long luxurious settle.
+     This is the studio's signature curve — used by CSS, Framer & GSAP. */
+  --ease-physics:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-entrance: cubic-bezier(0.22, 1, 0.36, 1);   /* page-load reveals  */
+  --ease-exit:     cubic-bezier(0.7, 0, 0.84, 0);    /* dismissals only    */
+
+  --duration-fast:      200ms;  /* hover feedback, color shifts  */
+  --duration-base:      400ms;  /* component transitions          */
+  --duration-slow:      700ms;  /* layout shifts, reveals         */
+  --duration-cinematic: 1200ms; /* hero entrances, route changes  */
+
+  /* ══════════════ 4 · COLOR — SEMANTIC MONOCHROME ══════════════ */
+
+  /* Canvases ─ the two truths of the system */
+  --color-obsidian:  #080710;  /* base dark canvas  */
+  --color-alabaster: #FBF9F6;  /* base light canvas */
+
+  /* Surface elevation (dark) — depth via subtle lift, not new hues */
+  --color-surface-0: #080710;  /* page                    */
+  --color-surface-1: #0D0C18;  /* cards                   */
+  --color-surface-2: #121120;  /* elevated / hover        */
+  --color-surface-3: #181729;  /* modals, popovers        */
+
+  /* Borders — white alpha only. Never a solid gray. */
+  --color-border-subtle:  rgb(255 255 255 / 0.08);  /* ★ the spec line  */
+  --color-border-default: rgb(255 255 255 / 0.12);  /* interactive edges */
+  --color-border-strong:  rgb(255 255 255 / 0.20);  /* focus / active    */
+
+  /* Text hierarchy — opacity steps of one ink, never new grays */
+  --color-text-primary:   rgb(248 248 250 / 1);
+  --color-text-secondary: rgb(248 248 250 / 0.68);
+  --color-text-tertiary:  rgb(248 248 250 / 0.48);
+  /* Ghost sits on tertiary's alpha, so dark has THREE visible tiers, not
+     four: at 0.32 it was 2.68:1 on Obsidian (axe color-contrast failure on
+     nearly every page). It compiles to #f8f8fa7a (alpha 0.478): 4.68-4.76:1
+     on surface-0..3 (AA). Light keeps four steps (see below). A hover that
+     steps ghost -> tertiary is therefore a no-op in dark. */
+  --color-text-ghost:     rgb(248 248 250 / 0.48);
+
+  /* Light-mode counterparts (Alabaster canvas) */
+  --color-ink-primary:   rgb(8 7 16 / 0.96);
+  --color-ink-secondary: rgb(8 7 16 / 0.64);
+  --color-ink-tertiary:  rgb(8 7 16 / 0.40);
+  --color-border-light:  rgb(8 7 16 / 0.10);
+
+  /* Studio accent — the authorial brand anchor: CTAs, focus rings,
+     authorial emphasis. Never demoted, never one of several. */
+  --color-accent:     #FF6B47;
+  --color-accent-dim: var(--color-accent-14); /* alias of accent-14 */
+
+  /* ── ACCENT ALPHA RAMP — the only sanctioned accent opacities ──
+     12 named steps, chosen so every historical one-off value
+     (0.02 … 0.85, 41 sites audited 2026-09-18) snaps to a step with
+     Δ ≤ 0.05. Reach for these; never write rgb(255 107 71 / N).
+       04 · 08          whispers — washes, grid textures
+       14 · 20 · 24     tints — quiet fills, hairline borders
+       32 · 40 · 48     edges — hover borders, active outlines
+       64 · 72          strong — filled markers, emphasized type
+       80 · 88          near-solid — glow cores, checked states   */
+  --color-accent-04: rgb(255 107 71 / 0.04);
+  --color-accent-08: rgb(255 107 71 / 0.08);
+  --color-accent-14: rgb(255 107 71 / 0.14);
+  --color-accent-20: rgb(255 107 71 / 0.20);
+  --color-accent-24: rgb(255 107 71 / 0.24);
+  --color-accent-32: rgb(255 107 71 / 0.32);
+  --color-accent-40: rgb(255 107 71 / 0.40);
+  --color-accent-48: rgb(255 107 71 / 0.48);
+  --color-accent-64: rgb(255 107 71 / 0.64);
+  --color-accent-72: rgb(255 107 71 / 0.72);
+  --color-accent-80: rgb(255 107 71 / 0.80);
+  --color-accent-88: rgb(255 107 71 / 0.88);
+
+  /* Contrast-safe accent TYPE. #FF6B47 only reaches 2.7:1 on Alabaster
+     (fails even WCAG large-text), so small accent type in light mode
+     defers to a deeper family member (reassigned below). On Obsidian the
+     base already holds 7.1:1, so dark mode keeps the anchor untouched. */
+  --color-accent-text:   #FF6B47;
+  /* Standard hairline for accent-edged surfaces — the 32 ramp step,
+     aliased so borders always speak the ramp, not a one-off alpha. */
+  --color-accent-border: var(--color-accent-32);
+
+  /* ══════════════ 4b · SECONDARY EXPRESSIVE PALETTE ══════════════
+     Five supporting colors requested for the portfolio. Orange remains
+     the primary authorial anchor; these create breathing room across
+     proof, process, editorial, and interaction surfaces. */
+  --color-secondary-cyan: #51E9F5;
+  --color-secondary-mint: #9DF9EF;
+  --color-secondary-mist: #EDF7F6;
+  --color-secondary-pink: #FFA8B6;
+  --color-secondary-mauve: #A28089;
+
+  --color-secondary-cyan-dim: rgb(81 233 245 / 0.14);
+  --color-secondary-mint-dim: rgb(157 249 239 / 0.12);
+  --color-secondary-pink-dim: rgb(255 168 182 / 0.14);
+  --color-secondary-mauve-dim: rgb(162 128 137 / 0.14);
+
+  /* ══════════════ 4b · FUNCTIONAL STATUS COLORS ══════════════
+     Success / warning / danger / info are SEMANTIC STATES, not palette
+     decoration: form validation, checklist outcomes, system health.
+     They stay separate from the expressive roles and from the orange
+     anchor — a success message is green on every surface, both themes,
+     both languages. Four members per state: base (icon/marker),
+     -text (type-safe), -dim (wash), -border (hairline). Dark values
+     ride the 400/300 end of the Tailwind ramps; light mode reassigns
+     to 600/700 below. Declared in @theme on purpose so Tailwind
+     generates bg-success-dim / text-success-text / … utilities.
+     (The Writing diagram's --node-* set stays its own thing — that is
+     illustration, not state.) */
+  --color-success: #34D399;  --color-success-text: #6EE7B7;
+  --color-warning: #FBBF24;  --color-warning-text: #FCD34D;
+  --color-danger:  #F87171;  --color-danger-text:  #FCA5A5;
+  --color-info:    #60A5FA;  --color-info-text:    #93C5FD;
+
+  --color-success-dim: rgb(52 211 153 / 0.12);
+  --color-warning-dim: rgb(251 191 36 / 0.12);
+  --color-danger-dim:  rgb(248 113 113 / 0.12);
+  --color-info-dim:    rgb(96 165 250 / 0.12);
+
+  --color-success-border: rgb(52 211 153 / 0.28);
+  --color-warning-border: rgb(251 191 36 / 0.28);
+  --color-danger-border:  rgb(248 113 113 / 0.28);
+  --color-info-border:    rgb(96 165 250 / 0.28);
+
+  /* Control heights — dense UI only, not a page layout language */
+  --size-control-sm: 24px;
+  --size-control-md: 32px;
+
+  /* ══════════════ 5 · TYPOGRAPHY ══════════════ */
+  /* GC EPICPRO — EN heading voice (extra bold display) */
+  --font-epicpro: "GC EPICPRO", "GC EPICPRO ExtBd", Georgia, serif;
+  --font-display: var(--font-epicpro); /* EN headings → GC EPICPRO */
+  /* Body / sans — Montserrat (self-hosted @font-face, BASE LAYER). No
+     next/font var dependency so it can never silently fall back to a serif. */
+  --font-sans:    "Montserrat", system-ui, -apple-system, sans-serif;
+  --font-mono:    var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
+  --font-geist:   var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace; /* ledger pills */
+  /* Arabic body — IBM Plex Sans Arabic (self-hosted @font-face, BASE LAYER). */
+  --font-arabic:  "IBM Plex Sans Arabic", system-ui, sans-serif;
+  /* Thmanyah Serif Display — Arabic heading voice */
+  --font-thmanyah: "Thmanyah Serif Display", "IBM Plex Sans Arabic", sans-serif;
+
+  /* ══════════ FLUID EDITORIAL SCALE ══════════
+     11 steps, each shipping its own line-height (+ tracking where the
+     step earns it). 2026-09-18 audit: ~100 one-off arbitrary sizes
+     (0.55–2rem) grew outside this scale, concentrated in /start,
+     /process, /type. They all map onto the steps below — most onto
+     `caption`, which is deliberately the FLOOR: nothing readable
+     renders under 11px anymore (the old 0.55–0.62rem terminal sizes
+     were sub-9px — illegible at 390px). Display steps are clamp()
+     fluid, so mobile and desktop sizes are one token, not two. */
+  --text-hero:       clamp(3.25rem, 7.8vw, 7.25rem);
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -0.03em;
+
+  --text-display:    clamp(2.75rem, 5.8vw, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+
+  --text-title:      clamp(1.75rem, 3vw, 2.5rem);
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.015em;
+
+  /* Section subtitles / big statements under a title. Fluid so a
+     2rem desktop statement stays readable-but-not-shouting at 390px. */
+  --text-subtitle:   clamp(1.375rem, 1.125rem + 0.7vw, 1.75rem);
+  --text-subtitle--line-height: 1.3;
+  --text-subtitle--letter-spacing: -0.005em;
+
+  --text-lead:       1.5rem;
+  --text-lead--line-height: 1.55;
+
+  /* Long-form emphasis one notch above body (absorbs old 1.05rem one-offs). */
+  --text-body-lg:    1.25rem;
+  --text-body-lg--line-height: 1.6;
+
+  --text-body:       1.125rem;
+  --text-body--line-height: 1.65;
+
+  /* Running copy — card descriptions, case-study paragraphs, FAQ answers, the
+     candidate dossier: 111 call sites, most of the text on every page. It was
+     14px (0.875rem), which put 43% of the characters on Home and 67% on
+     /for-hiring under the 16px a long read wants, grey on near-black. Raised to
+     16px (audit 5.10, approved 2026-10-15), then to 18px in the 2026-10-20
+     density pass (owner: type reads small vs. the page, gaps read large).
+     It now equals `body`; the token stays so the two can part again from one
+     place, and so none of the 111 call sites has to be touched. */
+  --text-body-sm:    1.125rem;
+  --text-body-sm--line-height: 1.6;
+
+  --text-label:      0.9375rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.06em;  /* uppercase system labels */
+
+  --text-micro:      0.875rem;
+  --text-micro--line-height: 1.3;
+  --text-micro--letter-spacing: 0.10em;
+
+  /* THE FLOOR — 13px. Terminal chrome, index markers, dense metadata.
+     Never for anything a user must read to act. Absorbs the old
+     0.55–0.72rem one-offs; Arabic pages zero its tracking via [lang=ar]. */
+  --text-caption:    0.8125rem;
+  --text-caption--line-height: 1.35;
+  --text-caption--letter-spacing: 0.08em;
+
+  /* Raw Tailwind scale — overridden so every `text-xs … text-xl` call site
+     (330+) rides the same density pass instead of staying on the tiny
+     defaults. Hierarchy: xs 14 · sm 17 · base 18 · lg 21 · xl 24. */
+  --text-xs:    0.875rem;
+  --text-xs--line-height: 1.45;
+  --text-sm:    1.0625rem;
+  --text-base:  1.125rem;
+  --text-lg:    1.3125rem;
+  --text-xl:    1.5rem;
+
+  /* ══════════════ 6 · DEPTH (VisionOS-grade, restrained) ══════════════ */
+  --shadow-card:
+    0 1px 1px rgb(255 255 255 / 0.04) inset,
+    0 8px 32px rgb(8 7 16 / 0.55);
+  --shadow-panel:
+    0 1px 0 rgb(255 255 255 / 0.06) inset,
+    0 24px 80px rgb(8 7 16 / 0.65);
+  --shadow-glow:
+    0 0 48px var(--glow-1),
+    0 0 160px var(--glow-2);
+
+  /* ══════════════ 7 · LAYOUT ══════════════ */
+  --container-content: 76rem;   /* 1216px — editorial column     */
+  --container-wide:    90rem;   /* 1440px — bento / work grids   */
+
+  /* Z-index contract */
+  --z-ambient: -1;
+  --z-base:     0;
+  --z-elevated: 10;
+  --z-nav:     50;
+  --z-overlay: 60;   /* floating preview layer — above nav, below modal */
+  --z-modal:   80;
+  --z-cursor: 100;
+}
+
+/* ── FIXED-NAV CLEARANCE ────────────────────────────────────────────────
+   The pill nav is `fixed top-2`, so it is OUT of flow: every page's first
+   block has to reserve its height by hand. That hand-placed padding was
+   lost in the 2026-10-20 density pass (py-12 → py-6), and content began
+   rendering underneath the pill on phones (the status/availability row
+   was the visible casualty). One contract now owns it: the layout wraps
+   the page in .site-stage, which reserves exactly the pill's footprint
+   The pill measures ~50px tall (py-1 · 2 + the tallest child: the 13px
+   caption CTAs and the 14px language chip), so its bottom edge sits at
+   ~64px; +8px of air = 72px, rounded up to 80 for font-metric variance.
+
+   Nothing in a page should restate this number — use the token, or
+   .stage-bleed for self-contained full-screen states (404 / error) that
+   paint their own canvas edge to edge. */
+:root {
+  --nav-clearance: 7rem;        /* 80px — nav bottom 64 + 16 of air  */
+}
+@media (min-width: 640px) {
+  :root {
+    --nav-clearance: 7.5rem;    /* 88px — taller orb / MA wordmark   */
+  }
+}
+
+.site-stage {
+  padding-top: var(--nav-clearance);
+}
+
+/* Self-contained full-screen states (404, error boundary) already start at
+   the viewport edge and centre themselves; reclaim the reserved strip. */
+.stage-bleed {
+  margin-top: calc(var(--nav-clearance) * -1);
+}
+
+/* ═══════════════ LIGHT / DARK MODE — SEMANTIC TOKEN SWITCH ═══════════════
+   The @theme block above defines the DARK values (the site's default).
+   Components only ever call the semantic classes (bg-surface-1,
+   text-text-primary, border-border-subtle...) — never bg-obsidian /
+   bg-alabaster directly for page-level surfaces. That's what makes a
+   runtime theme switch possible without touching component code: we
+   just reassign what the semantic custom properties point to, here,
+   after @theme has set the dark defaults. --color-obsidian and
+   --color-alabaster themselves are NOT reassigned — they're fixed
+   primitives (e.g. mockup/browser-chrome panels that should always stay
+   dark regardless of site theme reference --color-obsidian directly on
+   purpose, per components/work-ui/live-preview-card.tsx and similar). */
+html[data-theme="light"] {
+  --color-surface-0: var(--color-alabaster); /* #FBF9F6 — page          */
+  --color-surface-1: #F3F0EA;                /* cards                   */
+  --color-surface-2: #EBE7DE;                /* elevated / hover        */
+  --color-surface-3: #E2DDD1;                /* modals, popovers        */
+
+  --color-border-subtle:  rgb(8 7 16 / 0.12);
+  --color-border-default: rgb(8 7 16 / 0.20);
+  --color-border-strong:  rgb(8 7 16 / 0.30);
+
+  /* Light-mode text ramp — GRADED on purpose: headings assertive but not
+     harsh pure-black, body comfortable, labels clearly quieter. Earlier
+     extremes (0.40 ghost-gray everywhere, then 0.96-black everywhere) both
+     failed — one unreadable, one eye-straining.
+     The steps are 0.86 / 0.74 / 0.60, and ghost now sits on tertiary exactly
+     as it does in dark. At the old 0.48 / 0.32 the labels measured 3.5:1 and
+     2.15:1 on Alabaster (axe color-contrast: 63 nodes on Home, 90 on
+     /for-hiring, nearly all of them these two tokens). 0.60 is 5.3:1 on
+     surface-0 and 4.8:1 on surface-3 — AA on every light surface. */
+  --color-text-primary:   rgb(8 7 16 / 0.86);
+  --color-text-secondary: rgb(8 7 16 / 0.74);
+  --color-text-tertiary:  rgb(8 7 16 / 0.60);
+  --color-text-ghost:     rgb(8 7 16 / 0.60);
+
+  /* Accent TYPE deepens on Alabaster: #FF6B47 measures 2.7:1 on this
+     canvas (fails WCAG even for large text). #C2410C was 4.9:1 on the page
+     but 4.2:1 on surface-2, where the role/label cards sit; #B93A08 holds
+     5.4:1 / 5.0:1 / 4.6:1 on surface-0 / 1 / 2 and is still unmistakably in
+     the coral family. CTA FILLS keep --color-accent untouched —
+     obsidian-on-coral already passes. */
+  --color-accent-text:   #B93A08;
+  --color-accent-border: rgb(185 58 8 / 0.35);
+
+  /* The five supporting colours are pale on purpose (they glow on Obsidian)
+     and vanish as type on Alabaster (cyan 1.4:1, mint 1.2:1, pink 1.9:1).
+     Their text-safe counterparts, 4.6:1 or better on surface-0..2. */
+  --color-secondary-cyan-text:  #0B7480;
+  --color-secondary-mint-text:  #2C766D;
+  --color-secondary-pink-text:  #A63D55;
+  --color-secondary-mauve-text: #7A5560;
+}
+
+/* Small accent type in light mode. `text-accent` (165 uses) resolves to the
+   brand coral, which is 2.7:1 on Alabaster; in light it takes the deeper
+   accent-text member of the family instead. Zero-specificity theme selector,
+   so any hover:/group-hover: colour utility still wins over it, and the same
+   in the utilities layer so the order against `.text-accent` is a plain
+   source-order tie. Dark is untouched. */
+@layer utilities {
+  :where(html[data-theme="light"]) .text-accent { color: var(--color-accent-text); }
+  :where(html[data-theme="light"]) .text-secondary-cyan  { color: var(--color-secondary-cyan-text); }
+  :where(html[data-theme="light"]) .text-secondary-mint  { color: var(--color-secondary-mint-text); }
+  :where(html[data-theme="light"]) .text-secondary-pink  { color: var(--color-secondary-pink-text); }
+  :where(html[data-theme="light"]) .text-secondary-mauve { color: var(--color-secondary-mauve-text); }
+}
+
+/* ═══════════════ ARTICLE DIAGRAM NODE TOKENS ═══════════════
+   Semantic node colors for the Writing section's native diagram
+   renderer (features/writing/diagram.tsx). Dark defaults here,
+   light overrides below — flipping data-theme restyles every
+   diagram with zero JS. gov = governance/decision (indigo),
+   tech = build (green), risk = failure (red), sot = single source
+   of truth (amber, always the most prominent node). */
+:root {
+  --node-gov: #1E1B4B;   --node-gov-border: #818CF8;  --node-gov-text: #E0E7FF;
+  --node-tech: #052E22;  --node-tech-border: #34D399; --node-tech-text: #D1FAE5;
+  --node-risk: #3B0D0D;  --node-risk-border: #F87171; --node-risk-text: #FECACA;
+  --node-sot: #3F2A05;   --node-sot-border: #FBBF24;  --node-sot-text: #FEF3C7;
+}
+html[data-theme="light"] {
+  --node-gov: #EEF2FF;   --node-gov-border: #4F46E5;  --node-gov-text: #312E81;
+  --node-tech: #ECFDF5;  --node-tech-border: #059669; --node-tech-text: #064E3B;
+  --node-risk: #FEF2F2;  --node-risk-border: #DC2626; --node-risk-text: #7F1D1D;
+  --node-sot: #FFFBEB;   --node-sot-border: #D97706;  --node-sot-text: #78350F;
+}
+
+/* ═══════════════ EXPRESSIVE SYSTEM LAYER — SEMANTIC COLOR ROLES ═══════════════
+   Orange (--color-accent) stays the AUTHORIAL BRAND ANCHOR: CTAs, focus
+   rings, authorial emphasis. It does not get demoted here.
+
+   Violet / Cyan / Lime are SUPPORTING EXPRESSIVE ROLES. They carry meaning,
+   not decoration, and they never replace the anchor:
+
+     creative · violet  → creative intelligence / experimental identity
+     live     · cyan    → live system, digital surface, interaction
+     proof    · lime    → shipped result, forward energy
+
+   RULES OF USE (enforced in review, not by the compiler):
+     1. One accent family per surface. Never all three in one viewport.
+     2. Atmosphere, never paint — alpha lands between 0.10 and 0.20.
+     3. Functional states (red/amber/green) stay SEPARATE from these roles.
+     4. Every role has a -text variant: the 400-level tints fail as type on
+        Alabaster, so light mode defers to the deeper 500/600 end. */
+:root {
+  /* Legacy expressive roles remain available, but the portfolio's visible
+     secondary language now uses the five secondary brand colors above. */
+  --color-violet-300: var(--color-secondary-pink);
+  --color-violet-400: var(--color-secondary-pink);
+  --color-violet-500: #FF8FA3;
+  --color-violet-700: #C95D73;
+
+  --color-cyan-100: var(--color-secondary-mist);
+  --color-cyan-200: var(--color-secondary-mint);
+  --color-cyan-300: var(--color-secondary-mint);
+  --color-cyan-400: var(--color-secondary-cyan);
+  --color-cyan-500: #24C9D6;
+  --color-cyan-600: #159EAA;
+  --color-cyan-700: #0B7480;
+  --color-cyan-800: #075661;
+
+  --color-lime-100: #F3F8E8;
+  --color-lime-200: #E5EFD0;
+  --color-lime-300: #C9DAB5;
+  --color-lime-400: var(--color-secondary-mint);
+  --color-lime-500: #78D7C9;
+  --color-lime-600: #4BAFA2;
+  --color-lime-700: #2C766D;
+  --color-lime-800: #1D514B;
+
+  --color-creative: var(--color-secondary-pink);
+  --color-creative-text: var(--color-secondary-pink);
+  --color-live: var(--color-secondary-cyan);
+  --color-live-text: var(--color-secondary-cyan);
+  --color-proof: var(--color-secondary-mint);
+  --color-proof-text: var(--color-secondary-mint);
+}
+
+html[data-theme="light"] {
+  /* Alabaster canvas: 400-level tints do not hold contrast as type. */
+  --color-creative-text: var(--color-violet-700);
+  --color-live-text:     var(--color-cyan-700);
+  --color-proof-text:    var(--color-lime-700);
+
+  --color-creative-dim: rgb(139 92 246 / 0.10);
+  --color-live-dim:     rgb(34 211 238 / 0.12);
+  --color-proof-dim:    rgb(163 230 53 / 0.18);
+
+  --color-creative-border: rgb(109 40 217 / 0.26);
+  --color-live-border:     rgb(14 116 144 / 0.24);
+  --color-proof-border:    rgb(77 124 15 / 0.24);
+
+  --atmos-strength-1: 10%;
+  --atmos-strength-2: 8%;
+}
+
+/* ═══════════════ FUNCTIONAL STATUS — LIGHT THEME ═══════════════
+   Alabaster reassigns the @theme status values to their 600/700
+   ramp members for contrast (see the 4b block above). */
+html[data-theme="light"] {
+  --color-success: #059669;  --color-success-text: #047857;
+  --color-warning: #D97706;  --color-warning-text: #B45309;
+  --color-danger:  #DC2626;  --color-danger-text:  #B91C1C;
+  --color-info:    #2563EB;  --color-info-text:    #1D4ED8;
+
+  --color-success-dim: rgb(5 150 105 / 0.12);
+  --color-warning-dim: rgb(217 119 6 / 0.14);
+  --color-danger-dim:  rgb(220 38 38 / 0.10);
+  --color-info-dim:    rgb(37 99 235 / 0.10);
+
+  --color-success-border: rgb(4 120 87 / 0.28);
+  --color-warning-border: rgb(180 83 9 / 0.30);
+  --color-danger-border:  rgb(185 28 28 / 0.28);
+  --color-info-border:    rgb(29 78 216 / 0.26);
+}
+
+/* ═══════════════ ATMOSPHERIC AMBIENT GLOW — LIVING TOKENS ═══════════════
+   These are NOT in @theme on purpose: they mutate at runtime.
+   The use-ambient-glow hook writes them; ambient-canvas reads them.
+   Default state = colorless. The site borrows color from the work.
+
+   --glow-floor is the resting intensity a route keeps when no project is
+   in focus. Without it every surface that has no hover target sat at
+   opacity 0, so Work / Pricing / Contact rendered completely flat while
+   only the homepage ever showed atmosphere. Floor lets a route declare
+   "this surface is always lightly alive"; hover-driven accents still
+   raise opacity above it and settle back down to it on release. */
+:root {
+  --glow-1: rgb(255 255 255 / 0.0);   /* primary project accent   */
+  --glow-2: rgb(255 255 255 / 0.0);   /* secondary project accent */
+  --glow-x: 50%;                      /* pointer-tracked origin   */
+  --glow-y: 30%;
+  --glow-opacity: 0;                  /* 0 → 1 on project focus   */
+  --glow-floor: 0;                    /* resting intensity        */
+}
+
+/* ─────────────────────────── BASE LAYER ─────────────────────────── */
+
+/* ── GC EPICPRO Extra Bold (self-hosted, EN heading voice) ─── */
+@font-face {
+  font-family: "GC EPICPRO";
+  src: url("/fonts/Gc_Epicpro.woff2") format("woff2"),
+       url("/fonts/Gc_Epicpro.woff")  format("woff"),
+       url("/fonts/Gc_Epicpro.otf")   format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Thmanyah Serif Display (self-hosted, Arabic heading voice) ─── */
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Light.otf") format("opentype");
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Regular.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Medium.otf") format("opentype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Bold.otf") format("opentype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Thmanyah Serif Display";
+  src: url("/fonts/thmanyahserifdisplay-Black.otf") format("opentype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+/* ── Montserrat (self-hosted, EN body voice) ───
+   Subsets are split by unicode-range in Google's order (latin-ext before
+   latin: where ranges overlap, the later face wins). Kept: latin + latin-ext
+   (accented Latin names such as Łódź or Şişli; loaded only when such a glyph
+   is on the page). The latin-ext weights are static instances cut from
+   Google's variable file. Dropped vs the old Google @import: cyrillic,
+   cyrillic-ext and vietnamese — no repo source is set in them, but "№"
+   (U+2116, the /work ledger header) used to come from the cyrillic subset and
+   now falls back to the system font. Weights 400-700 + 400 italic (no italic
+   latin-ext); 300 was requested by the old @import but is used nowhere. */
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-400-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-ext-600-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-600-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-ext-700-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("/fonts/montserrat-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ── IBM Plex Sans Arabic (self-hosted, AR body voice) ───
+   Same Google split and order (arabic, latin-ext, latin) with Google's own
+   unicode-range values, pasted verbatim. Every weight needs ALL three
+   subsets, or the missing one falls back to the system font (spaces
+   included). Dropped vs the old Google @import: cyrillic-ext (unused).
+   300 and 600 were requested by the old @import but are used nowhere. */
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2") format("woff2");
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC, U+102E0-102FB, U+10E60-10E7E, U+10EC2-10EC7, U+10EC9-10EEE, U+10EF0-10EFF, U+1EE00-1EE03, U+1EE05-1EE1F, U+1EE21-1EE22, U+1EE24, U+1EE27, U+1EE29-1EE32, U+1EE34-1EE37, U+1EE39, U+1EE3B, U+1EE42, U+1EE47, U+1EE49, U+1EE4B, U+1EE4D-1EE4F, U+1EE51-1EE52, U+1EE54, U+1EE57, U+1EE59, U+1EE5B, U+1EE5D, U+1EE5F, U+1EE61-1EE62, U+1EE64, U+1EE67-1EE6A, U+1EE6C-1EE72, U+1EE74-1EE77, U+1EE79-1EE7C, U+1EE7E, U+1EE80-1EE89, U+1EE8B-1EE9B, U+1EEA1-1EEA3, U+1EEA5-1EEA9, U+1EEAB-1EEBB, U+1EEF0-1EEF1;
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-latin-ext-700-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Sans Arabic";
+  src: url("/fonts/ibm-plex-sans-arabic-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border-subtle);
+  }
+
+  html {
+    background: var(--color-surface-0);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-default) transparent;
+  }
+
+  /* Lenis owns scrolling — disable native smooth to avoid fighting */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto; }
+
+  ::selection {
+    background: var(--color-accent-dim);
+    color: var(--color-text-primary);
+  }
+
+  /* Quiet-luxury focus: visible, never loud */
+  :focus-visible {
+    outline: 1px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Arabic content opts in via lang attribute */
+  [lang="ar"] {
+    font-family: var(--font-arabic);
+    letter-spacing: 0;
+  }
+
+  /* GC EPICPRO is weight 800 — enforce on all elements using font-display in LTR */
+  [dir="ltr"] h1,
+  [dir="ltr"] h2,
+  [dir="ltr"] h3,
+  [dir="ltr"] h4,
+  .font-display {
+    font-weight: 800;
+  }
+
+  /* Accent words in a headline (<em>) are a change of colour, not a slant.
+     GC EPICPRO ships no italic, so the browser was synthesising an oblique from
+     the upright outlines — and a slanted Arabic word is never correct, which is
+     what the <em> became in RTL. Colour (text-accent) carries the emphasis. */
+  :is(h1, h2, h3, h4, .font-display) em {
+    font-style: normal;
+  }
+
+  /*
+   * BODY-TEXT FONT LOCK.
+   * Running-text utilities must resolve to the sans stack (Montserrat in
+   * LTR, IBM Plex Sans Arabic in RTL) and never inherit a display/serif
+   * family from an ancestor. This kills the stray serif that appeared on
+   * the phase names and descriptions. `.font-mono` and `.font-display`
+   * keep their own family (they are applied explicitly where wanted).
+   */
+  .text-body,
+  .text-body-sm,
+  .text-body-lg,
+  .text-caption,
+  .text-lead {
+    font-family: var(--font-sans);
+  }
+
+  /*
+   * RTL FONT SYSTEM — Thmanyah Serif Display for all headings.
+   *
+   * Strategy: override the CSS variable --font-display at [dir="rtl"] scope.
+   * This means the Tailwind utility class `font-display` (which reads
+   * `var(--font-display)`) automatically picks up Thmanyah in RTL —
+   * zero specificity fight, zero !important needed.
+   *
+   * We also override --font-sans so body text uses IBM Plex Sans Arabic.
+   */
+  [dir="rtl"] {
+    /* Swap display font → Thmanyah Serif Display */
+    --font-display: var(--font-thmanyah);
+    /* Swap body font → IBM Plex Sans Arabic */
+    --font-sans: var(--font-arabic);
+  }
+
+  /* Explicit heading overrides — catches h1-h3 that don't use font-display utility */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4 {
+    font-family: var(--font-thmanyah) !important;
+    letter-spacing: 0;
+    line-height: 1.15;
+  }
+
+  /* Body text — IBM Plex Sans Arabic */
+  [dir="rtl"] body,
+  [dir="rtl"] p,
+  [dir="rtl"] li {
+    font-family: var(--font-arabic);
+    letter-spacing: 0;
+  }
+
+  /* Accessibility gate — physics respects humans first */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      /* CRITICAL: without this, infinite loops (marquee) restart every
+         0.01ms and become a hyper-fast strobe instead of stopping. */
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /* The ambient field must not drift. Depth survives through STATIC
+       color and composition — the gradient, grain, and material
+       contrast all remain fully visible with motion switched off. */
+    .atmos-drift {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+}
+
+/* ─────────────────────────── UTILITIES ─────────────────────────── */
+@utility ambient-glow {
+  /* Apply once on the fixed canvas layer behind everything */
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-ambient);
+  pointer-events: none;
+  opacity: var(--glow-opacity);
+  transition: opacity var(--duration-cinematic) var(--ease-physics);
+  background:
+    radial-gradient(56rem circle at var(--glow-x) var(--glow-y),
+      var(--glow-1), transparent 65%),
+    radial-gradient(80rem circle at calc(var(--glow-x) + 25%) calc(var(--glow-y) + 35%),
+      var(--glow-2), transparent 70%);
+  filter: blur(80px) saturate(1.2);
+}
+
+/* Z-index utilities — the @theme --z-* tokens don't auto-generate utilities
+   in Tailwind v4 (wrong namespace), so the z-nav / z-overlay / z-elevated
+   classes were inert. Define them explicitly against the same contract. */
+@utility z-ambient  { z-index: var(--z-ambient); }
+@utility z-base     { z-index: var(--z-base); }
+@utility z-elevated { z-index: var(--z-elevated); }
+@utility z-nav      { z-index: var(--z-nav); }
+@utility z-overlay  { z-index: var(--z-overlay); }
+@utility z-modal    { z-index: var(--z-modal); }
+@utility z-cursor   { z-index: var(--z-cursor); }
+
+@utility glass {
+  /* Floating pill nav / overlay surfaces — theme-reactive: was a fixed
+     dark tint (rgb(13 12 24 / 0.62)) regardless of theme, which broke
+     contrast against theme-reactive text once light mode existed
+     (dark-ish glass + dark ink text = invisible). Riding the semantic
+     surface token instead makes it correctly translucent-dark in dark
+     mode and translucent-light in light mode. */
+  background: color-mix(in srgb, var(--color-surface-1) 62%, transparent);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid var(--color-border-subtle);
+}
+
+@utility text-balance-pretty {
+  text-wrap: balance;
+}
+
+/* Small display text. GC EPICPRO is a wide, heavy poster face and stops working
+   below ~28px: its G is a C with a hairline spur, and at 11–22px the two close
+   up — "GAD" reads "CAD", "LUNGS" reads "LUNCS", and the nav said "FOR HIRINC" /
+   "PRICINC". From the subtitle step down, display text is set in the sans at
+   Bold instead (Montserrat — a G that is a G). GC EPICPRO draws lowercase as
+   capitals, so everything set in it already read as caps: `uppercase` keeps
+   that voice. Written next to `font-display`; it only acts in LTR, so Arabic
+   keeps Thmanyah, and large display type is untouched. */
+@utility font-display-sm {
+  [dir="ltr"] & {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+}
+
+/* Page titles holding one long unbreakable word ("infrastructure.") are
+   wider than the 327px mobile column at text-display's 2.5rem floor. Plain
+   (unlayered) rule on purpose: it has to beat the text-display utility. */
+@media (max-width: 479px) {
+  .heading-fit-long { font-size: 1.875rem; }
+}
+
+/* ── EXPRESSIVE SURFACE MATERIALS ────────────────────────────────────
+   Three materials, and only three, so depth comes from CONTRAST between
+   them rather than from more shadows:
+
+     matte          → most content surfaces (unchanged defaults)
+     glass          → @utility glass, floating/overlay surfaces
+     light-emitting → .atmos-field / .edge-light / .border-energy here
+
+   Every one of these is visible in the STATIC state. Nothing in this
+   block is hover-gated: the audit's core finding was that the site's
+   atmosphere only existed behind interaction. */
+
+/* Atmospheric focal gradient. One per surface, never per card.
+   Sits behind content and is clipped by its positioned parent. */
+@utility atmos-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      70% 80% at var(--atmos-x, 72%) var(--atmos-y, 18%),
+      color-mix(in srgb, var(--atmos-1, var(--color-accent)) var(--atmos-strength-1, 16%), transparent),
+      transparent 62%
+    ),
+    radial-gradient(
+      55% 65% at calc(var(--atmos-x, 72%) - 46%) calc(var(--atmos-y, 18%) + 44%),
+      color-mix(in srgb, var(--atmos-2, var(--color-creative)) var(--atmos-strength-2, 12%), transparent),
+      transparent 66%
+    );
+}
+
+/* Slow independent drift — the light source moves, the text does not.
+   Reduced motion holds the field still; depth survives through color. */
+@utility atmos-drift {
+  animation: atmos-drift 34s var(--ease-physics) infinite alternate;
+}
+@keyframes atmos-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to   { transform: translate3d(-2.5%, 2%, 0) scale(1.06); }
+}
+
+/* Edge light — a glass highlight on the top/inner edge of a panel.
+   Reads as a lit surface rather than a bordered box. */
+@utility edge-light {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    linear-gradient(
+      120deg,
+      rgb(255 255 255 / 0.10),
+      transparent 28%,
+      transparent 68%,
+      color-mix(in srgb, var(--edge-light-color, var(--color-live)) 8%, transparent)
+    );
+  mix-blend-mode: screen;
+}
+html[data-theme="light"] .edge-light {
+  /* screen-blend white on Alabaster is a no-op — light mode gets a
+     soft top-down sheen instead so the material still reads. */
+  mix-blend-mode: normal;
+  background: linear-gradient(
+    160deg,
+    rgb(255 255 255 / 0.55),
+    transparent 34%,
+    transparent 72%,
+    color-mix(in srgb, var(--edge-light-color, var(--color-live)) 6%, transparent)
+  );
+}
+
+/* Gradient border — 1px edge energy on FEATURED surfaces only.
+   Padding-box paints the fill, border-box paints the edge. */
+@utility border-energy {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--color-surface-1), var(--color-surface-1)) padding-box,
+    linear-gradient(
+      120deg,
+      color-mix(in srgb, var(--border-energy-1, var(--color-creative)) 40%, transparent),
+      transparent 45%,
+      color-mix(in srgb, var(--border-energy-2, var(--color-live)) 34%, transparent)
+    ) border-box;
+}
+
+/* Grain — material for the Obsidian canvas. It must read as a SURFACE,
+   never as film grain: the alpha stays far below the noise threshold at
+   reading size. Applied to the hero/featured visual only, not the body. */
+@utility grain-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+html[data-theme="light"] .grain-layer {
+  /* Dark noise, lighter touch — Alabaster shows texture far more readily. */
+  opacity: 0.022;
+  filter: invert(1);
+}
+
+@utility container-content {
+  margin-inline: auto;
+  max-width: var(--container-content);
+  padding-inline: calc(var(--spacing) * 3); /* 24px gutters */
+}
+
+@utility container-wide {
+  margin-inline: auto;
+  max-width: var(--container-wide);
+  padding-inline: calc(var(--spacing) * 3);
+}
+
+/* ── Skills marquee — slow continuous drift, the one sanctioned loop
+     besides the status pulse. Pauses for reduced-motion via the
+     global override. ── */
+@utility marquee {
+  animation: marquee-drift 120s linear infinite;
+}
+@keyframes marquee-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+[dir="rtl"] .marquee { animation-name: marquee-drift-rtl; }
+@keyframes marquee-drift-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); }
+}
+/* The marquee is EXEMPT from the reduced-motion kill-switch: the global
+   override (0.01ms duration) turned it into a strobe, and killing it
+   entirely left a static bar. A 120s drift is gentle enough to keep for
+   everyone — restore its real timing with higher precedence. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation-duration: 120s !important;
+    animation-iteration-count: infinite !important;
+  }
+}
+
+/* ── Brand orb: simple circular avatar with a soft, light glow ───────── */
+.brand-orb { position: relative; display: grid; place-items: center; }
+.brand-orb__img {
+  position: relative; z-index: 1; border-radius: 9999px; object-fit: cover;
+  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.05); /* whisper edge, no visible stroke */
+}
+.brand-orb__glow {
+  position: absolute; inset: 0; z-index: 0; border-radius: 9999px;
+  box-shadow: 0 0 11px 1px var(--color-accent-32);
+  animation: orb-breathe 3.8s var(--ease-physics) infinite;
+}
+@keyframes orb-breathe {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-orb__glow { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   UNDEFINED FONT VARIATIONS
+   The "undefined" typeface has one weight (500/medium). Variations are
+   achieved through CSS transforms and rendering techniques rather than
+   separate font files — this is intentional and maintains the distinctive
+   geometric character of the face across every use.
+
+   Usage:
+     <h1 class="font-undefined">             → base: medium weight
+     <h1 class="font-undefined-outline">     → outline/hollow letterforms
+     <h1 class="font-undefined-condensed">   → tighter horizontal rhythm
+     <h1 class="font-undefined-expanded">    → airy, wide-spaced
+     <h1 class="font-undefined-ghost">       → very low opacity, bg texture
+     <h1 class="font-undefined-stamp">       → uppercase + compressed
+     <h1 class="font-undefined-editorial">   → loose tracking, light feel
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Base — raw undefined medium ── */
+.font-undefined {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  font-style: normal;
+  letter-spacing: -0.01em;
+}
+
+/* ── Outline — hollow letterforms, accent stroke ── */
+.font-undefined-outline {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  -webkit-text-stroke: 1px currentColor;
+  color: transparent;
+  letter-spacing: 0.02em;
+}
+
+/* ── Condensed — tight horizontal rhythm, same cap-height ── */
+.font-undefined-condensed {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  transform: scaleX(0.85);
+  transform-origin: left center;
+  display: inline-block;
+}
+
+/* ── Expanded — airy, wide-spaced, editorial feel ── */
+.font-undefined-expanded {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  word-spacing: 0.08em;
+}
+
+/* ── Ghost — watermark/texture layer, very low opacity ── */
+.font-undefined-ghost {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  opacity: 0.06;
+  letter-spacing: -0.01em;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ── Stamp — uppercase compressed, print-block energy ── */
+.font-undefined-stamp {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transform: scaleX(0.78);
+  transform-origin: left center;
+  display: inline-block;
+}
+
+/* ── Editorial — loose tracking, "magazine headline" feel ── */
+.font-undefined-editorial {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72em; /* optical compensation for expanded tracking */
+}
+
+/* ── Italic simulation (no italic cut exists — synthetic oblique) ── */
+.font-undefined-oblique {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  font-style: oblique 10deg;
+  letter-spacing: -0.01em;
+}
+
+/* ── Mixed: outline + expanded (hero-scale use only) ── */
+.font-undefined-hero {
+  font-family: "undefined", Georgia, serif;
+  font-weight: 500;
+  -webkit-text-stroke: 1.5px currentColor;
+  color: transparent;
+  letter-spacing: 0.06em;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   404 NOT-FOUND PAGE — HUD / RADAR SYSTEM
+   All scoped under .not-found-* to avoid polluting global scope.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Root shell — full-viewport, no scroll ── */
+.not-found-root {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-surface-0);
+  /* suppress footer/nav from layout — 404 is self-contained */
+}
+
+/* ── Background image ── */
+.not-found-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.not-found-bg__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  opacity: 0.55;
+  filter: grayscale(30%) brightness(0.7);
+}
+/* Left-to-right gradient: darkens left+right edges, keeps centre readable */
+.not-found-bg__vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 90% at 55% 50%,
+      transparent 30%,
+      rgb(8 7 16 / 0.65) 100%),
+    linear-gradient(to right,
+      rgb(8 7 16 / 0.9) 0%,
+      transparent 25%,
+      transparent 75%,
+      rgb(8 7 16 / 0.9) 100%),
+    linear-gradient(to bottom,
+      rgb(8 7 16 / 0.7) 0%,
+      transparent 15%,
+      transparent 80%,
+      rgb(8 7 16 / 0.95) 100%);
+}
+
+/* ── HUD grid overlay ── */
+.not-found-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--color-accent-08) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-accent-08) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ── Scanline ticker — top bar ── */
+.not-found-ticker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 28px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-accent-20);
+  background: rgb(8 7 16 / 0.6);
+  display: flex;
+  align-items: center;
+}
+.not-found-ticker__track {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker-scroll 18s linear infinite;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.12em;
+  color: var(--color-accent-64);
+}
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+[dir="rtl"] .not-found-ticker__track {
+  animation-name: ticker-scroll-rtl;
+}
+@keyframes ticker-scroll-rtl {
+  from { transform: translateX(0); }
+  to   { transform: translateX(50%); }
+}
+
+/* ── Corner crosshairs ── */
+.not-found-crosshair {
+  position: absolute;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+.not-found-crosshair--tl { top: 40px;  left: 16px;  }
+.not-found-crosshair--tr { top: 40px;  right: 16px; }
+.not-found-crosshair--bl { bottom: 40px; left: 16px;  }
+.not-found-crosshair--br { bottom: 40px; right: 16px; }
+
+.not-found-crosshair__h,
+.not-found-crosshair__v {
+  position: absolute;
+  background: var(--color-accent-64);
+}
+.not-found-crosshair__h { width: 100%; height: 1px; top: 50%; }
+.not-found-crosshair__v { height: 100%; width: 1px; left: 50%; }
+
+/* small corner brackets */
+.not-found-crosshair--tl::before { content: ""; position: absolute; top: 0; left: 0; width: 8px; height: 8px; border-top: 1px solid var(--color-accent); border-left: 1px solid var(--color-accent); }
+.not-found-crosshair--tr::before { content: ""; position: absolute; top: 0; right: 0; width: 8px; height: 8px; border-top: 1px solid var(--color-accent); border-right: 1px solid var(--color-accent); }
+.not-found-crosshair--bl::before { content: ""; position: absolute; bottom: 0; left: 0; width: 8px; height: 8px; border-bottom: 1px solid var(--color-accent); border-left: 1px solid var(--color-accent); }
+.not-found-crosshair--br::before { content: ""; position: absolute; bottom: 0; right: 0; width: 8px; height: 8px; border-bottom: 1px solid var(--color-accent); border-right: 1px solid var(--color-accent); }
+
+/* ── HUD status bar ── */
+.not-found-status {
+  position: absolute;
+  top: 44px;
+  left: 48px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: var(--color-accent-72);
+}
+[dir="rtl"] .not-found-status { left: auto; right: 48px; }
+
+.not-found-status__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+/* ── Main content block ── */
+.not-found-content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: auto 0;            /* vertical centering */
+  padding: 80px 48px 48px;
+  max-width: 680px;
+}
+[dir="rtl"] .not-found-content { margin-left: auto; margin-right: 0; }
+
+@media (max-width: 640px) {
+  .not-found-content { padding: 72px 20px 40px; }
+}
+
+/* ── Big headline ── */
+.not-found-headline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  line-height: 0.9;
+}
+.not-found-headline__line {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3rem, 9vw, 7.5rem);
+  letter-spacing: -0.025em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+}
+/* second line slightly inset for visual rhythm */
+.not-found-headline__line:nth-child(2) {
+  padding-inline-start: 0.08em;
+  color: var(--color-text-primary);
+}
+.not-found-headline__line:nth-child(3) {
+  color: var(--color-accent);
+}
+
+/* ── Sub and body text ── */
+.not-found-sub {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-lg);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+  margin-top: -4px;
+}
+.not-found-body {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+  max-width: 48ch;
+}
+
+/* ── CTAs ── */
+.not-found-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+/* ── Quick nav ── */
+.not-found-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 4px;
+}
+.not-found-nav__link {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  transition: color 200ms var(--ease-physics);
+}
+.not-found-nav__link:hover { color: var(--color-text-secondary); }
+
+/* ── Side coordinates ── */
+.not-found-coords {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+  z-index: 10;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: var(--color-accent-40);
+  white-space: nowrap;
+  pointer-events: none;
+}
+[dir="rtl"] .not-found-coords {
+  left: auto;
+  right: 20px;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+/* ── Bottom label bar ── */
+.not-found-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid var(--color-accent-14);
+  background: rgb(8 7 16 / 0.7);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  color: var(--color-accent-48);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ── Radar rings (bottom-right) ── */
+.not-found-radar {
+  position: absolute;
+  bottom: 48px;
+  right: 64px;
+  z-index: 5;
+  width: 100px;
+  height: 100px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+[dir="rtl"] .not-found-radar { right: auto; left: 64px; }
+
+.not-found-radar__ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid var(--color-accent-24);
+}
+.not-found-radar__ring--1 { width: 100px; height: 100px; animation: radar-pulse 3s ease-out infinite; }
+.not-found-radar__ring--2 { width: 100px; height: 100px; animation: radar-pulse 3s ease-out 1s infinite; }
+.not-found-radar__ring--3 { width: 100px; height: 100px; animation: radar-pulse 3s ease-out 2s infinite; }
+
+@keyframes radar-pulse {
+  0%   { transform: scale(0.2); opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .not-found-ticker__track,
+  .not-found-status__dot,
+  .not-found-radar__ring { animation: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   /start — CLIENT JOURNEY PAGE
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* subtle dot-grid for hero section */
+.start-grid-bg {
+  background-image:
+    radial-gradient(circle, var(--color-accent-14) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HOME — CLIENT JOURNEY BAND (teaser strip that links to /start)
+   ═══════════════════════════════════════════════════════════════════════ */
+.journey-band {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-1);
+}
+.journey-band__inner {
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  gap: 2.5rem;
+}
+@media (min-width: 1024px) {
+  .journey-band__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 4rem 2rem;
+  }
+}
+
+/* Steps row */
+.journey-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.journey-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-inline-end: 1rem;
+}
+/* connector line between steps */
+.journey-step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 0;
+  width: 1px;
+  height: 20px;
+  background: var(--color-border-subtle);
+}
+.journey-step__n {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-subtitle);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-accent-text);
+}
+.journey-step__name {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .journey-steps { grid-template-columns: repeat(2, 1fr); gap: 1rem 0; }
+  .journey-step:not(:last-child)::after { display: none; }
+}
+
+/* ── /start — Site Cycle Cards ── */
+.site-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 1.1rem 1.1rem 1rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-1);
+  transition: border-color 200ms var(--ease-physics),
+              background 200ms var(--ease-physics),
+              transform 200ms var(--ease-physics);
+  text-decoration: none;
+}
+.site-card:hover {
+  border-color: var(--color-accent-40);
+  background: var(--color-accent-04);
+  transform: translateY(-2px);
+}
+.site-card__emoji {
+  font-size: var(--text-subtitle);
+  line-height: 1;
+}
+.site-card__label {
+  font-size: var(--text-body);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+.site-card__desc {
+  font-size: var(--text-micro);
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+  flex: 1;
+}
+.site-card__arrow {
+  align-self: flex-end;
+  font-size: var(--text-micro);
+  color: var(--color-accent-text);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 180ms var(--ease-physics), transform 180ms var(--ease-physics);
+}
+.site-card:hover .site-card__arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+[dir="rtl"] .site-card__arrow { transform: translateX(4px) scaleX(-1); }
+[dir="rtl"] .site-card:hover .site-card__arrow { transform: translateX(0) scaleX(-1); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   /process — THE 38-DAY METHOD
+   ═══════════════════════════════════════════════════════════════════════ */
+.process-grid-bg {
+  background-image:
+    radial-gradient(circle, var(--color-accent-08) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 80% at 40% 40%, black 30%, transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HOME — STATS DASHBOARD (richer than the plain StatsBand)
+   ═══════════════════════════════════════════════════════════════════════ */
+.stats-dash {
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background:
+    radial-gradient(60rem circle at 50% -20%, var(--color-accent-04), transparent 60%),
+    var(--color-surface-0);
+}
+.stats-dash__grid {
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 768px) {
+  .stats-dash__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.stats-dash__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 1.75rem 1.25rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+/* remove top border on the first row for md+ */
+@media (min-width: 768px) {
+  .stats-dash__cell { border-top: none; }
+  .stats-dash__cell:not(:nth-child(4n+1)) { border-inline-start: 1px solid var(--color-border-subtle); }
+}
+@media (max-width: 767px) {
+  .stats-dash__cell:nth-child(odd) { border-inline-end: 1px solid var(--color-border-subtle); }
+}
+.stats-dash__value {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--color-text-primary);
+}
+.stats-dash__suffix { color: var(--color-accent-text); }
+.stats-dash__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  line-height: 1.4;
+}
+.stats-dash__sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+}
+/* micro-bar under numeric cells */
+.stats-dash__bar {
+  margin-top: 6px;
+  height: 2px;
+  width: 100%;
+  background: var(--color-border-subtle);
+  overflow: hidden;
+  border-radius: 2px;
+}
+.stats-dash__bar-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transform-origin: left center;
+}
+[dir="rtl"] .stats-dash__bar-fill { transform-origin: right center; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   GATE STEPPER — terminal-style approval gates (/process)
+   ═══════════════════════════════════════════════════════════════════════ */
+.gate-terminal {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background:
+    linear-gradient(180deg, var(--color-accent-04), transparent 40%),
+    var(--color-surface-1);
+  overflow: hidden;
+}
+
+/* header bar — mimics an editor/terminal chrome */
+.gate-terminal__bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: rgb(8 7 16 / 0.5);
+}
+.gate-terminal__dots { display: inline-flex; gap: 6px; }
+.gate-terminal__dots span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--color-border-default);
+}
+.gate-terminal__dots span:first-child { background: var(--color-accent-48); }
+.gate-terminal__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  color: var(--color-text-ghost);
+}
+
+.gate-terminal__body { padding: 1.5rem 1.25rem 1.75rem; }
+@media (min-width: 768px) { .gate-terminal__body { padding: 2rem 1.75rem; } }
+
+/* ── stepper row ── */
+.gate-stepper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+/* connecting line behind nodes */
+.gate-stepper::before {
+  content: "";
+  position: absolute;
+  top: 18px;
+  inset-inline: 12%;
+  height: 1px;
+  background: var(--color-border-subtle);
+  z-index: 0;
+}
+.gate-node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px;
+  background: transparent;
+  cursor: pointer;
+}
+.gate-node__ring {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-default);
+  background: var(--color-surface-1);
+  transition: border-color 200ms var(--ease-physics), background 200ms var(--ease-physics), transform 200ms var(--ease-physics);
+}
+.gate-node__num {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-text-tertiary);
+  transition: color 200ms var(--ease-physics);
+}
+.gate-node__check {
+  font-size: var(--text-label);
+  color: var(--color-accent-text);
+}
+.gate-node__cmd {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+  color: var(--color-text-ghost);
+  text-align: center;
+  line-height: 1.3;
+  transition: color 200ms var(--ease-physics);
+  word-break: break-word;
+}
+@media (max-width: 520px) {
+  .gate-node__cmd { font-size: var(--text-caption); }
+}
+
+/* states */
+.gate-node:hover .gate-node__ring { border-color: var(--color-text-ghost); }
+.gate-node--past .gate-node__ring { border-color: var(--color-accent-32); }
+.gate-node--active .gate-node__ring {
+  border-color: var(--color-accent);
+  background: var(--color-accent-08);
+  transform: scale(1.08);
+}
+.gate-node--active .gate-node__num { color: var(--color-accent-text); }
+.gate-node--active .gate-node__cmd { color: var(--color-text-secondary); }
+
+/* ── detail panel ── */
+.gate-detail {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: rgb(8 7 16 / 0.4);
+  padding: 1.25rem;
+}
+.gate-detail__cmdline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+}
+.gate-detail__prompt { color: var(--color-accent-text); }
+.gate-detail__cmd { color: var(--color-text-primary); }
+.gate-detail__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-inline-start: auto;
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  color: var(--color-accent-72);
+}
+.gate-detail__status-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--color-accent);
+  animation: gate-blink 1.6s ease-in-out infinite;
+}
+@keyframes gate-blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+
+.gate-detail__name {
+  font-size: var(--text-subtitle);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  margin-bottom: 2px;
+}
+.gate-detail__phase {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  margin-bottom: 1rem;
+}
+.gate-detail__grid {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+@media (min-width: 640px) { .gate-detail__grid { grid-template-columns: 1fr 1fr; } }
+
+.gate-detail__block {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  padding: 0.85rem;
+  background: var(--color-surface-1);
+}
+.gate-detail__block--accent {
+  border-color: var(--color-accent-20);
+  background: var(--color-accent-04);
+}
+.gate-detail__block-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+  margin-bottom: 6px;
+}
+.gate-detail__block-body {
+  font-size: var(--text-label);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+.gate-detail__payment {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  padding-top: 0.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PHASE 5 — COGNITIVE LOAD REDUCTION SYSTEM
+   Shared utilities used across /why, /process, /start, /services, home:
+   visual chaptering, TL;DR hooks, jargon→value notes, anchor nav,
+   bento grid, and a simple systemic diagram.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── 1. Visual chaptering — subtle background shift between sections ──
+   Two alternating tints, barely perceptible, enough for the eye to
+   register "a new chapter started" without a hard visual break. */
+.chapter-a { background: var(--color-surface-0); }
+.chapter-b {
+  background:
+    radial-gradient(120rem circle at 50% 0%, var(--color-accent-04), transparent 55%),
+    var(--color-surface-1);
+}
+
+/* ── 2. TL;DR hook pattern — big rescue sentence before technical detail ── */
+.hook-line {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-title);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+  max-width: 32ch;
+}
+.hook-sub {
+  margin-top: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+  line-height: 1.7;
+  color: var(--color-text-tertiary);
+  max-width: 62ch;
+}
+
+/* ── 5. Jargon → Value — small translation note under a technical term ── */
+.jargon-term {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--color-text-primary);
+  border-bottom: 1px dashed var(--color-accent-40);
+  padding-bottom: 1px;
+  width: fit-content;
+}
+.jargon-note {
+  margin-top: 4px;
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  line-height: 1.55;
+  color: var(--color-text-tertiary);
+}
+/* ── 4. Anchor navigation — floating section dots (desktop only) ── */
+.anchor-nav {
+  position: fixed;
+  top: 50%;
+  inset-inline-end: 22px;
+  transform: translateY(-50%);
+  z-index: var(--z-elevated, 20);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+@media (min-width: 1100px) {
+  .anchor-nav { display: flex; }
+}
+.anchor-nav__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-border-default);
+  transition: background 220ms var(--ease-physics), transform 220ms var(--ease-physics);
+  cursor: pointer;
+}
+.anchor-nav__dot:hover { background: var(--color-text-tertiary); transform: scale(1.25); }
+.anchor-nav__dot--active {
+  background: var(--color-accent);
+  transform: scale(1.3);
+}
+.anchor-nav__label {
+  position: absolute;
+  inset-inline-end: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  padding: 4px 10px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms var(--ease-physics);
+}
+.anchor-nav__dot:hover .anchor-nav__label { opacity: 1; }
+[dir="rtl"] .anchor-nav { inset-inline-end: 22px; }
+[dir="rtl"] .anchor-nav__label { inset-inline-end: 18px; }
+
+/* ── 10. Bento grid — flexible box layout for chunked info ── */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+@media (max-width: 700px) {
+  .bento-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.bento-cell {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-1);
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 200ms var(--ease-physics), background 200ms var(--ease-physics);
+}
+.bento-cell:hover { border-color: var(--color-accent-32); }
+.bento-cell--wide  { grid-column: span 2; }
+.bento-cell--tall  { grid-row: span 2; }
+.bento-cell--accent {
+  border-color: var(--color-accent-24);
+  background: var(--color-accent-04);
+}
+@media (max-width: 700px) {
+  .bento-cell--wide { grid-column: span 2; }
+}
+
+/* ── 11. Simple systemic diagram (Single Source of Truth) ── */
+.ssot-diagram { width: 100%; height: auto; }
+.ssot-diagram__line {
+  stroke: var(--color-border-default);
+  stroke-width: 1;
+}
+.ssot-diagram__node-fill { fill: var(--color-surface-1); }
+.ssot-diagram__node-stroke { stroke: var(--color-border-default); stroke-width: 1; }
+.ssot-diagram__master-stroke { stroke: var(--color-accent); stroke-width: 1.5; }
+.ssot-diagram__master-fill { fill: var(--color-accent-08); }
+.ssot-diagram__text {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  fill: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+.ssot-diagram__text--accent { fill: var(--color-accent); }
+
+/* ── 3. Negative space — dense technical zones get more air ── */
+.gate-terminal__body { padding: 1.75rem 1.5rem 2rem; }
+@media (min-width: 768px) { .gate-terminal__body { padding: 2.5rem 2.25rem; } }
+.gate-detail { padding: 1.5rem; }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   LABS TOOLS — shared card + control primitives
+   Used by TypeScaleTool, ContrastCheckerTool, BilingualToggleTool (/labs)
+   ═══════════════════════════════════════════════════════════════════════ */
+.labtool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-1);
+  padding: 1.5rem;
+}
+.labtool-card__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-body-lg);
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.labtool-card__sub {
+  font-family: var(--font-sans);
+  font-size: var(--text-label);
+  line-height: 1.6;
+  color: var(--color-text-tertiary);
+  margin-top: -0.5rem;
+}
+
+/* ── shared controls ── */
+.labtool-controls {
+  display: grid;
+  gap: 0.9rem;
+}
+@media (min-width: 560px) { .labtool-controls { grid-template-columns: 1fr 1fr; } }
+.labtool-field { display: flex; flex-direction: column; gap: 6px; }
+.labtool-field__label {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+}
+.labtool-slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  height: 4px;
+}
+.labtool-select {
+  width: 100%;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  padding: 8px 10px;
+}
+
+/* ── typography preview ── */
+.labtool-typepreview {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+.labtool-typepreview__row {
+  display: grid;
+  grid-template-columns: 3rem 1fr 4rem;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.labtool-typepreview__tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+}
+.labtool-typepreview__sample {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.labtool-typepreview__px {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+  text-align: right;
+}
+[dir="rtl"] .labtool-typepreview__px { text-align: left; }
+
+/* ── code output ── */
+.labtool-code {
+  position: relative;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: rgb(8 7 16 / 0.5);
+  padding: 0.9rem 1rem;
+}
+/* On the light canvas the 50%-black wash turns a muddy grey — use the
+   elevated surface instead (code + Copy CSS button stay readable). */
+html[data-theme="light"] .labtool-code { background: var(--color-surface-2); }
+.labtool-code__pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.labtool-code__copy {
+  position: absolute;
+  top: 0.6rem;
+  inset-inline-end: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+  border: 1px solid var(--color-accent-32);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 180ms var(--ease-physics);
+}
+.labtool-code__copy:hover { background: var(--color-accent-08); }
+
+/* ── contrast checker ── */
+.labtool-colorrow { display: flex; align-items: center; gap: 8px; }
+.labtool-colorswatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border-subtle);
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+.labtool-colortext {
+  flex: 1;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  padding: 7px 10px;
+}
+.labtool-warning {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-accent-80);
+}
+.labtool-samplebox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-card);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.labtool-samplebox__ratio {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-subtitle);
+}
+.labtool-samplebox__text {
+  font-family: var(--font-sans);
+  font-size: var(--text-body-sm);
+}
+.labtool-checklist { display: flex; flex-direction: column; gap: 6px; }
+.labtool-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--color-border-subtle);
+}
+.labtool-check__dot { width: 7px; height: 7px; border-radius: 50%; }
+.labtool-check--pass .labtool-check__dot { background: var(--color-success); }
+.labtool-check--fail .labtool-check__dot { background: var(--color-accent-80); }
+.labtool-check__label {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+}
+.labtool-check__result {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.labtool-check--pass .labtool-check__result { color: var(--color-success); }
+.labtool-check--fail .labtool-check__result { color: var(--color-accent-88); }
+
+/* ── bilingual toggle demo ── */
+.labtool-toggle-btn {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid var(--color-accent-32);
+  color: var(--color-accent-text);
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 180ms var(--ease-physics), transform 180ms var(--ease-physics);
+}
+.labtool-toggle-btn:hover { background: var(--color-accent-08); transform: translateY(-1px); }
+
+.labtool-bilingual-frame {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0.5rem;
+  border-top: 1px solid var(--color-border-subtle);
+}
+.labtool-bilingual-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  max-width: 320px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface-2);
+  padding: 1.5rem;
+  text-align: start;
+}
+.labtool-bilingual-kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+.labtool-bilingual-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-subtitle);
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.labtool-bilingual-tag {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  color: var(--color-text-tertiary);
+}
+.labtool-bilingual-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.labtool-bilingual-pill {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  color: var(--color-text-secondary);
+}
+
+/* ── labs grid wrapper ── */
+.labtool-grid {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 900px) {
+  .labtool-grid { grid-template-columns: 1fr 1fr; }
+  .labtool-grid > :first-child { grid-column: 1 / -1; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PERSONA SYSTEM — "Choose Your Path" (Home + /start only)
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Compact 3-way toggle (Nav) ── */
+.persona-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 2px;
+  background: var(--color-surface-1);
+}
+.persona-toggle__btn {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--color-text-ghost);
+  padding: 4px 8px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  transition: background 180ms var(--ease-physics), color 180ms var(--ease-physics);
+  white-space: nowrap;
+}
+.persona-toggle__btn:hover { color: var(--color-text-secondary); }
+.persona-toggle__btn--active {
+  background: var(--color-accent);
+  color: var(--color-obsidian);
+}
+
+/* ── Picker band (Home, right after Hero) ── */
+.persona-band {
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-1);
+}
+
+/* prompt state */
+.persona-band__prompt {
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+.persona-band__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+.persona-band__question {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-subtitle);
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+}
+.persona-band__options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+.persona-band__option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 190px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  padding: 10px 16px;
+  background: var(--color-surface-2);
+  transition: border-color 200ms var(--ease-physics), transform 200ms var(--ease-physics), background 200ms var(--ease-physics);
+  text-align: start;
+}
+.persona-band__option:hover {
+  border-color: var(--color-accent-40);
+  background: var(--color-accent-04);
+  transform: translateY(-2px);
+}
+.persona-band__option-label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-body-sm);
+  letter-spacing: -0.005em;
+  color: var(--color-text-primary);
+}
+.persona-band__option-sub {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+}
+.persona-band__skip {
+  font-family: var(--font-sans);
+  font-size: var(--text-micro);
+  color: var(--color-text-ghost);
+  margin-top: 2px;
+}
+
+/* active (collapsed) state */
+.persona-band__active {
+  max-width: var(--container-content);
+  margin-inline: auto;
+  padding: 0.7rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.persona-band__active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+.persona-band__active-text {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+.persona-band__active-clear {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-ghost);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  transition: color 180ms var(--ease-physics), border-color 180ms var(--ease-physics);
+}
+.persona-band__active-clear:hover {
+  color: var(--color-accent-text);
+  border-color: var(--color-accent-40);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   WORK FILTER — separate identity / digital-product streams (/work)
+   ═══════════════════════════════════════════════════════════════════════ */
+.work-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  width: fit-content;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  padding: 3px;
+  background: var(--color-surface-1);
+}
+.work-filter__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  letter-spacing: 0.04em;
+  color: var(--color-text-tertiary);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  transition: background 180ms var(--ease-physics), color 180ms var(--ease-physics);
+}
+.work-filter__btn:hover { color: var(--color-text-primary); }
+.work-filter__btn--active {
+  background: var(--color-accent);
+  color: var(--color-obsidian);
+}
+.work-filter__count {
+  font-size: var(--text-caption);
+  /* No opacity here: the label's tertiary already sits at ~5:1, and a 0.7 on
+     top of it measured 2.9:1 on surface-1 in light (axe color-contrast). */
+  tabular-nums: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════
+   NARRATIVE EXPERIENCE LAYER — phases 4–7
+   Scroll is the storytelling rhythm; motion exposes hierarchy, never
+   decorates it. All interactions have a reduced-motion path.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.narrative-section {
+  position: relative;
+  scroll-margin-top: 5rem;
+}
+
+.narrative-section--proof {
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+}
+
+.narrative-section--process,
+.narrative-section--about {
+  padding-top: clamp(3rem, 6vw, 6rem);
+}
+
+.narrative-section--cta {
+  padding-top: clamp(2.5rem, 5vw, 5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
+}
+
+.narrative-marker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-ghost);
+  font: 600 0.6875rem/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.narrative-marker__index {
+  color: var(--color-accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Arabic is a joined script: tracking pulls the letters of a word apart and
+   there is no case to transform. Same label, set the way Arabic is set. */
+[dir="rtl"] .narrative-marker {
+  font-family: var(--font-arabic);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* The line is the row's only elastic part: flex-basis 0 + grow, capped at its
+   old width, so it takes whatever room the index and label leave and never
+   adds to a shortfall. The label may therefore wrap only when index + label +
+   gaps alone are wider than the container — no px breakpoint to calibrate. */
+.narrative-marker__line {
+  flex: 1 1 0%;
+  max-width: clamp(2rem, 8vw, 7rem);
+  height: 1px;
+  background: var(--color-border-subtle);
+}
+
+.narrative-marker__label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.section-divider {
+  width: min(100% - 2rem, 90rem);
+  height: 1px;
+  margin: clamp(2rem, 5vw, 5rem) auto 0;
+  background: var(--color-border-subtle);
+}
+
+.narrative-section .journey-band {
+  margin-top: 0;
+}
+
+.narrative-section .journey-band__inner {
+  border-top: 0;
+}
+
+@media (max-width: 767px) {
+  .narrative-marker {
+    margin-bottom: 1rem;
+  }
+
+  .narrative-marker__line {
+    max-width: 2rem;
+  }
+
+  .narrative-section--process,
+  .narrative-section--about {
+    padding-top: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+.journey-step {
+  position: relative;
+  transition: transform var(--duration-base) var(--ease-physics),
+              border-color var(--duration-fast) var(--ease-physics);
+}
+
+.journey-step:hover {
+  transform: translateY(-2px);
+}
+
+.journey-step:focus-within {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .journey-step:hover {
+    transform: none;
+  }
+}
+
+
+.scroll-progress {
+  position: fixed;
+  inset: 0 auto auto 0;
+  z-index: 100;
+  width: 100%;
+  height: 2px;
+  transform-origin: 0 50%;
+  background: var(--color-accent);
+  pointer-events: none;
+}
+
+[dir="rtl"] .scroll-progress {
+  transform-origin: 100% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    transform: scaleX(1) !important;
+  }
+}
+
+
+/* Contact form: the general light-theme tertiary/ghost ramp is intentionally
+   quiet, but micro-labels and placeholders in a conversion form must remain
+   readable. Scope stronger values to this panel without changing site-wide hierarchy. */
+html[data-theme="light"] .contact-form-panel {
+  --color-text-tertiary: rgb(8 7 16 / 0.68);
+  --color-text-ghost: rgb(8 7 16 / 0.60);
+}

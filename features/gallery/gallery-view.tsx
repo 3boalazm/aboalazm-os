@@ -7,7 +7,7 @@
  * ──────────────────────────────────────────────────────────────────────── */
 
 import { useState, useEffect, useCallback, useId, useRef } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/localized-link";
 import { Icon } from "@/components/ui/Icon";
 import Image from "next/image";
 import dynamic from "next/dynamic";
