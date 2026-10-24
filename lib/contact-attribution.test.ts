@@ -36,7 +36,7 @@ test("invalid attribution values are dropped and never store URL/referrer or fre
   }), {
     service: "not-sure",
     packageTier: undefined,
-    sourcePage: undefined,
+    sourcePage: "/contact",
     locale: "en",
     utmSource: undefined,
     utmMedium: undefined,
