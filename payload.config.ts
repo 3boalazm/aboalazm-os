@@ -134,6 +134,10 @@ export default buildConfig({
     outputFile: path.resolve(dirname, "payload-types.ts"),
   },
   db: postgresAdapter({
+    // Schema push is a local-development convenience only. Preview and
+    // Production must use reviewed migrations and must never mutate the
+    // shared database during a build or a diagnostic script.
+    push: process.env.NODE_ENV === "development",
     pool: {
       connectionString: process.env.DATABASE_URI || "",
     },
