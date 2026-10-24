@@ -23,6 +23,7 @@ const DOCTRINE = {
 
 const TIMELINE = {
   en: [
+    ["2026 →", "Digital Product & Platform Lead", "Nile Pharma Food — digital presence, ERP, UX and platform direction"],
     ["2024 →", "Co-Founder & Creative Lead", "Code & Canvas — branding & web for SMEs across Egypt and the region"],
     ["2020–25", "Media Director & Account Manager", "Nile Pharma Food — brand system, packaging and campaign governance"],
     ["2020–21", "Studio Lead & Visual Director", "Learn in Arabic (MSP) — identity + DIY studio built from scratch"],
@@ -30,6 +31,7 @@ const TIMELINE = {
     ["2022 →", "Brand Identity Designer & Consultant (Freelance)", "4+ years focused on brand identity and systems; 20+ clients and organizations across pharma, food, education, NGOs, government"],
   ],
   ar: [
+    ["2026 →", "قائد المنتجات والمنصات الرقمية", "نايل فارما فود — الحضور الرقمي وERP وتوجيه المنصات وتجربة المستخدم"],
     ["2024 →", "شريك مؤسس ومدير إبداعي", "Code & Canvas — هوية بصرية ووب للشركات الصغيرة والمتوسطة في مصر والمنطقة"],
     ["2020–25", "مدير الميديا ومدير الحسابات", "نايل فارما فود — نظام هوية وتغليف وحوكمة الحملات"],
     ["2020–21", "مدير الاستوديو والمدير البصري", "تعلّم بالعربي (MSP) — هوية + استوديو DIY من الصفر"],
