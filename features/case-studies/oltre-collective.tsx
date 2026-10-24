@@ -119,7 +119,7 @@ export function OltreCollectiveCaseStudy() {
   const ar = lang === "ar";
 
   return (
-    <main className="overflow-hidden">
+    <div className="overflow-hidden">
       {/* ═══ HERO ═══ */}
       <section className="container-wide relative flex min-h-[68svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -416,6 +416,6 @@ export function OltreCollectiveCaseStudy() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

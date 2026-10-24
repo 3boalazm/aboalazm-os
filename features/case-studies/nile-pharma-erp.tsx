@@ -50,7 +50,7 @@ export function NilePharmaERPCaseStudy() {
   const ar = lang === "ar";
 
   return (
-    <main className="overflow-hidden">
+    <div className="overflow-hidden">
       {/* ═══ 01 / INTRODUCTION — Hero proves system scale with real asset ═══ */}
       <section className="container-wide relative flex min-h-[72svh] flex-col justify-between gap-6 py-5 md:py-6">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -578,6 +578,6 @@ export function NilePharmaERPCaseStudy() {
           <span>Mustafa Aboalazm / 2026 · Enterprise Ledger</span>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

@@ -36,7 +36,7 @@ export function NilePharmaStorefrontCaseStudy() {
   const ar = lang === "ar";
 
   return (
-    <main className="overflow-hidden">
+    <div className="overflow-hidden">
       <section className="container-wide relative flex min-h-[68svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
           <div className="absolute -right-24 top-8 h-80 w-80 rounded-full bg-orange-500/[0.10] blur-[100px]" />
@@ -166,6 +166,6 @@ export function NilePharmaStorefrontCaseStudy() {
       <section className="container-wide py-6 md:py-8"><div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">08 / {ar ? "التقنيات" : "Technology stack"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">{ar ? "واجهة، محتوى، تجارة وتشغيل." : "Experience, content, commerce and operations."}</h2></div><div><div className="flex flex-wrap gap-2">{stack.map((item) => <span key={item} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{item}</span>)}</div><p className="mt-6 text-sm leading-[1.65] text-text-secondary">{ar ? "المشروع يضم اختبارات منطقية ومتصفح وإتاحة، أدوات تشغيل وقواعد بيانات وعمليات نشر، وليس واجهة تسويقية مستقلة عن التجارة." : "The repository includes logic, browser and accessibility tests, operational tooling, database workflows and deployment configuration—not a marketing UI detached from commerce."}</p></div></div></section>
 
       <section className="border-t border-border-subtle bg-surface-1/35"><div className="container-wide flex flex-col gap-8 py-6 md:flex-row md:items-end md:justify-between md:py-7"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">HAND-OFF / 003</p><h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "تجارة رقمية موثقة، وحدودها معلنة." : "Commerce engineering with visible boundaries."}</h2><p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? "الخطوة التالية ليست إضافة مزايا شكلية؛ هي إغلاق بوابات الأمان والاعتماد التجاري، والتحقق من بيانات الإنتاج والعمليات الحقيقية." : "The next step is not decorative feature work; it is closing security and commercial approval gates and validating real production data and operations."}</p></div><div className="flex shrink-0 flex-wrap gap-3"><a href="https://github.com/3boalazm/NILE-VERCEL" target="_blank" rel="noreferrer" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-orange-400/60">Source code ↗</a><a href="https://nile-vercel-seven.vercel.app/ar" target="_blank" rel="noreferrer" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">{ar ? "جرّب الموقع" : "Visit storefront"} ↗</a></div></div></section>
-    </main>
+    </div>
   );
 }

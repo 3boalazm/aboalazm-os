@@ -110,6 +110,7 @@ export interface DataFlow {
 }
 
 export interface ProductCaseProps {
+  track?: "design" | "development";
   accent: Accent;
   fileNo: string;
   code: string;
@@ -147,10 +148,11 @@ const ORIGIN_LABEL: Record<Evidence["origin"], { en: string; ar: string; cls: st
 export function ProductCase(props: ProductCaseProps) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const isDesign = props.track === "design";
   const a = ACCENT[props.accent];
 
   return (
-    <main className="overflow-hidden">
+    <div className="overflow-hidden">
       {/* ═══ HERO ═══ */}
       <section className="container-wide relative flex min-h-[68svh] flex-col justify-between gap-7 py-5 md:py-7">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
@@ -161,7 +163,7 @@ export function ProductCase(props: ProductCaseProps) {
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
           <Link href="/work" className="transition-colors hover:text-text-primary">← {ar ? "كل الأعمال" : "All work"}</Link>
-          <span>{ar ? `ملف منتج / ${props.fileNo}` : `Product case file / ${props.fileNo}`}</span>
+          <span>{isDesign ? (ar ? `ملف نظام بصري / ${props.fileNo}` : `System case file / ${props.fileNo}`) : (ar ? `ملف منتج / ${props.fileNo}` : `Product case file / ${props.fileNo}`)}</span>
         </div>
 
         <div className="grid items-end gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
@@ -224,7 +226,7 @@ export function ProductCase(props: ProductCaseProps) {
           ) : null}
         </div>
       </section>
-      <div className="container-content"><ProjectEnquiry compact service="digital-product" /></div>
+      <div className="container-content"><ProjectEnquiry compact service={isDesign ? "brand-identity" : "digital-product"} /></div>
 
       {/* ═══ COVER ═══ */}
       <section className="container-wide pb-2">
@@ -317,7 +319,7 @@ export function ProductCase(props: ProductCaseProps) {
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide py-6 md:py-8">
           <div className="mb-6">
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>03 / {ar ? "قرارات المنتج" : "Product decisions"}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>03 / {isDesign ? (ar ? "قرارات بناء النظام" : "System decisions") : (ar ? "قرارات المنتج" : "Product decisions")}</p>
             <h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? props.decisions.titleAr : props.decisions.title}
             </h2>
@@ -387,7 +389,7 @@ export function ProductCase(props: ProductCaseProps) {
       <section className="container-wide py-6 md:py-8">
         <div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]">
           <div>
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>06 / {ar ? "التقنيات" : "Technology stack"}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>06 / {isDesign ? (ar ? "عناصر وأدوات التنفيذ" : "Production & design stack") : (ar ? "التقنيات" : "Technology stack")}</p>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">
               {ar ? props.stack.titleAr : props.stack.title}
             </h2>
@@ -427,6 +429,6 @@ export function ProductCase(props: ProductCaseProps) {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
