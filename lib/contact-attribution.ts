@@ -5,11 +5,14 @@ import { parseContactContext } from "@/lib/contact-context";
  * Keep only allowlisted service/package IDs, a sanitized local path, locale,
  * and bounded campaign IDs. Never record an email, brief, full URL or referrer.
  */
+const PACKAGE_TIER_IDS = ["logo-design", "brand-identity", "full-brand-system"] as const;
+
 export function buildContactAttribution(raw: Record<string, unknown>) {
   const context = parseContactContext(raw);
+  const packageTier = PACKAGE_TIER_IDS.find((id) => id === context.tier);
   return {
     service: context.service,
-    packageTier: context.tier,
+    packageTier,
     sourcePage: context.source,
     locale: context.locale ?? "en",
     utmSource: context.utm_source,
