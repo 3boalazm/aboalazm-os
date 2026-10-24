@@ -74,6 +74,13 @@ test("every digital project uses a dedicated 16:10 dev-cards preview and maps le
   assert.equal(cardArt("/media/farm-thumb.jpg"), "/images/work/dev-cards/farm-console-card.jpg");
 });
 
+test("Mini Exam and Youssef Guba link to verified production previews", () => {
+  assert.equal(projectBySlug("mini-exam").liveUrl, "https://mraboqamarexams.vercel.app/");
+  assert.equal(projectBySlug("youssef-guba").liveUrl, "https://youssefguba-os.vercel.app/");
+  assert.equal(projectBySlug("mini-exam").previewStatus, undefined);
+  assert.equal(projectBySlug("youssef-guba").previewStatus, undefined);
+});
+
 test("every design and development project carries distinct EN + AR card narrative copy", () => {
   for (const project of PROJECTS) {
     const story = STORIES[project.slug];
