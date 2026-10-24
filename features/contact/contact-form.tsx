@@ -18,6 +18,7 @@ import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } f
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Status = ContactSubmissionStatus;
+type NotificationStatus = "sent" | "unconfigured" | "failed";
 
 /** If the server action hasn't responded by this point, receipt is uncertain.
  *  The visitor is told to confirm by email rather than risk a duplicate. */
@@ -38,6 +39,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
   const didStart = useRef(false);
   const eventContext = { service: selection.service, tier: selection.tier, source: selection.source, locale: lang };
   const [status, setStatus] = useState<Status>("idle");
+  const [notificationStatus, setNotificationStatus] = useState<NotificationStatus | null>(null);
   const [budget, setBudget] = useState<string | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [scopeUnknown, setScopeUnknown] = useState(false);
@@ -110,8 +112,12 @@ export function ContactForm({ context }: { context?: ContactContext }) {
 
       form.reset();
       setBudget(null);
+      setNotificationStatus(res.notification);
       setStatus("sent");
       trackEvent("contact_submit", eventContext);
+      if (res.notification !== "sent") {
+        trackEvent("contact_notification_issue", { ...eventContext, notification_status: res.notification });
+      }
     } catch (error) {
       // A transport error or client timeout cannot prove the server failed to save.
       // Prevent a blind resubmit, which could create a duplicate enquiry.
@@ -140,17 +146,27 @@ export function ContactForm({ context }: { context?: ContactContext }) {
             <p
               ref={sentRef}
               tabIndex={-1}
-              className="font-mono text-micro uppercase tracking-[0.10em] text-success outline-none"
+              className={`font-mono text-micro uppercase tracking-[0.10em] outline-none ${notificationStatus === "sent" ? "text-success" : "text-accent"}`}
             >
-              {ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."}
+              {notificationStatus === "sent"
+                ? ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."
+                : notificationStatus === "unconfigured"
+                  ? ar ? "تم حفظ الطلب، لكن تنبيه الإيميل غير مُعدّ حاليًا." : "SAVED, BUT EMAIL ALERTS ARE NOT CONFIGURED."
+                  : ar ? "تم حفظ الطلب، لكن فشل إرسال تنبيه الإيميل." : "SAVED, BUT THE EMAIL ALERT FAILED."}
             </p>
             <p className="font-display text-title tracking-[-0.015em]">
-              {ar ? "هكتب لك من نفس القناة." : "I'll write back on the same email."}
+              {notificationStatus === "sent"
+                ? ar ? "هكتب لك من نفس القناة." : "I'll write back on the same email."
+                : ar ? "الطلب اتحفظ، لكن خلّينا نأكد التواصل." : "Your enquiry is saved; let's make sure I see it."}
             </p>
             <p className="text-body-sm text-text-secondary">
-              {ar
-                ? "لو أسرع، واتساب والإيميل جنب النموذج."
-                : "Need something faster? Email and WhatsApp are listed beside this form."}
+              {notificationStatus === "sent"
+                ? ar
+                  ? "لو أسرع، واتساب والإيميل جنب النموذج."
+                  : "Need something faster? Email and WhatsApp are listed beside this form."
+                : ar
+                  ? <>علشان أضمن إني أشوفه، ابعتلي تأكيد على <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">الإيميل</a> أو <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">واتساب</a>.</>
+                  : <>To make sure I see it, please confirm via <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">email</a> or <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</>}
             </p>
           </motion.div>
         ) : null}

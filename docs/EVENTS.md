@@ -12,6 +12,7 @@ Vercel Analytics is mounted in `app/(site)/[locale]/layout.tsx`; events are sent
 | `form_submit_attempt` | Browser-valid form submission was attempted. | `features/contact/contact-form.tsx` | `service`, `tier`, `source`, `locale` |
 | `form_error` | Field validation, rate limit, storage, network or uncertain-receipt failure. | `features/contact/contact-form.tsx` | Context above plus a non-PII `reason` |
 | `contact_submit` | Server confirms the enquiry was saved in the existing message store. Notification arrival is separate. | `features/contact/contact-form.tsx` after a successful server response | `service`, `tier`, `source`, `locale` |
+| `contact_notification_issue` | The enquiry was saved, but the email alert was unconfigured or failed; the visitor is shown fallback channels. | `features/contact/contact-form.tsx` | `service`, `tier`, `source`, `locale`, non-PII `notification_status` |
 | `case_study_open` | A project card's media, title or primary CTA was opened. | `features/work/featured-cases.tsx` | `slug`, `surface` |
 | `track_see_more` | A visitor opened the rest of the design or development track. | `features/work/featured-cases.tsx` | `track` |
 | `insight_open` | A writing post was opened from a teaser. | `features/home/insights-teaser.tsx` and the writing archive | `slug`, `surface` |
@@ -24,7 +25,7 @@ Vercel Analytics is mounted in `app/(site)/[locale]/layout.tsx`; events are sent
 
 Event properties must stay contextual and non-identifying. Never send visitor names, email addresses, briefs, or other free-text form values. Campaign identifiers are limited to 1–80 ASCII letters, numbers, hyphens and underscores; email addresses and URLs are rejected. `source` is a bounded local path, not a full URL.
 
-These events represent different stages: `cta_start_project` is a click, `form_start` is focus, `form_submit_attempt` is an attempt, and `contact_submit` means the database accepted the enquiry. A saved enquiry can still lack an email notification if SMTP is not configured. Do not use clicks or pageviews as a proxy for qualified leads, proposals, or won projects.
+These events represent different stages: `cta_start_project` is a click, `form_start` is focus, `form_submit_attempt` is an attempt, and `contact_submit` means the database accepted the enquiry. If email is unconfigured or fails after a successful save, `contact_notification_issue` records the non-PII status and the visitor is shown email/WhatsApp fallback links. Do not use clicks or pageviews as a proxy for qualified leads, proposals, or won projects.
 
 ## Reporting limitation recorded during the 24 October 2026 audit
 

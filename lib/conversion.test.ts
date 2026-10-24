@@ -74,17 +74,21 @@ test("accepted message remains stored if the notification fails; storage failure
   const calls: string[] = [];
   const log: unknown[] = [];
   const result = await deliverContact(enquiry, async () => { calls.push("store"); return { id: 7 }; }, async () => { calls.push("email"); throw new Error("SMTP failure"); }, (e) => log.push(e));
-  assert.deepEqual(result, { ok: true });
+  assert.deepEqual(result, { ok: true, notification: "failed" });
   assert.deepEqual(calls, ["store", "email"]);
   assert.deepEqual(log, [{ messageId: 7, notification: "failed" }]);
   let notified = false;
   await assert.rejects(() => deliverContact(enquiry, async () => { throw new Error("database unavailable"); }, async () => { notified = true; return true; }, () => {}));
   assert.equal(notified, false);
 });
-test("unconfigured SMTP is observable without exposing visitor data", async () => {
+test("delivery returns each email-notification state after storage", async () => {
+  const sent = await deliverContact(enquiry, async () => ({ id: 8 }), async () => true, () => {});
+  assert.deepEqual(sent, { ok: true, notification: "sent" });
+
   const log: unknown[] = [];
-  await deliverContact(enquiry, async () => ({ id: 8 }), async () => false, (e) => log.push(e));
-  assert.deepEqual(log, [{ messageId: 8, notification: "unconfigured" }]);
+  const unconfigured = await deliverContact(enquiry, async () => ({ id: 9 }), async () => false, (e) => log.push(e));
+  assert.deepEqual(unconfigured, { ok: true, notification: "unconfigured" });
+  assert.deepEqual(log, [{ messageId: 9, notification: "unconfigured" }]);
   assert.ok(!JSON.stringify(log).includes(enquiry.email));
 });
 test("locale links retain query and fragments, preserve English addresses and leave assets alone", () => {

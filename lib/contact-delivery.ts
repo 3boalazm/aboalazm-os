@@ -10,5 +10,7 @@ export async function deliverContact<T>(
   try { notification = await notify(data) ? "sent" : "unconfigured"; }
   catch { notification = "failed"; }
   log({ messageId: record.id, notification });
-  return { ok: true as const };
+  // The record is safely saved even if email notification is unavailable.
+  // Return delivery state so the visitor can choose a reliable fallback channel.
+  return { ok: true as const, notification };
 }

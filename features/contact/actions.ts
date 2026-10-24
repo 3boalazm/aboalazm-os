@@ -31,7 +31,11 @@ export interface ContactSubmission {
   utm_campaign?: string;
 }
 
-export async function submitContact(data: ContactSubmission): Promise<{ ok: boolean; error?: string }> {
+export type ContactSubmissionResult =
+  | { ok: true; notification: "sent" | "unconfigured" | "failed" }
+  | { ok: false; error: string };
+
+export async function submitContact(data: ContactSubmission): Promise<ContactSubmissionResult> {
   const ip = getClientIp(await headers());
   const limit = rateLimit(`contact:${ip}`, 5, 10 * 60 * 1000); // 5 submissions / 10 min / IP
   if (!limit.ok) {

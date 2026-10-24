@@ -14,6 +14,7 @@ export type EventName =
   | "case_study_open"
   | "track_see_more"
   | "contact_submit"
+  | "contact_notification_issue"
   | "form_start"
   | "form_submit_attempt"
   | "form_error"
