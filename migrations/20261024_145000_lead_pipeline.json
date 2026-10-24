@@ -430,8 +430,21 @@
           "notNull": false,
           "default": false
         },
+        "is_ui_ux": {
+          "name": "is_ui_ux",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "external_url": {
           "name": "external_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "live_url": {
+          "name": "live_url",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
@@ -727,8 +740,21 @@
           "notNull": false,
           "default": false
         },
+        "version_is_ui_ux": {
+          "name": "version_is_ui_ux",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
         "version_external_url": {
           "name": "version_external_url",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "version_live_url": {
+          "name": "version_live_url",
           "type": "varchar",
           "primaryKey": false,
           "notNull": false
