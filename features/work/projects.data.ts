@@ -313,7 +313,7 @@ export const PROJECTS: readonly Project[] = [
     year: "2026",
     thumbnail: "/images/work/dev-cards/mini-exam-card.jpg",
     hasCaseStudy: true,
-    previewStatus: "archived",
+    liveUrl: "https://mraboqamarexams.vercel.app/",
     accent: {
       primary: "rgb(129 140 248 / 0.20)",
       secondary: "rgb(246 196 83 / 0.12)",
@@ -387,7 +387,7 @@ export const PROJECTS: readonly Project[] = [
     year: "2026",
     thumbnail: "/images/work/dev-cards/youssef-guba-card.jpg",
     hasCaseStudy: true,
-    previewStatus: "archived",
+    liveUrl: "https://youssefguba-os.vercel.app/",
     accent: {
       primary: "rgb(217 182 110 / 0.20)",
       secondary: "rgb(138 107 214 / 0.12)",
