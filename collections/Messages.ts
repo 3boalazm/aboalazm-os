@@ -12,8 +12,8 @@ export const Messages: CollectionConfig = {
   admin: {
     group: "Inbox",
     useAsTitle: "name",
-    description: "Commission briefs from the /contact form — newest first. Also emailed to the studio inbox.",
-    defaultColumns: ["name", "email", "budget", "isRead", "createdAt"],
+    description: "Project enquiries from /contact. Filter by service, source page or campaign, then update Lead stage as an enquiry qualifies, reaches proposal or closes.",
+    defaultColumns: ["name", "company", "service", "leadStage", "budget", "sourcePage", "isRead", "createdAt"],
     listSearchableFields: ["name", "email", "company"],
   },
   access: {
@@ -45,6 +45,55 @@ export const Messages: CollectionConfig = {
       maxLength: MESSAGE_MAX,
       admin: { description: "Service, package, source and campaign context followed by the client brief." },
     },
+    /* Acquisition context is stored as fields so the inbox can be filtered without parsing free-text briefs. */
+    {
+      type: "row",
+      fields: [
+        { name: "service", type: "select", options: [
+          { label: "Brand identity", value: "brand-identity" },
+          { label: "Website / landing page", value: "website" },
+          { label: "Digital product", value: "digital-product" },
+          { label: "Brand support", value: "brand-support" },
+          { label: "Scope not defined", value: "not-sure" },
+        ], admin: { width: "50%" } },
+        { name: "packageTier", type: "select", options: [
+          { label: "Logo design", value: "logo-design" },
+          { label: "Brand identity", value: "brand-identity" },
+          { label: "Full brand system", value: "full-brand-system" },
+        ], admin: { width: "50%" } },
+      ],
+    },
+    { type: "row", fields: [
+      { name: "sourcePage", type: "text", maxLength: 160, admin: { width: "60%", description: "Sanitized local page path, e.g. /services/brand-identity." } },
+      { name: "locale", type: "select", options: [{ label: "English", value: "en" }, { label: "Arabic", value: "ar" }], admin: { width: "40%" } },
+    ] },
+    { type: "row", fields: [
+      { name: "utmSource", type: "text", maxLength: 80, admin: { width: "33%", description: "Campaign ID only; no URL or visitor data." } },
+      { name: "utmMedium", type: "text", maxLength: 80, admin: { width: "33%" } },
+      { name: "utmCampaign", type: "text", maxLength: 80, admin: { width: "34%" } },
+    ] },
+    /* Manually maintained sales stage: a form submit is not automatically a qualified lead. */
+    { type: "row", fields: [
+      { name: "leadStage", type: "select", defaultValue: "new", required: true, options: [
+        { label: "New enquiry", value: "new" },
+        { label: "Qualified", value: "qualified" },
+        { label: "Proposal sent", value: "proposal-sent" },
+        { label: "Won", value: "won" },
+        { label: "Lost", value: "lost" },
+        { label: "Not a fit", value: "not-a-fit" },
+      ], admin: { position: "sidebar", description: "Update manually after reviewing the actual conversation." } },
+      { name: "closedReason", type: "select", options: [
+        { label: "Budget", value: "budget" },
+        { label: "Timing", value: "timing" },
+        { label: "Scope mismatch", value: "scope" },
+        { label: "No response", value: "no-response" },
+        { label: "Other / unknown", value: "other" },
+      ], admin: { position: "sidebar", description: "Optional when marking a lead Lost or Not a fit." } },
+    ] },
+    { type: "row", fields: [
+      { name: "proposalValue", type: "number", min: 0, admin: { width: "50%", description: "Quoted amount in USD; fill only after sending a real proposal." } },
+      { name: "wonValue", type: "number", min: 0, admin: { width: "50%", description: "Actual contracted amount in USD; fill only after the deal is won." } },
+    ] },
     /* Qualifiers — side by side, they scan as one line. */
     {
       type: "row",
