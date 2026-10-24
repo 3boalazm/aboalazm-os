@@ -14,7 +14,7 @@ if (fs.existsSync(envPath)) {
   for (const line of fs.readFileSync(envPath, "utf8").split(/\r?\n/u)) {
     const match = line.match(/^\s*(?:export\s+)?DATABASE_URI\s*=\s*(.*)\s*$/u);
     if (match?.[1]) {
-      const value = match[1].replace(/^([\'"])(.*)\1$/u, "$2");
+      const value = match[1].replace(/^(['"])(.*)\1$/u, "$2");
       process.env.DATABASE_URI ??= value;
     }
   }
