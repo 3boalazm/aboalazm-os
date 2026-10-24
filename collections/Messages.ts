@@ -49,7 +49,7 @@ export const Messages: CollectionConfig = {
     {
       type: "row",
       fields: [
-        { name: "service", type: "select", options: [
+        { name: "service", type: "select", index: true, options: [
           { label: "Brand identity", value: "brand-identity" },
           { label: "Website / landing page", value: "website" },
           { label: "Digital product", value: "digital-product" },
@@ -64,17 +64,17 @@ export const Messages: CollectionConfig = {
       ],
     },
     { type: "row", fields: [
-      { name: "sourcePage", type: "text", maxLength: 160, admin: { width: "60%", description: "Sanitized local page path, e.g. /services/brand-identity." } },
+      { name: "sourcePage", type: "text", maxLength: 160, index: true, admin: { width: "60%", description: "Sanitized local page path, e.g. /services/brand-identity." } },
       { name: "locale", type: "select", options: [{ label: "English", value: "en" }, { label: "Arabic", value: "ar" }], admin: { width: "40%" } },
     ] },
     { type: "row", fields: [
-      { name: "utmSource", type: "text", maxLength: 80, admin: { width: "33%", description: "Campaign ID only; no URL or visitor data." } },
+      { name: "utmSource", type: "text", maxLength: 80, index: true, admin: { width: "33%", description: "Campaign ID only; no URL or visitor data." } },
       { name: "utmMedium", type: "text", maxLength: 80, admin: { width: "33%" } },
       { name: "utmCampaign", type: "text", maxLength: 80, admin: { width: "34%" } },
     ] },
     /* Manually maintained sales stage: a form submit is not automatically a qualified lead. */
     { type: "row", fields: [
-      { name: "leadStage", type: "select", defaultValue: "new", required: true, options: [
+      { name: "leadStage", type: "select", defaultValue: "new", index: true, options: [
         { label: "New enquiry", value: "new" },
         { label: "Qualified", value: "qualified" },
         { label: "Proposal sent", value: "proposal-sent" },
