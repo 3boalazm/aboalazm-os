@@ -6,10 +6,11 @@ import { useLang } from "@/components/providers/lang-provider";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { TERMS_LINE } from "@/lib/offers";
 import type { ContactContext } from "@/lib/contact-context";
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 
 const CHANNELS = [
   { en: "WhatsApp", ar: "واتساب", label: "+20 109 250 0454", href: "https://wa.me/201092500454" },
-  { en: "Email", ar: "إيميل", label: "m1aboalazm@gmail.com", href: "mailto:m1aboalazm@gmail.com" },
+  { en: "Email", ar: "إيميل", label: CONTACT_EMAIL, href: CONTACT_EMAIL_HREF },
 ] as const;
 const CORAL = { primary: "rgb(255 107 71 / 0.16)", secondary: "rgb(255 168 120 / 0.08)" };
 
@@ -23,7 +24,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
         <p className="font-mono text-micro uppercase tracking-[0.1em] text-accent">{ar ? "تواصل / مشروع جديد" : "CONTACT / YOUR NEXT PROJECT"}</p>
         <h1 className="font-display text-title text-text-primary">{ar ? "احكيلي عن مشروعك." : "Tell me about your project."}</h1>
         <p className="text-body-sm text-text-secondary">{ar ? "اسمك، إيميلك، وفكرة بسيطة كفاية نبدأ. ولو لسه بتحدد المطلوب، نقدر نوضح النطاق مع بعض." : "Your name, email and a short idea are enough to start. If you are still figuring things out, we can define the scope together."}</p>
-        <div className="flex flex-wrap gap-3 text-body-sm"><a href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-4">{ar ? "واتساب مباشرة" : "Chat on WhatsApp"} ↗</a><a href="mailto:m1aboalazm@gmail.com" className="underline underline-offset-4">{ar ? "ابعت إيميل" : "Send an email"}</a></div>
+        <div className="flex flex-wrap gap-3 text-body-sm"><a href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-4">{ar ? "واتساب مباشرة" : "Chat on WhatsApp"} ↗</a><a href={CONTACT_EMAIL_HREF} className="underline underline-offset-4">{ar ? "ابعت إيميل" : "Send an email"}</a></div>
       </header>
       <div className="grid items-start gap-5 lg:grid-cols-[7fr_5fr]">
         <ContactForm key={`${context?.service}-${context?.tier}-${context?.source}`} context={context} />
