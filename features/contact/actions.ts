@@ -7,6 +7,7 @@ import { sendContactNotification } from "@/lib/email";
 import { validateContact } from "./validate";
 import { deliverContact } from "@/lib/contact-delivery";
 import { parseContactContext, contextSummary } from "@/lib/contact-context";
+import { buildContactAttribution } from "@/lib/contact-attribution";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
 type Budget = (typeof BUDGET_BANDS)[number];
@@ -55,7 +56,7 @@ export async function submitContact(data: ContactSubmission): Promise<ContactSub
 
   const context = parseContactContext(data as unknown as Record<string, unknown>);
   const budget = BUDGET_BANDS.includes(fields.budget as Budget) ? (fields.budget as Budget) : undefined;
-  const message = { ...fields, budget, brief: `${contextSummary(context)}\n\nProject brief:\n${fields.brief}` };
+  const message = { ...fields, budget, ...buildContactAttribution(data as unknown as Record<string, unknown>), brief: `${contextSummary(context)}\n\nProject brief:\n${fields.brief}` };
   try {
     const payload = await getPayload();
     return await deliverContact(

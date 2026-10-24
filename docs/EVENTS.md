@@ -32,3 +32,14 @@ These events represent different stages: `cta_start_project` is a click, `form_s
 The connected Vercel Analytics custom-event aggregation request returned HTTP 402 with a message that custom-event reporting requires a Pro or Enterprise plan. This means event definitions are in code, but event totals and conversion sequences could not be independently queried during this audit. Resolve the plan/access requirement or configure an approved alternative before using these events for quantitative conversion claims.
 
 Local development does not provide production counts. The try/catch around `trackEvent` ensures analytics failures never block a user action.
+## First-party lead reporting fallback — 24 October 2026
+
+Vercel still receives the browser intent events above, but the current plan cannot return event aggregates. To avoid buying a plan merely to know whether sales conversations progress, the private Payload `messages` collection is the source of truth for actual form submissions and manual sales outcomes.
+
+- Every new saved enquiry stores structured `service`, `packageTier`, `sourcePage`, `locale`, `utmSource`, `utmMedium`, and `utmCampaign` fields. These are normalized allowlisted IDs, a same-site path, a language, and bounded campaign identifiers. They do not store the full referrer URL, email or brief as analytics properties.
+- `leadStage` starts as `new` and must be manually updated after reviewing the real enquiry: `qualified`, `proposal-sent`, `won`, `lost`, or `not-a-fit`. A form submission alone is not a qualified lead.
+- `proposalValue` and `wonValue` are manually entered USD amounts. Set proposal value only when a real proposal is sent and won value only when the work is contracted; do not estimate them from the form budget band.
+- In Payload Admin → Inbox → Messages, use the service, source page, campaign and lead-stage columns/filters to count submissions and pipeline progress. `wonValue` is the source for contracted revenue only after the stage is actually Won.
+- Records created before these fields were added will not have structured attribution/stage values. Do not infer missing historical source or outcome fields from the free-text brief; leave them unclassified unless the underlying record supports them.
+
+This gives a reliable answer to “How many enquiries did the form actually save, which source was attached, and how many progressed to qualified/proposal/won?” It does not replace visitor-level pageview or form-start analytics. Those event totals remain unavailable under the current Vercel Analytics plan and are not claimed.
