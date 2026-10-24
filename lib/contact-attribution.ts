@@ -13,7 +13,7 @@ export function buildContactAttribution(raw: Record<string, unknown>) {
   return {
     service: context.service,
     packageTier,
-    sourcePage: context.source,
+    sourcePage: context.source ?? "/contact",
     locale: context.locale ?? "en",
     utmSource: context.utm_source,
     utmMedium: context.utm_medium,
