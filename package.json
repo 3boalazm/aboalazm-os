@@ -19,7 +19,8 @@
     "test:conversion": "node --import tsx --test lib/conversion.test.ts",
     "test:brand-consistency": "node --import tsx --test lib/contact-brand-consistency.test.ts",
     "test:lead-pipeline": "node --import tsx --test lib/contact-attribution.test.ts",
-    "check:contact": "node --import tsx scripts/check-contact-setup.ts"
+    "check:contact": "node --import tsx scripts/check-contact-setup.ts",
+    "check:db-ssl": "node --import tsx scripts/check-db-ssl-mode.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
