@@ -9,6 +9,8 @@ import { localeHref } from "./locale";
 import { localizedMetadata } from "./localized-metadata";
 import { buildSitemap } from "./sitemap";
 import { BUILT_IN_CASE_SLUGS } from "./case-registry";
+import { projectEnquiryService } from "@/features/work/project-enquiry-service";
+import { PROJECTS } from "@/features/work/projects.data";
 
 const enquiry = { name: "Test Visitor", email: "visitor@example.test", brief: "A bilingual company website", elapsedMs: 0 };
 
@@ -23,6 +25,19 @@ test("localized metadata preserves absolute/default page titles in Open Graph", 
   assert.equal(en.openGraph?.title, "About Mustafa Aboalazm — Senior Brand Identity Designer");
   assert.equal(ar.openGraph?.title, "عن مصطفى أبوالعزم");
 });
+test("case-study enquiry context matches the project track", () => {
+  const project = (slug: string) => {
+    const match = PROJECTS.find((item) => item.slug === slug);
+    assert.ok(match, `missing project fixture: ${slug}`);
+    return match;
+  };
+
+  assert.equal(projectEnquiryService(project("esfc")), "brand-identity");
+  assert.equal(projectEnquiryService(project("ahmed-kamar")), "digital-product");
+  assert.equal(projectEnquiryService(project("youssef-guba")), "digital-product");
+  assert.equal(projectEnquiryService(project("nile-pharma-storefront")), "website");
+});
+
 test("fast autofilled enquiries survive, while filled honeypots and malformed input are rejected", () => {
   const fast = validateContact(enquiry);
   assert.ok(fast.ok && !fast.spam);
