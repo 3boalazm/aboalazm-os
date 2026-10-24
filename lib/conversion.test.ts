@@ -11,8 +11,18 @@ import { buildSitemap } from "./sitemap";
 import { BUILT_IN_CASE_SLUGS } from "./case-registry";
 import { projectEnquiryService } from "@/features/work/project-enquiry-service";
 import { PROJECTS } from "@/features/work/projects.data";
+import { canSubmitContact } from "@/features/contact/submission-state";
 
 const enquiry = { name: "Test Visitor", email: "visitor@example.test", brief: "A bilingual company website", elapsedMs: 0 };
+
+test("contact submissions cannot be repeated while sending, after success, or with uncertain receipt", () => {
+  assert.equal(canSubmitContact("working"), false);
+  assert.equal(canSubmitContact("sent"), false);
+  assert.equal(canSubmitContact("uncertain"), false);
+  assert.equal(canSubmitContact("idle"), true);
+  assert.equal(canSubmitContact("error"), true);
+  assert.equal(canSubmitContact("rateLimited"), true);
+});
 
 test("localized metadata preserves absolute/default page titles in Open Graph", () => {
   const base = {

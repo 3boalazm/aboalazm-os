@@ -13,13 +13,14 @@ import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
 import { submitContact } from "./actions";
+import { canSubmitContact, type ContactSubmissionStatus } from "./submission-state";
 import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } from "./validate";
 
 const BUDGET_BANDS = ["< $1K", "$1–3K", "$3–8K", "$8K+"] as const;
-type Status = "idle" | "working" | "sent" | "error" | "rateLimited" | "uncertain";
+type Status = ContactSubmissionStatus;
 
-/** If the server action hasn't responded by this point, treat it as
- *  failed rather than leaving the button stuck on "WORKING…" forever. */
+/** If the server action hasn't responded by this point, receipt is uncertain.
+ *  The visitor is told to confirm by email rather than risk a duplicate. */
 const SUBMIT_TIMEOUT_MS = 20_000;
 
 const FIELD =
@@ -46,7 +47,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
      mid-request). */
   const inFlight = useRef(false);
   const mounted = useRef(true);
-  /* Mount time, for the server's "filled in faster than a human" check. */
+  /* Mount time for submission-duration diagnostics; never used to reject autofill. */
   const startedAt = useRef(0);
   useEffect(() => {
     mounted.current = true;
@@ -65,7 +66,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (inFlight.current) return;
+    if (inFlight.current || !canSubmitContact(status)) return;
     inFlight.current = true;
     setStatus("working");
     trackEvent("form_submit_attempt", eventContext);
