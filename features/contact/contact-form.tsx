@@ -12,6 +12,7 @@ import { SERVICES, PACKAGES, parseContactContext, type ContactContext } from "@/
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 import { submitContact } from "./actions";
 import { canSubmitContact, type ContactSubmissionStatus } from "./submission-state";
 import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } from "./validate";
@@ -165,8 +166,8 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                   ? "لو أسرع، واتساب والإيميل جنب النموذج."
                   : "Need something faster? Email and WhatsApp are listed beside this form."
                 : ar
-                  ? <>علشان أضمن إني أشوفه، ابعتلي تأكيد على <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">الإيميل</a> أو <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">واتساب</a>.</>
-                  : <>To make sure I see it, please confirm via <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">email</a> or <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</>}
+                  ? <>علشان أضمن إني أشوفه، ابعتلي تأكيد على <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>الإيميل</a> أو <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">واتساب</a>.</>
+                  : <>To make sure I see it, please confirm via <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>email</a> or <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</>}
             </p>
           </motion.div>
         ) : null}
@@ -316,15 +317,15 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               {status === "uncertain" && (
                 <p className="text-body-sm text-accent">
                   {ar
-                    ? <>ماقدرتش أتأكد إن رسالتك وصلت. ممكن تكون اتحفظت بالفعل؛ علشان نتجنب تكرار الطلب، <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">راسلني بالإيميل قبل ما تبعت النموذج مرة تانية</a>.</>
-                    : <>I couldn't confirm receipt. Your enquiry may already be saved; to avoid a duplicate, <a className="underline underline-offset-4" href="mailto:m1aboalazm@gmail.com">email me before submitting again</a>.</>}
+                    ? <>ماقدرتش أتأكد إن رسالتك وصلت. ممكن تكون اتحفظت بالفعل؛ علشان نتجنب تكرار الطلب، <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>راسلني بالإيميل قبل ما تبعت النموذج مرة تانية</a>.</>
+                    : <>I couldn't confirm receipt. Your enquiry may already be saved; to avoid a duplicate, <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>email me before submitting again</a>.</>}
                 </p>
               )}
               {status === "error" && (
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                   {ar
-                    ? "فشل الإرسال — تواصل عبر m1aboalazm@gmail.com"
-                    : "TRANSMISSION FAILED — TRY m1aboalazm@gmail.com"}
+                    ? `فشل الإرسال — تواصل عبر ${CONTACT_EMAIL}`
+                    : `TRANSMISSION FAILED — TRY ${CONTACT_EMAIL}`}
                 </p>
               )}
             </div>
@@ -332,8 +333,8 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               {status === "rateLimited" && (
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                   {ar
-                    ? "عدد محاولات كبير — استنى شوية أو ابعت على m1aboalazm@gmail.com"
-                    : "TOO MANY ATTEMPTS — WAIT A BIT OR EMAIL m1aboalazm@gmail.com"}
+                    ? `عدد محاولات كبير — استنى شوية أو ابعت على ${CONTACT_EMAIL}`
+                    : `TOO MANY ATTEMPTS — WAIT A BIT OR EMAIL ${CONTACT_EMAIL}`}
                 </p>
               )}
             </div>
