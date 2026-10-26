@@ -14,8 +14,10 @@ import { CtaBand } from "@/features/offers/offer-blocks";
 import { buttonVariants } from "@/components/ui/Button";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
-const SKILLS = ["Brand Identity", "Brand Strategy", "Logo Design", "Visual Systems", "Art Direction", "Web Design", "Brand Guidelines", "Packaging"];
-const SKILLS_AR = ["هوية بصرية", "استراتيجية براند", "تصميم شعارات", "أنظمة بصرية", "إدارة فنية", "تصميم ويب", "أدلة هوية", "تغليف"];
+const SKILLS = ["Brand Identity", "Brand Strategy", "Visual Systems", "Art Direction", "Web Development"];
+const SKILLS_AR = ["هوية بصرية", "استراتيجية براند", "أنظمة بصرية", "إدارة فنية", "تطوير ويب"];
+const APPLIED_SKILLS = ["AI Workflow Design", "Business Tools & Dashboards", "Product & Market Research"];
+const APPLIED_SKILLS_AR = ["تصميم تدفقات عمل بالذكاء الاصطناعي", "أدوات أعمال ولوحات تحكم", "بحث المنتجات والأسواق"];
 
 export function SkillsMarquee() {
   const { lang } = useLang();
@@ -51,8 +53,8 @@ export function AboutTeaser() {
         </h2>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "أصمم أنظمة هوية بصرية متكاملة — من مراجعة البراند وتحليل المنافسين إلى أنظمة الشعارات وأنظمة التصميم وأدلة الهوية التي تستخدمها الفرق فعلًا."
-            : "I design full-cycle brand identity systems — from brand audits and competitive analysis to logo systems, design systems, and the brand guidelines teams actually use."}
+            ? "الهوية البصرية هي تخصصي الأساسي. وبربطها بالطبقة الرقمية — مواقع، واجهات منتجات وأنظمة تصميم — وبستخدم البحث وتدفقات الذكاء الاصطناعي وأدوات الأعمال المخصصة لما تحل مشكلة واضحة فعلًا."
+            : "Brand identity is my core. I build the connected digital layer too — websites, product interfaces and design systems — then apply research, AI workflows and custom business tools when they solve a clear problem."}
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
@@ -66,13 +68,28 @@ export function AboutTeaser() {
         {/* The skills that used to live in the scrolling marquee — static
             chips now (overhaul S2: the marquee was motion for its own sake
             and repeated the same 8 words twice per row). */}
-        <ul aria-label={ar ? "التخصصات" : "Specialties"} className="mt-1 flex flex-wrap gap-1.5 border-t border-border-subtle pt-3">
-          {(ar ? SKILLS_AR : SKILLS).map((s) => (
-            <li key={s} className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro uppercase tracking-[0.08em] text-text-secondary">
-              {s}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-1 border-t border-border-subtle pt-3">
+          <p className="mb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+            {ar ? "التخصص الأساسي" : "CORE DISCIPLINES"}
+          </p>
+          <ul aria-label={ar ? "التخصصات الأساسية" : "Core specialties"} className="flex flex-wrap gap-1.5">
+            {(ar ? SKILLS_AR : SKILLS).map((s) => (
+              <li key={s} className="rounded-pill border border-border-default px-2 py-0.5 font-mono text-micro uppercase tracking-[0.08em] text-text-primary">
+                {s}
+              </li>
+            ))}
+          </ul>
+          <p className="mb-2 mt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+            {ar ? "قدرات مكملة — حسب احتياج المشروع" : "ADJACENT CAPABILITIES · WHEN USEFUL"}
+          </p>
+          <ul aria-label={ar ? "قدرات مكملة" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5">
+            {(ar ? APPLIED_SKILLS_AR : APPLIED_SKILLS).map((s) => (
+              <li key={s} className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro text-text-tertiary">
+                {s}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <dl className="flex h-fit flex-col">
         {([

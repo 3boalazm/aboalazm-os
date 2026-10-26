@@ -12,7 +12,7 @@ import { buttonVariants } from "@/components/ui/Button";
 const OFFERINGS: readonly { n: string; name: Bi; italic: Bi; body: Bi }[] = [
   { n: "01", name: ["Brand Identity &", "هوية &"], italic: ["Strategy", "استراتيجية البراند"], body: ["Brand audit · competitor & cultural research · positioning & archetype · naming · logo systems · color & typography · brand guidelines.", "مراجعة البراند · بحث المنافسين والثقافة · التموضع والنموذج · التسمية · أنظمة الشعار · الألوان والخطوط · دليل الهوية."] },
   { n: "02", name: ["Visual &", "أنظمة بصرية &"], italic: ["Design Systems", "تصميمية"], body: ["Cohesive systems for digital and print — templates, social kits, presentation systems, components, and reusable assets your team can run with.", "أنظمة متماسكة للديجيتال والمطبوعات — قوالب، حزم سوشيال، أنظمة عروض، ومكوّنات قابلة لإعادة الاستخدام يقدر فريقك يشتغل بها."] },
-  { n: "03", name: ["Websites &", "تصميم ويب &"], italic: ["Digital Products", "منتجات رقمية"], body: ["Responsive company sites, landing pages and custom web tools. Next.js or WordPress, selected for your content, workflows and maintenance needs.", "مواقع شركات وصفحات هبوط وأدوات ويب متجاوبة. نختار Next.js أو ووردبريس حسب المحتوى والعمليات واحتياج الصيانة."] },
+  { n: "03", name: ["Websites &", "مواقع &"], italic: ["Digital Products", "منتجات رقمية"], body: ["Responsive websites, landing pages and custom web applications — from brand-led UX/UI to production-ready builds, integrations and workflow-aware tools. Next.js or WordPress, chosen for the actual need.", "مواقع متجاوبة وصفحات هبوط وتطبيقات ويب مخصصة — من تجربة وواجهة مرتبطة بالبراند إلى تنفيذ فعلي وتكاملات وأدوات تراعي سير العمل. نختار Next.js أو ووردبريس حسب الاحتياج الحقيقي."] },
   { n: "04", name: ["Print &", "مطبوعات &"], italic: ["Packaging", "تغليف"], body: ["Production-ready print collateral — packaging, brochures, company profiles, banners, rollups — with proper file prep for offset and digital.", "مطبوعات جاهزة للإنتاج — تغليف، بروشورات، بروفايلات شركات، بانرات ورول أب — بتجهيز ملفات سليم للأوفست والديجيتال."] },
   { n: "05", name: ["Art Direction &", "إدارة فنية &"], italic: ["Production", "إنتاج"], body: ["Photography, videography, scripting, voice-over, audio engineering — full content production for campaigns and social.", "تصوير فوتوغرافي وفيديو، كتابة سكريبت، تعليق صوتي، وهندسة صوت — إنتاج محتوى كامل للحملات والسوشيال."] },
 ];
@@ -63,6 +63,44 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
               </p>
               <p className="col-span-2 text-body-sm text-text-secondary md:col-span-1">{pick(o.body, lang)}</p>
             </div>
+          ))}
+        </div>
+      </section>
+
+      <section aria-label={ar ? "قدرات مكملة" : "Applied capabilities"} className="flex flex-col gap-3 border-t border-border-subtle pt-5">
+        <SectionHead
+          label={["01B / APPLIED CAPABILITIES", "01B / قدرات مكملة"]}
+          title={["Useful beyond the", "قدرات مكملة،"]}
+          italic={["core.", "مش بدائل للتخصص الأساسي."]}
+        />
+        <p className="max-w-[58ch] text-body-sm text-text-secondary">
+          {ar
+            ? "مش خدمات منفصلة بتنافس الهوية والتطوير؛ دي أدوات إضافية بستخدمها لما تكون جزءًا من حل المشكلة — وبنطاق واضح لكل مشروع."
+            : "Not extra pillars competing with brand identity and development. These are applied capabilities I bring in when they help solve the brief, scoped to the project."}
+        </p>
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+          {([
+            {
+              n: "A",
+              title: ["AI workflows & automation", "تدفقات عمل وأتمتة بالذكاء الاصطناعي"],
+              body: ["Map repetitive work, then prototype practical automations and AI-assisted workflows around real team needs.", "تحليل المهام المتكررة ثم بناء نماذج عملية للأتمتة وتدفقات العمل المدعومة بالذكاء الاصطناعي حسب احتياج الفريق."],
+            },
+            {
+              n: "B",
+              title: ["Internal tools & dashboards", "أدوات داخلية ولوحات تحكم"],
+              body: ["Lightweight dashboards, admin tools and workflow-focused web apps that make business processes easier to run.", "لوحات تحكم وأدوات إدارية وتطبيقات ويب تركز على سير العمل وتسهّل إدارة العمليات."],
+            },
+            {
+              n: "C",
+              title: ["Product & market research", "بحث المنتجات والأسواق"],
+              body: ["Structured competitor, user and opportunity research to support product decisions — with sources and assumptions made explicit.", "بحث منظم للمنافسين والمستخدمين والفرص لدعم قرارات المنتج، مع توضيح المصادر والافتراضات."],
+            },
+          ] as const).map((item) => (
+            <article key={item.n} className="rounded-card border border-border-subtle bg-surface-1 p-3">
+              <p className="font-mono text-micro text-text-ghost">{item.n} / {ar ? "قدرات مكملة" : "APPLIED"}</p>
+              <h3 className="mt-2 font-display text-subtitle text-text-primary">{pick(item.title, lang)}</h3>
+              <p className="mt-2 text-body-sm text-text-secondary">{pick(item.body, lang)}</p>
+            </article>
           ))}
         </div>
       </section>
