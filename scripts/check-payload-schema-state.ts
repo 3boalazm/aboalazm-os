@@ -57,4 +57,8 @@ main().catch((error: unknown) => {
   console.error("[schema-diagnostic] Read-only check failed; no schema changes were attempted.");
   console.error(error instanceof Error ? error.message : "Unknown error");
   process.exitCode = 1;
+}).finally(() => {
+  // Payload/pg can leave handles open after destroy(); without an explicit exit
+  // the diagnostic prints its report and then hangs the Vercel build until it is killed.
+  process.exit(process.exitCode ?? 0);
 });
