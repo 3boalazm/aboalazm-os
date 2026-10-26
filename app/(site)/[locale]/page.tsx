@@ -20,7 +20,7 @@ const pageMetadata: Metadata = {
   // ≤ ~60 chars so Google shows the whole title; the name leads because it is the query
   title: "Mustafa Aboalazm — Senior Brand Identity Designer",
   description:
-    "Mustafa Aboalazm — senior brand identity designer and digital product developer in Egypt. Explore identity systems and production-ready web experiences.",
+    "Mustafa Aboalazm — senior brand identity designer and web developer in Egypt. Explore brand systems, production-ready digital products and applied AI workflows.",
   alternates: { canonical: "/" },
 };
 
