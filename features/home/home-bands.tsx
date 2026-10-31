@@ -12,6 +12,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
 import { buttonVariants } from "@/components/ui/Button";
+import { TIERS } from "@/lib/offers";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
 const SKILLS = ["Brand Identity", "Brand Strategy", "Visual Systems", "Art Direction", "Web Development"];
@@ -342,18 +343,21 @@ export function WhyValueBand() {
 export function HomeFaq() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  // Durations come from the tier data (the single source of truth) so this answer
+  // can never drift from the pricing cards, /book and the agreement.
+  const dur = (i: number) => TIERS[i]?.duration[ar ? 1 : 0] ?? "";
   const items = ar
     ? [
         ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
         ["هل الهوية بتكون عربي وإنجليزي؟", "متاح. الباقة المتكاملة تشمل الشعار باللغتين؛ في الباقات الأصغر نؤكد اللغة المطلوبة وتكلفة النسخة الإضافية قبل البدء."],
-        ["كام مدة المشروع؟", `الشعار 5–7 أيام عمل، الهوية 2–3 أسابيع، والنظام المتكامل 4–6 أسابيع، والمتجر الإلكتروني ثنائي اللغة خلال 72 ساعة من استلام المحتوى.`],
+        ["كام مدة المشروع؟", `الشعار ${dur(0)}، الهوية ${dur(1)}، والنظام المتكامل ${dur(2)}، والمتجر الإلكتروني ثنائي اللغة خلال 72 ساعة من استلام المحتوى.`],
         ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
         ["إزاي نبدأ؟", "يمكنك الحجز مباشرة بعربون 50% (أو دفع كامل المبلغ بخصم 10%) وتأكيد الحجز عبر واتساب، أو بدء محادثة سريعة لتحديد النطاق."],
       ]
     : [
         ["Do I need to know exactly what I want?", "No. The first phase exists to understand the problem and establish the right direction before design."],
         ["Can the identity work in Arabic and English?", "Yes. The full system includes Arabic/English lockups. For smaller tiers, the required language and any additional version are confirmed before kickoff."],
-        ["How long does a project take?", "Logo: 5–7 business days. Identity Essentials: 2–3 weeks. Full Brand System: 4–6 weeks. Bilingual Online Store: 72 hours once content is received."],
+        ["How long does a project take?", `Logo: ${dur(0)}. Identity Essentials: ${dur(1)}. Full Brand System: ${dur(2)}. Bilingual Online Store: 72 hours once content is received.`],
         ["What do I receive at the end?", "A complete identity system, final production files, guidelines, and an organized handover based on scope."],
         ["How do we start?", "Book directly with a 50% kickoff deposit (or pay in full with -10%) and confirm on WhatsApp, or reach out first to clarify scope."],
       ];

@@ -195,7 +195,7 @@ export const ALACARTE: readonly AlaCarteGroup[] = [
 export const PROCESS = [
   { n: "01", name: ["Discovery & Research", "الاكتشاف والبحث"], body: ["Brand audit, competitor analysis, color-gap mapping, audience persona, cultural research. The foundation no logo can replace.", "مراجعة البراند، تحليل المنافسين، خريطة فجوات الألوان، بيرسونا الجمهور، والبحث الثقافي — الأساس الذي لا يعوّضه أي شعار."], days: ["Days 1–6", "الأيام 1–6"] },
   { n: "02", name: ["Brand Strategy", "استراتيجية البراند"], body: ["Purpose, positioning, archetype, voice & tone, value proposition. Approved on paper before a single shape is drawn.", "الغاية، التموضع، النموذج، نبرة الصوت، والقيمة الفريدة — تُعتمد كتابيًا قبل رسم أي شكل."], days: ["Days 5–9", "الأيام 5–9"] },
-  { n: "03", name: ["Concept & Design", "المفهوم والتصميم"], body: ["Sketches in dozens, narrowed to 2–3 directions. Logo system, color, typography, brand elements, and key applications.", "عشرات الإسكتشات تُختصر إلى 2–3 اتجاهات: نظام الشعار، الألوان، الخطوط، العناصر، والتطبيقات الأساسية."], days: ["Days 9–27", "الأيام 27–38"] },
+  { n: "03", name: ["Concept & Design", "المفهوم والتصميم"], body: ["Sketches in dozens, narrowed to 2–3 directions. Logo system, color, typography, brand elements, and key applications.", "عشرات الإسكتشات تُختصر إلى 2–3 اتجاهات: نظام الشعار، الألوان، الخطوط، العناصر، والتطبيقات الأساسية."], days: ["Days 9–27", "الأيام 9–27"] },
   { n: "04", name: ["Refine & Deliver", "المراجعة والتسليم"], body: ["Two structured revision rounds, sign-off, final files in every format, brand guidelines PDF, handover call & 30-day support.", "جولتا مراجعة منظمتان، اعتماد نهائي، ملفات بكل الصيغ، دليل هوية PDF، مكالمة تسليم ودعم 30 يومًا."], days: ["Days 27–38", "الأيام 27–38"] },
 ] as const;
 
@@ -216,6 +216,15 @@ export const TERMS_LINE: readonly [string, string] = [
   "How payment works: 50% kickoff for every tier. The balance is due before final files — Tier 1 pays it as one 50% installment, Tiers 2–3 as 25% at strategy sign-off + 25% before delivery. The agreed scope and milestones are confirmed in writing before kickoff.",
   "إزاي بيتم الدفع: 50% مقدّم لكل الفئات. الباقي قبل تسليم الملفات النهائية — الفئة 1 دفعة واحدة 50%، والفئتان 2 و3: 25% عند اعتماد الاستراتيجية + 25% قبل التسليم. بنتفق كتابيًا على النطاق والمراحل قبل البدء.",
 ] as const;
+
+/**
+ * Prices are stored as single English strings ("From $197"). Arabic pages show
+ * the same figure with the Arabic lead-in the rest of the site already uses
+ * ("من $197"); everything else (plain "$14", ranges) passes through untouched.
+ */
+export function localizePrice(price: string, lang: "en" | "ar"): string {
+  return lang === "ar" ? price.replace(/^From\s+/i, "من ") : price;
+}
 
 export interface Store72hProofItem {
   slug: string;

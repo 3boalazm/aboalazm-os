@@ -158,7 +158,7 @@ export function AgreementView({
                 <span>{pick(t.head, lang)}</span>
                 {t.draft ? (
                   <Badge tone="creative" size="sm">
-                    DRAFT
+                    {ar ? "مسودة" : "DRAFT"}
                   </Badge>
                 ) : null}
               </span>

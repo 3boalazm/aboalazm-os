@@ -14,6 +14,7 @@ import {
   alacarteWhatsappHref,
   bookHref,
   DEPOSIT_CTA_LABEL,
+  localizePrice,
   PAYMENT,
   RECOMMENDED_LABEL,
   WHATSAPP_ORDER_CTA_LABEL,
@@ -334,7 +335,7 @@ export function AlaCarteTables({ alaCarte }: { alaCarte: readonly AlaCarteGroup[
                 </span>
                 <div className="flex flex-wrap items-center justify-between gap-3 md:justify-end">
                   <div className="md:text-end">
-                    <span dir="ltr" className="font-geist text-body-sm text-accent">{r.price}</span>
+                    <span dir="ltr" className="font-geist text-body-sm text-accent">{localizePrice(r.price, lang)}</span>
                     <FxSubline
                       usdOrPrice={r.startingUsd ?? r.price}
                       lang={lang}
