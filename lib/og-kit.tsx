@@ -2,6 +2,7 @@ import { readFile } from "fs/promises";
 import path from "path";
 import type { ReactNode, CSSProperties } from "react";
 import { ogFonts } from "@/lib/og";
+import { SITE_HOST } from "@/lib/site";
 
 /**
  * OG KIT — building blocks for the per-page share cards (1200×630).
@@ -229,7 +230,7 @@ export function Shell({ idx, eyebrow, tagAr, title, hot = true, desc, route, chi
           <div style={flex({ alignItems: "center", gap: 14 })}>
             <div style={flex({ width: 28, height: 2, background: C.accent })} />
             <div style={flex({ fontFamily: F_EN, fontSize: 16, letterSpacing: "0.1em", color: C.text2 })}>
-              aboalazm-os.vercel.app{route === "/" ? "" : route}
+              {SITE_HOST}{route === "/" ? "" : route}
             </div>
           </div>
         </div>

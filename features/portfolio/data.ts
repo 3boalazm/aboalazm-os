@@ -1,5 +1,6 @@
 import { GAD_NAME_AR } from "../../lib/client-names";
 import { CONTACT_EMAIL } from "../../lib/contact-details";
+import { SITE_HOST } from "../../lib/site";
 /**
  * PORTFOLIO DATA — the landscape presentation edition (/portfolio).
  * A 16:9 slide deck: cover · index · profile · 5 chapters (divider + frames)
@@ -59,7 +60,7 @@ export const IDENTITY = {
   location: "Al Obour, Egypt",
   version: "V.2026 · EDITION 02",
   links: [
-    { label: "WEBSITE", value: "aboalazm-os.vercel.app" },
+    { label: "WEBSITE", value: SITE_HOST },
     { label: "STUDIO", value: "codeandcanvas.net" },
     { label: "BEHANCE", value: "behance.net/aboalazm" },
     { label: "LINKEDIN", value: "linkedin.com/in/aboalazm" },

@@ -4,6 +4,7 @@ import {
   C, F_EN, F_AR, F_BODY, OG_SIZE, OG_CONTENT_TYPE, Shell, Stage, Pic, Chip, Label,
   flex, col, ogImgs, ogImg, ogFonts,
 } from "@/lib/og-kit";
+import { RESPONSE_PROMISE } from "@/lib/contact-details";
 
 /**
  * PER-PAGE SHARE CARDS — one entry per route. Each route's
@@ -436,7 +437,7 @@ async function vContact() {
       </div>
       <div style={flex({ gap: 10, alignItems: "center" })}>
         <Dot color={C.mint} size={10} />
-        <Label color={C.text2} size={12}>Replies within 2 working days · Cairo time</Label>
+        <Label color={C.text2} size={12}>{RESPONSE_PROMISE.en}</Label>
       </div>
     </Stage>
   );
@@ -685,7 +686,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
   contact: {
     idx: "12", eyebrow: "Contact", tagAr: "تواصل معي", route: "/contact",
     title: ["Let's", "talk."],
-    desc: "Email, WhatsApp, LinkedIn or Behance — or send a brief. Replies within two working days.",
+    desc: `Email, WhatsApp, LinkedIn or Behance — or send a brief. ${RESPONSE_PROMISE.en}`,
     alt: "Contact — start the conversation", visual: vContact,
   },
   capabilities: {

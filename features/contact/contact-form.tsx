@@ -12,7 +12,7 @@ import { SERVICES, PACKAGES, parseContactContext, type ContactContext } from "@/
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
-import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "@/lib/contact-details";
+import { CONTACT_EMAIL, CONTACT_EMAIL_HREF, RESPONSE_PROMISE } from "@/lib/contact-details";
 import { submitContact } from "./actions";
 import { canSubmitContact, type ContactSubmissionStatus } from "./submission-state";
 import { BRIEF_MAX, COMPANY_MAX, EMAIL_MAX, EMAIL_RE, NAME_MAX, TIMELINE_MAX } from "./validate";
@@ -150,7 +150,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               className={`font-mono text-micro uppercase tracking-[0.10em] outline-none ${notificationStatus === "sent" ? "text-success" : "text-accent"}`}
             >
               {notificationStatus === "sent"
-                ? ar ? "وصلت. هرد بالإيميل خلال يومي عمل." : "RECEIVED. REPLY BY EMAIL WITHIN TWO WORKING DAYS."
+                ? ar ? `وصلت. ${RESPONSE_PROMISE.ar}` : `RECEIVED. ${RESPONSE_PROMISE.en}`
                 : notificationStatus === "unconfigured"
                   ? ar ? "تم حفظ الطلب، لكن تنبيه الإيميل غير مُعدّ حاليًا." : "SAVED, BUT EMAIL ALERTS ARE NOT CONFIGURED."
                   : ar ? "تم حفظ الطلب، لكن فشل إرسال تنبيه الإيميل." : "SAVED, BUT THE EMAIL ALERT FAILED."}
@@ -339,7 +339,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               )}
             </div>
             <p className="text-center text-caption text-text-tertiary">
-              {ar ? "أرد بالإيميل خلال يومي عمل. بياناتك تُستخدم للرد على طلبك فقط." : "I reply by email within two working days. Your details are used to respond to your enquiry only."}
+              {ar ? `${RESPONSE_PROMISE.ar} بياناتك تُستخدم للرد على طلبك فقط.` : `${RESPONSE_PROMISE.en} Your details are used to respond to your enquiry only.`}
             </p>
           </motion.form>
         ) : null}

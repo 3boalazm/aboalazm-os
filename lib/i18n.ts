@@ -3,6 +3,8 @@
  * Usage: const t = useT();  →  {t.key}
  */
 
+import { RESPONSE_PROMISE } from "./contact-details";
+
 export const UI = {
   en: {
     /* ── Case Study Panels ── */
@@ -110,7 +112,7 @@ export const UI = {
     formTimeline:       "TIMELINE",
     formBudget:         "BUDGET BAND",
     formBegin:          "Start a project",
-    formReplies:        "I'll reply by email within two working days — usually sooner.",
+    formReplies:        RESPONSE_PROMISE.en,
     formPlaceholderName:    "Your name",
     formPlaceholderEmail:   "you@company.com",
     formPlaceholderCompany: "Company or project",
@@ -254,7 +256,7 @@ export const UI = {
     formTimeline:       "الجدول الزمني",
     formBudget:         "نطاق الميزانية",
     formBegin:          "ابدأ مشروعًا",
-    formReplies:        "هرد بالإيميل خلال يومي عمل — وغالبًا أسرع.",
+    formReplies:        RESPONSE_PROMISE.ar,
     formPlaceholderName:    "اسمك",
     formPlaceholderEmail:   "بريدك@الشركة.com",
     formPlaceholderCompany: "الشركة أو المشروع",

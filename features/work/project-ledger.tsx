@@ -167,23 +167,27 @@ function LedgerRow({
   /* No-404 rule: rows without a written case file open a fallback link
      in a new tab — the project's externalUrl if set (e.g. a live dev
      site), otherwise the Behance portfolio (design default). */
-  const internal = project.hasCaseStudy;
-  const href = internal
+  const internal = project.hasCaseStudy || Boolean(project.isDemo);
+  const href = project.hasCaseStudy
     ? `/case-studies/${project.slug}`
-    : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
+    : project.isDemo
+      ? "/contact?service=digital-product&source=/work/development"
+      : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
   /* Match the label to the actual URL, including local live showcases
      that have no externalUrl. */
-  const destination = internal
+  const destination = project.hasCaseStudy
     ? project.overviewOnly ? (ar ? "عرض المشروع" : "Project overview") : (ar ? "دراسة حالة" : "Case Study")
-    : project.liveUrl
-      ? ar ? "منتج حي" : "Live Product"
-      : project.externalUrl === BEHANCE
-        ? ar ? "بورتفوليو خارجي" : "External Portfolio"
-        : project.externalUrl && project.category === "development"
-          ? ar ? "منتج حي" : "Live Product"
-          : project.externalUrl
-            ? ar ? "رابط خارجي" : "External Link"
-            : ar ? "بورتفوليو خارجي" : "External Portfolio";
+    : project.isDemo
+      ? ar ? "Demo · عرض تجريبي" : "Demo"
+      : project.liveUrl
+        ? ar ? "منتج حي" : "Live Product"
+        : project.externalUrl === BEHANCE
+          ? ar ? "بورتفوليو خارجي" : "External Portfolio"
+          : project.externalUrl && project.category === "development"
+            ? ar ? "منتج حي" : "Live Product"
+            : project.externalUrl
+              ? ar ? "رابط خارجي" : "External Link"
+              : ar ? "بورتفوليو خارجي" : "External Portfolio";
 
   return (
     <motion.li variants={reveal.item}>
@@ -226,6 +230,9 @@ function LedgerRow({
             </span>
             {project.status === "in-progress" ? (
               <Badge tone="creative" size="sm">{ar ? "قيد التنفيذ" : "In progress"}</Badge>
+            ) : null}
+            {project.isDemo ? (
+              <Badge tone="creative" size="sm">{ar ? "Demo · عرض تجريبي" : "Demo"}</Badge>
             ) : null}
           </span>
           {/* Mobile-only: discipline shown inline since the desktop column is hidden below md */}

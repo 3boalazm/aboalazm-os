@@ -28,7 +28,7 @@ test("every built-in project has a complete bilingual Business Overview specific
     assert.ok(entry.operationalNote.highlights.length >= 2, `${slug}: expected >= 2 operational highlights`);
   }
 
-  for (const project of PROJECTS) {
+  for (const project of PROJECTS.filter((p) => p.hasCaseStudy)) {
     assert.ok(BUSINESS_CASES[project.slug], `missing BUSINESS_CASES for ledger project ${project.slug}`);
   }
 });

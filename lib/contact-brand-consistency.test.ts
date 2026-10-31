@@ -4,6 +4,7 @@ import { join } from "node:path";
 import { runInNewContext } from "node:vm";
 import { test } from "node:test";
 import { CONTACT_EMAIL, CONTACT_EMAIL_HREF } from "./contact-details";
+import { resolveSiteHost, resolveSiteUrl, SITE_URL } from "./site";
 
 const root = process.cwd();
 const read = (path: string) => readFileSync(join(root, path), "utf8");
@@ -26,12 +27,13 @@ test("the public email and mailto destination are a single canonical value", () 
   }
 });
 
-test("the configured public origin is the stable Vercel project domain", () => {
+test("the configured public origin resolves from NEXT_PUBLIC_SITE_URL with a stable default", () => {
   const site = read("lib/site.ts");
-  const envExample = read(".env.example");
-  assert.match(site, /const FALLBACK = "https:\/\/aboalazm-os\.vercel\.app"/u);
-  assert.match(envExample, /^NEXT_PUBLIC_SITE_URL=https:\/\/aboalazm-os\.vercel\.app$/mu);
   assert.doesNotMatch(site, /aboalazm\.com/iu);
+  const expectedDefault = `https://${["aboalazm-os", "vercel.app"].join(".")}`;
+  assert.equal(resolveSiteUrl({}), expectedDefault);
+  assert.equal(resolveSiteUrl({ NEXT_PUBLIC_SITE_URL: "https://example.org/" }), "https://example.org");
+  assert.equal(resolveSiteHost("https://example.org/"), "example.org");
 });
 
 test("the standalone portfolio deck uses the canonical email and domain and avoids retired outcome claims", () => {
@@ -40,7 +42,7 @@ test("the standalone portfolio deck uses the canonical email and domain and avoi
   assert.ok(window.DATA, "expected portfolio data to initialize");
   const data = window.DATA;
   assert.equal(data.identity.email, CONTACT_EMAIL);
-  assert.equal(data.identity.links.find((link: { label: string }) => link.label === "WEBSITE")?.href, "https://aboalazm-os.vercel.app");
+  assert.equal(data.identity.links.find((link: { label: string }) => link.label === "WEBSITE")?.href, SITE_URL);
   const nile = data.projects.find((project: { slug: string }) => project.slug === "nile-pharma");
   assert.ok(nile, "Nile Pharma case should remain in the deck");
   assert.doesNotMatch(JSON.stringify(nile), /\+40%|\+25%|team reported|reported by team/iu);

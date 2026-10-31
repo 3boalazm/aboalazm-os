@@ -1,16 +1,31 @@
 "use client";
 
+import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
-import type { Bi, Tier, AlaCarteGroup } from "@/lib/offers";
-import { SectionHead, TierGrid, TierCompare, AlaCarteTables, PaymentBlock, Faq, CtaBand } from "@/features/offers/offer-blocks";
+import {
+  bookHref,
+  DEPOSIT_CTA_LABEL,
+  type AlaCarteGroup,
+  type Bi,
+  type Tier,
+} from "@/lib/offers";
+import { BOOKING_CTA_LABEL, BOOKING_URL } from "@/lib/contact-details";
+import {
+  SectionHead,
+  TierGrid,
+  TierCompare,
+  AlaCarteTables,
+  PaymentBlock,
+  Faq,
+  CtaBand,
+} from "@/features/offers/offer-blocks";
 import { InvestmentValue } from "@/features/offers/investment-value";
+import { buttonVariants } from "@/components/ui/Button";
+import { FxSubline } from "@/components/ui/fx-price";
 import { Heading } from "@/components/ui/Heading";
+import { SocialProof } from "@/components/shared/social-proof";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 
-/* Route mood — pricing is the decision surface, so the atmosphere stays
-   restrained: the brand orange carries the recommendation, and proof/lime
-   only warms the far edge. This is the resting floor the tiers sit on;
-   it is deliberately the quietest of the four audited routes. */
 const PRICING_MOOD = {
   primary: "rgb(255 107 71 / 0.10)",
   secondary: "rgb(163 230 53 / 0.05)",
@@ -21,7 +36,7 @@ const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["What if my project doesn't fit a tier exactly?", "ماذا لو لم يناسب مشروعي فئة بعينها؟"], a: ["Most don't — tiers are starting templates. After the Discovery Call, you get a custom proposal that adds, removes, or adjusts items to your actual needs.", "أغلب المشاريع كذلك — الفئات قوالب بداية. بعد مكالمة الاكتشاف يصلك عرض مخصص يضيف أو يحذف أو يعدّل البنود حسب احتياجك الفعلي."] },
   { q: ["Can I upgrade tiers during the project?", "هل يمكن الترقية أثناء المشروع؟"], a: ["Yes — I quote the upgrade delta and adjust the timeline. No re-doing finished work.", "نعم — أسعّر فرق الترقية ونعدّل الجدول، دون إعادة أي عمل منجز."] },
   { q: ["Is there a discount for full prepayment?", "هل يوجد خصم للدفع الكامل مقدمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم — خصم 10% من إجمالي الفاتورة عند الدفع الكامل مقدمًا عند البدء."] },
-  { q: ["Do you work with international clients? What currency?", "العملاء الدوليون؟ وبأي عملة؟"], a: ["Yes, frequently. Quoted in USD by default; paid via Wise, PayPal, or international transfer. EGP equivalent for Egyptian clients on request.", "نعم باستمرار. التسعير بالدولار افتراضيًا، والدفع عبر Wise أو PayPal أو تحويل دولي — والمعادل بالجنيه متاح للعملاء المصريين."] },
+  { q: ["Do you work with international clients? What currency?", "العملاء الدوليون؟ وبأي عملة؟"], a: ["Yes, frequently across Egypt, Saudi Arabia, UAE, Qatar, and worldwide. Quoted in USD with EGP and SAR equivalents shown alongside; paid via InstaPay, Vodafone Cash, Wise, PayPal, or bank transfer.", "نعم باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. التسعير بالدولار مع عرض المعادل بالجنيه المصري (EGP) والريال السعودي (SAR)، والدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي."] },
   { q: ["What about revisions beyond the included rounds?", "ماذا عن التعديلات بعد الجولات المشمولة؟"], a: ["Each tier includes 2 structured rounds; additional revisions are billed hourly and logged in writing.", "كل فئة تشمل جولتين منظمتين، وما بعدهما يُحاسب بالساعة ويوثَّق كتابيًا."] },
   { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "ملفات المصدر النهائية تُسلَّم مع كل فئة بعد سداد الدفعة الأخيرة — وهي لحظة انتقال الملكية."] },
 ];
@@ -58,11 +73,53 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
               : "Three tiers from logo to full system, plus à la carte services for stand-alone work. Pricing varies with scope — and that's stated upfront."
           }
         />
+
+        <div className="flex flex-wrap items-center gap-2.5">
+          <Link
+            href={bookHref("brand-identity")}
+            className={buttonVariants({
+              variant: "primary",
+              className:
+                "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
+            })}
+          >
+            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+          </Link>
+          <Link
+            href="/services/store-72h"
+            className={buttonVariants({
+              variant: "ghost",
+              className:
+                "inline-flex items-center gap-1.5 border border-border-default px-3.5 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary hover:text-text-primary",
+            })}
+          >
+            {ar
+              ? "متجر ثنائي اللغة خلال 72 ساعة (من $197) →"
+              : "72-Hour Bilingual Store (From $197) →"}
+          </Link>
+          {BOOKING_URL ? (
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-booking-click="true"
+              className="font-mono text-micro text-accent underline underline-offset-4"
+            >
+              {ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} ↗
+            </a>
+          ) : null}
+        </div>
+
         <dl className="grid grid-cols-3 gap-2 border-y border-border-subtle py-2">
           {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["À LA CARTE ITEMS", "خدمات منفردة", "15+"]] as const).map(([en, arr, v]) => (
             <div key={en}>
               <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? arr : en}</dt>
               <dd className="font-display text-title text-text-primary">{v}</dd>
+              {en === "STARTS AT" ? (
+                <dd>
+                  <FxSubline usdOrPrice={199} lang={lang} showValidity={false} compact />
+                </dd>
+              ) : null}
             </div>
           ))}
         </dl>
@@ -82,7 +139,6 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         </p>
       </section>
 
-      {/* Investment value — reframes price as an asset (systemic positioning) */}
       <section className="rounded-panel border border-border-subtle bg-surface-1/30 p-4 md:p-5">
         <InvestmentValue />
       </section>
@@ -91,17 +147,12 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         <SectionHead label={["02 / PRODUCTION MENU", "02 / قائمة الإنتاج"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar
-            ? "قائمة إنتاج منفصلة عن استثمار نظام الهوية. لمشاريع لا تحتاج فئة كاملة — أو لعملاء حاليين يحتاجون تطبيقات إضافية."
-            : "A production menu, separate from brand-system investment. For projects that don't need a full tier — or for existing clients needing additional applications."}
+            ? "قائمة إنتاج منفصلة عن استثمار نظام الهوية: باقات تطوير المواقع والريتينر الشهري (تُحجز بعربون)، والمطبوعات والسوشيال المفردة (تُطلب مباشرة عبر واتساب)."
+            : "Production menu across web packages and monthly retainers (bookable with a deposit) and individual print/social items (ordered directly on WhatsApp)."}
         </p>
-        <details className="group rounded-card border border-border-subtle bg-surface-1/40 p-3">
-          <summary className="cursor-pointer font-mono text-label uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
-            {ar ? "فتح قائمة الخدمات المنفردة (15+ بند)" : "Open the à la carte list (15+ items)"}
-          </summary>
-          <div className="mt-3">
-            <AlaCarteTables alaCarte={alaCarte} />
-          </div>
-        </details>
+        <div className="rounded-card border border-border-subtle bg-surface-1/40 p-3">
+          <AlaCarteTables alaCarte={alaCarte} />
+        </div>
       </section>
 
       <section className="flex flex-col gap-3">
@@ -109,12 +160,22 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         <PaymentBlock />
       </section>
 
+      <SocialProof />
+
       <section className="flex flex-col gap-3">
         <SectionHead label={["04 / PRICING FAQ", "04 / أسئلة التسعير"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
         <Faq items={FAQ} />
       </section>
 
-      <CtaBand kicker={["HAVE A PROJECT IN MIND?", "عندك مشروع؟"]} title={["Let's", "خلّينا"]} italic={["scope it.", "نحدد نطاقه."]} primary={["Start a Project", "ابدأ مشروعًا"]} primaryHref="/contact" secondary={["Read Full Agreement", "اقرأ الاتفاقية"]} secondaryHref="/agreement" />
+      <CtaBand
+        kicker={["HAVE A PROJECT IN MIND?", "عندك مشروع؟"]}
+        title={["Let's", "خلّينا"]}
+        italic={["scope it.", "نحدد نطاقه."]}
+        primary={DEPOSIT_CTA_LABEL}
+        primaryHref={bookHref("brand-identity")}
+        secondary={["Read Full Agreement", "اقرأ الاتفاقية"]}
+        secondaryHref="/agreement"
+      />
     </main>
   );
 }
