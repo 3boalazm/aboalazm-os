@@ -226,8 +226,8 @@ export function CodeCanvasDevCaseStudy() {
       handoff={{
         title: "A studio site that can prove its own claims.",
         titleAr: "موقع استوديو يقدر يثبت ادعاءاته.",
-        note: "Open in the repo: the owner-controlled publication gates — real screenshots for Pharmacy OS, Zad and Nile Pharma ERP, plus permission before any of them becomes case evidence.",
-        noteAr: "مفتوح في الريبو: بوابات النشر اللي بيملكها المالك — سكرين شوتس حقيقية لـPharmacy OS وZad ونايل فارما ERP، وإذن قبل ما أي واحدة تبقى دليل.",
+        note: "Open in the repo: the owner-controlled publication gates — real screenshots for Pharmacy OS and Zad, plus permission before any of them becomes case evidence.",
+        noteAr: "مفتوح في الريبو: بوابات النشر اللي بيملكها المالك — سكرين شوتس حقيقية لـPharmacy OS وZad، وإذن قبل ما أي واحدة تبقى دليل.",
       }}
     />
   );
