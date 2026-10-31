@@ -384,6 +384,7 @@ export function HomeFaq() {
 export function HomeCta() {
   return (
     <CtaBand
+      variant="editorial"
       kicker={["LET'S BUILD SOMETHING", "يلّا نبني حاجة"]}
       title={["Have a brand to", "عندك براند"]}
       italic={["shape?", "عايز يتشكّل؟"]}

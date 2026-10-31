@@ -6,7 +6,9 @@
  */
 import Link from "@/components/ui/localized-link";
 import { contactHref, tierId } from "@/lib/contact-context";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useLang } from "@/components/providers/lang-provider";
 import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
 import { buttonVariants } from "@/components/ui/Button";
@@ -326,13 +328,25 @@ export function Faq({ items }: { items: readonly { q: Bi; a: Bi }[] }) {
 
 /* ── CTA band (old-site style serif moment) ── */
 export function CtaBand({
-  kicker, title, italic, primary, primaryHref, secondary, secondaryHref,
+  kicker, title, italic, primary, primaryHref, secondary, secondaryHref, variant = "default",
 }: {
   kicker: Bi; title: Bi; italic: Bi;
   primary: Bi; primaryHref: string;
   secondary: Bi; secondaryHref: string;
+  /** "editorial" = the duotone picture panel (Home's closing CTA). It brings its own container. */
+  variant?: "default" | "editorial";
 }) {
   const { lang } = useLang();
+  if (variant === "editorial") {
+    return (
+      <CtaBandEditorial
+        kicker={kicker} title={title} italic={italic}
+        primary={primary} primaryHref={primaryHref}
+        secondary={secondary} secondaryHref={secondaryHref}
+        lang={lang}
+      />
+    );
+  }
   return (
     <section className="flex flex-col items-center gap-3 border-t border-border-subtle py-6 text-center">
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -352,5 +366,90 @@ export function CtaBand({
         </Link>
       </div>
     </section>
+  );
+}
+
+/* ── Editorial variant — the duotone picture panel ──
+   Styled by .cta-editorial in globals.css; the picture is baked by
+   scripts/bake-duotone.mjs. The primary pill flips to alabaster here because
+   the accent would vanish against its own duotone (`ghost` carries no colour
+   defaults, so this surface supplies its own). It brings its own container —
+   do not nest it inside another one. */
+function CtaBandEditorial({
+  kicker, title, italic, primary, primaryHref, secondary, secondaryHref, lang,
+}: {
+  kicker: Bi; title: Bi; italic: Bi;
+  primary: Bi; primaryHref: string;
+  secondary: Bi; secondaryHref: string;
+  lang: "en" | "ar";
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const [seen, setSeen] = useState(false);
+
+  // The picture eases in from 1.08× once the panel is on screen. Without
+  // IntersectionObserver it simply stays settled.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setSeen(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setSeen(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div className="container-wide">
+      <section ref={ref} data-seen={seen} className="cta-editorial">
+        <Image
+          src="/images/cta/closing-duotone-npf.jpg"
+          alt=""
+          fill
+          sizes="(min-width: 1440px) 1392px, calc(100vw - 48px)"
+          className="cta-editorial__img"
+        />
+        <span aria-hidden="true" className="cta-editorial__shade" />
+        <span aria-hidden="true" className="cta-editorial__grain" />
+        <div className="cta-editorial__content">
+          <p className="cta-editorial__kicker">— {pick(kicker, lang)} —</p>
+          <p className="cta-editorial__title">
+            {pick(title, lang)} <em>{pick(italic, lang)}</em>
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <Link
+              href={primaryHref}
+              className={buttonVariants({
+                variant: "ghost",
+                className:
+                  "inline-flex items-center gap-1.5 bg-alabaster px-3 py-1.5 font-mono text-label tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5",
+              })}
+            >
+              {pick(primary, lang)}
+              <Icon name="sparkle" size="0.9em" />
+            </Link>
+            <Link
+              href={secondaryHref}
+              className={buttonVariants({
+                variant: "ghost",
+                className:
+                  "inline-flex items-center gap-1.5 border border-alabaster/25 bg-alabaster/10 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-alabaster backdrop-blur-md transition-colors duration-base ease-physics hover:bg-alabaster/20",
+              })}
+            >
+              {pick(secondary, lang)}
+              <Icon name="arrow-right" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
