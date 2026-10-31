@@ -184,6 +184,12 @@
   --font-arabic:  "IBM Plex Sans Arabic", system-ui, sans-serif;
   /* Thmanyah Serif Display — Arabic heading voice */
   --font-thmanyah: "Thmanyah Serif Display", "IBM Plex Sans Arabic", sans-serif;
+  /* Instrument Serif — EN editorial voice. The quiet counterpart to GC EPICPRO:
+     one light weight + its true italic, for a statement that should sound like
+     a person rather than a system (the Home closing CTA today). Authority
+     (H1s, numbers, project titles) stays GC EPICPRO. RTL swaps this to
+     Thmanyah below, exactly as it does --font-display. */
+  --font-editorial: "Instrument Serif", Georgia, "Times New Roman", serif;
 
   /* ══════════ FLUID EDITORIAL SCALE ══════════
      11 steps, each shipping its own line-height (+ tracking where the
@@ -553,6 +559,23 @@ html[data-theme="light"] {
   font-weight: 900; font-style: normal; font-display: swap;
 }
 
+/* ── Instrument Serif (self-hosted, EN editorial voice) ───
+   Regular + its true italic, latin only (SIL OFL — /fonts/instrument-serif-OFL.txt).
+   Loaded only when a glyph in it is on the page; the Home closing CTA is the
+   one user today. */
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/instrument-serif-latin-400-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
 /* ── Montserrat (self-hosted, EN body voice) ───
    Subsets are split by unicode-range in Google's order (latin-ext before
    latin: where ranges overlap, the later face wins). Kept: latin + latin-ext
@@ -762,6 +785,8 @@ html[data-theme="light"] {
   [dir="rtl"] {
     /* Swap display font → Thmanyah Serif Display */
     --font-display: var(--font-thmanyah);
+    /* …and the editorial voice: Arabic has no italic, so it is one face */
+    --font-editorial: var(--font-thmanyah);
     /* Swap body font → IBM Plex Sans Arabic */
     --font-sans: var(--font-arabic);
   }
@@ -2510,6 +2535,185 @@ html {
 :focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 4px;
+}
+
+/* ═══════════════ EDITORIAL CLOSING CTA — "the quiet room" ═══════════════
+   Home's last beat (<CtaBand variant="editorial"> in features/offers). One
+   picture pushed through a one-hue duotone whose brightest stop IS the studio
+   accent (baked by scripts/bake-duotone.mjs — no runtime filter, so Safari and
+   low-end phones pay nothing), one light serif line with a single italic word,
+   and light pills: the accent would vanish against its own duotone, so the
+   primary CTA flips to alabaster on this surface only. Always dark, in both
+   themes (like StatementBand) — every colour below is a fixed primitive, never
+   a theme-flipping text/border token. */
+.cta-editorial {
+  --duo-shadow: #0b0201; /* first duotone stop — keep in sync with scripts/bake-duotone.mjs */
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  min-height: clamp(32.5rem, 60vw, 47.5rem);
+  padding: calc(var(--spacing) * 12) calc(var(--spacing) * 3);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-panel);
+  background: var(--duo-shadow); /* no flash while the picture loads */
+  color: var(--color-alabaster);
+}
+.cta-editorial__img {
+  z-index: -3;
+  object-fit: cover;
+  /* Framing: the crop's right edge, nudged up so the bright ribbon tab clears
+     the headline instead of sitting behind it. */
+  object-position: 100% 36%;
+  transform: scale(1.08);
+  transition: transform 2.6s var(--ease-physics); /* the studio's long settle */
+}
+.cta-editorial[data-seen="true"] .cta-editorial__img {
+  transform: none;
+}
+/* Legibility: a soft vignette plus a top and bottom fade into obsidian */
+.cta-editorial__shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(75% 65% at 50% 46%, rgb(8 7 16 / 0.22) 0%, rgb(8 7 16 / 0.58) 100%),
+    linear-gradient(180deg, rgb(8 7 16 / 0.45) 0%, rgb(8 7 16 / 0) 28%, rgb(8 7 16 / 0) 56%, rgb(8 7 16 / 0.72) 100%);
+}
+/* Film grain — gray noise, overlay-blended so it both lifts and sinks tone */
+.cta-editorial__grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.cta-editorial__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spacing) * 4);
+  text-align: center;
+}
+.cta-editorial__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-alabaster) 88%, transparent);
+  text-shadow: 0 1px 14px rgb(8 7 16 / 0.7); /* holds up when the ribbon tab passes behind it */
+}
+/* The unified response promise (lib/contact-details.ts) — same line the plain
+   band shows, in fixed alabaster because the panel is always dark. */
+.cta-editorial__promise {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: color-mix(in srgb, var(--color-alabaster) 72%, transparent);
+  text-shadow: 0 1px 14px rgb(8 7 16 / 0.7);
+}
+/* The editorial display — the quiet voice's headline, shared by the quiet-room
+   bands (StatementBand, this closing CTA). Each band adds its own shadow/colour. */
+.editorial-display {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  font-size: var(--text-hero);
+  line-height: var(--text-hero--line-height);
+  letter-spacing: var(--text-hero--letter-spacing);
+  text-wrap: balance;
+}
+.editorial-display em {
+  font-style: italic; /* a true italic — Instrument Serif ships one */
+}
+/* Arabic: Thmanyah Light for the line, Bold for the emphasis. A slanted Arabic
+   word is never correct, so the contrast is weight, not slant. */
+[dir="rtl"] .editorial-display {
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+[dir="rtl"] .editorial-display em {
+  font-style: normal;
+  font-weight: 700;
+}
+.cta-editorial__title {
+  text-shadow: 0 2px 44px rgb(8 7 16 / 0.55);
+}
+/* The global focus ring is the accent — it disappears on the accent duotone */
+.cta-editorial a:focus-visible {
+  outline: 2px solid var(--color-alabaster);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-editorial__img {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ═══════════════ STATEMENT BAND — the manifesto in the quiet voice ═══════════════
+   The closing CTA's language without the picture: an obsidian room with a
+   whisper of dot grid, the editorial display at hero scale with one accent
+   phrase, and a paragraph whose words light up as it scrolls through
+   (components/ui/scrub-text.tsx). Always dark in both themes, so every colour
+   is a fixed primitive — never a theme-flipping token. */
+.statement-editorial {
+  /* Pin the dark-theme accent: this band is always dark, and light mode's deeper
+     accent text (a contrast fix for Alabaster; `.text-accent` reads
+     --color-accent-text there) turns the italic phrase muddy on obsidian.
+     Same value as --color-accent in @theme. */
+  --color-accent: #ff6b47;
+  --color-accent-text: #ff6b47;
+  background-color: var(--color-obsidian);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-alabaster) 7%, transparent) 1px, transparent 1.4px);
+  background-size: 24px 24px;
+  color: var(--color-alabaster);
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+.statement-editorial__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spacing) * 4);
+  text-align: center;
+}
+.statement-editorial__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-alabaster) 60%, transparent);
+}
+.statement-editorial__title {
+  text-shadow: 0 0 48px color-mix(in srgb, var(--color-alabaster) 12%, transparent);
+}
+.statement-editorial__lead {
+  max-width: 32ch;
+  margin-top: calc(var(--spacing) * 3);
+  font-family: var(--font-editorial);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+[dir="rtl"] .statement-editorial__lead {
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+/* Scrub text: one word, one --p (0 → 1, written by ScrubText). The 0.48 floor
+   keeps the unlit paragraph above AA contrast for any text size (≈4.9:1 on
+   obsidian), so a contrast scan taken before the visitor scrolls still passes.
+   With no JS, --p stays 1. */
+.scrub__w {
+  opacity: calc(var(--scrub-floor, 0.48) + (1 - var(--scrub-floor, 0.48)) * var(--p, 1));
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrub__w {
+    opacity: 1;
+  }
 }
 
 .narrative-section {

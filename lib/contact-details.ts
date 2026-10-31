@@ -28,7 +28,10 @@ export const RESPONSE_PROMISE_BI: readonly [string, string] = [
  * Hidden across the UI when unset.
  */
 export function getBookingUrl(): string {
-  return process.env.NEXT_PUBLIC_BOOKING_URL?.trim() || "";
+  const url = process.env.NEXT_PUBLIC_BOOKING_URL?.trim() || "";
+  // Owner-set, but it becomes the href of every booking link: https only (a bare
+  // "cal.com/x" would turn into a relative link, "javascript:" into a script).
+  return /^https:\/\//i.test(url) ? url : "";
 }
 
 export const BOOKING_URL = getBookingUrl();
@@ -53,7 +56,18 @@ export interface ConfiguredPaymentMethod {
  * Never invents payment details: returns only methods whose env var is set.
  */
 export function getConfiguredPaymentMethods(envOverride?: Record<string, string | undefined>): ConfiguredPaymentMethod[] {
-  const env = envOverride ?? process.env;
+  // Literal `process.env.NEXT_PUBLIC_*` reads: Next inlines only those into the
+  // client bundle, and /book calls this from a "use client" component. Reading
+  // through an alias (`const env = process.env`) left the browser with an empty
+  // env, so SSR drew the payment cards and hydration then replaced them with the
+  // WhatsApp fallback — exactly when the owner had configured them.
+  const env: Record<string, string | undefined> = envOverride ?? {
+    NEXT_PUBLIC_WALLET_HOLDER_NAME: process.env.NEXT_PUBLIC_WALLET_HOLDER_NAME,
+    NEXT_PUBLIC_VODAFONE_CASH_NUMBER: process.env.NEXT_PUBLIC_VODAFONE_CASH_NUMBER,
+    NEXT_PUBLIC_INSTAPAY_ADDRESS: process.env.NEXT_PUBLIC_INSTAPAY_ADDRESS,
+    NEXT_PUBLIC_PAYPAL_ME: process.env.NEXT_PUBLIC_PAYPAL_ME,
+    NEXT_PUBLIC_PAYMOB_LINK: process.env.NEXT_PUBLIC_PAYMOB_LINK,
+  };
   const holderName = env.NEXT_PUBLIC_WALLET_HOLDER_NAME?.trim() || undefined;
   const vodafone = env.NEXT_PUBLIC_VODAFONE_CASH_NUMBER?.trim() || "";
   const instapay = env.NEXT_PUBLIC_INSTAPAY_ADDRESS?.trim() || "";
@@ -99,7 +113,7 @@ export function getConfiguredPaymentMethods(envOverride?: Record<string, string 
       badge: ["International · USD", "دولي · USD"],
       value: paypal,
       ...(holderName ? { holderName } : {}),
-      isExternalLink: /^https?:\/\//i.test(paypal),
+      isExternalLink: /^https:\/\//i.test(paypal),
       hint: [
         "Send in USD with your booking reference in the payment note.",
         "أرسل بالدولار (USD) مع إضافة رقم المرجع في ملاحظة الدفع.",
@@ -114,7 +128,7 @@ export function getConfiguredPaymentMethods(envOverride?: Record<string, string 
       badge: ["Card · EGP / SAR / USD", "بطاقة · EGP / SAR / USD"],
       value: paymob,
       ...(holderName ? { holderName } : {}),
-      isExternalLink: /^https?:\/\//i.test(paymob),
+      isExternalLink: /^https:\/\//i.test(paymob),
       hint: [
         "Pay via the secure Paymob checkout link and share the transaction ID on WhatsApp.",
         "ادفع عبر رابط Paymob الآمن وشارك رقم العملية عبر واتساب.",

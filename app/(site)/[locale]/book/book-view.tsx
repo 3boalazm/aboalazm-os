@@ -9,6 +9,7 @@ import { PanelCard } from "@/components/ui/PanelCard";
 import { FxSubline } from "@/components/ui/fx-price";
 import {
   BOOKABLE_PLANS,
+  localizePrice,
   PAYMENT,
   STORE_72H_OFFER,
   type PlanId,
@@ -183,7 +184,7 @@ export function BookView({
                   {BOOKABLE_PLANS.map((item) => (
                     <option key={item.id} value={item.id}>
                       {ar
-                        ? `${item.name[1]} (${item.priceDisplay})`
+                        ? `${item.name[1]} (${localizePrice(item.priceDisplay, "ar")})`
                         : `${item.name[0]} (${item.priceDisplay})`}
                     </option>
                   ))}
@@ -226,7 +227,7 @@ export function BookView({
               <span>
                 {ar ? "سعر الباقة:" : "Published price:"}{" "}
                 <strong dir="ltr" className="text-text-primary">
-                  {plan.priceDisplay}
+                  {localizePrice(plan.priceDisplay, lang)}
                 </strong>
               </span>
             </div>

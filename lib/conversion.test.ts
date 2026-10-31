@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { middleware } from "@/middleware";
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { validateContact, BRIEF_MAX, MESSAGE_MAX } from "@/features/contact/validate";
 import { parseContactContext, contactHref, contextSummary } from "./contact-context";
 import { deliverContact } from "./contact-delivery";
@@ -14,8 +16,8 @@ import { PROJECTS } from "@/features/work/projects.data";
 import { canSubmitContact } from "@/features/contact/submission-state";
 import { formatFxForUsd, roundEgp, roundSar } from "./fx";
 import { computeBookingQuote, generateBookingReference, isValidBookingReference } from "./booking";
-import { getConfiguredPaymentMethods, RESPONSE_PROMISE } from "./contact-details";
-import { AGREEMENT_TERMS, STORE_72H_OFFER, TIERS } from "./offers";
+import { getBookingUrl, getConfiguredPaymentMethods, RESPONSE_PROMISE } from "./contact-details";
+import { AGREEMENT_TERMS, localizePrice, PROCESS, STORE_72H_OFFER, TIERS } from "./offers";
 import { CLIENTS, getPermittedClients } from "@/content/clients";
 import { TESTIMONIALS, getPermittedTestimonials } from "@/content/testimonials";
 
@@ -236,5 +238,60 @@ test("single source of truth for Recommended badge, 72h store, response promise,
   assert.ok(entries.some((e) => new URL(e.url).pathname === "/ar/services/store-72h"));
   assert.ok(entries.some((e) => new URL(e.url).pathname === "/book"));
   assert.ok(entries.some((e) => new URL(e.url).pathname === "/ar/book"));
+});
+
+test("NEXT_PUBLIC env is read through literal process.env.NAME in modules that reach client bundles", () => {
+  // Next inlines only literal `process.env.NEXT_PUBLIC_*` into client code. Through an
+  // alias (`const env = process.env`, or `env = process.env` as a default parameter) the
+  // browser sees an empty env: /book lost its payment cards on hydration and client
+  // components fell back to the default host, exactly when the owner had set the vars.
+  for (const file of ["contact-details.ts", "site.ts", "fx.ts"]) {
+    const code = readFileSync(path.join(process.cwd(), "lib", file), "utf8")
+      .replace(/\/\*[\s\S]*?\*\//g, "")
+      .replace(/^\s*\/\/.*$/gm, "");
+    assert.equal(
+      code.match(/\bprocess\.env\b(?!\.[A-Z][A-Z0-9_]*)/g),
+      null,
+      `${file} reads process.env without a literal NAME, so Next would not inline it`,
+    );
+  }
+});
+
+test("Arabic pages localise the 'From' price lead-in and leave other prices alone", () => {
+  assert.equal(localizePrice("From $197", "ar"), "من $197");
+  assert.equal(localizePrice("From $197", "en"), "From $197");
+  assert.equal(localizePrice("$14", "ar"), "$14");
+  assert.equal(localizePrice("$199 – $279", "ar"), "$199 – $279");
+});
+
+test("payment links and the discovery-call link accept https only", () => {
+  const methods = getConfiguredPaymentMethods({
+    NEXT_PUBLIC_PAYPAL_ME: "http://paypal.me/someone",
+    NEXT_PUBLIC_PAYMOB_LINK: "https://accept.paymob.com/pay/abc",
+  });
+  assert.equal(methods.find((m) => m.id === "paypal")?.isExternalLink, false);
+  assert.equal(methods.find((m) => m.id === "paymob")?.isExternalLink, true);
+
+  const previous = process.env.NEXT_PUBLIC_BOOKING_URL;
+  try {
+    process.env.NEXT_PUBLIC_BOOKING_URL = "javascript:alert(1)";
+    assert.equal(getBookingUrl(), "");
+    process.env.NEXT_PUBLIC_BOOKING_URL = "cal.com/mustafa";
+    assert.equal(getBookingUrl(), "");
+    process.env.NEXT_PUBLIC_BOOKING_URL = " https://cal.com/mustafa/30min ";
+    assert.equal(getBookingUrl(), "https://cal.com/mustafa/30min");
+  } finally {
+    if (previous === undefined) delete process.env.NEXT_PUBLIC_BOOKING_URL;
+    else process.env.NEXT_PUBLIC_BOOKING_URL = previous;
+  }
+});
+
+test("the process timeline reads the same in English and Arabic, with no two phases sharing a range", () => {
+  const range = (label: string) => label.replace(/[^0-9–]/g, "");
+  for (const step of PROCESS) {
+    assert.equal(range(step.days[0]), range(step.days[1]), `phase ${step.n}: EN and AR day ranges differ`);
+  }
+  const ranges = PROCESS.map((step) => range(step.days[0]));
+  assert.equal(new Set(ranges).size, ranges.length);
 });
 

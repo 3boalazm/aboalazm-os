@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { contactHref } from "@/lib/contact-context";
-import { bookHref, DEPOSIT_CTA_LABEL, STORE_72H_OFFER } from "@/lib/offers";
+import { bookHref, DEPOSIT_CTA_LABEL, localizePrice, STORE_72H_OFFER } from "@/lib/offers";
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import { PROJECTS } from "@/features/work/projects.data";
 import { SocialProof } from "@/components/shared/social-proof";
@@ -140,7 +140,7 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
                   className="text-accent underline underline-offset-4"
                 >
                   {ar
-                    ? `متجر أو كتالوج ثنائي اللغة جاهز خلال 72 ساعة (${STORE_72H_OFFER.price}) →`
+                    ? `متجر أو كتالوج ثنائي اللغة جاهز خلال 72 ساعة (${localizePrice(STORE_72H_OFFER.price, "ar")}) →`
                     : `Bilingual online store or catalogue, ready in 72 hours (${STORE_72H_OFFER.price}) →`}
                 </Link>
               </li>

@@ -12,6 +12,7 @@ import { SocialProof } from "@/components/shared/social-proof";
 import {
   bookHref,
   DEPOSIT_CTA_LABEL,
+  localizePrice,
   STORE_72H_OFFER,
   WHATSAPP_ASK_CTA_LABEL,
 } from "@/lib/offers";
@@ -130,7 +131,7 @@ export function Store72hView() {
                     dir="ltr"
                     className="font-display text-title font-semibold text-text-primary"
                   >
-                    {offer.price}
+                    {localizePrice(offer.price, lang)}
                   </span>
                   <span className="font-mono text-micro text-text-tertiary">
                     USD

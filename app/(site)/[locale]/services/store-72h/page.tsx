@@ -3,6 +3,10 @@ import { localizedMetadata } from "@/lib/localized-metadata";
 import type { Locale } from "@/lib/locale";
 import { Store72hView } from "./store-72h-view";
 
+// Same window as /pricing and /services. Without it this page was cached for a
+// year, so an expired EGP/SAR rate would have kept showing until the next deploy.
+export const revalidate = 60;
+
 const originalMetadata: Metadata = {
   title: "Bilingual Online Store or Catalogue in 72 Hours — From $197",
   description:

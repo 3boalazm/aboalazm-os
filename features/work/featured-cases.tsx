@@ -477,27 +477,22 @@ export function FeaturedCard({
               }}
             />
           ) : (
-            /* Clean Name + Domain / Demo card when no preview image is stored (no mock-ups) */
-            <div className="relative z-10 flex h-full w-full flex-col justify-between p-5 pb-12">
-              <div className="flex items-center justify-between gap-2">
-                <span className="rounded-pill border border-border-default bg-surface-1/80 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
-                  {project.isDemo
-                    ? ar
-                      ? "DEMO · عرض تجريبي"
-                      : "DEMO · RTL + PWA LAYER"
-                    : ar
-                      ? "موقع مباشر"
-                      : "LIVE DEPLOYMENT"}
-                </span>
-                <span
-                  dir="ltr"
-                  className="font-mono text-micro text-text-secondary"
-                >
-                  {domainLabel}
-                </span>
-              </div>
+            /* Clean Name + Domain / Demo card when no preview image is stored (no mock-ups).
+               The outcome line is pinned to the card bottom (2 lines, ~46px), so this block
+               keeps pb-16 and clamps the name to 2 lines — a 3-word name at title size used
+               to wrap onto it. The domain is shown once, under the name. */
+            <div className="relative z-10 flex h-full w-full flex-col justify-between p-5 pb-16">
+              <span className="w-fit whitespace-nowrap rounded-pill border border-border-default bg-surface-1/80 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+                {project.isDemo
+                  ? ar
+                    ? "DEMO · عرض تجريبي"
+                    : "DEMO · RTL + PWA LAYER"
+                  : ar
+                    ? "موقع مباشر"
+                    : "LIVE DEPLOYMENT"}
+              </span>
               <div className="flex flex-col gap-1">
-                <span className="font-display text-title font-semibold tracking-tight text-text-primary transition-colors group-hover:text-accent">
+                <span className="line-clamp-2 font-display text-subtitle font-semibold tracking-tight text-text-primary transition-colors group-hover:text-accent">
                   {name}
                 </span>
                 <span

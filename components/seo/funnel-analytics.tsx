@@ -25,7 +25,9 @@ export function FunnelAnalytics() {
           trackEvent("whatsapp_click", { source, placement, ...readCampaign(), locale: lang });
         }
         trackEvent("contact_channel_click", { channel: url.protocol === "mailto:" ? "email" : "whatsapp", source, placement, ...readCampaign(), locale: lang });
-      } else if (url.origin === window.location.origin && stripLocale(url.pathname) === "/book") {
+      } else if (url.origin === window.location.origin && stripLocale(url.pathname) === "/book" && source !== "/book") {
+        // Not on /book itself: its currency, pay-in-full and add-on switchers are links to /book
+        // too, and counting them would inflate the funnel metric with in-page toggles.
         trackEvent("deposit_click", {
           plan: url.searchParams.get("plan") ?? undefined,
           cur: url.searchParams.get("cur") ?? undefined,

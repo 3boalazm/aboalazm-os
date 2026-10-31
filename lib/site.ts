@@ -13,7 +13,15 @@ const DEFAULT_HOST = `${DEFAULT_SUBDOMAIN}.${DEFAULT_PLATFORM_HOST}`;
 const FALLBACK = `https://${DEFAULT_HOST}`;
 
 export function resolveSiteUrl(
-  env: Record<string, string | undefined> = process.env,
+  // Literal reads, not `= process.env`: Next inlines only literal
+  // `process.env.NEXT_PUBLIC_*` into client bundles, and this module is imported
+  // by "use client" components (developer view, portfolio deck). Through an alias
+  // the browser silently fell back to the default host while the server used the
+  // configured one.
+  env: Record<string, string | undefined> = {
+    NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    VERCEL_PROJECT_PRODUCTION_URL: process.env.VERCEL_PROJECT_PRODUCTION_URL,
+  },
 ): string {
   const explicit = env.NEXT_PUBLIC_SITE_URL?.trim();
   if (explicit) {
