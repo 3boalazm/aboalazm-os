@@ -198,7 +198,7 @@ export const PROJECTS: readonly Project[] = [
     outcome: "9-service pharma distribution ERP — sales, inventory, CRM, incentives",
     outcomeAr: "منظومة ERP لتوزيع الأدوية — 9 خدمات: مبيعات، مخزون، عملاء، حوافز",
     year: "2025–26",
-    thumbnail: "/images/work/dev-cards/nile-erp-card.jpg",
+    thumbnail: "/images/work/dev-cards/nile-erp-command-center-card.jpg",
     hasCaseStudy: true,
     isUiUx: true,
     liveUrl: "/showcase/nile-erp/index.html",

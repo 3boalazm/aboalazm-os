@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { cardArt } from "@/features/work/card-art";
 import type { Project } from "@/features/work/types";
 import { ProductCase } from "./product-case";
 import { OVERVIEW_TECHNICAL_CASES } from "./overview-technical.data";
@@ -40,7 +41,7 @@ export function ProjectOverview({ project }: { project: Project }) {
         </p>
       </header>
       <Image
-        src={project.thumbnail}
+        src={cardArt(project.thumbnail)}
         alt={ar ? `عرض مشروع ${project.nameAr ?? project.name}` : `${project.name} project preview`}
         width={1280}
         height={800}

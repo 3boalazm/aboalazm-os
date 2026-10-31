@@ -86,7 +86,8 @@ test("every digital project uses a dedicated 16:10 dev-cards preview or name+dom
 
   // Legacy Payload CMS basenames also resolve to the crisp 16:10 dev-cards assets
   assert.equal(cardArt("/media/cc-dev-thumb.jpg"), "/images/work/dev-cards/code-canvas-dev-card.jpg");
-  assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-card.jpg");
+  assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
+  assert.equal(cardArt("/images/work/dev-cards/nile-erp-card.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
   assert.equal(cardArt("/media/oltre-collective-thumb.jpg"), "/images/work/dev-cards/oltre-collective-card.jpg");
   assert.equal(cardArt("/media/farm-thumb.jpg"), "/images/work/dev-cards/farm-console-card.jpg");
 });

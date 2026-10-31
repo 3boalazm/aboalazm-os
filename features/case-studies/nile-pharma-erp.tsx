@@ -5,13 +5,18 @@ import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 
-/* ——— Real showcase data ——— */
-const kpi = {
-  totalSales: "475,950.84 ج.م",
-  orders: 9,
-  pending: 3,
-  lowStock: 3,
-};
+/* The hero shows the owner's overview board of the real interface (the five
+   screens below, plus the headline figures read off them). It replaces an
+   illustration drawn from the seeded demo: nothing in the hero is mocked up. */
+const overview = {
+  src: "/images/work/nile-erp/nile-erp-00-overview.webp",
+  width: 2000,
+  height: 1578,
+  altEn:
+    "Overview board of the real Nile ERP interface: operations command center, invoicing, accounts 360, inventory and notifications, with the system’s headline figures — 10 core modules, 360° client accounts, 6 quick workflows, 50 operational alerts and EGP 3.06M of stock value.",
+  altAr:
+    "لوحة عرض لواجهات Nile ERP الحقيقية: لوحة التحكم والفواتير والعملاء والمخزون والإشعارات، مع أرقام النظام — 10 وحدات رئيسية، حساب عميل 360، 6 مسارات عمل سريعة، 50 إشعارًا تشغيليًا، وقيمة مخزون 3.06 مليون ج.م.",
+} as const;
 
 const servicesGrouped = [
   {
@@ -176,44 +181,46 @@ export function NilePharmaERPCaseStudy() {
             </p>
           </div>
 
-          {/* Hero visual — real system snapshot, not illustration */}
-          <div className="rounded-2xl border border-border-subtle bg-surface-1 p-2 shadow-card">
-            <div className="flex items-center justify-between px-3 py-2">
-              <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">Nile Pharma ERP / LIVE SHOWCASE</span>
-              <span className="size-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.6)]" />
+          {/* Hero visual — the real interface (the owner's overview board), not an illustration */}
+          <figure className="m-0 rounded-2xl border border-border-subtle bg-surface-1 p-2 shadow-card">
+            <div className="flex items-center justify-between gap-3 px-3 py-2">
+              <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">
+                Nile Pharma ERP / {ar ? "لقطات حقيقية" : "Real screens"}
+              </span>
+              <span className="shrink-0 rounded-full border border-border-subtle px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-text-tertiary">
+                {ar ? "بيانات تجريبية" : "Demo data"}
+              </span>
             </div>
-            <div className="overflow-hidden rounded-xl border border-zinc-200">
+            <a
+              href={overview.src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block overflow-hidden rounded-xl border border-border-subtle"
+            >
               <Image
-                src="/images/work/dev-cards/nile-erp-card.jpg"
-                alt={ar ? "لقطة حقيقية من لوحة تحكم Nile Pharma ERP" : "Real screenshot from Nile Pharma ERP dashboard"}
-                width={1280}
-                height={800}
-                className="h-auto w-full object-cover"
+                src={overview.src}
+                alt={ar ? overview.altAr : overview.altEn}
+                width={overview.width}
+                height={overview.height}
+                sizes="(min-width:1024px) 560px, 100vw"
+                className="h-auto w-full"
                 priority
               />
-            </div>
-            <div className="grid grid-cols-3 gap-2 px-2 pb-2 pt-3">
-              <div className="rounded-lg bg-surface-2 p-3">
-                <p className="font-mono text-[12px] uppercase text-text-tertiary">{ar ? "إجمالي المبيعات" : "Total sales"}</p>
-                <p className="mt-1 font-display text-sm font-semibold text-text-primary">{kpi.totalSales}</p>
-              </div>
-              <div className="rounded-lg bg-surface-2 p-3">
-                <p className="font-mono text-[12px] uppercase text-text-tertiary">{ar ? "أوامر / معلقة" : "Orders / pending"}</p>
-                <p className="mt-1 font-display text-sm font-semibold text-text-primary">
-                  {kpi.orders} / <span className="text-amber-600">{kpi.pending}</span>
-                </p>
-              </div>
-              <div className="rounded-lg bg-amber-50 text-amber-900 p-3 ring-1 ring-amber-200">
-                <p className="font-mono text-[12px] uppercase text-amber-700">{ar ? "تنبيه نقص" : "Low stock"}</p>
-                <p className="mt-1 font-display text-sm font-semibold text-amber-900">{kpi.lowStock} أصناف</p>
-              </div>
-            </div>
-          </div>
+              {/* The link's name is the image's alt plus this hint; an aria-label here would hide the alt (and its figures). */}
+              <span className="sr-only">{ar ? " — يُفتح بالحجم الكامل في تبويب جديد" : " — opens full size in a new tab"}</span>
+            </a>
+            <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-3 pb-2 pt-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
+              <span>{ar ? "خمس شاشات من النظام وهو يعمل — أسماء العملاء مطموسة" : "Five screens from the running system — client names blurred"}</span>
+              <a href="#tour" className="text-accent transition-colors hover:text-text-primary">
+                {ar ? "شاهد الشاشات" : "See the screens"} ↓
+              </a>
+            </figcaption>
+          </figure>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-4 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
           <span>{ar ? "الدور: قيادة المنتج والمنصة" : "Role: Product & Platform Lead"} · 2025—2026</span>
-          <span className="text-text-ghost">{ar ? "اللقطة من العرض التوضيحي" : "Screenshot from the interactive demonstration"}</span>
+          <span className="text-text-ghost">{ar ? "اللقطات من النظام نفسه" : "Screens captured from the system itself"}</span>
         </div>
       </section>
       <div className="container-content"><ProjectEnquiry compact service="digital-product" /></div>
@@ -253,7 +260,7 @@ export function NilePharmaERPCaseStudy() {
       </section>
 
       {/* ═══ 03 / PRODUCT TOUR — real, annotated screens of the running system ═══ */}
-      <section className="container-wide py-6 md:py-8">
+      <section id="tour" className="container-wide scroll-mt-16 py-6 md:py-8">
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">03 / {ar ? "جولة داخل المنصة" : "Product tour"}</p>
         <h2 className="mt-3 max-w-[16ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
           {ar ? "داخل المنصة — كل شاشة لها وظيفة." : "Inside the platform — every screen has a job."}

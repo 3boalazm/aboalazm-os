@@ -121,7 +121,7 @@ async function vHome() {
 
 async function vWork() {
   const i = await ogImgs({
-    a: ["/images/work/dev-cards/nile-erp-card.jpg", 360], b: ["/images/work/gad/gad-card.jpg", 360],
+    a: ["/images/work/dev-cards/nile-erp-command-center-card.jpg", 360], b: ["/images/work/gad/gad-card.jpg", 360],
     c: ["/images/work/reflection/refl-card.jpg", 360], d: ["/images/work/dev-cards/code-canvas-dev-card.jpg", 360],
     e: ["/images/work/dev-cards/farm-console-card.jpg", 360], f: ["/images/work/dev-cards/zad-card.jpg", 360],
   });
@@ -147,7 +147,7 @@ async function vWork() {
 
 async function vWorkUi() {
   const i = await ogImgs({
-    a: ["/images/work/dev-cards/nile-erp-card.jpg", 640],
+    a: ["/images/work/dev-cards/nile-erp-command-center-card.jpg", 640],
     b: ["/images/work/dev-cards/farm-console-card.jpg", 640],
     c: ["/images/work/dev-cards/oltre-collective-card.jpg", 640],
   });
