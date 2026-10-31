@@ -4,15 +4,22 @@ import { ServicePaths } from "@/features/offers/service-paths";
 import Link from "@/components/ui/localized-link";
 import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
-import { PROCESS, TERMS_LINE, type Bi } from "@/lib/offers";
+import {
+  bookHref,
+  DEPOSIT_CTA_LABEL,
+  PROCESS,
+  TERMS_LINE,
+  type Bi,
+} from "@/lib/offers";
 import { SectionHead, TierGrid, Faq, CtaBand, pick } from "@/features/offers/offer-blocks";
 import { Heading } from "@/components/ui/Heading";
 import { buttonVariants } from "@/components/ui/Button";
+import { SocialProof } from "@/components/shared/social-proof";
 
 const OFFERINGS: readonly { n: string; name: Bi; italic: Bi; body: Bi }[] = [
   { n: "01", name: ["Brand Identity &", "هوية &"], italic: ["Strategy", "استراتيجية البراند"], body: ["Brand audit · competitor & cultural research · positioning & archetype · naming · logo systems · color & typography · brand guidelines.", "مراجعة البراند · بحث المنافسين والثقافة · التموضع والنموذج · التسمية · أنظمة الشعار · الألوان والخطوط · دليل الهوية."] },
   { n: "02", name: ["Visual &", "أنظمة بصرية &"], italic: ["Design Systems", "تصميمية"], body: ["Cohesive systems for digital and print — templates, social kits, presentation systems, components, and reusable assets your team can run with.", "أنظمة متماسكة للديجيتال والمطبوعات — قوالب، حزم سوشيال، أنظمة عروض، ومكوّنات قابلة لإعادة الاستخدام يقدر فريقك يشتغل بها."] },
-  { n: "03", name: ["Websites &", "مواقع &"], italic: ["Digital Products", "منتجات رقمية"], body: ["Responsive websites, landing pages and custom web applications — from brand-led UX/UI to production-ready builds, integrations and workflow-aware tools. Next.js or WordPress, chosen for the actual need.", "مواقع متجاوبة وصفحات هبوط وتطبيقات ويب مخصصة — من تجربة وواجهة مرتبطة بالبراند إلى تنفيذ فعلي وتكاملات وأدوات تراعي سير العمل. نختار Next.js أو ووردبريس حسب الاحتياج الحقيقي."] },
+  { n: "03", name: ["Websites &", "مواقع &"], italic: ["Digital Products", "منتجات رقمية"], body: ["Responsive websites, landing pages, 72-hour bilingual stores and custom web applications — from brand-led UX/UI to production-ready builds, integrations and workflow-aware tools. Next.js or WordPress, chosen for the actual need.", "مواقع متجاوبة وصفحات هبوط ومتاجر ثنائية اللغة خلال 72 ساعة وتطبيقات ويب مخصصة — من تجربة وواجهة مرتبطة بالبراند إلى تنفيذ فعلي وتكاملات وأدوات تراعي سير العمل."] },
   { n: "04", name: ["Print &", "مطبوعات &"], italic: ["Packaging", "تغليف"], body: ["Production-ready print collateral — packaging, brochures, company profiles, banners, rollups — with proper file prep for offset and digital.", "مطبوعات جاهزة للإنتاج — تغليف، بروشورات، بروفايلات شركات، بانرات ورول أب — بتجهيز ملفات سليم للأوفست والديجيتال."] },
   { n: "05", name: ["Art Direction &", "إدارة فنية &"], italic: ["Production", "إنتاج"], body: ["Photography, videography, scripting, voice-over, audio engineering — full content production for campaigns and social.", "تصوير فوتوغرافي وفيديو، كتابة سكريبت، تعليق صوتي، وهندسة صوت — إنتاج محتوى كامل للحملات والسوشيال."] },
 ];
@@ -22,8 +29,8 @@ const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ['What\'s included in a "Brand Guidelines" document?', "ماذا يتضمن دليل الهوية؟"], a: ["A 20–40 page PDF covering logo usage (do's & don'ts), color codes (HEX/RGB/CMYK/Pantone), typography hierarchy, spacing rules, voice & tone, and ready-to-use templates — designed for your team to apply the brand without me.", "ملف PDF من 20–40 صفحة يغطي استخدامات الشعار، أكواد الألوان، هرمية الخطوط، قواعد المسافات، نبرة الصوت، وقوالب جاهزة — ليطبّق فريقك الهوية بدوني."] },
   { q: ["How many revision rounds do I get?", "كم جولة مراجعة لديّ؟"], a: ["Two structured rounds are included. After that, additional revisions are billed hourly — not a limit on your input, but a structure that protects the strategy from ad-hoc erosion.", "جولتان منظمتان ضمن السعر، وما بعدهما يُحاسب بالساعة — ليس تقييدًا لرأيك بل حماية للاستراتيجية من التعديلات العشوائية."] },
   { q: ["Do you work with international clients?", "هل تتعامل مع عملاء دوليين؟"], a: ["Yes — most communication is over email and Notion with weekly video calls. I work in both English and Arabic, with clients across MENA and beyond.", "نعم — أغلب التواصل عبر الإيميل وNotion مع مكالمات أسبوعية، وأعمل بالعربية والإنجليزية مع عملاء في المنطقة وخارجها."] },
-  { q: ["How does payment work?", "كيف يتم الدفع؟"], a: [TERMS_LINE[0] + " Bank transfer, Vodafone Cash, or international wire.", TERMS_LINE[1] + " تحويل بنكي أو فودافون كاش أو تحويل دولي."] },
-  { q: ["Can you also build the website?", "هل تبني الموقع أيضًا؟"], a: ["Yes — company sites, landing pages and custom web applications. We choose Next.js or WordPress to fit your content and workflows. Hosting, integrations and support are scoped in the proposal.", "نعم — مواقع شركات وصفحات هبوط وتطبيقات ويب مخصصة. نختار Next.js أو ووردبريس حسب المطلوب، والاستضافة والتكاملات والدعم تتحدد في العرض."] },
+  { q: ["How does payment work?", "كيف يتم الدفع؟"], a: [TERMS_LINE[0] + " Bank transfer, InstaPay, Vodafone Cash, or international wire.", TERMS_LINE[1] + " تحويل بنكي أو إنستاباي أو فودافون كاش أو تحويل دولي."] },
+  { q: ["Can you also build the website?", "هل تبني الموقع أيضًا؟"], a: ["Yes — company sites, landing pages, 72-hour bilingual online stores, and custom web applications. We choose Next.js or WordPress to fit your content and workflows.", "نعم — مواقع شركات وصفحات هبوط ومتاجر ثنائية اللغة خلال 72 ساعة وتطبيقات ويب مخصصة. نختار Next.js أو ووردبريس حسب المطلوب."] },
   { q: ["What if I just need a logo, not the full system?", "ماذا لو أحتاج شعارًا فقط؟"], a: ["Tier 01 covers a focused logo project. We confirm the audience, use cases and design direction first; wider strategy and applications are available in the larger tiers.", "الفئة 01 مناسبة لمشروع شعار محدد النطاق. بنتفق على الجمهور والاستخدامات والاتجاه الأول، والاستراتيجية الأوسع والتطبيقات موجودة في الباقات الأكبر."] },
 ];
 
@@ -48,7 +55,27 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           }
           subtitleClassName="max-w-[52ch]"
         />
-
+        <div className="flex flex-wrap gap-2">
+          <Link
+            href={bookHref("brand-identity")}
+            className={buttonVariants({
+              variant: "primary",
+              className: "px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
+            })}
+          >
+            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+          </Link>
+          <Link
+            href="/services/store-72h"
+            className={buttonVariants({
+              variant: "ghost",
+              className:
+                "border border-border-default px-3.5 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary hover:text-text-primary",
+            })}
+          >
+            {ar ? "متجر خلال 72 ساعة (من $197) →" : "72-Hour Store (From $197) →"}
+          </Link>
+        </div>
       </header>
 
       <ServicePaths />
@@ -139,12 +166,22 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         </div>
       </section>
 
+      <SocialProof />
+
       <section className="flex flex-col gap-3">
         <SectionHead label={["04 / FAQ", "04 / أسئلة شائعة"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
         <Faq items={FAQ} />
       </section>
 
-      <CtaBand kicker={["READY TO BUILD?", "جاهز نبدأ؟"]} title={["Send the", "ابعت"]} italic={["brief.", "البريف."]} primary={["Start a Project", "ابدأ مشروعًا"]} primaryHref="/contact" secondary={["See the Work", "شاهد الأعمال"]} secondaryHref="/work" />
+      <CtaBand
+        kicker={["READY TO BUILD?", "جاهز نبدأ؟"]}
+        title={["Send the", "ابعت"]}
+        italic={["brief.", "البريف."]}
+        primary={DEPOSIT_CTA_LABEL}
+        primaryHref={bookHref("brand-identity")}
+        secondary={["See the Work", "شاهد الأعمال"]}
+        secondaryHref="/work"
+      />
     </main>
   );
 }

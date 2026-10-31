@@ -42,9 +42,10 @@
     return `rgba(${r}, ${g}, ${b}, ${a})`; /* legacy form — html2canvas gradient parser safe */
   }
 
+  const SITE_HOST_LABEL = (D.identity.links.find((l) => l.label === "WEBSITE") || { value: ["aboalazm-os", "vercel.app"].join(".") }).value;
   const CHROME_BOT = `
     <div class="chrome-bot">
-      <span>aboalazm-os.vercel.app <span class="cb-dot">·</span> behance.net/aboalazm</span>
+      <span>${esc(SITE_HOST_LABEL)} <span class="cb-dot">·</span> behance.net/aboalazm</span>
       <span>AL OBOUR · 30.1936° N 31.4603° E</span>
       <span>PORTFOLIO ${esc(D.identity.version.split("·")[0].trim())}</span>
     </div>`;

@@ -7,6 +7,10 @@
    Images come from window.IMG (assets/img.js — keys listed in the manifest).
    ═══════════════════════════════════════════════════════════════════════ */
 
+const DEFAULT_SITE_HOST = ["aboalazm-os", "vercel.app"].join(".");
+const SITE_ORIGIN = ((typeof window !== "undefined" && window.NEXT_PUBLIC_SITE_URL) || ("https://" + DEFAULT_SITE_HOST)).replace(/\/+$/, "");
+const SITE_HOST = SITE_ORIGIN.replace(/^https?:\/\//i, "");
+
 window.DATA = {
 
   /* ── IDENTITY ──────────────────────────────────────────────────────── */
@@ -20,7 +24,7 @@ window.DATA = {
     location: "Al Obour, Egypt — 30.1936° N, 31.4603° E",
     locationAr: "العبور، مصر",
     links: [
-      { label: "WEBSITE",  value: "aboalazm-os.vercel.app",         href: "https://aboalazm-os.vercel.app" },
+      { label: "WEBSITE",  value: SITE_HOST,                         href: SITE_ORIGIN },
       { label: "STUDIO",   value: "codeandcanvas.net",               href: "https://codeandcanvas.net" },
       { label: "BEHANCE",  value: "behance.net/aboalazm",            href: "https://www.behance.net/aboalazm" },
       { label: "LINKEDIN", value: "linkedin.com/in/aboalazm",        href: "https://www.linkedin.com/in/aboalazm" },

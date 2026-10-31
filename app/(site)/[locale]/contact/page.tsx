@@ -3,12 +3,13 @@ import type { Locale } from "@/lib/locale";
 import { parseContactContext } from "@/lib/contact-context";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
+import { RESPONSE_PROMISE } from "@/lib/contact-details";
 import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { ContactView } from "./contact-view";
 
 const pageMetadata: Metadata = {
   title: "Contact — Start the Conversation",
-  description: "Reach out by email or WhatsApp, or send a project enquiry directly. Replies within two working days, Cairo time, worldwide work.",
+  description: `Reach out by email or WhatsApp, or send a project enquiry directly. ${RESPONSE_PROMISE.en}`,
 };
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {

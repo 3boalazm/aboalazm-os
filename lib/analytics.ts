@@ -23,7 +23,10 @@ export type EventName =
   | "resource_download"
   | "resource_lead_saved"
   | "insight_open"
-  | "cv_download";
+  | "cv_download"
+  | "deposit_click"
+  | "whatsapp_click"
+  | "booking_click";
 
 /** Event-specific, non-PII context fields. Keep event meanings and the property privacy contract in docs/EVENTS.md. */
 export type EventProps = Record<string, string | undefined>;

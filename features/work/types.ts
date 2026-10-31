@@ -55,6 +55,8 @@ export interface Project {
   /** No public deployment is currently available; show the saved project. */
   previewStatus?: "archived";
   overviewOnly?: boolean;
+  /** True when the entry is an anonymized or open-source-based demo with no client-specific link */
+  isDemo?: boolean;
   /**
    * Primary palette pair — consumed by useAmbientGlowControls to
    * override the global --glow-* tokens while the row is hovered.

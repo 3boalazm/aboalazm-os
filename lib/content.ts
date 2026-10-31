@@ -378,46 +378,6 @@ export async function getOffers(): Promise<{
   investmentValue: { value: string; en: string; ar: string; subEn?: string | null; subAr?: string | null; pending?: boolean | null }[];
   alaCarte: AlaCarteGroup[];
 }> {
-  if (hasDb()) {
-    try {
-      const { getPayload } = await import("./payload");
-      const payload = await getPayload();
-      const offers = await payload.findGlobal({ slug: "offers" });
-      const toBi = (g: { en?: string | null; ar?: string | null } | null | undefined): Bi => [
-        g?.en ?? "",
-        g?.ar ?? "",
-      ];
-
-      const tiers: Tier[] = (offers.tiers ?? []).map((t) => ({
-        tag: toBi(t.tag),
-        name: toBi(t.name),
-        price: t.price,
-        priceNote: toBi(t.priceNote),
-        bestFor: toBi(t.bestFor),
-        duration: toBi(t.duration),
-        payment: t.payment,
-        recommended: t.recommended ?? undefined,
-        includesHead: toBi(t.includesHead),
-        includes: (t.includes ?? []).map(toBi),
-        excludes: (t.excludes ?? []).map(toBi),
-      }));
-
-      const alaCarte: AlaCarteGroup[] = (offers.alaCarte ?? []).map((g) => ({
-        group: toBi(g.group),
-        rows: (g.rows ?? []).map((r) => ({
-          service: toBi(r.service),
-          details: toBi(r.details),
-          price: r.price,
-        })),
-      }));
-
-      if (tiers.length > 0) {
-        return normalizeCmsText({ tiers, investmentValue: offers.investmentValue ?? [], alaCarte });
-      }
-    } catch {
-      // Fall through
-    }
-  }
   return { tiers: TIERS as unknown as Tier[], investmentValue: [], alaCarte: ALACARTE as unknown as AlaCarteGroup[] };
 }
 

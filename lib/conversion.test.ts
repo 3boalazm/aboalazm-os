@@ -12,6 +12,12 @@ import { BUILT_IN_CASE_SLUGS } from "./case-registry";
 import { projectEnquiryService } from "@/features/work/project-enquiry-service";
 import { PROJECTS } from "@/features/work/projects.data";
 import { canSubmitContact } from "@/features/contact/submission-state";
+import { formatFxForUsd, roundEgp, roundSar } from "./fx";
+import { computeBookingQuote, generateBookingReference, isValidBookingReference } from "./booking";
+import { getConfiguredPaymentMethods, RESPONSE_PROMISE } from "./contact-details";
+import { AGREEMENT_TERMS, STORE_72H_OFFER, TIERS } from "./offers";
+import { CLIENTS, getPermittedClients } from "@/content/clients";
+import { TESTIMONIALS, getPermittedTestimonials } from "@/content/testimonials";
 
 const enquiry = { name: "Test Visitor", email: "visitor@example.test", brief: "A bilingual company website", elapsedMs: 0 };
 
@@ -119,3 +125,116 @@ test("default-locale routing terminates after its internal rewrite", () => {
   assert.equal(resolved.headers.get("location"), null);
   assert.equal(resolved.headers.get("x-middleware-rewrite"), null);
 });
+
+test("fx helper rounds EGP to nearest 50, SAR to nearest 5, and falls back when missing or expired", () => {
+  assert.equal(roundEgp(197, 50), 9850);
+  assert.equal(roundSar(197), 740);
+
+  const missing = formatFxForUsd(197, { egpPerUsdRaw: "", validUntilRaw: "" });
+  assert.equal(missing.active, false);
+  assert.equal(missing.conversionLine.en, "EGP/SAR confirmed on WhatsApp");
+  assert.equal(missing.validityLine, null);
+
+  const expired = formatFxForUsd(197, {
+    egpPerUsdRaw: "50",
+    validUntilRaw: "2026-10-01",
+    now: new Date("2026-10-31T12:00:00Z"),
+  });
+  assert.equal(expired.active, false);
+  assert.equal(expired.conversionLine.en, "EGP/SAR confirmed on WhatsApp");
+
+  const active = formatFxForUsd("$197", {
+    egpPerUsdRaw: "50",
+    validUntilRaw: "2026-11-07",
+    now: new Date("2026-10-31T12:00:00Z"),
+  });
+  assert.equal(active.active, true);
+  assert.equal(active.conversionLine.en, "≈ 9,850 EGP · ≈ 740 SAR");
+  assert.equal(active.validityLine?.en, "EGP/SAR prices valid until 2026-11-07");
+});
+
+test("booking quote generates AZM-YYMMDD-XXXX reference, 50% deposit, -10% full option, and prefilled WhatsApp links", () => {
+  const ref = generateBookingReference(new Date("2026-10-31T12:00:00Z"));
+  assert.ok(isValidBookingReference(ref), `invalid reference: ${ref}`);
+  assert.match(ref, /^AZM-261031-[A-Z0-9]{4}$/);
+
+  const quote = computeBookingQuote({
+    planId: "brand-identity",
+    cur: "EGP",
+    mode: "deposit",
+    ref,
+    now: new Date("2026-10-31T12:00:00Z"),
+    fxEnv: {
+      egpPerUsdRaw: "50",
+      validUntilRaw: "2026-11-07",
+      now: new Date("2026-10-31T12:00:00Z"),
+    },
+  });
+  assert.equal(quote.totalUsd, 697);
+  assert.equal(quote.depositUsd, 348.5);
+  assert.equal(quote.fullDiscountedUsd, 627);
+  assert.equal(quote.dueNowConverted.formatted, "17,450 EGP");
+  assert.match(decodeURIComponent(quote.whatsappHref.en), /Brand Identity Essentials/);
+  assert.match(decodeURIComponent(quote.whatsappHref.en), new RegExp(ref));
+  assert.match(decodeURIComponent(quote.whatsappHref.ar), /أساسيات الهوية البصرية/);
+});
+
+test("payment methods only appear when their env vars are configured", () => {
+  assert.deepEqual(getConfiguredPaymentMethods({}), []);
+  const configured = getConfiguredPaymentMethods({
+    NEXT_PUBLIC_VODAFONE_CASH_NUMBER: "01092500454",
+    NEXT_PUBLIC_WALLET_HOLDER_NAME: "Mustafa Taha",
+    NEXT_PUBLIC_INSTAPAY_ADDRESS: "mustafa@instapay",
+  });
+  assert.equal(configured.length, 2);
+  assert.equal(configured[0]?.holderName, "Mustafa Taha");
+});
+
+test("social-proof files ship empty and filter strictly on permission: true", () => {
+  assert.equal(TESTIMONIALS.length, 0);
+  assert.equal(CLIENTS.length, 0);
+  assert.equal(getPermittedTestimonials().length, 0);
+  assert.equal(getPermittedClients().length, 0);
+
+  assert.equal(
+    getPermittedTestimonials([
+      { name: "A", role: "Founder", company: "X", quote_en: "Good", quote_ar: "جيد", permission: false },
+      { name: "B", role: "CEO", company: "Y", quote_en: "Great", quote_ar: "ممتاز", permission: true },
+    ]).length,
+    1,
+  );
+});
+
+test("single source of truth for Recommended badge, 72h store, response promise, and agreement clauses", () => {
+  const recommended = TIERS.filter((t) => t.recommended);
+  assert.equal(recommended.length, 1);
+  assert.equal(recommended[0]?.id, "brand-identity");
+  assert.equal(STORE_72H_OFFER.startingUsd, 197);
+  assert.equal(STORE_72H_OFFER.proof.length, 4);
+
+  const clause05 = AGREEMENT_TERMS.find((c) => c.n === "05");
+  assert.ok(clause05);
+  assert.match(clause05.body[0], /50% \/ 50%/);
+  assert.match(clause05.body[0], /50% \/ 25% \/ 25%/);
+
+  const drafts = AGREEMENT_TERMS.filter((c) => c.draft);
+  assert.equal(drafts.length, 2);
+  assert.match(drafts[0]!.body[0], /50%.*75%.*no refund/i);
+  assert.match(drafts[1]!.body[0], /work pauses until payment arrives/i);
+
+  assert.equal(
+    RESPONSE_PROMISE.en,
+    "Same-day reply on working days (Sun-Thu, Cairo time). WhatsApp is fastest.",
+  );
+  assert.equal(
+    RESPONSE_PROMISE.ar,
+    "رد في نفس اليوم في أيام العمل (الأحد–الخميس بتوقيت القاهرة). واتساب أسرع وسيلة.",
+  );
+
+  const entries = buildSitemap({ caseStudies: [], posts: [] });
+  assert.ok(entries.some((e) => new URL(e.url).pathname === "/services/store-72h"));
+  assert.ok(entries.some((e) => new URL(e.url).pathname === "/ar/services/store-72h"));
+  assert.ok(entries.some((e) => new URL(e.url).pathname === "/book"));
+  assert.ok(entries.some((e) => new URL(e.url).pathname === "/ar/book"));
+});
+

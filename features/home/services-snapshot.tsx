@@ -4,14 +4,21 @@
  * SERVICES SNAPSHOT — the offer in one glance (overhaul S2, spec §4.3-05).
  * Three tiers, reads from the single source of truth (lib/offers TIERS) so
  * the home page can never drift from /pricing. Recommended tier carries the
- * accent edge; every card ends on /pricing, not a fake checkout.
+ * accent edge; every card includes a primary "Book with a deposit" CTA.
  */
 import { ServicePaths } from "@/features/offers/service-paths";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { buttonVariants } from "@/components/ui/Button";
+import { FxSubline } from "@/components/ui/fx-price";
 import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
-import { TIERS } from "@/lib/offers";
+import { BOOKING_CTA_LABEL, BOOKING_URL } from "@/lib/contact-details";
+import {
+  bookHref,
+  DEPOSIT_CTA_LABEL,
+  TIERS,
+} from "@/lib/offers";
 
 export function ServicesSnapshot() {
   const { lang } = useLang();
@@ -23,9 +30,13 @@ export function ServicesSnapshot() {
         <div className="flex max-w-[46ch] flex-col gap-1">
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
             {ar ? (
-              <>باقات الهوية البصرية. <em className="text-accent">نختار البداية المناسبة.</em></>
+              <>
+                باقات الهوية البصرية. <em className="text-accent">نختار البداية المناسبة.</em>
+              </>
             ) : (
-              <>Identity packages. <em className="text-accent">Choose your starting point.</em></>
+              <>
+                Identity packages. <em className="text-accent">Choose your starting point.</em>
+              </>
             )}
           </h2>
           <p className="text-body-sm text-text-secondary">
@@ -34,20 +45,32 @@ export function ServicesSnapshot() {
               : "Published, transparent packages. Pick the one sized for your project — full detail lives on the pricing page."}
           </p>
         </div>
-        <Link
-          href="/pricing"
-          className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
-        >
-          {ar ? "التسعير الكامل" : "Full pricing"}
-          <span aria-hidden className="ms-1 inline-flex">
-            <Icon name="arrow-right" />
-          </span>
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href={bookHref("brand-identity")}
+            className={buttonVariants({
+              variant: "primary",
+              className:
+                "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em]",
+            })}
+          >
+            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+          </Link>
+          <Link
+            href="/pricing"
+            className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+          >
+            {ar ? "التسعير الكامل" : "Full pricing"}
+            <span aria-hidden className="ms-1 inline-flex">
+              <Icon name="arrow-right" />
+            </span>
+          </Link>
+        </div>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
         {TIERS.map((tier) => {
-          const recommended = "recommended" in tier && tier.recommended;
+          const recommended = Boolean(tier.recommended);
           return (
             <PanelCard
               key={tier.name[0]}
@@ -59,16 +82,26 @@ export function ServicesSnapshot() {
                   {ar ? "موصى بها" : "Recommended"}
                 </span>
               ) : null}
-              <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? tier.tag[1] : tier.tag[0]}</p>
+              <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+                {ar ? tier.tag[1] : tier.tag[0]}
+              </p>
               <div className="flex flex-col gap-1">
-                <h3 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">{ar ? tier.name[1] : tier.name[0]}</h3>
-                <p className="font-display text-title tracking-[-0.02em] text-text-primary">{tier.price}</p>
+                <h3 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">
+                  {ar ? tier.name[1] : tier.name[0]}
+                </h3>
+                <p dir="ltr" className="font-display text-title tracking-[-0.02em] text-text-primary">
+                  {tier.price}
+                </p>
+                <FxSubline usdOrPrice={tier.price} lang={lang} />
                 <p className="text-body-sm text-text-tertiary">
-                  {ar ? tier.priceNote[1] : tier.priceNote[0]} · {ar ? tier.duration[1] : tier.duration[0]} · {tier.payment}
+                  {ar ? tier.priceNote[1] : tier.priceNote[0]} ·{" "}
+                  {ar ? tier.duration[1] : tier.duration[0]} · {tier.payment}
                 </p>
               </div>
               <p className="text-body-sm text-text-secondary">
-                <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? "الأنسب لـ: " : "Best for: "}</span>
+                <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+                  {ar ? "الأنسب لـ: " : "Best for: "}
+                </span>
                 {ar ? tier.bestFor[1] : tier.bestFor[0]}
               </p>
               <ul className="flex flex-col gap-1.5 border-t border-border-subtle pt-3">
@@ -79,15 +112,41 @@ export function ServicesSnapshot() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="/pricing"
-                className="mt-auto inline-flex w-fit items-center gap-1 pt-1 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
-              >
-                {ar ? "كل التفاصيل" : "Everything it includes"}
-                <span aria-hidden className="inline-flex">
-                  <Icon name="arrow-right" />
-                </span>
-              </Link>
+              <div className="mt-auto flex flex-col gap-2 pt-2">
+                <Link
+                  href={bookHref(tier.id)}
+                  className={buttonVariants({
+                    variant: recommended ? "primary" : "ghost",
+                    className: recommended
+                      ? "w-full justify-center px-3 py-1.5 font-mono text-label tracking-[0.06em]"
+                      : "w-full justify-center border border-accent/50 bg-accent/10 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-accent hover:bg-accent/20",
+                  })}
+                >
+                  {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+                </Link>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <Link
+                    href="/pricing"
+                    className="inline-flex w-fit items-center gap-1 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
+                  >
+                    {ar ? "كل التفاصيل" : "Everything it includes"}
+                    <span aria-hidden className="inline-flex">
+                      <Icon name="arrow-right" />
+                    </span>
+                  </Link>
+                  {BOOKING_URL && (tier.hasDiscoveryCall ?? true) ? (
+                    <a
+                      href={BOOKING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-booking-click="true"
+                      className="font-mono text-micro text-accent underline underline-offset-4"
+                    >
+                      {ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} ↗
+                    </a>
+                  ) : null}
+                </div>
+              </div>
             </PanelCard>
           );
         })}
@@ -95,8 +154,13 @@ export function ServicesSnapshot() {
 
       <p className="text-body-sm text-text-tertiary">
         {ar ? "محتاج حاجة واحدة بس؟ " : "Need just one thing? "}
-        <Link href="/services" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
-          {ar ? "القائمة الفردية (À la carte) والخدمات بالتفصيل" : "À la carte menu and services in detail"}
+        <Link
+          href="/services"
+          className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
+        >
+          {ar
+            ? "القائمة الفردية (À la carte) والخدمات بالتفصيل"
+            : "À la carte menu and services in detail"}
         </Link>
       </p>
     </div>

@@ -18,8 +18,10 @@ const COLUMNS = [
   {
     head: ["ENGAGE", "التعاون"],
     links: [
+      ["Book with a Deposit", "احجز بعربون", "/book"],
       ["Start a Project", "ابدأ مشروعك", "/contact"],
       ["Services", "الخدمات", "/services"],
+      ["72-Hour Online Store", "متجر خلال 72 ساعة", "/services/store-72h"],
       ["Pricing", "التسعير", "/pricing"],
       ["For Hiring Teams", "للشركات والتوظيف", "/for-hiring"],
       ["Agreement", "الاتفاقية", "/agreement"],

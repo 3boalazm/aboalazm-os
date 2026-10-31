@@ -12,6 +12,7 @@ import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SectionMarker } from "@/components/ui/section-marker";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { SocialProof } from "@/components/shared/social-proof";
 
 
 export const revalidate = 60;
@@ -84,6 +85,7 @@ export default async function Home() {
         <div className="container-wide">
           <ServicesSnapshot />
         </div>
+        <SocialProof />
       </section>
 
       {/* 04 · Process & Methodology */}

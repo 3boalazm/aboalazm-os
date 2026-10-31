@@ -88,4 +88,4 @@ portfolio/
 - الـ PDF المُصدَّر بالزر الأحسن للإرسال (محسوب بالبكسل، من غير هامش متصفح).
 
 —
-Built on the Aboalazm OS identity · Mustafa Aboalazm · [aboalazm-os.vercel.app](https://aboalazm-os.vercel.app) · [behance.net/aboalazm](https://www.behance.net/aboalazm)
+Built on the Aboalazm OS identity · Mustafa Aboalazm · `NEXT_PUBLIC_SITE_URL` · [behance.net/aboalazm](https://www.behance.net/aboalazm)

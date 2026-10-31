@@ -346,16 +346,16 @@ export function HomeFaq() {
     ? [
         ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
         ["هل الهوية بتكون عربي وإنجليزي؟", "متاح. الباقة المتكاملة تشمل الشعار باللغتين؛ في الباقات الأصغر نؤكد اللغة المطلوبة وتكلفة النسخة الإضافية قبل البدء."],
-        ["كام مدة المشروع؟", "الشعار 7–10 أيام، الهوية 3–4 أسابيع، والنظام المتكامل 5–7 أسابيع. نؤكد الجدول في العرض حسب النطاق والاعتمادات."],
+        ["كام مدة المشروع؟", `الشعار 5–7 أيام عمل، الهوية 2–3 أسابيع، والنظام المتكامل 4–6 أسابيع، والمتجر الإلكتروني ثنائي اللغة خلال 72 ساعة من استلام المحتوى.`],
         ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
-        ["إزاي نبدأ؟", "مكالمة اكتشاف قصيرة لتحديد النطاق، التوافق، والجدول قبل أي التزام."],
+        ["إزاي نبدأ؟", "يمكنك الحجز مباشرة بعربون 50% (أو دفع كامل المبلغ بخصم 10%) وتأكيد الحجز عبر واتساب، أو بدء محادثة سريعة لتحديد النطاق."],
       ]
     : [
         ["Do I need to know exactly what I want?", "No. The first phase exists to understand the problem and establish the right direction before design."],
         ["Can the identity work in Arabic and English?", "Yes. The full system includes Arabic/English lockups. For smaller tiers, the required language and any additional version are confirmed before kickoff."],
-        ["How long does a project take?", "Logo: 7–10 days. Identity: 3–4 weeks. Full system: 5–7 weeks. The proposal confirms the schedule, scope and approval milestones."],
+        ["How long does a project take?", "Logo: 5–7 business days. Identity Essentials: 2–3 weeks. Full Brand System: 4–6 weeks. Bilingual Online Store: 72 hours once content is received."],
         ["What do I receive at the end?", "A complete identity system, final production files, guidelines, and an organized handover based on scope."],
-        ["How do we start?", "A short discovery call to clarify scope, fit, and timeline before any commitment."],
+        ["How do we start?", "Book directly with a 50% kickoff deposit (or pay in full with -10%) and confirm on WhatsApp, or reach out first to clarify scope."],
       ];
 
   return (
@@ -366,7 +366,7 @@ export function HomeFaq() {
           <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
         </div>
         <div className="border-t border-border-subtle">
-          {items.map(([q, a], i) => (
+          {items.map(([q, a]) => (
             <details key={q} className="group border-b border-border-subtle py-5">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display font-display-sm text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
                 <span>{q}</span><span className="font-mono text-label text-accent transition-transform duration-300 group-open:rotate-45">+</span>
@@ -387,10 +387,10 @@ export function HomeCta() {
       kicker={["LET'S BUILD SOMETHING", "يلّا نبني حاجة"]}
       title={["Have a brand to", "عندك براند"]}
       italic={["shape?", "عايز يتشكّل؟"]}
-      primary={["Start a Project", "ابدأ مشروعًا"]}
-      primaryHref="/contact"
-      secondary={["View Services", "شاهد الخدمات"]}
-      secondaryHref="/services"
+      primary={["Book with a deposit", "احجز بعربون"]}
+      primaryHref="/book?plan=brand-identity"
+      secondary={["Start a Project", "ابدأ مشروعًا"]}
+      secondaryHref="/contact"
     />
   );
 }

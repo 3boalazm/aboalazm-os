@@ -139,19 +139,21 @@ function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
             <span className="absolute left-2 top-1 font-display text-display leading-none text-text-ghost">
               {active.name.charAt(0)}
             </span>
-            <Image
-              key={active.slug}
-              src={cardArt(active.thumbnail)}
-              alt=""
-              fill
-              sizes={`${SIZE.w}px`}
-              className="object-cover"
-              priority={false}
-              onError={(e) => {
-                // Missing asset → hide the img, keep the accent panel
-                (e.currentTarget as HTMLImageElement).style.display = "none";
-              }}
-            />
+            {active.thumbnail ? (
+              <Image
+                key={active.slug}
+                src={cardArt(active.thumbnail)}
+                alt=""
+                fill
+                sizes={`${SIZE.w}px`}
+                className="object-cover"
+                priority={false}
+                onError={(e) => {
+                  // Missing asset → hide the img, keep the accent panel
+                  (e.currentTarget as HTMLImageElement).style.display = "none";
+                }}
+              />
+            ) : null}
             {/* Record stamp — keeps the ledger fiction intact */}
             <div className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-surface-0/70 px-2 py-1 backdrop-blur-sm">
               <span className="font-geist text-micro uppercase tracking-[0.10em] text-text-secondary">

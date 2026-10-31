@@ -5,6 +5,7 @@ import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { PwaInstallButton } from "@/components/pwa/pwa-install-button";
 import { Icon } from "@/components/ui/Icon";
+import { SITE_URL } from "@/lib/site";
 import type { Project } from "@/features/work/types";
 
 const CHANNELS = [
@@ -83,7 +84,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
             </div>
             <div className="mt-4 flex items-center justify-between gap-3 border-t border-border-subtle pt-4">
               <span className="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-text-ghost">{ar ? "مصمم ومبني بإيدي" : "Designed & built by me"}</span>
-              <a href="https://aboalazm-os.vercel.app/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-mono text-micro text-text-secondary transition-colors hover:text-accent">
+              <a href={`${SITE_URL}/`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 font-mono text-micro text-text-secondary transition-colors hover:text-accent">
                 {ar ? "افتح الـ OS" : "Open the OS"} <Icon name="arrow-up-right" size={13} />
               </a>
             </div>

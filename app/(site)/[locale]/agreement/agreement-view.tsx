@@ -1,44 +1,77 @@
 "use client";
 
 import { useLang } from "@/components/providers/lang-provider";
-import type { Bi } from "@/lib/offers";
-import { SectionHead, TierGrid, AlaCarteTables, PaymentBlock, CtaBand, pick } from "@/features/offers/offer-blocks";
+import {
+  AGREEMENT_TERMS,
+  bookHref,
+  DEPOSIT_CTA_LABEL,
+  type AlaCarteGroup,
+  type Bi,
+  type Tier,
+} from "@/lib/offers";
+import {
+  SectionHead,
+  TierGrid,
+  AlaCarteTables,
+  PaymentBlock,
+  CtaBand,
+  pick,
+} from "@/features/offers/offer-blocks";
+import { Badge } from "@/components/ui/Badge";
 import { Heading } from "@/components/ui/Heading";
 import { PanelCard } from "@/components/ui/PanelCard";
 
 const PHASES: readonly { n: string; days: Bi; name: Bi; body: Bi; out: Bi }[] = [
-  { n: "01", days: ["PRE-DAY 1", "قبل اليوم 1"], name: ["Discovery Call", "مكالمة الاكتشاف"], body: ["A short call to understand the project and confirm we're fit — before any financial commitment.", "مكالمة قصيرة لفهم المشروع والتأكد من التوافق — قبل أي التزام مالي."], out: ["FIT CONFIRMED", "تأكيد التوافق"] },
-  { n: "02", days: ["DAY 1", "اليوم 1"], name: ["Kickoff & Onboarding", "البدء والتعاقد"], body: ["Contract signed, 50% deposit received, project brief approved in writing. Nothing moves before all three.", "توقيع العقد، استلام مقدّم 50%، واعتماد البريف كتابيًا. لا شيء يتحرك قبل الثلاثة."], out: ["PROJECT LIVE", "بدء المشروع"] },
-  { n: "03", days: ["DAYS 2–6", "الأيام 2–6"], name: ["Discovery & Research", "الاكتشاف والبحث"], body: ["Brand audit, competitor analysis, audience persona, cultural research. No design appears in this phase — it's the foundation everything is built on.", "مراجعة البراند، تحليل المنافسين، بيرسونا الجمهور، والبحث الثقافي. لا تصميم في هذه المرحلة — هي الأساس الذي يُبنى عليه كل شيء."], out: ["RESEARCH REPORT", "تقرير بحثي"] },
-  { n: "04", days: ["DAYS 5–9", "الأيام 5–9"], name: ["Brand Strategy", "استراتيجية البراند"], body: ["Purpose, positioning, personality, tone of voice — approved in writing before any concept is drawn.", "الغاية، التموضع، الشخصية، نبرة الصوت — تُعتمد كتابيًا قبل رسم أي مفهوم."], out: ["SIGNED STRATEGY", "استراتيجية موقّعة"] },
-  { n: "05", days: ["DAYS 9–17", "الأيام 9–17"], name: ["Concept Development", "تطوير المفاهيم"], body: ["Dozens of sketches narrowed to 2–3 directions, presented on real mockups with the strategic logic behind each.", "عشرات الإسكتشات تُختصر إلى 2–3 اتجاهات، تُعرض على موك أب حقيقي مع المنطق الاستراتيجي وراء كل اتجاه."], out: ["DIRECTION CHOSEN", "اختيار الاتجاه"] },
-  { n: "06", days: ["DAYS 17–27", "الأيام 17–27"], name: ["Full Brand Design", "تصميم الهوية الكاملة"], body: ["Logo system → colors → typography → elements → applications. The order is not negotiable.", "نظام الشعار ← الألوان ← الخطوط ← العناصر ← التطبيقات. الترتيب غير قابل للتفاوض."], out: ["FULL SYSTEM", "نظام كامل"] },
-  { n: "07", days: ["DAYS 27–34", "الأيام 27–34"], name: ["Refinement & Revisions", "المراجعة والتعديلات"], body: ["Two structured revision rounds, logged in writing. Out-of-scope requests are quoted separately.", "جولتا مراجعة منظمتان موثقتان كتابيًا، وأي طلب خارج النطاق يُسعَّر على حدة."], out: ["FINAL SIGN-OFF", "اعتماد نهائي"] },
-  { n: "08", days: ["DAYS 34–38", "الأيام 34–38"], name: ["Final Delivery", "التسليم النهائي"], body: ["Brand Guidelines PDF, all source files in every format, handover call, plus 30 days of post-launch support.", "دليل الهوية PDF، كل ملفات المصدر بكل الصيغ، مكالمة تسليم، ودعم 30 يومًا بعد الإطلاق."], out: ["FULL HANDOVER", "تسليم كامل"] },
+  { n: "01", days: ["Day 1", "اليوم 1"], name: ["Contact & Initial Understanding", "التواصل والفهم المبدئي"], body: ["A focused conversation to hear the idea, the business goal, and the timeline before any commitment.", "محادثة مركّزة لسماع الفكرة والهدف التجاري والجدول الزمني قبل أي التزام."], out: ["Initial Fit", "توافق مبدئي"] },
+  { n: "02", days: ["Days 1–2", "اليوم 1–2"], name: ["Discovery Questions", "أسئلة الاكتشاف"], body: ["Initial questions to align on vision, audience, and competitors — followed by a detailed questionnaire after signing.", "أسئلة مبدئية لتوحيد الرؤية والجمهور والمنافسين — يليها استبيان تفصيلي بعد التعاقد."], out: ["Signed Brief", "بريف معتمد"] },
+  { n: "03", days: ["Days 2–3", "اليوم 2–3"], name: ["Proposal & Kickoff Deposit", "العرض الفني ودفعة البدء"], body: ["Written scope, deliverables, and fixed quote. Kickoff begins once the 50% deposit lands.", "نطاق مكتوب، مخرجات محددة، وعرض سعر ثابت. يبدأ العمل فور وصول دفعة الـ 50%."] , out: ["50% Kickoff", "دفعة 50%"] },
+  { n: "04", days: ["Days 3–9", "الأيام 3–9"], name: ["Research & Strategy", "البحث والاستراتيجية"], body: ["Competitor audit, positioning, audience persona, and visual direction approved on paper before sketching.", "مراجعة المنافسين، التموضع، بيرسونا الجمهور، والاتجاه البصري — تُعتمد كتابيًا قبل الرسم."], out: ["Strategy Sign-off", "اعتماد الاستراتيجية"] },
+  { n: "05", days: ["Days 9–20", "الأيام 9–20"], name: ["Concept Presentation", "عرض المفاهيم"], body: ["2–3 strategic directions presented in real-world context with clear rationale.", "عرض 2–3 اتجاهات استراتيجية في سياق الاستخدام الفعلي مع شرح المنطق البصري."], out: ["Concept Selection", "اختيار المفهوم"] },
+  { n: "06", days: ["Days 20–27", "الأيام 20–27"], name: ["Refinement & Revisions", "التطوير والمراجعات"], body: ["Two structured revision rounds on the selected direction until every detail is locked in.", "جولتا مراجعة منظمتان على الاتجاه المختار حتى تثبيت كل التفاصيل."], out: ["Final Approval", "الاعتماد النهائي"] },
+  { n: "07", days: ["Days 27–35", "الأيام 27–35"], name: ["Applications & Guidelines", "التطبيقات ودليل الهوية"], body: ["Building out color, typography, stationery/social applications, and the Brand Guidelines PDF.", "استكمال الألوان والخطوط والتطبيقات وإعداد دليل الهوية PDF."], out: ["System Ready", "جهوزية النظام"] },
+  { n: "08", days: ["Days 35–38", "الأيام 35–38"], name: ["Final Payment & Handover", "الدفعة النهائية والتسليم"], body: ["After the final balance clears, all open source files and full IP rights transfer in writing.", "بعد سداد الدفعة النهائية، تُسلَّم كل الملفات المفتوحة وتنتقل الملكية الفكرية كتابيًا."], out: ["IP Transfer", "نقل الملكية"] },
 ];
 
 const QUESTIONS: readonly { head: Bi; items: readonly Bi[] }[] = [
-  { head: ["About the project", "عن المشروع"], items: [["Is this a brand-new identity or a rebrand?", "هوية جديدة من الصفر أم إعادة بناء لبراند قائم؟"], ["What are your core services or products?", "ما خدماتك أو منتجاتك الأساسية؟"], ["When is the planned launch? Tied to any event?", "متى الإطلاق المخطط؟ وهل مرتبط بحدث؟"]] },
-  { head: ["About decision makers", "عن أصحاب القرار"], items: [["Who has final approval on the identity?", "من يملك الاعتماد النهائي للهوية؟"], ["Who reviews before them — the full circle?", "من يراجع قبله — الدائرة كاملة؟"]] },
-  { head: ["About brand & audience", "عن البراند والجمهور"], items: [["What are the 3 core values of the brand?", "ما القيم الثلاث الجوهرية للبراند؟"], ["Who is the target audience? Demographics + pain points.", "من الجمهور المستهدف؟ ديموغرافيا ونقاط ألم."], ["Top 3 competitors — what do you like / dislike about their identities?", "أهم 3 منافسين — ما يعجبك وما يزعجك في هوياتهم؟"]] },
-  { head: ["About visual direction", "عن التوجه البصري"], items: [["Bilingual brand (Arabic / English)?", "براند ثنائي اللغة (عربي / إنجليزي)؟"], ["Colors or styles you prefer or want to avoid — and why?", "ألوان أو أساليب تفضلها أو تتجنبها — ولماذا؟"], ["Required applications — website, packaging, uniform, signage?", "التطبيقات المطلوبة — موقع، تغليف، يونيفورم، لافتات؟"]] },
+  {
+    head: ["01 · The Business", "01 · النشاط التجاري"],
+    items: [
+      ["What does the company do, and what is the story behind the name?", "ما طبيعة نشاط الشركة، وما القصة وراء الاسم؟"],
+      ["What products or services are most important right now?", "ما أهم المنتجات أو الخدمات حاليًا؟"],
+      ["What sets you apart from competitors?", "ما الذي يميزكم عن المنافسين؟"],
+    ],
+  },
+  {
+    head: ["02 · Audience & Market", "02 · الجمهور والسوق"],
+    items: [
+      ["Who is your ideal customer (age, location, mindset)?", "من هو العميل المثالي (العمر، المكان، طريقة التفكير)؟"],
+      ["Who are the top 3 local or international competitors?", "من أبرز 3 منافسين محليًا أو دوليًا؟"],
+      ["Is the brand Arabic-first, English-first, or equally bilingual?", "هل البراند عربي بالأساس أم إنجليزي أم ثنائي اللغة بالتساوي؟"],
+    ],
+  },
+  {
+    head: ["03 · Visual Direction", "03 · الاتجاه البصري"],
+    items: [
+      ["Which 3 adjectives should describe the brand's personality?", "ما الـ 3 صفات التي يجب أن تصف شخصية البراند؟"],
+      ["Are there colors, symbols, or styles to keep or strictly avoid?", "هل هناك ألوان أو رموز أو أساليب يجب الحفاظ عليها أو تجنبها تمامًا؟"],
+    ],
+  },
+  {
+    head: ["04 · Touchpoints & Timeline", "04 · نقاط التواصل والجدول"],
+    items: [
+      ["Where will the identity appear first (packaging, web, social, signage)?", "أين ستظهر الهوية أولًا (تغليف، موقع، سوشيال، لافتات)؟"],
+      ["What is the target launch date and preferred tier?", "ما موعد الإطلاق المستهدف والفئة المفضلة؟"],
+    ],
+  },
 ];
 
-/* Fine print — ported from the original Work-Flow Agreement (invoice A0026) */
-const TERMS: readonly { n: string; head: Bi; body: Bi }[] = [
-  { n: "01", head: ["Scope of Work", "نطاق العمل"], body: ["The attached terms apply per signed invoice; deliverables and scope are listed in the proposal approved before kickoff.", "البنود المرفقة تخص الفاتورة الموقّعة، وتُحدَّد التسليمات والنطاق في العرض المعتمد قبل البدء."] },
-  { n: "02", head: ["Commitment & Content Standards", "الالتزام والمعايير"], body: ["The designer commits to delivering the agreed designs within the agreed period, and refrains from including any material deemed religiously or socially inappropriate.", "يلتزم المصمم بتنفيذ التصاميم المتفق عليها خلال المدة المتفق عليها، مع الامتناع عن إدخال أي مواد غير لائقة دينيًا أو اجتماعيًا."] },
-  { n: "03", head: ["Confidentiality", "السرية"], body: ["No project information is shared with third parties before completion — except seeking professional opinion or assistance.", "لا تُقدَّم أي معلومات لأطراف ثالثة حول التصاميم وبنود العمل قبل إتمامه — باستثناء طلب رأي أو مساعدة مهنية."] },
-  { n: "04", head: ["Portfolio Rights", "حقوق العرض"], body: ["Portfolio publication, its timing and any confidentiality requirements are agreed in writing before kickoff. Any commercial adjustment is itemised in the proposal; there is no automatic publication or confidentiality fee.", "بنتفق كتابيًا قبل البدء على السماح بعرض المشروع وتوقيته وأي متطلبات سرية. أي تعديل تجاري يتذكر كبند واضح في العرض؛ لا توجد رسوم عرض أو سرية تلقائية."] },
-  { n: "05", head: ["Payment Structure", "نظام الدفع"], body: ["Payments are received in two installments (50% / 50%) of the total invoice — before work begins and before final files are delivered. Tier 2 & 3 follow 50/25/25.", "تُستلم المستحقات على دفعات (50%/50%) من إجمالي الفاتورة — قبل البدء وقبل تسليم الملفات النهائية. والفئتان 2 و3 بنظام 50/25/25."] },
-  { n: "06", head: ["Payment Methods", "وسائل الدفع"], body: ["EGP or USD — cash, bank transfer, electronic wallets, or Vodafone Cash (01092500454). A 1% service fee may apply.", "بالجنيه أو الدولار — كاش، تحويل بنكي أو إلكتروني، أو فودافون كاش (01092500454) مع إضافة تكلفة خدمة 1% من قيمة المبلغ."] },
-  { n: "07", head: ["Revisions", "التعديلات"], body: ["Each tier includes its stated revision rounds; revisions that don't alter the overall design substantially. Beyond the included rounds, each additional revision is billed as stated per tier.", "كل فئة تشمل جولات المراجعة المذكورة بها — تعديلات لا تغيّر التصميم العام كثيرًا. وما بعدها يُحاسب كل تعديل إضافي كما هو موضح بكل فئة."] },
-  { n: "08", head: ["Additional Terms", "بنود إضافية"], body: ["Further terms may be added at the client's request upon mutual agreement.", "تُضاف أي بنود أخرى في حال طلب العميل ذلك بعد الاتفاق بين الطرفين."] },
-  { n: "09", head: ["IP Transfer", "نقل الملكية"], body: ["Full design rights transfer to the client in writing after the final payment clears.", "تنتقل حقوق التصميم كاملة للعميل كتابيًا بعد سداد الدفعة الأخيرة."] },
-  { n: "10", head: ["Good Faith", "حسن التعامل"], body: ["The designer guarantees flexibility and good conduct within a framework that protects both parties' rights.", "يضمن المصمم للعميل مرونة وحسن التعامل في إطار حفظ حقوق الطرفين."] },
-];
-
-export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers").Tier[]; alaCarte: import("@/lib/offers").AlaCarteGroup[] }) {
+export function AgreementView({
+  tiers,
+  alaCarte,
+}: {
+  tiers: Tier[];
+  alaCarte: AlaCarteGroup[];
+}) {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
@@ -113,11 +146,25 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
       <section className="flex flex-col gap-3">
         <SectionHead label={["06 / TERMS", "06 / البنود"]} title={["The fine", "البنود"]} italic={["print.", "التفصيلية."]} />
         <div className="flex flex-col">
-          {TERMS.map((t) => (
-            <div key={t.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-2 last:border-b md:grid-cols-[2.5rem_14rem_1fr]">
+          {AGREEMENT_TERMS.map((t) => (
+            <div
+              key={t.n}
+              className={`grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-2.5 last:border-b md:grid-cols-[2.5rem_16rem_1fr] ${
+                t.draft ? "bg-accent/[0.04] px-2" : ""
+              }`}
+            >
               <span className="font-mono text-micro text-text-ghost">{t.n}</span>
-              <span className="text-body text-text-primary">{pick(t.head, lang)}</span>
-              <span className="col-span-2 text-body-sm text-text-secondary md:col-span-1">{pick(t.body, lang)}</span>
+              <span className="flex flex-wrap items-center gap-2 text-body text-text-primary">
+                <span>{pick(t.head, lang)}</span>
+                {t.draft ? (
+                  <Badge tone="creative" size="sm">
+                    DRAFT
+                  </Badge>
+                ) : null}
+              </span>
+              <span className="col-span-2 text-body-sm text-text-secondary md:col-span-1">
+                {pick(t.body, lang)}
+              </span>
             </div>
           ))}
         </div>
@@ -126,7 +173,15 @@ export function AgreementView({ tiers, alaCarte }: { tiers: import("@/lib/offers
         </p>
       </section>
 
-      <CtaBand kicker={["READY TO BEGIN?", "جاهز تبدأ؟"]} title={["Ready to", "يلّا"]} italic={["begin?", "نبدأ؟"]} primary={["Start a Project", "ابدأ مشروعًا"]} primaryHref="/contact" secondary={["View Pricing", "شاهد التسعير"]} secondaryHref="/pricing" />
+      <CtaBand
+        kicker={["READY TO BEGIN?", "جاهز تبدأ؟"]}
+        title={["Ready to", "يلّا"]}
+        italic={["begin?", "نبدأ؟"]}
+        primary={DEPOSIT_CTA_LABEL}
+        primaryHref={bookHref("brand-identity")}
+        secondary={["View Pricing", "شاهد التسعير"]}
+        secondaryHref="/pricing"
+      />
     </main>
   );
 }

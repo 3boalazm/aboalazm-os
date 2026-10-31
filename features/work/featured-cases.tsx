@@ -168,6 +168,24 @@ export const STORIES: Record<string, { challenge: string; challengeAr: string }>
     challengeAr:
       "تطوير نظام بورتفوليو شخصي ثنائي اللغة لمهندس تطبيقات يجمع دراسات الحالة والدورات والمدونة التقنية مع Sanity CMS.",
   },
+  "nile-bed": {
+    challenge:
+      "Built a bilingual B2B industrial catalogue for a mattress spring manufacturer and supply wholesaler, organizing 69 items across 8 product groups with direct WhatsApp inquiry flows.",
+    challengeAr:
+      "بناء كتالوج صناعي ثنائي اللغة لمصنع سوست وتوريد خامات مراتب ينظم 69 صنفاً في 8 مجموعات منتجات مع مسارات طلب عروض أسعار عبر واتساب.",
+  },
+  "craft-egypt": {
+    challenge:
+      "Built an Arabic RTL storefront and regional craft atlas showcasing authentic Egyptian handmade copperware, textiles, pottery, and decor with a made-to-order inquiry flow.",
+    challengeAr:
+      "تطوير متجر وواجهة عربية RTL وأطلس ثقافي للحرف اليدوية والتراثية المصرية يجمع أقسام المنتجات وقصص الورش ودليل الطلب المخصص.",
+  },
+  "clinic-appointment-system": {
+    challenge:
+      "Built the Arabic RTL patient booking interface, installable PWA layer, and operational setup on top of the open-source Easy!Appointments (GPL-3.0) scheduling platform.",
+    challengeAr:
+      "تطوير طبقة واجهة حجز مرضى عربية RTL وتطبيق ويب تقدمي (PWA) وإعداد تشغيلي مبني فوق منصة الجدولة مفتوحة المصدر Easy!Appointments (برخصة GPL-3.0).",
+  },
 };
 
 export function pickFeatured(
@@ -357,10 +375,11 @@ export function FeaturedCases({
   );
 }
 
-type Destination = "case" | "live" | "external";
+type Destination = "case" | "live" | "demo" | "external";
 
 function destinationOf(project: Project): Destination {
   if (project.hasCaseStudy) return "case";
+  if (project.isDemo) return "demo";
   if (project.liveUrl) return "live";
   return project.externalUrl ? "external" : "external";
 }
@@ -368,6 +387,7 @@ function destinationOf(project: Project): Destination {
 const DESTINATION_COPY: Record<Destination, { en: string; ar: string }> = {
   case: { en: "Read the case study", ar: "اقرأ دراسة الحالة" },
   live: { en: "Visit the live site", ar: "زور الموقع المباشر" },
+  demo: { en: "Demo · Request walkthrough", ar: "عرض تجريبي · اطلب معاينة" },
   external: { en: "Open external portfolio", ar: "افتح البورتفوليو الخارجي" },
 };
 
@@ -386,10 +406,13 @@ export function FeaturedCard({
 }: FeaturedCardProps) {
   const story = STORIES[project.slug];
   const destination = destinationOf(project);
-  const internal = destination === "case";
-  const href = internal
-    ? `/case-studies/${project.slug}`
-    : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
+  const internal = destination === "case" || destination === "demo";
+  const href =
+    destination === "case"
+      ? `/case-studies/${project.slug}`
+      : destination === "demo"
+        ? "/contact?service=digital-product&source=/work/development"
+        : (project.liveUrl ?? project.externalUrl ?? BEHANCE);
   const name = ar && project.nameAr ? project.nameAr : project.name;
   const outcome = ar && project.outcomeAr ? project.outcomeAr : project.outcome;
   const challenge = story ? (ar ? story.challengeAr : story.challenge) : outcome;
@@ -406,9 +429,17 @@ export function FeaturedCard({
   const badge =
     destination === "case"
       ? { label: kind, tone: "outline" as const }
-      : destination === "live"
-        ? { label: ar ? "منتج حي" : "Live product", tone: "live" as const }
-        : { label: ar ? "بورتفوليو خارجي" : "External portfolio", tone: "neutral" as const };
+      : destination === "demo"
+        ? { label: ar ? "Demo · عرض تجريبي" : "Demo", tone: "creative" as const }
+        : destination === "live"
+          ? { label: ar ? "منتج حي" : "Live product", tone: "live" as const }
+          : { label: ar ? "بورتفوليو خارجي" : "External portfolio", tone: "neutral" as const };
+
+  const domainLabel = project.liveUrl
+    ? project.liveUrl.replace(/^https?:\/\//i, "").replace(/\/+$/, "")
+    : project.isDemo
+      ? "Easy!Appointments · GPL-3.0"
+      : project.discipline;
 
   return (
     <article className="flex flex-col gap-3">
@@ -416,7 +447,7 @@ export function FeaturedCard({
         href={href}
         aria-label={name}
         onClick={
-          internal
+          destination === "case"
             ? () => trackEvent("case_study_open", { slug: project.slug, surface: "card_media" })
             : undefined
         }
@@ -433,17 +464,51 @@ export function FeaturedCard({
             }}
           />
           <div aria-hidden className="edge-light" />
-          <Image
-            src={cardArt(project.thumbnail)}
-            alt={name}
-            fill
-            sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
-            priority={priority}
-            className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.025]"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-          />
+          {project.thumbnail ? (
+            <Image
+              src={cardArt(project.thumbnail)}
+              alt={name}
+              fill
+              sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+              priority={priority}
+              className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.025]"
+              onError={(e) => {
+                (e.currentTarget as HTMLImageElement).style.display = "none";
+              }}
+            />
+          ) : (
+            /* Clean Name + Domain / Demo card when no preview image is stored (no mock-ups) */
+            <div className="relative z-10 flex h-full w-full flex-col justify-between p-5 pb-12">
+              <div className="flex items-center justify-between gap-2">
+                <span className="rounded-pill border border-border-default bg-surface-1/80 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
+                  {project.isDemo
+                    ? ar
+                      ? "DEMO · عرض تجريبي"
+                      : "DEMO · RTL + PWA LAYER"
+                    : ar
+                      ? "موقع مباشر"
+                      : "LIVE DEPLOYMENT"}
+                </span>
+                <span
+                  dir="ltr"
+                  className="font-mono text-micro text-text-secondary"
+                >
+                  {domainLabel}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="font-display text-title font-semibold tracking-tight text-text-primary transition-colors group-hover:text-accent">
+                  {name}
+                </span>
+                <span
+                  dir="ltr"
+                  className="font-mono text-micro text-text-tertiary"
+                >
+                  {domainLabel}
+                </span>
+              </div>
+            </div>
+          )}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-obsidian/92 via-obsidian/55 to-transparent"
