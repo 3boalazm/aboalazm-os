@@ -15,9 +15,9 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   clientOrigin: GAD_CLIENT_ORIGIN,
 
   problem:
-    "A specialist cardiac and pulmonary care institute operating under a generic hospital visual identity — no mark that signaled its dual specialization, no system governing patient-facing communications, and an ambition to expand regionally while competing against internationally branded healthcare groups.",
+    "A specialist cardiac and pulmonary care institute operating under an existing, generic hospital identity — one that never signaled its dual specialization and could not carry its ambition to expand regionally against internationally branded healthcare groups. The brief was a rebrand, built from strategy up: a mark that says what the institute does, one bilingual system for patient-facing communications, and the presence to compete.",
   problemAr:
-    "معهد متخصص في رعاية القلب والرئة يعمل تحت هوية بصرية مستشفى عامة — لا شعار يُشير لتخصصه المزدوج، لا نظام يحكم التواصل مع المرضى، وطموح للتوسع إقليمياً بينما ينافس مجموعات رعاية صحية ذات هوية دولية.",
+    "معهد متخصص في رعاية القلب والرئة يعمل تحت هوية مستشفى عامة قائمة، لم تُشِر يومًا إلى تخصصه المزدوج ولا تحمل طموحه في التوسع إقليميًا أمام مجموعات رعاية صحية ذات هوية دولية. كان المطلوب ريبراند يبدأ من الاستراتيجية: رمز يقول ما يفعله المعهد، ونظام واحد ثنائي اللغة للتواصل مع المرضى، وحضور قادر على المنافسة.",
   teamScale: "Creative lead (Mustafa) · medical director · marketing manager",
   teamScaleAr: "القائد الإبداعي (مصطفى) · المدير الطبي · مدير التسويق",
   timeline: "Identity project: 2023 · Guidelines shown: V2.0 (2025)",
@@ -62,9 +62,9 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
 
   narrativeAnswers: {
     problem:
-      "A specialized cardiac and pulmonary care institute operating under generic, cold hospital branding — with no mark reflecting its dual life-saving specialization, no visual governance across patient communications, and an urgent need to compete with internationally branded regional health groups.",
+      "A specialized cardiac and pulmonary care institute operating under existing generic, cold hospital branding. The rebrand had to give it a mark that reflects its dual life-saving specialization, one governed visual system across patient communications, and the presence to compete with internationally branded regional health groups.",
     problemAr:
-      "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى تقليدية وباردة — دون رمز يعكس تخصصه المزدوج المنقذ للحياة، ودون حوكمة بصرية على مواد التواصل مع المرضى، مع حاجة ملحة لمنافسة مجموعات صحية إقليمية ذات هوية دولية.",
+      "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى تقليدية وباردة. جاء الريبراند ليمنحه رمزًا يعكس تخصصه المزدوج المنقذ للحياة، ونظامًا بصريًا واحدًا محكومًا للتواصل مع المرضى، وحضورًا ينافس به مجموعات صحية إقليمية ذات هوية دولية.",
     audienceContext:
       "High-anxiety cardiac and pulmonary patients, their families seeking trusted reassurance, patients and families in the Eastern Province and regional private health insurers. In healthcare, visual inconsistency translates directly to perceived clinical risk.",
     audienceContextAr:
