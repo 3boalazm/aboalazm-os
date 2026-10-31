@@ -515,7 +515,7 @@ function CtaBandEditorial({
         <span aria-hidden="true" className="cta-editorial__grain" />
         <div className="cta-editorial__content">
           <p className="cta-editorial__kicker">— {pick(kicker, lang)} —</p>
-          <p className="cta-editorial__title">
+          <p className="editorial-display cta-editorial__title">
             {pick(title, lang)} <em>{pick(italic, lang)}</em>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">

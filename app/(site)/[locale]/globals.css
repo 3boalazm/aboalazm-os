@@ -2614,28 +2614,32 @@ html {
   color: color-mix(in srgb, var(--color-alabaster) 72%, transparent);
   text-shadow: 0 1px 14px rgb(8 7 16 / 0.7);
 }
-.cta-editorial__title {
+/* The editorial display — the quiet voice's headline, shared by the quiet-room
+   bands (StatementBand, this closing CTA). Each band adds its own shadow/colour. */
+.editorial-display {
   font-family: var(--font-editorial);
   font-weight: 400;
   font-size: var(--text-hero);
   line-height: var(--text-hero--line-height);
   letter-spacing: var(--text-hero--letter-spacing);
   text-wrap: balance;
-  text-shadow: 0 2px 44px rgb(8 7 16 / 0.55);
 }
-.cta-editorial__title em {
+.editorial-display em {
   font-style: italic; /* a true italic — Instrument Serif ships one */
 }
 /* Arabic: Thmanyah Light for the line, Bold for the emphasis. A slanted Arabic
    word is never correct, so the contrast is weight, not slant. */
-[dir="rtl"] .cta-editorial__title {
+[dir="rtl"] .editorial-display {
   font-weight: 300;
   letter-spacing: 0;
   line-height: 1.15;
 }
-[dir="rtl"] .cta-editorial__title em {
+[dir="rtl"] .editorial-display em {
   font-style: normal;
   font-weight: 700;
+}
+.cta-editorial__title {
+  text-shadow: 0 2px 44px rgb(8 7 16 / 0.55);
 }
 /* The global focus ring is the accent — it disappears on the accent duotone */
 .cta-editorial a:focus-visible {
@@ -2646,6 +2650,69 @@ html {
   .cta-editorial__img {
     transform: none;
     transition: none;
+  }
+}
+
+/* ═══════════════ STATEMENT BAND — the manifesto in the quiet voice ═══════════════
+   The closing CTA's language without the picture: an obsidian room with a
+   whisper of dot grid, the editorial display at hero scale with one accent
+   phrase, and a paragraph whose words light up as it scrolls through
+   (components/ui/scrub-text.tsx). Always dark in both themes, so every colour
+   is a fixed primitive — never a theme-flipping token. */
+.statement-editorial {
+  /* Pin the dark-theme accent: this band is always dark, and light mode's deeper
+     accent text (a contrast fix for Alabaster; `.text-accent` reads
+     --color-accent-text there) turns the italic phrase muddy on obsidian.
+     Same value as --color-accent in @theme. */
+  --color-accent: #ff6b47;
+  --color-accent-text: #ff6b47;
+  background-color: var(--color-obsidian);
+  background-image: radial-gradient(color-mix(in srgb, var(--color-alabaster) 7%, transparent) 1px, transparent 1.4px);
+  background-size: 24px 24px;
+  color: var(--color-alabaster);
+  padding-block: clamp(5rem, 11vw, 9rem);
+}
+.statement-editorial__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--spacing) * 4);
+  text-align: center;
+}
+.statement-editorial__kicker {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-alabaster) 60%, transparent);
+}
+.statement-editorial__title {
+  text-shadow: 0 0 48px color-mix(in srgb, var(--color-alabaster) 12%, transparent);
+}
+.statement-editorial__lead {
+  max-width: 32ch;
+  margin-top: calc(var(--spacing) * 3);
+  font-family: var(--font-editorial);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1.22;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+[dir="rtl"] .statement-editorial__lead {
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.5;
+}
+/* Scrub text: one word, one --p (0 → 1, written by ScrubText). The 0.48 floor
+   keeps the unlit paragraph above AA contrast for any text size (≈4.9:1 on
+   obsidian), so a contrast scan taken before the visitor scrolls still passes.
+   With no JS, --p stays 1. */
+.scrub__w {
+  opacity: calc(var(--scrub-floor, 0.48) + (1 - var(--scrub-floor, 0.48)) * var(--p, 1));
+}
+@media (prefers-reduced-motion: reduce) {
+  .scrub__w {
+    opacity: 1;
   }
 }
 
