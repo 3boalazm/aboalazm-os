@@ -2606,6 +2606,14 @@ html {
   color: color-mix(in srgb, var(--color-alabaster) 88%, transparent);
   text-shadow: 0 1px 14px rgb(8 7 16 / 0.7); /* holds up when the ribbon tab passes behind it */
 }
+/* The unified response promise (lib/contact-details.ts) — same line the plain
+   band shows, in fixed alabaster because the panel is always dark. */
+.cta-editorial__promise {
+  font-family: var(--font-mono);
+  font-size: var(--text-micro);
+  color: color-mix(in srgb, var(--color-alabaster) 72%, transparent);
+  text-shadow: 0 1px 14px rgb(8 7 16 / 0.7);
+}
 .cta-editorial__title {
   font-family: var(--font-editorial);
   font-weight: 400;

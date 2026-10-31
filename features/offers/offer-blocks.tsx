@@ -541,6 +541,9 @@ function CtaBandEditorial({
               <Icon name="arrow-right" />
             </Link>
           </div>
+          <p className="cta-editorial__promise">
+            {lang === "ar" ? RESPONSE_PROMISE.ar : RESPONSE_PROMISE.en}
+          </p>
         </div>
       </section>
     </div>
