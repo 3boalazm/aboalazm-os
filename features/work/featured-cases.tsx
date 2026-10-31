@@ -326,14 +326,22 @@ export function FeaturedCases({
         </h2>
       ) : null}
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* Home on a phone: one card at a time, swipe for the rest (a stacked
+          grid made each showcase a five-screen scroll). */}
+      <div
+        className={joinClasses(
+          "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
+          heading === "home" &&
+            "max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden",
+        )}
+      >
         {featured.map((project, i) => (
-          <FeaturedCard
+          <div
             key={project.slug}
-            project={project}
-            ar={ar}
-            priority={heading === "none" && i === 0}
-          />
+            className={heading === "home" ? "max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:contents" : "contents"}
+          >
+            <FeaturedCard project={project} ar={ar} priority={heading === "none" && i === 0} />
+          </div>
         ))}
       </div>
 

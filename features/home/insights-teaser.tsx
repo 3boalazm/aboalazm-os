@@ -64,12 +64,12 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        {picked.map((p) => (
+        {picked.map((p, i) => (
           <Link
             key={p.slug}
             href={`/writing/${p.slug}`}
             onClick={() => trackEvent("insight_open", { slug: p.slug, surface: "home_teaser" })}
-            className="group flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1/40 p-3 transition-colors duration-base ease-physics hover:border-border-default md:p-4"
+            className={`group flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1/40 p-3 transition-colors duration-base ease-physics hover:border-border-default md:p-4 ${i >= 2 ? "max-sm:hidden" : ""}`}
           >
             <div className="flex items-center justify-between gap-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
               <span>{p.index}</span>

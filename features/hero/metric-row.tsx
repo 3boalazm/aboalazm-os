@@ -67,7 +67,7 @@ function MetricCard({ metric }: { metric: Metric }) {
     <motion.div
       variants={reveal.item}
       whileHover="hover"
-      className="group relative flex-1 cursor-default px-3 py-4 first:pl-0"
+      className="group relative flex-1 cursor-default px-3 py-3 first:pl-0 sm:py-4"
     >
       <span className="absolute inset-x-0 top-0 h-px bg-border-subtle" />
       <motion.span
@@ -80,7 +80,7 @@ function MetricCard({ metric }: { metric: Metric }) {
       <motion.p
         variants={{ hover: { y: -4 } }}
         transition={physics}
-        className="font-display text-display leading-[1.02] tracking-[-0.025em] text-text-primary"
+        className="font-display text-display leading-[1.02] tracking-[-0.025em] text-text-primary max-sm:text-[2.25rem]"
       >
         {metric.prefix && <span className="text-text-tertiary">{metric.prefix}</span>}
         {metric.value}
@@ -92,7 +92,7 @@ function MetricCard({ metric }: { metric: Metric }) {
       <p className="mt-0.5 font-mono text-micro uppercase tracking-[0.08em] text-accent">
         {metric.context}
       </p>
-      <p className="mt-1 text-body-sm text-text-tertiary">
+      <p className="mt-1 text-body-sm text-text-tertiary max-sm:hidden">
         {metric.detail}
       </p>
     </motion.div>

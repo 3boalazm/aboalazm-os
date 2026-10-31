@@ -9,7 +9,7 @@ export function ServicePaths() {
   const ar = lang === "ar";
   return (
     <section
-      className="grid gap-3 md:grid-cols-3"
+      className="grid gap-3 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-3"
       aria-label={ar ? "اختار نوع مشروعك" : "Choose your project type"}
     >
       {[
@@ -51,7 +51,7 @@ export function ServicePaths() {
       ].map((p) => (
         <article
           key={p.key}
-          className="flex flex-col gap-2 rounded-panel border border-border-default bg-surface-1 p-3 md:p-4"
+          className="flex flex-col gap-2 rounded-panel border border-border-default bg-surface-1 p-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:p-4"
         >
           <h2 className="font-display text-subtitle">{p.title}</h2>
           <p className="text-body-sm text-text-secondary">{p.body}</p>
@@ -59,10 +59,10 @@ export function ServicePaths() {
             <Link href={p.href} className="text-accent underline underline-offset-4">
               {ar ? "النطاق والتفاصيل" : "Scope & details"} →
             </Link>
-            <Link href={bookHref(p.planId)} className="underline underline-offset-4">
+            <Link href={bookHref(p.planId)} className="underline underline-offset-4 max-sm:hidden">
               {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]}
             </Link>
-            <Link href={p.work} className="underline underline-offset-4">
+            <Link href={p.work} className="underline underline-offset-4 max-sm:hidden">
               {ar ? "أعمال مشابهة" : "Relevant work"}
             </Link>
             <Link
