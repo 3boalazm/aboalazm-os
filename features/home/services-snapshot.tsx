@@ -68,14 +68,15 @@ export function ServicesSnapshot() {
         </div>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
+      {/* phones: swipe between the three packages instead of a three-screen stack */}
+      <div className="grid gap-4 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:pt-3 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden lg:grid-cols-3">
         {TIERS.map((tier) => {
           const recommended = Boolean(tier.recommended);
           return (
             <PanelCard
               key={tier.name[0]}
               emphasis={recommended ? "accent" : "default"}
-              className="relative flex flex-col gap-3 rounded-panel p-3 md:p-4"
+              className="relative flex flex-col gap-3 rounded-panel p-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:p-4"
             >
               {recommended ? (
                 <span className="absolute -top-2.5 start-4 rounded-pill bg-accent px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-obsidian">
@@ -105,8 +106,8 @@ export function ServicesSnapshot() {
                 {ar ? tier.bestFor[1] : tier.bestFor[0]}
               </p>
               <ul className="flex flex-col gap-1.5 border-t border-border-subtle pt-3">
-                {tier.includes.slice(0, 4).map((inc) => (
-                  <li key={inc[0]} className="flex items-start gap-2 text-body-sm text-text-secondary">
+                {tier.includes.slice(0, 4).map((inc, n) => (
+                  <li key={inc[0]} className={`flex items-start gap-2 text-body-sm text-text-secondary ${n >= 3 ? "max-sm:hidden" : ""}`}>
                     <span className="mt-[0.55em] size-1 shrink-0 rounded-pill bg-accent" aria-hidden />
                     {ar ? inc[1] : inc[0]}
                   </li>

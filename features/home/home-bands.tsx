@@ -80,10 +80,10 @@ export function AboutTeaser() {
               </li>
             ))}
           </ul>
-          <p className="mb-2 mt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          <p className="mb-2 mt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost max-sm:hidden">
             {ar ? "قدرات مكملة — حسب احتياج المشروع" : "ADJACENT CAPABILITIES · WHEN USEFUL"}
           </p>
-          <ul aria-label={ar ? "قدرات مكملة" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5">
+          <ul aria-label={ar ? "قدرات مكملة" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5 max-sm:hidden">
             {(ar ? APPLIED_SKILLS_AR : APPLIED_SKILLS).map((s) => (
               <li key={s} className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro text-text-tertiary">
                 {s}
@@ -100,7 +100,8 @@ export function AboutTeaser() {
           ["LANGUAGES", "اللغات", "Arabic (Native) · English (Professional)", "العربية (الأم) · الإنجليزية (احترافية)"],
           ["BASED", "المقر", "Al Obour, Egypt — open to the Gulf & remote", "العبور، مصر — متاح للخليج وعن بُعد"],
         ] as const).map(([ken, kar, ven, var_]) => (
-          <div key={ken} className="border-b border-border-subtle py-2 first:border-t">
+          // phones keep availability + languages; the rest is on /about
+          <div key={ken} className={`border-b border-border-subtle py-2 first:border-t ${["SPECIALTY", "CURRENT ROLE", "BASED"].includes(ken) ? "max-sm:hidden" : ""}`}>
             <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? kar : ken}</dt>
             <dd className="text-body-sm text-text-secondary">{ar ? var_ : ven}</dd>
           </div>
@@ -250,7 +251,7 @@ export function ClientJourneyBand() {
                 key={step.n}
                 ref={(el) => { stepRefs.current[i] = el; }}
                 data-step={i}
-                className="min-h-[36vh] py-4 lg:min-h-[48vh] lg:py-5"
+                className="py-3 sm:min-h-[36vh] sm:py-4 lg:min-h-[48vh] lg:py-5"
               >
                 <motion.div
                   initial={false}
@@ -267,12 +268,12 @@ export function ClientJourneyBand() {
 ][i]}`}>{step.n}</span>
                     <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">{step.proof}</span>
                   </div>
-                  <h3 className="mt-5 max-w-[14ch] font-display text-[clamp(2rem,4vw,4rem)] leading-[0.98] tracking-[-0.03em] text-text-primary">
+                  <h3 className="mt-3 max-w-[14ch] font-display text-[clamp(1.75rem,4vw,4rem)] sm:mt-5 leading-[0.98] tracking-[-0.03em] text-text-primary">
                     {step.name}
                   </h3>
-                  <p className="mt-4 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary">{step.short}</p>
-                  <div className="mt-6 h-px w-full bg-border-subtle" />
-                  <p className="mt-3 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                  <p className="mt-3 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary sm:mt-4">{step.short}</p>
+                  <div className="mt-6 h-px w-full bg-border-subtle max-sm:hidden" />
+                  <p className="mt-3 font-mono max-sm:hidden text-micro uppercase tracking-[0.08em] text-text-ghost">
                     {ar ? `بوابة ${step.n}` : `Gate ${step.n}`}
                   </p>
                 </motion.div>
