@@ -98,11 +98,11 @@ export function BeforeAfterSlider({
             </div>
           </div>
           <div className="flex flex-col justify-between rounded-card border border-border-subtle bg-surface-2 p-3">
-            <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
+            <span className="font-mono text-micro uppercase tracking-wider text-text-secondary">
               {ar ? "معيار الحوكمة" : "Governance standard"}
             </span>
             <span className="font-display text-title leading-none text-accent">{ar ? "مقفل" : "LOCKED"}</span>
-            <span className="font-mono text-micro text-text-ghost">
+            <span className="font-mono text-micro text-text-secondary">
               {ar ? "مبدأ حوكمة" : "Governance principle"}
             </span>
           </div>
@@ -130,11 +130,11 @@ export function BeforeAfterSlider({
           <div className="flex items-center justify-between border-b border-border-subtle pb-2">
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-pill bg-text-tertiary" />
-              <span className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
+              <span className="font-mono text-micro uppercase tracking-wider text-text-secondary">
                 {beforeTitle ?? (ar ? "حالة التدقيق قبل النظام" : "Pre-system Audit State")}
               </span>
             </div>
-            <span className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro text-text-ghost">
+            <span className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro text-text-secondary">
               FRAGMENTED
             </span>
           </div>
@@ -142,25 +142,25 @@ export function BeforeAfterSlider({
           {/* Structured audit finding boxes — professional diagnostic annotations */}
           <div className="relative mt-3 h-[calc(100%-2.5rem)]">
             <div className="absolute left-[4%] top-[6%] rounded border border-dashed border-border-strong bg-surface-1/80 px-2.5 py-1.5 shadow-sm">
-              <p className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
+              <p className="font-mono text-micro uppercase tracking-wider text-text-secondary">
                 {ar ? "⚠ شعار موروث غير مقنن بالنسب" : "⚠ Legacy mark without grid lockup"}
               </p>
             </div>
 
             <div className="absolute right-[8%] top-[24%] rounded border border-dashed border-border-strong bg-surface-1/80 px-2.5 py-1.5 shadow-sm">
-              <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
+              <p className="font-mono text-micro uppercase tracking-wider text-text-secondary">
                 {ar ? "⚠ تفاوت في درجات الألوان بين المطابع" : "⚠ Inconsistent color values across print runs"}
               </p>
             </div>
 
             <div className="absolute bottom-[28%] left-[6%] rounded border border-dashed border-border-strong bg-surface-1/80 px-2.5 py-1.5 shadow-sm">
-              <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
+              <p className="font-mono text-micro uppercase tracking-wider text-text-secondary">
                 {ar ? "⚠ غياب شبكة الهوامش والارتفاعات" : "⚠ Arbitrary padding & lack of spatial hierarchy"}
               </p>
             </div>
 
             <div className="absolute bottom-[6%] right-[10%] rounded border border-dashed border-border-strong bg-surface-1/80 px-2.5 py-1.5 shadow-sm">
-              <p className="font-mono text-micro uppercase tracking-wider text-text-tertiary">
+              <p className="font-mono text-micro uppercase tracking-wider text-text-secondary">
                 {ar ? "⚠ أنماط عناصر ومطبوعات متفرقة" : "⚠ Fragmented collateral & ununified styles"}
               </p>
             </div>
@@ -192,7 +192,7 @@ export function BeforeAfterSlider({
       </div>
 
       {/* ════ State labels ════ */}
-      <span className="pointer-events-none absolute bottom-2 left-2 z-elevated rounded-pill bg-surface-0/80 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-text-tertiary backdrop-blur-sm">
+      <span className="pointer-events-none absolute bottom-2 left-2 z-elevated rounded-pill bg-surface-0/80 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-text-secondary backdrop-blur-sm">
         {ar ? "التدقيق قبل النظام" : "AUDIT // PRE-SYSTEM"}
       </span>
       <span className="pointer-events-none absolute bottom-2 right-2 rounded-pill bg-surface-0/80 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-accent backdrop-blur-sm">

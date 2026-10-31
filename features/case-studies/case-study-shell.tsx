@@ -125,7 +125,7 @@ export function CaseStudyShell({
                   : "text-text-secondary hover:bg-surface-1/70 hover:text-text-primary",
               )}
             >
-              <span className="hidden opacity-75 sm:inline">01</span>
+              <span className="hidden opacity-90 sm:inline">01</span>
               <span>{ar ? "دراسة الحالة التقنية" : "Technical Case Study"}</span>
             </button>
 
@@ -145,7 +145,7 @@ export function CaseStudyShell({
                   : "text-text-secondary hover:bg-surface-1/70 hover:text-text-primary",
               )}
             >
-              <span className="hidden opacity-75 sm:inline">02</span>
+              <span className="hidden opacity-90 sm:inline">02</span>
               <span>{ar ? "نظرة البيزنس والمميزات" : "Business Overview"}</span>
             </button>
           </div>

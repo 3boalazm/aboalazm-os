@@ -152,7 +152,7 @@ export function NilePharmaERPCaseStudy() {
         </div>
 
         <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
+          <div className="min-w-0">
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-orange-400/30 bg-orange-400/[0.08] px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-accent">
                 {ar ? "منظومة مؤسسية — 9 خدمات" : "Enterprise system — 9 services"}
@@ -162,7 +162,7 @@ export function NilePharmaERPCaseStudy() {
               </span>
             </div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">NILE PHARMA FOOD / DIGITAL OPERATIONS</p>
-            <h1 className="max-w-[14ch] font-display text-[clamp(2.8rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary">
+            <h1 className="max-w-[14ch] break-words font-display text-[clamp(2rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary">
               {ar ? "منصة تشغيل" : "An integrated"}
               <br />
               <span className="text-text-tertiary">{ar ? "متكاملة" : "operational"}</span> {ar ? "لتوزيع الدواء." : "platform."}
@@ -236,7 +236,7 @@ export function NilePharmaERPCaseStudy() {
           <div className="mt-6 grid gap-6 lg:grid-cols-3">
             {servicesGrouped.map((g) => (
               <div key={g.group} className="rounded-2xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-orange-400">{ar ? g.group : g.groupEn}</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">{ar ? g.group : g.groupEn}</p>
                 <div className="mt-4 space-y-3">
                   {g.items.map(([no, name, descAr, descEn]) => (
                     <div key={name} className="flex gap-3 border-b border-border-subtle py-3 last:border-0">
@@ -270,7 +270,7 @@ export function NilePharmaERPCaseStudy() {
           {screens.map((sc) => (
             <article key={sc.n} className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
               <div className="flex items-center justify-between gap-3 px-4 py-3">
-                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-orange-400">
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
                   {sc.n} / {ar ? sc.titleAr : sc.titleEn}
                 </p>
                 <a
@@ -353,7 +353,7 @@ export function NilePharmaERPCaseStudy() {
 
           <div className="space-y-4">
             <div className="rounded-2xl border border-border-subtle bg-surface-1 p-4">
-              <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">{ar ? "قرارات تمنع الفوضى" : "Decisions that prevent chaos"}</p>
+              <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">{ar ? "قرارات تمنع الفوضى" : "Decisions that prevent chaos"}</p>
               <ul className="mt-3 space-y-2 text-sm leading-[1.65] text-text-secondary">
                 <li>• {ar ? "عقود مشتركة @nile/contracts + AsyncAPI — منع انحراف الأنواع بين الخدمات." : "Shared @nile/contracts + AsyncAPI — prevent type drift."}</li>
                 <li>• {ar ? "Saga للمبيعات — لا عملية ذرية وهمية عبر 3 قواعد بيانات." : "Saga for sales — no fake atomic across 3 DBs."}</li>
@@ -405,17 +405,17 @@ export function NilePharmaERPCaseStudy() {
             </p>
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="font-mono text-[12px] uppercase text-accent">{ar ? "قرار" : "Decision"}</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">{ar ? "Saga بدل 2PC" : "Saga over 2PC"}</p>
                 <p className="mt-1 font-mono text-[12px] text-text-ghost">{ar ? "تجنب قفل موزع" : "Avoid distributed lock"}</p>
               </div>
               <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="font-mono text-[12px] uppercase text-accent">{ar ? "قرار" : "Decision"}</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">FEFO + تحفيز</p>
                 <p className="mt-1 font-mono text-[12px] text-text-ghost">{ar ? "صلاحية = منطق عمل" : "Expiry = business logic"}</p>
               </div>
               <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="font-mono text-[12px] uppercase text-accent">{ar ? "قرار" : "Decision"}</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">Audit أولًا</p>
                 <p className="mt-1 font-mono text-[12px] text-text-ghost">{ar ? "كل حدث مسجل" : "Every event logged"}</p>
               </div>
