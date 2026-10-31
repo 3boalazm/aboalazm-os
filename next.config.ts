@@ -58,11 +58,30 @@ const nextConfig: NextConfig = {
   // at request time. The file name is a variable so the tracer can't see it,
   // and the dynamic per-slug share cards (writing / case-studies / books) ran
   // in a serverless function without the fonts → HTTP 500. Force-include them.
+  //
+  // The same goes for the pictures on the share cards: lib/og-kit.tsx ogImg()
+  // reads them with readFile(process.cwd()/public/<path>) at request time, so the
+  // tracer never sees them and the deployed function shipped without them. Every
+  // picture tile was empty on the live site (home, /work, /work-ui, ...). List
+  // each picture here; lib/og-trace.test.ts fails if lib/og-pages.tsx uses one
+  // that is missing from this list. Only these exact files (about 2.6 MB), not
+  // public/images, so each function stays small.
   outputFileTracingIncludes: {
     "/**/opengraph-image*": [
       "./public/fonts/Gc_Epicpro.otf",
       "./public/fonts/thmanyahserifdisplay-Bold.otf",
       "./public/fonts/noto-sans-latin-400.ttf",
+      "./public/images/work/icon.png",
+      "./public/images/work/cc-logo-hero.jpg",
+      "./public/images/work/gad/gad-card.jpg",
+      "./public/images/work/reflection/refl-card.jpg",
+      "./public/images/work/nile-pharma/npf-card.jpg",
+      "./public/images/work/nile-pharma/npf-business-card-box.jpg",
+      "./public/images/work/dev-cards/code-canvas-dev-card.jpg",
+      "./public/images/work/dev-cards/farm-console-card.jpg",
+      "./public/images/work/dev-cards/nile-erp-command-center-card.jpg",
+      "./public/images/work/dev-cards/oltre-collective-card.jpg",
+      "./public/images/work/dev-cards/zad-card.jpg",
     ],
   },
   async headers() {

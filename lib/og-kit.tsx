@@ -74,7 +74,10 @@ export async function ogImg(rel: string, width = 640, quality = 72): Promise<str
         out = `data:${mime};base64,${raw.toString("base64")}`;
       }
     }
-  } catch {
+  } catch (err) {
+    // Never fatal (the card still renders without the picture) but never silent:
+    // on a serverless host a file that was not bundled shows up here and nowhere else.
+    console.warn(`[og] could not read ${rel}: ${err instanceof Error ? err.message : String(err)}`);
     out = "";
   }
   imgCache.set(key, out);
