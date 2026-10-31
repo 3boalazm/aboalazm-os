@@ -146,7 +146,7 @@ export function NilePharmaERPCaseStudy() {
         </div>
 
         <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
+          <div className="min-w-0">
             <div className="mb-5 flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-orange-400/30 bg-orange-400/[0.08] px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-accent">
                 {ar ? "منظومة مؤسسية — 9 خدمات" : "Enterprise system — 9 services"}
@@ -156,7 +156,7 @@ export function NilePharmaERPCaseStudy() {
               </span>
             </div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">NILE PHARMA FOOD / DIGITAL OPERATIONS</p>
-            <h1 className="max-w-[14ch] font-display text-[clamp(2.8rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary">
+            <h1 className="max-w-[14ch] break-words font-display text-[clamp(2rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary">
               {ar ? "منصة تشغيل" : "An integrated"}
               <br />
               <span className="text-text-tertiary">{ar ? "متكاملة" : "operational"}</span> {ar ? "لتوزيع الدواء." : "platform."}
@@ -200,7 +200,7 @@ export function NilePharmaERPCaseStudy() {
               <div className="rounded-lg bg-surface-2 p-3">
                 <p className="font-mono text-[12px] uppercase text-text-tertiary">{ar ? "أوامر / معلقة" : "Orders / pending"}</p>
                 <p className="mt-1 font-display text-sm font-semibold text-text-primary">
-                  {kpi.orders} / <span className="text-amber-600">{kpi.pending}</span>
+                  {kpi.orders} / <span className="text-warning-text [html[data-theme=light]_&]:text-amber-800">{kpi.pending}</span>
                 </p>
               </div>
               <div className="rounded-lg bg-amber-50 text-amber-900 p-3 ring-1 ring-amber-200">
@@ -234,7 +234,7 @@ export function NilePharmaERPCaseStudy() {
           <div className="mt-6 grid gap-6 lg:grid-cols-3">
             {servicesGrouped.map((g) => (
               <div key={g.group} className="rounded-2xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-orange-400">{ar ? g.group : g.groupEn}</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">{ar ? g.group : g.groupEn}</p>
                 <div className="mt-4 space-y-3">
                   {g.items.map(([no, name, descAr, descEn]) => (
                     <div key={name} className="flex gap-3 border-b border-zinc-100 py-3 last:border-0">
@@ -268,7 +268,7 @@ export function NilePharmaERPCaseStudy() {
           {screens.map((sc) => (
             <article key={sc.n} className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
               <div className="flex items-center justify-between gap-3 px-4 py-3">
-                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-orange-400">
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-accent">
                   {sc.n} / {ar ? sc.titleAr : sc.titleEn}
                 </p>
                 <a
@@ -333,7 +333,7 @@ export function NilePharmaERPCaseStudy() {
                   <span>SO-1008</span>
                   <span>أبو اليزيد - سموحة</span>
                   <span>9,680 ج.م</span>
-                  <span className="text-text-tertiary">CANCELLED</span>
+                  <span className="text-white/60">CANCELLED</span>
                 </div>
                 <div className="mt-2 h-1 w-full rounded-full bg-white/10">
                   <div className="h-full w-[78%] rounded-full bg-[#14B8A6]" />
@@ -353,14 +353,14 @@ export function NilePharmaERPCaseStudy() {
             <div className="bg-[#0B1220] p-3">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">INVENTORY · المخزون</span>
-                <span className="rounded-full bg-amber-50 text-amber-9000/20 px-2 py-1 font-mono text-[12px] text-amber-300">3 تنبيه نقص</span>
+                <span className="rounded-full bg-amber-500/20 px-2 py-1 font-mono text-[12px] text-amber-300">3 تنبيه نقص</span>
               </div>
               <div className="mt-3 space-y-2">
                 <div className="rounded-lg bg-surface-1 p-2">
                   <p className="font-mono text-[12px] text-text-tertiary">WH-CAI · مخزن القاهرة</p>
                   <div className="mt-2 flex justify-between font-mono text-xs">
                     <span>BRX-PLUS-30</span>
-                    <span className="text-emerald-600">3200 / 500</span>
+                    <span className="text-success-text">3200 / 500</span>
                   </div>
                   <div className="mt-1 h-1.5 rounded-full bg-zinc-100">
                     <div className="h-full w-[92%] rounded-full bg-emerald-500" />
@@ -372,7 +372,7 @@ export function NilePharmaERPCaseStudy() {
                     <span className="text-amber-700">60 / 100</span>
                   </div>
                   <div className="mt-1 h-1.5 rounded-full bg-amber-100">
-                    <div className="h-full w-[35%] rounded-full bg-amber-50 text-amber-9000" />
+                    <div className="h-full w-[35%] rounded-full bg-amber-500" />
                   </div>
                 </div>
               </div>
@@ -390,16 +390,16 @@ export function NilePharmaERPCaseStudy() {
             <div className="bg-[#0B1220] p-3">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">PRODUCTS · الأصناف</span>
-                <span className="font-mono text-[12px] text-white/40">8 أصناف</span>
+                <span className="font-mono text-[12px] text-white/60">8 أصناف</span>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <div className="rounded-lg bg-surface-1 p-2">
-                  <p className="font-mono text-[12px] text-emerald-600">● ok</p>
+                  <p className="font-mono text-[12px] text-success-text">● ok</p>
                   <p className="mt-1 text-xs font-semibold">بروكسيد بلس 30</p>
                   <p className="font-mono text-[12px] text-text-tertiary">849.12 ج.م</p>
                 </div>
                 <div className="rounded-lg bg-amber-50 text-amber-900 p-2 ring-1 ring-amber-200">
-                  <p className="font-mono text-[12px] text-amber-600">● low</p>
+                  <p className="font-mono text-[12px] text-amber-800">● low</p>
                   <p className="mt-1 text-xs font-semibold">بروكس ايريكس</p>
                   <p className="font-mono text-[12px] text-text-tertiary">410 / 500</p>
                 </div>
@@ -418,7 +418,7 @@ export function NilePharmaERPCaseStudy() {
             <div className="bg-[#0B1220] p-3">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">CRM · العملاء</span>
-                <span className="font-mono text-[12px] text-white/40">8 حسابات</span>
+                <span className="font-mono text-[12px] text-white/60">8 حسابات</span>
               </div>
               <div className="mt-3 rounded-lg bg-surface-1 p-2 font-mono text-[13px] leading-[1.65]">
                 <div className="flex justify-between">
@@ -431,7 +431,7 @@ export function NilePharmaERPCaseStudy() {
                 </div>
                 <div className="flex justify-between">
                   <span>HOSP-0001 · مستشفى دلتا</span>
-                  <span className="text-amber-600">15,400</span>
+                  <span className="text-warning-text [html[data-theme=light]_&]:text-amber-800">15,400</span>
                 </div>
               </div>
             </div>
@@ -453,11 +453,11 @@ export function NilePharmaERPCaseStudy() {
               <div className="mt-3 rounded-lg bg-surface-1 p-2">
                 <div className="flex justify-between font-mono text-xs">
                   <span>INV-2001 · العزبي</span>
-                  <span className="text-emerald-600">مدفوعة بالكامل</span>
+                  <span className="text-success-text">مدفوعة بالكامل</span>
                 </div>
                 <div className="flex justify-between font-mono text-xs text-text-tertiary">
                   <span>INV-2002 · الشفاء</span>
-                  <span className="text-amber-600">مدفوعة جزئيًا 9,000/18,641</span>
+                  <span className="text-warning-text [html[data-theme=light]_&]:text-amber-800">مدفوعة جزئيًا 9,000/18,641</span>
                 </div>
               </div>
             </div>
@@ -479,7 +479,7 @@ export function NilePharmaERPCaseStudy() {
               <div className="mt-3 grid grid-cols-2 gap-2">
                 <div className="rounded-lg bg-surface-1 p-2">
                   <p className="font-mono text-[12px] text-text-tertiary">SO-1001 → 258.09</p>
-                  <p className="font-mono text-[12px] text-emerald-600">مدفوع</p>
+                  <p className="font-mono text-[12px] text-success-text">مدفوع</p>
                 </div>
                 <div className="rounded-lg bg-white/10 p-2">
                   <p className="font-mono text-[12px] text-white">sales.order.created 09:12</p>
@@ -512,7 +512,7 @@ export function NilePharmaERPCaseStudy() {
             <div className="grid gap-0 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]">
               {/* Step 1 */}
               <div className="p-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">01 · Sales</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">01 · Sales</p>
                 <p className="mt-2 font-display text-base font-semibold text-text-primary">SO-1001</p>
                 <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "صيدلية العزبي - المعادي · 19,360 ج.م · أحمد فتحي" : "El Ezaby - Maadi · 19,360 EGP · Ahmed Fathy"}</p>
                 <p className="mt-3 rounded-lg bg-emerald-50 px-2 py-1 font-mono text-[12px] text-emerald-700">APPROVED → ALLOCATING</p>
@@ -520,7 +520,7 @@ export function NilePharmaERPCaseStudy() {
               <div className="hidden items-center px-2 text-accent md:flex">→</div>
               {/* Step 2 */}
               <div className="border-t border-zinc-100 p-4 md:border-l md:border-t-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">02 · Inventory</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">02 · Inventory</p>
                 <p className="mt-2 font-display text-base font-semibold text-text-primary">WH-CAI</p>
                 <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "حجز  LOT-2025-A · تأكيد الحجز" : "Reserve LOT-2025-A · confirmed"}</p>
                 <p className="mt-3 rounded-lg bg-[#0B1220] px-2 py-1 font-mono text-[12px] text-emerald-400">inventory.reservation.confirmed 09:12</p>
@@ -528,7 +528,7 @@ export function NilePharmaERPCaseStudy() {
               <div className="hidden items-center px-2 text-accent md:flex">→</div>
               {/* Step 3 */}
               <div className="border-t border-zinc-100 p-4 md:border-l md:border-t-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">03 · Accounting</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">03 · Accounting</p>
                 <p className="mt-2 font-display text-base font-semibold text-text-primary">INV-2001</p>
                 <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "فاتورة 19,360 · مدفوعة بالكامل 14:30" : "Invoice 19,360 · fully paid 14:30"}</p>
                 <p className="mt-3 rounded-lg bg-surface-2 px-2 py-1 font-mono text-[12px] text-text-secondary">accounting.invoice.issued</p>
@@ -536,7 +536,7 @@ export function NilePharmaERPCaseStudy() {
               <div className="hidden items-center px-2 text-accent md:flex">→</div>
               {/* Step 4 */}
               <div className="border-t border-zinc-100 p-4 md:border-l md:border-t-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">04 · Incentives + Audit</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">04 · Incentives + Audit</p>
                 <p className="mt-2 font-display text-base font-semibold text-text-primary">ilg-001</p>
                 <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "عمولة 258.09 · سجل التتبع 14:30" : "Commission 258.09 · audit 14:30"}</p>
                 <p className="mt-3 rounded-lg bg-emerald-50 px-2 py-1 font-mono text-[12px] text-emerald-700">incentives.ledger.calculated</p>
@@ -605,7 +605,7 @@ export function NilePharmaERPCaseStudy() {
 
           <div className="space-y-4">
             <div className="rounded-2xl border border-border-subtle bg-surface-1 p-4">
-              <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">{ar ? "قرارات تمنع الفوضى" : "Decisions that prevent chaos"}</p>
+              <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-accent">{ar ? "قرارات تمنع الفوضى" : "Decisions that prevent chaos"}</p>
               <ul className="mt-3 space-y-2 text-sm leading-[1.65] text-text-secondary">
                 <li>• {ar ? "عقود مشتركة @nile/contracts + AsyncAPI — منع انحراف الأنواع بين الخدمات." : "Shared @nile/contracts + AsyncAPI — prevent type drift."}</li>
                 <li>• {ar ? "Saga للمبيعات — لا عملية ذرية وهمية عبر 3 قواعد بيانات." : "Saga for sales — no fake atomic across 3 DBs."}</li>
@@ -657,17 +657,17 @@ export function NilePharmaERPCaseStudy() {
             </p>
             <div className="grid gap-3 sm:grid-cols-3">
               <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="font-mono text-[12px] uppercase text-accent">{ar ? "قرار" : "Decision"}</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">{ar ? "Saga بدل 2PC" : "Saga over 2PC"}</p>
                 <p className="mt-1 font-mono text-[12px] text-text-ghost">{ar ? "تجنب قفل موزع" : "Avoid distributed lock"}</p>
               </div>
               <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="font-mono text-[12px] uppercase text-accent">{ar ? "قرار" : "Decision"}</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">FEFO + تحفيز</p>
                 <p className="mt-1 font-mono text-[12px] text-text-ghost">{ar ? "صلاحية = منطق عمل" : "Expiry = business logic"}</p>
               </div>
               <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
-                <p className="font-mono text-[12px] uppercase text-orange-400">{ar ? "قرار" : "Decision"}</p>
+                <p className="font-mono text-[12px] uppercase text-accent">{ar ? "قرار" : "Decision"}</p>
                 <p className="mt-2 text-sm font-medium text-text-primary">Audit أولًا</p>
                 <p className="mt-1 font-mono text-[12px] text-text-ghost">{ar ? "كل حدث مسجل" : "Every event logged"}</p>
               </div>

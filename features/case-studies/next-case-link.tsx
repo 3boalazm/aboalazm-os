@@ -32,7 +32,7 @@ export function NextCaseLink({
       <Link
         href={`/case-studies/${slug}`}
         onClick={() => trackEvent("case_study_open", { slug, surface: "next_case" })}
-        className={panelCardVariants({ className: "group relative block overflow-hidden rounded-panel px-6 py-8 transition-[border-color] duration-base ease-physics hover:border-accent" })}
+        className={panelCardVariants({ className: "group relative block overflow-hidden rounded-panel px-4 py-6 sm:px-6 sm:py-8 transition-[border-color] duration-base ease-physics hover:border-accent" })}
       >
         <div
           aria-hidden
@@ -45,8 +45,8 @@ export function NextCaseLink({
           <p className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
             {ar ? "الملف التالي ← التالي في الفهرس" : "NEXT CASE ↳ FROM THE FILES"}
           </p>
-          <div className="flex items-end justify-between gap-4">
-            <h2 className="font-display text-[clamp(1.75rem,4vw,3rem)] font-[800] leading-[1.05] tracking-[-0.02em] text-text-primary">
+          <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
+            <h2 className="min-w-0 [overflow-wrap:anywhere] font-display text-[clamp(1.75rem,4vw,3rem)] font-[800] leading-[1.05] tracking-[-0.02em] text-text-primary">
               {ar && nameAr ? nameAr : name}
             </h2>
             <span className="inline-flex shrink-0 rounded-full border border-border-subtle p-3 text-text-secondary transition-[transform,border-color,color] duration-base ease-physics group-hover:translate-x-0.5 group-hover:border-accent group-hover:text-accent rtl:group-hover:-translate-x-0.5">
