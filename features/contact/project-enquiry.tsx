@@ -9,7 +9,7 @@ export function ProjectEnquiry({ service = "brand-identity", source, compact = f
   const ar = lang === "ar";
   const pathname = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
   const digital = service === "digital-product" || service === "website";
-  return <section aria-label={ar ? "ناقش مشروعًا مشابهًا" : "Discuss a similar project"} className={`rounded-panel border border-accent/30 bg-surface-1 p-3 ${compact ? "my-4" : "container-content my-6 p-4 md:p-5"}`}>
+  return <section aria-label={ar ? (compact ? "استفسار سريع عن مشروع" : "ناقش مشروعًا مشابهًا") : (compact ? "Quick project enquiry" : "Discuss a similar project")} className={`rounded-panel border border-accent/30 bg-surface-1 p-3 ${compact ? "my-4" : "container-content my-6 p-4 md:p-5"}`}>
     <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
       <div className="max-w-[55ch]">
         <h2 className={`font-display ${compact ? "text-subtitle" : "text-title"}`}>{ar ? (digital ? "عندك مشكلة تشغيل أو فكرة منتج مشابهة؟" : "براندك محتاج هوية واضحة؟") : (digital ? "Have a similar product or workflow in mind?" : "Need a clear identity for your brand?")}</h2>
