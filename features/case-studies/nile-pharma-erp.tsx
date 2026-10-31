@@ -43,6 +43,85 @@ const servicesGrouped = [
   },
 ] as const;
 
+
+const screens = [
+  {
+    n: "01",
+    src: "/images/work/nile-erp/nile-erp-01-command-center.webp",
+    titleEn: "Operations Command Center",
+    titleAr: "لوحة التحكم",
+    summaryEn: "The landing screen: the day’s sales, the most-used actions and every module a click away.",
+    summaryAr: "شاشة البداية: مبيعات اليوم وأكثر الإجراءات استخدامًا وكل الوحدات على بعد نقرة.",
+    points: [
+      "Quick actions — invoice, collection and return in one click",
+      "Today’s sales, live — total value and number of sales orders",
+      "Six ready workflows — field day, invoice, collection, return, inventory, assistant",
+      "An AI operations assistant — a guide to operations, by permission",
+      "Ten core modules — field, sales, purchasing, inventory, finance, incentives, HR, reports, administration",
+    ],
+  },
+  {
+    n: "02",
+    src: "/images/work/nile-erp/nile-erp-02-invoicing.webp",
+    titleEn: "Invoicing",
+    titleAr: "الفواتير",
+    summaryEn: "The sales document, end to end: create, track collection and export — all from one list.",
+    summaryAr: "وثيقة البيع من أولها لآخرها: إنشاء وتتبّع تحصيل وتصدير — من قائمة واحدة.",
+    points: [
+      "Quick shortcuts — new invoice, new client, follow up an order",
+      "Create an invoice in four steps — client → document type → items → review",
+      "Collection-status filters — all, unpaid, partial, overdue",
+      "Excel export, with the columns you choose",
+      "Auto-numbered invoices — total, collected, remaining, colour-coded status",
+    ],
+  },
+  {
+    n: "03",
+    src: "/images/work/nile-erp/nile-erp-03-accounts-360.webp",
+    titleEn: "Accounts 360",
+    titleAr: "العملاء",
+    summaryEn: "Every client account in one database, with the signals a rep needs. Client names are blurred for privacy.",
+    summaryAr: "كل حسابات العملاء في قاعدة واحدة، مع المؤشرات التي يحتاجها المندوب. أسماء العملاء مطموسة حفاظًا على الخصوصية.",
+    points: [
+      "A 360° client account in one place",
+      "Client actions — add, log a visit, import, refresh",
+      "Five performance indicators — new clients, today’s visits, inactive clients, clients with a balance, conversion rate",
+      "Advanced search and filters — name, code, phone, category, rep",
+      "A data-rich table — code, category, city, status, rep, current balance",
+    ],
+  },
+  {
+    n: "04",
+    src: "/images/work/nile-erp/nile-erp-04-inventory.webp",
+    titleEn: "Inventory Overview",
+    titleAr: "المخزون",
+    summaryEn: "Stock value, availability and quality at a glance, across more than one warehouse.",
+    summaryAr: "قيمة المخزون والمتاح والجودة في نظرة واحدة، عبر أكثر من مخزن.",
+    points: [
+      "Receive stock — one press, recorded in the movement log",
+      "Stock value, shown at a glance",
+      "Units available against units reserved",
+      "Quality and movement indicators — health reserve, reserved, damaged/rejected, today’s movements",
+      "Multiple warehouses, with transfers between them",
+      "Search and expiry tracking — name or code, status, expiry window",
+    ],
+  },
+  {
+    n: "05",
+    src: "/images/work/nile-erp/nile-erp-05-notifications.webp",
+    titleEn: "Notification Center",
+    titleAr: "الإشعارات",
+    summaryEn: "An internal notification center for operational alerts — approvals, credit, shipping and announcements.",
+    summaryAr: "مركز إشعارات داخلي للتنبيهات التشغيلية: اعتمادات وائتمان وشحن وإعلانات.",
+    points: [
+      "Notification management — mark all as read, send a notice, announce to a group",
+      "Live counters — unread, received in the last 24 hours, total shown",
+      "Search and filters — by category, unread only",
+      "Automatic operational alerts — e.g. exchange rates not updated, with a one-click ‘open and follow up’",
+    ],
+  },
+] as const;
+
 const stack = ["Next.js", "NestJS", "TypeScript", "Prisma", "PostgreSQL / Neon", "Redpanda / Kafka", "Turborepo", "Docker Compose"];
 
 export function NilePharmaERPCaseStudy() {
@@ -173,11 +252,66 @@ export function NilePharmaERPCaseStudy() {
         </div>
       </section>
 
-      {/* ═══ 03 / PRODUCT TOUR — 6 real screens with function/decision ═══ */}
+      {/* ═══ 03 / PRODUCT TOUR — real, annotated screens of the running system ═══ */}
       <section className="container-wide py-6 md:py-8">
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">03 / {ar ? "جولة داخل المنصة" : "Product tour"}</p>
         <h2 className="mt-3 max-w-[16ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
           {ar ? "داخل المنصة — كل شاشة لها وظيفة." : "Inside the platform — every screen has a job."}
+        </h2>
+        <p className="mt-4 max-w-2xl text-sm leading-[1.65] text-text-secondary">
+          {ar
+            ? "خمس شاشات حقيقية من المنصة وهي تعمل، موسومة بأهم ما فيها. البيانات تجريبية لأغراض العرض."
+            : "Five real screens of the running platform, annotated with what matters in each. The data is demo data, for presentation."}
+        </p>
+
+        <div className="mt-6 flex flex-col gap-8">
+          {screens.map((sc) => (
+            <article key={sc.n} className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
+              <div className="flex items-center justify-between gap-3 px-4 py-3">
+                <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-orange-400">
+                  {sc.n} / {ar ? sc.titleAr : sc.titleEn}
+                </p>
+                <a
+                  href={sc.src}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary transition-colors hover:text-text-primary"
+                >
+                  {ar ? "افتح بالحجم الكامل" : "Open full size"} ↗
+                </a>
+              </div>
+              <Image
+                src={sc.src}
+                alt={ar ? `شاشة ${sc.titleAr} من Nile ERP، موسومة بالنقاط الرئيسية` : `Nile ERP ${sc.titleEn} screen, annotated with its key points`}
+                width={2000}
+                height={1126}
+                sizes="(min-width:1280px) 1280px, 100vw"
+                className="h-auto w-full"
+              />
+              <div className="grid gap-4 border-t border-border-subtle p-4 md:grid-cols-[1fr_1.4fr]">
+                <p className="text-sm leading-[1.65] text-text-secondary">{ar ? sc.summaryAr : sc.summaryEn}</p>
+                {/* The image already carries the Arabic callouts; the list is for English readers. */}
+                {!ar && (
+                  <ol className="space-y-1.5">
+                    {sc.points.map((pt, i) => (
+                      <li key={pt} className="flex gap-3 text-sm leading-[1.55] text-text-secondary">
+                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-orange-400/15 font-mono text-[11px] text-accent">{i + 1}</span>
+                        {pt}
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ 04 / SERVICE SNAPSHOTS — what each service tracks (illustrative cards from the demo data) ═══ */}
+      <section className="container-wide py-6 md:py-8">
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">04 / {ar ? "لقطات الخدمات" : "Service snapshots"}</p>
+        <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+          {ar ? "خلف الشاشات — ماذا تتتبع كل خدمة." : "Behind the screens — what each service tracks."}
         </h2>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -366,10 +500,10 @@ export function NilePharmaERPCaseStudy() {
         </p>
       </section>
 
-      {/* ═══ 04 / OPERATIONAL FLOW — one integrated scenario ═══ */}
+      {/* ═══ 05 / OPERATIONAL FLOW — one integrated scenario ═══ */}
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide py-6 md:py-7">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">04 / {ar ? "التدفق التشغيلي" : "Operational flow"}</p>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">05 / {ar ? "التدفق التشغيلي" : "Operational flow"}</p>
           <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
             {ar ? "من الطلب إلى المخزون والمحاسبة — سيناريو واحد حقيقي." : "From order to inventory and accounting — one real scenario."}
           </h2>
@@ -427,9 +561,9 @@ export function NilePharmaERPCaseStudy() {
         </div>
       </section>
 
-      {/* ═══ 05 / ENGINEERING — clear architecture, implemented vs planned ═══ */}
+      {/* ═══ 06 / ENGINEERING — clear architecture, implemented vs planned ═══ */}
       <section className="container-wide py-6 md:py-8">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">05 / {ar ? "الهندسة" : "Engineering"}</p>
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">06 / {ar ? "الهندسة" : "Engineering"}</p>
         <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
           {ar ? "مبني كنظام، لا كمجموعة شاشات." : "Built as a system, not a collection of screens."}
         </h2>
@@ -506,11 +640,11 @@ export function NilePharmaERPCaseStudy() {
         </div>
       </section>
 
-      {/* ═══ 06 / CONTRIBUTION ═══ */}
+      {/* ═══ 07 / CONTRIBUTION ═══ */}
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-7">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">06 / {ar ? "دوري ومساهمتي" : "Contribution"}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">07 / {ar ? "دوري ومساهمتي" : "Contribution"}</p>
             <h2 className="mt-3 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? "ماذا صممت وبنيت فعلًا." : "What I designed and built."}
             </h2>
