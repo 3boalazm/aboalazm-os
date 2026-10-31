@@ -172,7 +172,7 @@ export function ZadCaseStudy() {
               </div>
               <div className="flex items-center justify-between border-t border-zinc-100 px-3 py-2">
                 <span className="flex items-center gap-2 font-mono text-[12px] text-zinc-500">
-                  <span className="size-2 rounded-full bg-emerald-500" /> {ar ? "لقطة حقيقية من الإنتاج" : "Real production asset"}
+                  <span className="size-2 rounded-full bg-emerald-500" /> {ar ? "أصل حقيقي من الإنتاج" : "Real production asset"}
                 </span>
                 <span className="font-mono text-[12px] text-zinc-400">og-image.png</span>
               </div>
@@ -382,10 +382,10 @@ export function ZadCaseStudy() {
           </h2>
 
           <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            {/* Real screenshot — og-image + icon */}
+            {/* Real asset (a designed share card, not an interface capture) — og-image + icon */}
             <div className="rounded-2xl border border-border-subtle bg-white p-4 md:p-4">
               <div className="flex items-center justify-between">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "لقطة حقيقية" : "Verified asset"}</p>
+                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "أصل موثّق" : "Verified asset"}</p>
                 <span className="rounded-full border border-border-subtle px-2 py-1 font-mono text-[12px] text-text-ghost">og-image.png</span>
               </div>
               <div className="mt-4 overflow-hidden rounded-xl border border-zinc-200">
