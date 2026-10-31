@@ -370,7 +370,7 @@ export function PortfolioView() {
   }, []);
 
   return (
-    <div id="folio" className={mobile ? "is-mobile" : undefined}>
+    <main id="folio" className={mobile ? "is-mobile" : undefined}>
       <div className="fol-progressline" aria-hidden><i id="folio-progress" /></div>
 
       <div className="fol-viewport" style={{ zoom }}>
@@ -421,6 +421,6 @@ export function PortfolioView() {
           </div>
         </div>
       )}
-    </div>
+    </main>
   );
 }

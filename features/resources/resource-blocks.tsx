@@ -41,7 +41,13 @@ function writeUnlocked() {
 export function SpineRail() {
   const { lang } = useLang();
   return (
-    <div className="-mx-3 overflow-x-auto px-3 pb-1">
+    // Scrolls sideways on a phone: focusable so keyboard users can scroll it.
+    <div
+      role="region"
+      aria-label={lang === "ar" ? "مراحل العمل السبع" : "The seven stages"}
+      tabIndex={0}
+      className="-mx-3 overflow-x-auto px-3 pb-1 focus-visible:outline-2 focus-visible:outline-offset-2"
+    >
       <ol className="flex min-w-max items-stretch gap-1.5">
         {SPINE.map((s, i) => (
           <li key={s.ref} className="flex items-center gap-1.5">
