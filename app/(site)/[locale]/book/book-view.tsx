@@ -184,7 +184,7 @@ export function BookView({
                   {BOOKABLE_PLANS.map((item) => (
                     <option key={item.id} value={item.id}>
                       {ar
-                        ? `${item.name[1]} (${item.priceDisplay})`
+                        ? `${item.name[1]} (${localizePrice(item.priceDisplay, "ar")})`
                         : `${item.name[0]} (${item.priceDisplay})`}
                     </option>
                   ))}
