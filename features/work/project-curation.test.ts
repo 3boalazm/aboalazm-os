@@ -86,7 +86,8 @@ test("every digital project uses a dedicated 16:10 dev-cards preview or name+dom
 
   // Legacy Payload CMS basenames also resolve to the crisp 16:10 dev-cards assets
   assert.equal(cardArt("/media/cc-dev-thumb.jpg"), "/images/work/dev-cards/code-canvas-dev-card.jpg");
-  assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-card.jpg");
+  assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
+  assert.equal(cardArt("/images/work/dev-cards/nile-erp-card.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
   assert.equal(cardArt("/media/oltre-collective-thumb.jpg"), "/images/work/dev-cards/oltre-collective-card.jpg");
   assert.equal(cardArt("/media/farm-thumb.jpg"), "/images/work/dev-cards/farm-console-card.jpg");
 });
@@ -96,6 +97,16 @@ test("Mini Exam and Youssef Guba link to verified production previews", () => {
   assert.equal(projectBySlug("youssef-guba").liveUrl, "https://youssefguba-os.vercel.app/");
   assert.equal(projectBySlug("mini-exam").previewStatus, undefined);
   assert.equal(projectBySlug("youssef-guba").previewStatus, undefined);
+});
+
+test("Nile Pharma ERP has no live preview: the seeded demo was retired for the real screens", () => {
+  const nile = projectBySlug("nile-pharma-erp");
+  assert.equal(nile.liveUrl, undefined);
+  assert.equal(nile.externalUrl, undefined);
+  assert.equal(nile.isUiUx, undefined);
+  assert.equal(nile.previewStatus, "archived");
+  assert.ok(nile.hasCaseStudy);
+  assert.equal(existsSync(join(process.cwd(), "public", "showcase", "nile-erp")), false);
 });
 
 test("every design and development project carries distinct EN + AR card narrative copy", () => {

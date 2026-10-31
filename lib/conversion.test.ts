@@ -103,7 +103,7 @@ test("locale links retain query and fragments, preserve English addresses and le
   assert.equal(localeHref("/contact?service=website#form", "ar"), "/ar/contact?service=website#form");
   assert.equal(localeHref("/ar/services", "en"), "/services");
   assert.equal(localeHref("/ar/services", "ar"), "/ar/services");
-  for (const path of ["/cv", "/portfolio", "/images/logo.png", "/api/resources", "/showcase/nile-erp/index.html", "https://example.test/", "//example.test/"]) assert.equal(localeHref(path, "ar"), path);
+  for (const path of ["/cv", "/portfolio", "/images/logo.png", "/api/resources", "/showcase/farm/index.html", "https://example.test/", "//example.test/"]) assert.equal(localeHref(path, "ar"), path);
 });
 test("sitemap includes every built-in case in both languages, paired articles and no invented modification dates", () => {
   const entries = buildSitemap({ caseStudies: BUILT_IN_CASE_SLUGS.map((slug) => ({ slug, updatedAt: "" })), posts: [{ slug: "story", updatedAt: "" }, { slug: "story-ar", updatedAt: "" }] });

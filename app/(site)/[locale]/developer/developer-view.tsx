@@ -6,6 +6,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { PwaInstallButton } from "@/components/pwa/pwa-install-button";
 import { Icon } from "@/components/ui/Icon";
 import { SITE_URL } from "@/lib/site";
+import { cardArt } from "@/features/work/card-art";
 import type { Project } from "@/features/work/types";
 
 const CHANNELS = [
@@ -112,7 +113,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
             return (
               <article key={project.slug} className="group flex min-w-0 flex-col overflow-hidden rounded-card border border-border-subtle bg-surface-1 transition-colors duration-300 hover:border-border-strong">
                 <Link href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined} className="relative block aspect-[1.36] overflow-hidden bg-surface-2">
-                  <Image src={project.thumbnail} alt={ar ? project.nameAr ?? project.name : project.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
+                  <Image src={cardArt(project.thumbnail)} alt={ar ? project.nameAr ?? project.name : project.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.035]" />
                   <span className="absolute start-3 top-3 rounded-pill border border-white/15 bg-black/55 px-2.5 py-1 font-mono text-[0.6rem] uppercase tracking-[0.1em] text-white backdrop-blur">
                     {project.category === "development" ? (ar ? "منتج رقمي" : "DIGITAL PRODUCT") : (ar ? "هوية بصرية" : "BRAND IDENTITY")}
                   </span>
