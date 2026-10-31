@@ -147,14 +147,14 @@ async function vWork() {
 
 async function vWorkUi() {
   const i = await ogImgs({
-    a: ["/images/work/dev-cards/nile-erp-command-center-card.jpg", 640],
+    a: ["/images/work/dev-cards/zad-card.jpg", 640],
     b: ["/images/work/dev-cards/farm-console-card.jpg", 640],
     c: ["/images/work/dev-cards/oltre-collective-card.jpg", 640],
   });
   return (
     <Stage>
       <div style={flex({ position: "absolute", left: 18, top: 26 })}>
-        <Win w={330} h={236} label="Live · Nile ERP" src={i.a} />
+        <Win w={330} h={236} label="Live · Zad" src={i.a} />
       </div>
       <div style={flex({ position: "absolute", right: 16, top: 150 })}>
         <Win w={330} h={236} label="Live · Farm Console" src={i.b} />

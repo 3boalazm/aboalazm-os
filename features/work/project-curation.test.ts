@@ -99,6 +99,16 @@ test("Mini Exam and Youssef Guba link to verified production previews", () => {
   assert.equal(projectBySlug("youssef-guba").previewStatus, undefined);
 });
 
+test("Nile Pharma ERP has no live preview: the seeded demo was retired for the real screens", () => {
+  const nile = projectBySlug("nile-pharma-erp");
+  assert.equal(nile.liveUrl, undefined);
+  assert.equal(nile.externalUrl, undefined);
+  assert.equal(nile.isUiUx, undefined);
+  assert.equal(nile.previewStatus, "archived");
+  assert.ok(nile.hasCaseStudy);
+  assert.equal(existsSync(join(process.cwd(), "public", "showcase", "nile-erp")), false);
+});
+
 test("every design and development project carries distinct EN + AR card narrative copy", () => {
   for (const project of PROJECTS) {
     const story = STORIES[project.slug];

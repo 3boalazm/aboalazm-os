@@ -200,8 +200,9 @@ export const PROJECTS: readonly Project[] = [
     year: "2025–26",
     thumbnail: "/images/work/dev-cards/nile-erp-command-center-card.jpg",
     hasCaseStudy: true,
-    isUiUx: true,
-    liveUrl: "/showcase/nile-erp/index.html",
+    // No public deployment. The seeded demo that stood in for one was retired; the
+    // case study shows the real screens, so the row opens the saved case file.
+    previewStatus: "archived",
     accent: {
       primary: "rgb(20 184 166 / 0.20)",
       secondary: "rgb(56 189 248 / 0.10)",

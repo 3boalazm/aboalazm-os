@@ -114,6 +114,14 @@ const nextConfig: NextConfig = {
         destination: "/work/development",
         permanent: true,
       },
+      {
+        // The seeded-demo dashboard at /showcase/nile-erp was retired: the case
+        // study now shows the real screens. Old links and shares land there
+        // (temporary, so the demo could come back without cached redirects).
+        source: "/showcase/nile-erp/:path*",
+        destination: "/case-studies/nile-pharma-erp",
+        permanent: false,
+      },
     ];
     return [...redirects, ...redirects.map((entry) => ({ ...entry, source: `/ar${entry.source}`, destination: `/ar${entry.destination}` }))];
   },

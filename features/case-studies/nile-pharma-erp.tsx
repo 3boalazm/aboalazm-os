@@ -4,6 +4,7 @@ import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { contactHref } from "@/lib/contact-context";
 
 /* The hero shows the owner's overview board of the real interface (the five
    screens below, plus the headline figures read off them). It replaces an
@@ -172,13 +173,10 @@ export function NilePharmaERPCaseStudy() {
                 : "Not just a good-looking dashboard. Nine interconnected services run product, stock, sales, accounting and incentives — every operation leaves a traceable record."}
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href="/showcase/nile-erp/index.html" className="inline-flex items-center gap-2 rounded-full bg-orange-400 px-5 py-2.5 text-sm font-medium text-black transition-transform hover:-translate-y-0.5">
-                {ar ? "افتح العرض التفاعلي" : "Open live showcase"} ↗
+              <a href="#tour" className="inline-flex items-center gap-2 rounded-full bg-orange-400 px-5 py-2.5 text-sm font-medium text-black transition-transform hover:-translate-y-0.5">
+                {ar ? "شاهد الشاشات" : "See the screens"} ↓
               </a>
             </div>
-            <p className="mt-4 font-mono text-[12px] uppercase tracking-[0.10em] text-text-ghost">
-              {ar ? "عرض توضيحي ببيانات تجريبية، وليس وصولًا إلى بيانات الشركة." : "Interactive demonstration with seeded sample data, not access to company records."}
-            </p>
           </div>
 
           {/* Hero visual — the real interface (the owner's overview board), not an illustration */}
@@ -209,11 +207,8 @@ export function NilePharmaERPCaseStudy() {
               {/* The link's name is the image's alt plus this hint; an aria-label here would hide the alt (and its figures). */}
               <span className="sr-only">{ar ? " — يُفتح بالحجم الكامل في تبويب جديد" : " — opens full size in a new tab"}</span>
             </a>
-            <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-3 pb-2 pt-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
-              <span>{ar ? "خمس شاشات من النظام وهو يعمل — أسماء العملاء مطموسة" : "Five screens from the running system — client names blurred"}</span>
-              <a href="#tour" className="text-accent transition-colors hover:text-text-primary">
-                {ar ? "شاهد الشاشات" : "See the screens"} ↓
-              </a>
+            <figcaption className="px-3 pb-2 pt-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
+              {ar ? "خمس شاشات من النظام وهو يعمل — أسماء العملاء مطموسة" : "Five screens from the running system — client names blurred"}
             </figcaption>
           </figure>
         </div>
@@ -244,7 +239,7 @@ export function NilePharmaERPCaseStudy() {
                 <p className="font-mono text-[12px] uppercase tracking-[0.14em] text-orange-400">{ar ? g.group : g.groupEn}</p>
                 <div className="mt-4 space-y-3">
                   {g.items.map(([no, name, descAr, descEn]) => (
-                    <div key={name} className="flex gap-3 border-b border-zinc-100 py-3 last:border-0">
+                    <div key={name} className="flex gap-3 border-b border-border-subtle py-3 last:border-0">
                       <span className="font-mono text-xs text-text-ghost">{no}</span>
                       <div>
                         <p className="font-display text-base font-semibold text-text-primary">{name}</p>
@@ -314,263 +309,9 @@ export function NilePharmaERPCaseStudy() {
         </div>
       </section>
 
-      {/* ═══ 04 / SERVICE SNAPSHOTS — what each service tracks (illustrative cards from the demo data) ═══ */}
+      {/* ═══ 04 / ENGINEERING — clear architecture, implemented vs planned ═══ */}
       <section className="container-wide py-6 md:py-8">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">04 / {ar ? "لقطات الخدمات" : "Service snapshots"}</p>
-        <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-          {ar ? "خلف الشاشات — ماذا تتتبع كل خدمة." : "Behind the screens — what each service tracks."}
-        </h2>
-
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          {/* 01 Sales */}
-          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="bg-[#0B1220] p-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">SALES · أوامر البيع</span>
-                <span className="rounded-full bg-[#14B8A6]/20 px-2 py-1 font-mono text-[12px] text-[#5EEAD4]">9 أوامر</span>
-              </div>
-              <div className="mt-3 rounded-lg bg-white/5 p-2">
-                <div className="grid grid-cols-4 gap-2 font-mono text-[12px] text-white/50">
-                  <span>SO-1001</span>
-                  <span>العزبي - المعادي</span>
-                  <span>19,360 ج.م</span>
-                  <span className="text-emerald-400">PAID</span>
-                </div>
-                <div className="mt-2 grid grid-cols-4 gap-2 font-mono text-[12px] text-white/50">
-                  <span>SO-1008</span>
-                  <span>أبو اليزيد - سموحة</span>
-                  <span>9,680 ج.م</span>
-                  <span className="text-text-tertiary">CANCELLED</span>
-                </div>
-                <div className="mt-2 h-1 w-full rounded-full bg-white/10">
-                  <div className="h-full w-[78%] rounded-full bg-[#14B8A6]" />
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "المبيعات والطلبات" : "Sales & Orders"}</h3>
-              <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
-                {ar ? "عرض حالات الطلب التسع: مسودة، بانتظار الموافقة، معتمد، محجوز، مفوتر، محصل، ملغي وفشل تخصيص. القرار: لا يُنشأ مخزون وهمي عند الفشل." : "Nine order states from DRAFT to PAID/CANCELLED and ALLOCATION_FAILED. Decision: no phantom stock on failure."}
-              </p>
-            </div>
-          </article>
-
-          {/* 02 Inventory */}
-          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="bg-[#0B1220] p-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">INVENTORY · المخزون</span>
-                <span className="rounded-full bg-amber-50 text-amber-9000/20 px-2 py-1 font-mono text-[12px] text-amber-300">3 تنبيه نقص</span>
-              </div>
-              <div className="mt-3 space-y-2">
-                <div className="rounded-lg bg-surface-1 p-2">
-                  <p className="font-mono text-[12px] text-text-tertiary">WH-CAI · مخزن القاهرة</p>
-                  <div className="mt-2 flex justify-between font-mono text-xs">
-                    <span>BRX-PLUS-30</span>
-                    <span className="text-emerald-600">3200 / 500</span>
-                  </div>
-                  <div className="mt-1 h-1.5 rounded-full bg-zinc-100">
-                    <div className="h-full w-[92%] rounded-full bg-emerald-500" />
-                  </div>
-                </div>
-                <div className="rounded-lg bg-amber-50 text-amber-900 p-2 ring-1 ring-amber-200">
-                  <div className="flex justify-between font-mono text-xs">
-                    <span>NLV-COLD-10</span>
-                    <span className="text-amber-700">60 / 100</span>
-                  </div>
-                  <div className="mt-1 h-1.5 rounded-full bg-amber-100">
-                    <div className="h-full w-[35%] rounded-full bg-amber-50 text-amber-9000" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "المخزون وحركاته" : "Inventory & Movements"}</h3>
-              <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
-                {ar ? "مخزنان (القاهرة/الإسكندرية) مع FEFO حسب تاريخ الانتهاء وتتبع التشغيلات. القرار: الصرف بأقدم انتهاء أولًا." : "Two warehouses with FEFO expiry, batch trace. Decision: oldest expiry out first."}
-              </p>
-            </div>
-          </article>
-
-          {/* 03 Products */}
-          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="bg-[#0B1220] p-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">PRODUCTS · الأصناف</span>
-                <span className="font-mono text-[12px] text-white/40">8 أصناف</span>
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <div className="rounded-lg bg-surface-1 p-2">
-                  <p className="font-mono text-[12px] text-emerald-600">● ok</p>
-                  <p className="mt-1 text-xs font-semibold">بروكسيد بلس 30</p>
-                  <p className="font-mono text-[12px] text-text-tertiary">849.12 ج.م</p>
-                </div>
-                <div className="rounded-lg bg-amber-50 text-amber-900 p-2 ring-1 ring-amber-200">
-                  <p className="font-mono text-[12px] text-amber-600">● low</p>
-                  <p className="mt-1 text-xs font-semibold">بروكس ايريكس</p>
-                  <p className="font-mono text-[12px] text-text-tertiary">410 / 500</p>
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "المنتجات" : "Products & Batches"}</h3>
-              <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
-                {ar ? "8 أصناف بأكواد BRX وNLV، كل صنف له حد أدنى وسعر. القرار: عدم عرض سعر وهمي عند عدم توفر المتغير." : "8 SKUs with min-stock and live price. Decision: omit unavailable prices instead of inventing."}
-              </p>
-            </div>
-          </article>
-
-          {/* 04 CRM */}
-          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="bg-[#0B1220] p-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">CRM · العملاء</span>
-                <span className="font-mono text-[12px] text-white/40">8 حسابات</span>
-              </div>
-              <div className="mt-3 rounded-lg bg-surface-1 p-2 font-mono text-[13px] leading-[1.65]">
-                <div className="flex justify-between">
-                  <span>PH-0001 · صيدلية العزبي</span>
-                  <span className="text-text-tertiary">4,200</span>
-                </div>
-                <div className="flex justify-between text-text-tertiary">
-                  <span>DR-0001 · د. محمود</span>
-                  <span>0</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>HOSP-0001 · مستشفى دلتا</span>
-                  <span className="text-amber-600">15,400</span>
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "العملاء (CRM)" : "CRM / Accounts"}</h3>
-              <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
-                {ar ? "صيدليات، أطباء، مراكز ومستشفيات وموزع — كل عميل مرتبط بمندوب ورصيد. القرار: وضوح المسؤولية الإقليمية." : "Pharmacies, doctors, centers, hospitals, distributors — each tied to a rep and balance."}
-              </p>
-            </div>
-          </article>
-
-          {/* 05 Accounting */}
-          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="bg-[#0B1220] p-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">ACCOUNTING · الحسابات</span>
-                <span className="rounded-full bg-white/10 px-2 py-1 font-mono text-[12px] text-white">INV-2001</span>
-              </div>
-              <div className="mt-3 rounded-lg bg-surface-1 p-2">
-                <div className="flex justify-between font-mono text-xs">
-                  <span>INV-2001 · العزبي</span>
-                  <span className="text-emerald-600">مدفوعة بالكامل</span>
-                </div>
-                <div className="flex justify-between font-mono text-xs text-text-tertiary">
-                  <span>INV-2002 · الشفاء</span>
-                  <span className="text-amber-600">مدفوعة جزئيًا 9,000/18,641</span>
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "الحسابات" : "Accounting & Ledger"}</h3>
-              <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
-                {ar ? "فواتير ومدفوعات ودفتر أستاذ. الفاتورة لا تُعتبر محصلة حتى يتأكد التحصيل." : "Invoices, payments and ledger. Invoiced ≠ collected until payment confirmed."}
-              </p>
-            </div>
-          </article>
-
-          {/* 06 Incentives & Audit */}
-          <article className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="bg-[#0B1220] p-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-white/60">INCENTIVES · AUDIT</span>
-                <span className="font-mono text-[12px] text-emerald-400">AUDIT ↓</span>
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <div className="rounded-lg bg-surface-1 p-2">
-                  <p className="font-mono text-[12px] text-text-tertiary">SO-1001 → 258.09</p>
-                  <p className="font-mono text-[12px] text-emerald-600">مدفوع</p>
-                </div>
-                <div className="rounded-lg bg-white/10 p-2">
-                  <p className="font-mono text-[12px] text-white">sales.order.created 09:12</p>
-                  <p className="font-mono text-[12px] text-white/60">inventory.reserved</p>
-                </div>
-              </div>
-            </div>
-            <div className="p-4">
-              <h3 className="font-display text-lg font-semibold text-text-primary">{ar ? "الحوافز وسجل التتبع" : "Incentives & Audit Trail"}</h3>
-              <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
-                {ar ? "حساب عمولة تلقائي وسجل أحداث موحد. كل خطوة لها طابع زمني ومرجع." : "Auto-commission and unified audit. Every step timestamped and referenced."}
-              </p>
-            </div>
-          </article>
-        </div>
-        <p className="mt-6 text-center font-mono text-[12px] uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "لقطات توضيحية مبنية على بيانات العرض الحقيقي public/showcase/nile-erp — ليست صور AI عامة." : "Illustrative cards built from real showcase data public/showcase/nile-erp — not generic AI images."}
-        </p>
-      </section>
-
-      {/* ═══ 05 / OPERATIONAL FLOW — one integrated scenario ═══ */}
-      <section className="border-y border-border-subtle bg-surface-1/35">
-        <div className="container-wide py-6 md:py-7">
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">05 / {ar ? "التدفق التشغيلي" : "Operational flow"}</p>
-          <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-            {ar ? "من الطلب إلى المخزون والمحاسبة — سيناريو واحد حقيقي." : "From order to inventory and accounting — one real scenario."}
-          </h2>
-
-          <div className="mt-6 overflow-hidden rounded-2xl border border-border-subtle bg-surface-1">
-            <div className="grid gap-0 md:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]">
-              {/* Step 1 */}
-              <div className="p-4">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">01 · Sales</p>
-                <p className="mt-2 font-display text-base font-semibold text-text-primary">SO-1001</p>
-                <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "صيدلية العزبي - المعادي · 19,360 ج.م · أحمد فتحي" : "El Ezaby - Maadi · 19,360 EGP · Ahmed Fathy"}</p>
-                <p className="mt-3 rounded-lg bg-emerald-50 px-2 py-1 font-mono text-[12px] text-emerald-700">APPROVED → ALLOCATING</p>
-              </div>
-              <div className="hidden items-center px-2 text-accent md:flex">→</div>
-              {/* Step 2 */}
-              <div className="border-t border-zinc-100 p-4 md:border-l md:border-t-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">02 · Inventory</p>
-                <p className="mt-2 font-display text-base font-semibold text-text-primary">WH-CAI</p>
-                <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "حجز  LOT-2025-A · تأكيد الحجز" : "Reserve LOT-2025-A · confirmed"}</p>
-                <p className="mt-3 rounded-lg bg-[#0B1220] px-2 py-1 font-mono text-[12px] text-emerald-400">inventory.reservation.confirmed 09:12</p>
-              </div>
-              <div className="hidden items-center px-2 text-accent md:flex">→</div>
-              {/* Step 3 */}
-              <div className="border-t border-zinc-100 p-4 md:border-l md:border-t-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">03 · Accounting</p>
-                <p className="mt-2 font-display text-base font-semibold text-text-primary">INV-2001</p>
-                <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "فاتورة 19,360 · مدفوعة بالكامل 14:30" : "Invoice 19,360 · fully paid 14:30"}</p>
-                <p className="mt-3 rounded-lg bg-surface-2 px-2 py-1 font-mono text-[12px] text-text-secondary">accounting.invoice.issued</p>
-              </div>
-              <div className="hidden items-center px-2 text-accent md:flex">→</div>
-              {/* Step 4 */}
-              <div className="border-t border-zinc-100 p-4 md:border-l md:border-t-0">
-                <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">04 · Incentives + Audit</p>
-                <p className="mt-2 font-display text-base font-semibold text-text-primary">ilg-001</p>
-                <p className="mt-1 text-xs leading-[1.65] text-text-secondary">{ar ? "عمولة 258.09 · سجل التتبع 14:30" : "Commission 258.09 · audit 14:30"}</p>
-                <p className="mt-3 rounded-lg bg-emerald-50 px-2 py-1 font-mono text-[12px] text-emerald-700">incentives.ledger.calculated</p>
-              </div>
-            </div>
-            <div className="border-t border-border-subtle bg-amber-50 text-amber-900/60 px-4 py-3">
-              <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-amber-700">{ar ? "سيناريو فشل موثق أيضًا" : "Documented failure path also"}</p>
-              <p className="mt-1 text-xs leading-[1.65] text-amber-900/80">
-                {ar ? "SO-1007 مستشفى دلتا: فشل التخصيص ALLOCATION_FAILED — النظام لا يخترع مخزونًا ولا يولد فاتورة وهمية." : "SO-1007 Delta Hospital: ALLOCATION_FAILED — system does not invent stock nor issue a phantom invoice."}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-6 rounded-xl border border-border-subtle bg-surface-1 p-4">
-            <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-text-ghost">{ar ? "قيود مثبتة فقط" : "Only proven integrations"}</p>
-            <p className="mt-2 text-xs leading-[1.65] text-text-secondary">
-              {ar
-                ? "السيناريو يعرض ما ينفذه النظام فعلًا عبر الأحداث. لا ندعي تكامل دفع خارجي أو شحن لم يُنفذ."
-                : "Scenario shows what the system actually executes via events. No claim of external payment/shipment integrations not implemented."}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 06 / ENGINEERING — clear architecture, implemented vs planned ═══ */}
-      <section className="container-wide py-6 md:py-8">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">06 / {ar ? "الهندسة" : "Engineering"}</p>
+        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">04 / {ar ? "الهندسة" : "Engineering"}</p>
         <h2 className="mt-3 max-w-[18ch] font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
           {ar ? "مبني كنظام، لا كمجموعة شاشات." : "Built as a system, not a collection of screens."}
         </h2>
@@ -623,9 +364,9 @@ export function NilePharmaERPCaseStudy() {
             <div className="rounded-2xl border border-border-subtle bg-surface-1 p-4">
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">{ar ? "تنفيذ مقابل مخطط" : "Implemented vs planned"}</p>
               <div className="mt-3 grid grid-cols-2 gap-3">
-                <div className="rounded-lg bg-emerald-50 p-3">
-                  <p className="font-mono text-[12px] uppercase text-emerald-700">✓ تم</p>
-                  <p className="mt-1 text-xs text-text-secondary">9 خدمات، عقود، أحداث، ترحيلات، showcased data</p>
+                <div className="rounded-lg border border-[var(--color-success-border)] bg-[var(--color-success-dim)] p-3">
+                  <p className="font-mono text-[12px] uppercase text-[var(--color-success-text)]">✓ تم</p>
+                  <p className="mt-1 text-xs text-text-secondary">9 خدمات، عقود، أحداث، ترحيلات، بيانات تجريبية</p>
                 </div>
                 <div className="rounded-lg bg-surface-2 p-3">
                   <p className="font-mono text-[12px] uppercase text-text-tertiary">○ لاحقًا</p>
@@ -647,11 +388,11 @@ export function NilePharmaERPCaseStudy() {
         </div>
       </section>
 
-      {/* ═══ 07 / CONTRIBUTION ═══ */}
+      {/* ═══ 05 / CONTRIBUTION ═══ */}
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-7">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">07 / {ar ? "دوري ومساهمتي" : "Contribution"}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent">05 / {ar ? "دوري ومساهمتي" : "Contribution"}</p>
             <h2 className="mt-3 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? "ماذا صممت وبنيت فعلًا." : "What I designed and built."}
             </h2>
@@ -682,7 +423,7 @@ export function NilePharmaERPCaseStudy() {
             <div className="rounded-xl border border-border-subtle bg-surface-1 p-4">
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">{ar ? "الحالة والاختبارات" : "Status & tests"}</p>
               <p className="mt-2 text-sm text-text-primary">
-                {ar ? "حي قيد التطوير — العرض التفاعلي يعمل ببيانات البذور الحقيقية، والترحيلات لكل خدمة عبر Prisma." : "Live in development — showcase runs on real seed data, migrations per service via Prisma."}
+                {ar ? "حي قيد التطوير — الشاشات في جولة المنصة من النظام وهو يعمل ببيانات تجريبية، والترحيلات لكل خدمة عبر Prisma." : "Live in development — the product tour shows the running system on demo data, migrations per service via Prisma."}
               </p>
               <p className="mt-2 font-mono text-[12px] leading-5 text-text-ghost">
                 {ar ? "بدون ادعاء أرقام مستخدمين أو إيرادات وهمية. ما هو موثق هنا هو المنفذ فقط." : "No invented user/revenue numbers. Documented here is what is actually shipped."}
@@ -693,7 +434,7 @@ export function NilePharmaERPCaseStudy() {
       </section>
 
       <section className="container-wide pb-8 md:pb-20">
-        <div className="relative overflow-hidden rounded-2xl border border-orange-400/25 bg-gradient-to-br from-orange-400/[0.10] via-white to-teal-400/[0.05] p-4 md:p-5">
+        <div className="relative overflow-hidden rounded-2xl border border-orange-400/25 bg-gradient-to-br from-orange-400/[0.10] via-surface-1 to-teal-400/[0.05] p-4 md:p-5">
           <div aria-hidden="true" className="absolute -right-10 -top-16 h-48 w-48 rounded-full bg-orange-400/[0.10] blur-3xl" />
           <div className="relative flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
@@ -706,9 +447,12 @@ export function NilePharmaERPCaseStudy() {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <a href="/showcase/nile-erp/index.html" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">
-                {ar ? "استكشاف العرض الحي" : "Explore live showcase"} ↗
-              </a>
+              <Link
+                href={contactHref({ service: "digital-product", source: "/case-studies/nile-pharma-erp" })}
+                className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5"
+              >
+                {ar ? "ناقش نظامًا مشابهًا" : "Discuss a similar system"} {ar ? "←" : "→"}
+              </Link>
             </div>
           </div>
         </div>

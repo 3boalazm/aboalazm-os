@@ -41,8 +41,8 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       {
         label: { en: "Current Access", ar: "وضع المعاينة الحالي" },
         value: {
-          en: "Interactive RTL showcase running on realistic sample data",
-          ar: "واجهة تفاعلية عربية تعمل ببيانات تشغيلية تحاكية للواقع",
+          en: "Real screens of the running system, on demo data",
+          ar: "لقطات حقيقية من النظام وهو يعمل ببيانات تجريبية",
         },
       },
     ],
@@ -235,17 +235,17 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     ],
     operationalNote: {
       statusLabel: {
-        en: "Engineered Architecture + Live Sample-Data Console",
-        ar: "بنية برمجية متكاملة + لوحة معاينة تفاعلية ببيانات تجريبية",
+        en: "Engineered Architecture + Real Product Screens",
+        ar: "بنية برمجية متكاملة + لقطات حقيقية من المنصة",
       },
       summary: {
-        en: "The 9-service backend and Next.js operator console are built and documented; the public preview link opens a safe interactive showcase populated with realistic sample pharma distribution data rather than private company records.",
-        ar: "تم بناء البنية الخلفية المكونة من 9 خدمات وواجهة التشغيل، وتوفّر المعاينة العامة على الموقع نسخة تفاعلية آمنة محمّلة ببيانات توزيع دوائي تجريبية تحاكي التشغيل الحقيقي دون كشف بيانات شركات خاصة.",
+        en: "The 9-service backend and Next.js operator console are built and documented; the product tour shows real screens of the running system on demo data rather than private company records.",
+        ar: "تم بناء البنية الخلفية المكونة من 9 خدمات وواجهة التشغيل وتوثيقها، وتعرض جولة المنصة لقطات حقيقية من النظام وهو يعمل ببيانات تجريبية دون كشف بيانات شركات خاصة.",
       },
       highlights: [
         {
-          en: "Interactive RTL showcase inspectable directly from this page",
-          ar: "معاينة تفاعلية مباشرة لواجهة النظام متاحة من هذه الصفحة",
+          en: "Five real screens of the running system in the Technical Case Study tab",
+          ar: "خمس لقطات حقيقية من النظام وهو يعمل في تبويب دراسة الحالة التقنية",
         },
         {
           en: "9 bounded business domains documented in the Technical Case Study tab",
