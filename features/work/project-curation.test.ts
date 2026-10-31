@@ -14,10 +14,10 @@ const projectBySlug = (slug: string): Project => {
   return project;
 };
 
-test("merges all 14 approved development projects without duplicate slugs", () => {
+test("merges all 17 approved development projects without duplicate slugs", () => {
   const digitalProjects = PROJECTS.filter((p) => p.category === "development");
-  assert.equal(digitalProjects.length, 14);
-  assert.equal(CURATED_DEVELOPMENT_SLUGS.length, 14);
+  assert.equal(digitalProjects.length, 17);
+  assert.equal(CURATED_DEVELOPMENT_SLUGS.length, 17);
 
   const merged = mergeCuratedDevelopmentProjects([]);
   const slugs = new Set(merged.map((project) => project.slug));
@@ -26,8 +26,15 @@ test("merges all 14 approved development projects without duplicate slugs", () =
   assert.equal(slugs.size, merged.length);
 });
 
-test("every portfolio project references an existing high-detail thumbnail asset", () => {
+test("every portfolio project references an existing high-detail thumbnail asset or a clean name+domain card", () => {
   for (const project of PROJECTS) {
+    if (!project.thumbnail) {
+      assert.ok(
+        ["nile-bed", "craft-egypt", "clinic-appointment-system"].includes(project.slug),
+        `${project.slug} must either provide a thumbnail or be an explicit name+domain/demo card`,
+      );
+      continue;
+    }
     const thumbnailPath = join(process.cwd(), "public", project.thumbnail.slice(1));
     assert.ok(existsSync(thumbnailPath), `${project.slug} thumbnail is missing: ${project.thumbnail}`);
     const stats = statSync(thumbnailPath);
@@ -36,24 +43,34 @@ test("every portfolio project references an existing high-detail thumbnail asset
   }
 });
 
-test("every digital project uses a dedicated 16:10 dev-cards preview and maps legacy CMS basenames", () => {
+test("every digital project uses a dedicated 16:10 dev-cards preview or name+domain card and maps legacy CMS basenames", () => {
   const digitalProjects = PROJECTS.filter((project) => project.category === "development");
-  assert.equal(digitalProjects.length, 14);
+  assert.equal(digitalProjects.length, 17);
 
   for (const project of digitalProjects) {
-    assert.ok(
-      project.thumbnail.startsWith("/images/work/dev-cards/"),
-      `${project.slug} should use a cache-busted /images/work/dev-cards/ preview`,
-    );
-    assert.ok(
-      existsSync(join(process.cwd(), "public", project.thumbnail.slice(1))),
-      `${project.slug} screenshot is missing: ${project.thumbnail}`,
-    );
+    if (project.thumbnail) {
+      assert.ok(
+        project.thumbnail.startsWith("/images/work/dev-cards/"),
+        `${project.slug} should use a cache-busted /images/work/dev-cards/ preview`,
+      );
+      assert.ok(
+        existsSync(join(process.cwd(), "public", project.thumbnail.slice(1))),
+        `${project.slug} screenshot is missing: ${project.thumbnail}`,
+      );
+    }
 
     const destination = project.liveUrl ?? project.externalUrl;
     if (project.previewStatus === "archived") {
       assert.equal(destination, undefined);
       assert.ok(project.hasCaseStudy, `${project.slug} needs a saved overview`);
+      continue;
+    }
+    if (project.isDemo) {
+      assert.equal(destination, undefined, `${project.slug} is a demo and must not expose a client-specific link`);
+      assert.ok(
+        project.stack.some((s) => /Easy!Appointments.*GPL-3\.0/i.test(s)),
+        `${project.slug} must credit Easy!Appointments (GPL-3.0)`,
+      );
       continue;
     }
     assert.ok(destination, `${project.slug} needs a production or external preview link`);

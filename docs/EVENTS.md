@@ -20,6 +20,9 @@ Vercel Analytics is mounted in `app/(site)/[locale]/layout.tsx`; events are sent
 | `resource_lead_saved` | The resource endpoint confirmed that its lead was saved. | `features/resources/resource-blocks.tsx` | `resource`, `intent`, `locale` |
 | `resource_download` | A resource download link was clicked. | `features/resources/resource-blocks.tsx` | `resource`, `locale` |
 | `cv_download` | The CV link was clicked on the hiring page. | `app/(site)/[locale]/for-hiring/for-hiring-view.tsx` | None |
+| `deposit_click` | A "Book with a deposit" link into `/book` was clicked. | `components/seo/funnel-analytics.tsx` | `plan`, `cur`, `source`, `placement`, `locale`, valid campaign IDs |
+| `whatsapp_click` | Any `wa.me` WhatsApp CTA or confirmation link was clicked. | `components/seo/funnel-analytics.tsx` | `source`, `placement`, `locale`, valid campaign IDs |
+| `booking_click` | A "Book a free 30-min call" (`NEXT_PUBLIC_BOOKING_URL`) link was clicked. | `components/seo/funnel-analytics.tsx` | `source`, `placement`, `locale`, valid campaign IDs |
 
 ## Privacy and interpretation
 

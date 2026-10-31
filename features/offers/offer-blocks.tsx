@@ -8,12 +8,30 @@ import Link from "@/components/ui/localized-link";
 import { contactHref, tierId } from "@/lib/contact-context";
 import { usePathname } from "next/navigation";
 import { useLang } from "@/components/providers/lang-provider";
-import { PAYMENT, type Bi, type Tier, type AlaCarteGroup } from "@/lib/offers";
+import {
+  alacarteWhatsappHref,
+  bookHref,
+  DEPOSIT_CTA_LABEL,
+  PAYMENT,
+  RECOMMENDED_LABEL,
+  WHATSAPP_ORDER_CTA_LABEL,
+  type AlaCarteGroup,
+  type Bi,
+  type PlanId,
+  type Tier,
+} from "@/lib/offers";
+import { BOOKING_CTA_LABEL, BOOKING_URL, RESPONSE_PROMISE } from "@/lib/contact-details";
 import { buttonVariants } from "@/components/ui/Button";
+import { FxSubline } from "@/components/ui/fx-price";
 import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
 
 export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
+
+function resolveTierPlanId(tier: Tier): PlanId {
+  if (tier.id) return tier.id;
+  return tierId(tier.tag[0]) as PlanId;
+}
 
 /* ── Section header: mono label + serif statement ── */
 export function SectionHead({
@@ -42,7 +60,12 @@ export function SectionHead({
 /* ── Tier card ── */
 export function TierCard({ tier }: { tier: Tier }) {
   const { lang } = useLang();
+  const ar = lang === "ar";
   const source = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
+  const planId = resolveTierPlanId(tier);
+  const depositUrl = bookHref(planId);
+  const showBookingCall = Boolean(BOOKING_URL) && (tier.hasDiscoveryCall ?? true);
+
   return (
     <PanelCard
       emphasis={tier.recommended ? "accent" : "dimmed"}
@@ -55,24 +78,23 @@ export function TierCard({ tier }: { tier: Tier }) {
         {tier.recommended && (
           <span className="inline-flex items-center gap-1 font-mono text-micro uppercase tracking-[0.10em] text-accent">
             <Icon name="star-solid" size="0.9em" />
-            {lang === "ar" ? "موصى بها" : "Recommended"}
+            {pick(RECOMMENDED_LABEL, lang)}
           </span>
         )}
       </div>
       <p className="font-display text-title tracking-[-0.015em]">{pick(tier.name, lang)}</p>
-      <p className="font-geist text-lead text-accent">{tier.price}</p>
+      <div>
+        <p dir="ltr" className="font-geist text-lead text-accent">{tier.price}</p>
+        <FxSubline usdOrPrice={tier.price} lang={lang} className="mt-1" />
+      </div>
       <p className="font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">{pick(tier.priceNote, lang)}</p>
 
-      {/* Label and value stack on a phone instead of sitting side by side.
-          At 390px the inline `flex gap-1` split "Best for:" onto two lines
-          ("Best" / "for:") next to a too-narrow value column, which read as
-          broken rather than dense. */}
       <dl className="flex flex-col gap-1 border-y border-border-subtle py-2 font-mono text-micro sm:gap-0.5">
         {(
           [
-            [lang === "ar" ? "الأنسب لـ:" : "Best for:", pick(tier.bestFor, lang)],
-            [lang === "ar" ? "المدة:" : "Duration:", pick(tier.duration, lang)],
-            [lang === "ar" ? "الدفع:" : "Payment:", tier.payment],
+            [ar ? "الأنسب لـ:" : "Best for:", pick(tier.bestFor, lang)],
+            [ar ? "المدة:" : "Duration:", pick(tier.duration, lang)],
+            [ar ? "الدفع:" : "Payment:", tier.payment],
           ] as const
         ).map(([label, value]) => (
           <div key={label} className="flex flex-col gap-0 sm:flex-row sm:gap-1">
@@ -92,105 +114,125 @@ export function TierCard({ tier }: { tier: Tier }) {
             {pick(item, lang)}
           </li>
         ))}
-        {/* Both glyphs are aria-hidden decoration, which meant an excluded
-            item ("Brand strategy") read exactly like an included one — and
-            under the Tier 02/03 heading "Everything in Tier 01, plus" that
-            reads as a promise rather than a deduction. The excluded rows now
-            carry their own label in text. */}
         {tier.excludes?.map((item) => (
           <li key={item[0]} className="flex gap-1 text-body-sm text-text-ghost">
             <Icon name="x" className="text-text-ghost" />
-            <span className="sr-only">{lang === "ar" ? "غير مشمول: " : "Not included: "}</span>
+            <span className="sr-only">{ar ? "غير مشمول: " : "Not included: "}</span>
             {pick(item, lang)}
           </li>
         ))}
       </ul>
-      <Link
-        href={contactHref({ service: "brand-identity", tier: tierId(tier.tag[0]), source })}
-        className={buttonVariants({
-          variant: tier.recommended ? "primary" : "ghost",
-          className: tier.recommended
-            ? "mt-auto w-fit px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5"
-            : "mt-auto w-fit border border-border-default px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary",
-        })}
-      >
-        {lang === "ar" ? `ناقش ${pick(tier.name, lang)}` : `Discuss ${pick(tier.name, lang)}`}
-      </Link>
+
+      <div className="mt-auto flex flex-col gap-2 pt-2">
+        <Link
+          href={depositUrl}
+          className={buttonVariants({
+            variant: tier.recommended ? "primary" : "ghost",
+            className: tier.recommended
+              ? "w-full justify-center px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5"
+              : "w-full justify-center border border-accent/50 bg-accent/10 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-accent transition-colors duration-base ease-physics hover:bg-accent/20",
+          })}
+        >
+          {pick(DEPOSIT_CTA_LABEL, lang)} →
+        </Link>
+
+        <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-micro text-text-tertiary">
+          <Link
+            href={contactHref({ service: "brand-identity", tier: tierId(tier.tag[0]), source })}
+            className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
+          >
+            {ar ? `ناقش ${pick(tier.name, lang)}` : `Discuss ${pick(tier.name, lang)}`}
+          </Link>
+          {showBookingCall ? (
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-booking-click="true"
+              className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
+            >
+              {pick(BOOKING_CTA_LABEL, lang)} ↗
+            </a>
+          ) : null}
+        </div>
+      </div>
     </PanelCard>
   );
 }
 
 /**
  * Decision aid — read this before the three detailed cards.
- *
- * TWO PRESENTATIONS FROM ONE DATA SOURCE, not one squeezed table:
- * the comparison carries three tiers × three fields, which at 390px is a
- * ~584px table inside a ~342px wrapper. `overflow-x-auto` hid the third
- * tier off-screen entirely — "Full Brand System" simply could not be
- * compared on a phone. Below `md` the same rows stack into one card per
- * tier; from `md` up the table returns unchanged.
- *
- * The `RECOMMENDED` signal lives in exactly one place here. The column
- * header used to repeat it as "Best for most projects" while the tier
- * card below said "★ Recommended" — two recommendation signals on one
- * screen read as hesitation, so the header now carries a quiet star only.
  */
 export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
   const FIELDS = [
-    { label: ar ? "الأنسب لـ" : "Best for", value: (t: Tier) => pick(t.bestFor, lang) },
-    { label: ar ? "يبدأ من" : "From", value: (t: Tier) => t.price },
-    { label: ar ? "المدة" : "Duration", value: (t: Tier) => pick(t.duration, lang) },
+    { key: "best", label: ar ? "الأنسب لـ" : "Best for", value: (t: Tier) => pick(t.bestFor, lang) },
+    { key: "from", label: ar ? "يبدأ من" : "From", value: (t: Tier) => t.price },
+    { key: "dur", label: ar ? "المدة" : "Duration", value: (t: Tier) => pick(t.duration, lang) },
   ] as const;
 
   return (
     <>
-      {/* ── Mobile / tablet: stacked cards ──
-          Mirrors the table's <caption> as a named group, so the stacked
-          presentation is announced as "Tier comparison" instead of arriving
-          as three unlabelled cards in the reading order. */}
+      {/* ── Mobile / tablet: stacked cards ── */}
       <div
         role="group"
         aria-label={ar ? "مقارنة الفئات" : "Tier comparison"}
         className="grid gap-2 md:hidden"
       >
-        {tiers.map((t) => (
-          <div
-            key={t.tag[0]}
-            className={[
-              "rounded-card border p-3",
-              t.recommended
-                ? "border-accent/40 bg-accent-08"
-                : "border-border-subtle bg-surface-1/40",
-            ].join(" ")}
-          >
-            <p className="flex items-baseline gap-2 font-display font-display-sm text-body tracking-[-0.015em] text-text-primary">
-              {pick(t.name, lang)}
-              {t.recommended ? (
-                <>
-                  <Icon name="star-solid" size="0.9em" className="text-accent" />
-                  {/* The star is the only recommendation signal left in the
-                      comparison (see the note above TierCompare). aria-hidden
-                      keeps it out of the accessible name, so the same fact is
-                      carried by text — otherwise the decision aid recommends
-                      nothing at all for a non-visual reader. */}
-                  <span className="sr-only">{ar ? "موصى بها" : "Recommended"}</span>
-                </>
-              ) : null}
-            </p>
-            <dl className="mt-2 grid grid-cols-[5.5rem_1fr] gap-x-2 gap-y-1">
-              {FIELDS.map((f) => (
-                <div key={f.label} className="contents">
-                  <dt className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
-                    {f.label}
-                  </dt>
-                  <dd className="text-body-sm text-text-secondary">{f.value(t)}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        ))}
+        {tiers.map((t) => {
+          const planId = resolveTierPlanId(t);
+          return (
+            <div
+              key={t.tag[0]}
+              className={[
+                "rounded-card border p-3",
+                t.recommended
+                  ? "border-accent/40 bg-accent-08"
+                  : "border-border-subtle bg-surface-1/40",
+              ].join(" ")}
+            >
+              <p className="flex items-baseline gap-2 font-display font-display-sm text-body tracking-[-0.015em] text-text-primary">
+                {pick(t.name, lang)}
+                {t.recommended ? (
+                  <>
+                    <Icon name="star-solid" size="0.9em" className="text-accent" />
+                    <span className="sr-only">{ar ? "موصى بها" : "Recommended"}</span>
+                  </>
+                ) : null}
+              </p>
+              <dl className="mt-2 grid grid-cols-[5.5rem_1fr] gap-x-2 gap-y-1">
+                {FIELDS.map((f) => (
+                  <div key={f.key} className="contents">
+                    <dt className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                      {f.label}
+                    </dt>
+                    <dd className="text-body-sm text-text-secondary">
+                      <div>{f.value(t)}</div>
+                      {f.key === "from" ? (
+                        <FxSubline
+                          usdOrPrice={t.price}
+                          lang={lang}
+                          showValidity={false}
+                          compact
+                          className="mt-0.5"
+                        />
+                      ) : null}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+              <div className="mt-2.5 border-t border-border-subtle pt-2">
+                <Link
+                  href={bookHref(planId)}
+                  className="inline-flex min-h-[36px] w-full items-center justify-center rounded-pill bg-accent px-3 py-1 font-mono text-micro font-medium text-obsidian"
+                >
+                  {pick(DEPOSIT_CTA_LABEL, lang)} →
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* ── Desktop: the comparison table ── */}
@@ -208,9 +250,6 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                   {t.recommended ? (
                     <>
                       <Icon name="star-solid" size="0.9em" className="ms-2 text-accent" />
-                      {/* Lives inside the <th>, so screen readers announce the
-                          recommendation with the column header of every cell
-                          in that column. */}
                       <span className="sr-only">{ar ? "موصى بها" : "Recommended"}</span>
                     </>
                   ) : null}
@@ -220,13 +259,22 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
           </thead>
           <tbody>
             {FIELDS.map((f) => (
-              <tr key={f.label} className="border-b border-border-subtle last:border-0">
+              <tr key={f.key} className="border-b border-border-subtle last:border-0">
                 <th className="px-3 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
                   {f.label}
                 </th>
                 {tiers.map((t) => (
                   <td key={t.tag[0]} className="px-3 py-2 text-text-secondary">
-                    {f.value(t)}
+                    <div>{f.value(t)}</div>
+                    {f.key === "from" ? (
+                      <FxSubline
+                        usdOrPrice={t.price}
+                        lang={lang}
+                        showValidity={false}
+                        compact
+                        className="mt-0.5"
+                      />
+                    ) : null}
                   </td>
                 ))}
               </tr>
@@ -251,6 +299,7 @@ export function TierGrid({ tiers }: { tiers: readonly Tier[] }) {
 /* ── À la carte tables ── */
 export function AlaCarteTables({ alaCarte }: { alaCarte: readonly AlaCarteGroup[] }) {
   const { lang } = useLang();
+  const ar = lang === "ar";
   return (
     <div className="flex flex-col gap-4">
       {alaCarte.map((g) => (
@@ -258,19 +307,60 @@ export function AlaCarteTables({ alaCarte }: { alaCarte: readonly AlaCarteGroup[
           <p className="border-b border-border-default pb-1 font-mono text-micro uppercase tracking-[0.10em] text-accent">
             {pick(g.group, lang)}
           </p>
-          {g.rows.map((r) => (
-            <div
-              key={r.service[0]}
-              className="grid grid-cols-[1fr_auto] items-baseline gap-2 border-b border-border-subtle py-2 md:grid-cols-[14rem_1fr_auto]"
-            >
-              <span className="text-body-sm text-text-primary">{pick(r.service, lang)}</span>
-              <span className="col-span-2 font-mono text-micro text-text-tertiary md:col-span-1">
-                {pick(r.details, lang)}
-              </span>
-              <span className="hidden font-geist text-body-sm text-accent md:block">{r.price}</span>
-              <span className="font-geist text-body-sm text-accent md:hidden">{r.price}</span>
-            </div>
-          ))}
+          {g.rows.map((r) => {
+            const isDeposit = r.ctaKind === "deposit" && Boolean(r.planId);
+            const isStore72h = r.id === "store-72h";
+            return (
+              <div
+                key={r.service[0]}
+                className="grid grid-cols-1 gap-2 border-b border-border-subtle py-2.5 md:grid-cols-[15rem_1fr_auto] md:items-center"
+              >
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {isStore72h ? (
+                    <Link
+                      href="/services/store-72h"
+                      className="text-body-sm font-medium text-text-primary underline decoration-accent/50 underline-offset-4 hover:text-accent"
+                    >
+                      {pick(r.service, lang)}
+                    </Link>
+                  ) : (
+                    <span className="text-body-sm text-text-primary">{pick(r.service, lang)}</span>
+                  )}
+                </div>
+                <span className="font-mono text-micro text-text-tertiary">
+                  {pick(r.details, lang)}
+                </span>
+                <div className="flex flex-wrap items-center justify-between gap-3 md:justify-end">
+                  <div className="md:text-end">
+                    <span dir="ltr" className="font-geist text-body-sm text-accent">{r.price}</span>
+                    <FxSubline
+                      usdOrPrice={r.startingUsd ?? r.price}
+                      lang={lang}
+                      showValidity={false}
+                      compact
+                    />
+                  </div>
+                  {isDeposit && r.planId ? (
+                    <Link
+                      href={bookHref(r.planId)}
+                      className="inline-flex min-h-[32px] items-center rounded-pill border border-accent/50 bg-accent/15 px-2.5 py-1 font-mono text-micro font-medium text-accent transition-colors hover:bg-accent/25"
+                    >
+                      {pick(DEPOSIT_CTA_LABEL, lang)} →
+                    </Link>
+                  ) : (
+                    <a
+                      href={alacarteWhatsappHref(r, lang)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[32px] items-center rounded-pill border border-border-default bg-surface-1 px-2.5 py-1 font-mono text-micro text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
+                    >
+                      {pick(WHATSAPP_ORDER_CTA_LABEL, lang)} ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
       ))}
     </div>
@@ -351,6 +441,9 @@ export function CtaBand({
           <Icon name="arrow-right" />
         </Link>
       </div>
+      <p className="font-mono text-micro text-text-tertiary">
+        {lang === "ar" ? RESPONSE_PROMISE.ar : RESPONSE_PROMISE.en}
+      </p>
     </section>
   );
 }

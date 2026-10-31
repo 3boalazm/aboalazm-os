@@ -9,7 +9,7 @@ export const revalidate = 60;
 
 const pageMetadata: Metadata = {
   title: "Agreement — Work-Flow",
-  description: "Eight phases, transparent terms, 50/50 payment structure — the full work-flow agreement, stated upfront.",
+  description: "Eight phases, transparent terms, tiered payment schedules (Logo 50/50; Identity Essentials & Full System 50/25/25) — the full work-flow agreement, stated upfront.",
 };
 
 export default async function AgreementPage() {
