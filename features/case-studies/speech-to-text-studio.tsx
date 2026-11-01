@@ -22,7 +22,7 @@ const capabilities = [
 
 const stack = ["Next.js 16", "React 19", "JavaScript", "Tailwind CSS 4", "Vercel Blob", "Web Audio API", "MediaRecorder", "Service Worker / PWA", "Provider REST APIs"];
 
-export function MahtoolCaseStudy() {
+export function SpeechToTextStudioCaseStudy() {
   const { lang } = useLang();
   const ar = lang === "ar";
 
@@ -45,8 +45,8 @@ export function MahtoolCaseStudy() {
               <span className="rounded-full border border-orange-400/30 bg-orange-400/[0.08] px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">Audio intelligence tool</span>
               <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "ثنائي اللغة · قابل للتثبيت" : "Bilingual · Installable PWA"}</span>
             </div>
-            <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-orange-300/80">MAHTOOL / SPEECH-TO-TEXT STUDIO</p>
-            <h1 className="max-w-5xl font-display text-[clamp(4rem,11vw,9rem)] leading-[0.82] tracking-[-0.075em] text-text-primary">Mahtool<span className="text-orange-300">.</span></h1>
+            <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-orange-300/80">TRANSCRIPTION WORKSPACE</p>
+            <h1 className="max-w-5xl text-balance break-words font-display text-[clamp(2.6rem,8vw,6.6rem)] leading-[0.9] tracking-[-0.06em] text-text-primary rtl:leading-[1.05]">{ar ? "استوديو تحويل الكلام إلى نص" : "Speech to Text Studio"}<span className="text-orange-300">.</span></h1>
             <p className="mt-4 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
               {ar ? "مش مجرد زرار يحوّل الصوت لنص. مساحة عمل كاملة للتفريغ الصوتي، تجمع محركات متعددة وبدائل تلقائية وتحكم في المفاتيح والاستهلاك والتصدير." : "Not just a button that turns audio into text. A full transcription workspace that brings multiple engines, automatic failover, credential controls, usage visibility and export into one place."}
             </p>
@@ -55,7 +55,7 @@ export function MahtoolCaseStudy() {
           <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-4 backdrop-blur-xl md:p-4">
             <div className="mb-5 flex items-center justify-between font-mono text-[12px] uppercase tracking-[0.14em] text-text-tertiary">
               <span>{ar ? "لوحة قدرات الأداة" : "Tool capability panel"}</span>
-              <span className="text-orange-300">MHT / STT</span>
+              <span className="text-orange-300">STT</span>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="rounded-xl border border-border-subtle p-4"><p className="font-display text-4xl text-text-primary">04</p><p className="mt-2 text-xs text-text-tertiary">{ar ? "محركات تفريغ" : "Transcription engines"}</p></div>
@@ -86,7 +86,7 @@ export function MahtoolCaseStudy() {
           <div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">01 / {ar ? "المشكلة" : "The problem"}</p><h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">{ar ? "المحرك الواحد نقطة فشل واحدة." : "One engine means one point of failure."}</h2></div>
           <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             <p>{ar ? "واجهات التفريغ البسيطة غالبًا بتربط المستخدم بمزود واحد. لما يحصل نفاد رصيد أو Rate limit أو مشكلة في الاستجابة، المستخدم يضطر يجرّب خدمة ثانية وينقل الملف والإعدادات بنفسه." : "Simple transcription interfaces often tie the user to one provider. When credits run out, rate limits hit or a response fails, the user has to switch services and repeat the workflow manually."}</p>
-            <p>{ar ? "Mahtool يوحّد أربع خدمات خلف مسار API واحد، ويجرّب المحركات بالترتيب حتى ينجح أحدها أو ينتهي المسار، مع سجل محاولات منظم يساعد على فهم سبب الفشل." : "Mahtool places four providers behind one API route, tries them in sequence until one succeeds or the chain is exhausted, and returns a structured attempt trail to explain failures."}</p>
+            <p>{ar ? "الاستوديو يوحّد أربع خدمات خلف مسار API واحد، ويجرّب المحركات بالترتيب حتى ينجح أحدها أو ينتهي المسار، مع سجل محاولات منظم يساعد على فهم سبب الفشل." : "Speech to Text Studio places four providers behind one API route, tries them in sequence until one succeeds or the chain is exhausted, and returns a structured attempt trail to explain failures."}</p>
             <div className="rounded-xl border-s-2 border-orange-400 bg-orange-400/[0.04] p-4"><p className="text-sm leading-[1.65] text-text-primary">{ar ? "الفكرة الأساسية: المستخدم يختار طريقة العمل؛ الأداة تتولى تنسيق المحركات وحدودها ورسائل الفشل بوضوح." : "Core principle: users choose how they want to work; the tool orchestrates providers, their limits and clear failure reporting."}</p></div>
           </div>
         </div>
@@ -131,7 +131,7 @@ export function MahtoolCaseStudy() {
 
       <section className="container-wide py-6 md:py-8"><div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">06 / {ar ? "التقنيات" : "Technology stack"}</p><h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">{ar ? "كل طبقة لها مسؤولية." : "Every layer has a job."}</h2></div><div><div className="flex flex-wrap gap-2">{stack.map((item) => <span key={item} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{item}</span>)}</div><p className="mt-6 text-sm leading-[1.65] text-text-secondary">{ar ? "طبقة API موحدة، ومحوّلات منفصلة للمزودين، وتصنيف أخطاء قابل للقراءة برمجيًا، مع اختبارات تغطي سيناريوهات التحويل بين المحركات ومسارات المفاتيح والرفع." : "A single API route fronts separate provider adapters, machine-readable error taxonomy and tests for engine hand-offs, credential flows and upload boundaries."}</p></div></div></section>
 
-      <section className="border-t border-border-subtle bg-surface-1/35"><div className="container-wide flex flex-col gap-8 py-6 md:flex-row md:items-end md:justify-between md:py-7"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">HAND-OFF / 002</p><h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "أداة متكاملة، وحدودها واضحة." : "A capable tool, with honest boundaries."}</h2><p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? "Mahtool يجمع تجربة الاستخدام وتكامل المحركات والرفع والتسجيل والتصدير في منتج واحد. توفر كل ميزة فعليًا يعتمد على إعداد الاستضافة ومفاتيح المزود." : "Mahtool combines interaction design, provider orchestration, upload, recording and export in one product. Actual provider capability depends on deployment configuration and credentials."}</p></div><div className="flex shrink-0 flex-wrap gap-3"><a href="https://github.com/3boalazm/MahmoudTC-tool" target="_blank" rel="noreferrer" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-orange-400/60">Source code ↗</a><a href="https://mahtool.vercel.app/" target="_blank" rel="noreferrer" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">{ar ? "جرّب Mahtool" : "Try Mahtool"} ↗</a></div></div></section>
+      <section className="border-t border-border-subtle bg-surface-1/35"><div className="container-wide flex flex-col gap-8 py-6 md:flex-row md:items-end md:justify-between md:py-7"><div><p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">HAND-OFF / 002</p><h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">{ar ? "أداة متكاملة، وحدودها واضحة." : "A capable tool, with honest boundaries."}</h2><p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? "الاستوديو يجمع تجربة الاستخدام وتكامل المحركات والرفع والتسجيل والتصدير في منتج واحد. توفر كل ميزة فعليًا يعتمد على إعداد الاستضافة ومفاتيح المزود." : "Speech to Text Studio combines interaction design, provider orchestration, upload, recording and export in one product. Actual provider capability depends on deployment configuration and credentials."}</p></div><div className="flex shrink-0 flex-wrap gap-3"><a href="https://github.com/3boalazm/MahmoudTC-tool" target="_blank" rel="noreferrer" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-orange-400/60">Source code ↗</a><a href="https://mahtool.vercel.app/" target="_blank" rel="noreferrer" className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">{ar ? "جرّب الاستوديو" : "Try the studio"} ↗</a></div></div></section>
     </div>
   );
 }

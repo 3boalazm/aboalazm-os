@@ -22,7 +22,7 @@ import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
 import { ZadCaseStudy } from "@/features/case-studies/zad";
 import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
-import { MahtoolCaseStudy } from "@/features/case-studies/mahtool";
+import { SpeechToTextStudioCaseStudy } from "@/features/case-studies/speech-to-text-studio";
 import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
 import { UmmahAcademyCaseStudy } from "@/features/case-studies/ummah-academy";
 import { OltreCollectiveCaseStudy } from "@/features/case-studies/oltre-collective";
@@ -40,7 +40,7 @@ const getCaseStudy = cache(fetchCaseStudy);
 
 const CUSTOM_TECHNICAL_VIEWS: Readonly<Record<string, () => ReactElement>> = {
   "nile-pharma-erp": () => <NilePharmaERPCaseStudy />,
-  "speech-to-text-studio": () => <MahtoolCaseStudy />,
+  "speech-to-text-studio": () => <SpeechToTextStudioCaseStudy />,
   "nile-pharma-storefront": () => <NilePharmaStorefrontCaseStudy />,
   zad: () => <ZadCaseStudy />,
   "ummah-academy": () => <UmmahAcademyCaseStudy />,
@@ -83,7 +83,7 @@ async function originalMetadata({
 
   if (slug === "speech-to-text-studio") {
     return {
-      title: "Mahtool — Speech-to-Text Product Case File",
+      title: "Speech to Text Studio — Transcription Product Case File",
       description:
         "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
     };
