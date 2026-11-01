@@ -16,11 +16,13 @@ import type { Project } from "@/features/work/types";
 import type { BusinessCaseData, Bilingual } from "./business-case.types";
 import { ClientOriginStamp } from "./client-origin-stamp";
 
-/* A slash between two words is not a line-break opportunity, so a compound such as "speaker/instructor"
-   could not wrap and pushed the page sideways on a 320px phone. A zero-width space after it lets it
-   break at the slash (never inside a word). */
-const softSlash = (text: string) => text.replace(/(\p{L})\/(?=\p{L})/gu, "$1/\u200b");
-const pick = (text: Bilingual, ar: boolean) => softSlash(ar ? text.ar : text.en);
+const pick = (text: Bilingual, ar: boolean) => (ar ? text.ar : text.en);
+
+/* Card and step titles are set in the wide display face at 22px, where a slash between two words is
+   not a line-break opportunity: "speaker/instructor" could not wrap and pushed the page sideways on a
+   320px phone. A zero-width space after the slash lets a title break there (never inside a word).
+   Body text is left alone: its longest slash compounds fit a 320px card. */
+const pickTitle = (text: Bilingual, ar: boolean) => pick(text, ar).replace(/(\p{L})\/(?=\p{L})/gu, "$1/\u200b");
 
 export interface BusinessCaseViewProps {
   data: BusinessCaseData;
@@ -232,7 +234,7 @@ export function BusinessCaseView({
             <PanelCard emphasis="dimmed" className="flex flex-col gap-4 rounded-card p-5">
               <div className="flex flex-col gap-2 border-b border-border-subtle pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="font-display text-subtitle text-text-primary">
-                  {pick(data.problemAndShift.beforeTitle, ar)}
+                  {pickTitle(data.problemAndShift.beforeTitle, ar)}
                 </h3>
                 <Badge tone="outline" size="sm">
                   {ar ? "قبل النظام" : "Before"}
@@ -252,7 +254,7 @@ export function BusinessCaseView({
             <PanelCard className="flex flex-col gap-4 rounded-card border-accent/35 p-5">
               <div className="flex flex-col gap-2 border-b border-border-subtle pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="font-display text-subtitle text-text-primary">
-                  {pick(data.problemAndShift.afterTitle, ar)}
+                  {pickTitle(data.problemAndShift.afterTitle, ar)}
                 </h3>
                 <Badge tone="accent" size="sm">
                   {ar ? "بعد التطبيق" : "With this project"}
@@ -319,7 +321,7 @@ export function BusinessCaseView({
                   </Badge>
                 </div>
                 <h3 className="font-display text-subtitle leading-[1.25] text-text-primary">
-                  {pick(step.title, ar)}
+                  {pickTitle(step.title, ar)}
                 </h3>
                 <p className="text-body-sm leading-[1.65] text-text-secondary">
                   {pick(step.detail, ar)}
@@ -356,7 +358,7 @@ export function BusinessCaseView({
                   {pick(feat.tag, ar)}
                 </span>
                 <h3 className="font-display text-subtitle leading-[1.25] text-text-primary">
-                  {pick(feat.title, ar)}
+                  {pickTitle(feat.title, ar)}
                 </h3>
                 <p className="text-body-sm leading-[1.65] text-text-secondary">
                   {pick(feat.body, ar)}
