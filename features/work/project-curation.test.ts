@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
+import { BUILT_IN_CASE_SLUGS } from "@/lib/case-registry";
 import { cardArt } from "./card-art";
 import { STORIES, pickFeatured } from "./featured-cases";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
@@ -88,6 +89,8 @@ test("every digital project uses a dedicated 16:10 dev-cards preview or name+dom
   assert.equal(cardArt("/media/cc-dev-thumb.jpg"), "/images/work/dev-cards/code-canvas-dev-card.jpg");
   assert.equal(cardArt("/media/nile-erp-thumb.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
   assert.equal(cardArt("/images/work/dev-cards/nile-erp-card.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
+  // The file name production's CMS really stores for the ERP thumbnail
+  assert.equal(cardArt("/api/media/file/nile-erp-thumb-1.jpg"), "/images/work/dev-cards/nile-erp-command-center-card.jpg");
   assert.equal(cardArt("/media/oltre-collective-thumb.jpg"), "/images/work/dev-cards/oltre-collective-card.jpg");
   assert.equal(cardArt("/media/farm-thumb.jpg"), "/images/work/dev-cards/farm-console-card.jpg");
 });
@@ -107,6 +110,14 @@ test("Nile Pharma ERP has no live preview: the seeded demo was retired for the r
   assert.equal(nile.previewStatus, "archived");
   assert.ok(nile.hasCaseStudy);
   assert.equal(existsSync(join(process.cwd(), "public", "showcase", "nile-erp")), false);
+});
+
+test("every built-in case slug has a project row, so its share card can show a name", () => {
+  // case-studies/[slug]/opengraph-image.tsx falls back to the project name when the CMS has no record.
+  const slugs = new Set(PROJECTS.map((project) => project.slug));
+  for (const slug of BUILT_IN_CASE_SLUGS) {
+    assert.ok(slugs.has(slug), `${slug} has no row in projects.data.ts: its share card would show the generic "Aboalazm OS — Case Studies" title`);
+  }
 });
 
 test("every design and development project carries distinct EN + AR card narrative copy", () => {

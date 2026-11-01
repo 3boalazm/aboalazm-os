@@ -68,7 +68,7 @@ const MANIFEST = {
   "refl-preview": "reflection/refl-preview.jpg",
 
   // Dev products with real thumbs
-  "erp-thumb": "nile-erp-thumb.jpg",
+  "erp-thumb": "dev-cards/nile-erp-command-center-card.jpg",
   "zad-thumb": "zad-thumb.jpg",
   "farm-thumb": "farm-thumb.jpg",
 };

@@ -19,9 +19,12 @@ const CARD_ART: Record<string, string> = {
   // Development & digital product cards (canonical 16:10 UI screenshots + legacy CMS basenames)
   // Real Command Center screen (cropped from the owner's annotated slide). The older
   // basenames stay mapped so CMS rows that still point at them render the real screen.
+  // nile-erp-thumb-1.jpg is the name the production CMS actually stores (Payload adds -1
+  // when a file name is taken).
   "nile-erp-command-center-card.jpg": "/images/work/dev-cards/nile-erp-command-center-card.jpg",
   "nile-erp-card.jpg": "/images/work/dev-cards/nile-erp-command-center-card.jpg",
   "nile-erp-thumb.jpg": "/images/work/dev-cards/nile-erp-command-center-card.jpg",
+  "nile-erp-thumb-1.jpg": "/images/work/dev-cards/nile-erp-command-center-card.jpg",
 
   "ummah-academy-card.jpg": "/images/work/dev-cards/ummah-academy-card.jpg",
   "ummah-academy-thumb.jpg": "/images/work/dev-cards/ummah-academy-card.jpg",
