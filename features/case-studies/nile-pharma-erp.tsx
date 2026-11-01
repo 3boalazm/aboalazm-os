@@ -18,7 +18,7 @@ const overview = {
   height: 1578,
   altEn: "Overview board of five real Nile ERP screens: command center, invoicing, accounts 360, inventory and notifications.",
   altAr: "لوحة عرض لخمس شاشات حقيقية من Nile ERP: لوحة التحكم والفواتير والعملاء والمخزون والإشعارات.",
-  figuresEn: "Headline figures on the board: 10 core modules, a 360° client-account view, 6 quick workflows, 50 operational alerts and EGP 3.06M of stock value.",
+  figuresEn: "Headline figures on the board: 10 core modules, a 360° client-account view, 6 quick workflows, 50 operational notifications and EGP 3.06M of stock value.",
   figuresAr: "أرقام اللوحة: 10 وحدات رئيسية، عرض حساب العميل 360، 6 مسارات عمل سريعة، 50 إشعارًا تشغيليًا، وقيمة مخزون 3.06 مليون ج.م.",
 } as const;
 
@@ -165,7 +165,7 @@ export function NilePharmaERPCaseStudy() {
               </span>
             </div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">NILE PHARMA FOOD / DIGITAL OPERATIONS</p>
-            {/* ltr:lg: the English words ("OPERATIONAL") are wider than the two-column track between 1024 and ~1190px at the 8vw size, so they split mid-word there; 5.6vw fits and still reaches the same size from ~1440px up. */}
+            {/* ltr:lg: the English words ("OPERATIONAL") are wider than the two-column track between 1024 and ~1190px at the 8vw size, so they split mid-word there; 5.6vw fits, is within 3% of the old size at 1440px and reaches the same size (5.2rem) from ~1490px up. */}
             <h1 className="max-w-[14ch] break-words font-display text-[clamp(2rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary ltr:lg:text-[clamp(2.8rem,5.6vw,5.2rem)]">
               {ar ? "منصة تشغيل" : "An integrated"}
               <br />
@@ -198,7 +198,7 @@ export function NilePharmaERPCaseStudy() {
               target="_blank"
               rel="noopener noreferrer"
               aria-describedby="nile-board-figures"
-              className="group relative block scroll-mt-14 overflow-hidden rounded-xl border border-border-subtle"
+              className="group relative block scroll-mb-4 scroll-mt-14 overflow-hidden rounded-xl border border-border-subtle"
             >
               <Image
                 src={overview.src}
@@ -216,9 +216,11 @@ export function NilePharmaERPCaseStudy() {
               >
                 {ar ? "افتح بالحجم الكامل" : "Open full size"} ↗
               </span>
-              <span className="sr-only">{ar ? " — يُفتح بالحجم الكامل في تبويب جديد" : " — opens full size in a new tab"}</span>
+              {/* Starts with the visible words so the accessible name contains the visible label (WCAG 2.5.3). */}
+              <span className="sr-only">{ar ? " — افتح بالحجم الكامل (يُفتح في تبويب جديد)" : " — Open full size (opens in a new tab)"}</span>
             </a>
-            <span id="nile-board-figures" className="sr-only">
+            {/* `hidden`, not sr-only: a referenced element still supplies the link's description, and it is not read a second time as page text. */}
+            <span id="nile-board-figures" hidden>
               {ar ? overview.figuresAr : overview.figuresEn}
             </span>
             <figcaption className="text-balance px-3 pb-2 pt-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">

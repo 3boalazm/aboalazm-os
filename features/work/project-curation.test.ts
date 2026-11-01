@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
+import { BUILT_IN_CASE_SLUGS } from "@/lib/case-registry";
 import { cardArt } from "./card-art";
 import { STORIES, pickFeatured } from "./featured-cases";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
@@ -109,6 +110,14 @@ test("Nile Pharma ERP has no live preview: the seeded demo was retired for the r
   assert.equal(nile.previewStatus, "archived");
   assert.ok(nile.hasCaseStudy);
   assert.equal(existsSync(join(process.cwd(), "public", "showcase", "nile-erp")), false);
+});
+
+test("every built-in case slug has a project row, so its share card can show a name", () => {
+  // case-studies/[slug]/opengraph-image.tsx falls back to the project name when the CMS has no record.
+  const slugs = new Set(PROJECTS.map((project) => project.slug));
+  for (const slug of BUILT_IN_CASE_SLUGS) {
+    assert.ok(slugs.has(slug), `${slug} has no row in projects.data.ts: its share card would show the generic "Aboalazm OS — Case Studies" title`);
+  }
 });
 
 test("every design and development project carries distinct EN + AR card narrative copy", () => {
