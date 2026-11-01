@@ -12,7 +12,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     return new ImageResponse(<OgCard eyebrow="CASE FILE" title="Zad — Islamic Companion" />, { ...OG_SIZE, fonts: await ogFonts() });
   }
   const record = await getCaseStudy(slug);
-  // Hand-built case pages (Nile Pharma ERP, Mahtool, the storefront, ...) have no record, so
+  // Hand-built case pages (Nile Pharma ERP, Speech to Text Studio, the storefront, ...) have no record, so
   // they showed the generic title; the project list knows their name.
   const projectName = PROJECTS.find((p) => p.slug === slug)?.name;
 

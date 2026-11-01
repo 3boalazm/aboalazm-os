@@ -509,20 +509,20 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
   },
 
-  /* ── 11 · MAHTOOL (SPEECH-TO-TEXT STUDIO) ───────────────────────── */
+  /* ── 11 · SPEECH-TO-TEXT STUDIO ─────────────────────────────────── */
   {
     slug: "speech-to-text-studio",
     sector: {
-      en: "AI Productivity & Media Workflow · Speech-to-Text Studio",
-      ar: "أدوات الذكاء الاصطناعي والإعلام · استوديو التفريغ الصوتي والترجمة النصية",
+      en: "AI Productivity & Media Workflow · Speech to Text Studio",
+      ar: "أدوات الذكاء الاصطناعي والإعلام · استوديو تحويل الكلام إلى نص",
     },
     headline: {
       en: "Turning lectures, interviews, podcasts, and voice notes into clean, editable transcripts and SRT subtitles—backed by four speech engines so work never stops.",
       ar: "تحويل المحاضرات والمقابلات والبودكاست والتسجيلات الصوتية إلى نصوص قابلة للتحرير وملفات ترجمة SRT عبر 4 محركات ذكاء اصطناعي مع تبديل تلقائي يمنع توقف العمل.",
     },
     summary: {
-      en: "Mahtool (مهتول) is a bilingual Arabic/English transcription studio built for journalists, researchers, content creators, students, and operations teams. Users can upload large audio/video files (up to 300 MB), paste a media link, or record straight from their microphone; the platform routes the audio across four top speech-to-text engines (Deepgram, Gladia, AssemblyAI, Speechmatics) with automatic failover, then opens an interactive workspace to edit text and export TXT or SRT subtitle files.",
-      ar: "يمثل (مهتول - Mahtool) مساحة عمل ثنائية اللغة للتفريغ الصوتي صُممت للصحفيين والباحثين وصناع المحتوى والطلاب وفرق العمل. يتيح النظام رفع ملفات صوت أو فيديو كبيرة (حتى 300 ميجابايت)، أو إدراج رابط وسائط، أو التسجيل المباشر من الميكروفون؛ ليعالج الصوت عبر 4 محركات عالمية للتعرّف على الكلام مع تبديل تلقائي عند ضغط الطلبات، ثم يفتح محرراً عملياً لمراجعة النص وتصديره بصيغة TXT أو ملفات ترجمة فيديو SRT.",
+      en: "Speech to Text Studio is a bilingual Arabic/English transcription workspace built for journalists, researchers, content creators, students, and operations teams. Users can upload large audio/video files (up to 300 MB), paste a media link, or record straight from their microphone; the platform routes the audio across four top speech-to-text engines (Deepgram, Gladia, AssemblyAI, Speechmatics) with automatic failover, then opens an interactive workspace to edit text and export TXT or SRT subtitle files.",
+      ar: "استوديو تحويل الكلام إلى نص هو مساحة عمل ثنائية اللغة للتفريغ الصوتي صُممت للصحفيين والباحثين وصناع المحتوى والطلاب وفرق العمل. يتيح النظام رفع ملفات صوت أو فيديو كبيرة (حتى 300 ميجابايت)، أو إدراج رابط وسائط، أو التسجيل المباشر من الميكروفون؛ ليعالج الصوت عبر 4 محركات عالمية للتعرّف على الكلام مع تبديل تلقائي عند ضغط الطلبات، ثم يفتح محرراً عملياً لمراجعة النص وتصديره بصيغة TXT أو ملفات ترجمة فيديو SRT.",
     },
     snapshot: [
       {
@@ -574,8 +574,8 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
       ],
       afterTitle: {
-        en: "How Mahtool makes transcription dependable",
-        ar: "كيف يحل استوديو (مهتول) هذه المشكلات عملياً",
+        en: "How Speech to Text Studio makes transcription dependable",
+        ar: "كيف يحل استوديو تحويل الكلام إلى نص هذه المشكلات عملياً",
       },
       afterPoints: [
         {
@@ -640,7 +640,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
           ar: "تشغيل التفريغ عبر المحركات الأربعة مع الحماية من التوقف",
         },
         detail: {
-          en: "In Auto mode, if the primary STT provider times out or hits a quota limit, Mahtool retries seamlessly on the next healthy engine.",
+          en: "In Auto mode, if the primary STT provider times out or hits a quota limit, the studio retries seamlessly on the next healthy engine.",
           ar: "في الوضع التلقائي، إذا واجه المحرك الأول ضغطاً أو نفاد حصة، يحوّل النظام الطلب فوراً للمحرك التالي دون ضياع الملف.",
         },
       },
@@ -670,8 +670,8 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       },
     ],
     featuresIntro: {
-      en: "Key practical advantages of Mahtool:",
-      ar: "أهم المميزات العملية لاستوديو (مهتول):",
+      en: "Key practical advantages of Speech to Text Studio:",
+      ar: "أهم المميزات العملية لاستوديو تحويل الكلام إلى نص:",
     },
     features: [
       {

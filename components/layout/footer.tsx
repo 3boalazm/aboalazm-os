@@ -63,9 +63,13 @@ export function Footer() {
   const t = useT();
   const { lang } = useLang();
   const ar = lang === "ar";
+  /* Brand | links sit side by side only from `lg`. At `md` the right track was 410px, so the four
+     link columns were ~78px each - narrower than "WhatsApp" + icon (120px) - and REACH pushed the
+     page up to 18px wider than the viewport (768-877px, English) while labels wrapped to three
+     lines. Below `lg` the brand stacks above four full-width columns, as it already did under 768. */
   return (
     <footer className="border-t border-border-subtle">
-      <div className="container-wide grid gap-8 py-8 md:grid-cols-[1.2fr_2fr]">
+      <div className="container-wide grid gap-8 py-8 lg:grid-cols-[1.2fr_2fr]">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2.5">
             <span className="brand-orb h-8 w-8">

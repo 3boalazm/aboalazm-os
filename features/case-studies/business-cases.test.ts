@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
 import { BUILT_IN_CASE_SLUGS, PROJECT_OVERVIEW_SLUGS } from "@/lib/case-registry";
@@ -67,4 +67,29 @@ test("getBusinessCase synthesizes a valid fallback for future CMS-only slugs", (
   assert.equal(fallback.snapshot.length, 4);
   assert.ok(fallback.workflow.length >= 2);
   assert.ok(fallback.features.length >= 1);
+});
+
+test("the speech-to-text product is published as Speech to Text Studio, never under its codename", () => {
+  // The owner confirmed the public name. The codename may only survive inside the live URL
+  // (https://mahtool.vercel.app), which cannot be renamed from here.
+  const project = PROJECTS.find((p) => p.slug === "speech-to-text-studio");
+  assert.equal(project?.name, "Speech to Text Studio");
+  assert.equal(project?.nameAr, "استوديو تحويل الكلام إلى نص");
+  const business = BUSINESS_CASES["speech-to-text-studio"];
+  assert.ok(business, "missing BUSINESS_CASES entry for speech-to-text-studio");
+  const read = (rel: string) => readFileSync(join(process.cwd(), rel), "utf8");
+  const sources: Record<string, string> = {
+    "business overview data": JSON.stringify(business),
+    "case page": read("features/case-studies/speech-to-text-studio.tsx"),
+    "case routes and metadata": read("app/(site)/[locale]/case-studies/[slug]/page.tsx"),
+    "share card": read("app/(site)/[locale]/case-studies/[slug]/opengraph-image.tsx"),
+    "project list": read("features/work/projects.data.ts"),
+    "card teasers": read("features/work/featured-cases.tsx"),
+  };
+  // Only the https:// URL is allowed to carry the old spelling. Arabic vowel marks and tatweel are
+  // stripped first, so a vowelled or stretched spelling cannot slip through.
+  const normalise = (text: string) => text.replace(/https:\/\/mahtool\.vercel\.app\/?/gi, "").replace(/[\u064B-\u065F\u0640]/g, "");
+  for (const [where, text] of Object.entries(sources)) {
+    assert.doesNotMatch(normalise(text), /\bma+h[-\s]?tool|ماهتول|مهتول|\bMHT\b/i, `${where} still names the product by its old codename`);
+  }
 });
