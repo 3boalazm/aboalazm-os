@@ -513,8 +513,8 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
   {
     slug: "speech-to-text-studio",
     sector: {
-      en: "AI Productivity & Media Workflow · Speech-to-Text Studio",
-      ar: "أدوات الذكاء الاصطناعي والإعلام · استوديو التفريغ الصوتي والترجمة النصية",
+      en: "AI Productivity & Media Workflow · Speech to Text Studio",
+      ar: "أدوات الذكاء الاصطناعي والإعلام · استوديو تحويل الكلام إلى نص",
     },
     headline: {
       en: "Turning lectures, interviews, podcasts, and voice notes into clean, editable transcripts and SRT subtitles—backed by four speech engines so work never stops.",
@@ -522,7 +522,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Speech to Text Studio is a bilingual Arabic/English transcription workspace built for journalists, researchers, content creators, students, and operations teams. Users can upload large audio/video files (up to 300 MB), paste a media link, or record straight from their microphone; the platform routes the audio across four top speech-to-text engines (Deepgram, Gladia, AssemblyAI, Speechmatics) with automatic failover, then opens an interactive workspace to edit text and export TXT or SRT subtitle files.",
-      ar: "يمثل استوديو تحويل الكلام إلى نص مساحة عمل ثنائية اللغة للتفريغ الصوتي صُممت للصحفيين والباحثين وصناع المحتوى والطلاب وفرق العمل. يتيح النظام رفع ملفات صوت أو فيديو كبيرة (حتى 300 ميجابايت)، أو إدراج رابط وسائط، أو التسجيل المباشر من الميكروفون؛ ليعالج الصوت عبر 4 محركات عالمية للتعرّف على الكلام مع تبديل تلقائي عند ضغط الطلبات، ثم يفتح محرراً عملياً لمراجعة النص وتصديره بصيغة TXT أو ملفات ترجمة فيديو SRT.",
+      ar: "استوديو تحويل الكلام إلى نص هو مساحة عمل ثنائية اللغة للتفريغ الصوتي صُممت للصحفيين والباحثين وصناع المحتوى والطلاب وفرق العمل. يتيح النظام رفع ملفات صوت أو فيديو كبيرة (حتى 300 ميجابايت)، أو إدراج رابط وسائط، أو التسجيل المباشر من الميكروفون؛ ليعالج الصوت عبر 4 محركات عالمية للتعرّف على الكلام مع تبديل تلقائي عند ضغط الطلبات، ثم يفتح محرراً عملياً لمراجعة النص وتصديره بصيغة TXT أو ملفات ترجمة فيديو SRT.",
     },
     snapshot: [
       {

@@ -100,7 +100,7 @@ export const STORIES: Record<string, { challenge: string; challengeAr: string }>
     challenge:
       "Designed a resilient transcription studio routing uploads and mic recordings across four STT engines with automatic server-side failover.",
     challengeAr:
-      "تصميم استوديو تفريغ صوتي يوجّه التسجيلات عبر أربع محركات تعرّف على الكلام مع تبديل تلقائي على الخادم عند ضغط الطلبات.",
+      "تصميم استوديو تفريغ صوتي يوجّه التسجيلات عبر أربعة محركات تعرّف على الكلام مع تبديل تلقائي على الخادم عند ضغط الطلبات.",
   },
   stemforge: {
     challenge:
