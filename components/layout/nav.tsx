@@ -113,8 +113,10 @@ export function Nav() {
      is ~1225px wide and only fits from 1243px. Between `lg` and `xl` the pill was clamped by
      max-w-[calc(100vw-16px)] and the CTA ran off the right edge of the screen. In that band the
      wordmark and the CTA arrow drop, the CTA takes the short label it already uses below `sm`,
-     and the gaps and link padding tighten (-242px), so 1024px keeps ~21px of margin per side.
-     Arabic labels are shorter (that bar is ~976px) and keep the full bar. */
+     and the gaps and link padding tighten (-244px), so 1024px keeps ~21px of margin per side.
+     The band runs up to the standard `xl` (1280px) although the full bar already fits from 1243px,
+     because from there it has under 8px of margin. Arabic labels are shorter (that bar is ~976px)
+     and keep the full bar. */
 
   /* Plain <nav>: the old opacity:0 entrance left it invisible in the SSR
      HTML (and for ~1s after hydration, or forever without JS). */
@@ -250,6 +252,9 @@ export function Nav() {
 
         <Link
           href="/contact"
+          /* The visible label changes with the width ("DISCUSS A PROJECT" / "PROJECT"); the name does not.
+             It still contains the visible word, so voice control by what is on screen keeps working. */
+          aria-label={lang === "ar" ? undefined : "Discuss a project"}
           className={buttonVariants({
             className:
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",

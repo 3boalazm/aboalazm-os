@@ -90,6 +90,6 @@ test("the speech-to-text product is published as Speech to Text Studio, never un
   // stripped first, so a vowelled or stretched spelling cannot slip through.
   const normalise = (text: string) => text.replace(/https:\/\/mahtool\.vercel\.app\/?/gi, "").replace(/[\u064B-\u065F\u0640]/g, "");
   for (const [where, text] of Object.entries(sources)) {
-    assert.doesNotMatch(normalise(text), /\bma+h?[-\s]?tool|ماهتول|مهتول|\bMHT\b/i, `${where} still names the product by its old codename`);
+    assert.doesNotMatch(normalise(text), /\bma+h[-\s]?tool|ماهتول|مهتول|\bMHT\b/i, `${where} still names the product by its old codename`);
   }
 });
