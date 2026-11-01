@@ -10,6 +10,7 @@ import {
   type Tier,
 } from "@/lib/offers";
 import { BOOKING_CTA_LABEL, BOOKING_URL } from "@/lib/contact-details";
+import { resolveFxState } from "@/lib/fx";
 import {
   SectionHead,
   TierGrid,
@@ -31,15 +32,28 @@ const PRICING_MOOD = {
   secondary: "rgb(163 230 53 / 0.05)",
 } as const;
 
-const FAQ: readonly { q: Bi; a: Bi }[] = [
-  { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
-  { q: ["What if my project doesn't fit a tier exactly?", "ماذا لو لم يناسب مشروعي فئة بعينها؟"], a: ["Most don't — tiers are starting templates. After the Discovery Call, you get a custom proposal that adds, removes, or adjusts items to your actual needs.", "أغلب المشاريع كذلك — الفئات قوالب بداية. بعد مكالمة الاكتشاف يصلك عرض مخصص يضيف أو يحذف أو يعدّل البنود حسب احتياجك الفعلي."] },
-  { q: ["Can I upgrade tiers during the project?", "هل يمكن الترقية أثناء المشروع؟"], a: ["Yes — I quote the upgrade delta and adjust the timeline. No re-doing finished work.", "نعم — أسعّر فرق الترقية ونعدّل الجدول، دون إعادة أي عمل منجز."] },
-  { q: ["Is there a discount for full prepayment?", "هل يوجد خصم للدفع الكامل مقدمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم — خصم 10% من إجمالي الفاتورة عند الدفع الكامل مقدمًا عند البدء."] },
-  { q: ["Do you work with international clients? What currency?", "العملاء الدوليون؟ وبأي عملة؟"], a: ["Yes, frequently across Egypt, Saudi Arabia, UAE, Qatar, and worldwide. Quoted in USD with EGP and SAR equivalents shown alongside; paid via InstaPay, Vodafone Cash, Wise, PayPal, or bank transfer.", "نعم باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. التسعير بالدولار مع عرض المعادل بالجنيه المصري (EGP) والريال السعودي (SAR)، والدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي."] },
-  { q: ["What about revisions beyond the included rounds?", "ماذا عن التعديلات بعد الجولات المشمولة؟"], a: ["Each tier includes 2 structured rounds; additional revisions are billed hourly and logged in writing.", "كل فئة تشمل جولتين منظمتين، وما بعدهما يُحاسب بالساعة ويوثَّق كتابيًا."] },
-  { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "ملفات المصدر النهائية تُسلَّم مع كل فئة بعد سداد الدفعة الأخيرة — وهي لحظة انتقال الملكية."] },
-];
+export function buildPricingFaq(fxActive = resolveFxState().active): readonly { q: Bi; a: Bi }[] {
+  return [
+    { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
+    { q: ["What if my project doesn't fit a tier exactly?", "ماذا لو لم يناسب مشروعي فئة بعينها؟"], a: ["Most don't — tiers are starting templates. After the Discovery Call, you get a custom proposal that adds, removes, or adjusts items to your actual needs.", "أغلب المشاريع كذلك — الفئات قوالب بداية. بعد مكالمة الاكتشاف يصلك عرض مخصص يضيف أو يحذف أو يعدّل البنود حسب احتياجك الفعلي."] },
+    { q: ["Can I upgrade tiers during the project?", "هل يمكن الترقية أثناء المشروع؟"], a: ["Yes — I quote the upgrade delta and adjust the timeline. No re-doing finished work.", "نعم — أسعّر فرق الترقية ونعدّل الجدول، دون إعادة أي عمل منجز."] },
+    { q: ["Is there a discount for full prepayment?", "هل يوجد خصم للدفع الكامل مقدمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم — خصم 10% من إجمالي الفاتورة عند الدفع الكامل مقدمًا عند البدء."] },
+    {
+      q: ["Do you work with international clients? What currency?", "العملاء الدوليون؟ وبأي عملة؟"],
+      a: fxActive
+        ? [
+            "Yes, frequently across Egypt, Saudi Arabia, UAE, Qatar, and worldwide. Quoted in USD with EGP and SAR equivalents shown alongside; paid via InstaPay, Vodafone Cash, Wise, PayPal, or bank transfer.",
+            "نعم باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. التسعير بالدولار مع عرض المعادل بالجنيه المصري (EGP) والريال السعودي (SAR)، والدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي.",
+          ]
+        : [
+            "Yes, frequently across Egypt, Saudi Arabia, UAE, Qatar, and worldwide. Quoted in USD; EGP/SAR prices are confirmed on WhatsApp. Paid via InstaPay, Vodafone Cash, Wise, PayPal, or bank transfer.",
+            "نعم باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. التسعير بالدولار؛ أسعار الجنيه (EGP) والريال (SAR) تُؤكَّد عبر واتساب. الدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي.",
+          ],
+    },
+    { q: ["What about revisions beyond the included rounds?", "ماذا عن التعديلات بعد الجولات المشمولة؟"], a: ["Each tier includes 2 structured rounds; additional revisions are billed hourly and logged in writing.", "كل فئة تشمل جولتين منظمتين، وما بعدهما يُحاسب بالساعة ويوثَّق كتابيًا."] },
+    { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "ملفات المصدر النهائية تُسلَّم مع كل فئة بعد سداد الدفعة الأخيرة — وهي لحظة انتقال الملكية."] },
+  ];
+}
 
 interface PricingData {
   tiers: Tier[];
@@ -164,7 +178,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["04 / PRICING FAQ", "04 / أسئلة التسعير"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
-        <Faq items={FAQ} />
+        <Faq items={buildPricingFaq()} />
       </section>
 
       <CtaBand

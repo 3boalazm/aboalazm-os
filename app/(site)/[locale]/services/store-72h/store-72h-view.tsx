@@ -354,10 +354,10 @@ export function Store72hView() {
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {refItem.tags.map((tag) => (
                     <span
-                      key={tag}
+                      key={tag[0]}
                       className="rounded-pill border border-border-default bg-surface-2 px-2.5 py-0.5 font-mono text-[11px] text-text-tertiary"
                     >
-                      {tag}
+                      {ar ? tag[1] : tag[0]}
                     </span>
                   ))}
                 </div>
