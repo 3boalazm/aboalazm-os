@@ -108,6 +108,14 @@ export function Nav() {
     };
   }, [open]);
 
+  /* EN-ONLY COMPACT BAND, 1024-1279px (the `ltr:lg:max-xl:` classes below).
+     In English the full bar - logo + MA, six links, two circles, "DISCUSS A PROJECT ->" -
+     is ~1225px wide and only fits from 1243px. Between `lg` and `xl` the pill was clamped by
+     max-w-[calc(100vw-16px)] and the CTA ran off the right edge of the screen. In that band the
+     wordmark and the CTA arrow drop, the CTA takes the short label it already uses below `sm`,
+     and the gaps and link padding tighten (-242px), so 1024px keeps ~21px of margin per side.
+     Arabic labels are shorter (that bar is ~976px) and keep the full bar. */
+
   /* Plain <nav>: the old opacity:0 entrance left it invisible in the SSR
      HTML (and for ~1s after hydration, or forever without JS). */
   const nav = (
@@ -118,7 +126,7 @@ export function Nav() {
     >
       <div
         className={[
-          "glass flex items-center gap-1 rounded-pill py-1 pl-2 pr-1 sm:gap-2 sm:pl-3 md:gap-3",
+          "glass flex items-center gap-1 rounded-pill py-1 pl-2 pr-1 sm:gap-2 sm:pl-3 md:gap-3 ltr:lg:max-xl:gap-2",
           "transition-shadow duration-base ease-physics",
           scrolled || open ? "shadow-card" : "shadow-none",
         ].join(" ")}
@@ -152,7 +160,7 @@ export function Nav() {
             />
           </motion.span>
           <span
-            className="hidden font-display text-subtitle leading-none tracking-[-0.02em] text-text-primary sm:block"
+            className="hidden font-display text-subtitle leading-none tracking-[-0.02em] text-text-primary sm:block ltr:lg:max-xl:hidden"
             aria-hidden
           >
             M<span className="text-accent">A</span>
@@ -169,7 +177,7 @@ export function Nav() {
                   href={link.href}
                   aria-current={active ? "page" : undefined}
                   className={[
-                    "group relative block px-2 py-1 font-display font-display-sm text-caption uppercase tracking-[0.08em]",
+                    "group relative block px-2 py-1 font-display font-display-sm text-caption uppercase tracking-[0.08em] ltr:lg:max-xl:px-1.5",
                     "transition-colors duration-base ease-physics",
                     active
                       ? "text-text-primary"
@@ -247,10 +255,10 @@ export function Nav() {
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          <span className="sm:hidden">{lang === "ar" ? "ابدأ مشروعك" : "PROJECT"}</span><span className="hidden sm:inline">{lang === "ar" ? "ناقش مشروعك" : "DISCUSS A PROJECT"}</span>
+          <span className="sm:hidden ltr:lg:max-xl:inline">{lang === "ar" ? "ابدأ مشروعك" : "PROJECT"}</span><span className="hidden sm:inline ltr:lg:max-xl:hidden">{lang === "ar" ? "ناقش مشروعك" : "DISCUSS A PROJECT"}</span>
           <span
             aria-hidden
-            className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex"
+            className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex ltr:lg:max-xl:hidden"
           >
             <Icon name="arrow-right" />
           </span>

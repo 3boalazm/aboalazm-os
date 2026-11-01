@@ -16,7 +16,11 @@ import type { Project } from "@/features/work/types";
 import type { BusinessCaseData, Bilingual } from "./business-case.types";
 import { ClientOriginStamp } from "./client-origin-stamp";
 
-const pick = (text: Bilingual, ar: boolean) => (ar ? text.ar : text.en);
+/* A slash between two words is not a line-break opportunity, so a compound such as "speaker/instructor"
+   could not wrap and pushed the page sideways on a 320px phone. A zero-width space after it lets it
+   break at the slash (never inside a word). */
+const softSlash = (text: string) => text.replace(/(\p{L})\/(?=\p{L})/gu, "$1/\u200b");
+const pick = (text: Bilingual, ar: boolean) => softSlash(ar ? text.ar : text.en);
 
 export interface BusinessCaseViewProps {
   data: BusinessCaseData;
@@ -81,7 +85,7 @@ export function BusinessCaseView({
           </span>
         </div>
 
-        <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(300px,0.8fr)]">
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(300px,0.8fr)]">
           <div className="flex flex-col gap-4">
             <div className="flex flex-wrap items-center gap-2">
               <Badge tone="accent" size="sm">
@@ -194,7 +198,7 @@ export function BusinessCaseView({
         </div>
 
         {/* 4-column Business Snapshot */}
-        <div className="grid gap-3 pt-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-3 pt-1 sm:grid-cols-2 lg:grid-cols-4">
           {data.snapshot.map((item) => (
             <PanelCard
               key={item.label.en}
@@ -223,10 +227,10 @@ export function BusinessCaseView({
             </h2>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             {/* Before */}
             <PanelCard emphasis="dimmed" className="flex flex-col gap-4 rounded-card p-5">
-              <div className="flex items-center justify-between gap-2 border-b border-border-subtle pb-3">
+              <div className="flex flex-col gap-2 border-b border-border-subtle pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="font-display text-subtitle text-text-primary">
                   {pick(data.problemAndShift.beforeTitle, ar)}
                 </h3>
@@ -238,7 +242,7 @@ export function BusinessCaseView({
                 {data.problemAndShift.beforePoints.map((pt, idx) => (
                   <li key={idx} className="flex items-start gap-2.5 text-body-sm leading-[1.65] text-text-secondary">
                     <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-text-ghost" />
-                    <span>{pick(pt, ar)}</span>
+                    <span className="min-w-0 break-words">{pick(pt, ar)}</span>
                   </li>
                 ))}
               </ul>
@@ -246,7 +250,7 @@ export function BusinessCaseView({
 
             {/* After */}
             <PanelCard className="flex flex-col gap-4 rounded-card border-accent/35 p-5">
-              <div className="flex items-center justify-between gap-2 border-b border-border-subtle pb-3">
+              <div className="flex flex-col gap-2 border-b border-border-subtle pb-3 sm:flex-row sm:items-center sm:justify-between">
                 <h3 className="font-display text-subtitle text-text-primary">
                   {pick(data.problemAndShift.afterTitle, ar)}
                 </h3>
@@ -260,7 +264,7 @@ export function BusinessCaseView({
                     <span className="mt-0.5 inline-flex shrink-0 text-accent">
                       <Icon name="check" />
                     </span>
-                    <span>{pick(pt, ar)}</span>
+                    <span className="min-w-0 break-words">{pick(pt, ar)}</span>
                   </li>
                 ))}
               </ul>
@@ -272,7 +276,7 @@ export function BusinessCaseView({
             <p className="font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary">
               {ar ? "المستفيدون المباشرون من المشروع" : "Who uses it & what they gain"}
             </p>
-            <div className="grid gap-3 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
               {data.problemAndShift.stakeholders.map((s) => (
                 <PanelCard key={s.role.en} className="flex flex-col gap-2 rounded-card p-4">
                   <h3 className="font-display text-body font-semibold text-accent">
@@ -302,7 +306,7 @@ export function BusinessCaseView({
           </p>
         </div>
 
-        <ol className="grid gap-4 md:grid-cols-2">
+        <ol className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {data.workflow.map((step) => (
             <li key={step.step}>
               <PanelCard className="flex h-full flex-col gap-3 rounded-card p-5">
@@ -341,7 +345,7 @@ export function BusinessCaseView({
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {data.features.map((feat) => (
               <PanelCard
                 key={feat.title.en}
@@ -371,7 +375,9 @@ export function BusinessCaseView({
               <SectionLabel>
                 04 · {ar ? "حالة التشغيل والنطاق الحالي" : "Operational Status & Scope"}
               </SectionLabel>
-              <Badge tone="live" size="sm">
+              {/* The label can carry a domain (codeandcanvas.net) that has no space to wrap at: on a 320px phone
+                  that one token was wider than the panel and pushed the whole page sideways. */}
+              <Badge tone="live" size="sm" className="max-w-full [overflow-wrap:anywhere]">
                 {pick(data.operationalNote.statusLabel, ar)}
               </Badge>
             </div>
