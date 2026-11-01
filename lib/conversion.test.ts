@@ -213,6 +213,21 @@ test("single source of truth for Recommended badge, 72h store, response promise,
   assert.equal(recommended[0]?.id, "brand-identity");
   assert.equal(STORE_72H_OFFER.startingUsd, 197);
   assert.equal(STORE_72H_OFFER.proof.length, 4);
+  assert.match(STORE_72H_OFFER.subheadline[0], /a shipping-policy page/);
+  assert.doesNotMatch(STORE_72H_OFFER.subheadline[0], /live shipping setup/);
+  assert.match(STORE_72H_OFFER.subheadline[1], /صفحة سياسة الشحن/);
+
+  for (const item of STORE_72H_OFFER.proof) {
+    for (const [enTag, arTag] of item.tags) {
+      assert.ok(enTag.length > 0);
+      assert.ok(arTag.length > 0);
+      if (enTag === "Next.js") {
+        assert.equal(arTag, "Next.js");
+      } else {
+        assert.match(arTag, /[\u0600-\u06FF]/, `Expected Arabic characters for tag ${enTag}, got ${arTag}`);
+      }
+    }
+  }
 
   const clause05 = AGREEMENT_TERMS.find((c) => c.n === "05");
   assert.ok(clause05);

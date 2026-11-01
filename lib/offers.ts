@@ -232,7 +232,7 @@ export interface Store72hProofItem {
   domain: string;
   href: string;
   summary: Bi;
-  tags: readonly string[];
+  tags: readonly Bi[];
   thumbnail?: string;
 }
 
@@ -249,8 +249,8 @@ export const STORE_72H_OFFER = {
     "متجر أو كتالوج إلكتروني ثنائي اللغة، جاهز خلال 72 ساعة",
   ] as Bi,
   subheadline: [
-    "Designed by a senior brand designer and built on a fast, mobile-first bilingual architecture — with WhatsApp ordering, COD & InstaPay instructions, and live shipping setup.",
-    "بتصميم هوية بصرية احترافية وبنية تقنية سريعة ثنائية اللغة (عربي/إنجليزي) — مع الطلب عبر واتساب، وتعليمات الدفع عند الاستلام وإنستاباي، وربط الشحن والدومين.",
+    "Designed by a senior brand designer and built on a fast, mobile-first bilingual architecture — with WhatsApp ordering, COD & InstaPay instructions, and a shipping-policy page.",
+    "بتصميم هوية بصرية احترافية وبنية تقنية سريعة ثنائية اللغة (عربي/إنجليزي) — مع الطلب عبر واتساب، وتعليمات الدفع عند الاستلام وإنستاباي، وصفحة سياسة الشحن وربط الدومين.",
   ] as Bi,
   clockRule: [
     "The 72 hours start when I receive all content (products, photos, texts), not at payment.",
@@ -329,7 +329,11 @@ export const STORE_72H_OFFER = {
         "Drop-led streetwear store with product variants, lookbook, cart & wishlist, and EGP checkout.",
         "متجر أزياء ستريت وير مع خيارات المقاسات، سلة المشتريات، والأسعار بالجنيه المصري.",
       ],
-      tags: ["E-Commerce", "EGP Checkout", "Mobile-First"],
+      tags: [
+        ["E-Commerce", "متجر إلكتروني"],
+        ["EGP Checkout", "دفع بالجنيه المصري"],
+        ["Mobile-First", "مصمم للهاتف أولاً"],
+      ],
       thumbnail: "/images/work/dev-cards/oltre-collective-card.jpg",
     },
     {
@@ -341,7 +345,11 @@ export const STORE_72H_OFFER = {
         "Bilingual Arabic/English storefront with structured product catalogue, dynamic pricing, and order flow.",
         "متجر وواجهة منتجات ثنائية اللغة (عربي/إنجليزي) بكتالوج منظم ومسار طلب واضح.",
       ],
-      tags: ["Bilingual AR/EN", "Catalogue", "Next.js"],
+      tags: [
+        ["Bilingual AR/EN", "ثنائي اللغة عربي/إنجليزي"],
+        ["Catalogue", "كتالوج"],
+        ["Next.js", "Next.js"],
+      ],
       thumbnail: "/images/work/dev-cards/nile-pharma-storefront-card.jpg",
     },
     {
@@ -353,7 +361,11 @@ export const STORE_72H_OFFER = {
         "Bilingual B2B spring manufacturing & mattress supply catalogue (69 products across 8 categories) with WhatsApp inquiry routing.",
         "كتالوج صناعي ثنائي اللغة لمصنع سوست وخامات مراتب (69 منتجاً في 8 أقسام) مع طلب عروض الأسعار عبر واتساب.",
       ],
-      tags: ["B2B Catalogue", "Arabic RTL + EN", "WhatsApp Flow"],
+      tags: [
+        ["B2B Catalogue", "كتالوج جملة وتوريد"],
+        ["Bilingual AR/EN", "ثنائي اللغة عربي/إنجليزي"],
+        ["WhatsApp Flow", "مسار طلب عبر واتساب"],
+      ],
     },
     {
       slug: "craft-egypt",
@@ -364,7 +376,11 @@ export const STORE_72H_OFFER = {
         "Arabic RTL storefront and regional craft catalogue for handmade Egyptian copperware, textiles, pottery, and home decor.",
         "متجر وكتالوج عربي RTL للحرف اليدوية والتراثية المصرية (نحاس، تطريز، فخار، وديكور منزلي) مع دليل الطلب المخصص.",
       ],
-      tags: ["Arabic RTL", "Handmade Storefront", "Product Catalogue"],
+      tags: [
+        ["Mobile-First", "مصمم للهاتف أولاً"],
+        ["Handmade Storefront", "متجر حرف يدوية"],
+        ["Product Catalogue", "كتالوج منتجات"],
+      ],
     },
   ] as readonly Store72hProofItem[],
 } as const;

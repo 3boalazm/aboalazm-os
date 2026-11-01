@@ -17,6 +17,8 @@ import {
 import {
   getConfiguredPaymentMethods,
   RESPONSE_PROMISE,
+  WHATSAPP_DISPLAY,
+  WHATSAPP_HREF,
 } from "@/lib/contact-details";
 import {
   computeBookingQuote,
@@ -377,9 +379,11 @@ export function BookView({
               </div>
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-text-secondary">
-                  {ar ? "عربون البدء (50%)" : "50% kickoff deposit"}
+                  {ar
+                    ? "50% من السعر المبدئي. السعر النهائي يُؤكَّد كتابياً قبل الدفع"
+                    : "50% of the starting price. Final price is confirmed in writing before payment"}
                 </span>
-                <span dir="ltr" className="font-mono text-text-primary">
+                <span dir="ltr" className="shrink-0 font-mono text-text-primary">
                   {quote.depositConverted.formatted}
                 </span>
               </div>
@@ -595,14 +599,48 @@ export function BookView({
             </div>
           </div>
 
-          <div className="rounded-card border border-accent/30 bg-accent/[0.06] px-3 py-2 text-caption text-text-primary">
-            <strong className="font-mono uppercase tracking-wider text-accent">
-              {ar ? "تنبيه أمان:" : "Safety note:"}
-            </strong>{" "}
-            {ar
-              ? "لا تحوّل لأي بيانات دفع غير الموضحة في هذه الصفحة."
-              : "Only send to the details shown on this page."}
-          </div>
+          {configuredMethods.length > 0 ? (
+            <div className="rounded-card border border-accent/30 bg-accent/[0.06] px-3 py-2 text-caption text-text-primary">
+              <strong className="font-mono uppercase tracking-wider text-accent">
+                {ar ? "تنبيه أمان:" : "Safety note:"}
+              </strong>{" "}
+              {ar
+                ? "لا تحوّل لأي بيانات دفع غير الموضحة في هذه الصفحة."
+                : "Only send to the details shown on this page."}
+            </div>
+          ) : (
+            <div className="rounded-card border border-border-default bg-surface-2 px-3 py-2 text-caption text-text-secondary">
+              {ar ? (
+                <>
+                  لا تحوّل إلا لبيانات الدفع التي أؤكدها لك عبر واتساب (
+                  <a
+                    href={WHATSAPP_HREF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    dir="ltr"
+                    className="font-mono text-accent underline underline-offset-4"
+                  >
+                    {WHATSAPP_DISPLAY}
+                  </a>
+                  ).
+                </>
+              ) : (
+                <>
+                  Only send to payment details I confirm to you on WhatsApp (
+                  <a
+                    href={WHATSAPP_HREF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    dir="ltr"
+                    className="font-mono text-accent underline underline-offset-4"
+                  >
+                    {WHATSAPP_DISPLAY}
+                  </a>
+                  ).
+                </>
+              )}
+            </div>
+          )}
         </PanelCard>
 
         {/* STEP 03: Confirm on WhatsApp */}
