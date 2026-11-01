@@ -516,7 +516,8 @@ export function FeaturedCard({
             aria-hidden
             className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-obsidian/92 via-obsidian/55 to-transparent"
           />
-          <p className="absolute inset-x-0 bottom-0 z-elevated line-clamp-2 px-3.5 pb-2.5 font-mono text-micro uppercase tracking-[0.08em] text-alabaster/90">
+          {/* bottom offset, not padding: with pb-2.5 the clamp's third line still painted inside the padding on a phone */}
+          <p className="absolute inset-x-0 bottom-2.5 z-elevated line-clamp-2 px-3.5 font-mono text-micro uppercase tracking-[0.08em] text-alabaster/90">
             {outcome}
           </p>
         </MediaCard>

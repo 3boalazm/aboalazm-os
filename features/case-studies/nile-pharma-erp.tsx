@@ -8,15 +8,18 @@ import { contactHref } from "@/lib/contact-context";
 
 /* The hero shows the owner's overview board of the real interface (the five
    screens below, plus the headline figures read off them). It replaces an
-   illustration drawn from the seeded demo: nothing in the hero is mocked up. */
+   illustration drawn from the seeded demo: nothing in the hero is mocked up.
+   The alt only names the board, so the link's accessible name stays short; the
+   figures live in a separate description the link points at (aria-describedby).
+   "360" is the Accounts 360 feature on the board, not a count of anything. */
 const overview = {
   src: "/images/work/nile-erp/nile-erp-00-overview.webp",
   width: 2000,
   height: 1578,
-  altEn:
-    "Overview board of the real Nile ERP interface: operations command center, invoicing, accounts 360, inventory and notifications, with the system’s headline figures — 10 core modules, 360° client accounts, 6 quick workflows, 50 operational alerts and EGP 3.06M of stock value.",
-  altAr:
-    "لوحة عرض لواجهات Nile ERP الحقيقية: لوحة التحكم والفواتير والعملاء والمخزون والإشعارات، مع أرقام النظام — 10 وحدات رئيسية، حساب عميل 360، 6 مسارات عمل سريعة، 50 إشعارًا تشغيليًا، وقيمة مخزون 3.06 مليون ج.م.",
+  altEn: "Overview board of five real Nile ERP screens: command center, invoicing, accounts 360, inventory and notifications.",
+  altAr: "لوحة عرض لخمس شاشات حقيقية من Nile ERP: لوحة التحكم والفواتير والعملاء والمخزون والإشعارات.",
+  figuresEn: "Headline figures on the board: 10 core modules, a 360° client-account view, 6 quick workflows, 50 operational alerts and EGP 3.06M of stock value.",
+  figuresAr: "أرقام اللوحة: 10 وحدات رئيسية، عرض حساب العميل 360، 6 مسارات عمل سريعة، 50 إشعارًا تشغيليًا، وقيمة مخزون 3.06 مليون ج.م.",
 } as const;
 
 const servicesGrouped = [
@@ -162,7 +165,8 @@ export function NilePharmaERPCaseStudy() {
               </span>
             </div>
             <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-accent">NILE PHARMA FOOD / DIGITAL OPERATIONS</p>
-            <h1 className="max-w-[14ch] break-words font-display text-[clamp(2rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary">
+            {/* ltr:lg: the English words ("OPERATIONAL") are wider than the two-column track between 1024 and ~1190px at the 8vw size, so they split mid-word there; 5.6vw fits and still reaches the same size from ~1440px up. */}
+            <h1 className="max-w-[14ch] break-words font-display text-[clamp(2rem,8vw,5.2rem)] leading-[0.92] tracking-[-0.06em] text-text-primary ltr:lg:text-[clamp(2.8rem,5.6vw,5.2rem)]">
               {ar ? "منصة تشغيل" : "An integrated"}
               <br />
               <span className="text-text-tertiary">{ar ? "متكاملة" : "operational"}</span> {ar ? "لتوزيع الدواء." : "platform."}
@@ -181,7 +185,7 @@ export function NilePharmaERPCaseStudy() {
 
           {/* Hero visual — the real interface (the owner's overview board), not an illustration */}
           <figure className="m-0 rounded-2xl border border-border-subtle bg-surface-1 p-2 shadow-card">
-            <div className="flex items-center justify-between gap-3 px-3 py-2">
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-3 py-2">
               <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">
                 Nile Pharma ERP / {ar ? "لقطات حقيقية" : "Real screens"}
               </span>
@@ -193,22 +197,32 @@ export function NilePharmaERPCaseStudy() {
               href={overview.src}
               target="_blank"
               rel="noopener noreferrer"
-              className="block overflow-hidden rounded-xl border border-border-subtle"
+              aria-describedby="nile-board-figures"
+              className="group relative block scroll-mt-14 overflow-hidden rounded-xl border border-border-subtle"
             >
               <Image
                 src={overview.src}
                 alt={ar ? overview.altAr : overview.altEn}
                 width={overview.width}
                 height={overview.height}
-                sizes="(min-width:1024px) 560px, 100vw"
+                sizes="(min-width:1440px) 530px, (min-width:1024px) 36vw, calc(100vw - 84px)"
                 className="h-auto w-full"
                 priority
               />
-              {/* The link's name is the image's alt plus this hint; an aria-label here would hide the alt (and its figures). */}
+              {/* Cue for sighted users (the board's figures are only a few px tall on a phone). A strip under the picture inside the link, so it covers nothing on the board; the new-tab hint for assistive tech is the sr-only span below. */}
+              <span
+                aria-hidden="true"
+                className="flex items-center justify-end gap-1 bg-surface-2 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-text-secondary transition-colors group-hover:text-text-primary"
+              >
+                {ar ? "افتح بالحجم الكامل" : "Open full size"} ↗
+              </span>
               <span className="sr-only">{ar ? " — يُفتح بالحجم الكامل في تبويب جديد" : " — opens full size in a new tab"}</span>
             </a>
-            <figcaption className="px-3 pb-2 pt-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
-              {ar ? "خمس شاشات من النظام وهو يعمل — أسماء العملاء مطموسة" : "Five screens from the running system — client names blurred"}
+            <span id="nile-board-figures" className="sr-only">
+              {ar ? overview.figuresAr : overview.figuresEn}
+            </span>
+            <figcaption className="text-balance px-3 pb-2 pt-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
+              {ar ? "خمس شاشات من النظام وهو يعمل" : "Five screens from the running system"}
             </figcaption>
           </figure>
         </div>
