@@ -26,8 +26,8 @@ const METRICS = {
       value: "LOCKED",
       suffix: "",
       label: "Design Governance",
-      context: "GOVERNANCE PRINCIPLE",
-      detail: "Token-governed brand rules are the operating standard; this is not a measured performance result.",
+      context: "OPERATING STANDARD · AR / EN",
+      detail: "Token-governed Arabic/English systems that keep internal teams and external vendors aligned.",
     },
     {
       value: "20",
@@ -49,8 +49,8 @@ const METRICS = {
       value: "مقفل",
       suffix: "",
       label: "حوكمة التصميم",
-      context: "مبدأ حوكمة",
-      detail: "حوكمة الهوية بالتوكنز هي معيار تشغيل؛ وليست نتيجة أداء مقاسة.",
+      context: "معيار تشغيل · عربي / إنجليزي",
+      detail: "أنظمة محكومة بالتوكنز بالعربي والإنجليزي تخلّي الفريق الداخلي والموردين على نفس الخط.",
     },
     {
       value: "20",

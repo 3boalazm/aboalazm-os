@@ -132,7 +132,7 @@ export const UI = {
     heroConstellationAria: "System constellation: brand compiles into tokens, tokens into components, components into pages, pages into experience",
     heroStatusOpen:     "OPEN TO BRAND IDENTITY DESIGNER ROLES · GULF / REMOTE",
     heroYear:           "2026",
-    heroCoords:         "30.1936° N, 31.4603° E · AL OBOUR",
+    heroCoords:         "AL OBOUR · CAIRO / GULF / REMOTE · SELECT PROJECTS & SENIOR ROLES",
     /* ── Token Playground ── */
     playgroundTheme:    "Theme mode",
     /* ── Nav ── */
@@ -276,7 +276,7 @@ export const UI = {
     heroConstellationAria: "كوكبة النظام: البراند يُترجَم لتوكنز، التوكنز لكومبوننتس، الكومبوننتس لصفحات، الصفحات لتجربة",
     heroStatusOpen:     "متاح لفرص مصمم هوية بصرية | الخليج / عن بُعد",
     heroYear:           "2026",
-    heroCoords:         "31.4603° شرق، 30.1936° شمال · العبور",
+    heroCoords:         "العبور · القاهرة / الخليج / عن بُعد · مشروعات مختارة وأدوار قيادية",
     /* ── Token Playground ── */
     playgroundTheme:    "وضع الثيم",
     /* ── Nav ── */
