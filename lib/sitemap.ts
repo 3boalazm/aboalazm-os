@@ -5,7 +5,7 @@ import { localeHref } from "@/lib/locale";
 
 type Entry = MetadataRoute.Sitemap[number];
 interface Source { slug: string; updatedAt: string }
-const ROUTES = ["/", "/work", "/work/design", "/work/development", "/for-hiring", "/work-ui", "/services", "/services/brand-identity", "/services/websites", "/services/store-72h", "/pricing", "/book", "/agreement", "/capabilities", "/about", "/developer", "/why", "/process", "/writing", "/books", "/labs", "/resources", "/contact"];
+const ROUTES = ["/", "/work", "/work/design", "/work/development", "/for-hiring", "/work-ui", "/services", "/services/brand-identity", "/services/websites", "/services/systems", "/services/store-72h", "/pricing", "/partnership", "/book", "/agreement", "/capabilities", "/about", "/developer", "/why", "/process", "/writing", "/books", "/labs", "/resources", "/contact"];
 const abs = (path: string) => `${SITE_URL}${path}`;
 function localizedEntries(path: string, priority: number, updatedAt?: string): Entry[] {
   const languages = { en: abs(path), ar: abs(localeHref(path, "ar")), "x-default": abs(path) };

@@ -234,10 +234,22 @@ test("single source of truth for Recommended badge, 72h store, response promise,
   assert.match(clause05.body[0], /50% \/ 50%/);
   assert.match(clause05.body[0], /50% \/ 25% \/ 25%/);
 
-  const drafts = AGREEMENT_TERMS.filter((c) => c.draft);
-  assert.equal(drafts.length, 2);
-  assert.match(drafts[0]!.body[0], /50%.*75%.*no refund/i);
-  assert.match(drafts[1]!.body[0], /work pauses until payment arrives/i);
+  // Clause 11 and 12 were owner-approved on 2026-11-10: the cancellation and
+  // late-payment terms ship as published clauses, and no clause may carry a
+  // public draft marker again (it read as an unfinished contract on the page
+  // that is supposed to prove the studio's professionalism).
+  const cancellation = AGREEMENT_TERMS.find((c) => c.n === "11");
+  const latePayment = AGREEMENT_TERMS.find((c) => c.n === "12");
+  assert.ok(cancellation && latePayment);
+  assert.match(cancellation.body[0], /non-refundable/i);
+  assert.match(cancellation.body[1], /غير قابلة للاسترداد/);
+  assert.match(latePayment.body[0], /work pauses until it arrives/i);
+  assert.match(latePayment.body[1], /يتوقف العمل/);
+  for (const clause of AGREEMENT_TERMS) {
+    assert.doesNotMatch(clause.head[0] + clause.head[1] + clause.body[0] + clause.body[1], /draft|مسودة/i);
+  }
+  const view = readFileSync(path.join(process.cwd(), "app/(site)/[locale]/agreement/agreement-view.tsx"), "utf8");
+  assert.doesNotMatch(view, /DRAFT|مسودة/, "the public agreement page must never render a draft marker");
 
   assert.equal(
     RESPONSE_PROMISE.en,

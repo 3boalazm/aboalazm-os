@@ -4,7 +4,7 @@ import Link from "@/components/ui/localized-link";
 import { ContactForm } from "@/features/contact";
 import { useLang } from "@/components/providers/lang-provider";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
-import { bookHref, DEPOSIT_CTA_LABEL, TERMS_LINE, type PlanId } from "@/lib/offers";
+import { bookHref, TERMS_LINE, type PlanId } from "@/lib/offers";
 import type { ContactContext } from "@/lib/contact-context";
 import {
   BOOKING_CTA_LABEL,
@@ -44,17 +44,13 @@ export function ContactView({ context }: { context?: ContactContext }) {
             : "Your name, email and a short idea are enough to start. If you are still figuring things out, we can define the scope together."}
         </p>
         <div className="flex flex-wrap items-center gap-3 text-body-sm">
-          <Link
-            href={bookHref(depositPlanId)}
-            className="rounded-pill bg-accent px-3.5 py-1.5 font-mono text-label text-obsidian"
-          >
-            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
-          </Link>
+          {/* Step 01 of the funnel. The deposit page is step 04 and is offered
+              further down, after the visitor has read what happens next. */}
           <a
             href="https://wa.me/201092500454"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-accent underline underline-offset-4"
+            className="rounded-pill bg-accent px-3.5 py-1.5 font-mono text-label text-obsidian"
           >
             {ar ? "واتساب مباشرة" : "Chat on WhatsApp"} ↗
           </a>
@@ -89,13 +85,14 @@ export function ContactView({ context }: { context?: ContactContext }) {
               {ar ? RESPONSE_PROMISE.ar : RESPONSE_PROMISE.en}
             </p>
             <div className="mt-3 flex flex-col gap-2">
+              {/* Only offered as step 04 — after scope and agreement. */}
               <Link
                 href={bookHref(depositPlanId)}
-                className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-accent/50 bg-accent/10 px-2 py-1.5 text-body-sm font-medium text-accent hover:border-accent"
+                className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-border-default px-2 py-1.5 text-body-sm hover:border-accent"
               >
-                <span>{ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →</span>
+                <span>{ar ? "اعتمدت النطاق؟ ادفع دفعة البدء" : "Scope agreed? Pay the kickoff deposit"} →</span>
                 <span className="font-mono text-micro text-text-secondary">
-                  {ar ? "عربون 50%" : "50% Deposit"}
+                  {ar ? "الخطوة 04" : "STEP 04"}
                 </span>
               </Link>
               {BOOKING_URL ? (

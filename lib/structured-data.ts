@@ -2,6 +2,10 @@
  * STRUCTURED DATA (Schema.org / JSON-LD).
  *
  * Rendered once in the root layout (every page) as ONE @graph block:
+ *   - Organization: Aboalazm OS as the studio entity, founded by the Person.
+ *     Added in the 2026-11 repositioning: the site sells a studio, so search
+ *     engines and AI answer engines should be able to name the studio, not
+ *     only the founder. It states only what the site itself states.
  *   - Person: Mustafa Aboalazm as an individual professional — lets Google
  *     tie the site, Behance, LinkedIn and GitHub to one named entity.
  *   - WebSite: the site itself. `name` is deliberately SHORT — Google's
@@ -28,8 +32,49 @@ import { CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 /** Stable node ids so schemas can reference each other. */
 export const PERSON_ID = `${SITE_URL}/#person`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 
 export const SITE_NAME = "Mustafa Aboalazm";
+/** The studio entity — the name in the <title>, the nav mark and the footer. */
+export const STUDIO_NAME = "Aboalazm OS";
+
+function organizationNode() {
+  return {
+    "@type": "Organization",
+    "@id": ORGANIZATION_ID,
+    name: STUDIO_NAME,
+    alternateName: ["Aboalazm OS Studio", "Aboalazm"],
+    url: SITE_URL,
+    logo: `${SITE_URL}/images/work/icon.png`,
+    description:
+      "A founder-led studio building brand identity, bilingual digital experiences (sites, stores, products) and business systems (dashboards, ERP, automation) for growing companies.",
+    email: CONTACT_EMAIL_HREF,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Al Obour",
+      addressCountry: "EG",
+    },
+    founder: { "@id": PERSON_ID },
+    employee: { "@id": PERSON_ID },
+    // Same commercial focus the studio pages state: identity, digital, systems.
+    knowsAbout: [
+      "Brand identity systems",
+      "Brand strategy and positioning",
+      "Bilingual Arabic / English design",
+      "Digital product design",
+      "Website and e-commerce development",
+      "Business systems and automation",
+      "Design systems and brand governance",
+    ],
+    areaServed: ["EG", "SA", "AE", "QA", "KW", "BH", "OM"],
+    sameAs: [
+      "https://www.behance.net/aboalazm",
+      "https://www.linkedin.com/in/aboalazm",
+      "https://github.com/3boalazm",
+      "https://codeandcanvas.net/",
+    ],
+  };
+}
 
 function personNode() {
   return {
@@ -61,10 +106,11 @@ function personNode() {
       addressLocality: "Al Obour",
       addressCountry: "EG",
     },
-    worksFor: {
-      "@type": "Organization",
-      name: "Code & Canvas",
-    },
+    worksFor: { "@id": ORGANIZATION_ID },
+    founderOf: [
+      { "@id": ORGANIZATION_ID },
+      { "@type": "Organization", name: "Code & Canvas" },
+    ],
     sameAs: [
       "https://www.behance.net/aboalazm",
       "https://www.linkedin.com/in/aboalazm",
@@ -81,7 +127,7 @@ function webSiteNode() {
     alternateName: ["Aboalazm OS", "مصطفى أبوالعزم"],
     url: SITE_URL,
     inLanguage: ["en", "ar"],
-    publisher: { "@id": PERSON_ID },
+    publisher: { "@id": ORGANIZATION_ID },
   };
 }
 
@@ -89,7 +135,7 @@ function webSiteNode() {
 export function getSiteGraphSchema() {
   return {
     "@context": "https://schema.org",
-    "@graph": [personNode(), webSiteNode()],
+    "@graph": [organizationNode(), personNode(), webSiteNode()],
   };
 }
 

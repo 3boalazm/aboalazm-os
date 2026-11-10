@@ -2,9 +2,10 @@
 
 import { useLang } from "@/components/providers/lang-provider";
 import {
+  AGREEMENT_REVISED,
   AGREEMENT_TERMS,
-  bookHref,
-  DEPOSIT_CTA_LABEL,
+  DISCOVERY_CTA_LABEL,
+  PRODUCTION_MENU_NOTE,
   type AlaCarteGroup,
   type Bi,
   type Tier,
@@ -17,7 +18,6 @@ import {
   CtaBand,
   pick,
 } from "@/features/offers/offer-blocks";
-import { Badge } from "@/components/ui/Badge";
 import { Heading } from "@/components/ui/Heading";
 import { PanelCard } from "@/components/ui/PanelCard";
 
@@ -134,7 +134,10 @@ export function AgreementView({
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / À LA CARTE", "04 / خدمات منفردة"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
+        <SectionHead label={["04 / PRODUCTION MENU", "04 / قائمة الإنتاج"]} title={["Production,", "الإنتاج،"]} italic={["not strategy.", "مش الاستراتيجية."]} />
+        <p className="max-w-[60ch] text-body-sm text-text-secondary">
+          {pick(PRODUCTION_MENU_NOTE, lang)}
+        </p>
         <AlaCarteTables alaCarte={alaCarte} />
       </section>
 
@@ -149,18 +152,11 @@ export function AgreementView({
           {AGREEMENT_TERMS.map((t) => (
             <div
               key={t.n}
-              className={`grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-2.5 last:border-b md:grid-cols-[2.5rem_16rem_1fr] ${
-                t.draft ? "bg-accent/[0.04] px-2" : ""
-              }`}
+              className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-2.5 last:border-b md:grid-cols-[2.5rem_16rem_1fr]"
             >
               <span className="font-mono text-micro text-text-ghost">{t.n}</span>
               <span className="flex flex-wrap items-center gap-2 text-body text-text-primary">
                 <span>{pick(t.head, lang)}</span>
-                {t.draft ? (
-                  <Badge tone="creative" size="sm">
-                    {ar ? "مسودة" : "DRAFT"}
-                  </Badge>
-                ) : null}
               </span>
               <span className="col-span-2 text-body-sm text-text-secondary md:col-span-1">
                 {pick(t.body, lang)}
@@ -169,16 +165,18 @@ export function AgreementView({
           ))}
         </div>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "شكرًا لنيل ثقتكم للتعامل — نتمنى أن تكون تجربة مميزة." : "— THANK YOU FOR YOUR TRUST. WE INTEND TO MAKE IT A REMARKABLE EXPERIENCE. —"}
+          {ar
+            ? `— البنود 01–12 سارية ونافذة على كل اتفاق موقّع · آخر مراجعة ${AGREEMENT_REVISED} —`
+            : `— CLAUSES 01–12 ARE IN FORCE ON EVERY SIGNED AGREEMENT · LAST REVISED ${AGREEMENT_REVISED} —`}
         </p>
       </section>
 
       <CtaBand
-        kicker={["READY TO BEGIN?", "جاهز تبدأ؟"]}
-        title={["Ready to", "يلّا"]}
-        italic={["begin?", "نبدأ؟"]}
-        primary={DEPOSIT_CTA_LABEL}
-        primaryHref={bookHref("brand-identity")}
+        kicker={["READ THE TERMS, THEN START", "اقرأ البنود، وبعدين ابدأ"]}
+        title={["Questions about the", "عندك سؤال في"]}
+        italic={["contract?", "الاتفاقية؟"]}
+        primary={DISCOVERY_CTA_LABEL}
+        primaryHref="/contact"
         secondary={["View Pricing", "شاهد التسعير"]}
         secondaryHref="/pricing"
       />

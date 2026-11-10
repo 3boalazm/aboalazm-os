@@ -18,13 +18,15 @@ const COLUMNS = [
   {
     head: ["ENGAGE", "التعاون"],
     links: [
-      ["Book with a Deposit", "احجز بعربون", "/book"],
-      ["Start a Project", "ابدأ مشروعك", "/contact"],
+      ["Book a Discovery Call", "احجز مكالمة استكشاف", "/contact"],
       ["Services", "الخدمات", "/services"],
-      ["72-Hour Online Store", "متجر خلال 72 ساعة", "/services/store-72h"],
+      ["Brand Identity", "الهوية البصرية", "/services/brand-identity"],
+      ["Digital Experience", "التجربة الرقمية", "/services/websites"],
+      ["Business Systems", "أنظمة التشغيل", "/services/systems"],
+      ["Partnership & Support", "الشراكة والدعم", "/partnership"],
       ["Pricing", "التسعير", "/pricing"],
-      ["For Hiring Teams", "للشركات والتوظيف", "/for-hiring"],
       ["Agreement", "الاتفاقية", "/agreement"],
+      ["Book with a Deposit", "احجز بعربون", "/book"],
     ],
   },
   {

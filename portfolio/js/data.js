@@ -163,7 +163,7 @@ window.DATA = {
       name: "GAD Heart & Lungs Institute",
       nameAr: "معهد GAD للقلب والرئة",
       category: "BRAND IDENTITY", discipline: "Systemic Identity",
-      year: "2025 · V2.0", img: "gad-thumb", hasDetail: true,
+      year: "2023 · V2.0 — 2025", img: "gad-thumb", hasDetail: true,
       stack: ["Brand Strategy", "Bilingual Identity", "Guidelines"],
       outcome: "Strategy → Identity → Governed system",
       outcomeAr: "استراتيجية → هوية → نظام محكوم",

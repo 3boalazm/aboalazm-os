@@ -353,14 +353,18 @@ export function HomeFaq() {
         ["هل الهوية بتكون عربي وإنجليزي؟", "متاح. الباقة المتكاملة تشمل الشعار باللغتين؛ في الباقات الأصغر نؤكد اللغة المطلوبة وتكلفة النسخة الإضافية قبل البدء."],
         ["كام مدة المشروع؟", `الشعار ${dur(0)}، الهوية ${dur(1)}، والنظام المتكامل ${dur(2)}، والمتجر الإلكتروني ثنائي اللغة خلال 72 ساعة من استلام المحتوى.`],
         ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
-        ["إزاي نبدأ؟", "يمكنك الحجز مباشرة بعربون 50% (أو دفع كامل المبلغ بخصم 10%) وتأكيد الحجز عبر واتساب، أو بدء محادثة سريعة لتحديد النطاق."],
+        ["إزاي نبدأ؟", "بمكالمة استكشاف مجانية 30 دقيقة. بعدها تستلم نطاقًا وعرضًا سعر مكتوبًا، وبعد اعتماده توقّع الاتفاقية وتدفع دفعة البدء 50%. صفحة الحجز بعربون مخصصة لهذه الخطوة الأخيرة."],
+        ["مين اللي هينفّذ المشروع؟", "مصطفى يقود المشروع بنفسه من أول مكالمة للتسليم. ولو النطاق احتاج تطويرًا أو تصويرًا أو إنتاجًا طباعيًا، بينضم متخصصون محددون بإدارة ومراجعة من الاستوديو، ونطاق مكتوب واحد. لو العمل أكبر من قدرة الاستوديو على تحمّله، بنقولها في مرحلة العرض."],
+        ["هل بتشتغلوا بره الهوية؟", "نعم. الاستوديو بيشتغل على ثلاث جبهات مترابطة: الهوية والتموضع، والتجربة الرقمية (مواقع ومتاجر)، وأنظمة التشغيل والأتمتة (Dashboards وERP). تقدر تبدأ بواحدة."],
       ]
     : [
         ["Do I need to know exactly what I want?", "No. The first phase exists to understand the problem and establish the right direction before design."],
         ["Can the identity work in Arabic and English?", "Yes. The full system includes Arabic/English lockups. For smaller tiers, the required language and any additional version are confirmed before kickoff."],
         ["How long does a project take?", `Logo: ${dur(0)}. Identity Essentials: ${dur(1)}. Full Brand System: ${dur(2)}. Bilingual Online Store: 72 hours once content is received.`],
         ["What do I receive at the end?", "A complete identity system, final production files, guidelines, and an organized handover based on scope."],
-        ["How do we start?", "Book directly with a 50% kickoff deposit (or pay in full with -10%) and confirm on WhatsApp, or reach out first to clarify scope."],
+        ["How do we start?", "With a free 30-minute discovery call. Then you receive a written scope and price; once you approve it you sign the agreement and pay the 50% kickoff instalment. The deposit page is for that final step."],
+        ["Who actually does the work?", "Mustafa leads the project himself from the first call to handover. When a scope needs development, photography, motion or print production, named specialists join under one written scope, coordinated and quality-checked by the studio. If a project is bigger than the studio can carry responsibly, we say so at proposal stage."],
+        ["Do you work beyond brand identity?", "Yes. The studio works across three connected tracks: brand and positioning, digital experience (sites and stores), and business systems and automation (dashboards, ERP). You can start with one."],
       ];
 
   return (
@@ -390,13 +394,15 @@ export function HomeCta() {
   return (
     <CtaBand
       variant="editorial"
-      kicker={["LET'S BUILD SOMETHING", "يلّا نبني حاجة"]}
-      title={["Have a brand to", "عندك براند"]}
-      italic={["shape?", "عايز يتشكّل؟"]}
-      primary={["Book with a deposit", "احجز بعربون"]}
-      primaryHref="/book?plan=brand-identity"
-      secondary={["Start a Project", "ابدأ مشروعًا"]}
-      secondaryHref="/contact"
+      kicker={["LET'S START WITH THE PROBLEM", "خلّينا نبدأ بالمشكلة"]}
+      title={["A business to", "عندك بيزنس"]}
+      italic={["move forward?", "عايز يتحرك؟"]}
+      /* Discovery first, deposit last: the primary step is the call; the
+         deposit page is step 04 of the funnel and only follows a signed scope. */
+      primary={["Book a discovery call", "احجز مكالمة استكشاف"]}
+      primaryHref="/contact"
+      secondary={["See how starting works", "اعرف طريقة البدء"]}
+      secondaryHref="/process"
     />
   );
 }
