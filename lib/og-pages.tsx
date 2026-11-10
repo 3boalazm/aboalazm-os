@@ -42,6 +42,29 @@ function Dot({ color, size = 10 }: { color: string; size?: number }) {
   return <div style={flex({ width: size, height: size, borderRadius: 999, background: color })} />;
 }
 
+/**
+ * Directional chevron drawn with borders rather than the "→" character.
+ *
+ * Satori renders text with a single font family, and the display/mono faces
+ * loaded for these cards have no U+2192 — every arrow came out as a tofu box
+ * in link previews on LinkedIn, WhatsApp and X. A rotated square edge costs no
+ * glyph, so the card renders the same on every rasteriser.
+ */
+function Arrow({ color = C.text3, size = 10, thickness = 2 }: { color?: string; size?: number; thickness?: number }) {
+  return (
+    <div
+      style={flex({
+        width: size,
+        height: size,
+        borderTop: `${thickness}px solid ${color}`,
+        borderRight: `${thickness}px solid ${color}`,
+        transform: "rotate(45deg)",
+        flexShrink: 0,
+      })}
+    />
+  );
+}
+
 function Bar({ w, h = 8, color = C.line, r = 4 }: { w: number | string; h?: number; color?: string; r?: number }) {
   return <div style={flex({ width: w, height: h, borderRadius: r, background: color })} />;
 }
@@ -163,7 +186,8 @@ async function vWorkUi() {
         <Win w={290} h={190} label="Live · OLTRÈ" src={i.c} />
       </div>
       <div style={flex({ position: "absolute", right: 28, bottom: 28, alignItems: "center", gap: 10, background: C.accent, color: C.bg, padding: "10px 16px", borderRadius: 999, fontFamily: F_EN, fontSize: 14, letterSpacing: "0.1em" })}>
-        OPEN LIVE →
+        OPEN LIVE
+        <Arrow color={C.bg} size={9} thickness={2.5} />
       </div>
     </Stage>
   );
@@ -238,25 +262,25 @@ async function vHiring() {
 
 async function vServices() {
   const rows: [string, string][] = [
-    ["01", "Brand identity & strategy"], ["02", "Design systems"], ["03", "Web"],
-    ["04", "Print & packaging"], ["05", "Art direction"],
+    ["01", "Brand & business identity"], ["02", "Digital experience"],
+    ["03", "Business systems & automation"],
   ];
   return (
     <Stage style={{ padding: 28, justifyContent: "space-between" }}>
-      <Label color={C.accent} size={14}>Five services · one studio</Label>
+      <Label color={C.accent} size={14}>Three disciplines · one studio</Label>
       <div style={col({ gap: 12 })}>
         {rows.map(([n, name], idx) => (
           <div
             key={n}
             style={flex({
-              alignItems: "center", gap: 18, padding: "16px 20px", borderRadius: 16,
+              alignItems: "center", gap: 18, padding: "20px 22px", borderRadius: 16,
               border: `1px solid ${idx === 0 ? "rgba(255,107,71,0.55)" : C.line}`,
               background: idx === 0 ? "rgba(255,107,71,0.1)" : "rgba(255,255,255,0.025)",
             })}
           >
             <div style={flex({ fontFamily: F_EN, fontSize: 16, color: idx === 0 ? C.accent : C.text3, width: 30 })}>{n}</div>
             <div style={flex({ flex: 1, fontFamily: F_EN, fontSize: 21, color: C.text })}>{name}</div>
-            <div style={flex({ fontFamily: F_EN, fontSize: 20, color: idx === 0 ? C.accent : C.text3 })}>→</div>
+            <Arrow color={idx === 0 ? C.accent : C.text3} size={11} />
           </div>
         ))}
       </div>
@@ -327,7 +351,11 @@ async function vProcess() {
         <div style={flex({ fontFamily: F_EN, fontSize: 168, lineHeight: 0.85, letterSpacing: "-0.05em" })}>38</div>
         <div style={col({ gap: 6, paddingBottom: 10 })}>
           <div style={flex({ fontFamily: F_EN, fontSize: 38, lineHeight: 1 })}>DAYS</div>
-          <Label size={12}>Brief → handover</Label>
+          <div style={flex({ alignItems: "center", gap: 7 })}>
+            <Label size={12}>Brief</Label>
+            <Arrow color={C.text3} size={7} thickness={1.6} />
+            <Label size={12}>handover</Label>
+          </div>
         </div>
       </div>
       <div style={col({ gap: 12 })}>
@@ -378,7 +406,7 @@ async function vWhy() {
       </div>
       <div style={flex({ gap: 10, alignItems: "center", color: C.text3, fontFamily: F_EN, fontSize: 13, letterSpacing: "0.14em" })}>
         <div style={flex({ textDecoration: "line-through" })}>FILES</div>
-        <div style={flex({ color: C.text2 })}>→</div>
+        <Arrow color={C.text2} size={8} thickness={1.8} />
         <div style={flex({ color: C.text })}>SYSTEMS</div>
       </div>
     </Stage>
@@ -431,7 +459,7 @@ async function vContact() {
               <div style={flex({ fontFamily: F_EN, fontSize: 19 })}>{name}</div>
               <div style={flex({ fontFamily: F_BODY, fontSize: 14, color: C.text3 })}>{val}</div>
             </div>
-            <div style={flex({ fontFamily: F_EN, fontSize: 18, color: c })}>→</div>
+            <Arrow color={c} size={10} />
           </div>
         ))}
       </div>
@@ -656,8 +684,8 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
   services: {
     idx: "06", eyebrow: "Services", tagAr: "الخدمات", route: "/services",
     title: ["Strategy,", "identity,", "systems."],
-    desc: "Five services, one studio, no handoff gaps.",
-    alt: "Services — brand identity, design systems, web, print and art direction", visual: vServices,
+    desc: "Three disciplines, one studio, no handoff gaps.",
+    alt: "Services — brand & business identity, digital experience, business systems & automation", visual: vServices,
   },
   pricing: {
     idx: "07", eyebrow: "Pricing", tagAr: "التسعير", route: "/pricing",

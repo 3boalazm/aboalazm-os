@@ -130,6 +130,22 @@ test("every public project is labelled client / internal / demo / in development
   assert.equal(evidenceOf({ slug: "clinic-appointment-system", category: "development", isDemo: true, hasCaseStudy: false }), "demo");
   assert.equal(evidenceOf({ slug: "gad-institute", category: "design", hasCaseStudy: true }), "client");
 
+  // `in-development` must be reachable from a real record — a defined-but-unused
+  // bucket silently let work-in-progress ship under the "Client work" label.
+  assert.equal(
+    evidenceOf({ slug: "ummah-academy", category: "development", hasCaseStudy: true, status: "in-progress" }),
+    "in-development",
+  );
+  // …but the more specific provenance of a studio/demo build still wins.
+  assert.equal(
+    evidenceOf({ slug: "code-canvas-dev", category: "development", hasCaseStudy: true, status: "in-progress" }),
+    "internal",
+  );
+  assert.equal(
+    evidenceOf({ slug: "clinic-appointment-system", category: "development", hasCaseStudy: false, isDemo: true, status: "in-progress" }),
+    "demo",
+  );
+
   for (const path of ["features/work/featured-cases.tsx", "features/case-studies/case-study-shell.tsx"]) {
     assert.match(read(path), /evidenceOf|EVIDENCE_COPY/, `${path} must show the provenance label`);
   }
@@ -172,4 +188,33 @@ test("the studio is described consistently on the pages and in structured data",
   assert.match(schema, /Aboalazm OS/);
   assert.match(read("features/hero/hero.tsx"), /Aboalazm OS/, "the hero names the studio");
   assert.match(read("lib/structured-data.ts"), /founder: \{ "@id": PERSON_ID \}/);
+});
+
+test("the metadata still describes the repositioned offer, in both languages", () => {
+  // The service catalogue was regrouped into three disciplines, but the page
+  // description, the OG card and the Arabic homepage title were left describing
+  // the retired five-service list. Social previews and Arabic SERP results were
+  // selling a model the pages no longer use.
+  for (const path of [
+    "app/(site)/[locale]/services/page.tsx",
+    "lib/og-pages.tsx",
+  ]) {
+    assert.doesNotMatch(read(path), /Five services/i, `${path} must not advertise the retired five-service model`);
+  }
+
+  const arMetadata = read("lib/localized-metadata.ts");
+  for (const route of ["/partnership", "/services/systems"]) {
+    assert.match(arMetadata, new RegExp(`"${route}": \\[`), `${route} needs an Arabic title/description`);
+  }
+  // The Arabic homepage title must name the studio, not only the person.
+  const homeTitle = arMetadata.match(/"\/": \["([^"]+)"/)?.[1] ?? "";
+  assert.match(homeTitle, /Aboalazm OS/, "the Arabic homepage title must name the studio");
+  assert.match(homeTitle, /استوديو/, "the Arabic homepage title must say it is a studio");
+  // Every discipline in the offer must be reachable in Arabic metadata.
+  for (const d of DISCIPLINES) {
+    const normalised = `/${d.href.replace(/^\/+/, "").replace(/^ar\//, "")}`;
+    if (normalised !== "/services") {
+      assert.match(arMetadata, new RegExp(`"${normalised}": \\[`), `${normalised} is missing from the Arabic metadata map`);
+    }
+  }
 });
