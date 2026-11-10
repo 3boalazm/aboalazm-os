@@ -1,0 +1,249 @@
+"use client";
+
+/**
+ * DISCIPLINES — what the studio sells, in three sentences (2026-11 repositioning, P1 · point 6).
+ *
+ * Replaces the flat "six things I do" / "three project paths" lists. A business
+ * owner buying a partner does not shop services; they recognise their own
+ * problem in one of three sentences and start there. Every card states the
+ * audience, the business outcome, the deliverables and a real starting point —
+ * and asks for a conversation, not a payment.
+ *
+ * Copy lives in lib/offers DISCIPLINES (single source); this file is layout only.
+ */
+import Link from "@/components/ui/localized-link";
+import { useLang } from "@/components/providers/lang-provider";
+import { Icon } from "@/components/ui/Icon";
+import { joinClasses } from "@/lib/utils";
+import { contactHref } from "@/lib/contact-context";
+import { DISCIPLINES, DISCOVERY_CTA_LABEL, type Discipline } from "@/lib/offers";
+
+const SERVICE_FOR: Record<Discipline["id"], "brand-identity" | "website" | "digital-product"> = {
+  brand: "brand-identity",
+  digital: "website",
+  systems: "digital-product",
+};
+
+export function DisciplineCards({
+  compact = false,
+  className,
+  highlight,
+}: {
+  /** Home page: shorter body copy, deliverables clamped on phones. */
+  compact?: boolean;
+  className?: string;
+  highlight?: Discipline["id"];
+}) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+
+  return (
+    <div
+      className={joinClasses(
+        // phones: one card at a time, swipe for the rest — same pattern as the
+        // pricing cards so the site keeps one mobile idiom.
+        "grid gap-3 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-3",
+        className,
+      )}
+    >
+      {DISCIPLINES.map((d) => {
+        const isHighlight = highlight === d.id;
+        const items = compact ? d.includes.slice(0, 3) : d.includes;
+        return (
+          <article
+            key={d.id}
+            className={joinClasses(
+              "flex flex-col gap-3 rounded-panel border bg-surface-1 p-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:p-4",
+              isHighlight ? "border-accent-border bg-accent/[0.04]" : "border-border-default",
+            )}
+          >
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{d.n}</p>
+              <p className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+                {ar ? d.from[1] : d.from[0]}
+              </p>
+            </div>
+
+            <h3 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">
+              {ar ? d.name[1] : d.name[0]}
+            </h3>
+
+            <p className="text-body-sm text-text-secondary">{ar ? d.forWhom[1] : d.forWhom[0]}</p>
+
+            <div className="border-t border-border-subtle pt-2">
+              <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+                {ar ? "اللي بتخرج بيه" : "What you walk away with"}
+              </p>
+              <p className="mt-1 text-body-sm text-text-primary">{ar ? d.outcome[1] : d.outcome[0]}</p>
+            </div>
+
+            <ul className="flex flex-col gap-1.5">
+              {items.map((item, i) => (
+                <li
+                  key={item[0]}
+                  className={joinClasses(
+                    "flex items-start gap-2 text-body-sm text-text-secondary",
+                    compact && i >= 2 && "max-sm:hidden",
+                  )}
+                >
+                  <span aria-hidden className="mt-[0.55em] size-1 shrink-0 rounded-pill bg-accent" />
+                  {ar ? item[1] : item[0]}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
+              <Link
+                href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
+                className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] text-accent transition-colors hover:text-text-primary"
+              >
+                {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
+                <span aria-hidden className="inline-flex">
+                  <Icon name="arrow-right" />
+                </span>
+              </Link>
+              {!compact ? (
+                <Link
+                  href={d.href}
+                  className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary"
+                >
+                  {ar ? "التفاصيل" : "Details"}
+                </Link>
+              ) : null}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  );
+}
+
+/**
+ * DISCIPLINES BAND — heading + the three cards, with copy in both languages.
+ * Lives client-side because the heading is part of the offer copy, not page
+ * chrome: an English-only heading on the Arabic home page would be the exact
+ * bilingual failure this studio sells against.
+ */
+export function DisciplinesBand({
+  highlight,
+  compact = false,
+  className,
+}: {
+  highlight?: Discipline["id"];
+  compact?: boolean;
+  className?: string;
+}) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  return (
+    <div className={joinClasses("flex flex-col gap-4", className)}>
+      <div className="flex max-w-[62ch] flex-col gap-1">
+        <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
+          {ar ? (
+            <>
+              ثلاث حاجات بيشتريها البيزنس. <em className="text-accent">مش اثنتا عشر خدمة.</em>
+            </>
+          ) : (
+            <>
+              Three things a business buys. <em className="text-accent">Not twelve services.</em>
+            </>
+          )}
+        </h2>
+        <p className="text-body-sm text-text-secondary">
+          {ar
+            ? "أغلب الاستوديوهات بتبيع مهام. الشغل هنا متجمّع حسب النتيجة اللي بينتجها — براند يثق فيه السوق، وطبقة رقمية بتشتغل، وأنظمة بتخلي التشغيل واضح. تقدر تبدأ بواحدة وتضيف الباقي بعدين؛ الاتنين مصممين يوصلوا لبعض."
+            : "Most studios sell tasks. The work here is grouped by the outcome it produces — a brand the market trusts, a digital layer that performs, and systems that make the operation visible. Start with one and add the others later; they are designed to connect."}
+        </p>
+      </div>
+      <DisciplineCards compact={compact} highlight={highlight} />
+    </div>
+  );
+}
+
+/**
+ * STUDIO MODEL — the founder-led answer to "is this a studio or one person?"
+ * (P1 · point 5). Kept as structured copy so /about, /services and the home
+ * band cannot drift into three different descriptions of the same model.
+ */
+export const STUDIO_MODEL = {
+  en: {
+    label: "How the studio works",
+    title: "A founder-led studio, with the bench to match the scope.",
+    lead: "Aboalazm OS is a founder-led studio. Mustafa leads strategy, identity and the direction of every digital build — he does not hand your project to a junior and step away.",
+    points: [
+      [
+        "Who you work with",
+        "Mustafa, directly, from the first call to handover. No account manager between you and the person doing the work.",
+      ],
+      [
+        "When the scope needs more hands",
+        "Larger builds bring in named specialists — development, photography, motion, print production — coordinated and quality-checked by the studio, under one written scope.",
+      ],
+      [
+        "Project management",
+        "Every engagement runs on the same 38-day method with written approvals at each gate, a shared file system, and one weekly written status.",
+      ],
+      [
+        "After launch",
+        "Handover includes a guidelines system, a team training session, and 30 days of support. Ongoing partnership is optional, priced monthly, and never assumed.",
+      ],
+    ] as const,
+    note: "If the work needs a team larger than the studio can carry responsibly, we say so at the proposal stage — before any payment.",
+  },
+  ar: {
+    label: "كيف يشتغل الاستوديو",
+    title: "استوديو يقوده مؤسسه، مع فريق يتسع على قدر النطاق.",
+    lead: "Aboalazm OS استوديو يقوده مؤسسه. مصطفى يقود الاستراتيجية والهوية واتجاه كل بناء رقمي — ولا يسلّم مشروعك لمصمم أقل خبرة ثم ينسحب.",
+    points: [
+      [
+        "مع مين هتتعامل",
+        "مع مصطفى مباشرة، من أول مكالمة للتسليم. لا مدير حساب بينك وبين من ينفّذ العمل فعليًا.",
+      ],
+      [
+        "لما النطاق يحتاج أيدي أكتر",
+        "المشروعات الكبيرة تستعين بمتخصصين محددين — تطوير، تصوير، موشن، إنتاج طباعي — بتنسيق ومراجعة جودة من الاستوديو، ونطاق مكتوب واحد.",
+      ],
+      [
+        "إدارة المشروع",
+        "كل مشروع يسير بمنهج الـ38 يومًا نفسه مع اعتمادات كتابية عند كل مرحلة، ونظام ملفات مشترك، وتقرير حالة أسبوعي مكتوب.",
+      ],
+      [
+        "بعد الإطلاق",
+        "التسليم يشمل نظام الأدلة، وجلسة تدريب للفريق، و30 يوم دعم. الشراكة المستمرة اختيارية، بتسعير شهري، ولا تُفترض تلقائيًا.",
+      ],
+    ] as const,
+    note: "لو العمل محتاج فريقًا أكبر من قدرة الاستوديو على تحمّله بمسؤولية، نقولها في مرحلة العرض — قبل أي دفعة.",
+  },
+} as const;
+
+export function StudioModelBand({ className }: { className?: string }) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  const copy = ar ? STUDIO_MODEL.ar : STUDIO_MODEL.en;
+
+  return (
+    <section aria-label={copy.label} className={joinClasses("flex flex-col gap-4", className)}>
+      <div className="flex flex-col gap-1">
+        <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{copy.label}</p>
+        <h2 className="max-w-[24ch] font-display text-title leading-[1.05] tracking-[-0.02em] text-text-primary">
+          {copy.title}
+        </h2>
+        <p className="max-w-[62ch] text-body text-text-secondary">{copy.lead}</p>
+      </div>
+      <dl className="grid gap-x-6 gap-y-0 md:grid-cols-2">
+        {copy.points.map(([head, body], i) => (
+          <div key={head} className="border-t border-border-subtle py-3">
+            <dt className="flex items-baseline gap-2 font-display text-subtitle tracking-[-0.01em] text-text-primary">
+              <span className="font-mono text-micro text-accent">{`0${i + 1}`}</span>
+              {head}
+            </dt>
+            <dd className="mt-1 max-w-[52ch] text-body-sm text-text-secondary">{body}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="max-w-[62ch] border-s-2 border-accent/40 ps-3 font-mono text-micro uppercase tracking-[0.06em] leading-[1.7] text-text-tertiary">
+        {copy.note}
+      </p>
+    </section>
+  );
+}

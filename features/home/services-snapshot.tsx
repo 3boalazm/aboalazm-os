@@ -15,8 +15,7 @@ import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
 import { BOOKING_CTA_LABEL, BOOKING_URL } from "@/lib/contact-details";
 import {
-  bookHref,
-  DEPOSIT_CTA_LABEL,
+  DISCOVERY_CTA_LABEL,
   TIERS,
 } from "@/lib/offers";
 
@@ -31,30 +30,30 @@ export function ServicesSnapshot() {
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
             {ar ? (
               <>
-                باقات الهوية البصرية. <em className="text-accent">نختار البداية المناسبة.</em>
+                لو البداية هوية. <em className="text-accent">دي الفئات والنطاق.</em>
               </>
             ) : (
               <>
-                Identity packages. <em className="text-accent">Choose your starting point.</em>
+                If the starting point is brand. <em className="text-accent">Here is the range.</em>
               </>
             )}
           </h2>
           <p className="text-body-sm text-text-secondary">
             {ar
-              ? "باقات واضحة بأسعار معلنة — تختار على مقاس المشروع، والتفاصيل الكاملة في صفحة التسعير."
-              : "Published, transparent packages. Pick the one sized for your project — full detail lives on the pricing page."}
+              ? "باقات هوية بأسعار معلنة ونطاق مكتوب. التجربة الرقمية وأنظمة التشغيل تُسعَّر لكل مشروع حسب النطاق — والتفاصيل الكاملة في صفحة التسعير."
+              : "Brand packages with published prices and a written scope. Digital experience and business systems are scoped per project — full detail on the pricing page."}
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           <Link
-            href={bookHref("brand-identity")}
+            href="/contact"
             className={buttonVariants({
               variant: "primary",
               className:
                 "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
           </Link>
           <Link
             href="/pricing"
@@ -115,7 +114,7 @@ export function ServicesSnapshot() {
               </ul>
               <div className="mt-auto flex flex-col gap-2 pt-2">
                 <Link
-                  href={bookHref(tier.id)}
+                  href="/contact"
                   className={buttonVariants({
                     variant: recommended ? "primary" : "ghost",
                     className: recommended
@@ -123,7 +122,7 @@ export function ServicesSnapshot() {
                       : "w-full justify-center border border-accent/50 bg-accent/10 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-accent hover:bg-accent/20",
                   })}
                 >
-                  {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+                  {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
                 </Link>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <Link
@@ -153,17 +152,22 @@ export function ServicesSnapshot() {
         })}
       </div>
 
-      <p className="text-body-sm text-text-tertiary">
-        {ar ? "محتاج حاجة واحدة بس؟ " : "Need just one thing? "}
-        <Link
-          href="/services"
-          className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
-        >
+      <div className="flex flex-col gap-1 border-t border-border-subtle pt-3">
+        <p className="text-body-sm text-text-tertiary">
+          {ar ? "محتاج حاجة واحدة بس (كارت، بروشور، بوست)؟ " : "Need just one production item (a card, a brochure, a post)? "}
+          <Link
+            href="/pricing"
+            className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
+          >
+            {ar ? "قائمة الإنتاج المنفصلة" : "The separate production menu"}
+          </Link>
+        </p>
+        <p className="font-mono text-micro uppercase tracking-[0.08em] leading-[1.7] text-text-ghost">
           {ar
-            ? "القائمة الفردية (À la carte) والخدمات بالتفصيل"
-            : "À la carte menu and services in detail"}
-        </Link>
-      </p>
+            ? "— بنود الإنتاج لبراند عنده نظامه بالفعل، ومش بديل عن شغل الهوية أو الأنظمة —"
+            : "— PRODUCTION ITEMS ARE FOR A BRAND THAT ALREADY HAS ITS SYSTEM, NOT A SUBSTITUTE FOR IT —"}
+        </p>
+      </div>
     </div>
   );
 }

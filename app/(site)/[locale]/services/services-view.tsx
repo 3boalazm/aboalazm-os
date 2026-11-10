@@ -1,12 +1,11 @@
 "use client";
 
-import { ServicePaths } from "@/features/offers/service-paths";
+import { DisciplinesBand } from "@/features/offers/disciplines";
 import Link from "@/components/ui/localized-link";
 import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 import {
-  bookHref,
-  DEPOSIT_CTA_LABEL,
+  DISCOVERY_CTA_LABEL,
   PROCESS,
   TERMS_LINE,
   type Bi,
@@ -15,14 +14,6 @@ import { SectionHead, TierGrid, Faq, CtaBand, pick } from "@/features/offers/off
 import { Heading } from "@/components/ui/Heading";
 import { buttonVariants } from "@/components/ui/Button";
 import { SocialProof } from "@/components/shared/social-proof";
-
-const OFFERINGS: readonly { n: string; name: Bi; italic: Bi; body: Bi }[] = [
-  { n: "01", name: ["Brand Identity &", "هوية &"], italic: ["Strategy", "استراتيجية البراند"], body: ["Brand audit · competitor & cultural research · positioning & archetype · naming · logo systems · color & typography · brand guidelines.", "مراجعة البراند · بحث المنافسين والثقافة · التموضع والنموذج · التسمية · أنظمة الشعار · الألوان والخطوط · دليل الهوية."] },
-  { n: "02", name: ["Visual &", "أنظمة بصرية &"], italic: ["Design Systems", "تصميمية"], body: ["Cohesive systems for digital and print — templates, social kits, presentation systems, components, and reusable assets your team can run with.", "أنظمة متماسكة للديجيتال والمطبوعات — قوالب، حزم سوشيال، أنظمة عروض، ومكوّنات قابلة لإعادة الاستخدام يقدر فريقك يشتغل بها."] },
-  { n: "03", name: ["Websites &", "مواقع &"], italic: ["Digital Products", "منتجات رقمية"], body: ["Responsive websites, landing pages, 72-hour bilingual stores and custom web applications — from brand-led UX/UI to production-ready builds, integrations and workflow-aware tools. Next.js or WordPress, chosen for the actual need.", "مواقع متجاوبة وصفحات هبوط ومتاجر ثنائية اللغة خلال 72 ساعة وتطبيقات ويب مخصصة — من تجربة وواجهة مرتبطة بالبراند إلى تنفيذ فعلي وتكاملات وأدوات تراعي سير العمل."] },
-  { n: "04", name: ["Print &", "مطبوعات &"], italic: ["Packaging", "تغليف"], body: ["Production-ready print collateral — packaging, brochures, company profiles, banners, rollups — with proper file prep for offset and digital.", "مطبوعات جاهزة للإنتاج — تغليف، بروشورات، بروفايلات شركات، بانرات ورول أب — بتجهيز ملفات سليم للأوفست والديجيتال."] },
-  { n: "05", name: ["Art Direction &", "إدارة فنية &"], italic: ["Production", "إنتاج"], body: ["Photography, videography, scripting, voice-over, audio engineering — full content production for campaigns and social.", "تصوير فوتوغرافي وفيديو، كتابة سكريبت، تعليق صوتي، وهندسة صوت — إنتاج محتوى كامل للحملات والسوشيال."] },
-];
 
 const FAQ: readonly { q: Bi; a: Bi }[] = [
   { q: ["How long does a full brand identity take?", "كم تستغرق الهوية الكاملة؟"], a: ["Logo Design: 7–10 days; Brand Identity: 3–4 weeks; Full Brand System: 5–7 weeks. The 38-day walkthrough illustrates the full-system scope. Final dates depend on agreed scope, feedback and approvals.", "الشعار: 7–10 أيام، الهوية: 3–4 أسابيع، نظام البراند المتكامل: 5–7 أسابيع. شرح الـ38 يومًا مثال للنظام الكامل. الموعد النهائي حسب النطاق والردود والاعتمادات."] },
@@ -50,20 +41,21 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           }
           subtitle={
             ar
-              ? "من أول بريف إبداعي إلى دليل الهوية الذي يستخدمه فريقك فعلًا — خمس خدمات، استوديو واحد، بلا فجوات تسليم."
-              : "From the first creative brief to the brand guidelines your team actually uses — five services, one studio, no handoff gaps."
+              ? "الهوية والتجربة الرقمية وأنظمة التشغيل — ثلاث جبهات في استوديو واحد، بلا فجوات تسليم بينهم."
+              : "Brand, digital experience and business systems — three tracks in one studio, with no handoff gaps between them."
           }
           subtitleClassName="max-w-[52ch]"
         />
         <div className="flex flex-wrap gap-2">
+          {/* Discovery call is the entry point; the deposit page is step 04. */}
           <Link
-            href={bookHref("brand-identity")}
+            href="/contact"
             className={buttonVariants({
               variant: "primary",
               className: "px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
           </Link>
           <Link
             href="/services/store-72h"
@@ -78,25 +70,18 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         </div>
       </header>
 
-      <ServicePaths />
+      {/* 01 · The three disciplines (replaces a flat twelve-service menu).
+          Each card states who it is for, what the client walks away with,
+          what is included, and a real starting point — then asks for a
+          discovery call rather than a payment. */}
       <section className="flex flex-col gap-3">
-        <SectionHead label={["01 / OFFERINGS", "01 / الخدمات"]} title={["Five things I do", "خمسة أشياء أتقنها"]} italic={["well.", "جيدًا."]} />
-        <div className="flex flex-col">
-          {OFFERINGS.map((o) => (
-            <div key={o.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-3 last:border-b md:grid-cols-[2.5rem_18rem_1fr]">
-              <span className="font-mono text-micro text-text-ghost">{o.n}</span>
-              <p className="font-display text-title tracking-[-0.015em]">
-                {pick(o.name, lang)} <em className="text-accent">{pick(o.italic, lang)}</em>
-              </p>
-              <p className="col-span-2 text-body-sm text-text-secondary md:col-span-1">{pick(o.body, lang)}</p>
-            </div>
-          ))}
-        </div>
+        <SectionHead label={["01 / WHAT WE DO", "01 / اللي بنعمله"]} title={["Three", "ثلاث"]} italic={["disciplines.", "تخصصات."]} />
+        <DisciplinesBand highlight="brand" />
       </section>
 
       <section aria-label={ar ? "قدرات مكملة" : "Applied capabilities"} className="flex flex-col gap-3 border-t border-border-subtle pt-5">
         <SectionHead
-          label={["01B / APPLIED CAPABILITIES", "01B / قدرات مكملة"]}
+          label={["02 / APPLIED CAPABILITIES", "02 / قدرات مكملة"]}
           title={["Useful beyond the", "قدرات مكملة،"]}
           italic={["core.", "مش بدائل للتخصص الأساسي."]}
         />
@@ -133,7 +118,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / PROCESS", "02 / المنهجية"]} title={["A four-act", "منهج من أربع مراحل،"]} italic={["method, refined over 9+ years.", "صُقل عبر 9+ سنوات."]} />
+        <SectionHead label={["03 / PROCESS", "03 / المنهجية"]} title={["A four-act", "منهج من أربع مراحل،"]} italic={["method, refined over 9+ years.", "صُقل عبر 9+ سنوات."]} />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-4">
           {PROCESS.map((p) => (
             <div key={p.n} className="rounded-card border border-border-subtle bg-surface-1 p-3">
@@ -151,7 +136,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["03 / ENGAGEMENT", "03 / التعاقد"]} title={["Three ways to", "ثلاث طرق"]} italic={["work together.", "للعمل معًا."]} />
+        <SectionHead label={["04 / ENGAGEMENT", "04 / التعاقد"]} title={["Three ways to", "ثلاث طرق"]} italic={["work together.", "للعمل معًا."]} />
         <TierGrid tiers={tiers} />
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— التسعير يختلف حسب النطاق · ريتينر مخصص متاح · خصم على الدفع الكامل مقدمًا —" : "— Project pricing varies by scope · Custom retainers available · Discount on full prepayment —"}
@@ -169,16 +154,16 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
       <SocialProof />
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / FAQ", "04 / أسئلة شائعة"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
+        <SectionHead label={["05 / FAQ", "05 / أسئلة شائعة"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
         <Faq items={FAQ} />
       </section>
 
       <CtaBand
-        kicker={["READY TO BUILD?", "جاهز نبدأ؟"]}
-        title={["Send the", "ابعت"]}
-        italic={["brief.", "البريف."]}
-        primary={DEPOSIT_CTA_LABEL}
-        primaryHref={bookHref("brand-identity")}
+        kicker={["START WITH A CONVERSATION", "ابدأ بمحادثة"]}
+        title={["Tell us the", "احكيلنا عن"]}
+        italic={["problem.", "المشكلة."]}
+        primary={DISCOVERY_CTA_LABEL}
+        primaryHref="/contact"
         secondary={["See the Work", "شاهد الأعمال"]}
         secondaryHref="/work"
       />

@@ -23,7 +23,7 @@ export function StatusNode() {
     <Link
       href="/services"
       className="glass group inline-flex items-center gap-2 rounded-pill py-1 pl-2 pr-3 transition-colors duration-base ease-physics hover:border-accent"
-      title={lang === "ar" ? "خدمات الهوية والمواقع" : "Brand identity and web services"}
+      title={lang === "ar" ? "الهوية والتجربة الرقمية وأنظمة التشغيل" : "Brand, digital experience and business systems"}
     >
       {/* ── Node ── */}
       <span className="relative flex size-2 items-center justify-center">
@@ -54,7 +54,7 @@ export function StatusNode() {
 
       {/* ── Readout ── */}
       <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-secondary transition-colors duration-base ease-physics group-hover:text-text-primary">
-        [{lang === "ar" ? "هوية ومواقع · القاهرة / عن بُعد" : "BRAND & WEB · CAIRO / REMOTE"}]
+        [{lang === "ar" ? "هوية · رقمي · أنظمة تشغيل" : "BRAND · DIGITAL · BUSINESS SYSTEMS"}]
       </span>
     </Link>
   );

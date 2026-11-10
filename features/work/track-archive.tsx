@@ -3,7 +3,7 @@
 /**
  * TRACK ARCHIVE — Dedicated full-archive view for each portfolio track:
  *   - /work/design       -> all Brand Identity & Visual Systems projects (8)
- *   - /work/development  -> all Digital Products & Engineering projects (14)
+ *   - /work/development  -> all Digital Products & Engineering projects (17)
  */
 import { useMemo, useState } from "react";
 import Link from "@/components/ui/localized-link";

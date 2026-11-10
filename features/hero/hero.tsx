@@ -106,10 +106,19 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
             {/* On a phone the name alone: the role is already in the pill above
                 ("brand identity designer roles") and a second wrapped line would
                 push the second button off the first screen. */}
+            {/* 2026-11 repositioning: the first screen names the studio and the
+                operating model, not a job title. The role is still true and still
+                in the h1 below (and in the About/For Hiring pages); what a
+                business owner needs on arrival is "who am I buying" — a
+                founder-led studio, not a freelancer who also codes. */}
             {ar ? (
-              <>مصطفى أبوالعزم<span className="hidden sm:inline"> — مصمم هوية بصرية أول</span></>
+              <>
+                Aboalazm OS<span className="hidden sm:inline"> — استوديو هوية ورقمي يقوده مصطفى أبوالعزم</span>
+              </>
             ) : (
-              <>Mustafa Aboalazm<span className="hidden sm:inline"> — Senior Brand Identity Designer</span></>
+              <>
+                Aboalazm OS<span className="hidden sm:inline"> — a founder-led brand & digital studio by Mustafa Aboalazm</span>
+              </>
             )}
           </p>
 
@@ -126,7 +135,9 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
             {/* The visible headline is a statement, not the page's subject — give the
                 h1 (and the search snippet / screen readers) the person + role too. */}
             <span className="sr-only">
-              {ar ? "مصطفى أبوالعزم — مصمم هوية بصرية أول. " : "Mustafa Aboalazm — Senior Brand Identity Designer. "}
+              {ar
+                ? "Aboalazm OS — استوديو هوية ورقمي وأنظمة تشغيل يقوده مصطفى أبوالعزم، مصمم هوية بصرية أول. "
+                : "Aboalazm OS — a founder-led brand, digital and business systems studio by Mustafa Aboalazm, senior brand identity designer. "}
             </span>
             {HEADLINE.map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.06em] text-balance rtl:pb-[0.1em]">
@@ -146,11 +157,13 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
             </p>
 
             <div className="hero-rise flex flex-wrap items-center gap-2 pt-1" style={{ "--i": 1 } as CSSProperties}>
+              {/* Primary is the discovery call, not the deposit page: step 01 of
+                  the funnel is a conversation (lib/offers FUNNEL_STEPS). */}
               <Link href="/contact?source=%2F" className="inline-flex min-h-6 items-center gap-2 rounded-pill bg-accent px-3 py-1.5 font-mono text-label text-obsidian">
-                {ar ? "ناقش مشروعك" : "Discuss your project"} <Icon name="arrow-right" />
+                {t.heroCommission} <Icon name="arrow-right" />
               </Link>
               <a href="#selected-work" className="inline-flex min-h-6 items-center gap-2 rounded-pill border border-border-default px-3 py-1.5 font-mono text-label text-text-primary">
-                {ar ? "شاهد الأعمال" : "View selected work"} <Icon name="arrow-down" />
+                {t.heroExplore} <Icon name="arrow-down" />
               </a>
             </div>
 

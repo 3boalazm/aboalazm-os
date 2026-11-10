@@ -3,8 +3,8 @@
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import {
-  bookHref,
-  DEPOSIT_CTA_LABEL,
+  DISCOVERY_CTA_LABEL,
+  PRODUCTION_MENU_NOTE,
   type AlaCarteGroup,
   type Bi,
   type Tier,
@@ -12,6 +12,7 @@ import {
 import { BOOKING_CTA_LABEL, BOOKING_URL } from "@/lib/contact-details";
 import { resolveFxState } from "@/lib/fx";
 import {
+  pick,
   SectionHead,
   TierGrid,
   TierCompare,
@@ -89,15 +90,16 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         />
 
         <div className="flex flex-wrap items-center gap-2.5">
+          {/* Discovery call first — the deposit page is step 04 (lib/offers FUNNEL_STEPS). */}
           <Link
-            href={bookHref("brand-identity")}
+            href="/contact"
             className={buttonVariants({
               variant: "primary",
               className:
                 "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
           </Link>
           <Link
             href="/services/store-72h"
@@ -125,7 +127,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         </div>
 
         <dl className="grid grid-cols-3 gap-2 border-y border-border-subtle py-2">
-          {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["À LA CARTE ITEMS", "خدمات منفردة", "15+"]] as const).map(([en, arr, v]) => (
+          {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["PRODUCTION ITEMS", "بنود إنتاج", "17"]] as const).map(([en, arr, v]) => (
             <div key={en}>
               <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? arr : en}</dt>
               <dd className="font-display text-title text-text-primary">{v}</dd>
@@ -158,11 +160,14 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / PRODUCTION MENU", "02 / قائمة الإنتاج"]} title={["Stand-alone", "خدمات"]} italic={["services.", "مستقلة."]} />
+        <SectionHead label={["02 / PRODUCTION MENU", "02 / قائمة الإنتاج"]} title={["Production,", "الإنتاج،"]} italic={["not strategy.", "مش الاستراتيجية."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
+          {pick(PRODUCTION_MENU_NOTE, lang)}
+        </p>
+        <p className="max-w-[60ch] text-body-sm text-text-tertiary">
           {ar
-            ? "قائمة إنتاج منفصلة عن استثمار نظام الهوية: باقات تطوير المواقع والريتينر الشهري (تُحجز بعربون)، والمطبوعات والسوشيال المفردة (تُطلب مباشرة عبر واتساب)."
-            : "Production menu across web packages and monthly retainers (bookable with a deposit) and individual print/social items (ordered directly on WhatsApp)."}
+            ? "الباقات الاستراتيجية (الهوية، والأنظمة) تُحدَّد بنطاق مكتوب بعد المكالمة؛ وباقات الويب والريتينر تُحجز بعربون، وبنود المطبوعات والسوشيال تُطلب عبر واتساب."
+            : "Strategic engagements (identity, systems) are scoped in writing after the call. Web packages and retainers are bookable with a deposit; print and social items are ordered on WhatsApp."}
         </p>
         <div className="rounded-card border border-border-subtle bg-surface-1/40 p-3">
           <AlaCarteTables alaCarte={alaCarte} />
@@ -182,11 +187,11 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
       </section>
 
       <CtaBand
-        kicker={["HAVE A PROJECT IN MIND?", "عندك مشروع؟"]}
-        title={["Let's", "خلّينا"]}
-        italic={["scope it.", "نحدد نطاقه."]}
-        primary={DEPOSIT_CTA_LABEL}
-        primaryHref={bookHref("brand-identity")}
+        kicker={["NOT SURE WHICH TIER?", "مش متأكد من الفئة؟"]}
+        title={["That's what the", "عشان كده"]}
+        italic={["call is for.", "المكالمة موجودة."]}
+        primary={DISCOVERY_CTA_LABEL}
+        primaryHref="/contact"
         secondary={["Read Full Agreement", "اقرأ الاتفاقية"]}
         secondaryHref="/agreement"
       />

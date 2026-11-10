@@ -18,6 +18,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { joinClasses } from "@/lib/utils";
 import { BEHANCE } from "./projects.data";
 import { cardArt } from "./card-art";
+import { evidenceOf, EVIDENCE_COPY } from "./project-evidence";
 import type { Project } from "./types";
 
 const FEATURED_SLUGS = {
@@ -83,7 +84,7 @@ export const STORIES: Record<string, { challenge: string; challengeAr: string }>
       "مبادرة شبابية احتاجت هوية بصرية مرنة تمكّن فرق المتطوعين من النشر المتسق عبر الورش والفعاليات والمنصات الاجتماعية.",
   },
 
-  // Development & Digital Products Track (14 projects)
+  // Development & Digital Products Track (17 curated projects — see projects.data CURATED_DEVELOPMENT_SLUGS)
   "nile-pharma-erp": {
     challenge:
       "Built an Arabic RTL operations and commercial ERP console uniting sales orders, collection KPIs, inventory alerts, and rep leaderboards.",
@@ -434,6 +435,13 @@ export function FeaturedCard({
         : "Identity";
   const cta = DESTINATION_COPY[destination];
 
+  /* Provenance label (P2 · point 11): client work vs. studio build vs. demo.
+     Derived from the project record (features/work/project-evidence.ts) so it
+     can never drift from the data, and shown on the card so a decision-maker
+     never has to guess which proof is a paid client deliverable. */
+  const evidence = evidenceOf(project);
+  const evidenceCopy = EVIDENCE_COPY[evidence];
+
   const badge =
     destination === "case"
       ? { label: kind, tone: "outline" as const }
@@ -533,6 +541,13 @@ export function FeaturedCard({
             ) : null}
             <Badge tone={badge.tone} size="sm">
               {badge.label}
+            </Badge>
+            <Badge
+              tone={evidence === "client" ? "neutral" : "creative"}
+              size="sm"
+              title={ar ? evidenceCopy.note.ar : evidenceCopy.note.en}
+            >
+              {ar ? evidenceCopy.ar : evidenceCopy.en}
             </Badge>
           </div>
           <span className="font-mono text-micro tracking-[0.08em] text-text-ghost">

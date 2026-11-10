@@ -7,6 +7,8 @@ import { PanelCard } from "@/components/ui/PanelCard";
 import { joinClasses } from "@/lib/utils";
 import type { Project } from "@/features/work/types";
 import { BusinessCaseView } from "./business-case-view";
+import { EVIDENCE_COPY } from "@/features/work/project-evidence";
+import { evidenceOf } from "@/features/work/project-evidence";
 import type { BusinessCaseData, CaseViewMode } from "./business-case.types";
 
 export interface CaseStudyShellProps {
@@ -33,6 +35,7 @@ export function CaseStudyShell({
   const { lang } = useLang();
   const ar = lang === "ar";
   const [mode, setMode] = useState<CaseViewMode>("technical");
+  const evidence = project ? evidenceOf(project) : "client";
   const topBarRef = useRef<HTMLDivElement>(null);
   const techBtnRef = useRef<HTMLButtonElement>(null);
   const bizBtnRef = useRef<HTMLButtonElement>(null);
@@ -102,6 +105,17 @@ export function CaseStudyShell({
         ref={topBarRef}
         className="container-wide scroll-mt-28 pb-2 pt-1"
       >
+        {/* Provenance line (P2 · point 11) — "client work", "studio build",
+            "demo" — so the reader knows what kind of proof they are looking at
+            before they read a single scroll of it. Derived from the project
+            record, never hand-written per case. */}
+        {project ? (
+          <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+            <span className="text-accent">{ar ? EVIDENCE_COPY[evidence].ar : EVIDENCE_COPY[evidence].en}</span>
+            <span aria-hidden className="mx-2 text-text-ghost">/</span>
+            {ar ? EVIDENCE_COPY[evidence].note.ar : EVIDENCE_COPY[evidence].note.en}
+          </p>
+        ) : null}
         <div className="flex flex-col gap-2.5 rounded-card border border-border-default bg-surface-1/90 p-2.5 backdrop-blur-md md:flex-row md:items-center md:justify-between md:px-4 md:py-2.5">
           <div
             role="tablist"

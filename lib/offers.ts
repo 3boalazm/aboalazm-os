@@ -25,7 +25,56 @@ export type PlanId =
   | "brand-maintenance"
   | "full-marketing-retainer";
 
-export const DEPOSIT_CTA_LABEL: Bi = ["Book with a deposit", "احجز بعربون"];
+/** Step 04 only — used on /book and after a scope is agreed, never as the first ask. */
+export const DEPOSIT_CTA_LABEL: Bi = ["Pay the kickoff deposit", "ادفع دفعة البدء"];
+export const DISCOVERY_CTA_LABEL: Bi = ["Book a discovery call", "احجز مكالمة استكشاف"];
+export const SCOPE_CTA_LABEL: Bi = ["Scope a project", "حدّد نطاق مشروعك"];
+
+/**
+ * ENGAGEMENT PATH — the single entry point (2026-11 repositioning, P1 · point 8).
+ *
+ * The site used to offer two competing first steps: talk to us, or pay a
+ * deposit. The deposit is the right step only *after* scope is agreed, so the
+ * funnel is now ordered: discovery call → written scope & proposal → agreement
+ * → deposit. `FUNNEL_STEPS` is the copy every page renders; keep the order.
+ */
+export const FUNNEL_STEPS: readonly { n: string; title: Bi; body: Bi }[] = [
+  {
+    n: "01",
+    title: ["Discovery call — free, 30 minutes", "مكالمة استكشاف — مجانية، 30 دقيقة"],
+    body: [
+      "We talk about the business problem, not the deliverables. No scope, no commitment, no deck.",
+      "بنتكلم عن مشكلة البيزنس، مش عن التسليمات. بدون نطاق ولا التزام ولا عرض تقديمي.",
+    ],
+  },
+  {
+    n: "02",
+    title: ["Written scope & proposal", "نطاق مكتوب وعرض"],
+    body: [
+      "You receive the recommended solution, the deliverables, the timeline and the price in writing — usually within two working days.",
+      "تستلم الحل المقترح والتسليمات والجدول والسعر كتابيًا — عادة خلال يومَي عمل.",
+    ],
+  },
+  {
+    n: "03",
+    title: ["Agreement signed", "توقيع الاتفاقية"],
+    body: [
+      "Both sides approve the same document: scope, milestones, payments, revisions, IP and cancellation.",
+      "الطرفان يعتمدان نفس المستند: النطاق والمراحل والدفعات والتعديلات والملكية والإلغاء.",
+    ],
+  },
+  {
+    n: "04",
+    title: ["Kickoff deposit & start", "دفعة البدء ونبدأ"],
+    body: [
+      "Only after the scope is agreed: the kickoff instalment reserves the studio slot and phase 01 begins.",
+      "بعد اعتماد النطاق فقط: دفعة البدء تحجز مكان المشروع في جدول الاستوديو وتبدأ المرحلة 01.",
+    ],
+  },
+];
+
+/** Where the primary CTA points. Discovery first; the deposit page is step 04. */
+export const START_HREF = "/contact";
 export const WHATSAPP_ORDER_CTA_LABEL: Bi = ["Order on WhatsApp", "اطلب عبر واتساب"];
 export const WHATSAPP_ASK_CTA_LABEL: Bi = ["Ask on WhatsApp", "اسأل عبر واتساب"];
 export const RECOMMENDED_LABEL: Bi = ["Recommended", "موصى به"];
@@ -127,6 +176,126 @@ export const TIERS: readonly Tier[] = [
       ["Portfolio Case Study setup", "تجهيز دراسة حالة"],
     ],
   },
+];
+
+/**
+ * DISCIPLINES — the three things a client can actually buy (2026-11 repositioning).
+ *
+ * The site used to list twelve services side by side, which read as a menu of
+ * tasks rather than a studio. Every offer now belongs to one of three
+ * disciplines, phrased as the business outcome the client gets, and each one
+ * points at the page that already carries its detail. Prices are lead-in
+ * figures only where a published starting price exists; systems work is
+ * scoped per engagement instead of being forced into a fake number.
+ */
+export type DisciplineId = "brand" | "digital" | "systems";
+
+export interface Discipline {
+  id: DisciplineId;
+  n: string;
+  name: Bi;
+  /** Who this is for — the sentence a decision-maker recognises themselves in. */
+  forWhom: Bi;
+  /** What the client walks away with, in business terms. */
+  outcome: Bi;
+  /** Concrete deliverables, kept short enough to scan. */
+  includes: readonly Bi[];
+  /** Published starting price, or the scope note when there is no fixed floor. */
+  from: Bi;
+  href: string;
+  /** Used by /book and enquiry routing. */
+  plans: readonly PlanId[];
+}
+
+export const DISCIPLINES: readonly Discipline[] = [
+  {
+    id: "brand",
+    n: "01",
+    name: ["Brand & Business Identity", "الهوية والتموضع"],
+    forWhom: [
+      "A new venture, or an established company whose image no longer matches the business it has become.",
+      "شركة جديدة، أو شركة قائمة صورتها لم تعد تعبّر عن حجمها الفعلي.",
+    ],
+    outcome: [
+      "A position your market understands, an identity system in Arabic and English, and guidelines your team can run without me in the room.",
+      "تموضع واضح للسوق، ونظام هوية بالعربي والإنجليزي، ودليل تشغيل يشتغل بيه فريقك بدون وجودي.",
+    ],
+    includes: [
+      ["Positioning · naming · brand strategy", "التموضع · التسمية · استراتيجية البراند"],
+      ["Logo systems + bilingual lockups", "أنظمة الشعار + الصيغ ثنائية اللغة"],
+      ["Packaging & print systems", "التغليف وأنظمة المطبوعات"],
+      ["Brand guidelines & team training", "دليل الهوية وتدريب الفريق"],
+    ],
+    from: ["From $697", "من $697"],
+    href: "/services/brand-identity",
+    plans: ["logo-design", "brand-identity", "full-brand-system"],
+  },
+  {
+    id: "digital",
+    n: "02",
+    name: ["Digital Experience", "التجربة الرقمية"],
+    forWhom: [
+      "A company with a brand to carry online: a site, a store, or a product launch that has to look and work like the brand, not like a template.",
+      "شركة عندها براند محتاج يوصل أونلاين: موقع أو متجر أو إطلاق منتج لازم يبان ويشتغل كبراند لا كقالب جاهز.",
+    ],
+    outcome: [
+      "Sites and storefronts built on the identity itself — bilingual, fast, and measurable from the day they launch.",
+      "مواقع ومتاجر مبنية على الهوية نفسها — ثنائية اللغة وسريعة وقابلة للقياس من أول يوم.",
+    ],
+    includes: [
+      ["Bilingual marketing sites (AR / EN · RTL)", "مواقع تعريفية ثنائية اللغة (عربي/إنجليزي · RTL)"],
+      ["E-commerce & 72-hour stores", "متاجر إلكترونية ومتجر خلال 72 ساعة"],
+      ["Landing pages & launch campaigns", "صفحات هبوط وحملات إطلاق"],
+      ["CMS, SEO foundation & analytics", "نظام إدارة محتوى وأساس SEO وتحليلات"],
+    ],
+    from: ["From $197", "من $197"],
+    href: "/services/websites",
+    plans: ["landing-page", "wordpress-website", "bilingual-site", "store-72h", "custom-web-platform"],
+  },
+  {
+    id: "systems",
+    n: "03",
+    name: ["Business Systems & Automation", "أنظمة التشغيل والأتمتة"],
+    forWhom: [
+      "A business losing hours to spreadsheets, WhatsApp orders and disconnected tools — or one that needs its operations visible in one place.",
+      "شركة بتخسر ساعات في الشيتات وأوردرات الواتساب وأدوات منفصلة — أو محتاجة تشوف تشغيلها في مكان واحد.",
+    ],
+    outcome: [
+      "Internal dashboards, ERPs and automations that replace manual steps, so decisions rest on numbers instead of memory.",
+      "لوحات تحكم داخلية وأنظمة ERP وأتمتة تستبدل الخطوات اليدوية، فتبنى القرارات على أرقام لا على الذاكرة.",
+    ],
+    includes: [
+      ["Operations & sales dashboards", "لوحات تشغيل ومبيعات"],
+      ["ERP modules & inventory workflows", "وحدات ERP ومسارات المخزون"],
+      ["Arabic-first internal tools (RTL)", "أدوات داخلية عربية أولًا (RTL)"],
+      ["Automation & AI-assisted workflows", "أتمتة وتدفقات مدعومة بالذكاء الاصطناعي"],
+    ],
+    from: ["Scoped per system", "يُسعَّر حسب النظام"],
+    href: "/services/systems",
+    plans: ["custom-web-platform"],
+  },
+];
+
+export function disciplineById(id: DisciplineId): Discipline {
+  return DISCIPLINES.find((d) => d.id === id) ?? DISCIPLINES[0]!;
+}
+
+/** Tier ids that belong to the strategic engagement, not the production menu. */
+export const STRATEGIC_TIER_IDS: readonly PlanId[] = [
+  "logo-design",
+  "brand-identity",
+  "full-brand-system",
+];
+
+/**
+ * Production-menu framing (P1 · point 7). Small print/social items stay
+ * published — they are real work — but they are explicitly labelled as
+ * production for an existing identity, so they can never be read as a
+ * cheaper alternative to the strategic engagement.
+ */
+export const PRODUCTION_MENU_NOTE: Bi = [
+  "Production menu — standalone print and social items, ordered directly on WhatsApp. These are production services for a brand that already has its system; they are not a substitute for identity or systems work.",
+  "قائمة الإنتاج — بنود مطبوعات وسوشيال مستقلة تُطلب مباشرة عبر واتساب. دي خدمات إنتاج لبراند عنده نظامه بالفعل، ومش بديل عن شغل الهوية أو الأنظمة.",
 ];
 
 export interface AlaCarteRow {
@@ -585,17 +754,20 @@ export function alacarteWhatsappHref(row: AlaCarteRow, lang: "en" | "ar"): strin
   return whatsappPrefillHref(msg);
 }
 
+/** Public revision date of the agreement clauses (shown on /agreement). */
+export const AGREEMENT_REVISED = "2026-11-10";
+
 export interface AgreementTerm {
   n: string;
   head: Bi;
   body: Bi;
-  draft?: boolean;
 }
 
 /**
  * Canonical agreement clauses read by /agreement (Task 6).
  * Clause 05 matches /pricing schedules (Logo 50/50; Identity Essentials & Full System 50/25/25).
- * Clauses 11 and 12 are marked `draft: true` ("DRAFT" for owner review).
+ * Clauses 11 and 12 were owner-approved on 2026-11-10 and are published terms
+ * now — the `draft` flag and every public "DRAFT" label were retired with them.
  */
 export const AGREEMENT_TERMS: readonly AgreementTerm[] = [
   { n: "01", head: ["Scope of Work", "نطاق العمل"], body: ["The attached terms apply per signed invoice; deliverables and scope are listed in the proposal approved before kickoff.", "البنود المرفقة تخص الفاتورة الموقّعة، وتُحدَّد التسليمات والنطاق في العرض المعتمد قبل البدء."] },
@@ -617,20 +789,18 @@ export const AGREEMENT_TERMS: readonly AgreementTerm[] = [
   { n: "10", head: ["Good Faith", "حسن التعامل"], body: ["The designer guarantees flexibility and good conduct within a framework that protects both parties' rights.", "يضمن المصمم للعميل مرونة وحسن التعامل في إطار حفظ حقوق الطرفين."] },
   {
     n: "11",
-    draft: true,
-    head: ["Cancellation & Refunds (DRAFT)", "الإلغاء والاسترداد (مسودة للمراجعة)"],
+    head: ["Cancellation & Refunds", "الإلغاء والاسترداد"],
     body: [
-      "DRAFT: 50% is retained if cancelled before strategy sign-off, 75% after strategy sign-off, and no refund once final concepts are delivered.",
-      "مسودة للمراجعة (DRAFT): يُحتفظ بنسبة 50% في حال الإلغاء قبل اعتماد الاستراتيجية، و75% بعد اعتماد الاستراتيجية، ولا يُسترد أي مبلغ بعد تسليم المفاهيم النهائية.",
+      "Cancellation must be sent in writing. The tier's kickoff payment is non-refundable once work has started because it reserves studio time. If cancelled before strategy sign-off (Tiers 02–03) the kickoff payment is retained and any unused paid milestone is refunded; after strategy sign-off, the kickoff and the strategy milestone are retained. Once final concepts have been delivered no refund is issued. Any refund is transferred within 14 working days of the written cancellation.",
+      "يُقدَّم طلب الإلغاء كتابيًا. دفعة البدء غير قابلة للاسترداد بعد بدء العمل لأنها تحجز وقت الاستوديو. في حال الإلغاء قبل اعتماد الاستراتيجية (الفئتان 02–03) تُحتفظ بدفعة البدء ويُرد أي دفعة مرحلة مدفوعة ولم تُستهلك؛ وبعد اعتماد الاستراتيجية تُحتفظ دفعة البدء ودفعة الاستراتيجية. بعد تسليم المفاهيم النهائية لا يُسترد أي مبلغ. ويُحوَّل أي مبلغ مسترد خلال 14 يوم عمل من تاريخ الإلغاء الكتابي.",
     ],
   },
   {
     n: "12",
-    draft: true,
-    head: ["Late Payment (DRAFT)", "تأخر الدفعات (مسودة للمراجعة)"],
+    head: ["Late Payment", "تأخر الدفعات"],
     body: [
-      "DRAFT: Late payment = work pauses until payment arrives (no interest or penalties).",
-      "مسودة للمراجعة (DRAFT): في حال تأخر أي دفعة مستحقة، يتوقف العمل مؤقتًا حتى وصول الدفعة (دون أي فوائد أو غرامات مالية).",
+      "Each milestone is due on the date stated in the invoice. If a payment is more than 5 working days late, work pauses until it arrives; no interest or penalty is added. If the delay passes 21 days the project moves to the back of the studio schedule and the agreed delivery date shifts by the same number of days. Files and IP transfer follow clause 09 and are released after the final payment clears.",
+      "تُستحق كل دفعة في التاريخ المحدد بالفاتورة. إذا تأخرت الدفعة أكثر من 5 أيام عمل يتوقف العمل مؤقتًا حتى وصولها، دون أي فوائد أو غرامات. وإذا تجاوز التأخير 21 يومًا ينتقل المشروع إلى نهاية جدول الاستوديو ويتحرك موعد التسليم المتفق عليه بعدد الأيام نفسه. وتسليم الملفات ونقل الملكية وفق البند 09 بعد سداد الدفعة الأخيرة.",
     ],
   },
 ];

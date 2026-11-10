@@ -142,12 +142,19 @@ export function BookView({
             {ar ? "الحجز وتأكيد البدء" : "PROJECT KICKOFF & DEPOSIT"}
           </p>
           <h1 className="font-display text-title font-semibold tracking-tight text-text-primary">
-            {ar ? "احجز بعربون." : "Book with a deposit."}
+            {ar ? "اعتماد النطاق، ودفعة البدء." : "Scope agreed? Start here."}
           </h1>
           <p className="max-w-[65ch] text-body text-text-secondary">
             {ar
-              ? "احجز موعد مشروعك في أقل من دقيقتين: اختر الباقة والعملة، أرسل دفعة البدء (50%) أو ادفع كامل المبلغ بخصم 10%، ثم أرسل لقطة شاشة للإيصال عبر واتساب."
-              : "Lock your slot in under two minutes: select your plan and currency, send the 50% kickoff deposit (or pay in full with -10%), and send the receipt screenshot on WhatsApp."}
+              ? "الصفحة دي هي الخطوة الرابعة في طريقة البدء: بتُستخدم بعد اعتماد النطاق والعرض كتابيًا. اختر الباقة والعملة، أرسل دفعة البدء (50%) أو ادفع كامل المبلغ بخصم 10%، ثم أرسل لقطة الشاشة للإيصال عبر واتساب."
+              : "This page is step 04 of how we start: it is used after the scope and proposal are agreed in writing. Select the plan and currency, send the 50% kickoff deposit (or pay in full with -10%), then send the receipt screenshot on WhatsApp."}
+          </p>
+          <p className="max-w-[65ch] text-body-sm text-text-tertiary">
+            {ar ? "لسه ما اتفقناش على النطاق؟ " : "Not agreed a scope yet? "}
+            <Link href="/contact" className="text-accent underline underline-offset-4">
+              {ar ? "ابدأ بمكالمة استكشاف" : "Start with a discovery call"}
+            </Link>
+            {ar ? " — أول خطوة، وبدون أي التزام." : " — step 01, with no commitment."}
           </p>
         </div>
       </header>

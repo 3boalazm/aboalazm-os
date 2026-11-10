@@ -254,13 +254,16 @@ export function Nav() {
           href="/contact"
           /* The visible label changes with the width ("DISCUSS A PROJECT" / "PROJECT"); the name does not.
              It still contains the visible word, so voice control by what is on screen keeps working. */
-          aria-label={lang === "ar" ? undefined : "Discuss a project"}
+          aria-label={lang === "ar" ? undefined : "Book a discovery call"}
           className={buttonVariants({
             className:
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          <span className="sm:hidden ltr:lg:max-xl:inline">{lang === "ar" ? "ابدأ مشروعك" : "PROJECT"}</span><span className="hidden sm:inline ltr:lg:max-xl:hidden">{lang === "ar" ? "ناقش مشروعك" : "DISCUSS A PROJECT"}</span>
+          {/* Discovery first (2026-11): the nav's only CTA opens a conversation,
+              not a payment page. Same label discipline as before — the visible
+              words change with width, the accessible name does not. */}
+          <span className="sm:hidden ltr:lg:max-xl:inline">{lang === "ar" ? "ابدأ" : "START"}</span><span className="hidden sm:inline ltr:lg:max-xl:hidden">{lang === "ar" ? "احجز مكالمة" : "BOOK A CALL"}</span>
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex ltr:lg:max-xl:hidden"

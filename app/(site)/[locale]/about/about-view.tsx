@@ -5,6 +5,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
 import { Icon } from "@/components/ui/Icon";
 import { Heading } from "@/components/ui/Heading";
+import { StudioModelBand } from "@/features/offers/disciplines";
 
 const DOCTRINE = {
   en: [
@@ -44,14 +45,14 @@ const FACTS = {
   en: [
     ["CURRENT STATUS", "Taking on selected brand identity projects | Gulf / Remote"],
     ["BASED", "Al Obour, Egypt — open to the Gulf & remote"],
-    ["LANGUAGES", "Arabic (Native) · English (Professional)"],
+    ["LANGUAGES", "Arabic (Native) · English (Full professional — client work & delivery in both)"],
     ["EDUCATION", "B.Sc. — Al-Azhar University · 2017–2024"],
     ["TRAINING", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
   ],
   ar: [
     ["الوضع الحالي", "أستقبل مشروعات مختارة في الهوية البصرية | الخليج / عن بُعد"],
     ["الموقع", "العبور، مصر — متاح للرياض والعمل عن بُعد"],
-    ["اللغات", "العربية (أصيل) · الإنجليزية (مهني)"],
+    ["اللغات", "العربية (أصيل) · الإنجليزية (مهني كامل — عملاء وتسليم باللغتين)"],
     ["التعليم", "بكالوريوس — جامعة الأزهر · 2017–2024"],
     ["التدريب", "MSP · يوث سكوب · AYB · بداية · رسالة"],
   ],
@@ -80,8 +81,8 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
           titleClassName="heading-fit-long max-w-[18ch] text-balance-pretty"
           subtitle={
             ar
-              ? "مصطفى أبوالعزم بدأ التصميم المهني في 2017 ولم يتوقف. مصمم هوية بصرية أول، وشريك مؤسس في Code & Canvas، يعمل من العبور مصر على مشاريع عالمية: استراتيجية براند، أنظمة تصميم، ووب — بلغتين، تحت مبدأ واحد."
-              : "Mustafa Aboalazm started designing professionally in 2017 — and never stopped. Senior Brand Identity Designer, Co-founder of Code & Canvas, based in Al Obour, Egypt, working worldwide: brand strategy, design systems, and the web they ship to, in two languages, under one doctrine."
+              ? "Aboalazm OS استوديو يقوده مصطفى أبوالعزم، مصمم هوية بصرية أول وشريك مؤسس في Code & Canvas. يعمل من العبور، مصر، على مشاريع في المنطقة وخارجها: استراتيجية براند، أنظمة هوية، التجربة الرقمية اللي تعيش فيها، وأنظمة تشغيل — بلغتين، تحت مبدأ واحد."
+              : "Aboalazm OS is the founder-led studio of Mustafa Aboalazm — senior brand identity designer and co-founder of Code & Canvas. Based in Al Obour, Egypt, working across the region and worldwide: brand strategy, identity systems, the digital layer they live in, and the operating systems underneath, in two languages, under one doctrine."
           }
           subtitleClassName="max-w-[52ch]"
         />
@@ -127,6 +128,12 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
         ))}
       </section>
 
+      {/* Operating model — answers "is this a studio or one person?" before the
+          career timeline can leave the question open (2026-11 repositioning). */}
+      <section aria-label={ar ? "نموذج الاستوديو" : "Studio model"}>
+        <StudioModelBand />
+      </section>
+
       <section aria-label={t.aboutAriaCareer}>
         <p className="pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? t.aboutCareer : t.aboutCareer}
@@ -146,8 +153,8 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
       <section aria-label={t.aboutAriaSystem} className="flex flex-col items-center gap-4">
         <p className="max-w-[52ch] text-center text-lead text-text-secondary">
           {ar
-            ? "كل مشروع يسير في نفس السلسلة: البراند يُترجَم لتوكنز، التوكنز لكومبوننتس، الكومبوننتس لصفحات، الصفحات لتجربة."
-            : "Every engagement runs the same chain: brand compiles into tokens, tokens into components, components into pages, pages into experience."}
+            ? "كل مشروع بيمشي في نفس السلسلة: الاستراتيجية تتحول لهوية، الهوية لتوكنز، والتوكنز لكومبوننتس وصفحات — وفوق كل ده طبقة الأنظمة اللي بتخلي التشغيل يشتغل بأرقام."
+            : "Every engagement runs the same chain: strategy becomes identity, identity compiles into tokens, tokens into components and pages — and on top of it sits the systems layer that makes the operation run on numbers."}
         </p>
         <SystemConstellation />
       </section>
