@@ -22,16 +22,33 @@ import { evidenceOf, EVIDENCE_COPY } from "./project-evidence";
 import type { Project } from "./types";
 
 const FEATURED_SLUGS = {
-  design: ["gad-institute", "reflection", "nile-pharma"],
+  /* Healthcare and pharma/FMCG first: those are the sectors that carry the
+     heaviest buying weight in the Gulf, and they prove regulated, multi-
+     stakeholder work before the studio's own explorations appear. */
+  design: ["gad-institute", "nile-pharma", "reflection"],
+  /* Business systems and client platforms lead. The technical R&D builds
+     (speech-to-text, stemforge) close the list and are labelled in RND_SLUGS so they still show
+     depth without displacing the enterprise proof. */
   development: [
     "nile-pharma-erp",
     "ummah-academy",
-    "speech-to-text-studio",
-    "stemforge",
     "momo-collective",
     "farm-console",
+    "speech-to-text-studio",
+    "stemforge",
   ],
 } as const;
+
+/**
+ * Technical R&D builds — capability proof, not client programmes.
+ *
+ * A business buyer scanning the homepage should meet ERP and client platforms
+ * first; a technical hiring panel still wants to see the browser-audio and
+ * transcription engineering. They are surfaced together under one labelled
+ * line rather than scattered through the featured grid, so neither audience
+ * has to guess which is which.
+ */
+export const RND_SLUGS = ["speech-to-text-studio", "stemforge"] as const;
 
 export const STORIES: Record<string, { challenge: string; challengeAr: string }> = {
   // Design & Brand Identity Track (8 projects)
@@ -233,6 +250,12 @@ export function FeaturedCases({
   const ar = lang === "ar";
   const featured = pickFeatured(projects);
   const trackHref = variant === "digital" ? "/work/development" : "/work/design";
+  /* The R&D builds also appear as cards on /work; naming them again here would
+     be repetition. This line belongs to the homepage showcase only. */
+  const rnd =
+    variant === "digital" && heading === "home"
+      ? featured.filter((project) => (RND_SLUGS as readonly string[]).includes(project.slug))
+      : [];
 
   if (featured.length === 0) return null;
 
@@ -345,6 +368,28 @@ export function FeaturedCases({
           </div>
         ))}
       </div>
+
+      {rnd.length > 0 ? (
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">
+          <span className="text-text-ghost">
+            {ar ? "بحث وتطوير تقني —" : "AI & technical R&D —"}
+          </span>
+          {rnd.map((project, i) => {
+            const name = ar ? (project.nameAr ?? project.name) : project.name;
+            return (
+              <span key={project.slug} className="inline-flex items-center gap-2">
+                {i > 0 ? <span aria-hidden className="text-text-ghost">·</span> : null}
+                <Link
+                  href={`/case-studies/${project.slug}`}
+                  className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
+                >
+                  {name}
+                </Link>
+              </span>
+            );
+          })}
+        </p>
+      ) : null}
 
       {showMoreButton ? (
         <div className="mt-2 flex flex-col items-center justify-between gap-4 border-t border-border-default pt-6 sm:flex-row">

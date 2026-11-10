@@ -4,7 +4,7 @@ import { join } from "node:path";
 import { test } from "node:test";
 import { BUILT_IN_CASE_SLUGS } from "@/lib/case-registry";
 import { cardArt } from "./card-art";
-import { STORIES, pickFeatured } from "./featured-cases";
+import { STORIES, pickFeatured, RND_SLUGS } from "./featured-cases";
 import { CURATED_DEVELOPMENT_SLUGS, PROJECTS } from "./projects.data";
 import { mergeCuratedDevelopmentProjects } from "./project-curation";
 import type { Project } from "./types";
@@ -135,9 +135,18 @@ test("digital products feature six GitHub-reviewed projects with working preview
 
   assert.deepEqual(
     featured.map((project) => project.slug),
-    ["nile-pharma-erp", "ummah-academy", "speech-to-text-studio", "stemforge", "momo-collective", "farm-console"],
+    ["nile-pharma-erp", "ummah-academy", "momo-collective", "farm-console", "speech-to-text-studio", "stemforge"],
   );
   assert.equal(featured.length, 6);
+
+  // Business systems and client platforms must lead the homepage: the first
+  // three slots are what a buyer sees before deciding the studio is for them.
+  const leading = featured.slice(0, 3).map((project) => project.slug);
+  assert.deepEqual(leading, ["nile-pharma-erp", "ummah-academy", "momo-collective"]);
+  // The technical R&D builds must still be present, not dropped for depth alone.
+  for (const slug of RND_SLUGS) {
+    assert.ok(featured.some((project) => project.slug === slug), `${slug} must remain visible as R&D proof`);
+  }
 });
 
 test("curated records update reviewed CMS projects and preserve unrelated CMS content", () => {

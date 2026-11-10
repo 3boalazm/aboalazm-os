@@ -90,7 +90,7 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
           >
             <StatusNode />
             <span className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost 2xl:inline">
-{ar ? t.heroCoords : "30.1936° N, 31.4603° E · AL OBOUR"}
+{t.heroCoords}
             </span>
           </div>
 
