@@ -58,11 +58,15 @@ const INTERNAL_SLUGS = new Set(["code-canvas", "code-canvas-dev"]);
 /** Internal brand explorations with no external client. */
 const INTERNAL_DESIGN_SLUGS = new Set(["reflection"]);
 
-export function evidenceOf(project: Pick<Project, "slug" | "category" | "isDemo" | "previewStatus" | "hasCaseStudy">): EvidenceKind {
+export function evidenceOf(project: Pick<Project, "slug" | "category" | "isDemo" | "previewStatus" | "hasCaseStudy" | "status">): EvidenceKind {
   if (project.previewStatus === "archived") return "internal";
   if (INTERNAL_SLUGS.has(project.slug) || INTERNAL_DESIGN_SLUGS.has(project.slug)) return "internal";
   if (project.isDemo) return "demo";
   if (!project.hasCaseStudy && project.category === "design") return "demo";
+  // A record still being built must never be presented as delivered client work.
+  // Checked after the demo/internal cases so those keep their more specific label,
+  // and before the default so `status: "in-progress"` actually reaches the reader.
+  if (project.status === "in-progress") return "in-development";
   return "client";
 }
 

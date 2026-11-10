@@ -14,6 +14,7 @@ import {
   alacarteWhatsappHref,
   bookHref,
   DEPOSIT_CTA_LABEL,
+  DISCOVERY_CTA_LABEL,
   localizePrice,
   PAYMENT,
   RECOMMENDED_LABEL,
@@ -68,6 +69,11 @@ export function TierCard({ tier }: { tier: Tier }) {
   const planId = resolveTierPlanId(tier);
   const depositUrl = bookHref(planId);
   const showBookingCall = Boolean(BOOKING_URL) && (tier.hasDiscoveryCall ?? true);
+  /* The funnel is discovery → written scope → agreement → deposit. Inside a
+     detailed tier card the deposit is therefore the secondary action; making it
+     the filled primary button asked for payment before the visitor had seen the
+     scope. Its label is unchanged, so the deposit is still one click away. */
+  const discoveryUrl = contactHref({ service: "brand-identity", tier: tierId(tier.tag[0]), source });
 
   return (
     <PanelCard
@@ -128,23 +134,20 @@ export function TierCard({ tier }: { tier: Tier }) {
 
       <div className="mt-auto flex flex-col gap-2 pt-2">
         <Link
-          href={depositUrl}
+          href={discoveryUrl}
           className={buttonVariants({
-            variant: tier.recommended ? "primary" : "ghost",
-            className: tier.recommended
-              ? "w-full justify-center px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5"
-              : "w-full justify-center border border-accent/50 bg-accent/10 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-accent transition-colors duration-base ease-physics hover:bg-accent/20",
+            className: "w-full justify-center px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {pick(DEPOSIT_CTA_LABEL, lang)} →
+          {pick(DISCOVERY_CTA_LABEL, lang)} →
         </Link>
 
         <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-micro text-text-tertiary">
           <Link
-            href={contactHref({ service: "brand-identity", tier: tierId(tier.tag[0]), source })}
+            href={depositUrl}
             className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
           >
-            {ar ? `ناقش ${pick(tier.name, lang)}` : `Discuss ${pick(tier.name, lang)}`}
+            {pick(DEPOSIT_CTA_LABEL, lang)}
           </Link>
           {showBookingCall ? (
             <a

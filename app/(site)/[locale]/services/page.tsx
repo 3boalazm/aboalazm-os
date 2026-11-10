@@ -11,7 +11,7 @@ export const revalidate = 60;
 
 const pageMetadata: Metadata = {
   title: "Services — Strategy, Identity, Systems",
-  description: "Five services, one studio, no handoff gaps — brand identity & strategy, design systems, web, print & packaging, art direction.",
+  description: "Three things a business buys, not twelve services — brand & business identity, digital experience, and business systems & automation, built by one founder-led studio.",
 };
 
 export default async function ServicesPage() {
