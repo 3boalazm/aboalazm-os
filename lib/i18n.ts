@@ -119,6 +119,8 @@ export const UI = {
     formPlaceholderBrief:   "What you want to build, in your words",
     formPlaceholderTimeline:"e.g. launch in Q4",
     /* ── Hero ── */
+    /* The three lines are read by the hero AND by the home language band as
+       the specimen copy for the English locale — change them together. */
     heroLine1:          "Brand. Digital.",
     heroLine2:          "Business systems.",
     heroLine3:          "Built to run.",

@@ -18,6 +18,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { SITE_URL } from "@/lib/site";
 import { BOOT_SCRIPT } from "@/lib/boot-script";
 import { PwaRegistration } from "@/components/pwa/pwa-registration";
+import { OsTray } from "@/components/layout/os-tray";
 import "./globals.css";
 
 const baseMetadata: Metadata = {
@@ -126,6 +127,10 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
                 <Nav />
                 <div className="site-stage">{children}</div>
                 <Footer />
+                {/* Persistent install + language dock. Sits inside
+                    SmoothScroll so it shares the page's scroll context, and
+                    below the nav in z-order. */}
+                <OsTray />
               </SmoothScroll>
             </PersonaProvider>
           </LangProvider>

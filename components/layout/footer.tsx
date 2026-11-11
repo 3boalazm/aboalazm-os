@@ -6,7 +6,9 @@ import { useT } from "@/hooks/use-t";
  * new system's voice. Bilingual via useLang.
  */
 import Link from "@/components/ui/localized-link";
+import { usePathname } from "next/navigation";
 import { useLang } from "@/components/providers/lang-provider";
+import { localeHref } from "@/lib/locale";
 import { Icon } from "@/components/ui/Icon";
 import { CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 
@@ -64,6 +66,7 @@ const COLUMNS = [
 export function Footer() {
   const t = useT();
   const { lang } = useLang();
+  const pathname = usePathname();
   const ar = lang === "ar";
   /* Brand | links sit side by side only from `lg`. At `md` the right track was 410px, so the four
      link columns were ~78px each - narrower than "WhatsApp" + icon (120px) - and REACH pushed the
@@ -92,6 +95,37 @@ export function Footer() {
               ? "مصمم هوية بصرية أول وشريك مؤسس في Code & Canvas. نبني البراندات بوضوح وحِرفة واحترام للشغل."
               : "Senior Brand Identity Designer & Co-founder, Code & Canvas. Building brands with clarity, craft, and a respect for the work."}
           </p>
+
+          {/* Languages as a visible fact, not a hidden setting. The site is
+              authored in three locales; stating them in the footer is what
+              makes the third one (Malay) believable when a visitor lands on
+              the English page from a search result. Each option is a real
+              link to that locale's version of THIS page. */}
+          <div className="flex flex-wrap items-center gap-1.5">
+            <span className="font-mono text-caption uppercase tracking-[0.12em] text-text-ghost">
+              {ar ? "اللغات" : lang === "ms" ? "BAHASA" : "LANGUAGES"}
+            </span>
+            {(["en", "ar", "ms"] as const).map((locale) => (
+              <Link
+                key={locale}
+                href={localeHref(pathname ?? "/", locale)}
+                hrefLang={locale}
+                lang={locale}
+                aria-current={locale === lang ? "true" : undefined}
+                /* العربية is Arabic inside a Latin mono chip — give it the
+                   Arabic face explicitly rather than the device default. */
+                style={locale === "ar" ? { fontFamily: "var(--font-arabic)", letterSpacing: 0 } : undefined}
+                className={[
+                  "rounded-pill border px-2 py-0.5 font-mono text-[12px] leading-tight transition-colors duration-base ease-physics",
+                  locale === lang
+                    ? "border-accent/45 text-accent"
+                    : "border-border-subtle text-text-tertiary hover:border-border-strong hover:text-text-primary",
+                ].join(" ")}
+              >
+                {locale === "ar" ? "العربية" : locale === "ms" ? "Bahasa Melayu" : "English"}
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -133,7 +167,10 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container-wide flex flex-wrap items-baseline justify-between gap-2 border-t border-border-subtle py-3">
+      {/* pb clears the fixed OS tray: it retracts while you scroll down but
+          returns the moment you scroll up, and the last line of a page is
+          exactly where people scroll up to check something. */}
+      <div className="container-wide flex flex-wrap items-baseline justify-between gap-2 border-t border-border-subtle pb-[calc(env(safe-area-inset-bottom,0px)+4.5rem)] pt-3 sm:pb-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : lang === "ms" ? "HAK CIPTA TERPELIHARA" : "ALL RIGHTS RESERVED"}
         </p>
