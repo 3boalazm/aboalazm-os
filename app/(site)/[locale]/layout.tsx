@@ -1,6 +1,6 @@
 import { FunnelAnalytics } from "@/components/seo/funnel-analytics";
 import { notFound } from "next/navigation";
-import { LOCALES, type Locale } from "@/lib/locale";
+import { LOCALES, localeDir, type Locale } from "@/lib/locale";
 import type { Metadata, Viewport } from "next";
 import { preload } from "react-dom";
 import { Analytics } from "@vercel/analytics/next";
@@ -30,7 +30,7 @@ const baseMetadata: Metadata = {
     template: "%s · Mustafa Aboalazm",
   },
   description:
-    "Mustafa Aboalazm — senior brand identity designer in Egypt. Bilingual Arabic / English identity systems, brand guidelines and strategy for MENA brands.",
+    "Mustafa Aboalazm — senior brand identity designer in Egypt, open to roles in Malaysia and the Gulf. Bilingual Arabic / English identity systems, brand guidelines and strategy for MENA and Southeast Asian brands.",
   applicationName: "Mustafa Aboalazm",
   authors: [{ name: "Mustafa Aboalazm", url: SITE_URL }],
   creator: "Mustafa Aboalazm",
@@ -80,7 +80,12 @@ export const viewport: Viewport = {
 export function generateStaticParams() { return LOCALES.map((locale) => ({ locale })); }
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
-  return { ...baseMetadata, title: { default: locale === "ar" ? "مصطفى أبوالعزم — تصميم هوية ومواقع" : "Mustafa Aboalazm — Brand Identity & Web Design", template: locale === "ar" ? "%s · مصطفى أبوالعزم" : "%s · Mustafa Aboalazm" } };
+  const titles = {
+    ar: { default: "مصطفى أبوالعزم — تصميم هوية ومواقع", template: "%s · مصطفى أبوالعزم" },
+    ms: { default: "Mustafa Aboalazm — Reka Bentuk Identiti Jenama & Web", template: "%s · Mustafa Aboalazm" },
+    en: { default: "Mustafa Aboalazm — Brand Identity & Web Design", template: "%s · Mustafa Aboalazm" },
+  } as const;
+  return { ...baseMetadata, title: titles[locale] };
 }
 export default async function RootLayout({ children, params }: Readonly<{ children: React.ReactNode; params: Promise<{ locale: Locale }> }>) {
   const { locale } = await params;
@@ -97,7 +102,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
   // (data-theme, lang, dir) before/around hydration — React #418
   // false-positive otherwise. Applies to this element's attributes only.
   return (
-    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"} className={fontVariables} suppressHydrationWarning>
+    <html lang={locale} dir={localeDir(locale)} className={fontVariables} suppressHydrationWarning>
       <head>
         {/* Anti-flash: set data-theme and lang/dir from localStorage before
             first paint, so a returning light-mode or Arabic visitor doesn't

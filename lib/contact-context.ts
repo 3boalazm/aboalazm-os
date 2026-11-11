@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/locale";
 /** Public funnel context. Never carry a visitor's brief or email in a URL/event. */
 export const SERVICES = [
   { id: "brand-identity", en: "Brand identity", ar: "هوية بصرية" },
@@ -16,7 +17,7 @@ export type ContactContext = {
   service: ServiceId;
   tier?: string;
   source?: string;
-  locale?: "en" | "ar";
+  locale?: Locale;
   utm_source?: string;
   utm_medium?: string;
   utm_campaign?: string;
@@ -26,7 +27,8 @@ export function parseContactContext(raw: Record<string, unknown>): ContactContex
   const tier = service === "brand-identity" ? PACKAGES.find((p) => p.id === raw.tier)?.id : undefined;
   const source = typeof raw.source === "string" && /^\/(?:[a-z0-9-]+\/?)*$/.test(raw.source) && raw.source.length <= 160 ? raw.source : undefined;
   const campaign = parseCampaign(raw);
-  return { service, tier, source, locale: raw.locale === "ar" ? "ar" : "en", ...campaign };
+  const locale: Locale = raw.locale === "ar" ? "ar" : raw.locale === "ms" ? "ms" : "en";
+  return { service, tier, source, locale, ...campaign };
 }
 export function parseCampaign(raw: Record<string, unknown>): Record<string, string> {
   const result: Record<string, string> = {};
@@ -53,7 +55,7 @@ export function contextSummary(context: ContactContext): string {
     `Service: ${SERVICES.find((s) => s.id === context.service)?.en ?? "Help me define the scope"}`,
     context.tier ? `Package: ${PACKAGES.find((p) => p.id === context.tier)?.en ?? context.tier}` : null,
     context.source ? `Source page: ${context.source}` : null,
-    `Language: ${context.locale ?? "en"}`,
+    `Language: ${context.locale === "ms" ? "ms (Bahasa Melayu)" : context.locale ?? "en"}`,
     ...Object.entries(parseCampaign(context)).map(([key, value]) => `${key}: ${value}`),
   ].filter(Boolean).join("\n");
 }

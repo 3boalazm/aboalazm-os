@@ -6,6 +6,7 @@
  * sit inside the funnel. Prefers posts in the current UI language, falls
  * back to the other language rather than rendering thin.
  */
+import type { Locale } from "@/lib/locale";
 import Link from "@/components/ui/localized-link";
 import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
@@ -17,7 +18,7 @@ export interface TeaserPost {
   title: string;
   standfirst: string;
   publishedAt: string;
-  lang: "en" | "ar";
+  lang: Locale;
   topics: string[];
 }
 

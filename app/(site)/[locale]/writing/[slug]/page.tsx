@@ -18,7 +18,7 @@ const getAllPosts = cache(getPosts);
 // when the post has no pair.
 function findCounterpartSlug(
   slug: string,
-  lang: "en" | "ar",
+  lang: Locale,
   all: { slug: string }[],
 ) {
   const counterpart = lang === "ar" ? slug.replace(/-ar$/, "") : `${slug}-ar`;

@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/locale";
 import { readFile } from "fs/promises";
 import path from "path";
 
@@ -55,7 +56,7 @@ export function OgCard({
 }: {
   eyebrow: string;
   title: string;
-  lang?: "en" | "ar";
+  lang?: Locale;
 }) {
   const dir = lang === "ar" ? "rtl" : "ltr";
   const displayFont = lang === "ar" ? FONT_AR : FONT_EN;

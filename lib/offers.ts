@@ -7,6 +7,7 @@
  * · MENA senior freelancer: $500–$5,000 logo; $1,500–$10,000 identity
  * · Mustafa positioned 20–30% above Egypt floor, 40–60% below intl agency
  */
+import type { Locale } from "@/lib/locale";
 import type { CurrencyCode } from "./fx";
 import { whatsappPrefillHref } from "./contact-details";
 
@@ -391,7 +392,7 @@ export const TERMS_LINE: readonly [string, string] = [
  * the same figure with the Arabic lead-in the rest of the site already uses
  * ("من $197"); everything else (plain "$14", ranges) passes through untouched.
  */
-export function localizePrice(price: string, lang: "en" | "ar"): string {
+export function localizePrice(price: string, lang: Locale): string {
   return lang === "ar" ? price.replace(/^From\s+/i, "من ") : price;
 }
 
@@ -746,7 +747,7 @@ export function bookHref(
   return `/book?${params.toString()}`;
 }
 
-export function alacarteWhatsappHref(row: AlaCarteRow, lang: "en" | "ar"): string {
+export function alacarteWhatsappHref(row: AlaCarteRow, lang: Locale): string {
   const msg =
     lang === "ar"
       ? `أهلاً مصطفى، أود طلب خدمة: ${row.service[1]} (${row.price}).`

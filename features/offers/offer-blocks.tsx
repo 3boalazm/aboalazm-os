@@ -4,6 +4,7 @@
  * OFFER BLOCKS — shared bilingual building blocks for
  * /services, /pricing, /agreement. All read useLang().
  */
+import type { Locale } from "@/lib/locale";
 import Link from "@/components/ui/localized-link";
 import { contactHref, tierId } from "@/lib/contact-context";
 import Image from "next/image";
@@ -30,7 +31,7 @@ import { FxSubline } from "@/components/ui/fx-price";
 import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
 
-export const pick = (b: Bi, lang: "en" | "ar") => (lang === "ar" ? b[1] : b[0]);
+export const pick = (b: Bi, lang: Locale) => (lang === "ar" ? b[1] : b[0]);
 
 function resolveTierPlanId(tier: Tier): PlanId {
   if (tier.id) return tier.id;
@@ -478,7 +479,7 @@ function CtaBandEditorial({
   kicker: Bi; title: Bi; italic: Bi;
   primary: Bi; primaryHref: string;
   secondary: Bi; secondaryHref: string;
-  lang: "en" | "ar";
+  lang: Locale;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [seen, setSeen] = useState(false);

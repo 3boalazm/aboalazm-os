@@ -1,4 +1,5 @@
 "use client";
+import type { Locale } from "@/lib/locale";
 import { useMemo, useState } from "react";
 import Link from "@/components/ui/localized-link";
 import { trackEvent } from "@/lib/analytics";
@@ -12,17 +13,18 @@ interface WritingEntry {
   title: string;
   standfirst: string;
   publishedAt: string;
-  lang?: "en" | "ar";
+  lang?: Locale;
   topics?: string[];
 }
 
-const WEEKDAYS: Record<"en" | "ar", readonly string[]> = {
+const WEEKDAYS: Record<Locale, readonly string[]> = {
   en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   ar: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+  ms: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"],
 };
 
 /** "Wednesday 15/7/2026" / "الأربعاء 15/7/2026" — full weekday name, no leading zeros. */
-function formatFullDate(iso: string, lang: "en" | "ar"): string {
+function formatFullDate(iso: string, lang: Locale): string {
   if (!iso) return "";
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "";
@@ -37,7 +39,7 @@ function formatFullDate(iso: string, lang: "en" | "ar"): string {
  * language for essays that were never translated — so nothing ever
  * disappears from the index, and nothing shows up twice.
  */
-function visibleIn(posts: readonly WritingEntry[], lang: "en" | "ar") {
+function visibleIn(posts: readonly WritingEntry[], lang: Locale) {
   const slugs = new Set(posts.map((p) => p.slug));
   return posts.filter((post) => {
     const postLang = post.lang ?? "en";

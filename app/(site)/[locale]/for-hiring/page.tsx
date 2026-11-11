@@ -9,7 +9,7 @@ const pageMetadata: Metadata = {
   title: { absolute: "Hire Mustafa Aboalazm — Senior Brand Identity Designer" },
   alternates: { canonical: "/for-hiring" },
   description:
-    "Mustafa Aboalazm: Senior Brand Identity Designer with 9+ years in design. Explore roles, project contributions and CV. Gulf and remote opportunities.",
+    "Mustafa Aboalazm: Senior Brand Identity Designer with 9+ years in design. Explore roles, project contributions and CV. Malaysia, Gulf and remote opportunities.",
 };
 
 export default function ForHiringPage() {

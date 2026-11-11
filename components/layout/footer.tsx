@@ -135,13 +135,13 @@ export function Footer() {
 
       <div className="container-wide flex flex-wrap items-baseline justify-between gap-2 border-t border-border-subtle py-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : "ALL RIGHTS RESERVED"}
+          © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : lang === "ms" ? "HAK CIPTA TERPELIHARA" : "ALL RIGHTS RESERVED"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "Ctrl + ` يفتح الترمينال" : "PRESS CTRL + ` FOR THE TERMINAL"}
+          {ar ? "Ctrl + ` يفتح الترمينال" : lang === "ms" ? "TEKAN CTRL + ` UNTUK TERMINAL" : "PRESS CTRL + ` FOR THE TERMINAL"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "صُمم وبُني داخل الاستوديو" : "DESIGNED & BUILT BY THE STUDIO"}
+          {ar ? "صُمم وبُني داخل الاستوديو" : lang === "ms" ? "DIREKA & DIBINA OLEH STUDIO" : "DESIGNED & BUILT BY THE STUDIO"}
         </p>
       </div>
     </footer>

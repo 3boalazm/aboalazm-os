@@ -59,8 +59,8 @@ export function AboutTeaser() {
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. أستقبل حاليًا مشروعات مختارة في الهوية البصرية والمنتجات الرقمية في الخليج وعن بُعد."
-            : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Taking on select brand identity and digital product projects across the Gulf and remotely."}
+            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. أستقبل حاليًا مشروعات مختارة في الهوية البصرية والمنتجات الرقمية في ماليزيا والخليج وعن بُعد."
+            : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Taking on select brand identity and digital product projects across Malaysia, the Gulf and remotely."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
           {ar ? "اقرأ القصة كاملة" : "Read the about page"}
@@ -96,9 +96,9 @@ export function AboutTeaser() {
         {([
           ["SPECIALTY", "التخصص", "Brand Identity & Visual Systems", "هوية بصرية وأنظمة تصميم"],
           ["CURRENT ROLE", "العمل الحالي", "Creative Lead, Code & Canvas", "مدير إبداعي، Code & Canvas"],
-          ["AVAILABILITY", "الوضع الحالي", "Taking on select projects · Gulf / Remote", "أستقبل مشروعات مختارة · الخليج / عن بُعد"],
+          ["AVAILABILITY", "الوضع الحالي", "Taking on select projects · Malaysia / Gulf / Remote", "أستقبل مشروعات مختارة · ماليزيا / الخليج / عن بُعد"],
           ["LANGUAGES", "اللغات", "Arabic (Native) · English (Professional)", "العربية (الأم) · الإنجليزية (احترافية)"],
-          ["BASED", "المقر", "Al Obour, Egypt — open to the Gulf & remote", "العبور، مصر — متاح للخليج وعن بُعد"],
+          ["BASED", "المقر", "Al Obour, Egypt — open to Malaysia, the Gulf & remote", "العبور، مصر — متاح لماليزيا والخليج وعن بُعد"],
         ] as const).map(([ken, kar, ven, var_]) => (
           // phones keep availability + languages; the rest is on /about
           <div key={ken} className={`border-b border-border-subtle py-2 first:border-t ${["SPECIALTY", "CURRENT ROLE", "BASED"].includes(ken) ? "max-sm:hidden" : ""}`}>

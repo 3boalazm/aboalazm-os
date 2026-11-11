@@ -52,3 +52,8 @@ test("Payload inbox has stage and attribution fields while public REST create re
   assert.match(schema, /create:\s*\(\)\s*=>\s*false/u);
   assert.match(schema, /defaultValue:\s*"new"/u);
 });
+
+test("Malay enquiries are stored under the en/ar enum, without failing the insert", () => {
+  const attribution = buildContactAttribution({ service: "website", locale: "ms" });
+  assert.equal(attribution.locale, "en");
+});
