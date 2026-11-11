@@ -66,7 +66,7 @@ function organizationNode() {
       "Business systems and automation",
       "Design systems and brand governance",
     ],
-    areaServed: ["EG", "SA", "AE", "QA", "KW", "BH", "OM"],
+    areaServed: ["MY", "EG", "SA", "AE", "QA", "KW", "BH", "OM"],
     sameAs: [
       "https://www.behance.net/aboalazm",
       "https://www.linkedin.com/in/aboalazm",
@@ -99,7 +99,7 @@ function personNode() {
       "Bilingual Arabic / English design",
       "Design systems",
     ],
-    knowsLanguage: ["ar", "en"],
+    knowsLanguage: ["ar", "en", "ms"],
     email: CONTACT_EMAIL_HREF,
     address: {
       "@type": "PostalAddress",
@@ -126,7 +126,7 @@ function webSiteNode() {
     name: SITE_NAME,
     alternateName: ["Aboalazm OS", "مصطفى أبوالعزم"],
     url: SITE_URL,
-    inLanguage: ["en", "ar"],
+    inLanguage: ["en", "ar", "ms"],
     publisher: { "@id": ORGANIZATION_ID },
   };
 }

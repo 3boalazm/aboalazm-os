@@ -6,6 +6,7 @@
  * sit inside the funnel. Prefers posts in the current UI language, falls
  * back to the other language rather than rendering thin.
  */
+import type { Locale } from "@/lib/locale";
 import Link from "@/components/ui/localized-link";
 import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
@@ -17,7 +18,7 @@ export interface TeaserPost {
   title: string;
   standfirst: string;
   publishedAt: string;
-  lang: "en" | "ar";
+  lang: Locale;
   topics: string[];
 }
 
@@ -29,7 +30,7 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
   const mine = posts.filter((p) => p.lang === (ar ? "ar" : "en"));
   const picked = (mine.length >= 3 ? mine : [...mine, ...posts.filter((p) => !mine.includes(p))]).slice(0, 3);
 
-  const fmt = new Intl.DateTimeFormat(ar ? "ar-EG-u-nu-latn" : "en-GB", {
+  const fmt = new Intl.DateTimeFormat(ar ? "ar-EG-u-nu-latn" : lang === "ms" ? "ms-MY" : "en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -42,6 +43,8 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
             {ar ? (
               <>المذكرات الشغالة. <em className="text-accent">المنهج مكتوب، مش سر.</em></>
+            ) : lang === "ms" ? (
+              <>Nota kerja. <em className="text-accent">Kaedahnya diterbitkan, bukan rahsia.</em></>
             ) : (
               <>Working notes. <em className="text-accent">The method is published, not secret.</em></>
             )}
@@ -49,14 +52,16 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
           <p className="text-body-sm text-text-secondary">
             {ar
               ? "مقالات طويلة عن الهوية، الأنظمة، والتصميم ثنائي اللغة — نفس المنهج اللي بيتطبق على مشروعك."
-              : "Long-form essays on identity, systems, and bilingual design — the same method applied to your project."}
+              : lang === "ms"
+                ? "Esei panjang tentang identiti, sistem, dan reka bentuk dwibahasa — kaedah yang sama digunakan untuk projek anda."
+                : "Long-form essays on identity, systems, and bilingual design — the same method applied to your project."}
           </p>
         </div>
         <Link
           href="/writing"
           className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
         >
-          {ar ? "كل المقالات" : "All writing"}
+          {ar ? "كل المقالات" : lang === "ms" ? "Semua tulisan" : "All writing"}
           <span aria-hidden className="ms-1 inline-flex">
             <Icon name="arrow-right" />
           </span>

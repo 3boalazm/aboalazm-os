@@ -20,14 +20,19 @@ export function StatementBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <section aria-label={ar ? "بيان المنهج" : "Studio statement"} className="statement-editorial">
+    <section aria-label={ar ? "بيان المنهج" : lang === "ms" ? "Kenyataan studio" : "Studio statement"} className="statement-editorial">
       <div className="container-wide statement-editorial__inner">
-        <p className="statement-editorial__kicker">{ar ? "الموقف" : "THE POSITION"}</p>
+        <p className="statement-editorial__kicker">{ar ? "الموقف" : lang === "ms" ? "KEDUDUKAN" : "THE POSITION"}</p>
         <h2 className="editorial-display statement-editorial__title">
           {ar ? (
             <>
               معظم البراندات مزخرفة.{" "}
               <em className="text-accent">القليل منها مصمم ليشتغل.</em>
+            </>
+          ) : lang === "ms" ? (
+            <>
+              Kebanyakan jenama hanya dihias.{" "}
+              <em className="text-accent">Sedikit yang direka untuk berfungsi.</em>
             </>
           ) : (
             <>
@@ -48,7 +53,7 @@ export function StatementBand() {
           href="/writing"
           className="group mt-2 w-fit font-mono text-label uppercase tracking-[0.06em] text-alabaster/60 transition-colors duration-base ease-physics hover:text-alabaster"
         >
-          {ar ? "اقرأ التفكير خلف المنهج" : "Read the thinking behind it"}
+          {ar ? "اقرأ التفكير خلف المنهج" : lang === "ms" ? "Baca pemikiran di sebalik metodologi" : "Read the thinking behind it"}
           <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
             <Icon name="arrow-right" />
           </span>

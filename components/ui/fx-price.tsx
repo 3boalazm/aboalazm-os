@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/locale";
 import { formatFxForUsd } from "@/lib/fx";
 
 export function FxSubline({
@@ -8,7 +9,7 @@ export function FxSubline({
   className = "",
 }: {
   usdOrPrice: number | string;
-  lang?: "en" | "ar";
+  lang?: Locale;
   showValidity?: boolean;
   compact?: boolean;
   className?: string;

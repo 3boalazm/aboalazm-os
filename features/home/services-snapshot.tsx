@@ -53,13 +53,13 @@ export function ServicesSnapshot() {
                 "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]} →
           </Link>
           <Link
             href="/pricing"
             className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
           >
-            {ar ? "التسعير الكامل" : "Full pricing"}
+            {ar ? "التسعير الكامل" : lang === "ms" ? "Harga penuh" : "Full pricing"}
             <span aria-hidden className="ms-1 inline-flex">
               <Icon name="arrow-right" />
             </span>
@@ -79,7 +79,7 @@ export function ServicesSnapshot() {
             >
               {recommended ? (
                 <span className="absolute -top-2.5 start-4 rounded-pill bg-accent px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-obsidian">
-                  {ar ? "موصى بها" : "Recommended"}
+                  {ar ? "موصى بها" : lang === "ms" ? "Disyorkan" : "Recommended"}
                 </span>
               ) : null}
               <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -100,7 +100,7 @@ export function ServicesSnapshot() {
               </div>
               <p className="text-body-sm text-text-secondary">
                 <span className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                  {ar ? "الأنسب لـ: " : "Best for: "}
+                  {ar ? "الأنسب لـ: " : lang === "ms" ? "Sesuai untuk: " : "Best for: "}
                 </span>
                 {ar ? tier.bestFor[1] : tier.bestFor[0]}
               </p>
@@ -122,14 +122,14 @@ export function ServicesSnapshot() {
                       : "w-full justify-center border border-accent/50 bg-accent/10 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-accent hover:bg-accent/20",
                   })}
                 >
-                  {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
+                  {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]} →
                 </Link>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <Link
                     href="/pricing"
                     className="inline-flex w-fit items-center gap-1 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
                   >
-                    {ar ? "كل التفاصيل" : "Everything it includes"}
+                    {ar ? "كل التفاصيل" : lang === "ms" ? "Semua yang termasuk" : "Everything it includes"}
                     <span aria-hidden className="inline-flex">
                       <Icon name="arrow-right" />
                     </span>
@@ -154,12 +154,12 @@ export function ServicesSnapshot() {
 
       <div className="flex flex-col gap-1 border-t border-border-subtle pt-3">
         <p className="text-body-sm text-text-tertiary">
-          {ar ? "محتاج حاجة واحدة بس (كارت، بروشور، بوست)؟ " : "Need just one production item (a card, a brochure, a post)? "}
+          {ar ? "محتاج حاجة واحدة بس (كارت، بروشور، بوست)؟ " : lang === "ms" ? "Perlukan satu item sahaja (kad, brosur, siaran)? " : "Need just one production item (a card, a brochure, a post)? "}
           <Link
             href="/pricing"
             className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary"
           >
-            {ar ? "قائمة الإنتاج المنفصلة" : "The separate production menu"}
+            {ar ? "قائمة الإنتاج المنفصلة" : lang === "ms" ? "Menu pengeluaran berasingan" : "The separate production menu"}
           </Link>
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.08em] leading-[1.7] text-text-ghost">

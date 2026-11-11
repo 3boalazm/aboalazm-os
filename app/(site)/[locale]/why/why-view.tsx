@@ -90,7 +90,7 @@ export function WhyView() {
         <div className="container-content flex flex-col gap-8 py-7">
           <header className="flex flex-col gap-4">
             <Heading
-              eyebrow={ar ? "لماذا مصطفى" : "WHY MUSTAFA"}
+              eyebrow={ar ? "لماذا مصطفى" : lang === "ms" ? "KENAPA MUSTAFA" : "WHY MUSTAFA"}
               title={
                 ar
                   ? <>لا أصمّم براندات. <em>أبني أنظمة.</em></>
@@ -108,7 +108,7 @@ export function WhyView() {
 
           <section id="reasons" aria-label={t.whyAriaReasons} className="flex flex-col">
             <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              {ar ? "لماذا يختارني العملاء" : "WHY CLIENTS HIRE ME"}
+              {ar ? "لماذا يختارني العملاء" : lang === "ms" ? "KENAPA KLIEN MEMILIH SAYA" : "WHY CLIENTS HIRE ME"}
             </p>
             {reasons.map(([title, body], i) => (
               <div key={i} className="border-t border-border-subtle py-3 last:border-b">
@@ -129,7 +129,7 @@ export function WhyView() {
           <section id="jargon" className="flex flex-col gap-5">
             <div>
               <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                {ar ? "بلغة بسيطة" : "IN PLAIN TERMS"}
+                {ar ? "بلغة بسيطة" : lang === "ms" ? "DALAM BAHASA MUDAH" : "IN PLAIN TERMS"}
               </p>
               <p className="hook-line">
                 {ar
@@ -160,7 +160,7 @@ export function WhyView() {
         <div className="container-content flex flex-col gap-8 py-7">
           <section id="approach" aria-label={t.whyAriaApproach}>
             <p className="pb-1 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              {ar ? "المنهجية" : "THE APPROACH"}
+              {ar ? "المنهجية" : lang === "ms" ? "PENDEKATAN" : "THE APPROACH"}
             </p>
             {approach.map(([phase, body], i) => (
               <div key={i} className="grid grid-cols-[6rem_1fr] items-baseline gap-2 border-b border-border-subtle py-2 md:grid-cols-[6rem_12rem_1fr]">
@@ -173,7 +173,7 @@ export function WhyView() {
 
           <section id="numbers" aria-label={t.whyAriaNumbers} className="flex flex-col gap-2">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              {ar ? "بالأرقام" : "BY THE NUMBERS"}
+              {ar ? "بالأرقام" : lang === "ms" ? "DALAM ANGKA" : "BY THE NUMBERS"}
             </p>
             <dl className="grid grid-cols-2 gap-x-4 gap-y-5 border-y border-border-subtle py-5 md:grid-cols-3">
               {numbers.map(([label, value]) => (
@@ -192,7 +192,7 @@ export function WhyView() {
         <div className="container-content flex flex-col gap-8 py-7">
           <section id="different" aria-label={t.whyAriaWhat} className="flex flex-col gap-3 border-s-2 border-accent ps-5">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              {ar ? "ما يجعل الشغل مختلفًا" : "WHAT MAKES THE WORK DIFFERENT"}
+              {ar ? "ما يجعل الشغل مختلفًا" : lang === "ms" ? "APA YANG MEMBEZAKAN KERJA INI" : "WHAT MAKES THE WORK DIFFERENT"}
             </p>
             <p className="max-w-[60ch] text-lead text-text-secondary">
               {ar
@@ -203,7 +203,7 @@ export function WhyView() {
 
           <section className="flex flex-col gap-4">
             <p className="hook-line">
-              {ar ? "مصدر واحد معتمد. كل حاجة تانية بتتبعه." : "One approved source. Everything else follows it."}
+              {ar ? "مصدر واحد معتمد. كل حاجة تانية بتتبعه." : lang === "ms" ? "Satu sumber yang diluluskan. Semua yang lain mengikutinya." : "One approved source. Everything else follows it."}
             </p>
             <p className="hook-sub">
               {ar
@@ -231,10 +231,10 @@ export function WhyView() {
 
           <section className="flex flex-col items-start gap-3 border-t border-border-subtle pt-8">
             <h2 className="max-w-[20ch] font-display text-title tracking-[-0.02em]">
-              {ar ? "ابنِ براندًا يتصرف كنظام." : "Build a brand that behaves like a system."}
+              {ar ? "ابنِ براندًا يتصرف كنظام." : lang === "ms" ? "Bina jenama yang berkelakuan seperti sistem." : "Build a brand that behaves like a system."}
             </h2>
             <Link href="/contact" className="group font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
-              {ar ? "ابدأ مشروعًا" : "START A PROJECT"}
+              {ar ? "ابدأ مشروعًا" : lang === "ms" ? "MULAKAN PROJEK" : "START A PROJECT"}
               <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
             </Link>
           </section>

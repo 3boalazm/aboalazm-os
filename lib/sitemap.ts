@@ -1,15 +1,15 @@
 import type { MetadataRoute } from "next";
 import { BOOKS } from "@/lib/books";
 import { SITE_URL } from "@/lib/site";
-import { localeHref } from "@/lib/locale";
+import { LOCALES, localeHref, type Locale } from "@/lib/locale";
 
 type Entry = MetadataRoute.Sitemap[number];
 interface Source { slug: string; updatedAt: string }
 const ROUTES = ["/", "/work", "/work/design", "/work/development", "/for-hiring", "/work-ui", "/services", "/services/brand-identity", "/services/websites", "/services/systems", "/services/store-72h", "/pricing", "/partnership", "/book", "/agreement", "/capabilities", "/about", "/developer", "/why", "/process", "/writing", "/books", "/labs", "/resources", "/contact"];
 const abs = (path: string) => `${SITE_URL}${path}`;
 function localizedEntries(path: string, priority: number, updatedAt?: string): Entry[] {
-  const languages = { en: abs(path), ar: abs(localeHref(path, "ar")), "x-default": abs(path) };
-  return (["en", "ar"] as const).map((locale) => ({ url: abs(localeHref(path, locale)), priority, changeFrequency: "monthly", ...(updatedAt ? { lastModified: updatedAt } : {}), alternates: { languages } }));
+  const languages = { en: abs(path), ar: abs(localeHref(path, "ar")), ms: abs(localeHref(path, "ms")), "x-default": abs(path) };
+  return LOCALES.map((locale: Locale) => ({ url: abs(localeHref(path, locale)), priority, changeFrequency: "monthly", ...(updatedAt ? { lastModified: updatedAt } : {}), alternates: { languages } }));
 }
 export function buildSitemap({ posts, caseStudies }: { posts: Source[]; caseStudies: Source[] }): MetadataRoute.Sitemap {
   const slugs = new Set(posts.map((p) => p.slug));

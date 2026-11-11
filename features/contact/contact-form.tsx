@@ -188,7 +188,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
             className="flex flex-col gap-2"
           >
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>{ar ? "محتاج مساعدة في إيه؟" : "What can I help you with?"}</span>
+              <span className={LABEL}>{ar ? "محتاج مساعدة في إيه؟" : lang === "ms" ? "Apa yang boleh saya bantu?" : "What can I help you with?"}</span>
               <select name="service" value={selection.service} onChange={(e) => setSelection((current) => ({ ...current, service: parseContactContext({ service: e.target.value }).service, tier: undefined }))} className={FIELD}>
                 {SERVICES.map((s) => <option key={s.id} value={s.id}>{ar ? s.ar : s.en}</option>)}
               </select>
@@ -197,7 +197,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               <label className="flex flex-col gap-0.5">
                 <span className={LABEL}>{ar ? "الباقة (اختياري)" : "Package (optional)"}</span>
                 <select name="tier" value={selection.tier ?? ""} onChange={(e) => setSelection((current) => ({ ...current, tier: e.target.value || undefined }))} className={FIELD}>
-                  <option value="">{ar ? "نختارها مع بعض" : "Help me choose"}</option>
+                  <option value="">{ar ? "نختارها مع بعض" : lang === "ms" ? "Bantu saya pilih" : "Help me choose"}</option>
                   {PACKAGES.map((p) => <option key={p.id} value={p.id}>{ar ? p.ar : p.en}</option>)}
                 </select>
               </label>
@@ -236,7 +236,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                 className="mt-0.5 accent-[var(--color-accent)]"
               />
               <span className="text-body-sm text-text-secondary">
-                {ar ? "لسه بحدد النطاق — وده كفاية للبداية." : "I'm still figuring out the scope — that's enough to start."}
+                {ar ? "لسه بحدد النطاق — وده كفاية للبداية." : lang === "ms" ? "Saya masih menentukan skop — itu sudah cukup untuk bermula." : "I'm still figuring out the scope — that's enough to start."}
               </span>
             </label>
 
@@ -306,8 +306,8 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                 className="mt-1 w-full rounded-pill bg-text-primary py-1.5 font-mono text-label uppercase tracking-[0.06em] text-surface-0 transition-[transform,opacity] duration-base ease-physics hover:-translate-y-0.5 disabled:opacity-60"
               >
                 {status === "working"
-                  ? (ar ? "جارٍ الإرسال…" : "WORKING…")
-                  : (ar ? "ابعت استفسارك" : "Send your enquiry")}
+                  ? (ar ? "جارٍ الإرسال…" : lang === "ms" ? "SEDANG DIHANTAR…" : "WORKING…")
+                  : (ar ? "ابعت استفسارك" : lang === "ms" ? "Hantar pertanyaan anda" : "Send your enquiry")}
               </button>
             )}
 
@@ -339,7 +339,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               )}
             </div>
             <p className="text-center text-caption text-text-tertiary">
-              {ar ? `${RESPONSE_PROMISE.ar} بياناتك تُستخدم للرد على طلبك فقط.` : `${RESPONSE_PROMISE.en} Your details are used to respond to your enquiry only.`}
+              {ar ? `${RESPONSE_PROMISE.ar} بياناتك تُستخدم للرد على طلبك فقط.` : lang === "ms" ? `${RESPONSE_PROMISE.ms} Maklumat anda hanya digunakan untuk membalas pertanyaan anda.` : `${RESPONSE_PROMISE.en} Your details are used to respond to your enquiry only.`}
             </p>
           </motion.form>
         ) : null}

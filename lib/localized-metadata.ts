@@ -32,11 +32,45 @@ const AR: Record<string, [string, string]> = {
   "/labs": ["معمل تجارب التصميم", "تجارب وأدوات لاستكشاف الخطوط والألوان والتباين والهوية ثنائية اللغة."],
 };
 
+/* Malay (ms) titles and descriptions. Separate from AR so a Malay page never
+   inherits an Arabic override passed in by a dynamic route. */
+const MS: Record<string, [string, string]> = {
+  "/": ["Aboalazm OS — studio identiti dan digital yang dipimpin Mustafa Aboalazm", "Studio yang dipimpin pengasasnya membina identiti, lapisan digital dwibahasa, dan sistem operasi — dari panggilan penemuan pertama hingga skop bertulis dan penyerahan yang boleh digunakan pasukan anda."],
+  "/services": ["Perkhidmatan identiti visual dan laman web", "Reka bentuk identiti visual dan aplikasinya, laman dwibahasa, dan produk digital. Skop yang jelas, kerja serupa, dan pakej mengikut keperluan projek."],
+  "/services/brand-identity": ["Reka bentuk identiti jenama dwibahasa Arab & Inggeris", "Logo, warna, fon, aplikasi, dan panduan penggunaan jenama. Lihat contoh sebenar, bandingkan pakej, dan mulakan pertanyaan anda."],
+  "/services/websites": ["Reka bentuk laman web dan produk digital", "Laman korporat, laman pendaratan, kedai dalam talian, dan alat operasi dwibahasa, dari takrifan perjalanan pengguna hingga penyerahan dan operasi."],
+  "/services/systems": ["Sistem operasi dan automasi — papan pemuka, ERP dan alat dalaman", "Papan operasi, modul ERP, dan alat dalaman dwibahasa dengan RTL serta automasi yang menggantikan langkah manual — dengan skop bertulis yang ditentukan dalam panggilan penemuan dahulu."],
+  "/partnership": ["Perkongsian dan sokongan berterusan — selepas penyerahan", "30 hari sokongan termasuk dalam setiap projek, penjagaan identiti dari $247 sebulan, dan perkongsian digital serta sistem dengan harga bulanan — notis 14 hari dan tiada yuran keluar."],
+  "/services/store-72h": ["Kedai atau katalog dalam talian dwibahasa, siap dalam 72 jam — bermula $197", "Kedai atau katalog dalam talian dwibahasa (Arab RTL + Inggeris LTR) siap dalam 72 jam selepas kandungan diterima: sehingga ~30 produk, pesanan melalui WhatsApp, sambungan penghantaran dan domain."],
+  "/contact": ["Hubungi dan bincangkan projek anda", `Ceritakan tentang projek identiti, laman, atau produk digital anda. ${RESPONSE_PROMISE.ms}`],
+  "/pricing": ["Harga dan pakej identiti visual", "Bandingkan pakej logo, identiti, dan sistem jenama lengkap. Ketahui hasil kerja, tempoh, dan pembayaran, dan pilih pakej yang sesuai."],
+  "/book": ["Tempah dengan deposit — sahkan permulaan projek", "Pilih pakej dan mata wang (EGP, SAR atau USD), hantar deposit 50% (atau bayar penuh dengan diskaun 10%), dan sahkan tempahan melalui WhatsApp."],
+  "/work": ["Kerja — identiti dan produk digital", "Lihat projek identiti visual, laman web, dan produk digital, dengan butiran sumbangan, hasil, dan pratonton projek yang tersedia."],
+  "/work/design": ["Kerja identiti visual", "Identiti, aplikasi pembungkusan, bahan cetakan, dan garis panduan penggunaan jenama dalam bahasa Arab dan Inggeris."],
+  "/work/development": ["Projek laman web dan produk digital", "Laman web, platform, dan alat operasi, dengan kajian kes, pratonton visual, dan pautan pengalaman awam yang tersedia."],
+  "/work-ui": ["Galeri antara muka projek", "Imej sebenar antara muka laman web dan produk digital, dengan butiran projek dan pautan pratonton yang tersedia."],
+  "/about": ["Tentang Mustafa Aboalazm", "Ketahui pengalaman Mustafa Aboalazm dalam identiti visual, reka bentuk, dan produk digital, serta kerja dalam bahasa Arab dan Inggeris."],
+  "/for-hiring": ["Mustafa Aboalazm — profil pengambilan", "Pengalaman, peranan, dan sumbangan Mustafa Aboalazm, contoh kerja, dan CV untuk pasukan pengambilan dan agensi. Peluang di Malaysia, Teluk dan jarak jauh."],
+  "/process": ["Langkah reka bentuk identiti dan penyerahan", "Penyelidikan, strategi, reka bentuk, dan penyerahan, dengan semakan yang jelas dan jadual yang ditentukan mengikut pakej projek dan skala aplikasi."],
+  "/agreement": ["Perjanjian kerjasama dan skop projek", "Butiran hasil kerja, semakan, pembayaran, hak penggunaan, dan penyerahan. Butiran setiap projek disahkan dalam cadangan bertulis."],
+  "/writing": ["Artikel tentang identiti dan reka bentuk", "Artikel dan idea tentang identiti visual, sistem, dan reka bentuk dalam bahasa Arab dan Inggeris, dengan contoh daripada amalan."],
+  "/resources": ["Sumber dan alat reka bentuk percuma", "Dokumen dan rangka kerja untuk membantu merancang projek identiti, menentukan skop, penggunaan, dan penyerahan."],
+  "/books": ["Buku reka bentuk dan identiti visual", "Buku dan pembaca interaktif tentang asas reka bentuk dan identiti visual. Terokai kandungan pendidikan Mustafa Aboalazm."],
+  "/developer": ["Reka bentuk dan pembangunan produk digital", "Projek dan kemahiran Mustafa Aboalazm dalam membina laman web, antara muka, dan alat digital."],
+  "/capabilities": ["Sistem reka bentuk dan pelaksanaan", "Contoh warna, fon, token, dan cara panduan identiti diterjemah kepada aplikasi digital yang konsisten."],
+  "/why": ["Bagaimana sistem identiti membantu pasukan anda", "Identiti yang jelas, panduan, dan aplikasi yang menyokong kerja pasukan anda merentasi bahan cetakan, laman web, dan produk digital."],
+  "/labs": ["Makmal eksperimen reka bentuk", "Eksperimen dan alat untuk meneroka fon, warna, kontras, dan identiti dwibahasa."],
+};
+
 export function localizedMetadata(base: Metadata, locale: Locale, path: string, arabic?: { title: string; description: string }): Metadata {
   const project = path.startsWith("/case-studies/") ? PROJECTS.find((p) => p.slug === path.split("/").pop()) : undefined;
-  const translated = arabic ?? (AR[path] ? { title: AR[path][0], description: AR[path][1] } : project ? { title: `${project.nameAr ?? project.name} — تفاصيل المشروع`, description: project.outcomeAr ?? project.outcome } : undefined);
-  const title = locale === "ar" && translated ? translated.title : base.title;
-  const description = locale === "ar" && translated ? translated.description : base.description;
+  const translated =
+    locale === "ms"
+      ? (MS[path] ? { title: MS[path][0], description: MS[path][1] } : undefined)
+      : arabic ?? (AR[path] ? { title: AR[path][0], description: AR[path][1] } : project ? { title: `${project.nameAr ?? project.name} — تفاصيل المشروع`, description: project.outcomeAr ?? project.outcome } : undefined);
+  const useTranslated = (locale === "ar" || locale === "ms") && translated;
+  const title = useTranslated ? translated.title : base.title;
+  const description = useTranslated ? translated.description : base.description;
   const canonical = localeHref(path, locale);
   const openGraphTitle = typeof title === "string"
     ? title
@@ -47,9 +81,10 @@ export function localizedMetadata(base: Metadata, locale: Locale, path: string, 
             ? title.default
             : undefined)
       : undefined;
+  const OG_LOCALE: Record<Locale, string> = { en: "en_US", ar: "ar_EG", ms: "ms_MY" };
   return {
     ...base, title, description,
-    alternates: { canonical, languages: { en: `${SITE_URL}${path}`, ar: `${SITE_URL}${localeHref(path, "ar")}`, "x-default": `${SITE_URL}${path}` } },
-    openGraph: { ...base.openGraph, title: openGraphTitle, description: description ?? undefined, siteName: "Mustafa Aboalazm", url: canonical, locale: locale === "ar" ? "ar_EG" : "en_US", alternateLocale: locale === "ar" ? "en_US" : "ar_EG" },
+    alternates: { canonical, languages: { en: `${SITE_URL}${path}`, ar: `${SITE_URL}${localeHref(path, "ar")}`, ms: `${SITE_URL}${localeHref(path, "ms")}`, "x-default": `${SITE_URL}${path}` } },
+    openGraph: { ...base.openGraph, title: openGraphTitle, description: description ?? undefined, siteName: "Mustafa Aboalazm", url: canonical, locale: OG_LOCALE[locale], alternateLocale: (["en", "ar", "ms"] as const).filter((l) => l !== locale).map((l) => OG_LOCALE[l]) },
   };
 }

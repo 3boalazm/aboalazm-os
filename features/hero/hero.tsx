@@ -115,6 +115,10 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
               <>
                 Aboalazm OS<span className="hidden sm:inline"> — استوديو هوية ورقمي يقوده مصطفى أبوالعزم</span>
               </>
+            ) : lang === "ms" ? (
+              <>
+                Aboalazm OS<span className="hidden sm:inline"> — studio identiti dan digital yang dipimpin Mustafa Aboalazm</span>
+              </>
             ) : (
               <>
                 Aboalazm OS<span className="hidden sm:inline"> — a founder-led brand & digital studio by Mustafa Aboalazm</span>
@@ -172,11 +176,11 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
               style={{ "--i": 2 } as CSSProperties}
             >
               <Link href="/for-hiring" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
-                {ar ? "للشركات والتوظيف ←" : "For hiring teams →"}
+                {ar ? "للشركات والتوظيف ←" : lang === "ms" ? "Untuk pasukan pengambilan →" : "For hiring teams →"}
               </Link>
               <span aria-hidden>·</span>
               <Link href="/services" className="underline decoration-border-default underline-offset-4 transition-colors hover:text-text-primary">
-                {ar ? "خدمات العملاء ←" : "Client services →"}
+                {ar ? "خدمات العملاء ←" : lang === "ms" ? "Perkhidmatan klien →" : "Client services →"}
               </Link>
             </div>
           </div>

@@ -102,7 +102,8 @@ function MetricCard({ metric }: { metric: Metric }) {
 export function MetricRow() {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const metrics = METRICS[lang];
+  // Malay has no metric copy of its own yet: it reads the English figures.
+  const metrics = METRICS[lang === "ar" ? "ar" : "en"];
   const reduceMotion = useReducedMotion();
   return (
     <div className="flex flex-col gap-2">

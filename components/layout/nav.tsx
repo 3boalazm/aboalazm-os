@@ -15,7 +15,8 @@ import Link from "@/components/ui/localized-link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
-import { useLang } from "@/components/providers/lang-provider";
+import { useLang, type Lang } from "@/components/providers/lang-provider";
+import { LOCALE_CYCLE } from "@/lib/locale";
 import { useTheme } from "@/components/providers/theme-provider";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -47,6 +48,28 @@ const MORE = [
   { href: "/portfolio", en: "PORTFOLIO PDF ↓", ar: "بورتفوليو PDF ↓" },
 ] as const;
 
+/* Malay labels, keyed by destination. Kept beside the bilingual links so a
+   route's name is changed in one place. */
+const NAV_MS: Record<string, string> = {
+  "/work": "KERJA",
+  "/services": "PERKHIDMATAN",
+  "/pricing": "HARGA",
+  "/process": "PROSES",
+  "/writing": "PENULISAN",
+  "/about": "TENTANG",
+  "/developer": "PEMBANGUN",
+  "/for-hiring": "UNTUK PENGAMBILAN",
+  "/books": "PERPUSTAKAAN",
+  "/labs": "MAKMAL",
+  "/portfolio": "PORTFOLIO PDF ↓",
+};
+
+function navLabel(link: { href: string; en: string; ar: string }, lang: Lang): string {
+  if (lang === "ar") return link.ar;
+  if (lang === "ms") return NAV_MS[link.href] ?? link.en;
+  return link.en;
+}
+
 /* Exact match or a child route — a bare startsWith made /work claim /work-ui */
 const isActive = (pathname: string, href: string) =>
   pathname === href || pathname.startsWith(href + "/");
@@ -66,6 +89,7 @@ export function Nav() {
   const t = useT();
   const pathname = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
   const { lang, toggle } = useLang();
+  const nextLang = LOCALE_CYCLE[(LOCALE_CYCLE.indexOf(lang) + 1) % LOCALE_CYCLE.length];
   const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -186,7 +210,7 @@ export function Nav() {
                       : "text-text-tertiary hover:text-text-secondary",
                   ].join(" ")}
                 >
-                  {lang === "ar" ? link.ar : link.en}
+                  {navLabel(link, lang)}
                   <span className="absolute inset-x-1 -bottom-px h-px origin-left rtl:origin-right scale-x-0 bg-accent transition-transform duration-slow ease-physics group-hover:scale-x-100" />
                 </Link>
                 {active && (
@@ -206,14 +230,19 @@ export function Nav() {
             same circle now. It used to be a content-width `px-2 py-1` pill,
             so next to the theme's fixed square it rendered as an oval — the
             two controls read as different families in the bar. */}
+        {/* Language flip — cycles en → ar → ms. The button names the locale it switches to. */}
         <button
           type="button"
           onClick={toggle}
-          aria-label={lang === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-          lang={lang === "ar" ? "en" : "ar"}
+          aria-label={
+            nextLang === "ar" ? "التبديل إلى العربية" : nextLang === "ms" ? "Tukar ke Bahasa Melayu" : "Switch to English"
+          }
+          lang={nextLang}
           className={`${NAV_CONTROL} font-mono text-caption leading-none`}
         >
-          {lang === "ar" ? (
+          {nextLang === "ms" ? (
+            "MS"
+          ) : nextLang === "en" ? (
             "EN"
           ) : (
             /* ع (U+0639) from Thmanyah Serif Display Medium, drawn as a path:
@@ -243,7 +272,9 @@ export function Nav() {
           aria-label={
             lang === "ar"
               ? theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن"
-              : theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+              : lang === "ms"
+                ? theme === "dark" ? "Tukar ke mod cerah" : "Tukar ke mod gelap"
+                : theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
           }
           className={`${NAV_CONTROL} max-[359px]:hidden`}
         >
@@ -254,7 +285,7 @@ export function Nav() {
           href="/contact"
           /* The visible label changes with the width ("DISCUSS A PROJECT" / "PROJECT"); the name does not.
              It still contains the visible word, so voice control by what is on screen keeps working. */
-          aria-label={lang === "ar" ? undefined : "Book a discovery call"}
+          aria-label={lang === "ar" ? undefined : lang === "ms" ? "Tempah panggilan penemuan" : "Book a discovery call"}
           className={buttonVariants({
             className:
               "group shrink-0 whitespace-nowrap px-2 py-1 font-display font-display-sm text-caption tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
@@ -263,7 +294,7 @@ export function Nav() {
           {/* Discovery first (2026-11): the nav's only CTA opens a conversation,
               not a payment page. Same label discipline as before — the visible
               words change with width, the accessible name does not. */}
-          <span className="sm:hidden ltr:lg:max-xl:inline">{lang === "ar" ? "ابدأ" : "START"}</span><span className="hidden sm:inline ltr:lg:max-xl:hidden">{lang === "ar" ? "احجز مكالمة" : "BOOK A CALL"}</span>
+          <span className="sm:hidden ltr:lg:max-xl:inline">{lang === "ar" ? "ابدأ" : lang === "ms" ? "MULA" : "START"}</span><span className="hidden sm:inline ltr:lg:max-xl:hidden">{lang === "ar" ? "احجز مكالمة" : lang === "ms" ? "TEMPAH PANGGILAN" : "BOOK A CALL"}</span>
           <span
             aria-hidden
             className="ms-0.5 hidden transition-transform duration-base ease-physics group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 sm:inline-flex ltr:lg:max-xl:hidden"
@@ -278,7 +309,7 @@ export function Nav() {
           type="button"
           aria-expanded={open}
           aria-controls="mobile-menu"
-          aria-label={open ? (lang === "ar" ? "إغلاق القائمة" : "Close menu") : (lang === "ar" ? "فتح القائمة" : "Open menu")}
+          aria-label={open ? (lang === "ar" ? "إغلاق القائمة" : lang === "ms" ? "Tutup menu" : "Close menu") : (lang === "ar" ? "فتح القائمة" : lang === "ms" ? "Buka menu" : "Open menu")}
           lang={lang === "ar" ? "en" : undefined}
           onClick={() => setOpen((v) => !v)}
           className="grid size-6 shrink-0 place-items-center rounded-pill font-mono sm:size-8 text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary lg:hidden"
@@ -320,7 +351,7 @@ export function Nav() {
                     ].join(" ")}
                   >
                     {(() => {
-                      const label = lang === "ar" ? link.ar : link.en;
+                      const label = navLabel(link, lang);
                       const download = label.endsWith("↓");
                       return (
                         <>

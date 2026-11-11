@@ -1,4 +1,5 @@
 "use client";
+import type { Locale } from "@/lib/locale";
 import { localeHref } from "@/lib/locale";
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
@@ -27,7 +28,7 @@ interface PostDetail {
   title: string;
   standfirst: string;
   publishedAt: string;
-  lang?: "en" | "ar";
+  lang?: Locale;
   topics?: string[];
   body: unknown;
 }

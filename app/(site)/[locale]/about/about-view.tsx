@@ -43,15 +43,22 @@ const TIMELINE = {
 
 const FACTS = {
   en: [
-    ["CURRENT STATUS", "Taking on selected brand identity projects | Gulf / Remote"],
-    ["BASED", "Al Obour, Egypt — open to the Gulf & remote"],
+    ["CURRENT STATUS", "Taking on selected brand identity projects | Malaysia / Gulf / Remote"],
+    ["BASED", "Al Obour, Egypt — open to Malaysia, the Gulf & remote"],
     ["LANGUAGES", "Arabic (Native) · English (Full professional — client work & delivery in both)"],
     ["EDUCATION", "B.Sc. — Al-Azhar University · 2017–2024"],
     ["TRAINING", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
   ],
+  ms: [
+    ["STATUS SEMASA", "Menerima projek identiti jenama terpilih | Malaysia / Gulf / Remote"],
+    ["LOKASI", "Al Obour, Mesir — terbuka kepada Malaysia, Teluk & jarak jauh"],
+    ["BAHASA", "Arab (Asli) · Inggeris (Profesional penuh — kerja klien & penyerahan dalam kedua-dua bahasa)"],
+    ["PENDIDIKAN", "B.Sc. — Universiti Al-Azhar · 2017–2024"],
+    ["LATIHAN", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
+  ],
   ar: [
-    ["الوضع الحالي", "أستقبل مشروعات مختارة في الهوية البصرية | الخليج / عن بُعد"],
-    ["الموقع", "العبور، مصر — متاح للرياض والعمل عن بُعد"],
+    ["الوضع الحالي", "أستقبل مشروعات مختارة في الهوية البصرية | ماليزيا / الخليج / عن بُعد"],
+    ["الموقع", "العبور، مصر — متاح لماليزيا والخليج والعمل عن بُعد"],
     ["اللغات", "العربية (أصيل) · الإنجليزية (مهني كامل — عملاء وتسليم باللغتين)"],
     ["التعليم", "بكالوريوس — جامعة الأزهر · 2017–2024"],
     ["التدريب", "MSP · يوث سكوب · AYB · بداية · رسالة"],
@@ -64,7 +71,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
   const t = useT();
   const doctrine = ar ? DOCTRINE.ar : DOCTRINE.en;
   const timeline = ar ? TIMELINE.ar : TIMELINE.en;
-  const facts = ar ? FACTS.ar : FACTS.en;
+  const facts = ar ? FACTS.ar : lang === "ms" ? FACTS.ms : FACTS.en;
 
   return (
     <main className="container-content flex flex-col gap-8 pb-6">
@@ -102,13 +109,13 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
             download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="inline-flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5"
           >
-            <>{ar ? "تحميل السيرة الذاتية (Word)" : "Download CV (Word)"} <Icon name="arrow-down" /></>
+            <>{ar ? "تحميل السيرة الذاتية (Word)" : lang === "ms" ? "Muat turun CV (Word)" : "Download CV (Word)"} <Icon name="arrow-down" /></>
           </a>
           <Link
             href="/for-hiring"
             className="inline-flex w-fit items-center gap-2 rounded-pill border border-border-default px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-primary transition-colors duration-fast ease-physics hover:border-accent hover:text-accent"
           >
-            <>{ar ? "ملف المرشح للشركات والتوظيف" : "For Hiring Teams Dossier"} <Icon name="arrow-right" /></>
+            <>{ar ? "ملف المرشح للشركات والتوظيف" : lang === "ms" ? "Dosier untuk Pasukan Pengambilan" : "For Hiring Teams Dossier"} <Icon name="arrow-right" /></>
           </Link>
         </div>
       </header>
@@ -130,7 +137,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
 
       {/* Operating model — answers "is this a studio or one person?" before the
           career timeline can leave the question open (2026-11 repositioning). */}
-      <section aria-label={ar ? "نموذج الاستوديو" : "Studio model"}>
+      <section aria-label={ar ? "نموذج الاستوديو" : lang === "ms" ? "Model studio" : "Studio model"}>
         <StudioModelBand />
       </section>
 
