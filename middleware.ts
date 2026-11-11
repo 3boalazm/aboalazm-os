@@ -5,6 +5,10 @@ const articleSlugs = new Set(WRITING_POSTS.map((post) => post.slug));
 export function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
   const path = url.pathname;
+  // /studio is its own root document (app/studio/layout.tsx), exactly like
+  // /admin. Without this guard every console URL fell through to the locale
+  // rewrite below and became /en/studio → 404.
+  if (path === "/studio" || path.startsWith("/studio/")) return NextResponse.next();
   // The unprefixed English request is rewritten to this internal segment.
   // Let it resolve directly: redirecting it back creates a rewrite/redirect loop.
   // Every English page declares its original, unprefixed canonical address.
@@ -28,5 +32,5 @@ export function middleware(request: NextRequest) {
   return NextResponse.rewrite(url);
 }
 export const config = {
-  matcher: ["/((?!api(?:/|$)|admin(?:/|$)|_next/|fonts/|images/|icons/|showcase/|cv(?:/|$)|portfolio(?:/|$)|.*\\.[a-zA-Z0-9]+$).*)"],
+  matcher: ["/((?!api(?:/|$)|admin(?:/|$)|studio(?:/|$)|_next/|fonts/|images/|icons/|showcase/|cv(?:/|$)|portfolio(?:/|$)|.*\\.[a-zA-Z0-9]+$).*)"],
 };

@@ -9,3 +9,6 @@ build
 .env.*.local
 .DS_Store
 *.tsbuildinfo
+
+# Local studio verification harness artefacts
+.env.studio

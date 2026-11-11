@@ -137,7 +137,14 @@ export default buildConfig({
     // Schema push is a local-development convenience only. Preview and
     // Production must use reviewed migrations and must never mutate the
     // shared database during a build or a diagnostic script.
-    push: process.env.NODE_ENV === "development",
+    //
+    // PAYLOAD_DISABLE_PUSH=1 opts out while still running under NODE_ENV=dev.
+    // It exists because the push generator cannot currently build this schema
+    // from scratch: `projects.status` and Payload's own `_status` are mapped to
+    // the same enum name, so every fresh push fails on a value-set collision
+    // (see docs/studio/03_SCHEMA_FINDINGS.md). Migrations are applied instead,
+    // and this flag lets a dev server read that migrated database.
+    push: process.env.NODE_ENV === "development" && process.env.PAYLOAD_DISABLE_PUSH !== "1",
     pool: {
       connectionString: process.env.DATABASE_URI || "",
     },

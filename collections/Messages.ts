@@ -65,7 +65,20 @@ export const Messages: CollectionConfig = {
     },
     { type: "row", fields: [
       { name: "sourcePage", type: "text", maxLength: 160, index: true, admin: { width: "60%", description: "Sanitized local page path, e.g. /services/brand-identity." } },
-      { name: "locale", type: "select", options: [{ label: "English", value: "en" }, { label: "Arabic", value: "ar" }], admin: { width: "40%" } },
+      /* Must list every live locale: an enquiry submitted from /ms used to fail
+         at the database with "invalid input value for enum
+         enum_messages_locale", because the select still only offered en/ar.
+         lib/studio/studio.test.ts fails if this drifts from LOCALES again. */
+      {
+        name: "locale",
+        type: "select",
+        options: [
+          { label: "English", value: "en" },
+          { label: "Arabic", value: "ar" },
+          { label: "Malay", value: "ms" },
+        ],
+        admin: { width: "40%" },
+      },
     ] },
     { type: "row", fields: [
       { name: "utmSource", type: "text", maxLength: 80, index: true, admin: { width: "33%", description: "Campaign ID only; no URL or visitor data." } },
