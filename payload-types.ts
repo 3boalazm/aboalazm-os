@@ -452,7 +452,7 @@ export interface TeamMember {
   createdAt: string;
 }
 /**
- * Commission briefs from the /contact form — newest first. Also emailed to the studio inbox.
+ * Project enquiries from /contact. Filter by service, source page or campaign, then update Lead stage as an enquiry qualifies, reaches proposal or closes.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "messages".
@@ -463,22 +463,40 @@ export interface Message {
   email: string;
   company?: string | null;
   /**
-   * What are we building — the client's own words.
+   * Service, package, source and campaign context followed by the client brief.
    */
   brief: string;
-  timeline?: string | null;
-  budget?: ('< $1K' | '$1–3K' | '$3–8K' | '$8K+') | null;
   service?: ('brand-identity' | 'website' | 'digital-product' | 'brand-support' | 'not-sure') | null;
   packageTier?: ('logo-design' | 'brand-identity' | 'full-brand-system') | null;
+  /**
+   * Sanitized local page path, e.g. /services/brand-identity.
+   */
   sourcePage?: string | null;
-  locale?: ('en' | 'ar') | null;
+  locale?: ('en' | 'ar' | 'ms') | null;
+  /**
+   * Campaign ID only; no URL or visitor data.
+   */
   utmSource?: string | null;
   utmMedium?: string | null;
   utmCampaign?: string | null;
+  /**
+   * Update manually after reviewing the actual conversation.
+   */
   leadStage?: ('new' | 'qualified' | 'proposal-sent' | 'won' | 'lost' | 'not-a-fit') | null;
+  /**
+   * Optional when marking a lead Lost or Not a fit.
+   */
   closedReason?: ('budget' | 'timing' | 'scope' | 'no-response' | 'other') | null;
+  /**
+   * Quoted amount in USD; fill only after sending a real proposal.
+   */
   proposalValue?: number | null;
+  /**
+   * Actual contracted amount in USD; fill only after the deal is won.
+   */
   wonValue?: number | null;
+  timeline?: string | null;
+  budget?: ('< $1K' | '$1–3K' | '$3–8K' | '$8K+') | null;
   isRead?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -821,8 +839,6 @@ export interface MessagesSelect<T extends boolean = true> {
   email?: T;
   company?: T;
   brief?: T;
-  timeline?: T;
-  budget?: T;
   service?: T;
   packageTier?: T;
   sourcePage?: T;
@@ -834,6 +850,8 @@ export interface MessagesSelect<T extends boolean = true> {
   closedReason?: T;
   proposalValue?: T;
   wonValue?: T;
+  timeline?: T;
+  budget?: T;
   isRead?: T;
   updatedAt?: T;
   createdAt?: T;
