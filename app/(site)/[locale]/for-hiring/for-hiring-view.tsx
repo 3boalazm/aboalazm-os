@@ -276,7 +276,7 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="live" size="md">
             <span className="size-2 rounded-pill bg-success animate-pulse" />
-            {ar ? "متاح للتوظيف | ماليزيا أو الخليج أو عن بُعد" : lang === "ms" ? "TERSEDIA | MALAYSIA, TELUK ATAU JARAK JAUH" : "AVAILABLE | MALAYSIA, GULF OR REMOTE"}
+            {ar ? "متاح للتوظيف | ماليزيا أو الخليج أو عن بُعد" : lang === "ms" ? "TERSEDIA | MALAYSIA, TELUK ATAU JARAK JAUH" : "AVAILABLE | GULF OR REMOTE"}
           </Badge>
           <span className="font-mono text-micro uppercase tracking-wider text-text-ghost">
             {ar ? "ملف المرشح المخصص لفرق التوظيف" : lang === "ms" ? "DOSIER CALON // UNTUK PASUKAN PENGAMBILAN" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
@@ -356,7 +356,7 @@ export function ForHiringView() {
           [ar ? "سنوات الممارسة" : lang === "ms" ? "PENGALAMAN KERJA" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
           [ar ? "أنظمة تم تسليمها" : lang === "ms" ? "SISTEM IDENTITI DISERAHKAN" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "دواء، صحة، غذاء، تعليم، حكومة" : lang === "ms" ? "Penjagaan kesihatan, farmaseutikal, pendidikan, kerajaan" : "Healthcare, pharma, education, government"],
           [ar ? "التخصص اللغوي" : lang === "ms" ? "KEMAHIRAN DWIBAHASA" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "حرفة أصلية متكافئة" : lang === "ms" ? "Kesetaraan tipografi asli" : "Native typographic parity"],
-          [ar ? "الموقع والجاهزية" : lang === "ms" ? "LOKASI & STATUS" : "LOCATION & STATUS", "Malaysia / Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا، السعودية، الإمارات، قطر) أو عن بُعد" : lang === "ms" ? "Terbuka untuk berpindah (Malaysia, Arab Saudi, UAE, Qatar) atau jarak jauh" : "Open to relocation (Malaysia, Saudi Arabia, UAE, Qatar) or remote"],
+          [ar ? "الموقع والجاهزية" : lang === "ms" ? "LOKASI & STATUS" : "LOCATION & STATUS", ar || lang === "ms" ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا، السعودية، الإمارات، قطر) أو عن بُعد" : lang === "ms" ? "Terbuka untuk berpindah (Malaysia, Arab Saudi, UAE, Qatar) atau jarak jauh" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
         ].map(([label, val, sub]) => (
           <div key={label} className="flex flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost">{label}</dt>

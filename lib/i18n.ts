@@ -130,9 +130,9 @@ export const UI = {
     heroForHiringHint:  "Hiring a Brand Identity Designer? Explore candidate brief & roles",
     heroClientTrackHint:"Looking for studio branding? Explore services & transparent pricing",
     heroConstellationAria: "System constellation: brand compiles into tokens, tokens into components, components into pages, pages into experience",
-    heroStatusOpen:     "OPEN TO BRAND IDENTITY DESIGNER ROLES · MALAYSIA / GULF / REMOTE",
+    heroStatusOpen:     "OPEN TO BRAND IDENTITY DESIGNER ROLES · GULF / REMOTE",
     heroYear:           "2026",
-    heroCoords:         "AL OBOUR · CAIRO / MALAYSIA / GULF / REMOTE · SELECT PROJECTS & SENIOR ROLES",
+    heroCoords:         "AL OBOUR · CAIRO / GULF / REMOTE · SELECT PROJECTS & SENIOR ROLES",
     /* ── Token Playground ── */
     playgroundTheme:    "Theme mode",
     /* ── Nav ── */
