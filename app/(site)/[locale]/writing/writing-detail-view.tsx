@@ -116,7 +116,7 @@ function BackToTop() {
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" })}
       aria-label="Back to top"
-      className="fixed bottom-6 z-40 border border-border-subtle bg-surface-1 px-3 py-2 font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary transition-colors duration-base hover:border-accent hover:text-accent ltr:right-6 rtl:left-6"
+      className="fixed bottom-[calc(var(--os-tray-offset)+0.5rem)] z-40 border border-border-subtle bg-surface-1 px-3 py-2 font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary transition-colors duration-base hover:border-accent hover:text-accent ltr:right-6 rtl:left-6"
     >
       <span className="inline-flex items-center gap-1">
         <Icon name="arrow-up" /> TOP

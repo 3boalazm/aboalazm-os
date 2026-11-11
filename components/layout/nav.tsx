@@ -16,7 +16,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang, type Lang } from "@/components/providers/lang-provider";
-import { LOCALE_CYCLE } from "@/lib/locale";
+import { localeHref, type Locale } from "@/lib/locale";
 import { useTheme } from "@/components/providers/theme-provider";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -64,6 +64,15 @@ const NAV_MS: Record<string, string> = {
   "/portfolio": "PORTFOLIO PDF ↓",
 };
 
+/* The header's language menu. Each language is named in its own script — the
+   point is that a first-time visitor recognises theirs without knowing ours —
+   with the Latin name as a second, quiet line for everyone else. */
+const NAV_LANGUAGES: readonly { locale: Locale; name: string; latin: string }[] = [
+  { locale: "en", name: "English", latin: "EN" },
+  { locale: "ar", name: "العربية", latin: "AR" },
+  { locale: "ms", name: "Bahasa Melayu", latin: "MS" },
+];
+
 function navLabel(link: { href: string; en: string; ar: string }, lang: Lang): string {
   if (lang === "ar") return link.ar;
   if (lang === "ms") return NAV_MS[link.href] ?? link.en;
@@ -88,14 +97,15 @@ const NAV_CONTROL =
 export function Nav() {
   const t = useT();
   const pathname = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
-  const { lang, toggle } = useLang();
-  const nextLang = LOCALE_CYCLE[(LOCALE_CYCLE.indexOf(lang) + 1) % LOCALE_CYCLE.length];
+  const { lang, setLang } = useLang();
   const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [langMenu, setLangMenu] = useState(false);
   const reduceMotion = useReducedMotion();
   const navRef = useRef<HTMLElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const langMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 64);
@@ -104,8 +114,11 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close the mobile panel on route change */
-  useEffect(() => setOpen(false), [pathname]);
+  /* Close the mobile panel and the language menu on route change */
+  useEffect(() => {
+    setOpen(false);
+    setLangMenu(false);
+  }, [pathname]);
 
   /* Close the panel and park focus on its trigger: the panel unmounts
      under whatever link was focused, which would drop focus to <body>. */
@@ -113,6 +126,24 @@ export function Nav() {
     setOpen(false);
     menuButtonRef.current?.focus();
   };
+
+  /* The language menu borrows the mobile panel's manners: Escape closes it,
+     and so does a press anywhere outside it. */
+  useEffect(() => {
+    if (!langMenu) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLangMenu(false);
+    };
+    const onPointerDown = (e: PointerEvent) => {
+      if (!langMenuRef.current?.contains(e.target as Node)) setLangMenu(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, [langMenu]);
 
   /* While the panel is open: Escape closes it (focus back on the trigger)
      and so does a press anywhere outside the nav. */
@@ -225,45 +256,87 @@ export function Nav() {
           })}
         </ul>
 
-        {/* Language flip — the AR/EN switch.
-            Shares NAV_CONTROL with the theme flip below: both are the exact
-            same circle now. It used to be a content-width `px-2 py-1` pill,
-            so next to the theme's fixed square it rendered as an oval — the
-            two controls read as different families in the bar. */}
-        {/* Language flip — cycles en → ar → ms. The button names the locale it switches to. */}
-        <button
-          type="button"
-          onClick={toggle}
-          aria-label={
-            nextLang === "ar" ? "التبديل إلى العربية" : nextLang === "ms" ? "Tukar ke Bahasa Melayu" : "Switch to English"
-          }
-          lang={nextLang}
-          className={`${NAV_CONTROL} font-mono text-caption leading-none`}
-        >
-          {nextLang === "ms" ? (
-            "MS"
-          ) : nextLang === "en" ? (
-            "EN"
-          ) : (
-            /* ع (U+0639) from Thmanyah Serif Display Medium, drawn as a path:
-               as text it made every English page download the 249 KB
-               thmanyahserifdisplay-Medium.otf for this one glyph. Box = the
-               glyph's advance width (0.477em) by its ink height (0.884em) at
-               1rem. The ink may overhang the advance, as it did as text; the
-               margins keep the old span's line box (14px above the baseline,
-               none of the 4.7px descender counted) so the button keeps its
-               height and the glyph its position; align-baseline undoes
-               preflight's vertical-align:middle on svg. */
-            <svg
-              aria-hidden
-              focusable="false"
-              viewBox="0 -588 477 884"
-              className="h-[0.95rem] w-[0.512rem] overflow-visible fill-current"
-            >
-              <path d="M452-323L443-332L354-310C315-300 279-296 246-296C138-296 67-342 67-390C67-429 133-460 210-460C279-460 349-436 385-412L395-420C369-535 301-588 233-588C146-588 54-502 54-379C54-299 94-237 174-201C106-143 25-68 25 60C25 229 165 296 295 296L535 177L535 162L320 162C181 162 43 121 43 38C43-64 252-166 388-198L419-205Z" />
-            </svg>
-          )}
-        </button>
+        {/* Language — all three, always visible.
+            This was a single button that cycled en → ar → ms, so the header
+            could only ever announce ONE language: Malay, the locale the
+            Malaysia-facing positioning is written for, was two guesses away
+            and nobody found it. The control now opens a menu that names each
+            language in its own script, marks the current one, and stays a
+            single NAV_CONTROL-sized circle in the bar.
+
+            Latin short codes deliberately: a ع glyph here would make every
+            English page fetch the 42 KB Arabic subset for one letter (the
+            same trap that forced the old ع to be drawn as a path). */}
+        <div className="relative" ref={langMenuRef}>
+          <button
+            type="button"
+            onClick={() => setLangMenu((open) => !open)}
+            aria-label={
+              lang === "ar" ? "تغيير اللغة" : lang === "ms" ? "Tukar bahasa" : "Change language"
+            }
+            aria-expanded={langMenu}
+            aria-controls={langMenu ? "nav-language-menu" : undefined}
+            className={`${NAV_CONTROL} relative font-mono text-caption leading-none`}
+          >
+            {lang === "en" ? "EN" : lang === "ar" ? "AR" : "MS"}
+            {/* The dot is the affordance: a bare two letters in a circle reads
+                as a label, not a menu. */}
+            <span aria-hidden className="absolute -bottom-0.5 left-1/2 size-1 -translate-x-1/2 rounded-pill bg-accent" />
+          </button>
+
+          <AnimatePresence>
+            {langMenu && (
+              <motion.div
+                id="nav-language-menu"
+                role="group"
+                aria-label={lang === "ar" ? "لغات النظام" : lang === "ms" ? "Bahasa sistem" : "System languages"}
+                initial={reduceMotion ? false : { opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6, transition: { duration: 0.16 } }}
+                transition={physics}
+                /* Not `.glass`: the menu opens over the hero, and a 62%
+                   translucent panel let the headline read straight through the
+                   language names. Surface-3 is the popover token. */
+                className="absolute end-0 top-[calc(100%+0.75rem)] w-60 origin-top overflow-hidden rounded-card border border-border-default bg-surface-3 p-1 shadow-panel"
+              >
+                <p className="px-2 pb-1 pt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-text-ghost">
+                  {lang === "ar" ? "لغات النظام" : lang === "ms" ? "Bahasa sistem" : "System languages"}
+                </p>
+                {NAV_LANGUAGES.map((entry) => {
+                  const current = entry.locale === lang;
+                  return (
+                    <Link
+                      key={entry.locale}
+                      href={localeHref(pathname || "/", entry.locale)}
+                      onClick={(event) => {
+                        setLangMenu(false);
+                        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+                        event.preventDefault();
+                        setLang(entry.locale);
+                      }}
+                      hrefLang={entry.locale}
+                      lang={entry.locale}
+                      aria-current={current ? "true" : undefined}
+                      className={[
+                        "flex items-center justify-between gap-3 rounded-card px-2 py-1.5 transition-colors duration-base ease-physics",
+                        current ? "bg-accent-14 text-text-primary" : "text-text-secondary hover:bg-surface-2 hover:text-text-primary",
+                      ].join(" ")}
+                    >
+                      <span className="flex flex-col">
+                        {/* Arabic never inherits the Latin body stack: Montserrat
+                            has no Arabic glyphs, so the name would land in
+                            whichever system face the device happens to own. */}
+                        <span className="text-body-sm leading-tight">{entry.name}</span>
+                        <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-text-ghost">{entry.latin}</span>
+                      </span>
+                      {current ? <Icon name="check" size={14} className="text-accent" /> : null}
+                    </Link>
+                  );
+                })}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Theme flip — Obsidian (dark) / Alabaster (light) */}
         <button
@@ -366,6 +439,39 @@ export function Nav() {
                 </motion.li>
               );
             })}
+            {/* Languages, spelled out. The bar's circle opens the same menu,
+                but on a phone the panel is where the visitor is already
+                reading a list of destinations — naming the three locales here
+                is what makes the site read as trilingual at first sight. */}
+            <li className="mt-1 border-t border-border-subtle pt-1.5">
+              <p className="px-2 pb-1 font-mono text-[11px] uppercase tracking-[0.12em] text-text-ghost">
+                {lang === "ar" ? "لغات النظام" : lang === "ms" ? "Bahasa sistem" : "System languages"}
+              </p>
+              <div className="flex flex-wrap gap-1 px-1">
+                {NAV_LANGUAGES.map((entry) => {
+                  const current = entry.locale === lang;
+                  return (
+                    <Link
+                      key={entry.locale}
+                      href={localeHref(pathname || "/", entry.locale)}
+                      onClick={closePanel}
+                      hrefLang={entry.locale}
+                      lang={entry.locale}
+                      aria-current={current ? "true" : undefined}
+                      className={[
+                        "inline-flex items-center gap-1 rounded-pill border px-2 py-1 font-mono text-[12px] leading-none transition-colors duration-base ease-physics",
+                        current
+                          ? "border-accent bg-accent-14 text-text-primary"
+                          : "border-border-subtle text-text-tertiary hover:border-border-strong hover:text-text-primary",
+                      ].join(" ")}
+                    >
+                      {entry.name}
+                      {current ? <Icon name="check" size={11} className="text-accent" /> : null}
+                    </Link>
+                  );
+                })}
+              </div>
+            </li>
             {/* The bar hides its theme toggle below 360px (no room), so the
                 panel carries it there. */}
             <li className="hidden border-t border-border-subtle pt-1 max-[359px]:block">

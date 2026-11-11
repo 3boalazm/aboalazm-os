@@ -6,6 +6,7 @@ import { pickHeroWall } from "@/features/hero/hero-wall-data";
 import { getProjects, getPosts } from "@/lib/content";
 import { AboutTeaser, HomeCta, ClientJourneyBand, HomeFaq } from "@/features/home/home-bands";
 import { StatementBand } from "@/features/home/statement-band";
+import { LanguageBand } from "@/features/home/language-band";
 import { ServicesSnapshot } from "@/features/home/services-snapshot";
 import { InsightsTeaser } from "@/features/home/insights-teaser";
 import { FeaturedCases } from "@/features/work/featured-cases";
@@ -33,8 +34,8 @@ const pageMetadata: Metadata = {
  *
  *   Hero (who you're buying) → 01 What we do (three disciplines) →
  *   02 Proof — brand → 03 Proof — digital → Statement → 04 How the studio
- *   runs → 05 The offer → 06 Method → 07 Practice → 08 How to start →
- *   09 Thinking → 10 FAQ → 11 Next
+ *   runs → 05 The offer → 06 Method → 07 Practice → 08 Languages (the three
+ *   authored scripts) → 09 How to start → 10 Thinking → 11 FAQ → 12 Next
  *
  * Two changes from the previous order matter commercially:
  *   · "What we do" now precedes the work, so the work is read as evidence of a
@@ -143,10 +144,24 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      {/* 08 · How to start — one funnel, stated before the FAQ */}
+      {/* 08 · The three languages this OS is authored in.
+          Placed right after Practice: the visitor has just read who the studio
+          is, and "it exists in Arabic and Malay too" is part of who it is. It
+          also repairs a real discoverability bug — the header used to cycle
+          languages behind one button, so /ms was unreachable for anyone who
+          did not guess twice. Its marker takes the slot the funnel steps down
+          from, so the narrative stays one continuous count. */}
+      <section className="narrative-section narrative-section--about">
+        <div className="container-wide">
+          <SectionMarker index="08" label="LANGUAGES / THREE SCRIPTS" labelAr="اللغات / ثلاث كتابات" />
+        </div>
+        <LanguageBand />
+      </section>
+
+      {/* 09 · How to start — one funnel, stated before the FAQ */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="08" label="NEXT / HOW TO START" labelAr="التالي / كيف تبدأ" />
+          <SectionMarker index="09" label="NEXT / HOW TO START" labelAr="التالي / كيف تبدأ" />
         </div>
         <div className="container-wide">
           <ScrollReveal>
@@ -155,30 +170,30 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 09 · The thinking — journal teaser inside the funnel */}
+      {/* 10 · The thinking — journal teaser inside the funnel */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="09" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
+          <SectionMarker index="10" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
         </div>
         <div className="container-wide">
           <InsightsTeaser posts={posts} />
         </div>
       </section>
 
-      {/* 10 · FAQ / objection handling */}
+      {/* 11 · FAQ / objection handling */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="10" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
+          <SectionMarker index="11" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
         </div>
         <ScrollReveal>
           <HomeFaq />
         </ScrollReveal>
       </section>
 
-      {/* 11 · One canonical next step */}
+      {/* 12 · One canonical next step */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="11" label="NEXT / START" labelAr="التالي / ابدأ" />
+          <SectionMarker index="12" label="NEXT / START" labelAr="التالي / ابدأ" />
         </div>
         <ScrollReveal>
           <HomeCta />
