@@ -393,7 +393,7 @@ export function ProcessView() {
       <section id="gates" className="chapter-b px-6 pb-6 pt-4 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
-            {ar ? "أربع موافقات كتابية. لا مفاجآت." : "Four written approvals. No surprises."}
+            {ar ? "أربع موافقات كتابية. لا مفاجآت." : lang === "ms" ? "Empat kelulusan bertulis. Tiada kejutan." : "Four written approvals. No surprises."}
           </p>
           <p className="hook-sub mb-6">
             {ar
@@ -408,10 +408,10 @@ export function ProcessView() {
       <section id="phases" className="chapter-a px-6 pb-8 pt-8 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
-            {ar ? "أربع مراحل واضحة. افتح أي واحدة." : "Four clear phases. Open any one."}
+            {ar ? "أربع مراحل واضحة. افتح أي واحدة." : lang === "ms" ? "Empat fasa yang jelas. Buka mana-mana satu." : "Four clear phases. Open any one."}
           </p>
           <p className="hook-sub mb-6">
-            {ar ? "التفاصيل مطوية عمدًا — اضغط على أي مرحلة لترى المهام والمخرجات الفعلية بداخلها." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
+            {ar ? "التفاصيل مطوية عمدًا — اضغط على أي مرحلة لترى المهام والمخرجات الفعلية بداخلها." : lang === "ms" ? "Butiran sengaja dilipat — klik mana-mana fasa untuk melihat tugas dan hasil kerja di dalamnya." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
           </p>
           <div className="relative flex flex-col">
             {/* connecting spine — centred on the nodes (half of their 11-unit width, minus half its own 1px) */}

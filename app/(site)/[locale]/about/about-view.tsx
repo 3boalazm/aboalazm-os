@@ -109,13 +109,13 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
             download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="inline-flex w-fit items-center gap-2 rounded-pill bg-accent px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-obsidian transition-transform duration-fast ease-physics hover:-translate-y-0.5"
           >
-            <>{ar ? "تحميل السيرة الذاتية (Word)" : "Download CV (Word)"} <Icon name="arrow-down" /></>
+            <>{ar ? "تحميل السيرة الذاتية (Word)" : lang === "ms" ? "Muat turun CV (Word)" : "Download CV (Word)"} <Icon name="arrow-down" /></>
           </a>
           <Link
             href="/for-hiring"
             className="inline-flex w-fit items-center gap-2 rounded-pill border border-border-default px-4 py-2 font-mono text-micro uppercase tracking-[0.08em] text-text-primary transition-colors duration-fast ease-physics hover:border-accent hover:text-accent"
           >
-            <>{ar ? "ملف المرشح للشركات والتوظيف" : "For Hiring Teams Dossier"} <Icon name="arrow-right" /></>
+            <>{ar ? "ملف المرشح للشركات والتوظيف" : lang === "ms" ? "Dosier untuk Pasukan Pengambilan" : "For Hiring Teams Dossier"} <Icon name="arrow-right" /></>
           </Link>
         </div>
       </header>
@@ -137,7 +137,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
 
       {/* Operating model — answers "is this a studio or one person?" before the
           career timeline can leave the question open (2026-11 repositioning). */}
-      <section aria-label={ar ? "نموذج الاستوديو" : "Studio model"}>
+      <section aria-label={ar ? "نموذج الاستوديو" : lang === "ms" ? "Model studio" : "Studio model"}>
         <StudioModelBand />
       </section>
 

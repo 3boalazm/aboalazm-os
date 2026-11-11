@@ -32,11 +32,11 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
     <main className="container-content flex flex-col gap-8 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
-          eyebrow={ar ? "الخدمات / التعاقد" : "SERVICES / ENGAGEMENT"}
+          eyebrow={ar ? "الخدمات / التعاقد" : lang === "ms" ? "PERKHIDMATAN / KONTRAK" : "SERVICES / ENGAGEMENT"}
           title={
             <>
-              {ar ? "استراتيجية، هوية، " : "Strategy, identity, "}
-              <em className="text-accent">{ar ? "أنظمة." : "systems."}</em>
+              {ar ? "استراتيجية، هوية، " : lang === "ms" ? "Strategi, identiti, " : "Strategy, identity, "}
+              <em className="text-accent">{ar ? "أنظمة." : lang === "ms" ? "sistem." : "systems."}</em>
             </>
           }
           subtitle={
@@ -55,7 +55,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
               className: "px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]} →
           </Link>
           <Link
             href="/services/store-72h"
@@ -65,7 +65,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
                 "border border-border-default px-3.5 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary hover:text-text-primary",
             })}
           >
-            {ar ? "متجر خلال 72 ساعة (من $197) →" : "72-Hour Store (From $197) →"}
+            {ar ? "متجر خلال 72 ساعة (من $197) →" : lang === "ms" ? "Kedai 72 jam (dari $197) →" : "72-Hour Store (From $197) →"}
           </Link>
         </div>
       </header>
@@ -79,7 +79,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         <DisciplinesBand highlight="brand" />
       </section>
 
-      <section aria-label={ar ? "قدرات مكملة" : "Applied capabilities"} className="flex flex-col gap-3 border-t border-border-subtle pt-5">
+      <section aria-label={ar ? "قدرات مكملة" : lang === "ms" ? "Keupayaan tambahan" : "Applied capabilities"} className="flex flex-col gap-3 border-t border-border-subtle pt-5">
         <SectionHead
           label={["02 / APPLIED CAPABILITIES", "02 / قدرات مكملة"]}
           title={["Useful beyond the", "قدرات مكملة،"]}
@@ -109,7 +109,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
             },
           ] as const).map((item) => (
             <article key={item.n} className="rounded-card border border-border-subtle bg-surface-1 p-3">
-              <p className="font-mono text-micro text-text-ghost">{item.n} / {ar ? "قدرات مكملة" : "APPLIED"}</p>
+              <p className="font-mono text-micro text-text-ghost">{item.n} / {ar ? "قدرات مكملة" : lang === "ms" ? "KEUPAYAAN" : "APPLIED"}</p>
               <h3 className="mt-2 font-display text-subtitle text-text-primary">{pick(item.title, lang)}</h3>
               <p className="mt-2 text-body-sm text-text-secondary">{pick(item.body, lang)}</p>
             </article>
@@ -130,7 +130,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           ))}
         </div>
         <Link href="/process" className="group mx-auto mt-1 flex w-fit items-center gap-2 font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-accent">
-          {ar ? "شوف المنهجية كاملة — 38 يوم بالتفصيل" : "See the full 38-day method, gate by gate"}
+          {ar ? "شوف المنهجية كاملة — 38 يوم بالتفصيل" : lang === "ms" ? "Lihat metodologi penuh 38 hari, pintu demi pintu" : "See the full 38-day method, gate by gate"}
           <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
       </section>
@@ -143,10 +143,10 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         </p>
         <div className="flex justify-center gap-2">
           <Link href="/pricing" className={buttonVariants({ className: "px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
-            <>{ar ? "التسعير التفصيلي" : "View Detailed Pricing"} <Icon name="sparkle" size="0.9em" /></>
+            <>{ar ? "التسعير التفصيلي" : lang === "ms" ? "Lihat Harga Terperinci" : "View Detailed Pricing"} <Icon name="sparkle" size="0.9em" /></>
           </Link>
           <Link href="/agreement" className={buttonVariants({ variant: "ghost", className: "glass px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
-            <>{ar ? "اقرأ الاتفاقية" : "Read Full Agreement"} <Icon name="arrow-right" /></>
+            <>{ar ? "اقرأ الاتفاقية" : lang === "ms" ? "Baca Perjanjian Penuh" : "Read Full Agreement"} <Icon name="arrow-right" /></>
           </Link>
         </div>
       </section>

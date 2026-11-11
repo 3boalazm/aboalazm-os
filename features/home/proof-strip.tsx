@@ -23,9 +23,10 @@ export function ProofStrip() {
   const { lang } = useLang();
   const ar = lang === "ar";
   const sectors = ar ? SECTORS_AR : SECTORS_EN;
+  const ms = lang === "ms";
   return (
     <section
-      aria-label={ar ? "إثبات الخبرة" : "Practice proof"}
+      aria-label={ar ? "إثبات الخبرة" : ms ? "Bukti pengalaman" : "Practice proof"}
       className="border-y border-border-subtle bg-surface-1/40"
     >
       <div className="container-wide flex flex-col gap-2 py-3 lg:flex-row lg:items-center lg:justify-between">
@@ -38,7 +39,7 @@ export function ProofStrip() {
             </div>
           ))}
         </dl>
-        <ul aria-label={ar ? "القطاعات" : "Sectors"} className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <ul aria-label={ar ? "القطاعات" : ms ? "Sektor" : "Sectors"} className="flex flex-wrap items-center gap-x-3 gap-y-1">
           {sectors.map((s, i) => (
             <li key={s} className="flex items-center gap-3 font-mono text-micro uppercase tracking-[0.12em] text-text-tertiary">
               {i > 0 && <Icon name="sparkle" size="0.7em" className="text-accent/70" />}

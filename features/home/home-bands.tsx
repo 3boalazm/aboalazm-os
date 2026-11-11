@@ -45,12 +45,12 @@ export function AboutTeaser() {
     <section className="container-content grid gap-8 py-6 lg:grid-cols-[7fr_5fr]">
       <div className="flex flex-col gap-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "01 / نبذة" : "01 / ABOUT"}
+          {ar ? "01 / نبذة" : lang === "ms" ? "01 / TENTANG" : "01 / ABOUT"}
         </p>
         <h2 className="font-display text-title tracking-[-0.015em]">
-          {ar ? "حِرفة بُنيت عبر " : "A craft built across "}
-          <em className="text-accent">{ar ? "الدوا، الغذاء، التعليم،" : "pharma, food, education,"}</em>
-          {ar ? " والحكومة." : " and government."}
+          {ar ? "حِرفة بُنيت عبر " : lang === "ms" ? "Kraf yang dibina merentasi " : "A craft built across "}
+          <em className="text-accent">{ar ? "الدوا، الغذاء، التعليم،" : lang === "ms" ? "farmaseutikal, makanan, pendidikan," : "pharma, food, education,"}</em>
+          {ar ? " والحكومة." : lang === "ms" ? " dan kerajaan." : " and government."}
         </h2>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
@@ -63,7 +63,7 @@ export function AboutTeaser() {
             : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Taking on select brand identity and digital product projects across Malaysia, the Gulf and remotely."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
-          {ar ? "اقرأ القصة كاملة" : "Read the about page"}
+          {ar ? "اقرأ القصة كاملة" : lang === "ms" ? "Baca halaman tentang" : "Read the about page"}
           <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
         {/* The skills that used to live in the scrolling marquee — static
@@ -71,9 +71,9 @@ export function AboutTeaser() {
             and repeated the same 8 words twice per row). */}
         <div className="mt-1 border-t border-border-subtle pt-3">
           <p className="mb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            {ar ? "التخصص الأساسي" : "CORE DISCIPLINES"}
+            {ar ? "التخصص الأساسي" : lang === "ms" ? "BIDANG UTAMA" : "CORE DISCIPLINES"}
           </p>
-          <ul aria-label={ar ? "التخصصات الأساسية" : "Core specialties"} className="flex flex-wrap gap-1.5">
+          <ul aria-label={ar ? "التخصصات الأساسية" : lang === "ms" ? "Bidang utama" : "Core specialties"} className="flex flex-wrap gap-1.5">
             {(ar ? SKILLS_AR : SKILLS).map((s) => (
               <li key={s} className="rounded-pill border border-border-default px-2 py-0.5 font-mono text-micro uppercase tracking-[0.08em] text-text-primary">
                 {s}
@@ -81,9 +81,9 @@ export function AboutTeaser() {
             ))}
           </ul>
           <p className="mb-2 mt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost max-sm:hidden">
-            {ar ? "قدرات مكملة — حسب احتياج المشروع" : "ADJACENT CAPABILITIES · WHEN USEFUL"}
+            {ar ? "قدرات مكملة — حسب احتياج المشروع" : lang === "ms" ? "KEUPAYAAN TAMBAHAN · MENGIKUT KEPERLUAN" : "ADJACENT CAPABILITIES · WHEN USEFUL"}
           </p>
-          <ul aria-label={ar ? "قدرات مكملة" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5 max-sm:hidden">
+          <ul aria-label={ar ? "قدرات مكملة" : lang === "ms" ? "Keupayaan tambahan" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5 max-sm:hidden">
             {(ar ? APPLIED_SKILLS_AR : APPLIED_SKILLS).map((s) => (
               <li key={s} className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro text-text-tertiary">
                 {s}
@@ -213,10 +213,10 @@ export function ClientJourneyBand() {
       <div className="container-content grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
         <div className="lg:sticky lg:top-24 lg:h-[calc(100vh-7rem)] lg:self-start lg:flex lg:flex-col lg:justify-center">
           <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">
-            {ar ? "HOW WE WORK" : "HOW WE WORK"}
+            {ar ? "HOW WE WORK" : lang === "ms" ? "CARA KAMI BEKERJA" : "HOW WE WORK"}
           </p>
           <h2 className="mt-3 max-w-[14ch] font-display text-[clamp(2.3rem,5vw,4.5rem)] leading-[0.95] tracking-[-0.035em] text-text-primary">
-            {ar ? <>من أول تواصل <em className="text-accent">لحد الإطلاق.</em></> : <>From first contact <em className="text-accent">to launch.</em></>}
+            {ar ? <>من أول تواصل <em className="text-accent">لحد الإطلاق.</em></> : lang === "ms" ? <>Dari hubungan pertama <em className="text-accent">ke pelancaran.</em></> : <>From first contact <em className="text-accent">to launch.</em></>}
           </h2>
           <p className="mt-5 max-w-[40ch] text-body-sm leading-[1.75] text-text-secondary">
             {ar
@@ -238,7 +238,7 @@ export function ClientJourneyBand() {
             ))}
           </div>
           <Link href="/process" className="mt-4 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary focus-visible:text-text-primary">
-            {ar ? "شوف المنهجية كاملة" : "See the full method"}
+            {ar ? "شوف المنهجية كاملة" : lang === "ms" ? "Lihat metodologi penuh" : "See the full method"}
             <span aria-hidden className="ms-1">→</span>
           </Link>
         </div>
@@ -274,7 +274,7 @@ export function ClientJourneyBand() {
                   <p className="mt-3 max-w-[48ch] text-body-lg leading-[1.7] text-text-secondary sm:mt-4">{step.short}</p>
                   <div className="mt-6 h-px w-full bg-border-subtle max-sm:hidden" />
                   <p className="mt-3 font-mono max-sm:hidden text-micro uppercase tracking-[0.08em] text-text-ghost">
-                    {ar ? `بوابة ${step.n}` : `Gate ${step.n}`}
+                    {ar ? `بوابة ${step.n}` : lang === "ms" ? `Pintu ${step.n}` : `Gate ${step.n}`}
                   </p>
                 </motion.div>
               </div>
@@ -306,15 +306,15 @@ export function WhyValueBand() {
     <section className="container-content rounded-panel border border-secondary-mist/20 bg-secondary-mist/[0.035] py-6 md:py-7">
       <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         <div className="flex flex-col gap-3">
-          <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{ar ? "لماذا هذا الأسلوب" : "WHY THIS APPROACH"}</p>
+          <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{ar ? "لماذا هذا الأسلوب" : lang === "ms" ? "MENGAPA PENDEKATAN INI" : "WHY THIS APPROACH"}</p>
           <h2 className="max-w-[18ch] font-display text-title tracking-[-0.02em]">
-            {ar ? <>مش مجرد هوية. <em className="text-accent">نظام يشتغل.</em></> : <>Not just an identity. <em className="text-accent">A system that works.</em></>}
+            {ar ? <>مش مجرد هوية. <em className="text-accent">نظام يشتغل.</em></> : lang === "ms" ? <>Bukan sekadar identiti. <em className="text-accent">Sistem yang berfungsi.</em></> : <>Not just an identity. <em className="text-accent">A system that works.</em></>}
           </h2>
           <p className="max-w-[46ch] text-body-sm text-text-secondary">
-            {ar ? "ثلاثة مبادئ بسيطة تلخّص طريقة الشغل قبل ما ندخل في التفاصيل." : "Three principles that explain the work before we get into the process."}
+            {ar ? "ثلاثة مبادئ بسيطة تلخّص طريقة الشغل قبل ما ندخل في التفاصيل." : lang === "ms" ? "Tiga prinsip ringkas yang menerangkan cara kerja sebelum kita masuk ke proses." : "Three principles that explain the work before we get into the process."}
           </p>
           <Link href="/why" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary focus-visible:text-text-primary">
-            {ar ? "ليه مصطفى؟" : "Why Mustafa"}
+            {ar ? "ليه مصطفى؟" : lang === "ms" ? "Kenapa Mustafa?" : "Why Mustafa"}
             <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
           </Link>
         </div>
@@ -371,8 +371,8 @@ export function HomeFaq() {
     <section className="container-content py-7 md:py-10">
       <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : "FAQ"}</p>
-          <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
+          <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : lang === "ms" ? "SOALAN LAZIM" : "FAQ"}</p>
+          <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
         </div>
         <div className="border-t border-border-subtle">
           {items.map(([q, a]) => (
