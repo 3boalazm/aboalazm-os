@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import type { Snapshot } from "@/lib/payload-schema-audit";
+import { migrations } from "@/migrations";
 
 /**
  * The release gate compares the live database to the snapshots listed in
@@ -158,4 +159,39 @@ test("the migration that widens the enum is idempotent", () => {
   assert.match(source, /ADD VALUE IF NOT EXISTS 'ms'/);
   assert.doesNotMatch(source, /UPDATE\s+"?messages"?/i, "the migration must not rewrite customer rows");
   assert.doesNotMatch(source, /DROP TYPE/i, "the migration must not drop the enum");
+});
+
+test("every committed migration is exported in chronological order by migrations/index.ts", () => {
+  const names = snapshotNames();
+  const migrationFiles = readdirSync(migrationsDir)
+    .filter((file) => file.endsWith(".ts") && file !== "index.ts")
+    .map((file) => file.slice(0, -".ts".length))
+    .sort();
+  assert.deepEqual(migrationFiles, names, "migration .ts files and .json snapshots on disk must match 1:1");
+  assert.deepEqual(
+    migrations.map((m) => m.name),
+    names,
+    "migrations/index.ts must export every committed migration in oldest-first order",
+  );
+});
+
+test("production build migration runner stays production-only, locked, and non-interactive", () => {
+  const runner = readFileSync(path.join(root, "scripts/run-payload-migrations.ts"), "utf8");
+  assert.match(runner, /VERCEL_ENV !== "production"/, "must skip non-production Vercel envs so Previews never mutate shared DB");
+  assert.match(runner, /NODE_ENV\s*=\s*"production"/, "must force NODE_ENV=production to keep push disabled");
+  assert.match(runner, /PAYLOAD_MIGRATING\s*=\s*"true"/, "must set PAYLOAD_MIGRATING=true");
+  assert.match(runner, /pg_advisory_xact_lock/, "must serialize overlapping deploys with a transaction-scoped advisory lock");
+  assert.match(runner, /batch\)\s*===\s*-1/, "must refuse dev-push markers cleanly instead of prompting");
+
+  const pkg = JSON.parse(readFileSync(path.join(root, "package.json"), "utf8")) as {
+    scripts: Record<string, string>;
+  };
+  const buildScript = pkg.scripts.build ?? "";
+  assert.equal(pkg.scripts["db:migrate:ci"], "node --import tsx scripts/run-payload-migrations.ts --vercel-production-only");
+  const migrateIdx = buildScript.indexOf("npm run db:migrate:ci");
+  const nextBuildIdx = buildScript.indexOf("next build");
+  const gateIdx = buildScript.indexOf("npm run check:db-schema");
+  assert.ok(migrateIdx > -1, "build script must invoke db:migrate:ci");
+  assert.ok(nextBuildIdx > migrateIdx, "db:migrate:ci must run before next build");
+  assert.ok(gateIdx > nextBuildIdx, "check:db-schema must verify schema state after next build");
 });
