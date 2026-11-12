@@ -3,13 +3,10 @@ import { Chip, SIcon, Tile, ViewHeader, ago, num, shortTime } from "@/components
 import type { CmsInventory, Overview } from "@/lib/studio/metrics";
 
 /**
- * MANAGE (P6) — the CMS, with its real shape on one screen.
+ * MANAGE — native Studio CMS hub for all 10 collections and 2 globals.
  *
- * This is deliberately not a second editor. Every card reports the true
- * state of one Payload collection (row count, drafts where drafts exist)
- * and hands over to the one real editor with both "open" and "create"
- * doors. The console's job is to make the filing cabinet legible —
- * counts, freshness, and the right link — not to fork the save path.
+ * Every card reports live Postgres row counts (with draft breakdowns where
+ * `_status` exists) and opens the native Studio editor directly inside `/studio`.
  */
 export function ManageView({ inventory, activity }: { inventory: CmsInventory; activity: Overview["activity"] }) {
   const groups = [...new Set(inventory.collections.map((c) => c.group))];
@@ -17,13 +14,21 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
   return (
     <>
       <ViewHeader
-        eyebrow="Manage"
+        eyebrow="Manage CMS"
         title="Everything the CMS holds"
-        description="Real row counts from Postgres, read on this request. Editing happens in Payload — one editor, one save path, one revalidation hook — these cards are the map, not a second territory."
+        description="Real row counts from Postgres across all 10 collections and 2 globals. Browse, upload, draft, publish, and revalidate directly inside Studio."
         aside={
-          <Link className="studio-btn" href="/admin" target="_blank" rel="noopener">
-            Payload admin <SIcon name="arrowUpRight" size={12} />
-          </Link>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <Link className="studio-btn studio-btn--primary" href="/studio/manage/posts/new">
+              + New post
+            </Link>
+            <Link className="studio-btn" href="/studio/manage/projects/new">
+              + New project
+            </Link>
+            <Link className="studio-btn" href="/studio/manage/media">
+              Media library <SIcon name="arrowRight" size={12} />
+            </Link>
+          </div>
         }
       />
 
@@ -47,20 +52,25 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
                       </Chip>
                     ) : undefined
                   }
-                  provenance={<>Rows in <code>{col.slug}</code> · counted at {shortTime(inventory.asOf)}</>}
+                  provenance={
+                    <>
+                      Rows in <code>{col.slug}</code> · counted at {shortTime(inventory.asOf)}
+                    </>
+                  }
                 >
                   <div className="studio-hero">{num(col.total)}</div>
                   <p className="studio-sub" style={{ marginBlock: "1px 0 12px" }}>
-                    {col.drafts == null ? "documents" : col.total === 1 ? "document" : "documents"}
-                    {col.drafts ? ` · ${col.total - col.drafts} published` : ""}
+                    {col.drafts == null ? (col.total === 1 ? "document" : "documents") : `${col.total === 1 ? "document" : "documents"} · ${col.total - col.drafts} published`}
                   </p>
                   <div style={{ display: "flex", gap: 7, marginBlockStart: "auto", flexWrap: "wrap" }}>
-                    <Link className="studio-btn studio-btn--sm" href={col.href} target="_blank" rel="noopener">
-                      Open <SIcon name="arrowUpRight" size={11} />
+                    <Link className="studio-btn studio-btn--sm" href={col.href}>
+                      Open <SIcon name="arrowRight" size={11} />
                     </Link>
-                    <Link className="studio-btn studio-btn--sm" href={col.createHref} target="_blank" rel="noopener">
-                      New
-                    </Link>
+                    {col.allowsCreate ? (
+                      <Link className="studio-btn studio-btn--sm" href={col.createHref}>
+                        New
+                      </Link>
+                    ) : null}
                   </div>
                 </Tile>
               ))}
@@ -73,7 +83,7 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
           span="w7"
           title={<b>Recently changed</b>}
           aside={<Chip tone="neutral">newest first</Chip>}
-          provenance={<>Newest <code>updatedAt</code> across projects, posts and case studies — the same rows Payload holds</>}
+          provenance={<>Newest <code>updatedAt</code> across projects, posts and case studies — opens native Studio editors</>}
         >
           {activity.length === 0 ? (
             <p className="studio-sub">No content rows yet.</p>
@@ -100,7 +110,7 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
         <Tile
           span="w5"
           title={<b>Site-wide documents</b>}
-          provenance={<>Payload globals — single documents the whole site reads · edited in Payload like everything else</>}
+          provenance={<>Payload globals — single documents the whole site reads, edited directly inside Studio</>}
         >
           <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
             {inventory.globals.map((g) => (
@@ -113,15 +123,15 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
                     {g.updatedAt ? `last edited ${ago(g.updatedAt)}` : "never edited"}
                   </span>
                 </span>
-                <Link className="studio-btn studio-btn--sm" href={g.href} target="_blank" rel="noopener">
-                  Edit <SIcon name="arrowUpRight" size={11} />
+                <Link className="studio-btn studio-btn--sm" href={g.href}>
+                  Edit <SIcon name="arrowRight" size={11} />
                 </Link>
               </div>
             ))}
           </div>
           <p className="studio-tiny" style={{ marginBlockStart: 12 }}>
-            Offers drive the pricing page; Settings drive contact details and the CV link. Changing either revalidates the live
-            site through the same hooks as a collection save.
+            Offers drive the pricing page; Settings drive contact details and the CV link. Saving either revalidates the live site
+            through the same Payload hooks as a collection save.
           </p>
         </Tile>
       </div>

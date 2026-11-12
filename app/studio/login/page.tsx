@@ -46,7 +46,7 @@ export default async function StudioLoginPage({ searchParams }: { searchParams: 
         <p className="studio-tiny" style={{ marginBlockStart: 16, display: "flex", gap: 6, alignItems: "flex-start" }}>
           <SIcon name="eye" size={11} />
           <span>
-            Sessions last 2 hours by default. Signing out of <code>/admin</code> signs you out here too — it is one session.
+            Sessions last 2 hours by default. One Payload session covers the entire Studio CMS and console.
           </span>
         </p>
       </div>

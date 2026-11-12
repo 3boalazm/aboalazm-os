@@ -73,7 +73,7 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
       severity: "danger",
       title: `Duplicate writing slug “${slug}”`,
       detail: "Two posts share one URL; one of them is unreachable. Rename the newer one's slug.",
-      href: "/admin/collections/posts",
+      href: "/studio/manage/posts",
     });
   }
   for (const slug of duplicateSlugs(input.caseStudies)) {
@@ -81,12 +81,12 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
       severity: "danger",
       title: `Duplicate case-study slug “${slug}”`,
       detail: "Two case studies share one URL; one of them is unreachable.",
-      href: "/admin/collections/case-studies",
+      href: "/studio/manage/case-studies",
     });
   }
 
   for (const post of input.posts) {
-    const href = `/admin/collections/posts/${post.id}`;
+    const href = `/studio/manage/posts/${post.id}`;
     const label = post.title || post.slug || `#${post.id}`;
     if (published(post) && !post.standfirst?.trim()) {
       issues.push({
@@ -116,7 +116,7 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
 
   for (const project of input.projects) {
     if (project.id == null) continue;
-    const href = `/admin/collections/projects/${project.id}`;
+    const href = `/studio/manage/projects/${project.id}`;
     const label = project.name || project.slug || `#${project.id}`;
     if (published(project) && !project.thumbnail) {
       issues.push({
@@ -142,7 +142,7 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
         severity: "info",
         title: `Case study “${cs.name || cs.slug}” has no Arabic name`,
         detail: "The /ar pages fall back to the English name. The narrative exists; the title does not.",
-        href: `/admin/collections/case-studies/${cs.id}`,
+        href: `/studio/manage/case-studies/${cs.id}`,
       });
     }
   }
@@ -178,7 +178,7 @@ export function matchContentViews(
     if (writing) {
       const post = posts.find((p) => p.slug === writing[1]);
       if (post) {
-        rows.push({ kind: "Writing", title: post.title || post.slug || `#${post.id}`, path, views: count, href: `/admin/collections/posts/${post.id}` });
+        rows.push({ kind: "Writing", title: post.title || post.slug || `#${post.id}`, path, views: count, href: `/studio/manage/posts/${post.id}` });
         continue;
       }
     }
@@ -186,7 +186,7 @@ export function matchContentViews(
     if (cs) {
       const study = caseStudies.find((c) => c.slug === cs[1]);
       if (study) {
-        rows.push({ kind: "Case study", title: study.name || study.slug || `#${study.id}`, path, views: count, href: `/admin/collections/case-studies/${study.id}` });
+        rows.push({ kind: "Case study", title: study.name || study.slug || `#${study.id}`, path, views: count, href: `/studio/manage/case-studies/${study.id}` });
       }
     }
   }

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { SIcon, type StudioIconName } from "@/components/studio/ui";
-import { ThemeToggle } from "@/components/studio/interactive";
+import { SignOutButton, ThemeToggle } from "@/components/studio/interactive";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    STUDIO SHELL — the persistent frame around every console screen.
@@ -91,12 +91,20 @@ export function StudioShell({
       label: "Editing",
       items: [
         { key: "content", href: "/studio/content", label: "Content", icon: "layers", count: counts.drafts, countLabel: "drafts" },
-        { key: "manage", href: "/studio/manage", label: "Manage", icon: "sliders" },
+        { key: "manage", href: "/studio/manage", label: "Manage CMS", icon: "sliders" },
+        { key: "projects", href: "/studio/manage/projects", label: "Projects", icon: "grid" },
+        { key: "case-studies", href: "/studio/manage/case-studies", label: "Case studies", icon: "column" },
+        { key: "posts", href: "/studio/manage/posts", label: "Writing", icon: "sparkle" },
+        { key: "media", href: "/studio/manage/media", label: "Media", icon: "image" },
       ],
     },
     {
-      label: "Operations",
-      items: [{ key: "system", href: "/studio/system", label: "System", icon: "pulse" }],
+      label: "Site & Operations",
+      items: [
+        { key: "offers", href: "/studio/manage/globals/offers", label: "Offers & pricing", icon: "bolt" },
+        { key: "settings", href: "/studio/manage/globals/settings", label: "Site settings", icon: "sliders" },
+        { key: "system", href: "/studio/system", label: "System", icon: "pulse" },
+      ],
     },
   ];
 
@@ -105,7 +113,7 @@ export function StudioShell({
      the filing cabinet sits behind exactly one of them. */
 
   const isActive = (href: string) => {
-    if (href === "/studio") return pathname === "/studio" || pathname === "/studio/";
+    if (href === "/studio" || href === "/studio/manage") return pathname === href || pathname === `${href}/`;
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -206,10 +214,10 @@ export function StudioShell({
               live data
             </span>
             <ThemeToggle />
-            <Link href="/admin" className="studio-btn studio-btn--sm" title="The raw Payload admin">
-              Payload
-              <SIcon name="arrowUpRight" size={11} />
+            <Link href="/studio/manage" className="studio-btn studio-btn--sm" title="All CMS collections & globals">
+              CMS
             </Link>
+            <SignOutButton />
           </div>
 
           <main className="studio-view">{children}</main>
@@ -225,25 +233,45 @@ const CRUMB: Record<string, string> = {
   leads: "Leads & pipeline",
   content: "Content",
   manage: "Manage",
+  globals: "Globals",
+  projects: "Projects",
+  "case-studies": "Case studies",
+  posts: "Writing",
+  media: "Media",
+  testimonials: "Testimonials",
+  "team-members": "Team members",
+  messages: "Enquiries",
+  "resource-leads": "Resource leads",
+  "analytics-events": "Analytics events",
+  users: "Users",
+  offers: "Offers & pricing",
+  settings: "Site settings",
+  new: "New",
   system: "System",
 };
 
 function Breadcrumb({ pathname }: { pathname: string }) {
   const parts = pathname.split("/").filter(Boolean);
-  const leaf = parts[parts.length - 1] ?? "studio";
   const isRoot = parts.length <= 1;
   return (
     <nav className="studio-crumbs" aria-label="Breadcrumb">
       <span>Console</span>
-      <SIcon name="arrowRight" size={10} />
       {isRoot ? (
-        <b>Overview</b>
-      ) : (
         <>
-          <span>{CRUMB[parts[0] ?? ""] ?? "Studio"}</span>
           <SIcon name="arrowRight" size={10} />
-          <b>{CRUMB[leaf] ?? leaf}</b>
+          <b>Overview</b>
         </>
+      ) : (
+        parts.map((part, idx) => {
+          const isLast = idx === parts.length - 1;
+          const label = CRUMB[part] ?? part;
+          return (
+            <span key={`${part}-${idx}`} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+              <SIcon name="arrowRight" size={10} />
+              {isLast ? <b>{label}</b> : <span>{label}</span>}
+            </span>
+          );
+        })
       )}
     </nav>
   );

@@ -35,7 +35,7 @@ export function ContentView({
       label: "Projects",
       live: content.projectsPublished,
       draft: content.projectsDraft,
-      href: "/admin/collections/projects",
+      href: "/studio/manage/projects",
       note: content.projectsWithoutThumbnail
         ? `${content.projectsWithoutThumbnail} live without a thumbnail`
         : "all live projects have a thumbnail",
@@ -46,7 +46,7 @@ export function ContentView({
       label: "Writing",
       live: content.postsPublished,
       draft: content.postsDraft,
-      href: "/admin/collections/posts",
+      href: "/studio/manage/posts",
       note: content.postsDraft ? "drafts are invisible to visitors until published" : "everything written is live",
       warn: false,
     },
@@ -55,7 +55,7 @@ export function ContentView({
       label: "Case studies",
       live: content.caseStudiesPublished,
       draft: 0,
-      href: "/admin/collections/case-studies",
+      href: "/studio/manage/case-studies",
       note: "each one is a full narrative page",
       warn: false,
     },
@@ -64,7 +64,7 @@ export function ContentView({
       label: "Media",
       live: content.mediaCount,
       draft: 0,
-      href: "/admin/collections/media",
+      href: "/studio/manage/media",
       note: "stored on Vercel Blob",
       warn: false,
     },
@@ -79,8 +79,8 @@ export function ContentView({
         aside={
           <span style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <RangeControl current={overview.range.key} basePath="/studio/content" />
-            <Link className="studio-btn" href="/admin/collections/projects" target="_blank" rel="noopener">
-              Open Payload <SIcon name="arrowUpRight" size={12} />
+            <Link className="studio-btn" href="/studio/manage">
+              Manage CMS <SIcon name="arrowRight" size={12} />
             </Link>
           </span>
         }
@@ -93,8 +93,8 @@ export function ContentView({
             span="w3"
             title={<b>{col.label}</b>}
             aside={
-              <Link className="studio-tile__more" href={col.href} target="_blank" rel="noopener">
-                edit
+              <Link className="studio-tile__more" href={col.href}>
+                open
               </Link>
             }
             provenance={
@@ -158,7 +158,7 @@ export function ContentView({
           ) : (
             <div className="studio-rows">
               {performance.slice(0, 8).map((row) => (
-                <Link key={row.path} href={row.href} className="studio-row" style={{ gridTemplateColumns: "minmax(0,1fr) auto auto" }} target="_blank" rel="noopener">
+                <Link key={row.path} href={row.href} className="studio-row" style={{ gridTemplateColumns: "minmax(0,1fr) auto auto" }}>
                   <span style={{ minWidth: 0 }}>
                     <span className="studio-row__name">{row.title}</span>
                     <span className="studio-row__meta">
@@ -205,7 +205,7 @@ export function ContentView({
           ) : (
             <div className="studio-rows">
               {seo.issues.slice(0, 7).map((issue, i) => (
-                <Link key={`${issue.title}-${i}`} href={issue.href} className="studio-row" style={{ gridTemplateColumns: "auto minmax(0,1fr)" }} target="_blank" rel="noopener">
+                <Link key={`${issue.title}-${i}`} href={issue.href} className="studio-row" style={{ gridTemplateColumns: "auto minmax(0,1fr)" }}>
                   <Chip tone={issue.severity === "danger" ? "danger" : issue.severity === "warn" ? "warn" : "neutral"}>
                     {issue.severity}
                   </Chip>
@@ -323,8 +323,7 @@ export function ContentView({
       </Tile>
 
       <p className="studio-tiny" style={{ paddingInline: 4 }}>
-        Editing happens in Payload, deliberately: one editor, one save path, one revalidation hook. The console reports and routes; it
-        does not fork the CMS.
+        Every document edits directly inside Studio CMS using the same Payload Local API validation, drafts, and live revalidation hooks.
       </p>
     </>
   );
