@@ -1,5 +1,5 @@
 import { requireStudioUser } from "@/lib/studio/auth";
-import { allLeads, contentHealth, makeCtx, resolveRange, systemProbes } from "@/lib/studio/metrics";
+import { allLeads, contentHealth, envMatrix, makeCtx, resolveRange, systemProbes } from "@/lib/studio/metrics";
 import { getPayload } from "@/lib/payload";
 import { StudioShell } from "@/components/studio/shell";
 import { SystemView } from "@/components/studio/system-view";
@@ -31,9 +31,9 @@ export default async function StudioSystemPage({ searchParams }: { searchParams:
           : null
       }
       userEmail={user.email}
-      version={`P1 · ${range.label}`}
+      version={`P5 · ${range.label}`}
     >
-      <SystemView probes={probes} />
+      <SystemView probes={probes} env={envMatrix()} />
     </StudioShell>
   );
 }

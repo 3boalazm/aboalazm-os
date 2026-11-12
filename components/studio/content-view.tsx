@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Chip, Provenance, SIcon, Tile, ViewHeader, ago, num } from "@/components/studio/ui";
+import { Chip, EmptyState, Provenance, RangeControl, SIcon, Tile, ViewHeader, ago, num, shortTime } from "@/components/studio/ui";
 import type { ContentHealth, Overview } from "@/lib/studio/metrics";
+import type { ContentPerfRow, SeoReport } from "@/lib/studio/seo";
 
 /**
  * CONTENT — what is live, what is stuck in draft, and what is silently broken.
@@ -15,10 +16,18 @@ export function ContentView({
   content,
   activity,
   overview,
+  seo,
+  performance,
+  hasPageviews,
+  searchConsoleConfigured,
 }: {
   content: ContentHealth;
   activity: Overview["activity"];
   overview: Overview;
+  seo: SeoReport;
+  performance: ContentPerfRow[];
+  hasPageviews: boolean;
+  searchConsoleConfigured: boolean;
 }) {
   const cols = [
     {
@@ -65,12 +74,15 @@ export function ContentView({
     <>
       <ViewHeader
         eyebrow="Content"
-        title="What is live, what is still a draft"
-        description="State, not traffic. A page view ranking would need analytics aggregates this plan cannot return, so this screen tells you what exists and what is missing — and hands you the real editor."
+        title="What is live, what is read, what is broken"
+        description="State from the CMS, performance from the first-party collector, and an SEO list computed from the rows themselves. Search data from Google appears only when Search Console is actually connected."
         aside={
-          <Link className="studio-btn" href="/admin/collections/projects" target="_blank" rel="noopener">
-            Open Payload <SIcon name="arrowUpRight" size={12} />
-          </Link>
+          <span style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <RangeControl current={overview.range.key} basePath="/studio/content" />
+            <Link className="studio-btn" href="/admin/collections/projects" target="_blank" rel="noopener">
+              Open Payload <SIcon name="arrowUpRight" size={12} />
+            </Link>
+          </span>
         }
       />
 
@@ -114,6 +126,108 @@ export function ContentView({
       <div className="studio-bento">
         <Tile
           span="w7"
+          title={<b>Most read content</b>}
+          aside={<Chip tone="neutral">{overview.range.label}</Chip>}
+          provenance={
+            <>
+              First-party <code>pageview</code> events joined to posts / case studies by slug · window of {overview.range.days} days ·
+              section pages rank on the Analytics screen instead
+            </>
+          }
+        >
+          {!hasPageviews ? (
+            <EmptyState
+              title="No pageviews recorded yet"
+              body="The collector has nothing in this window, so there is no honest ranking to show. Once visitors arrive, each published piece ranks by its own stored views."
+              action={
+                <Link className="studio-btn studio-btn--sm" href="/studio/analytics">
+                  Open Analytics <SIcon name="arrowRight" size={11} />
+                </Link>
+              }
+            />
+          ) : performance.length === 0 ? (
+            <EmptyState
+              title="Pageviews exist — none on articles or case studies"
+              body="Traffic landed on section pages in this window. The Analytics screen's top-pages table shows exactly where."
+              action={
+                <Link className="studio-btn studio-btn--sm" href="/studio/analytics">
+                  See top pages <SIcon name="arrowRight" size={11} />
+                </Link>
+              }
+            />
+          ) : (
+            <div className="studio-rows">
+              {performance.slice(0, 8).map((row) => (
+                <Link key={row.path} href={row.href} className="studio-row" style={{ gridTemplateColumns: "minmax(0,1fr) auto auto" }} target="_blank" rel="noopener">
+                  <span style={{ minWidth: 0 }}>
+                    <span className="studio-row__name">{row.title}</span>
+                    <span className="studio-row__meta">
+                      <em>{row.kind}</em>
+                      <span aria-hidden>·</span>
+                      <em style={{ fontFamily: "var(--font-mono, monospace)" }}>{row.path}</em>
+                    </span>
+                  </span>
+                  <span className="studio-dist__track" style={{ width: 90, marginBlockStart: 0, gridColumn: "auto" }}>
+                    <span className="studio-dist__fill" style={{ width: `${(row.views / (performance[0]?.views ?? 1)) * 100}%` }} />
+                  </span>
+                  <b className="studio-num">{num(row.views)}</b>
+                </Link>
+              ))}
+            </div>
+          )}
+        </Tile>
+
+        <Tile
+          span="w5"
+          title={<b>SEO checks</b>}
+          aside={
+            seo.issues.length ? (
+              <Chip tone={seo.issues.some((i) => i.severity === "danger") ? "danger" : "warn"} icon="alert">
+                {seo.issues.length} issue{seo.issues.length === 1 ? "" : "s"}
+              </Chip>
+            ) : (
+              <Chip tone="ok" icon="check">
+                clean
+              </Chip>
+            )
+          }
+          provenance={
+            <>
+              Computed from the CMS rows at {shortTime(seo.asOf)} · {seo.checked.posts} posts, {seo.checked.projects} projects,{" "}
+              {seo.checked.caseStudies} case studies · each row links to the document that fixes it
+            </>
+          }
+        >
+          {seo.issues.length === 0 ? (
+            <p className="studio-sub">
+              Nothing flagged: every published post has a meta description, no duplicate slugs, no dead-end project cards.
+            </p>
+          ) : (
+            <div className="studio-rows">
+              {seo.issues.slice(0, 7).map((issue, i) => (
+                <Link key={`${issue.title}-${i}`} href={issue.href} className="studio-row" style={{ gridTemplateColumns: "auto minmax(0,1fr)" }} target="_blank" rel="noopener">
+                  <Chip tone={issue.severity === "danger" ? "danger" : issue.severity === "warn" ? "warn" : "neutral"}>
+                    {issue.severity}
+                  </Chip>
+                  <span style={{ minWidth: 0 }}>
+                    <span className="studio-row__name" style={{ fontSize: 12 }}>
+                      {issue.title}
+                    </span>
+                    <span className="studio-row__meta">
+                      <em style={{ whiteSpace: "normal" }}>{issue.detail}</em>
+                    </span>
+                  </span>
+                </Link>
+              ))}
+              {seo.issues.length > 7 ? <p className="studio-tiny">…and {seo.issues.length - 7} more in the collections themselves.</p> : null}
+            </div>
+          )}
+        </Tile>
+      </div>
+
+      <div className="studio-bento">
+        <Tile
+          span="w7"
           title={<b>Recently changed</b>}
           aside={<Chip tone="neutral">newest first</Chip>}
           provenance={<>Newest <code>updatedAt</code> across projects, posts and case studies — the same rows Payload holds</>}
@@ -142,23 +256,37 @@ export function ContentView({
 
         <Tile
           span="w5"
-          title={<b>What is NOT on this screen</b>}
+          title={<b>Search Console</b>}
           variant="invert"
-          provenance={<>Recorded so the absence is a documented decision, not an oversight</>}
+          aside={searchConsoleConfigured ? <Chip tone="warn">credentials present</Chip> : <Chip tone="neutral">not connected</Chip>}
+          provenance={<>Connection state from environment configuration at {shortTime(seo.asOf)} · no Google data is fetched or implied by this tile</>}
         >
-          <ul style={{ margin: 0, paddingInlineStart: 16, display: "flex", flexDirection: "column", gap: 9, fontSize: 11.5, color: "var(--s-muted)", lineHeight: 1.5 }}>
-            <li>
-              <b style={{ color: "var(--s-ink)" }}>Page views / top content.</b> Vercel Analytics cannot return custom-event or pageview
-              aggregates on this plan (HTTP 402, 2026-10-24 audit). Any ranking here would be fabricated.
-            </li>
-            <li>
-              <b style={{ color: "var(--s-ink)" }}>Read-through or scroll depth.</b> No such events are emitted, so nothing is implied.
-            </li>
-            <li>
-              <b style={{ color: "var(--s-ink)" }}>Which project “performs”.</b> That phrase has no definition without pageviews. When an
-              analytics source exists, it gets added here with its own provenance line — not before.
-            </li>
-          </ul>
+          {searchConsoleConfigured ? (
+            <p className="studio-sub" style={{ marginBlockEnd: 10 }}>
+              The service-account credentials are present, but the query client is not wired yet — so this tile shows no
+              impressions or clicks rather than a borrowed chart. Wiring it is a deliberate next step, not a silent gap.
+            </p>
+          ) : (
+            <>
+              <p className="studio-sub" style={{ marginBlockEnd: 10 }}>
+                Organic impressions, clicks and rankings live in Google's systems. They are <b style={{ color: "var(--s-ink)" }}>not
+                connected</b>, so none are shown — an empty chart here would read as “Google sends you nobody”, which nobody
+                measured.
+              </p>
+              <ul style={{ margin: "0 0 12px", paddingInlineStart: 16, display: "flex", flexDirection: "column", gap: 7, fontSize: 11.5, color: "var(--s-muted)", lineHeight: 1.5 }}>
+                <li>Create a Google service account and grant it the Search Console property.</li>
+                <li>
+                  Set <code>GOOGLE_SEARCH_CONSOLE_PROPERTY</code>, <code>GOOGLE_SERVICE_ACCOUNT_EMAIL</code> and{" "}
+                  <code>GOOGLE_SERVICE_ACCOUNT_KEY</code> in the deployment environment.
+                </li>
+                <li>This tile flips to “credentials present” on the next request — no deploy needed.</li>
+              </ul>
+            </>
+          )}
+          <p className="studio-tiny">
+            Also still unmeasured, and still unclaimed: read-through / scroll depth (no such events exist), and Core Web Vitals
+            field data (needs CrUX). The SEO list above is everything that can be known from the CMS itself.
+          </p>
         </Tile>
       </div>
 

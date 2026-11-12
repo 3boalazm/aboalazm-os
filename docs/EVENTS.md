@@ -2,6 +2,14 @@
 
 Vercel Analytics is mounted in `app/(site)/[locale]/layout.tsx`; events are sent through `trackEvent` in `lib/analytics.ts`. Keep this document and the typed `EventName` union in sync in the same commit.
 
+## First-party collector (P2 · 2026-11-12)
+
+Since P2 every event is ALSO stored in our own Postgres. `trackEvent` dual-sends: the vendor copy is unchanged, and a first-party copy goes to `POST /api/track`, which validates it against `lib/analytics-events.ts` and writes it to the `analytics-events` collection. The Studio console (`/studio/analytics`) aggregates that table — pageviews, sessions, referrer hosts, and a session funnel — because the vendor aggregates still cannot be read back (HTTP 402, below).
+
+One event is first-party only: `pageview`, emitted once per route change by `components/seo/pageview-tracker.tsx`. It carries the local path only — never a query string.
+
+The privacy contract is enforced server-side at ingest, not by convention: allowlisted event names; per-key property sanitization (email-shaped and URL-carrying values are dropped); host-only referrers; no IP address, no user-agent string, no fingerprint. A session is a random id in `sessionStorage` that dies with the tab. Definitions of every number the console derives from this table live in `lib/studio/analytics.ts` and on the tiles themselves.
+
 ## Events
 
 | Event | Meaning | Main source | Properties |

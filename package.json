@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:business-cases && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run test:og-trace && npm run test:positioning && npm run test:discoverability && npm run test:studio && npm run test:schema-audit && next build && npm run check:db-ssl && npm run check:db-schema",
+    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:business-cases && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run test:og-trace && npm run test:positioning && npm run test:discoverability && npm run test:studio && npm run test:schema-audit && npm run test:analytics-events && next build && npm run check:db-ssl && npm run check:db-schema",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:blob-token": "node --import tsx --test lib/blob-token.test.ts",
@@ -24,6 +24,7 @@
     "test:positioning": "node --import tsx --test lib/positioning.test.ts",
     "test:discoverability": "node --import tsx --test lib/discoverability.test.ts",
     "test:studio": "node --import tsx --test lib/studio/studio.test.ts",
+    "test:analytics-events": "node --import tsx --test lib/analytics-events.test.ts",
     "test:schema-audit": "node --import tsx --test lib/payload-schema-audit.test.ts",
     "check:contact": "node --import tsx scripts/check-contact-setup.ts",
     "check:db-ssl": "node --import tsx scripts/check-db-ssl-mode.ts",

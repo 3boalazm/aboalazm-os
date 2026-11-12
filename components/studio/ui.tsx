@@ -42,6 +42,13 @@ const PATHS = {
   sparkle: "M12 3.5 13.8 9l5.5 1.8L13.8 12.6 12 18l-1.8-5.4L4.7 10.8 10.2 9 12 3.5Z",
   eye: "M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12ZM12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z",
   bolt: "M13 2 4.5 13.5H11L9.5 22 19 10.5h-6.5L13 2Z",
+  chart: "M4 20V10M10 20V4M16 20v-8M2 20h20",
+  sliders: "M5 7h9M18 7h1M5 17h3M12 17h7M8 4v6M15 14v6",
+  search: "M11 5a6 6 0 1 0 0 12 6 6 0 0 0 0-12ZM20 20l-3.8-3.8",
+  sun: "M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10ZM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4",
+  moon: "M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5Z",
+  grip: "M9 6h.01M9 12h.01M9 18h.01M15 6h.01M15 12h.01M15 18h.01",
+  send: "M21 3 10.5 13.5M21 3l-6.8 18-3.7-7.5L3 9.8 21 3Z",
 } as const;
 
 export type StudioIconName = keyof typeof PATHS;
@@ -81,7 +88,7 @@ export function Tile({
   aside?: ReactNode;
   /** REQUIRED for any tile containing a number. Ignored only for layout tiles. */
   provenance?: ReactNode;
-  variant?: "accent" | "invert" | "flush";
+  variant?: "accent" | "invert" | "flush" | "aurora";
   children: ReactNode;
   className?: string;
   as?: "section" | "article" | "div";
@@ -275,6 +282,80 @@ export function RangeControl({ current, basePath, extraQuery }: { current: strin
       ))}
     </nav>
   );
+}
+
+/* ── charts: dependency-free SVG, drawn from real series ─────────────────── */
+
+/**
+ * Daily area chart: filled pageviews + a sessions line. Shapes only inside
+ * the SVG (so preserveAspectRatio cannot distort text); axis labels are
+ * HTML underneath. An all-zero series renders a flat baseline, never a
+ * fake curve.
+ */
+export function AreaChart({
+  points,
+  height = 132,
+}: {
+  points: { label: string; pageviews: number; sessions: number }[];
+  height?: number;
+}) {
+  const W = 640;
+  const H = 160;
+  const max = Math.max(1, ...points.map((p) => p.pageviews), ...points.map((p) => p.sessions));
+  const x = (i: number) => (points.length <= 1 ? W / 2 : (i / (points.length - 1)) * W);
+  const y = (v: number) => H - 6 - (v / max) * (H - 18);
+  const line = (pick: (p: { pageviews: number; sessions: number }) => number) =>
+    points.map((p, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(pick(p)).toFixed(1)}`).join(" ");
+  const area = `${line((p) => p.pageviews)} L${x(points.length - 1).toFixed(1)},${H} L0,${H} Z`;
+  const mid = points[Math.floor(points.length / 2)];
+
+  return (
+    <figure style={{ margin: 0 }}>
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} preserveAspectRatio="none" role="img" aria-label="Daily pageviews and sessions">
+        <defs>
+          <linearGradient id="studio-area-fill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--s-accent)" stopOpacity="0.32" />
+            <stop offset="100%" stopColor="var(--s-accent)" stopOpacity="0.02" />
+          </linearGradient>
+        </defs>
+        <path d={area} fill="url(#studio-area-fill)" />
+        <path d={line((p) => p.pageviews)} fill="none" stroke="var(--s-accent)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
+        <path d={line((p) => p.sessions)} fill="none" stroke="var(--s-info)" strokeWidth="1.6" strokeDasharray="1 0" strokeLinejoin="round" strokeLinecap="round" opacity="0.9" />
+      </svg>
+      <figcaption style={{ display: "flex", justifyContent: "space-between", marginBlockStart: 4 }}>
+        <span className="studio-tiny">{points[0]?.label}</span>
+        <span className="studio-tiny" style={{ display: "flex", gap: 12 }}>
+          <span>
+            <span style={{ color: "var(--s-accent)" }}>●</span> pageviews
+          </span>
+          <span>
+            <span style={{ color: "var(--s-info)" }}>●</span> sessions
+          </span>
+        </span>
+        <span className="studio-tiny">{mid?.label}</span>
+        <span className="studio-tiny">{points[points.length - 1]?.label}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
+/** Tiny inline trend for KPI tiles. Renders a flat line for empty data. */
+export function Sparkline({ values, width = 96, height = 28 }: { values: number[]; width?: number; height?: number }) {
+  const max = Math.max(1, ...values);
+  const pts = values
+    .map((v, i) => `${values.length <= 1 ? width / 2 : (i / (values.length - 1)) * width},${height - 3 - (v / max) * (height - 8)}`)
+    .join(" ");
+  return (
+    <svg width={width} height={height} aria-hidden style={{ display: "block" }}>
+      <polyline points={pts} fill="none" stroke="var(--s-accent)" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* ── skeleton ─────────────────────────────────────────────────────────────── */
+/** Loading placeholder shaped like the tile it replaces. */
+export function Skeleton({ height = 18, width = "100%", radius = 8, style }: { height?: number; width?: number | string; radius?: number; style?: React.CSSProperties }) {
+  return <span className="studio-skel" style={{ display: "block", height, width, borderRadius: radius, ...style }} aria-hidden />;
 }
 
 /* ── page header ──────────────────────────────────────────────────────────── */

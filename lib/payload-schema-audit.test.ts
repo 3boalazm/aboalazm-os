@@ -74,25 +74,60 @@ test("a snapshot only differs from its predecessor by what its migration changes
   /* Payload's migrate:create diffs the config against the database and will
      happily fold unrelated drift into a narrowly named migration. Release
      history must stay legible, so each snapshot is checked to change exactly
-     the enum/column its migration is about. */
+     what its migration is about. The pin below is per-migration: when a new
+     migration lands, extend this test with its own expected diff rather
+     than loosening it. */
   const names = snapshotNames();
-  const newest = names[names.length - 1] as string;
-  assert.equal(newest, "20261111_120000_messages_locale_ms");
 
-  const previous = readSnapshot(names[names.length - 2] as string);
-  const current = readSnapshot(newest);
-
-  assert.deepEqual(current.tables, previous.tables, `${newest} must not change any table`);
-
-  const changedEnums = Object.keys(current.enums).filter(
-    (key) => JSON.stringify(previous.enums[key]?.values) !== JSON.stringify(current.enums[key]?.values),
+  /* …the ms widening changed no table and exactly one enum. */
+  const msPrevious = readSnapshot("20261024_145000_lead_pipeline");
+  const ms = readSnapshot("20261111_120000_messages_locale_ms");
+  assert.deepEqual(ms.tables, msPrevious.tables, "20261111_120000_messages_locale_ms must not change any table");
+  const msChangedEnums = Object.keys(ms.enums).filter(
+    (key) => JSON.stringify(msPrevious.enums[key]?.values) !== JSON.stringify(ms.enums[key]?.values),
   );
   assert.deepEqual(
-    changedEnums.map((key) => current.enums[key]?.name),
+    msChangedEnums.map((key) => ms.enums[key]?.name),
     ["enum_messages_locale"],
-    `${newest} must only widen enum_messages_locale`,
+    "20261111_120000_messages_locale_ms must only widen enum_messages_locale",
   );
-  assert.deepEqual(current.enums[changedEnums[0] as string]?.values, ["en", "ar", "ms"]);
+  assert.deepEqual(ms.enums[msChangedEnums[0] as string]?.values, ["en", "ar", "ms"]);
+
+  /* …and the analytics-events migration (the newest) adds exactly one table
+     plus the locked-documents relation every new collection gets. */
+  const newest = names[names.length - 1] as string;
+  assert.equal(newest, "20261112_100000_analytics_events");
+  const current = readSnapshot(newest);
+
+  assert.deepEqual(current.enums, ms.enums, `${newest} must not change any enum`);
+
+  const addedTables = Object.keys(current.tables).filter((key) => !(key in ms.tables));
+  const removedTables = Object.keys(ms.tables).filter((key) => !(key in current.tables));
+  assert.deepEqual(addedTables, ["public.analytics_events"], `${newest} must add exactly the analytics_events table`);
+  assert.deepEqual(removedTables, [], `${newest} must not drop any table`);
+
+  const changedTables = Object.keys(ms.tables).filter(
+    (key) => JSON.stringify(ms.tables[key]) !== JSON.stringify(current.tables[key]),
+  );
+  assert.deepEqual(
+    changedTables,
+    ["public.payload_locked_documents_rels"],
+    `${newest} may only touch payload_locked_documents_rels besides adding its table`,
+  );
+
+  const relsBefore = ms.tables["public.payload_locked_documents_rels"] as unknown as {
+    columns: Record<string, unknown>;
+    indexes: Record<string, unknown>;
+    foreignKeys: Record<string, unknown>;
+  };
+  const relsAfter = current.tables["public.payload_locked_documents_rels"] as unknown as typeof relsBefore;
+  assert.deepEqual(Object.keys(relsAfter.columns).filter((k) => !(k in relsBefore.columns)), ["analytics_events_id"]);
+  assert.deepEqual(Object.keys(relsAfter.indexes).filter((k) => !(k in relsBefore.indexes)), [
+    "payload_locked_documents_rels_analytics_events_id_idx",
+  ]);
+  assert.deepEqual(Object.keys(relsAfter.foreignKeys).filter((k) => !(k in relsBefore.foreignKeys)), [
+    "payload_locked_documents_rels_analytics_events_fk",
+  ]);
 });
 
 test("the newest snapshot and the Messages select agree with every live locale", () => {

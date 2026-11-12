@@ -234,16 +234,23 @@ export async function allLeads({ payload, user }: Ctx) {
     name?: string;
     company?: string | null;
     email?: string;
+    brief?: string | null;
     service?: string | null;
+    packageTier?: string | null;
+    timeline?: string | null;
+    locale?: string | null;
     leadStage?: string | null;
     budget?: string | null;
     sourcePage?: string | null;
     utmSource?: string | null;
+    utmMedium?: string | null;
+    utmCampaign?: string | null;
     proposalValue?: number | null;
     wonValue?: number | null;
     closedReason?: string | null;
     isRead?: boolean | null;
     createdAt?: string;
+    updatedAt?: string;
   }[];
 }
 
@@ -299,7 +306,7 @@ const SAFE_PROJECT_SELECT = { name: true, slug: true, thumbnail: true, _status: 
  * reads projects dies. On that specific error we re-read with an explicit
  * column list and flag the data as partial; anything else still throws.
  */
-async function readProjects(
+export async function readProjects(
   payload: Ctx["payload"],
   user: Ctx["user"],
   opts: { limit: number; sort?: string },
@@ -427,7 +434,7 @@ export interface Probe {
   checkedAt: Iso;
 }
 
-export async function systemProbes({ payload }: Ctx): Promise<Probe[]> {
+export async function systemProbes({ payload, user }: Ctx): Promise<Probe[]> {
   const now = iso(new Date());
   const probes: Probe[] = [];
 
@@ -487,15 +494,139 @@ export async function systemProbes({ payload }: Ctx): Promise<Probe[]> {
     });
   }
 
-  /* Analytics — report the real limitation instead of pretending. */
-  probes.push({
-    id: "analytics",
-    name: "Analytics reporting",
-    state: "warn",
-    detail: "Browser events are emitted (docs/EVENTS.md) but this plan cannot return aggregates (HTTP 402). No traffic figures are shown anywhere in this dashboard.",
-    fix: "Either upgrade the analytics plan or accept lead-based reporting.",
-    checkedAt: now,
-  });
+  /* Analytics — the first-party collector (P2) is a real, countable thing:
+     events land in our own Postgres, so "is it working?" is a query, not a
+     hope. The vendor limitation stands and is still stated: Vercel's own
+     aggregates return HTTP 402 on this plan, which is why the collector
+     exists. */
+  try {
+    const dayAgo = new Date(Date.now() - 86400000);
+    const [total, last24] = await Promise.all([
+      payload.count({ collection: "analytics-events", overrideAccess: false, user: user as never }),
+      payload.count({
+        collection: "analytics-events",
+        where: { createdAt: { greater_than_equal: dayAgo.toISOString() } },
+        overrideAccess: false,
+        user: user as never,
+      }),
+    ]);
+    if (total.totalDocs === 0) {
+      probes.push({
+        id: "analytics",
+        name: "First-party analytics collector",
+        state: "warn",
+        detail: "Collector is installed (/api/track → analytics_events) but no event has been stored yet. Vendor aggregates remain unavailable (HTTP 402), so there is no traffic data from anywhere yet.",
+        fix: "Visit the public site once, then re-check. If it stays at zero, the beacon is not reaching /api/track.",
+        checkedAt: now,
+      });
+    } else if (last24.totalDocs === 0) {
+      probes.push({
+        id: "analytics",
+        name: "First-party analytics collector",
+        state: "warn",
+        detail: `${total.totalDocs} events stored all-time, none in the last 24 h. Either the site had no visitors, or the beacon stopped landing.`,
+        fix: "Open the site, click around, and re-check before assuming it is broken.",
+        checkedAt: now,
+      });
+    } else {
+      probes.push({
+        id: "analytics",
+        name: "First-party analytics collector",
+        state: "ok",
+        detail: `${last24.totalDocs} events in the last 24 h · ${total.totalDocs} stored all-time in analytics_events. Vendor aggregates still return HTTP 402; these counts are ours.`,
+        checkedAt: now,
+      });
+    }
+  } catch {
+    probes.push({
+      id: "analytics",
+      name: "First-party analytics collector",
+      state: "fail",
+      detail: "The analytics_events table could not be read. The migration may not have run on this database.",
+      fix: "Run npx payload migrate, then re-check.",
+      checkedAt: now,
+    });
+  }
+
+  /* Migrations — the release gate's question, asked from inside the app:
+     is every committed migration recorded in this database's ledger? */
+  try {
+    const { migrations } = await import("@/migrations");
+    const result = (await payload.db.drizzle.execute('select "name" as name, "batch" as batch from "payload_migrations"')) as unknown as {
+      rows?: { name: string; batch: number }[];
+    };
+    const rows = Array.isArray(result) ? (result as unknown as { name: string; batch: number }[]) : (result.rows ?? []);
+    const recorded = new Set(rows.map((r) => r.name));
+    const missing = migrations.map((m) => m.name).filter((name) => !recorded.has(name));
+    const devPush = rows.some((r) => r.name === "dev" && Number(r.batch) === -1);
+    if (missing.length > 0) {
+      probes.push({
+        id: "migrations",
+        name: "Schema migrations",
+        state: "fail",
+        detail: `Not recorded in this database: ${missing.join(", ")}. The schema and the code disagree.`,
+        fix: "Run npx payload migrate against this database before trusting any number here.",
+        checkedAt: now,
+      });
+    } else if (devPush) {
+      probes.push({
+        id: "migrations",
+        name: "Schema migrations",
+        state: "warn",
+        detail: "All migrations recorded, but a dev-push marker is present — this database was schema-pushed in development at some point.",
+        checkedAt: now,
+      });
+    } else {
+      probes.push({
+        id: "migrations",
+        name: "Schema migrations",
+        state: "ok",
+        detail: `All ${migrations.length} committed migrations are recorded in payload_migrations.`,
+        checkedAt: now,
+      });
+    }
+  } catch {
+    probes.push({
+      id: "migrations",
+      name: "Schema migrations",
+      state: "warn",
+      detail: "The migration ledger could not be read from inside the app. The release gate (npm run check:db-schema) remains the authoritative check.",
+      checkedAt: now,
+    });
+  }
+
+  /* Lead inbox — "is the form still saving?" answered by the newest row. */
+  try {
+    const newest = await payload.find({ collection: "messages", sort: "-createdAt", limit: 1, depth: 0, overrideAccess: false, user: user as never });
+    const doc = newest.docs[0] as { createdAt?: string } | undefined;
+    if (!doc?.createdAt) {
+      probes.push({
+        id: "inbox",
+        name: "Enquiry inbox",
+        state: "warn",
+        detail: "No enquiry has ever been saved. The inbox is empty — which is only a problem if the form is supposed to be live.",
+        checkedAt: now,
+      });
+    } else {
+      const hours = Math.max(0, Math.round((Date.now() - new Date(doc.createdAt).getTime()) / 3600000));
+      probes.push({
+        id: "inbox",
+        name: "Enquiry inbox",
+        state: "ok",
+        detail: hours < 1 ? "Newest enquiry arrived within the last hour." : hours < 48 ? `Newest enquiry arrived ${hours} h ago.` : `Newest enquiry arrived ${Math.round(hours / 24)} d ago.`,
+        checkedAt: now,
+      });
+    }
+  } catch {
+    probes.push({
+      id: "inbox",
+      name: "Enquiry inbox",
+      state: "fail",
+      detail: "The messages collection could not be read.",
+      fix: "Check the database probe above first.",
+      checkedAt: now,
+    });
+  }
 
   /* Revalidation — the CMS→site link. Config-level, stated as such. */
   probes.push({
@@ -510,7 +641,109 @@ export async function systemProbes({ payload }: Ctx): Promise<Probe[]> {
 }
 
 /* ────────────────────────────────────────────────────────────────────────────
-   5 · THE DASHBOARD ASSEMBLY — one call, everything the Overview needs.
+   5 · ENVIRONMENT + CMS INVENTORY — presence, never values (P5/P6).
+   ──────────────────────────────────────────────────────────────────────────── */
+
+export interface EnvRow {
+  name: string;
+  present: boolean;
+  /** What breaks or goes dark without it — the reason an operator cares. */
+  purpose: string;
+  /** Non-secret hint (e.g. a short commit sha). Never a credential. */
+  hint?: string;
+}
+
+/**
+ * Which integrations are configured, answered from process.env at request
+ * time. Only presence is reported: a console that prints secrets to prove
+ * they exist would be a vulnerability with a dashboard attached.
+ */
+export function envMatrix(): EnvRow[] {
+  const has = (name: string) => Boolean(process.env[name]);
+  const sha = process.env.VERCEL_GIT_COMMIT_SHA;
+  return [
+    { name: "DATABASE_URI", present: has("DATABASE_URI"), purpose: "Postgres (Neon) — every number in this console" },
+    { name: "PAYLOAD_SECRET", present: has("PAYLOAD_SECRET"), purpose: "Payload session signing — the login you used to get here" },
+    { name: "BLOB_READ_WRITE_TOKEN", present: has("BLOB_READ_WRITE_TOKEN"), purpose: "Vercel Blob media storage; without it uploads fall back to local disk" },
+    { name: "SMTP_HOST / SMTP_USER / SMTP_PASS", present: has("SMTP_HOST") && has("SMTP_USER") && has("SMTP_PASS"), purpose: "Enquiry email alerts (enquiries are saved regardless)" },
+    { name: "CONTACT_NOTIFY_TO", present: has("CONTACT_NOTIFY_TO"), purpose: "Inbox that receives enquiry alerts" },
+    { name: "NEXT_PUBLIC_BOOKING_URL", present: has("NEXT_PUBLIC_BOOKING_URL"), purpose: "“Book a call” CTA target on the public site" },
+    { name: "GOOGLE_SEARCH_CONSOLE_PROPERTY + service account", present: has("GOOGLE_SEARCH_CONSOLE_PROPERTY") && has("GOOGLE_SERVICE_ACCOUNT_EMAIL") && has("GOOGLE_SERVICE_ACCOUNT_KEY"), purpose: "Organic search data on the Content screen; unconfigured means honestly absent, not zero" },
+    { name: "VERCEL_GIT_COMMIT_SHA", present: has("VERCEL_GIT_COMMIT_SHA"), purpose: "Which commit is deployed", hint: sha ? sha.slice(0, 7) : undefined },
+  ];
+}
+
+export interface CmsRow {
+  slug: string;
+  label: string;
+  group: string;
+  total: number;
+  drafts: number | null;
+  href: string;
+  createHref: string;
+}
+
+export interface CmsInventory {
+  collections: CmsRow[];
+  globals: { slug: string; label: string; href: string; updatedAt: string | null }[];
+  asOf: Iso;
+}
+
+/**
+ * The Manage screen's inventory (P6): every collection with its real row
+ * count, draft count where `_status` exists, and deep links into the one
+ * real editor. This screen routes; Payload owns editing.
+ */
+export async function cmsInventory({ payload, user }: Ctx): Promise<CmsInventory> {
+  const req = { overrideAccess: false, user: user as never } as const;
+  const count = async (collection: string) =>
+    (await payload.count({ collection: collection as never, ...req })).totalDocs;
+
+  const [content, messages, resourceLeads, testimonials, teamMembers, users, events, offers, settings] = await Promise.all([
+    contentHealth({ payload, user }),
+    count("messages"),
+    count("resource-leads"),
+    count("testimonials"),
+    count("team-members"),
+    count("users"),
+    count("analytics-events"),
+    payload.findGlobal({ slug: "offers", ...req, depth: 0 }) as Promise<{ updatedAt?: string }>,
+    payload.findGlobal({ slug: "settings", ...req, depth: 0 }) as Promise<{ updatedAt?: string }>,
+  ]);
+
+  const row = (slug: string, label: string, group: string, total: number, drafts: number | null): CmsRow => ({
+    slug,
+    label,
+    group,
+    total,
+    drafts,
+    href: `/admin/collections/${slug}`,
+    createHref: `/admin/collections/${slug}/create`,
+  });
+
+  return {
+    collections: [
+      row("projects", "Projects", "Content", content.projectsPublished + content.projectsDraft, content.projectsDraft),
+      row("case-studies", "Case studies", "Content", content.caseStudiesPublished, null),
+      row("posts", "Writing", "Content", content.postsPublished + content.postsDraft, content.postsDraft),
+      row("media", "Media", "Content", content.mediaCount, null),
+      row("messages", "Enquiries (raw)", "Inbox", messages, null),
+      row("resource-leads", "Resource leads", "Inbox", resourceLeads, null),
+      row("testimonials", "Testimonials", "Content", testimonials, null),
+      row("team-members", "Team members", "Content", teamMembers, null),
+      row("analytics-events", "Analytics events", "System", events, null),
+      row("users", "Users", "System", users, null),
+    ],
+    globals: [
+      { slug: "offers", label: "Offers & pricing", href: "/admin/globals/offers", updatedAt: offers.updatedAt ?? null },
+      { slug: "settings", label: "Site settings", href: "/admin/globals/settings", updatedAt: settings.updatedAt ?? null },
+    ],
+    asOf: iso(new Date()),
+  };
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   6 · THE DASHBOARD ASSEMBLY — one call, everything the Overview needs.
    ──────────────────────────────────────────────────────────────────────────── */
 
 export interface Overview {

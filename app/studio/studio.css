@@ -909,7 +909,233 @@
   }
 }
 
-/* Light theme: the console runs dark by design — an operating surface, not a
-   reading surface. A light variant that merely inverted the ramp would fail
-   contrast on the glass tiles, so it is deliberately out of scope for P1
-   rather than shipped half-tuned. See docs/studio/02_BLUEPRINT.md §7. */
+/* ── P2–P6 additions: aurora tile, drawer, toasts, skeletons, drag states ── */
+
+/* The brand's aurora moment — the same coral, at full strength, for the one
+   tile that should glow. Text flips to deep ink; the tile carries its own
+   contrast instead of borrowing the theme's. */
+.studio-tile--aurora {
+  background: linear-gradient(135deg, #ff6b47, #ff8a5c 48%, #ffb199);
+  border-color: rgb(255 255 255 / 0.25);
+  color: #260f06;
+}
+.studio-tile--aurora .studio-tile__head h2 { color: rgb(38 15 6 / 0.78); }
+.studio-tile--aurora .studio-tile__more { color: rgb(38 15 6 / 0.75); font-weight: 600; }
+.studio-tile--aurora .studio-provenance { color: rgb(38 15 6 / 0.66); border-block-start-color: rgb(38 15 6 / 0.16); }
+.studio-tile--aurora .studio-empty-state { border-color: rgb(38 15 6 / 0.3); }
+.studio-tile--aurora .studio-empty-state p { color: rgb(38 15 6 / 0.72); }
+
+/* Board drag states — the column under the cursor lights up before the drop. */
+.studio-col--over { border-color: var(--s-accent-40); background: var(--s-accent-14); }
+.studio-card--drag { cursor: grab; }
+.studio-card--drag:active { cursor: grabbing; }
+.studio-card--dragging { opacity: 0.45; }
+.studio-card__grip { margin-inline-start: auto; color: var(--s-faint); flex: none; }
+
+/* Buttons wearing row/link clothing (drawer openers in tables and lists). */
+.studio-row--btn {
+  appearance: none;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+  width: 100%;
+}
+.studio-table__link {
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: inherit;
+  cursor: pointer;
+  text-align: start;
+}
+.studio-table__link:hover { color: var(--s-accent); }
+
+/* Drawer (lead detail) */
+.studio-drawer-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgb(4 4 10 / 0.55);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  animation: studio-fade 180ms ease;
+}
+.studio-drawer {
+  position: fixed;
+  top: var(--s-gap);
+  bottom: var(--s-gap);
+  inset-inline-end: var(--s-gap);
+  width: min(440px, calc(100vw - 2 * var(--s-gap)));
+  z-index: 71;
+  display: flex;
+  flex-direction: column;
+  background: var(--s-surface-3);
+  border: 1px solid var(--s-hair-strong);
+  border-radius: var(--s-r-panel);
+  box-shadow: 0 40px 90px -50px #000;
+  overflow: hidden;
+  animation: studio-drawer-in 260ms var(--s-ease);
+}
+[dir="rtl"] .studio-drawer { animation-name: studio-drawer-in-rtl; }
+.studio-drawer__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-block-end: 1px solid var(--s-hair);
+  flex: none;
+}
+.studio-drawer__body { padding: 16px; overflow-y: auto; min-height: 0; }
+@keyframes studio-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes studio-drawer-in { from { transform: translateX(26px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes studio-drawer-in-rtl { from { transform: translateX(-26px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+.studio-kv { margin: 0; display: flex; flex-direction: column; }
+.studio-kv__row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 10px;
+  padding: 6px 0;
+  border-block-end: 1px solid var(--s-hair);
+  font-size: 12px;
+}
+.studio-kv__row dt {
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 9.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--s-faint);
+  padding-block-start: 2px;
+}
+.studio-kv__row dd { margin: 0; overflow-wrap: anywhere; }
+.studio-brief {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--s-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: rgb(255 255 255 / 0.03);
+  border: 1px solid var(--s-hair);
+  border-radius: 10px;
+  padding: 10px 12px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.studio-check { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; cursor: pointer; width: fit-content; }
+.studio-check input { accent-color: var(--s-accent); width: 15px; height: 15px; cursor: pointer; }
+
+/* Toasts */
+.studio-toasts {
+  position: fixed;
+  bottom: 18px;
+  inset-inline-end: 18px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: min(370px, calc(100vw - 36px));
+}
+.studio-toast {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--s-surface-3);
+  border: 1px solid var(--s-hair-strong);
+  font-size: 12px;
+  line-height: 1.45;
+  box-shadow: 0 24px 50px -30px #000;
+  animation: studio-toast-in 220ms var(--s-ease);
+}
+.studio-toast .studio-ico { flex: none; margin-block-start: 1px; }
+.studio-toast--ok { border-color: rgb(52 211 153 / 0.4); }
+.studio-toast--ok .studio-ico { color: var(--s-ok); }
+.studio-toast--danger { border-color: rgb(248 113 113 / 0.45); }
+.studio-toast--danger .studio-ico { color: var(--s-danger); }
+.studio-toast--info .studio-ico { color: var(--s-info); }
+@keyframes studio-toast-in { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Skeleton */
+.studio-skel {
+  background: linear-gradient(100deg, rgb(255 255 255 / 0.05) 40%, rgb(255 255 255 / 0.13) 50%, rgb(255 255 255 / 0.05) 60%);
+  background-size: 200% 100%;
+  animation: studio-shimmer 1.4s linear infinite;
+}
+@keyframes studio-shimmer { from { background-position: 120% 0; } to { background-position: -80% 0; } }
+
+/* ── light theme ────────────────────────────────────────────────────────────
+   Deliberately NOT an inversion: warm paper, white glass, the same coral
+   deepened one step for contrast. Semantic hues darken to stay legible on
+   white, and the one dark-by-design tile (`--invert`) re-declares the dark
+   ink ramp inside itself instead of inheriting the theme's. */
+.studio { color-scheme: dark; }
+.studio[data-theme="light"] {
+  color-scheme: light;
+  --s-bg: #f3f0e9;
+  --s-surface: rgb(255 255 255 / 0.66);
+  --s-surface-2: rgb(255 255 255 / 0.86);
+  --s-surface-3: rgb(255 255 255 / 0.97);
+  --s-hair: rgb(24 18 44 / 0.1);
+  --s-hair-strong: rgb(24 18 44 / 0.22);
+  --s-ink: #1b1728;
+  --s-muted: rgb(27 23 40 / 0.7);
+  --s-faint: rgb(27 23 40 / 0.5);
+  --s-accent: #e8502a;
+  --s-accent-14: rgb(232 80 42 / 0.12);
+  --s-accent-24: rgb(232 80 42 / 0.2);
+  --s-accent-40: rgb(232 80 42 / 0.38);
+  --s-ok: #059669;
+  --s-ok-dim: rgb(5 150 105 / 0.12);
+  --s-warn: #b45309;
+  --s-warn-dim: rgb(217 119 6 / 0.14);
+  --s-danger: #dc2626;
+  --s-danger-dim: rgb(220 38 38 / 0.1);
+  --s-info: #2563eb;
+  --s-info-dim: rgb(37 99 235 / 0.12);
+}
+.studio[data-theme="light"] .studio-atmos::before { opacity: 0.16; }
+.studio[data-theme="light"] .studio-atmos::after { opacity: 0.08; }
+.studio[data-theme="light"] .studio-chip--ok { color: #047857; }
+.studio[data-theme="light"] .studio-chip--warn { color: #b45309; }
+.studio[data-theme="light"] .studio-chip--danger { color: #dc2626; }
+.studio[data-theme="light"] .studio-chip--info { color: #1d4ed8; }
+.studio[data-theme="light"] .studio-chip--accent { color: #c2410c; }
+.studio[data-theme="light"] .studio-btn { background: rgb(255 255 255 / 0.65); }
+.studio[data-theme="light"] .studio-btn:hover { background: rgb(255 255 255 / 0.95); }
+.studio[data-theme="light"] .studio-btn--primary { background: var(--s-accent); color: #fff7f2; }
+.studio[data-theme="light"] .studio-range { background: rgb(27 23 40 / 0.07); }
+.studio[data-theme="light"] .studio-range a[aria-current="true"] { background: #fff; box-shadow: 0 1px 4px rgb(24 18 44 / 0.12); }
+.studio[data-theme="light"] .studio-nav__item:hover { background: rgb(27 23 40 / 0.05); }
+.studio[data-theme="light"] .studio-nav__item[aria-current="page"] { background: rgb(27 23 40 / 0.08); }
+.studio[data-theme="light"] .studio-nav__count { color: #9a3412; }
+.studio[data-theme="light"] .studio-alert { color: var(--s-ink); }
+.studio[data-theme="light"] .studio-alert__eye { color: #dc2626; }
+.studio[data-theme="light"] .studio-alert a { color: #dc2626; }
+.studio[data-theme="light"] .studio-input { background: rgb(255 255 255 / 0.9); }
+.studio[data-theme="light"] .studio-col { background: rgb(255 255 255 / 0.45); }
+.studio[data-theme="light"] .studio-col--over { background: var(--s-accent-14); }
+.studio[data-theme="light"] .studio-funnel__track,
+.studio[data-theme="light"] .studio-dist__track { background: rgb(27 23 40 / 0.08); }
+.studio[data-theme="light"] .studio-table tbody tr:hover { background: rgb(27 23 40 / 0.03); }
+.studio[data-theme="light"] .studio-row:hover { background: rgb(27 23 40 / 0.045); }
+.studio[data-theme="light"] .studio-probe:hover { background: rgb(27 23 40 / 0.04); }
+.studio[data-theme="light"] .studio-brief { background: rgb(255 255 255 / 0.65); }
+.studio[data-theme="light"] .studio-skel {
+  background: linear-gradient(100deg, rgb(27 23 40 / 0.06) 40%, rgb(27 23 40 / 0.13) 50%, rgb(27 23 40 / 0.06) 60%);
+  background-size: 200% 100%;
+}
+.studio[data-theme="light"] .studio-tile--invert {
+  --s-ink: #f8f8fa;
+  --s-muted: rgb(248 248 250 / 0.68);
+  --s-faint: rgb(248 248 250 / 0.46);
+  color: var(--s-ink);
+}
+

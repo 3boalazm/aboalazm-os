@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Chip, EmptyState, ProbeRow, SIcon, Tile, ViewHeader, shortTime } from "@/components/studio/ui";
-import type { Probe } from "@/lib/studio/metrics";
+import type { EnvRow, Probe } from "@/lib/studio/metrics";
 
 /**
  * SYSTEM — the console's own honesty check.
@@ -11,7 +11,7 @@ import type { Probe } from "@/lib/studio/metrics";
  * example, whether a deployment is live on Vercel — the screen says so instead
  * of guessing.
  */
-export function SystemView({ probes }: { probes: Probe[] }) {
+export function SystemView({ probes, env }: { probes: Probe[]; env: EnvRow[] }) {
   const fails = probes.filter((p) => p.state === "fail");
   const warns = probes.filter((p) => p.state === "warn");
   const oks = probes.filter((p) => p.state === "ok");
@@ -78,25 +78,60 @@ export function SystemView({ probes }: { probes: Probe[] }) {
         )}
       </Tile>
 
+      <Tile
+        span="w12"
+        title={<b>Environment & integrations</b>}
+        aside={<Chip tone="neutral">presence only — values never leave the server</Chip>}
+        provenance={<>Read from <code>process.env</code> on this request · a missing row explains a dark feature, never a zero metric</>}
+      >
+        <div className="studio-scroll-x">
+          <table className="studio-table">
+            <thead>
+              <tr>
+                <th>Variable</th>
+                <th>Status</th>
+                <th>What it powers</th>
+              </tr>
+            </thead>
+            <tbody>
+              {env.map((row) => (
+                <tr key={row.name}>
+                  <td style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11 }}>
+                    {row.name}
+                    {row.hint ? <span style={{ color: "var(--s-accent)" }}> · {row.hint}</span> : null}
+                  </td>
+                  <td>
+                    <Chip tone={row.present ? "ok" : "warn"} icon={row.present ? "check" : "minus"}>
+                      {row.present ? "set" : "missing"}
+                    </Chip>
+                  </td>
+                  <td style={{ color: "var(--s-muted)" }}>{row.purpose}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Tile>
+
       <div className="studio-bento">
         <Tile
           span="w7"
-          title={<b>Why there is no traffic panel</b>}
+          title={<b>How traffic is counted now</b>}
           variant="invert"
-          provenance={<>The limitation recorded in docs/EVENTS.md, restated where an operator will actually look</>}
+          provenance={<>The limitation recorded in docs/EVENTS.md, and the P2 answer to it</>}
         >
           <p className="studio-sub" style={{ marginBlockEnd: 10 }}>
-            The site does emit conversion events (<code>cta_start_project</code>, <code>form_start</code>, <code>contact_submit</code> …).
-            Reading their totals back requires a Pro/Enterprise analytics plan; on the current plan the aggregation request returns{" "}
-            <b>HTTP 402</b>. So:
+            The vendor copy of every event still exists, but reading its totals back requires a Pro/Enterprise plan — the
+            aggregation request returns <b>HTTP 402</b>. Since P2 the site also writes each event to its own Postgres through{" "}
+            <code>/api/track</code>, so the console counts what it owns:
           </p>
           <ul style={{ margin: "0 0 12px", paddingInlineStart: 16, display: "flex", flexDirection: "column", gap: 7, fontSize: 11.5, color: "var(--s-muted)", lineHeight: 1.5 }}>
-            <li>No visitor, session, pageview or device figures appear anywhere in this console.</li>
-            <li>The funnel starts at <b style={{ color: "var(--s-ink)" }}>saved enquiries</b> — the first step with a database row behind it.</li>
-            <li>If the plan changes, a first-party collector is the intended path (see the blueprint), not scraping a vendor we cannot read.</li>
+            <li>Pageviews, sessions, referrer hosts and the event funnel on the Analytics screen are first-party counts with printed definitions.</li>
+            <li>No IP, user-agent string or fingerprint is stored; a session is a random per-tab id.</li>
+            <li>The <b style={{ color: "var(--s-ink)" }}>saved enquiry</b> remains the ground truth — when a browser signal and the database disagree, the database wins.</li>
           </ul>
-          <Link className="studio-btn studio-btn--sm" href="/admin/collections/messages">
-            Work from the inbox instead <SIcon name="arrowRight" size={11} />
+          <Link className="studio-btn studio-btn--sm" href="/studio/analytics">
+            Open Analytics <SIcon name="arrowRight" size={11} />
           </Link>
         </Tile>
 
@@ -121,7 +156,8 @@ export function SystemView({ probes }: { probes: Probe[] }) {
               <div>
                 <span className="studio-probe__name">Search Console</span>
                 <p className="studio-probe__detail">
-                  Not connected. Organic clicks and impressions need a Google Search Console integration — planned for P4, not faked now.
+                  Not connected. Organic clicks and impressions need a Google Search Console service account; the Content screen
+                  shows the connection state and the exact env vars — the data itself is not faked meanwhile.
                 </p>
               </div>
             </div>

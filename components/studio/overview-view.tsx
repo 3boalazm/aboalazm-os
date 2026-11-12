@@ -16,6 +16,7 @@ import {
   usd,
 } from "@/components/studio/ui";
 import { deltaOf, loadOverview, type Overview, type Probe } from "@/lib/studio/metrics";
+import type { analyticsSummary } from "@/lib/studio/analytics";
 
 /**
  * OVERVIEW — three questions, in order:
@@ -27,7 +28,7 @@ import { deltaOf, loadOverview, type Overview, type Probe } from "@/lib/studio/m
  * about strangers; this one opens with the three enquiries nobody has answered
  * yet.
  */
-export function OverviewView({ data }: { data: Overview }) {
+export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awaited<ReturnType<typeof analyticsSummary>> }) {
   const { leads, content, activity, resources, probes } = data;
   const all = leads.all;
   const atendimento = leads.recent.filter((l) => !l.isRead);
@@ -214,8 +215,9 @@ export function OverviewView({ data }: { data: Overview }) {
             })}
           </div>
           <p className="studio-tiny" style={{ marginBlockStart: 10 }}>
-            The funnel starts at <b>saved enquiries</b>, not at visits: browser events cannot be aggregated on the current
-            analytics plan (HTTP 402), so there is deliberately no traffic bar above this one.
+            This funnel starts at <b>saved enquiries</b> by design — it is the money view. The visit-level funnel (pageview →
+            click → form → submit) lives on the Analytics screen, counted from our own event store; the vendor equivalent still
+            cannot be read back on this plan (HTTP 402).
           </p>
         </Tile>
 
@@ -252,6 +254,65 @@ export function OverviewView({ data }: { data: Overview }) {
             </span>
           </div>
         </Tile>
+
+        {/* ── 4b · traffic (first-party, P2) ──────────────────────────── */}
+        {traffic ? (
+          <Tile
+            span="w4"
+            variant="aurora"
+            title={<b>Traffic</b>}
+            aside={
+              <Link className="studio-tile__more" href="/studio/analytics">
+                full funnel
+              </Link>
+            }
+            provenance={
+              <>
+                First-party <code>pageview</code> events in <code>analytics-events</code> · sessions are random per-tab ids, not
+                people · vendor aggregates remain unreadable (HTTP 402)
+              </>
+            }
+          >
+            {traffic.totalEvents === 0 ? (
+              <EmptyState
+                title="Collector live, no visits yet"
+                body="The first-party beacon has stored nothing in this window. This is a real empty state — open the site once and it fills."
+              />
+            ) : (
+              <>
+                <p className="studio-up" style={{ margin: "0 0 2px" }}>
+                  Pageviews · {data.range.label}
+                </p>
+                <div className="studio-hero">{num(traffic.pageviews)}</div>
+                <div style={{ marginBlock: "7px 12px" }}>
+                  <Delta
+                    pct={
+                      traffic.prevPageviews
+                        ? Math.round(((traffic.pageviews - traffic.prevPageviews) / traffic.prevPageviews) * 100)
+                        : traffic.pageviews
+                          ? null
+                          : 0
+                    }
+                  />
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBlockStart: "auto" }}>
+                  <span className="studio-row__meta" style={{ justifyContent: "space-between" }}>
+                    <span>Sessions</span>
+                    <b className="studio-num" style={{ color: "var(--s-ink)" }}>
+                      {num(traffic.sessions)}
+                    </b>
+                  </span>
+                  <span className="studio-row__meta" style={{ justifyContent: "space-between" }}>
+                    <span>Events stored</span>
+                    <b className="studio-num" style={{ color: "var(--s-ink)" }}>
+                      {num(traffic.totalEvents)}
+                    </b>
+                  </span>
+                </div>
+              </>
+            )}
+          </Tile>
+        ) : null}
 
         {/* ── 5 · where leads come from ───────────────────────────────── */}
         <Tile

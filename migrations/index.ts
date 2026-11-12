@@ -1,6 +1,7 @@
 import * as migration_20260705_212937_initial from './20260705_212937_initial';
 import * as migration_20261024_145000_lead_pipeline from './20261024_145000_lead_pipeline';
 import * as migration_20261111_120000_messages_locale_ms from './20261111_120000_messages_locale_ms';
+import * as migration_20261112_100000_analytics_events from './20261112_100000_analytics_events';
 
 export const migrations = [
   {
@@ -17,5 +18,10 @@ export const migrations = [
     up: migration_20261111_120000_messages_locale_ms.up,
     down: migration_20261111_120000_messages_locale_ms.down,
     name: '20261111_120000_messages_locale_ms'
+  },
+  {
+    up: migration_20261112_100000_analytics_events.up,
+    down: migration_20261112_100000_analytics_events.down,
+    name: '20261112_100000_analytics_events'
   },
 ];
