@@ -261,23 +261,78 @@ export interface ContentHealth {
   mediaCount: number;
   /** Projects with no thumbnail — a real, fixable gap. */
   projectsWithoutThumbnail: number;
-  /** Project rows whose `status` says in-progress (live but incomplete). */
-  projectsInProgress: number;
+  /**
+   * Project rows whose delivery status says in-progress.
+   *
+   * `null` — not 0 — means the column does not exist in this database, so the
+   * number cannot be sourced. The Projects collection declares a `status`
+   * select that collides with Payload's own `_status` enum (both map to
+   * enum_projects_status), so no committed migration creates the column; see
+   * docs/studio/03_SCHEMA_FINDINGS.md §3. Production got it from an old schema
+   * push, but a database built from migrations does not have it at all, and
+   * querying it there fails the whole Projects read. The console reports that
+   * honestly instead of inventing a zero or crashing the page.
+   */
+  projectsInProgress: number | null;
   asOf: Iso;
+}
+
+type P = { id?: number; _status?: string | null; thumbnail?: unknown; name?: string | null; slug?: string | null; status?: string | null; updatedAt?: string };
+
+/** True when the error is "this column does not exist" from Postgres. */
+function isMissingColumn(error: unknown): boolean {
+  const code = (error as { cause?: { code?: string }; code?: string })?.cause?.code ?? (error as { code?: string })?.code;
+  return code === "42703";
+}
+
+/** Columns of `projects` that no migration can be missing. */
+const SAFE_PROJECT_SELECT = { name: true, slug: true, thumbnail: true, _status: true, updatedAt: true } as const;
+
+/**
+ * Read `projects` without assuming the delivery-status column exists.
+ *
+ * Collections/Projects.ts declares a `status` select whose Postgres enum
+ * collides with Payload's own `_status` (both map to enum_projects_status), so
+ * no committed migration can create the column — see
+ * docs/studio/03_SCHEMA_FINDINGS.md §3. A database built only from migrations
+ * therefore answers the full select with Postgres 42703 and every page that
+ * reads projects dies. On that specific error we re-read with an explicit
+ * column list and flag the data as partial; anything else still throws.
+ */
+async function readProjects(
+  payload: Ctx["payload"],
+  user: Ctx["user"],
+  opts: { limit: number; sort?: string },
+): Promise<{ docs: P[]; deliveryStatusAvailable: boolean }> {
+  const req = { overrideAccess: false, user: user as never, depth: 0, ...opts } as const;
+  try {
+    const r = await payload.find({ collection: "projects", ...req });
+    return { docs: r.docs as P[], deliveryStatusAvailable: true };
+  } catch (error: unknown) {
+    if (!isMissingColumn(error)) throw error;
+    const r = await payload.find({ collection: "projects", ...req, select: { ...SAFE_PROJECT_SELECT } });
+    return { docs: r.docs as P[], deliveryStatusAvailable: false };
+  }
 }
 
 export async function contentHealth({ payload, user }: Ctx): Promise<ContentHealth> {
   const req = { overrideAccess: false, user: user as never, depth: 0, limit: 0, pagination: false } as const;
 
-  const [projects, posts, caseStudies, media] = await Promise.all([
-    payload.find({ collection: "projects", ...req }),
-    payload.find({ collection: "posts", ...req }),
-    payload.find({ collection: "case-studies", ...req }),
-    payload.find({ collection: "media", ...req }),
+  /* Projects go through readProjects so a missing optional column degrades one
+     number instead of the entire console. The rest is genuinely independent and
+     still fetched in parallel. */
+  const [projects, others] = await Promise.all([
+    readProjects(payload, user, { limit: 0 }),
+    Promise.all([
+      payload.find({ collection: "posts", ...req }),
+      payload.find({ collection: "case-studies", ...req }),
+      payload.find({ collection: "media", ...req }),
+    ]),
   ]);
+  const [posts, caseStudies, media] = others;
 
-  type P = { _status?: string | null; thumbnail?: unknown; status?: string | null };
-  const pDocs = projects.docs as P[];
+  const pDocs = projects.docs;
+  const { deliveryStatusAvailable } = projects;
   return {
     projectsPublished: pDocs.filter((p) => p._status === "published").length,
     projectsDraft: pDocs.filter((p) => p._status !== "published").length,
@@ -286,7 +341,9 @@ export async function contentHealth({ payload, user }: Ctx): Promise<ContentHeal
     caseStudiesPublished: (caseStudies.docs as P[]).filter((p) => p._status === "published").length,
     mediaCount: media.docs.length,
     projectsWithoutThumbnail: pDocs.filter((p) => p._status === "published" && !p.thumbnail).length,
-    projectsInProgress: pDocs.filter((p) => p.status === "in-progress").length,
+    projectsInProgress: deliveryStatusAvailable
+      ? pDocs.filter((p) => p.status === "in-progress").length
+      : null,
     asOf: iso(new Date()),
   };
 }
@@ -295,12 +352,12 @@ export async function contentHealth({ payload, user }: Ctx): Promise<ContentHeal
 export async function recentActivity({ payload, user }: Ctx) {
   const req = { overrideAccess: false, user: user as never, depth: 0, limit: 5, sort: "-updatedAt" } as const;
   const [projects, posts, caseStudies] = await Promise.all([
-    payload.find({ collection: "projects", ...req }),
+    readProjects(payload, user, { limit: 5, sort: "-updatedAt" }),
     payload.find({ collection: "posts", ...req }),
     payload.find({ collection: "case-studies", ...req }),
   ]);
   const rows = [
-    ...(projects.docs as { id: number; name?: string; slug?: string; _status?: string; updatedAt: string }[]).map((d) => ({
+    ...projects.docs.map((d) => ({
       id: `project-${d.id}`,
       kind: "Project" as const,
       title: d.name ?? d.slug ?? `#${d.id}`,
@@ -325,7 +382,7 @@ export async function recentActivity({ payload, user }: Ctx) {
       at: d.updatedAt,
     })),
   ];
-  return rows.sort((a, b) => (a.at < b.at ? 1 : -1)).slice(0, 6);
+  return rows.sort((a, b) => String(b.at ?? "").localeCompare(String(a.at ?? ""))).slice(0, 6);
 }
 
 /* ────────────────────────────────────────────────────────────────────────────

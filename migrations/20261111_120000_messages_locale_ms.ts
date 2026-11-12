@@ -5,32 +5,40 @@ import { sql } from "@payloadcms/db-postgres";
  * Adds Malay ('ms') to messages.locale.
  *
  * Malay has been a live, prefixed locale (/ms) since the three-language
- * release, but the Messages select still offered only en/ar. Because the
- * contact form records the visitor's locale, an enquiry submitted from /ms
- * failed at the database with:
+ * release, but enum_messages_locale only knew en/ar. lib/contact-attribution.ts
+ * therefore coerced every non-Arabic locale to "en" before the insert, so an
+ * enquiry from /ms saved successfully and was filed as an English lead: the
+ * language was lost, even though the row was never rejected. The brief text
+ * still carried "ms (Bahasa Melayu)", which was the only surviving trace.
  *
- *   invalid input value for enum enum_messages_locale: "ms"
+ * This migration widens the enum so the real locale can be stored. It does not
+ * rewrite history — rows already recorded as "en" stay "en", because the only
+ * way to identify a coerced Malay row would be to parse free-text briefs.
  *
- * i.e. the form could not save a Malaysian enquiry at all. The value is only
- * widened here — no historical row is rewritten, and no default changes.
- *
- * Postgres cannot ADD VALUE inside a transaction block on versions before 12,
- * and Payload runs migrations in a transaction; `IF NOT EXISTS` plus the
- * committed-later behaviour is safe on the Postgres 14+ this project targets.
+ * Idempotent by design: `ADD VALUE IF NOT EXISTS` is a no-op when the value is
+ * already present, so this is safe to run against a database that was widened
+ * by hand (as scripts/studio-dev-db.sh used to do) before it was recorded in
+ * the ledger.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
+  /* Postgres will not run ALTER TYPE ... ADD VALUE inside a transaction block on
+     versions before 12; the project targets Postgres 14+, where adding a value
+     inside a transaction is allowed as long as the new value is not used in the
+     same transaction. Nothing below reads 'ms'. */
   await db.execute(sql`ALTER TYPE "public"."enum_messages_locale" ADD VALUE IF NOT EXISTS 'ms'`);
 }
 
 /**
- * Postgres cannot remove a value from an existing enum type. The down
- * migration therefore fails loudly if any row still uses 'ms' (removing the
- * value would destroy those enquiries), and otherwise leaves the enum wider
- * than the code — harmless, and the only non-destructive option.
+ * Postgres cannot remove a value from an existing enum type. The down migration
+ * therefore refuses to run while any row still uses 'ms' (dropping the value
+ * would destroy real enquiries), and otherwise leaves the enum wider than the
+ * schema snapshot describes — harmless, and the only non-destructive option.
  */
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  const rows = await db.execute(sql`SELECT count(*)::int AS n FROM "messages" WHERE "locale" = 'ms'`);
-  const count = Number((rows as unknown as { rows?: { n: number }[] }).rows?.[0]?.n ?? 0);
+  const result = (await db.execute(
+    sql`SELECT count(*)::int AS n FROM "messages" WHERE "locale" = 'ms'`,
+  )) as unknown as { rows?: Array<{ n: number }> };
+  const count = Number(result.rows?.[0]?.n ?? 0);
   if (count > 0) {
     throw new Error(
       `Refusing to roll back 20261111_120000_messages_locale_ms: ${count} message(s) use locale 'ms'. Reassign them before rolling back.`,

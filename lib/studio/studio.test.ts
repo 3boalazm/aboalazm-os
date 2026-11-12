@@ -219,3 +219,49 @@ test("studio files are the only ones added outside the site tree", () => {
     }
   }
 });
+
+/* ─────────────────────────────────────────────────────────── 6 · missing-column resilience */
+
+test("content health degrades to an honest null instead of failing the page", () => {
+  /* Collections/Projects.ts declares a `status` select that collides with
+     Payload's `_status` enum (both map to enum_projects_status), so no
+     migration creates projects.status. A database built from migrations only
+     therefore fails the Projects read with Postgres 42703 — which used to take
+     down every /studio page. The console must report "cannot source this"
+     rather than print 0, and must never crash. */
+  const metrics = read("lib", "studio/metrics.ts");
+  assert.match(metrics, /projectsInProgress: number \| null/, "the metric must be nullable, not silently zero");
+  assert.match(metrics, /42703/, "the missing-column error must be detected explicitly");
+  assert.match(
+    metrics,
+    /select:\s*\{\s*\.\.\.SAFE_PROJECT_SELECT\s*\}/,
+    "on 42703 it must retry selecting only columns that must exist",
+  );
+
+  /* The guard only helps if every projects read goes through it. Two callers
+     (content health and the recent-activity feed) queried the collection
+     directly, and fixing just one left every /studio page 500-ing. So: strip
+     the helper's own body, and nothing outside it may read projects. */
+  const helperStart = metrics.indexOf("async function readProjects(");
+  const helperEnd = metrics.indexOf("\n}", helperStart);
+  assert.ok(helperStart > -1 && helperEnd > helperStart, "readProjects helper not found");
+  const outsideHelper = metrics.slice(0, helperStart) + metrics.slice(helperEnd);
+  assert.doesNotMatch(
+    outsideHelper,
+    /collection:\s*"projects"/,
+    "projects must be read only inside readProjects(), which tolerates the missing column",
+  );
+  assert.equal(
+    [...metrics.matchAll(/readProjects\(/g)].length,
+    3,
+    "expected readProjects to be defined once and used by both callers",
+  );
+
+  const view = read("components/studio", "content-view.tsx");
+  assert.match(view, /projectsInProgress === null/, "the UI must explain the missing column");
+  assert.doesNotMatch(
+    view,
+    /<strong>\{content\.projectsInProgress\}<\/strong>/,
+    "a null metric must not render as a bare number",
+  );
+});

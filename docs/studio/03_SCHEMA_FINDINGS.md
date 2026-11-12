@@ -102,5 +102,64 @@ What *was* added:
 * `PAYLOAD_DISABLE_PUSH=1` in `payload.config.ts` — documented escape hatch so
   a dev server can run against a **migrated** database. Push stays on by
   default; the flag only exists because push cannot build finding #1 at all.
-* `lib/studio/system.test.ts` pins finding #2 at the level the console can see:
+* `lib/studio/studio.test.ts` pins finding #2 at the level the console can see:
   if `Messages.locale` and `lib/locale.ts` disagree, the test fails.
+
+---
+
+## Follow-up, 12 November 2026 — the release gate, and a 500 the gate could not see
+
+Reviewing the merged PR turned up three things that the tests above did not
+catch. All three are fixed here.
+
+### a · The gate compared the database to a stale snapshot
+
+`20261111_120000_messages_locale_ms` widened `enum_messages_locale`, but
+`scripts/check-payload-schema-state.ts` still audited only the two older
+snapshots — which both say the enum is `en,ar`. A **correctly migrated**
+database therefore failed the release with `enumValueMismatches`, and the gate
+never read the schema of the migration that had just shipped.
+
+Fixed by listing every snapshot (oldest first) and gating on the newest, while
+still auditing history for anything that was dropped or retyped.
+`lib/payload-schema-audit.test.ts` now fails if a snapshot file exists on disk
+but the gate never reads it, and it also pins the snapshot chain (`prevId`) and
+the enum/select/`LOCALES` agreement. The gate's failure message now says which
+migration is missing instead of "requires a controlled baseline".
+
+### b · Malay leads were filed as English, not rejected
+
+The original finding said a `/ms` enquiry *fails*. That was wrong, and the
+correction matters: `storedLocale()` coerced every non-Arabic locale to `"en"`
+before the insert, so the row saved fine and the lead silently looked English.
+No enquiry was ever lost — its language was. `storedLocale` now returns the
+real locale, and `lib/contact-attribution.test.ts` asserts `'ms'` survives.
+
+### c · `/studio` returned 500 on any database built only from migrations
+
+This is finding #3 biting from the other side. `lib/studio/metrics.ts` read
+`projects` with the full column list, which includes the `status` select that
+**no migration can create** (its Postgres enum collides with Payload's own
+`_status`). Production happens to have the column from an old schema push, so
+it worked there; a database created by `npx payload migrate` only has
+`_status`, and every `/studio` page died with `column projects.status does not
+exist` (Postgres `42703`). Two callers were affected — content health and the
+recent-activity feed — and guarding one still left the pages 500-ing.
+
+Fixed with a single `readProjects()` helper: on `42703` it re-reads using an
+explicit list of columns that must exist, and reports
+`projectsInProgress: null`. The Content screen renders `—` with the reason
+rather than inventing a zero. `studio.test.ts` asserts that no code outside
+that helper reads `projects`.
+
+The underlying model problem is untouched — finding #3 still stands, and the
+`status` field still cannot be created by migration. Renaming it (for example
+to `deliveryStatus`) remains the right permanent fix, but that is a data-model
+decision and touches `features/work/*`, so it is left for its own change.
+
+**Verification:** `npx payload migrate` on an empty database, then
+`npm run check:db-schema` → `releaseReady: true` (it was `false` before), and
+`next start` against that same migration-only database → `/studio`,
+`/studio/leads`, `/studio/content`, `/studio/system` all `200` (they were
+`500`). The marketing site, `/admin` and the unauthenticated `/studio` redirect
+are unchanged.

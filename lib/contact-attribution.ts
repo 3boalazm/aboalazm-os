@@ -9,13 +9,16 @@ import type { Locale } from "@/lib/locale";
 const PACKAGE_TIER_IDS = ["logo-design", "brand-identity", "full-brand-system"] as const;
 
 /**
- * The messages.locale column is a Postgres enum with only en/ar (migrated in
- * 20261024_145000_lead_pipeline). Malay enquiries are stored as "en" so the
- * insert never fails; the brief text still records "ms (Bahasa Melayu)".
- * Extending the enum needs its own migration and schema snapshot.
+ * The messages.locale column stores every live locale.
+ *
+ * Malay used to be coerced to "en" because enum_messages_locale only knew
+ * en/ar: the enquiry saved, but a Malaysian lead was filed as English and its
+ * language was unrecoverable from the structured columns. Migration
+ * 20261111_120000_messages_locale_ms widens the enum, so the visitor's real
+ * locale is now what gets stored.
  */
-export function storedLocale(locale: Locale | undefined): "en" | "ar" {
-  return locale === "ar" ? "ar" : "en";
+export function storedLocale(locale: Locale | undefined): Locale {
+  return locale === "ar" || locale === "ms" ? locale : "en";
 }
 
 export function buildContactAttribution(raw: Record<string, unknown>) {
