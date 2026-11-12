@@ -53,7 +53,9 @@ test("Payload inbox has stage and attribution fields while public REST create re
   assert.match(schema, /defaultValue:\s*"new"/u);
 });
 
-test("Malay enquiries are stored under the en/ar enum, without failing the insert", () => {
-  const attribution = buildContactAttribution({ service: "website", locale: "ms" });
-  assert.equal(attribution.locale, "en");
+test("Malay enquiries keep their real locale instead of being filed as English", () => {
+  /* A /ms enquiry used to be coerced to "en", so a Malaysian lead looked
+     English in the inbox. The enum now stores "ms"
+     (20261111_120000_messages_locale_ms), and this test pins that behaviour. */
+  assert.equal(buildContactAttribution({ service: "website", locale: "ms" }).locale, "ms");
 });

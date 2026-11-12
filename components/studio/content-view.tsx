@@ -173,8 +173,12 @@ export function ContentView({
             <p>Published projects with no thumbnail. These render as empty cards on /work.</p>
           </div>
           <div className="studio-empty-state" style={{ textAlign: "start" }}>
-            <strong>{content.projectsInProgress}</strong>
-            <p>Projects marked in-progress. They stay visible and are labelled as live-but-unfinished.</p>
+            <strong>{content.projectsInProgress ?? "—"}</strong>
+            <p>
+              {content.projectsInProgress === null
+                ? "Not available: the delivery-status column is missing from this database. See docs/studio/03_SCHEMA_FINDINGS.md §3."
+                : "Projects marked in-progress. They stay visible and are labelled as live-but-unfinished."}
+            </p>
           </div>
           <div className="studio-empty-state" style={{ textAlign: "start" }}>
             <strong>{content.postsDraft}</strong>

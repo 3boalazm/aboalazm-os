@@ -70,8 +70,9 @@ for (const v of ["Commerce Platform", "E-Commerce Platform", "Digital Product", 
 }
 await c.query("ALTER TABLE projects ADD COLUMN IF NOT EXISTS status varchar DEFAULT 'complete'");
 await c.query("ALTER TABLE _projects_v ADD COLUMN IF NOT EXISTS version_status varchar");
-// Malay is a live locale but the enum never learned about it.
-await c.query("ALTER TYPE enum_messages_locale ADD VALUE IF NOT EXISTS 'ms'");
+// messages.locale 'ms' is NOT patched here: migration
+// 20261111_120000_messages_locale_ms owns it, and double-patching it by hand is
+// what made a correct database fail the release gate for a while.
 await c.end();
 console.log("  ✓ patched");
 EOF
