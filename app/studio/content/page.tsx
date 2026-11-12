@@ -35,8 +35,8 @@ export default async function StudioContentPage({ searchParams }: { searchParams
           ? {
               title: `${content.projectsWithoutThumbnail} project${content.projectsWithoutThumbnail === 1 ? "" : "s"} without a thumbnail`,
               body: "They are published, so they render as empty cards on the public work page.",
-              href: "/admin/collections/projects",
-              cta: "Fix in Payload",
+              href: "/studio/manage/projects",
+              cta: "Fix in Projects",
             }
           : null
       }

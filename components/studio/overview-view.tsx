@@ -107,7 +107,7 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
               {leads.recent.slice(0, 4).map((lead) => {
                 const stage = stageMeta(lead.leadStage);
                 return (
-                  <Link key={String(lead.id)} href={`/admin/collections/messages/${lead.id}`} className="studio-row" style={{ gridTemplateColumns: "26px minmax(0,1fr) auto" }}>
+                  <Link key={String(lead.id)} href={`/studio/manage/messages/${lead.id}`} className="studio-row" style={{ gridTemplateColumns: "26px minmax(0,1fr) auto" }}>
                     <span className="studio-ava">{initials(lead.name ?? "?")}</span>
                     <span style={{ minWidth: 0 }}>
                       <span className="studio-row__name">

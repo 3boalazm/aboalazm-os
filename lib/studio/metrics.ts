@@ -368,7 +368,7 @@ export async function recentActivity({ payload, user }: Ctx) {
       id: `project-${d.id}`,
       kind: "Project" as const,
       title: d.name ?? d.slug ?? `#${d.id}`,
-      href: `/admin/collections/projects/${d.id}`,
+      href: `/studio/manage/projects/${d.id}`,
       status: d._status ?? "draft",
       at: d.updatedAt,
     })),
@@ -376,7 +376,7 @@ export async function recentActivity({ payload, user }: Ctx) {
       id: `post-${d.id}`,
       kind: "Writing" as const,
       title: d.title ?? d.slug ?? `#${d.id}`,
-      href: `/admin/collections/posts/${d.id}`,
+      href: `/studio/manage/posts/${d.id}`,
       status: d._status ?? "draft",
       at: d.updatedAt,
     })),
@@ -384,7 +384,7 @@ export async function recentActivity({ payload, user }: Ctx) {
       id: `case-${d.id}`,
       kind: "Case study" as const,
       title: d.name ?? d.slug ?? `#${d.id}`,
-      href: `/admin/collections/case-studies/${d.id}`,
+      href: `/studio/manage/case-studies/${d.id}`,
       status: d._status ?? "draft",
       at: d.updatedAt,
     })),
@@ -679,6 +679,7 @@ export interface CmsRow {
   group: string;
   total: number;
   drafts: number | null;
+  allowsCreate: boolean;
   href: string;
   createHref: string;
 }
@@ -690,9 +691,8 @@ export interface CmsInventory {
 }
 
 /**
- * The Manage screen's inventory (P6): every collection with its real row
- * count, draft count where `_status` exists, and deep links into the one
- * real editor. This screen routes; Payload owns editing.
+ * The Manage screen's inventory: every collection with its real row count,
+ * draft count where `_status` exists, and native Studio CMS links.
  */
 export async function cmsInventory({ payload, user }: Ctx): Promise<CmsInventory> {
   const req = { overrideAccess: false, user: user as never } as const;
@@ -711,14 +711,15 @@ export async function cmsInventory({ payload, user }: Ctx): Promise<CmsInventory
     payload.findGlobal({ slug: "settings", ...req, depth: 0 }) as Promise<{ updatedAt?: string }>,
   ]);
 
-  const row = (slug: string, label: string, group: string, total: number, drafts: number | null): CmsRow => ({
+  const row = (slug: string, label: string, group: string, total: number, drafts: number | null, allowsCreate = true): CmsRow => ({
     slug,
     label,
     group,
     total,
     drafts,
-    href: `/admin/collections/${slug}`,
-    createHref: `/admin/collections/${slug}/create`,
+    allowsCreate,
+    href: `/studio/manage/${slug}`,
+    createHref: `/studio/manage/${slug}/new`,
   });
 
   return {
@@ -727,16 +728,16 @@ export async function cmsInventory({ payload, user }: Ctx): Promise<CmsInventory
       row("case-studies", "Case studies", "Content", content.caseStudiesPublished, null),
       row("posts", "Writing", "Content", content.postsPublished + content.postsDraft, content.postsDraft),
       row("media", "Media", "Content", content.mediaCount, null),
-      row("messages", "Enquiries (raw)", "Inbox", messages, null),
+      row("messages", "Enquiries (raw)", "Inbox", messages, null, false),
       row("resource-leads", "Resource leads", "Inbox", resourceLeads, null),
       row("testimonials", "Testimonials", "Content", testimonials, null),
       row("team-members", "Team members", "Content", teamMembers, null),
-      row("analytics-events", "Analytics events", "System", events, null),
+      row("analytics-events", "Analytics events", "System", events, null, false),
       row("users", "Users", "System", users, null),
     ],
     globals: [
-      { slug: "offers", label: "Offers & pricing", href: "/admin/globals/offers", updatedAt: offers.updatedAt ?? null },
-      { slug: "settings", label: "Site settings", href: "/admin/globals/settings", updatedAt: settings.updatedAt ?? null },
+      { slug: "offers", label: "Offers & pricing", href: "/studio/manage/globals/offers", updatedAt: offers.updatedAt ?? null },
+      { slug: "settings", label: "Site settings", href: "/studio/manage/globals/settings", updatedAt: settings.updatedAt ?? null },
     ],
     asOf: iso(new Date()),
   };

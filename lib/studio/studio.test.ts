@@ -5,6 +5,9 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import { LOCALES } from "@/lib/locale";
+import { STUDIO_COLLECTIONS, STUDIO_GLOBALS, extractMediaId, formatPayloadError, getCollectionMeta, getGlobalMeta, isMissingColumnError } from "@/lib/studio/cms";
+import { fromLexical, toLexicalState } from "@/lib/studio/lexical";
+import { extractSections, readingMinutes } from "@/features/writing/toc";
 
 /**
  * STUDIO CONSOLE — contract tests.
@@ -37,7 +40,18 @@ const CONTENT = read("components/studio", "content-view.tsx");
 const SYSTEM = read("components/studio", "system-view.tsx");
 const CSS = read("app/studio", "studio.css");
 const MIDDLEWARE = read("middleware.ts");
-const PAGES = ["page.tsx", "leads/page.tsx", "content/page.tsx", "system/page.tsx"].map((p) => read("app/studio", p));
+const PAGES = [
+  "page.tsx",
+  "analytics/page.tsx",
+  "leads/page.tsx",
+  "content/page.tsx",
+  "manage/page.tsx",
+  "manage/[collection]/page.tsx",
+  "manage/[collection]/new/page.tsx",
+  "manage/[collection]/[id]/page.tsx",
+  "manage/globals/[slug]/page.tsx",
+  "system/page.tsx",
+].map((p) => read("app/studio", p));
 
 /* ───────────────────────────────────────────────────────────── 1 · no fake numbers */
 
@@ -264,4 +278,145 @@ test("content health degrades to an honest null instead of failing the page", ()
     /<strong>\{content\.projectsInProgress\}<\/strong>/,
     "a null metric must not render as a bare number",
   );
+});
+
+/* ─────────────────────────────────────────────────────────── 7 · native CMS parity & safety */
+
+test("all 10 collections and 2 globals are ported into Studio Manage", () => {
+  const expectedCollections = [
+    "projects",
+    "case-studies",
+    "posts",
+    "media",
+    "testimonials",
+    "team-members",
+    "messages",
+    "resource-leads",
+    "analytics-events",
+    "users",
+  ];
+  const expectedGlobals = ["offers", "settings"];
+  assert.deepEqual(
+    STUDIO_COLLECTIONS.map((c) => c.slug).sort(),
+    [...expectedCollections].sort(),
+  );
+  assert.deepEqual(
+    STUDIO_GLOBALS.map((g) => g.slug).sort(),
+    [...expectedGlobals].sort(),
+  );
+  for (const slug of expectedCollections) assert.ok(getCollectionMeta(slug));
+  for (const slug of expectedGlobals) assert.ok(getGlobalMeta(slug));
+  assert.equal(getCollectionMeta("nonexistent"), null);
+  assert.equal(getGlobalMeta("nonexistent"), null);
+});
+
+test("CMS layer and actions never bypass Payload access control", () => {
+  for (const file of [read("lib/studio", "cms.ts"), read("app/studio/manage", "actions.ts")]) {
+    const calls = [...file.matchAll(/payload\.(find|findByID|create|update|delete|count|findGlobal|updateGlobal)\(/g)];
+    assert.ok(calls.length > 0, "expected payload API calls");
+    assert.match(file, /overrideAccess:\s*false/, "every Payload operation must enforce overrideAccess: false");
+    assert.doesNotMatch(file, /overrideAccess:\s*true/, "Studio CMS must never bypass Payload access rules");
+  }
+});
+
+test("no operational /admin links remain in Studio navigation or views", () => {
+  const files = [
+    SHELL,
+    OVERVIEW,
+    LEADS,
+    CONTENT,
+    SYSTEM,
+    read("components/studio", "analytics-view.tsx"),
+    read("components/studio", "manage-view.tsx"),
+    read("lib/studio", "metrics.ts"),
+    read("lib/studio", "seo.ts"),
+    read("app/studio/content", "page.tsx"),
+  ];
+  for (const src of files) {
+    assert.doesNotMatch(src, /\/admin(?:\/collections|\/globals|["'`])/, "all Studio links must stay on /studio/manage");
+  }
+});
+
+test("Lexical bridge round-trips rich blocks, inline formatting, RTL, and TOC extraction", () => {
+  const sample = {
+    root: {
+      type: "root",
+      direction: "ltr",
+      format: "",
+      indent: 0,
+      version: 1,
+      children: [
+        { type: "heading", tag: "h2", version: 1, children: [{ type: "text", text: "System Architecture", version: 1 }] },
+        {
+          type: "paragraph",
+          version: 1,
+          children: [
+            { type: "text", text: "Read ", format: 0, version: 1 },
+            { type: "text", text: "bold", format: 1, version: 1 },
+            { type: "text", text: " and ", format: 0, version: 1 },
+            {
+              type: "link",
+              fields: { url: "https://example.com", newTab: true },
+              version: 1,
+              children: [{ type: "text", text: "docs", format: 0, version: 1 }],
+            },
+          ],
+        },
+        {
+          type: "block",
+          version: 2,
+          fields: {
+            blockType: "stats",
+            items: [{ value: "99.9%", label: "Uptime" }],
+          },
+        },
+        {
+          type: "block",
+          version: 2,
+          fields: {
+            blockType: "dataTable",
+            markdown: "| Metric | Result |\n| --- | --- |\n| LCP | 0.8s |",
+          },
+        },
+        {
+          type: "block",
+          version: 2,
+          fields: {
+            blockType: "diagram",
+            caption: "Flow",
+            code: "Manual sync -> Instant webhook",
+          },
+        },
+      ],
+    },
+  };
+
+  const blocks = fromLexical(sample);
+  assert.equal(blocks.length, 5);
+  assert.equal(blocks[0]!.kind, "h2");
+  assert.equal(blocks[1]!.kind, "p");
+  assert.equal(blocks[2]!.kind, "stats");
+  assert.equal(blocks[3]!.kind, "dataTable");
+  assert.equal(blocks[4]!.kind, "diagram");
+
+  const rebuilt = toLexicalState(blocks, "ltr");
+  assert.equal(rebuilt.root.children.length, 5);
+  const reExtracted = fromLexical(rebuilt);
+  assert.equal(reExtracted.length, 5);
+  assert.equal(reExtracted[1]!.kind === "p" ? reExtracted[1]!.text : "", "Read **bold** and [docs](https://example.com)");
+  const sections = extractSections(rebuilt);
+  assert.deepEqual(sections, [{ no: "01", id: "s-system-architecture", text: "System Architecture" }]);
+  assert.ok(readingMinutes(rebuilt) >= 1);
+
+  assert.deepEqual(fromLexical(null), []);
+  assert.equal(toLexicalState([], "rtl").root.direction, "rtl");
+});
+
+test("CMS utility helpers handle media IDs, 42703 detection, and validation messages", () => {
+  assert.equal(extractMediaId(null), null);
+  assert.equal(extractMediaId(42), 42);
+  assert.equal(extractMediaId({ id: 17, url: "/media/x.png" }), 17);
+  assert.equal(isMissingColumnError({ cause: { code: "42703" } }), true);
+  assert.equal(isMissingColumnError({ code: "23505" }), false);
+  assert.match(formatPayloadError({ data: { errors: [{ message: "Slug must be unique" }] } }), /Slug must be unique/);
 });

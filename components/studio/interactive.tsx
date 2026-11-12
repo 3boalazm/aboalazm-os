@@ -69,6 +69,29 @@ export function ThemeToggle() {
   );
 }
 
+export function SignOutButton() {
+  const [busy, setBusy] = useState(false);
+  const signOut = async () => {
+    setBusy(true);
+    try {
+      await fetch("/api/users/logout", { method: "POST", credentials: "include" });
+    } finally {
+      window.location.href = "/studio/login";
+    }
+  };
+  return (
+    <button
+      type="button"
+      className="studio-btn studio-btn--sm"
+      onClick={() => void signOut()}
+      disabled={busy}
+      title="Sign out of Studio & Payload"
+    >
+      {busy ? "Signing out…" : "Sign out"}
+    </button>
+  );
+}
+
 /* ── toasts ─────────────────────────────────────────────────────────────── */
 
 export interface ToastMsg {

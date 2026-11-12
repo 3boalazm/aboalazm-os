@@ -207,7 +207,7 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
           <Tile
             span="w12"
             title={<b>Event mix</b>}
-            aside={<Link className="studio-tile__more" href="/admin/collections/analytics-events" target="_blank" rel="noopener">raw rows</Link>}
+            aside={<Link className="studio-tile__more" href="/studio/manage/analytics-events">raw rows</Link>}
             provenance={<>Counts by event name in <code>analytics-events</code> · definitions in docs/EVENTS.md</>}
           >
             <div className="studio-scroll-x">

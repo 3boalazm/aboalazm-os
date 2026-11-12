@@ -617,8 +617,8 @@ function LeadDrawer({
             <SIcon name="mail" size={12} /> Reply
           </a>
         ) : null}
-        <Link className="studio-btn" href={`/admin/collections/messages/${lead.id}`} target="_blank" rel="noopener">
-          Full document <SIcon name="arrowUpRight" size={11} />
+        <Link className="studio-btn" href={`/studio/manage/messages/${lead.id}`}>
+          Full document <SIcon name="arrowRight" size={11} />
         </Link>
       </div>
 
