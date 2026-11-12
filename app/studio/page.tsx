@@ -1,5 +1,6 @@
 import { requireStudioUser } from "@/lib/studio/auth";
-import { allLeads, loadOverview, RANGES, resolveRange, contentHealth } from "@/lib/studio/metrics";
+import { allLeads, loadOverview, RANGES, resolveRange, contentHealth, makeCtx } from "@/lib/studio/metrics";
+import { analyticsSummary } from "@/lib/studio/analytics";
 import { getPayload } from "@/lib/payload";
 import { StudioShell } from "@/components/studio/shell";
 import { OverviewView } from "@/components/studio/overview-view";
@@ -18,10 +19,11 @@ export default async function StudioPage({ searchParams }: { searchParams: Promi
   const user = await requireStudioUser(`/studio${params.range ? `?range=${params.range}` : ""}`);
   const payload = await getPayload();
 
-  const [overview, leads, content] = await Promise.all([
+  const [overview, leads, content, traffic] = await Promise.all([
     loadOverview(payload, user, params.range),
     allLeads({ payload, user }),
     contentHealth({ payload, user }),
+    analyticsSummary(makeCtx(payload, user), params.range),
   ]);
 
   const unreadLeads = leads.filter((l) => !l.isRead).length;
@@ -65,9 +67,9 @@ export default async function StudioPage({ searchParams }: { searchParams: Promi
       counts={{ unreadLeads, newLeads, drafts }}
       attention={attention}
       userEmail={user.email}
-      version={`P1 · ${RANGES.length} ranges`}
+      version={`P6 · ${RANGES.length} ranges`}
     >
-      <OverviewView data={overview} />
+      <OverviewView data={overview} traffic={traffic} />
     </StudioShell>
   );
 }

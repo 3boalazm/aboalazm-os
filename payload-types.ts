@@ -76,6 +76,7 @@ export interface Config {
     'resource-leads': ResourceLead;
     'team-members': TeamMember;
     messages: Message;
+    'analytics-events': AnalyticsEvent;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +93,7 @@ export interface Config {
     'resource-leads': ResourceLeadsSelect<false> | ResourceLeadsSelect<true>;
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     messages: MessagesSelect<false> | MessagesSelect<true>;
+    'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -502,6 +504,53 @@ export interface Message {
   createdAt: string;
 }
 /**
+ * First-party browser events collected by /api/track. Written only by that route after sanitization; see lib/analytics-events.ts for the privacy contract.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-events".
+ */
+export interface AnalyticsEvent {
+  id: number;
+  /**
+   * Allowlisted event name from docs/EVENTS.md, or pageview.
+   */
+  name: string;
+  /**
+   * Random per-tab-session id from sessionStorage. Identifies a session, never a person.
+   */
+  sessionId?: string | null;
+  /**
+   * Local path only — no host, no query string.
+   */
+  path?: string | null;
+  locale?: string | null;
+  /**
+   * Referrer host only; the full referring URL is never stored.
+   */
+  referrerHost?: string | null;
+  utmSource?: string | null;
+  utmMedium?: string | null;
+  utmCampaign?: string | null;
+  /**
+   * Coarse class derived from the user-agent at ingest: mobile / tablet / desktop. The UA string itself is not stored.
+   */
+  device?: string | null;
+  /**
+   * Sanitized contextual properties. Emails, URLs and over-length values are dropped at ingest.
+   */
+  props?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -560,6 +609,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'messages';
         value: number | Message;
+      } | null)
+    | ({
+        relationTo: 'analytics-events';
+        value: number | AnalyticsEvent;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -853,6 +906,24 @@ export interface MessagesSelect<T extends boolean = true> {
   timeline?: T;
   budget?: T;
   isRead?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "analytics-events_select".
+ */
+export interface AnalyticsEventsSelect<T extends boolean = true> {
+  name?: T;
+  sessionId?: T;
+  path?: T;
+  locale?: T;
+  referrerHost?: T;
+  utmSource?: T;
+  utmMedium?: T;
+  utmCampaign?: T;
+  device?: T;
+  props?: T;
   updatedAt?: T;
   createdAt?: T;
 }

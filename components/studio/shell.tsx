@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { SIcon, type StudioIconName } from "@/components/studio/ui";
+import { ThemeToggle } from "@/components/studio/interactive";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    STUDIO SHELL — the persistent frame around every console screen.
@@ -68,7 +69,10 @@ export function StudioShell({
   const groups: { label: string; items: Item[] }[] = [
     {
       label: "Answer",
-      items: [{ key: "overview", href: "/studio", label: "Overview", icon: "grid" }],
+      items: [
+        { key: "overview", href: "/studio", label: "Overview", icon: "grid" },
+        { key: "analytics", href: "/studio/analytics", label: "Analytics", icon: "chart" },
+      ],
     },
     {
       label: "Revenue",
@@ -87,6 +91,7 @@ export function StudioShell({
       label: "Editing",
       items: [
         { key: "content", href: "/studio/content", label: "Content", icon: "layers", count: counts.drafts, countLabel: "drafts" },
+        { key: "manage", href: "/studio/manage", label: "Manage", icon: "sliders" },
       ],
     },
     {
@@ -95,19 +100,9 @@ export function StudioShell({
     },
   ];
 
-  /* Manage: the real editors. These leave the console deliberately — the
-     authoritative editing UI for a document is Payload's, and rebuilding it
-     would be the duplicate-backend mistake. */
-  const manage: Item[] = [
-    { key: "projects", href: "/admin/collections/projects", label: "Projects", icon: "layers" },
-    { key: "case-studies", href: "/admin/collections/case-studies", label: "Case studies", icon: "layers" },
-    { key: "posts", href: "/admin/collections/posts", label: "Writing", icon: "layers" },
-    { key: "media", href: "/admin/collections/media", label: "Media", icon: "image" },
-    { key: "messages", href: "/admin/collections/messages", label: "Inbox (raw)", icon: "mail" },
-    { key: "offers", href: "/admin/globals/offers", label: "Offers & pricing", icon: "bolt" },
-    { key: "settings", href: "/admin/globals/settings", label: "Site settings", icon: "refresh" },
-    { key: "users", href: "/admin/collections/users", label: "Users", icon: "eye" },
-  ];
+  /* The raw editors live one level deeper now, on /studio/manage — with
+     real counts and create links. The sidebar stays a set of questions;
+     the filing cabinet sits behind exactly one of them. */
 
   const isActive = (href: string) => {
     if (href === "/studio") return pathname === "/studio" || pathname === "/studio/";
@@ -154,16 +149,6 @@ export function StudioShell({
               </div>
             ))}
 
-            <div>
-              <p className="studio-nav__label">Manage</p>
-              {manage.map((item) => (
-                <Link key={item.key} href={item.href} className="studio-nav__item">
-                  <SIcon name={item.icon} className="studio-nav__ico" />
-                  <span>{item.label}</span>
-                  <SIcon name="arrowUpRight" className="studio-nav__ico" size={11} />
-                </Link>
-              ))}
-            </div>
           </div>
 
           {/* The attention card is the console's whole point: one thing to do. */}
@@ -220,6 +205,7 @@ export function StudioShell({
             <span className="studio-chip studio-chip--live" title="Data is read live from Payload/Postgres on every request">
               live data
             </span>
+            <ThemeToggle />
             <Link href="/admin" className="studio-btn studio-btn--sm" title="The raw Payload admin">
               Payload
               <SIcon name="arrowUpRight" size={11} />
@@ -235,8 +221,10 @@ export function StudioShell({
 
 const CRUMB: Record<string, string> = {
   studio: "Studio",
+  analytics: "Analytics",
   leads: "Leads & pipeline",
   content: "Content",
+  manage: "Manage",
   system: "System",
 };
 

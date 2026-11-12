@@ -16,6 +16,7 @@ import { Posts } from "./collections/Posts";
 import { ResourceLeads } from "./collections/ResourceLeads";
 import { TeamMembers } from "./collections/TeamMembers";
 import { Messages } from "./collections/Messages";
+import { AnalyticsEvents } from "./collections/AnalyticsEvents";
 import { Offers } from "./globals/Offers";
 import { Settings } from "./globals/Settings";
 
@@ -66,6 +67,7 @@ export default buildConfig({
     ResourceLeads,
     TeamMembers,
     Messages,
+    AnalyticsEvents,
   ],
   globals: [Offers, Settings],
   /**

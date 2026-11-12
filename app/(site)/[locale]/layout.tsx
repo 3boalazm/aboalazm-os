@@ -1,4 +1,5 @@
 import { FunnelAnalytics } from "@/components/seo/funnel-analytics";
+import { PageviewTracker } from "@/components/seo/pageview-tracker";
 import { notFound } from "next/navigation";
 import { LOCALES, localeDir, type Locale } from "@/lib/locale";
 import type { Metadata, Viewport } from "next";
@@ -122,6 +123,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
         <ThemeProvider>
           <LangProvider initialLang={locale}>
             <FunnelAnalytics />
+            <PageviewTracker />
             <PersonaProvider>
               <SmoothScroll>
                 <Nav />

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { ThemeBoot } from "@/components/studio/interactive";
 import "./studio.css";
 
 /**
@@ -51,6 +52,7 @@ export default function StudioLayout({ children }: { children: ReactNode }) {
         }}
       >
         {children}
+        <ThemeBoot />
       </body>
     </html>
   );

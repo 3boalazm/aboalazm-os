@@ -37,7 +37,7 @@ export default async function StudioLeadsPage({ searchParams }: { searchParams: 
       counts={{ unreadLeads, newLeads, drafts: content.projectsDraft + content.postsDraft }}
       attention={attention}
       userEmail={user.email}
-      version={`P1 · ${range.label}`}
+      version={`P3 · ${range.label}`}
     >
       <LeadsView leads={leads} counts={counts} overview={overview} />
     </StudioShell>

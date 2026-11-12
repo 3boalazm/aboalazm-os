@@ -1,5 +1,7 @@
 import { requireStudioUser } from "@/lib/studio/auth";
-import { allLeads, contentHealth, loadOverview, resolveRange } from "@/lib/studio/metrics";
+import { allLeads, contentHealth, loadOverview, resolveRange, makeCtx } from "@/lib/studio/metrics";
+import { contentViews } from "@/lib/studio/analytics";
+import { loadSeoReport, matchContentViews, searchConsoleConfigured } from "@/lib/studio/seo";
 import { getPayload } from "@/lib/payload";
 import { StudioShell } from "@/components/studio/shell";
 import { ContentView } from "@/components/studio/content-view";
@@ -13,11 +15,15 @@ export default async function StudioContentPage({ searchParams }: { searchParams
   const payload = await getPayload();
   const range = resolveRange(params.range);
 
-  const [content, overview, leads] = await Promise.all([
+  const [content, overview, leads, seo, views] = await Promise.all([
     contentHealth({ payload, user }),
     loadOverview(payload, user, params.range),
     allLeads({ payload, user }),
+    loadSeoReport(payload, user),
+    contentViews(makeCtx(payload, user), params.range),
   ]);
+
+  const performance = matchContentViews(views, seo.posts, seo.caseStudies);
 
   const unreadLeads = leads.filter((l) => !l.isRead).length;
 
@@ -35,9 +41,17 @@ export default async function StudioContentPage({ searchParams }: { searchParams
           : null
       }
       userEmail={user.email}
-      version={`P1 · ${range.label}`}
+      version={`P4 · ${range.label}`}
     >
-      <ContentView content={content} activity={overview.activity} overview={overview} />
+      <ContentView
+        content={content}
+        activity={overview.activity}
+        overview={overview}
+        seo={seo}
+        performance={performance}
+        hasPageviews={views.length > 0}
+        searchConsoleConfigured={searchConsoleConfigured()}
+      />
     </StudioShell>
   );
 }
