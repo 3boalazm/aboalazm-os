@@ -34,9 +34,10 @@ const pageMetadata: Metadata = {
  * order a decision-maker asks for them.
  *
  *   Hero (who you're buying) → 01 What we do (three disciplines) →
- *   02 Proof — brand → 03 Proof — digital → Statement → 04 How the studio
- *   runs → 05 The offer → 06 Method → 07 Practice → 08 Languages (the three
- *   authored scripts) → 09 How to start → 10 Thinking → 11 Reels → 12 FAQ → 13 Next
+ *   02 Proof — brand → 03 Reels (3 shortcuts) → 04 Proof — digital →
+ *   Statement → 05 How the studio runs → 06 The offer → 07 Method →
+ *   08 Practice → 09 Languages (the three authored scripts) → 10 How to
+ *   start → 11 Thinking → 12 FAQ → 13 Next
  *
  * Two changes from the previous order matter commercially:
  *   · "What we do" now precedes the work, so the work is read as evidence of a
@@ -84,10 +85,23 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      {/* 03 · Development work has its own showcase and production links */}
+      {/* 03 · Reels — directly under the selected work: exactly three video
+          shortcuts into the method (see
+          features/reels/reels.data.ts → pickHomeShortcuts); the full set
+          lives on /reels. */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="03" label="DIGITAL PRODUCTS & SYSTEMS" labelAr="المنتجات الرقمية والأنظمة" />
+          <SectionMarker index="03" label="REELS / SHORTCUTS" labelAr="ريلز / اختصارات" />
+        </div>
+        <div className="container-wide">
+          <ReelsShortcuts />
+        </div>
+      </section>
+
+      {/* 04 · Development work has its own showcase and production links */}
+      <section className="narrative-section narrative-section--proof">
+        <div className="container-wide">
+          <SectionMarker index="04" label="DIGITAL PRODUCTS & SYSTEMS" labelAr="المنتجات الرقمية والأنظمة" />
         </div>
         <ScrollReveal>
           <FeaturedCases
@@ -102,10 +116,10 @@ export default async function Home() {
       {/* Manifesto beat — breaks the rhythm deliberately, no marker */}
       <StatementBand />
 
-      {/* 04 · How the studio actually runs — the operating-model answer */}
+      {/* 05 · How the studio actually runs — the operating-model answer */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="04" label="THE STUDIO MODEL" labelAr="نموذج الاستوديو" />
+          <SectionMarker index="05" label="THE STUDIO MODEL" labelAr="نموذج الاستوديو" />
         </div>
         <div className="container-wide">
           <ScrollReveal>
@@ -114,10 +128,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 05 · The offer */}
+      {/* 06 · The offer */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="05" label="SERVICES / OFFER" labelAr="الخدمات / العرض" />
+          <SectionMarker index="06" label="SERVICES / OFFER" labelAr="الخدمات / العرض" />
         </div>
         <div className="container-wide">
           <ServicesSnapshot />
@@ -125,27 +139,27 @@ export default async function Home() {
         <SocialProof />
       </section>
 
-      {/* 06 · Process & Methodology */}
+      {/* 07 · Process & Methodology */}
       <section className="narrative-section narrative-section--process">
         <div className="container-wide">
-          <SectionMarker index="06" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
+          <SectionMarker index="07" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
         </div>
         <ScrollReveal>
           <ClientJourneyBand />
         </ScrollReveal>
       </section>
 
-      {/* 07 · Background & Practice */}
+      {/* 08 · Background & Practice */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="07" label="PRACTICE / BACKGROUND" labelAr="الممارسة / الخلفية" />
+          <SectionMarker index="08" label="PRACTICE / BACKGROUND" labelAr="الممارسة / الخلفية" />
         </div>
         <ScrollReveal>
           <AboutTeaser />
         </ScrollReveal>
       </section>
 
-      {/* 08 · The three languages this OS is authored in.
+      {/* 09 · The three languages this OS is authored in.
           Placed right after Practice: the visitor has just read who the studio
           is, and "it exists in Arabic and Malay too" is part of who it is. It
           also repairs a real discoverability bug — the header used to cycle
@@ -154,15 +168,15 @@ export default async function Home() {
           from, so the narrative stays one continuous count. */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="08" label="LANGUAGES / THREE SCRIPTS" labelAr="اللغات / ثلاث كتابات" />
+          <SectionMarker index="09" label="LANGUAGES / THREE SCRIPTS" labelAr="اللغات / ثلاث كتابات" />
         </div>
         <LanguageBand />
       </section>
 
-      {/* 09 · How to start — one funnel, stated before the FAQ */}
+      {/* 10 · How to start — one funnel, stated before the FAQ */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="09" label="NEXT / HOW TO START" labelAr="التالي / كيف تبدأ" />
+          <SectionMarker index="10" label="NEXT / HOW TO START" labelAr="التالي / كيف تبدأ" />
         </div>
         <div className="container-wide">
           <ScrollReveal>
@@ -171,25 +185,13 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 10 · The thinking — journal teaser inside the funnel */}
+      {/* 11 · The thinking — journal teaser inside the funnel */}
       <section className="narrative-section narrative-section--proof">
         <div className="container-wide">
-          <SectionMarker index="10" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
+          <SectionMarker index="11" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
         </div>
         <div className="container-wide">
           <InsightsTeaser posts={posts} />
-        </div>
-      </section>
-
-      {/* 11 · Reels — exactly three video shortcuts into the method (see
-          features/reels/reels.data.ts → pickHomeShortcuts); the full set
-          lives on /reels. */}
-      <section className="narrative-section narrative-section--proof">
-        <div className="container-wide">
-          <SectionMarker index="11" label="REELS / SHORTCUTS" labelAr="ريلز / اختصارات" />
-        </div>
-        <div className="container-wide">
-          <ReelsShortcuts />
         </div>
       </section>
 
