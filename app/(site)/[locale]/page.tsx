@@ -9,6 +9,7 @@ import { StatementBand } from "@/features/home/statement-band";
 import { LanguageBand } from "@/features/home/language-band";
 import { ServicesSnapshot } from "@/features/home/services-snapshot";
 import { InsightsTeaser } from "@/features/home/insights-teaser";
+import { ReelsShortcuts } from "@/features/reels/reels-shortcuts";
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SectionMarker } from "@/components/ui/section-marker";
@@ -35,7 +36,7 @@ const pageMetadata: Metadata = {
  *   Hero (who you're buying) → 01 What we do (three disciplines) →
  *   02 Proof — brand → 03 Proof — digital → Statement → 04 How the studio
  *   runs → 05 The offer → 06 Method → 07 Practice → 08 Languages (the three
- *   authored scripts) → 09 How to start → 10 Thinking → 11 FAQ → 12 Next
+ *   authored scripts) → 09 How to start → 10 Thinking → 11 Reels → 12 FAQ → 13 Next
  *
  * Two changes from the previous order matter commercially:
  *   · "What we do" now precedes the work, so the work is read as evidence of a
@@ -180,20 +181,32 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 11 · FAQ / objection handling */}
+      {/* 11 · Reels — exactly three video shortcuts into the method (see
+          features/reels/reels.data.ts → pickHomeShortcuts); the full set
+          lives on /reels. */}
+      <section className="narrative-section narrative-section--proof">
+        <div className="container-wide">
+          <SectionMarker index="11" label="REELS / SHORTCUTS" labelAr="ريلز / اختصارات" />
+        </div>
+        <div className="container-wide">
+          <ReelsShortcuts />
+        </div>
+      </section>
+
+      {/* 12 · FAQ / objection handling */}
       <section className="narrative-section narrative-section--about">
         <div className="container-wide">
-          <SectionMarker index="11" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
+          <SectionMarker index="12" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
         </div>
         <ScrollReveal>
           <HomeFaq />
         </ScrollReveal>
       </section>
 
-      {/* 12 · One canonical next step */}
+      {/* 13 · One canonical next step */}
       <section className="narrative-section narrative-section--cta">
         <div className="container-wide">
-          <SectionMarker index="12" label="NEXT / START" labelAr="التالي / ابدأ" />
+          <SectionMarker index="13" label="NEXT / START" labelAr="التالي / ابدأ" />
         </div>
         <ScrollReveal>
           <HomeCta />

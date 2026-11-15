@@ -24,6 +24,7 @@ The privacy contract is enforced server-side at ingest, not by convention: allow
 | `case_study_open` | A project card's media, title or primary CTA was opened. | `features/work/featured-cases.tsx` | `slug`, `surface` |
 | `track_see_more` | A visitor opened the rest of the design or development track. | `features/work/featured-cases.tsx` | `track` |
 | `insight_open` | A writing post was opened from a teaser. | `features/home/insights-teaser.tsx` and the writing archive | `slug`, `surface` |
+| `reel_open` | A reel (or a reel chapter) was opened in the player. | `features/reels/reels-shortcuts.tsx` (home) and `/reels` | `slug`, `surface` |
 | `resource_unlock` | The reader gained access to a resource. | `features/resources/resource-blocks.tsx` | `resource`, `intent`, `locale` |
 | `resource_lead_saved` | The resource endpoint confirmed that its lead was saved. | `features/resources/resource-blocks.tsx` | `resource`, `intent`, `locale` |
 | `resource_download` | A resource download link was clicked. | `features/resources/resource-blocks.tsx` | `resource`, `locale` |

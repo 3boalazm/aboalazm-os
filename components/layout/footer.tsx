@@ -45,6 +45,7 @@ const COLUMNS = [
     head: ["INSIGHTS", "الرؤى"],
     links: [
       ["Writing", "مقالات", "/writing"],
+      ["Reels", "ريلز", "/reels"],
       ["Library", "المكتبة", "/books"],
       ["Resources", "المصادر", "/resources"],
       ["Wall", "الحيطة", "/work"],

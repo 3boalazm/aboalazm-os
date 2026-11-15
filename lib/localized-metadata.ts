@@ -30,6 +30,7 @@ const AR: Record<string, [string, string]> = {
   "/capabilities": ["أنظمة التصميم والتطبيق", "أمثلة على الألوان والخطوط والتوكنز وتحويل إرشادات الهوية إلى تطبيقات رقمية متسقة."],
   "/why": ["كيف يساعد نظام الهوية فريقك", "هوية واضحة وإرشادات وتطبيقات تدعم عمل فريقك عبر المطبوعات والمواقع والمنتجات الرقمية."],
   "/labs": ["معمل تجارب التصميم", "تجارب وأدوات لاستكشاف الخطوط والألوان والتباين والهوية ثنائية اللغة."],
+  "/reels": ["ريلز — المنهج بالفيديو", "ريلز قصيرة بتشرح إزاي الاستوديو بيفكر ويبني: بحث موثّق، خطة تنفيذ حقيقية، تنفيذ بمساعدة الذكاء الاصطناعي، ومراجعة مستقلة."],
 };
 
 /* Malay (ms) titles and descriptions. Separate from AR so a Malay page never
@@ -60,6 +61,7 @@ const MS: Record<string, [string, string]> = {
   "/capabilities": ["Sistem reka bentuk dan pelaksanaan", "Contoh warna, fon, token, dan cara panduan identiti diterjemah kepada aplikasi digital yang konsisten."],
   "/why": ["Bagaimana sistem identiti membantu pasukan anda", "Identiti yang jelas, panduan, dan aplikasi yang menyokong kerja pasukan anda merentasi bahan cetakan, laman web, dan produk digital."],
   "/labs": ["Makmal eksperimen reka bentuk", "Eksperimen dan alat untuk meneroka fon, warna, kontras, dan identiti dwibahasa."],
+  "/reels": ["Reel — kaedah studio dalam video", "Reel pendek tentang cara studio berfikir dan membina: penyelidikan berasas sumber, pelan pelaksanaan sebenar, penghantaran dibantu AI dan audit bebas."],
 };
 
 export function localizedMetadata(base: Metadata, locale: Locale, path: string, arabic?: { title: string; description: string }): Metadata {

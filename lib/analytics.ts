@@ -23,6 +23,7 @@ export type EventName =
   | "resource_download"
   | "resource_lead_saved"
   | "insight_open"
+  | "reel_open"
   | "cv_download"
   | "deposit_click"
   | "whatsapp_click"

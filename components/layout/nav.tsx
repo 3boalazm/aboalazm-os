@@ -45,6 +45,7 @@ const MORE = [
   { href: "/for-hiring", en: "FOR HIRING", ar: "للتوظيف" },
   { href: "/books", en: "LIBRARY", ar: "المكتبة" },
   { href: "/labs", en: "LABS", ar: "المعمل" },
+  { href: "/reels", en: "REELS", ar: "ريلز" },
   { href: "/portfolio", en: "PORTFOLIO PDF ↓", ar: "بورتفوليو PDF ↓" },
 ] as const;
 
@@ -61,6 +62,7 @@ const NAV_MS: Record<string, string> = {
   "/for-hiring": "UNTUK PENGAMBILAN",
   "/books": "PERPUSTAKAAN",
   "/labs": "MAKMAL",
+  "/reels": "REEL",
   "/portfolio": "PORTFOLIO PDF ↓",
 };
 

@@ -55,6 +55,7 @@ const ICON_DEFS = {
   "chevron-left": { d: "m15 6-6 6 6 6", rtl: true },
   "chevron-right": { d: "m9 6 6 6-6 6", rtl: true },
   menu: { d: "M4 7h16M4 12h16M4 17h16" },
+  play: { d: "M8 5.5v13l10.5-6.5z", filled: true },
   sun: { d: "M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4" },
   moon: { d: "M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z" },
   download: { d: "M12 4v11m0 0-5-5m5 5 5-5M5 20h14" },
