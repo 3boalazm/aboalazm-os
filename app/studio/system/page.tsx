@@ -5,7 +5,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { SystemView } from "@/components/studio/system-view";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "System", robots: { index: false, follow: false } };
+export const metadata = { title: "النظام · لوحة الاستوديو", robots: { index: false, follow: false } };
 
 export default async function StudioSystemPage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const params = await searchParams;
@@ -27,11 +27,16 @@ export default async function StudioSystemPage({ searchParams }: { searchParams:
       counts={{ unreadLeads, newLeads: leads.filter((l) => (l.leadStage ?? "new") === "new").length, drafts: content.projectsDraft + content.postsDraft }}
       attention={
         failing.length
-          ? { title: `${failing.length} integration failing`, body: failing.map((f) => f.name).join(", "), href: "#", cta: "See what broke" }
+          ? {
+              title: failing.length === 1 ? "تكامل واحد معطّل" : `${failing.length} تكاملات معطّلة`,
+              body: failing.map((f) => f.name).join("، "),
+              href: "#",
+              cta: "معاينة الأعطال",
+            }
           : null
       }
       userEmail={user.email}
-      version={`P5 · ${range.label}`}
+      version={`النظام · ${range.label}`}
     >
       <SystemView probes={probes} env={envMatrix()} />
     </StudioShell>

@@ -135,7 +135,7 @@ test("a published post without a standfirst is flagged as missing its meta descr
     caseStudies: [],
   });
   assert.equal(issues.length, 1);
-  assert.match(issues[0]!.title, /no meta description/);
+  assert.match(issues[0]!.title, /بدون وصف تعريفي|no meta description/);
 });
 
 test("duplicate slugs are danger, dead-end cards are warnings, clean content is silent", () => {
@@ -148,7 +148,7 @@ test("duplicate slugs are danger, dead-end cards are warnings, clean content is 
     caseStudies: [{ id: 4, name: "C", slug: "c", nameAr: "ج", _status: "published" }],
   });
   assert.equal(issues[0]!.severity, "danger");
-  assert.ok(issues.some((i) => /leads nowhere/.test(i.title)));
+  assert.ok(issues.some((i) => /لا تؤدي إلى أي وجهة|leads nowhere/.test(i.title)));
 
   const clean = auditContent({
     posts: [{ id: 1, title: "A", slug: "a", standfirst: "x", _status: "published" }],

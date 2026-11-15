@@ -35,7 +35,7 @@ export function MediaEditor({
   const handleSave = async () => {
     setError(null);
     if (!alt.trim()) {
-      setError("Alt text (English) is required.");
+      setError("النص البديل (بالإنجليزية) مطلوب.");
       return;
     }
 
@@ -43,7 +43,7 @@ export function MediaEditor({
     if (isNew || file) {
       if (!file) {
         setSaving(false);
-        setError("Select an image or PDF file to upload.");
+        setError("اختر صورة أو ملف PDF لرفعه.");
         return;
       }
       const res = await uploadMediaViaRest({
@@ -80,11 +80,11 @@ export function MediaEditor({
   return (
     <DocumentEditorFrame
       collectionSlug="media"
-      collectionLabel="Media"
-      singularLabel="Asset"
+      collectionLabel="الوسائط"
+      singularLabel="ملف"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
-      title={alt || filename || "Upload media asset"}
+      title={altAr || alt || filename || "رفع ملف وسائط"}
       liveUrl={url}
       saving={saving}
       error={error}
@@ -92,18 +92,18 @@ export function MediaEditor({
     >
       <div className="studio-bento">
         <div className="studio-w7">
-          <Tile span="w12" title={<b>{isNew ? "File upload" : "Asset preview & replacement"}</b>}>
+          <Tile span="w12" title={<b>{isNew ? "رفع ملف جديد" : "معاينة الملف واستبداله"}</b>}>
             {!isNew && url ? (
               <div className="studio-media-stage">
                 {!pdf ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={url} alt={alt || filename || "Uploaded media"} />
+                  <img src={url} alt={alt || filename || "ملف وسائط مرفوع"} />
                 ) : (
                   <div className="studio-media-pdf" style={{ padding: 32 }}>
-                    <SIcon name="layers" size={32} />
+                    <SIcon name="layers" size={34} />
                     <strong>{filename}</strong>
                     <a className="studio-btn studio-btn--sm" href={url} target="_blank" rel="noopener">
-                      Open PDF <SIcon name="arrowUpRight" size={11} />
+                      فتح ملف PDF <SIcon name="arrowUpRight" size={13} />
                     </a>
                   </div>
                 )}
@@ -111,7 +111,7 @@ export function MediaEditor({
             ) : null}
 
             <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-              <label htmlFor="media-file">{isNew ? "Choose image or PDF *" : "Replace file (optional)"}</label>
+              <label htmlFor="media-file">{isNew ? "اختر صورة أو ملف PDF *" : "استبدال الملف (اختياري)"}</label>
               <input
                 id="media-file"
                 type="file"
@@ -125,51 +125,53 @@ export function MediaEditor({
                   }
                 }}
               />
-              <p className="studio-tiny">Supported: any image (`image/*`) or PDF (`application/pdf`). Stored on Vercel Blob in production.</p>
+              <p className="studio-tiny">
+                الصيغ المدعومة: جميع الصور (<code>image/*</code>) وملفات PDF (<code>application/pdf</code>). تُحفظ على Vercel Blob في الإنتاج.
+              </p>
             </div>
           </Tile>
         </div>
 
         <div className="studio-w5" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Accessibility & metadata</b>}>
+          <Tile span="w12" title={<b>إمكانية الوصول والبيانات الوصفية</b>}>
             <div className="studio-field">
-              <label htmlFor="media-alt">Alt text (English) *</label>
-              <input id="media-alt" className="studio-input" value={alt} onChange={(e) => setAlt(e.target.value)} />
+              <label htmlFor="media-alt">النص البديل (بالإنجليزية) *</label>
+              <input id="media-alt" className="studio-input" dir="ltr" value={alt} onChange={(e) => setAlt(e.target.value)} />
             </div>
             <div className="studio-field">
-              <label htmlFor="media-alt-ar">Alt text (Arabic)</label>
+              <label htmlFor="media-alt-ar">النص البديل (بالعربية)</label>
               <input id="media-alt-ar" className="studio-input" dir="rtl" value={altAr} onChange={(e) => setAltAr(e.target.value)} />
             </div>
 
             {!isNew ? (
               <dl className="studio-kv">
                 <div className="studio-kv__row">
-                  <dt>Filename</dt>
-                  <dd>{filename ?? "—"}</dd>
+                  <dt>اسم الملف</dt>
+                  <dd className="studio-mono">{filename ?? "—"}</dd>
                 </div>
                 <div className="studio-kv__row">
-                  <dt>Type</dt>
-                  <dd>{mimeType ?? "—"}</dd>
+                  <dt>النوع</dt>
+                  <dd className="studio-mono">{mimeType ?? "—"}</dd>
                 </div>
                 <div className="studio-kv__row">
-                  <dt>Size</dt>
-                  <dd>{formatBytes(filesize)}</dd>
+                  <dt>الحجم</dt>
+                  <dd className="studio-mono">{formatBytes(filesize)}</dd>
                 </div>
                 {width && height ? (
                   <div className="studio-kv__row">
-                    <dt>Dimensions</dt>
-                    <dd>{width} × {height}px</dd>
+                    <dt>الأبعاد</dt>
+                    <dd className="studio-mono">{width} × {height}px</dd>
                   </div>
                 ) : null}
                 {doc.updatedAt ? (
                   <div className="studio-kv__row">
-                    <dt>Updated</dt>
+                    <dt>آخر تعديل</dt>
                     <dd>{shortTime(String(doc.updatedAt))}</dd>
                   </div>
                 ) : null}
                 {url ? (
                   <div className="studio-kv__row">
-                    <dt>URL</dt>
+                    <dt>الرابط العام</dt>
                     <dd>
                       <button
                         type="button"
@@ -180,7 +182,7 @@ export function MediaEditor({
                           window.setTimeout(() => setCopied(false), 1800);
                         }}
                       >
-                        {copied ? "Copied!" : "Copy public URL"}
+                        {copied ? "تم النسخ!" : "نسخ الرابط العام"}
                       </button>
                     </dd>
                   </div>

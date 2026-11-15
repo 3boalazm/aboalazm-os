@@ -3,9 +3,9 @@
 //   - HTML navigations (/ , /work, /work/design, /work/development, etc.): network-first so published updates appear immediately.
 //   - Built assets (/_next/static/*, /fonts/*): cache-first (content-hashed or immutable).
 //   - Images (/images/*, /_next/image*): stale-while-revalidate so offline works without pinning stale thumbnails.
-//   - Admin & API (/admin*, /api*): network-only, never cached.
+//   - Studio, Admin & API (/studio*, /admin*, /api*): network-only, never cached.
 
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v5";
 const STATIC_CACHE = `aboalazm-os-pwa-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `aboalazm-os-pwa-runtime-${CACHE_VERSION}`;
 
@@ -50,7 +50,7 @@ self.addEventListener("fetch", (event) => {
 
   const { pathname } = url;
 
-  if (pathname.startsWith("/admin") || pathname.startsWith("/api")) {
+  if (pathname.startsWith("/studio") || pathname.startsWith("/admin") || pathname.startsWith("/api")) {
     return;
   }
 

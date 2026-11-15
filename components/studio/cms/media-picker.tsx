@@ -72,14 +72,14 @@ export async function uploadMediaViaRest(opts: {
       message?: string;
     };
     if (!res.ok || !json.doc) {
-      const msg = json.errors?.[0]?.message || json.message || `Upload failed (${res.status})`;
+      const msg = json.errors?.[0]?.message || json.message || `فشل الرفع (${res.status})`;
       return { ok: false, error: msg };
     }
     const ref = normalizeMediaRef(json.doc);
-    if (!ref) return { ok: false, error: "Server returned an invalid media reference." };
+    if (!ref) return { ok: false, error: "أرجع الخادم مرجع وسائط غير صالح." };
     return { ok: true, media: ref };
   } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : "Network error during upload." };
+    return { ok: false, error: err instanceof Error ? err.message : "خطأ في الشبكة أثناء الرفع." };
   }
 }
 
@@ -110,7 +110,6 @@ export function MediaPickerField({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  /* Quick upload state inside drawer */
   const [file, setFile] = useState<File | null>(null);
   const [alt, setAlt] = useState("");
   const [altAr, setAltAr] = useState("");
@@ -167,7 +166,7 @@ export function MediaPickerField({
             <div className="studio-media-thumb">
               {value.url && !isPdf(value) ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={value.url} alt={value.alt ?? value.filename ?? "Selected media"} />
+                <img src={value.url} alt={value.alt ?? value.filename ?? "الملف المختار"} />
               ) : (
                 <span className="studio-media-pdf">
                   <SIcon name={isPdf(value) ? "layers" : "image"} size={18} />
@@ -176,11 +175,11 @@ export function MediaPickerField({
               )}
             </div>
             <div style={{ minWidth: 0, flex: 1 }}>
-              <strong style={{ display: "block", fontSize: 12.5, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                {value.alt || value.filename || `Media #${value.id}`}
+              <strong style={{ display: "block", fontSize: 13.5, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                {value.alt || value.filename || `ملف #${value.id}`}
               </strong>
-              <span className="studio-tiny" style={{ display: "block" }}>
-                {value.filename ?? "selected"}
+              <span className="studio-tiny studio-mono" style={{ display: "block" }}>
+                {value.filename ?? "مختار"}
                 {value.width && value.height ? ` · ${value.width}×${value.height}` : ""}
                 {value.filesize ? ` · ${formatBytes(value.filesize)}` : ""}
               </span>
@@ -188,43 +187,43 @@ export function MediaPickerField({
           </>
         ) : (
           <div style={{ flex: 1 }}>
-            <span className="studio-sub" style={{ fontSize: 12 }}>
-              No asset selected
+            <span className="studio-sub" style={{ fontSize: 13 }}>
+              لم يُختر ملف بعد
             </span>
           </div>
         )}
 
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           <button type="button" className="studio-btn studio-btn--sm" onClick={() => setOpen(true)}>
-            <SIcon name="image" size={12} /> {value ? "Change" : "Select / upload"}
+            <SIcon name="image" size={13} /> {value ? "تغيير" : "اختيار / رفع ملف"}
           </button>
           {value ? (
             <button type="button" className="studio-btn studio-btn--sm" onClick={() => onChange(null)}>
-              Clear
+              إزالة
             </button>
           ) : null}
         </div>
       </div>
 
-      {hint ? <p className="studio-tiny" style={{ margin: "2px 0 0" }}>{hint}</p> : null}
+      {hint ? <p className="studio-tiny" style={{ margin: "3px 0 0" }}>{hint}</p> : null}
 
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
         title={
           <div>
-            <strong style={{ fontSize: 14 }}>Media library</strong>
+            <strong style={{ fontSize: 15 }}>مكتبة الوسائط</strong>
             <span className="studio-tiny" style={{ display: "block" }}>
-              Pick an existing asset or upload a new file straight to Vercel Blob
+              اختر ملفًا موجودًا أو ارفع ملفًا جديدًا مباشرة إلى Vercel Blob
             </span>
           </div>
         }
       >
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Quick upload */}
+          {/* رفع سريع */}
           <div className="studio-upload-box">
             <p className="studio-up" style={{ margin: "0 0 8px" }}>
-              Upload new file
+              رفع ملف جديد
             </p>
             <input
               type="file"
@@ -241,15 +240,15 @@ export function MediaPickerField({
             {file ? (
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBlockStart: 10 }}>
                 <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-                  <label>Alt text (English) *</label>
-                  <input className="studio-input" value={alt} onChange={(e) => setAlt(e.target.value)} placeholder="Describe the asset" />
+                  <label>النص البديل (بالإنجليزية) *</label>
+                  <input className="studio-input" dir="ltr" value={alt} onChange={(e) => setAlt(e.target.value)} placeholder="Describe the asset" />
                 </div>
                 <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-                  <label>Alt text (Arabic)</label>
+                  <label>النص البديل (بالعربية)</label>
                   <input className="studio-input" dir="rtl" value={altAr} onChange={(e) => setAltAr(e.target.value)} placeholder="وصف الصورة بالعربية" />
                 </div>
                 <button type="button" className="studio-btn studio-btn--primary" disabled={uploading} onClick={() => void handleUpload()}>
-                  {uploading ? "Uploading…" : `Upload ${file.name}`}
+                  {uploading ? "جارٍ الرفع…" : `رفع ${file.name}`}
                 </button>
               </div>
             ) : null}
@@ -257,21 +256,21 @@ export function MediaPickerField({
 
           {error ? <div className="studio-login__err">{error}</div> : null}
 
-          {/* Search existing */}
+          {/* البحث في المكتبة */}
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label>Search library</label>
+            <label>البحث في المكتبة</label>
             <input
               className="studio-input"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Filter by alt text or filename…"
+              placeholder="تصفية حسب النص البديل أو اسم الملف…"
             />
           </div>
 
           {loading ? (
-            <p className="studio-tiny">Loading assets…</p>
+            <p className="studio-tiny">جارٍ تحميل الملفات…</p>
           ) : items.length === 0 ? (
-            <p className="studio-sub">No matching assets found.</p>
+            <p className="studio-sub">لا توجد ملفات مطابقة.</p>
           ) : (
             <div className="studio-media-grid">
               {items.map((item) => {
@@ -289,7 +288,7 @@ export function MediaPickerField({
                     <div className="studio-media-pick__preview">
                       {item.url && !isPdf(item) ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={item.url} alt={item.alt ?? item.filename ?? "Asset"} />
+                        <img src={item.url} alt={item.alt ?? item.filename ?? "ملف"} />
                       ) : (
                         <span className="studio-media-pdf">
                           <SIcon name={isPdf(item) ? "layers" : "image"} size={20} />

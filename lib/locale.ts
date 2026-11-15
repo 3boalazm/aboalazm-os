@@ -9,7 +9,7 @@ export function stripLocale(path: string): string {
   return path.replace(new RegExp(`^\\/${LOCALE_PATTERN}(?=\\/|$)`), "") || "/";
 }
 export function isLocalizable(path: string): boolean {
-  return path.startsWith("/") && !path.startsWith("//") && !/\.[a-z0-9]+(?:[?#]|$)/i.test(path) && !/^\/(?:api|admin|_next|fonts|images|icons|showcase|cv|portfolio)(?:\/|[?#]|$)/.test(path);
+  return path.startsWith("/") && !path.startsWith("//") && !/\.[a-z0-9]+(?:[?#]|$)/i.test(path) && !/^\/(?:api|admin|studio|_next|fonts|images|icons|showcase|cv|portfolio)(?:\/|[?#]|$)/.test(path);
 }
 /** English keeps existing URLs; Arabic (/ar) and Malay (/ms) have stable prefixes. */
 export function localeHref(href: string, locale: Locale): string {

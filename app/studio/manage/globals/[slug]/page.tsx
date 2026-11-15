@@ -6,7 +6,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { OffersGlobalEditor, SettingsGlobalEditor } from "@/components/studio/cms/editors/globals-editor";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Manage · Global", robots: { index: false, follow: false } };
+export const metadata = { title: "إدارة المحتوى · الإعدادات العامة", robots: { index: false, follow: false } };
 
 export default async function StudioManageGlobalPage({
   params,

@@ -5,7 +5,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { ManageView } from "@/components/studio/manage-view";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Manage", robots: { index: false, follow: false } };
+export const metadata = { title: "إدارة المحتوى · لوحة الاستوديو", robots: { index: false, follow: false } };
 
 export default async function StudioManagePage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const params = await searchParams;
@@ -28,11 +28,16 @@ export default async function StudioManagePage({ searchParams }: { searchParams:
       counts={{ unreadLeads, newLeads: leads.filter((l) => (l.leadStage ?? "new") === "new").length, drafts: content.projectsDraft + content.postsDraft }}
       attention={
         unreadLeads
-          ? { title: `${unreadLeads} unread enquir${unreadLeads === 1 ? "y" : "ies"}`, body: "Editing can wait; a person is waiting.", href: "/studio/leads", cta: "Work the queue" }
+          ? {
+              title: unreadLeads === 1 ? "استفسار واحد غير مقروء" : `${unreadLeads} استفسارات غير مقروءة`,
+              body: "التعديل يمكن أن ينتظر؛ هناك شخص ينتظر الرد.",
+              href: "/studio/leads",
+              cta: "فتح قائمة العملاء",
+            }
           : null
       }
       userEmail={user.email}
-      version={`P6 · ${range.label}`}
+      version={`المحتوى · ${range.label}`}
     >
       <ManageView inventory={inventory} activity={activity} />
     </StudioShell>

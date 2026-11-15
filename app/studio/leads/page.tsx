@@ -5,7 +5,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { LeadsView } from "@/components/studio/leads-view";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Leads & pipeline", robots: { index: false, follow: false } };
+export const metadata = { title: "العملاء المحتملون · لوحة الاستوديو", robots: { index: false, follow: false } };
 
 export default async function StudioLeadsPage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const params = await searchParams;
@@ -25,10 +25,10 @@ export default async function StudioLeadsPage({ searchParams }: { searchParams: 
 
   const attention = unreadLeads
     ? {
-        title: `${unreadLeads} unread enquir${unreadLeads === 1 ? "y" : "ies"}`,
-        body: "Open them below — the board is the queue.",
+        title: unreadLeads === 1 ? "استفسار واحد غير مقروء" : `${unreadLeads} استفسارات غير مقروءة`,
+        body: "افتحها من اللوحة أدناه لمتابعة الرد والتسعير.",
         href: "#",
-        cta: "Work the queue",
+        cta: "متابعة القائمة",
       }
     : null;
 
@@ -37,7 +37,7 @@ export default async function StudioLeadsPage({ searchParams }: { searchParams: 
       counts={{ unreadLeads, newLeads, drafts: content.projectsDraft + content.postsDraft }}
       attention={attention}
       userEmail={user.email}
-      version={`P3 · ${range.label}`}
+      version={`العملاء · ${range.label}`}
     >
       <LeadsView leads={leads} counts={counts} overview={overview} />
     </StudioShell>

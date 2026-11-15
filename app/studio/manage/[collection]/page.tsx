@@ -6,7 +6,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { CollectionBrowser } from "@/components/studio/cms/collection-browser";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Manage · Collection", robots: { index: false, follow: false } };
+export const metadata = { title: "إدارة المحتوى · المجموعة", robots: { index: false, follow: false } };
 
 export default async function StudioManageCollectionPage({
   params,

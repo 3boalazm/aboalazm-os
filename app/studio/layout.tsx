@@ -4,23 +4,15 @@ import { ThemeBoot } from "@/components/studio/interactive";
 import "./studio.css";
 
 /**
- * Studio root layout — its own <html>, like app/(payload)/layout.tsx.
+ * Studio root layout — its own <html> document, completely isolated from the
+ * marketing site's layout, CSS, and providers.
  *
- * The console is a separate document from the marketing site on purpose:
- *   · the site's global CSS (huge type ramps, scroll-reveal, ambient canvas,
- *     Lenis smooth scroll) is exactly wrong for an operations table;
- *   · the site ships JS it does not need (terminal overlay, PWA install,
- *     persona provider, analytics);
- *   · and a console bug must never be able to break a page a visitor sees.
- *
- * It is still one Next app and one deploy — isolation here is about the
- * document, not about running a second service.
+ * Arabic RTL operations console powered by self-hosted IBM Plex Sans Arabic
+ * alongside Montserrat & JetBrains Mono for bilingual inputs and tabular figures.
  */
 export const metadata: Metadata = {
-  title: { default: "Studio console · Aboalazm OS", template: "%s · Studio" },
+  title: { default: "لوحة الاستوديو · Aboalazm OS", template: "%s · الاستوديو" },
   robots: { index: false, follow: false },
-  // Deliberately not linked from the marketing site's nav: the console is an
-  // operator tool, discovered by URL or bookmark.
 };
 
 export const viewport: Viewport = {
@@ -32,10 +24,12 @@ export const viewport: Viewport = {
 
 export default function StudioLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning>
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
-        {/* Fonts are already self-hosted under /fonts and declared by the
-            marketing stylesheet; the console only needs the faces it uses. */}
+        {/* Self-hosted fonts under /fonts — zero external network dependency. */}
+        <link rel="preload" href="/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="preload" href="/fonts/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="preload" href="/fonts/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="preload" href="/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossOrigin="" />
@@ -44,11 +38,8 @@ export default function StudioLayout({ children }: { children: ReactNode }) {
         style={{
           margin: 0,
           background: "#080710",
-          // Two type systems only: Montserrat for prose, JetBrains Mono for
-          // every number and label. Numbers that do not align are numbers you
-          // cannot scan.
           fontFamily:
-            'var(--font-sans), Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif',
+            '"IBM Plex Sans Arabic", "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif',
         }}
       >
         {children}

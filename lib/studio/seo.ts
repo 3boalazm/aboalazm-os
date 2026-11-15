@@ -2,20 +2,8 @@ import type { Payload } from "payload";
 import { makeCtx, readProjects } from "./metrics";
 
 /**
- * STUDIO SEO AUDIT (P4) — checks that can be derived truthfully from the
- * CMS itself, run at request time against the same rows the site serves.
- *
- * What this is NOT: it is not Search Console. Organic impressions, clicks
- * and rankings live in Google's systems and need an API integration this
- * project has not connected (see the System screen — the absence is
- * stated there, not papered over here). Every check below is computed
- * from fields in Postgres, and each issue links to the exact Payload
- * document that fixes it.
- *
- * The highest-value check is also the most concrete: a published post's
- * `standfirst` IS its meta description (app/(site)/[locale]/writing/
- * [slug]/page.tsx feeds it to generateMetadata). No standfirst means the
- * search snippet is whatever a crawler improvises.
+ * STUDIO SEO AUDIT — فحوصات تُستخلص مباشرة من صفوف نظام إدارة المحتوى
+ * في PostgreSQL، وتربط كل مشكلة بالمستند المحدد الذي يصلحها.
  */
 
 type Ctx = { payload: Payload; user: { id: string | number; email?: string } };
@@ -63,7 +51,6 @@ function duplicateSlugs(rows: { slug?: string | null }[]): string[] {
   return [...seen.entries()].filter(([, n]) => n > 1).map(([slug]) => slug);
 }
 
-/** Pure: same input, same issues. Unit-tested in lib/analytics-events.test.ts. */
 export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; caseStudies: CaseRow[] }): SeoIssue[] {
   const issues: SeoIssue[] = [];
   const published = (r: { _status?: string | null }) => r._status === "published";
@@ -71,16 +58,16 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
   for (const slug of duplicateSlugs(input.posts)) {
     issues.push({
       severity: "danger",
-      title: `Duplicate writing slug “${slug}”`,
-      detail: "Two posts share one URL; one of them is unreachable. Rename the newer one's slug.",
+      title: `معرّف رابط (slug) مكرر في المقالات «${slug}»`,
+      detail: "مقالان يتشاركان نفس الرابط؛ أحدهما غير قابل للوصول. عدّل slug المقال الأحدث.",
       href: "/studio/manage/posts",
     });
   }
   for (const slug of duplicateSlugs(input.caseStudies)) {
     issues.push({
       severity: "danger",
-      title: `Duplicate case-study slug “${slug}”`,
-      detail: "Two case studies share one URL; one of them is unreachable.",
+      title: `معرّف رابط (slug) مكرر في دراسات الحالة «${slug}»`,
+      detail: "دراستا حالة تتشاركان نفس الرابط؛ إحداهما غير قابلة للوصول.",
       href: "/studio/manage/case-studies",
     });
   }
@@ -91,24 +78,24 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
     if (published(post) && !post.standfirst?.trim()) {
       issues.push({
         severity: "warn",
-        title: `“${label}” has no meta description`,
-        detail: "The standfirst is fed to generateMetadata as the description. Without it, search snippets are improvised by the crawler.",
+        title: `المقال «${label}» بدون وصف تعريفي (meta description)`,
+        detail: "يُستخدم حقل المقدّمة المختصرة (standfirst) كوصف تعريفي في محركات البحث. بدونه ترتجل المحركات مقتطفًا عشوائيًا.",
         href,
       });
     }
     if (published(post) && (post.title?.length ?? 0) > 60) {
       issues.push({
         severity: "info",
-        title: `“${label}” title is ${post.title!.length} characters`,
-        detail: "Over ~60 characters, search results truncate the title. The page itself is unaffected.",
+        title: `عنوان «${label}» يبلغ ${post.title!.length} حرفًا`,
+        detail: "فوق ~60 حرفًا تقتطع نتائج البحث العنوان، بينما لا تتأثر الصفحة نفسها.",
         href,
       });
     }
     if (!published(post) && post.updatedAt && Date.now() - new Date(post.updatedAt).getTime() > 30 * 86400000) {
       issues.push({
         severity: "info",
-        title: `Draft “${label}” untouched for 30+ days`,
-        detail: "Either publish it or delete it — a stale draft is a decision that was never made.",
+        title: `المسودة «${label}» لم تُمس منذ أكثر من 30 يومًا`,
+        detail: "إما أن تنشرها أو تحذفها — المسودة الراكدة قرار مؤجل.",
         href,
       });
     }
@@ -121,16 +108,16 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
     if (published(project) && !project.thumbnail) {
       issues.push({
         severity: "warn",
-        title: `“${label}” has no thumbnail`,
-        detail: "Published work cards render empty on /work without one.",
+        title: `المشروع «${label}» بدون صورة مصغرة`,
+        detail: "بطاقات الأعمال المنشورة تظهر فارغة في /work بدون صورة مصغرة.",
         href,
       });
     }
     if (published(project) && project.hasCaseStudy === false && !project.externalUrl) {
       issues.push({
         severity: "warn",
-        title: `“${label}” card leads nowhere`,
-        detail: "No case study and no external URL — the no-404 rule says a card must open something.",
+        title: `بطاقة «${label}» لا تؤدي إلى أي وجهة`,
+        detail: "لا توجد دراسة حالة ولا رابط خارجي — القاعدة تقتضي أن تفتح كل بطاقة وجهة حقيقية.",
         href,
       });
     }
@@ -140,8 +127,8 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
     if (published(cs) && !cs.nameAr?.trim()) {
       issues.push({
         severity: "info",
-        title: `Case study “${cs.name || cs.slug}” has no Arabic name`,
-        detail: "The /ar pages fall back to the English name. The narrative exists; the title does not.",
+        title: `دراسة الحالة «${cs.name || cs.slug}» بدون اسم عربي`,
+        detail: "تعتمد الصفحات العربية (/ar) على الاسم الإنجليزي كبديل مؤقت عند غياب الاسم العربي.",
         href: `/studio/manage/case-studies/${cs.id}`,
       });
     }
@@ -151,22 +138,14 @@ export function auditContent(input: { posts: PostRow[]; projects: ProjectRow[]; 
   return issues.sort((a, b) => rank[a.severity] - rank[b.severity]);
 }
 
-/* ── content performance join (pure) ────────────────────────────────────── */
-
 export interface ContentPerfRow {
-  kind: "Writing" | "Case study";
+  kind: "مقال" | "دراسة حالة";
   title: string;
   path: string;
   views: number;
   href: string;
 }
 
-/**
- * Joins normalized pageview paths (/writing/{slug}, /case-studies/{slug})
- * to the content rows that own them. Paths that match nothing — section
- * pages, the homepage — are not content performance and are left to the
- * Analytics screen's top-pages table.
- */
 export function matchContentViews(
   views: [string, number][],
   posts: PostRow[],
@@ -178,7 +157,7 @@ export function matchContentViews(
     if (writing) {
       const post = posts.find((p) => p.slug === writing[1]);
       if (post) {
-        rows.push({ kind: "Writing", title: post.title || post.slug || `#${post.id}`, path, views: count, href: `/studio/manage/posts/${post.id}` });
+        rows.push({ kind: "مقال", title: post.title || post.slug || `#${post.id}`, path, views: count, href: `/studio/manage/posts/${post.id}` });
         continue;
       }
     }
@@ -186,14 +165,12 @@ export function matchContentViews(
     if (cs) {
       const study = caseStudies.find((c) => c.slug === cs[1]);
       if (study) {
-        rows.push({ kind: "Case study", title: study.name || study.slug || `#${study.id}`, path, views: count, href: `/studio/manage/case-studies/${study.id}` });
+        rows.push({ kind: "دراسة حالة", title: study.name || study.slug || `#${study.id}`, path, views: count, href: `/studio/manage/case-studies/${study.id}` });
       }
     }
   }
   return rows.sort((a, b) => b.views - a.views);
 }
-
-/* ── loader ─────────────────────────────────────────────────────────────── */
 
 export interface SeoReport {
   issues: SeoIssue[];
@@ -223,12 +200,6 @@ export async function loadSeoReport(payload: Payload, user: Ctx["user"]): Promis
   };
 }
 
-/**
- * Search Console connection state, honestly. Organic data needs a Google
- * service account with Search Console access; until those env vars exist
- * there is nothing to query and the console says so instead of drawing an
- * empty chart that reads as "no traffic from Google".
- */
 export function searchConsoleConfigured(): boolean {
   return Boolean(
     process.env.GOOGLE_SEARCH_CONSOLE_PROPERTY &&

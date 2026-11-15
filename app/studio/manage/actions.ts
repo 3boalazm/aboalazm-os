@@ -40,31 +40,26 @@ function revalidateStudioTree(slug?: string, id?: string | number) {
   }
 }
 
-/**
- * Create or update any Payload collection document using the operator's own
- * Payload session (`overrideAccess: false`), preserving all collection hooks,
- * access checks, validation, and public-site revalidation.
- */
 export async function saveCollectionDocAction(
   slugRaw: string,
   idOrNew: string | number,
   rawPayload: Record<string, unknown>,
 ): Promise<SaveDocResult> {
   const user = await getStudioUser();
-  if (!user) return { ok: false, error: "Session expired — sign in again." };
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
 
   const meta = getCollectionMeta(slugRaw);
-  if (!meta) return { ok: false, error: `Unknown collection “${slugRaw}”.` };
+  if (!meta) return { ok: false, error: `مجموعة غير معروفة: «${slugRaw}».` };
 
   const slug = meta.slug;
   const isCreate = idOrNew === "new" || idOrNew === "";
   if (isCreate && !meta.allowsCreate) {
-    return { ok: false, error: `${meta.label} cannot be created manually here.` };
+    return { ok: false, error: `لا يمكن إنشاء سجلات «${meta.label}» يدويًا من هنا.` };
   }
 
   const data: Record<string, unknown> = { ...rawPayload };
 
-  /* Users: empty password during edit means "keep current password". */
+  /* في حالة المستخدمين: ترك كلمة المرور فارغة أثناء التعديل يعني الإبقاء على الحالية. */
   if (slug === "users" && !isCreate) {
     if (typeof data.password !== "string" || data.password.trim() === "") {
       delete data.password;
@@ -110,8 +105,6 @@ export async function saveCollectionDocAction(
     };
   } catch (error) {
     if (slug === "projects" && isMissingColumnError(error)) {
-      /* On migration-only databases missing projects.status (42703), return a clear
-         explanation rather than an opaque 500. */
       if (!isCreate && /^\d+$/.test(String(idOrNew))) {
         try {
           const { status: _omitted, ...withoutStatus } = data;
@@ -130,7 +123,7 @@ export async function saveCollectionDocAction(
             ok: true,
             id: idOrNew,
             doc: retry,
-            warning: "Saved without delivery status (projects.status column is absent in this database).",
+            warning: "تم الحفظ دون حقل حالة التسليم (عمود projects.status غير موجود في قاعدة البيانات الحالية).",
           };
         } catch (retryErr) {
           if (!isMissingColumnError(retryErr)) {
@@ -141,7 +134,7 @@ export async function saveCollectionDocAction(
       return {
         ok: false,
         error:
-          "Projects write failed because `projects.status` is missing in this database schema (Postgres 42703). See docs/studio/03_SCHEMA_FINDINGS.md §3.",
+          "فشل الحفظ لأن عمود `projects.status` غير موجود في مخطط قاعدة البيانات (Postgres 42703). راجع docs/studio/03_SCHEMA_FINDINGS.md §3.",
       };
     }
     return { ok: false, error: formatPayloadError(error) };
@@ -153,10 +146,10 @@ export async function deleteCollectionDocAction(
   idRaw: string | number,
 ): Promise<DeleteDocResult> {
   const user = await getStudioUser();
-  if (!user) return { ok: false, error: "Session expired — sign in again." };
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
 
   const meta = getCollectionMeta(slugRaw);
-  if (!meta) return { ok: false, error: `Unknown collection “${slugRaw}”.` };
+  if (!meta) return { ok: false, error: `مجموعة غير معروفة: «${slugRaw}».` };
 
   const slug = meta.slug as StudioCollectionSlug;
   const id = typeof idRaw === "number" ? idRaw : /^\d+$/.test(idRaw) ? Number(idRaw) : idRaw;
@@ -165,7 +158,7 @@ export async function deleteCollectionDocAction(
 
   if (slug === "users") {
     if (String(id) === String(user.id)) {
-      return { ok: false, error: "You cannot delete the user you are currently signed in with." };
+      return { ok: false, error: "لا يمكنك حذف الحساب الذي سجّلت الدخول به حاليًا." };
     }
     const existing = await payload.count({
       collection: "users",
@@ -173,7 +166,7 @@ export async function deleteCollectionDocAction(
       user: user as never,
     });
     if (existing.totalDocs <= 1) {
-      return { ok: false, error: "Cannot delete the last admin account." };
+      return { ok: false, error: "لا يمكن حذف آخر حساب مسؤول في النظام." };
     }
   }
 
@@ -196,10 +189,10 @@ export async function saveGlobalDocAction(
   data: Record<string, unknown>,
 ): Promise<SaveGlobalResult> {
   const user = await getStudioUser();
-  if (!user) return { ok: false, error: "Session expired — sign in again." };
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
 
   const meta = getGlobalMeta(slugRaw);
-  if (!meta) return { ok: false, error: `Unknown global “${slugRaw}”.` };
+  if (!meta) return { ok: false, error: `إعداد عام غير معروف: «${slugRaw}».` };
 
   const slug = meta.slug as StudioGlobalSlug;
   const payload = await getPayload();
@@ -224,7 +217,7 @@ export async function searchMediaForPickerAction(opts: {
   mimePrefix?: string;
 }): Promise<{ ok: true; docs: Media[] } | { ok: false; error: string }> {
   const user = await getStudioUser();
-  if (!user) return { ok: false, error: "Session expired — sign in again." };
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
   try {
     const payload = await getPayload();
     const docs = await listMediaChoices(payload, user, {

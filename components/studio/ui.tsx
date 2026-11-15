@@ -3,19 +3,11 @@ import type { ReactNode } from "react";
 import type { Probe, ProbeState } from "@/lib/studio/metrics";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   STUDIO UI — the small, shared vocabulary the console is assembled from.
-
-   Kept in one module on purpose: this dashboard is a deliberately narrow,
-   single-purpose surface (9 tiles, 4 screens). Extracting a component library
-   for it would be the exact "30 admin pages that repeat the same data"
-   failure the plan warns about, one abstraction at a time.
-
-   The one rule encoded here rather than left to discipline:
-   `<Provenance>` is REQUIRED on every numeric tile. A tile that renders a
-   number without saying what it counts and when is a bug you can see.
+   STUDIO UI — المفردات البصرية المشتركة للوحة الاستوديو.
+   القاعدة الأساسية: خاصية `provenance` إلزامية على كل بطاقة رقمية لتوضيح
+   مصدر الرقم وتوقيت قراءته.
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* ── icons: inline, 24×24, stroke 1.6, currentColor. No icon dependency. ── */
 const PATHS = {
   grid: "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z",
   inbox: "M4 13h4l1.5 2.5h5L16 13h4M5.5 5h13l2 8v4a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2v-4l2-8Z",
@@ -25,6 +17,9 @@ const PATHS = {
   arrowUp: "M12 19V5M6 11l6-6 6 6",
   arrowDown: "M12 5v14M18 13l-6 6-6-6",
   arrowRight: "M4 12h15M13 6l6 6-6 6",
+  arrowLeft: "M20 12H5M11 6l-6 6 6 6",
+  chevronLeft: "M15 6l-6 6 6 6",
+  chevronRight: "M9 6l6 6-6 6",
   arrowUpRight: "M7 17 17 7M8 7h9v9",
   check: "m5 12.5 4.5 4.5L19 7",
   alert: "M12 4 2.8 20h18.4L12 4ZM12 10v4M12 17.2h.01",
@@ -86,7 +81,6 @@ export function Tile({
   span?: "w12" | "w8" | "w7" | "w6" | "w5" | "w4" | "w3";
   title?: ReactNode;
   aside?: ReactNode;
-  /** REQUIRED for any tile containing a number. Ignored only for layout tiles. */
   provenance?: ReactNode;
   variant?: "accent" | "invert" | "flush" | "aurora";
   children: ReactNode;
@@ -109,10 +103,6 @@ export function Tile({
   );
 }
 
-/**
- * The provenance line. Renders the *definition* of the number and the moment
- * it was read — the two facts that turn a figure into a claim you can audit.
- */
 export function Provenance({ children }: { children: ReactNode }) {
   return (
     <p className="studio-provenance">
@@ -154,14 +144,14 @@ export function Chip({
   );
 }
 
-/* ── stage vocabulary — one source, so labels never drift from the enum ───── */
+/* ── stage vocabulary ─────────────────────────────────────────────────────── */
 export const STAGES = [
-  { key: "new", label: "New", short: "New", tone: "info" as ChipTone },
-  { key: "qualified", label: "Qualified", short: "Qual", tone: "neutral" as ChipTone },
-  { key: "proposal-sent", label: "Proposal sent", short: "Proposal", tone: "warn" as ChipTone },
-  { key: "won", label: "Won", short: "Won", tone: "ok" as ChipTone },
-  { key: "lost", label: "Lost", short: "Lost", tone: "danger" as ChipTone },
-  { key: "not-a-fit", label: "Not a fit", short: "No fit", tone: "danger" as ChipTone },
+  { key: "new", label: "جديد", short: "جديد", tone: "info" as ChipTone },
+  { key: "qualified", label: "مؤهل", short: "مؤهل", tone: "neutral" as ChipTone },
+  { key: "proposal-sent", label: "أُرسل العرض", short: "عرض سعر", tone: "warn" as ChipTone },
+  { key: "won", label: "فائز", short: "فائز", tone: "ok" as ChipTone },
+  { key: "lost", label: "خاسر", short: "خاسر", tone: "danger" as ChipTone },
+  { key: "not-a-fit", label: "غير مناسب", short: "غير مناسب", tone: "danger" as ChipTone },
 ] as const;
 
 export function stageMeta(key?: string | null) {
@@ -169,26 +159,23 @@ export function stageMeta(key?: string | null) {
 }
 
 /* ── the honest delta ─────────────────────────────────────────────────────── */
-/**
- * Renders a change against the previous window. When there is no comparable
- * previous window it says so instead of printing "+100%" or a dash that reads
- * as zero.
- */
-export function Delta({ pct, suffix = "vs previous" }: { pct: number | null; suffix?: string }) {
+export function Delta({ pct, suffix = "عن الفترة السابقة" }: { pct: number | null; suffix?: string }) {
   if (pct == null) {
     return (
       <Chip icon="minus" tone="neutral">
-        no prior window
+        لا توجد فترة سابقة
       </Chip>
     );
   }
   const up = pct > 0;
   const flat = pct === 0;
   return (
-    <span className="studio-row__meta" style={{ gap: 4 }}>
+    <span className="studio-row__meta" style={{ gap: 5 }}>
       <Chip tone={flat ? "neutral" : up ? "ok" : "danger"} icon={flat ? "minus" : up ? "arrowUp" : "arrowDown"}>
-        {up ? "+" : ""}
-        {pct}%
+        <span className="studio-mono">
+          {up ? "+" : ""}
+          {pct}%
+        </span>
       </Chip>
       <span className="studio-tiny">{suffix}</span>
     </span>
@@ -198,9 +185,19 @@ export function Delta({ pct, suffix = "vs previous" }: { pct: number | null; suf
 /* ── status chips for probes ─────────────────────────────────────────────── */
 const PROBE_TONE: Record<ProbeState, ChipTone> = { ok: "ok", warn: "warn", fail: "danger", unconfigured: "neutral" };
 const PROBE_ICON: Record<ProbeState, StudioIconName> = { ok: "check", warn: "alert", fail: "x", unconfigured: "minus" };
+const PROBE_LABEL: Record<ProbeState, string> = {
+  ok: "سليم",
+  warn: "تحذير",
+  fail: "فشل",
+  unconfigured: "غير مهيأ",
+};
 
 export function probeTone(state: ProbeState) {
   return PROBE_TONE[state];
+}
+
+export function probeStateLabel(state: ProbeState) {
+  return PROBE_LABEL[state];
 }
 
 export function ProbeRow({ probe }: { probe: Probe }) {
@@ -210,7 +207,7 @@ export function ProbeRow({ probe }: { probe: Probe }) {
       <div style={{ minWidth: 0 }}>
         <span className="studio-probe__name">{probe.name}</span>
         <p className="studio-probe__detail">{probe.detail}</p>
-        {probe.fix ? <p className="studio-probe__fix">Fix: {probe.fix}</p> : null}
+        {probe.fix ? <p className="studio-probe__fix">الإصلاح: {probe.fix}</p> : null}
       </div>
       <span className="studio-probe__when">
         <time dateTime={probe.checkedAt}>{shortTime(probe.checkedAt)}</time>
@@ -230,26 +227,25 @@ export function usd(value: number): string {
 
 export function shortTime(iso: string): string {
   const d = new Date(iso);
-  return d.toLocaleString("en-GB", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", hour12: false });
+  return d.toLocaleString("ar-EG-u-nu-latn", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", hour12: false });
 }
 
-/** "3 h ago" / "2 d ago" — for inbox freshness, never for a metric's asOf. */
 export function ago(iso?: string | null): string {
   if (!iso) return "—";
   const diff = Date.now() - new Date(iso).getTime();
   const mins = Math.round(diff / 60000);
-  if (mins < 1) return "just now";
-  if (mins < 60) return `${mins} min ago`;
+  if (mins < 1) return "الآن";
+  if (mins < 60) return `منذ ${mins} د`;
   const hours = Math.round(mins / 60);
-  if (hours < 24) return `${hours} h ago`;
+  if (hours < 24) return `منذ ${hours} س`;
   const days = Math.round(hours / 24);
-  if (days < 30) return `${days} d ago`;
-  return `${Math.round(days / 30)} mo ago`;
+  if (days < 30) return `منذ ${days} ي`;
+  return `منذ ${Math.round(days / 30)} ش`;
 }
 
 export function initials(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (!parts.length) return "?";
+  if (!parts.length) return "؟";
   const first = parts[0]!;
   const last = parts.length > 1 ? parts[parts.length - 1]! : "";
   return (first[0]! + (last[0] ?? "")).toUpperCase();
@@ -270,11 +266,11 @@ export function EmptyState({ title, body, action }: { title: string; body: strin
 export function RangeControl({ current, basePath, extraQuery }: { current: string; basePath: string; extraQuery?: string }) {
   const suffix = extraQuery ? `&${extraQuery}` : "";
   return (
-    <nav className="studio-range" aria-label="Reporting window">
+    <nav className="studio-range" aria-label="نطاق التقرير">
       {[
-        { key: "7", label: "7d", full: "7 days" },
-        { key: "28", label: "28d", full: "28 days" },
-        { key: "90", label: "90d", full: "90 days" },
+        { key: "7", label: "7 أيام", full: "آخر 7 أيام" },
+        { key: "28", label: "28 يومًا", full: "آخر 28 يومًا" },
+        { key: "90", label: "90 يومًا", full: "آخر 90 يومًا" },
       ].map((r) => (
         <Link key={r.key} href={`${basePath}?range=${r.key}${suffix}`} aria-current={current === r.key ? "true" : undefined} title={r.full}>
           {r.label}
@@ -284,17 +280,10 @@ export function RangeControl({ current, basePath, extraQuery }: { current: strin
   );
 }
 
-/* ── charts: dependency-free SVG, drawn from real series ─────────────────── */
-
-/**
- * Daily area chart: filled pageviews + a sessions line. Shapes only inside
- * the SVG (so preserveAspectRatio cannot distort text); axis labels are
- * HTML underneath. An all-zero series renders a flat baseline, never a
- * fake curve.
- */
+/* ── charts: dependency-free SVG ──────────────────────────────────────────── */
 export function AreaChart({
   points,
-  height = 132,
+  height = 138,
 }: {
   points: { label: string; pageviews: number; sessions: number }[];
   height?: number;
@@ -311,7 +300,7 @@ export function AreaChart({
 
   return (
     <figure style={{ margin: 0 }}>
-      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} preserveAspectRatio="none" role="img" aria-label="Daily pageviews and sessions">
+      <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={height} preserveAspectRatio="none" role="img" aria-label="مشاهدات الصفحة والجلسات اليومية">
         <defs>
           <linearGradient id="studio-area-fill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="var(--s-accent)" stopOpacity="0.32" />
@@ -322,14 +311,14 @@ export function AreaChart({
         <path d={line((p) => p.pageviews)} fill="none" stroke="var(--s-accent)" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" />
         <path d={line((p) => p.sessions)} fill="none" stroke="var(--s-info)" strokeWidth="1.6" strokeDasharray="1 0" strokeLinejoin="round" strokeLinecap="round" opacity="0.9" />
       </svg>
-      <figcaption style={{ display: "flex", justifyContent: "space-between", marginBlockStart: 4 }}>
+      <figcaption style={{ display: "flex", justifyContent: "space-between", marginBlockStart: 5, gap: 8, flexWrap: "wrap" }}>
         <span className="studio-tiny">{points[0]?.label}</span>
         <span className="studio-tiny" style={{ display: "flex", gap: 12 }}>
           <span>
-            <span style={{ color: "var(--s-accent)" }}>●</span> pageviews
+            <span style={{ color: "var(--s-accent)" }}>●</span> مشاهدات الصفحة
           </span>
           <span>
-            <span style={{ color: "var(--s-info)" }}>●</span> sessions
+            <span style={{ color: "var(--s-info)" }}>●</span> الجلسات
           </span>
         </span>
         <span className="studio-tiny">{mid?.label}</span>
@@ -339,7 +328,6 @@ export function AreaChart({
   );
 }
 
-/** Tiny inline trend for KPI tiles. Renders a flat line for empty data. */
 export function Sparkline({ values, width = 96, height = 28 }: { values: number[]; width?: number; height?: number }) {
   const max = Math.max(1, ...values);
   const pts = values
@@ -353,7 +341,6 @@ export function Sparkline({ values, width = 96, height = 28 }: { values: number[
 }
 
 /* ── skeleton ─────────────────────────────────────────────────────────────── */
-/** Loading placeholder shaped like the tile it replaces. */
 export function Skeleton({ height = 18, width = "100%", radius = 8, style }: { height?: number; width?: number | string; radius?: number; style?: React.CSSProperties }) {
   return <span className="studio-skel" style={{ display: "block", height, width, borderRadius: radius, ...style }} aria-hidden />;
 }
@@ -373,11 +360,11 @@ export function ViewHeader({
   return (
     <header className="studio-view__head" style={{ display: "flex", alignItems: "flex-end", gap: 16, flexWrap: "wrap", paddingInline: 4 }}>
       <div style={{ minWidth: 0, flex: 1 }}>
-        <p className="studio-up" style={{ margin: "0 0 3px" }}>
+        <p className="studio-up" style={{ margin: "0 0 4px" }}>
           {eyebrow}
         </p>
-        <h1 style={{ margin: 0, fontSize: 22, fontWeight: 650, letterSpacing: "-0.02em", lineHeight: 1.15 }}>{title}</h1>
-        <p className="studio-sub" style={{ marginBlockStart: 4, maxWidth: "72ch" }}>
+        <h1 style={{ margin: 0, fontSize: 25, fontWeight: 700, lineHeight: 1.25 }}>{title}</h1>
+        <p className="studio-sub" style={{ marginBlockStart: 5, maxWidth: "74ch" }}>
           {description}
         </p>
       </div>

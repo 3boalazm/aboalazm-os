@@ -53,7 +53,7 @@ export function ProjectEditor({
   const [warning, setWarning] = useState<string | null>(
     deliveryStatusAvailable
       ? null
-      : "Notice: `projects.status` is missing in this database schema (42703). Changes save cleanly without overwriting delivery status.",
+      : "تنبيه: عمود `projects.status` غير موجود في مخطط قاعدة البيانات الحالية (42703). تُحفظ التعديلات بأمان دون المساس بحالة التسليم.",
   );
 
   const handleSave = async (targetStatus?: "draft" | "published") => {
@@ -102,13 +102,13 @@ export function ProjectEditor({
   return (
     <DocumentEditorFrame
       collectionSlug="projects"
-      collectionLabel="Projects"
-      singularLabel="Project"
+      collectionLabel="المشاريع"
+      singularLabel="مشروع"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
       supportsDrafts
       currentStatus={docStatus}
-      title={name || "Untitled project"}
+      title={nameAr || name || "مشروع بدون عنوان"}
       liveUrl={!isNew && slug ? (hasCaseStudy ? `/en/case-studies/${slug}` : "/en/work") : null}
       saving={saving}
       warning={warning}
@@ -116,15 +116,15 @@ export function ProjectEditor({
       onSave={handleSave}
     >
       <div className="studio-bento">
-        {/* Main content */}
         <div className="studio-w8" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Identity & story</b>}>
+          <Tile span="w12" title={<b>الهوية والوصف</b>}>
             <div className="studio-grid-2">
               <div className="studio-field">
-                <label htmlFor="proj-name">Name (English) *</label>
+                <label htmlFor="proj-name">الاسم (بالإنجليزية) *</label>
                 <input
                   id="proj-name"
                   className="studio-input"
+                  dir="ltr"
                   value={name}
                   onChange={(e) => {
                     const v = e.target.value;
@@ -134,7 +134,7 @@ export function ProjectEditor({
                 />
               </div>
               <div className="studio-field">
-                <label htmlFor="proj-name-ar">Name (Arabic)</label>
+                <label htmlFor="proj-name-ar">الاسم (بالعربية)</label>
                 <input
                   id="proj-name-ar"
                   className="studio-input"
@@ -146,26 +146,28 @@ export function ProjectEditor({
             </div>
 
             <StringListField
-              label="Stack"
-              hint="Rendered as Geist Mono micro-pills on work cards."
+              label="التقنيات والأدوات (Stack)"
+              hint="تظهر كوسوم مصغرة على بطاقات الأعمال."
               items={stack}
               onChange={setStack}
-              placeholder="e.g. Next.js, Payload, TypeScript"
+              dir="ltr"
+              placeholder="مثال: Next.js, Payload, TypeScript"
             />
 
             <div className="studio-grid-2">
               <div className="studio-field">
-                <label htmlFor="proj-outcome">Outcome (English) *</label>
+                <label htmlFor="proj-outcome">النتيجة / المخرج (بالإنجليزية) *</label>
                 <textarea
                   id="proj-outcome"
                   className="studio-input"
+                  dir="ltr"
                   rows={4}
                   value={outcome}
                   onChange={(e) => setOutcome(e.target.value)}
                 />
               </div>
               <div className="studio-field">
-                <label htmlFor="proj-outcome-ar">Outcome (Arabic)</label>
+                <label htmlFor="proj-outcome-ar">النتيجة / المخرج (بالعربية)</label>
                 <textarea
                   id="proj-outcome-ar"
                   className="studio-input"
@@ -178,9 +180,9 @@ export function ProjectEditor({
             </div>
           </Tile>
 
-          <Tile span="w12" title={<b>Visuals & ambient glow</b>}>
+          <Tile span="w12" title={<b>الصورة والتوهج المحيط</b>}>
             <MediaPickerField
-              label="Thumbnail"
+              label="الصورة المصغرة"
               required
               value={thumbnail}
               onChange={setThumbnail}
@@ -190,21 +192,23 @@ export function ProjectEditor({
 
             <div className="studio-grid-2">
               <div className="studio-field">
-                <label htmlFor="proj-glow-1">Primary accent glow *</label>
+                <label htmlFor="proj-glow-1">لون التوهج الأساسي *</label>
                 <input
                   id="proj-glow-1"
                   className="studio-input"
-                  style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 12 }}
+                  dir="ltr"
+                  style={{ fontFamily: "var(--s-font-mono)", fontSize: 13 }}
                   value={primaryGlow}
                   onChange={(e) => setPrimaryGlow(e.target.value)}
                 />
               </div>
               <div className="studio-field">
-                <label htmlFor="proj-glow-2">Secondary accent glow *</label>
+                <label htmlFor="proj-glow-2">لون التوهج الثانوي *</label>
                 <input
                   id="proj-glow-2"
                   className="studio-input"
-                  style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 12 }}
+                  dir="ltr"
+                  style={{ fontFamily: "var(--s-font-mono)", fontSize: 13 }}
                   value={secondaryGlow}
                   onChange={(e) => setSecondaryGlow(e.target.value)}
                 />
@@ -217,69 +221,71 @@ export function ProjectEditor({
                 background: `radial-gradient(circle at 20% 50%, ${primaryGlow}, transparent 60%), radial-gradient(circle at 80% 50%, ${secondaryGlow}, transparent 60%), rgb(12 11 22 / 0.8)`,
               }}
             >
-              <span>Ambient glow preview</span>
+              <span>معاينة التوهج المحيط</span>
             </div>
           </Tile>
 
-          <Tile span="w12" title={<b>Links & destinations</b>}>
+          <Tile span="w12" title={<b>الروابط والوجهات</b>}>
             {!hasCaseStudy ? (
               <div className="studio-field">
-                <label htmlFor="proj-ext">External URL</label>
+                <label htmlFor="proj-ext">الرابط الخارجي</label>
                 <input
                   id="proj-ext"
                   className="studio-input"
+                  dir="ltr"
                   value={externalUrl}
                   onChange={(e) => setExternalUrl(e.target.value)}
                   placeholder="https://…"
                 />
-                <p className="studio-tiny">Live site, repo, or Behance destination when Has Case Study is off.</p>
+                <p className="studio-tiny">رابط الموقع المباشر أو المستودع أو Behance عند تعطيل خيار دراسة الحالة.</p>
               </div>
             ) : null}
 
             {isUiUx || category === "development" ? (
               <div className="studio-field">
-                <label htmlFor="proj-live">Live Preview URL</label>
+                <label htmlFor="proj-live">رابط المعاينة الحية</label>
                 <input
                   id="proj-live"
                   className="studio-input"
+                  dir="ltr"
                   value={liveUrl}
                   onChange={(e) => setLiveUrl(e.target.value)}
                   placeholder="https://…"
                 />
-                <p className="studio-tiny">Used on development cards and the /work-ui live preview showcase.</p>
+                <p className="studio-tiny">يُستخدم في بطاقات التطوير ومعرض المعاينات الحية (/work-ui).</p>
               </div>
             ) : null}
 
             {hasCaseStudy && !isUiUx && category !== "development" ? (
-              <p className="studio-sub">This design project opens its matching case study directly.</p>
+              <p className="studio-sub">يفتح هذا المشروع دراسة الحالة المرتبطة به مباشرة.</p>
             ) : null}
           </Tile>
         </div>
 
-        {/* Sidebar metadata */}
         <div className="studio-w4" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Classification & flags</b>}>
+          <Tile span="w12" title={<b>التصنيف والخصائص</b>}>
             <div className="studio-field">
-              <label htmlFor="proj-slug">Slug *</label>
+              <label htmlFor="proj-slug">المعرّف (Slug) *</label>
               <input
                 id="proj-slug"
                 className="studio-input"
-                style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 12 }}
+                dir="ltr"
+                style={{ fontFamily: "var(--s-font-mono)", fontSize: 13 }}
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
               />
             </div>
 
             <div className="studio-field">
-              <label htmlFor="proj-cat">Category *</label>
+              <label htmlFor="proj-cat">الفئة *</label>
               <select id="proj-cat" className="studio-input" value={category} onChange={(e) => setCategory(e.target.value)}>
-                <option value="design">Design (Brand Identity)</option>
-                <option value="development">Development (Built/Coded)</option>
+                <option value="design">تصميم وهوية بصرية</option>
+                <option value="development">تطوير وبرمجة</option>
               </select>
             </div>
 
             <div className="studio-field">
-              <label htmlFor="proj-disc">Discipline (locked enum) *</label>
+              <label htmlFor="proj-disc">التخصص (قيمة معتمدة) *</label>
               <select id="proj-disc" className="studio-input" value={discipline} onChange={(e) => setDiscipline(e.target.value)}>
                 {DISCIPLINES.map((d) => (
                   <option key={d} value={d}>
@@ -290,16 +296,16 @@ export function ProjectEditor({
             </div>
 
             <div className="studio-field">
-              <label htmlFor="proj-year">Year *</label>
-              <input id="proj-year" className="studio-input" value={year} onChange={(e) => setYear(e.target.value)} />
+              <label htmlFor="proj-year">السنة *</label>
+              <input id="proj-year" className="studio-input" dir="ltr" value={year} onChange={(e) => setYear(e.target.value)} />
             </div>
 
             {deliveryStatusAvailable ? (
               <div className="studio-field">
-                <label htmlFor="proj-status">Delivery status</label>
+                <label htmlFor="proj-status">حالة التسليم</label>
                 <select id="proj-status" className="studio-input" value={status} onChange={(e) => setStatus(e.target.value)}>
-                  <option value="complete">Complete</option>
-                  <option value="in-progress">In progress</option>
+                  <option value="complete">مكتمل</option>
+                  <option value="in-progress">قيد التنفيذ</option>
                 </select>
               </div>
             ) : null}
@@ -307,11 +313,11 @@ export function ProjectEditor({
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBlockStart: 8 }}>
               <label className="studio-check">
                 <input type="checkbox" checked={hasCaseStudy} onChange={(e) => setHasCaseStudy(e.target.checked)} />
-                <span>Has case study (`/case-studies/[slug]`)</span>
+                <span>يمتلك دراسة حالة (<code>/case-studies/[slug]</code>)</span>
               </label>
               <label className="studio-check">
                 <input type="checkbox" checked={isUiUx} onChange={(e) => setIsUiUx(e.target.checked)} />
-                <span>Show on UI/UX Showcase (`/work-ui`)</span>
+                <span>عرض في معرض UI/UX (<code>/work-ui</code>)</span>
               </label>
             </div>
           </Tile>

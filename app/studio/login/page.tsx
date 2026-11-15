@@ -1,24 +1,35 @@
 import { redirect } from "next/navigation";
+import { getPayload } from "@/lib/payload";
 import { getStudioUser } from "@/lib/studio/auth";
 import { LoginForm } from "@/components/studio/login-form";
 import { SIcon } from "@/components/studio/ui";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Sign in · Studio console", robots: { index: false, follow: false } };
+export const metadata = { title: "تسجيل الدخول · لوحة الاستوديو", robots: { index: false, follow: false } };
 
 /**
  * /studio/login
  *
- * This screen exists only to explain itself. It posts to
- * `/api/users/login` — the exact endpoint Payload's own admin login posts to —
- * so the session cookie it receives is the same `payload-token` the admin
- * panel and every Local API call in this app already trust. There is no
- * second user store.
+ * يتصل بنقطة النهاية الأصلية في Payload:
+ *  - `/api/users/login` للدخول الاعتيادي
+ *  - `/api/users/first-register` تلقائيًا إذا لم يكن هناك أي مستخدم بعد
+ * بحيث تحصل على نفس ملف تعريف الارتباط `payload-token` الذي تعتمد عليه كل استدعاءات Local API.
  */
 export default async function StudioLoginPage({ searchParams }: { searchParams: Promise<{ redirect?: string }> }) {
   const params = await searchParams;
-  const user = await getStudioUser();
   const target = safeTarget(params.redirect);
+  let user = null;
+  let needsFirstUser = false;
+  try {
+    user = await getStudioUser();
+    if (!user) {
+      const payload = await getPayload();
+      const existing = await payload.db.findOne({ collection: "users", where: {} });
+      needsFirstUser = !existing;
+    }
+  } catch {
+    needsFirstUser = false;
+  }
   if (user) redirect(target);
 
   return (
@@ -31,22 +42,25 @@ export default async function StudioLoginPage({ searchParams }: { searchParams: 
           </span>
           <span className="studio-brand__text">
             <strong>Aboalazm OS</strong>
-            <span>Studio console</span>
+            <span>لوحة الاستوديو</span>
           </span>
         </div>
 
-        <h1>Sign in</h1>
+        <h1>{needsFirstUser ? "إنشاء أول حساب مسؤول" : "تسجيل الدخول"}</h1>
         <p>
-          Same account as the CMS. The console reads live studio data, so it uses the Payload session rather than a separate
-          password.
+          {needsFirstUser
+            ? "لا توجد حسابات في قاعدة البيانات حتى الآن. أنشئ حساب المسؤول الأول ليتم تسجيل دخولك مباشرة إلى لوحة الاستوديو."
+            : "نفس حساب إدارة المحتوى. تقرأ هذه اللوحة بيانات الاستوديو الحية مباشرة عبر جلسة Payload الموحّدة دون كلمة مرور منفصلة."}
         </p>
 
-        <LoginForm redirectTo={target} />
+        <LoginForm redirectTo={target} needsFirstUser={needsFirstUser} />
 
         <p className="studio-tiny" style={{ marginBlockStart: 16, display: "flex", gap: 6, alignItems: "flex-start" }}>
-          <SIcon name="eye" size={11} />
+          <SIcon name="eye" size={13} />
           <span>
-            Sessions last 2 hours by default. One Payload session covers the entire Studio CMS and console.
+            {needsFirstUser
+              ? "بمجرد إنشاء أول حساب مسؤول، يُغلق مسار التسجيل الأولي تلقائيًا ولا يُسمح إلا للمستخدمين المصرح لهم بإضافة حسابات جديدة."
+              : "تستمر الجلسة ساعتين افتراضيًا. جلسة Payload واحدة تغطي كامل لوحة الاستوديو وإدارة المحتوى."}
           </span>
         </p>
       </div>
@@ -54,11 +68,6 @@ export default async function StudioLoginPage({ searchParams }: { searchParams: 
   );
 }
 
-/**
- * Only same-origin console paths are accepted as a post-login destination.
- * An open redirect on a login screen is a phishing primitive, so anything
- * that is not an absolute path starting with /studio falls back to /studio.
- */
 function safeTarget(raw?: string): string {
   if (!raw) return "/studio";
   if (!raw.startsWith("/") || raw.startsWith("//")) return "/studio";

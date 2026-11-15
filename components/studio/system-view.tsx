@@ -2,15 +2,6 @@ import Link from "next/link";
 import { Chip, EmptyState, ProbeRow, SIcon, Tile, ViewHeader, shortTime } from "@/components/studio/ui";
 import type { EnvRow, Probe } from "@/lib/studio/metrics";
 
-/**
- * SYSTEM — the console's own honesty check.
- *
- * Every probe below runs a real operation at request time (a SQL round-trip, a
- * presence test on the token the upload path actually reads). None of them is
- * a green dot with no test behind it. Where a check cannot be performed — for
- * example, whether a deployment is live on Vercel — the screen says so instead
- * of guessing.
- */
 export function SystemView({ probes, env }: { probes: Probe[]; env: EnvRow[] }) {
   const fails = probes.filter((p) => p.state === "fail");
   const warns = probes.filter((p) => p.state === "warn");
@@ -20,55 +11,55 @@ export function SystemView({ probes, env }: { probes: Probe[]; env: EnvRow[] }) 
   return (
     <>
       <ViewHeader
-        eyebrow="System & integrations"
-        title="What is wired, what is broken"
-        description="Each row performed a real check on this request. A probe that cannot be run is labelled as unverified rather than shown green."
+        eyebrow="النظام والتكاملات"
+        title="ما يعمل فعليًا، وما ينقصه الربط"
+        description="كل صف أدناه نفّذ فحصًا حقيقيًا خلال هذا الطلب. أي فحص يتعذر التحقق منه من بيئة التشغيل يُذكر بوضوح كغير متحقق منه بدلًا من إظهاره باللون الأخضر."
         aside={
-          <Link className="studio-btn" href="/studio/system" title="Re-runs every probe on a fresh request">
-            <SIcon name="refresh" size={12} /> Re-check
+          <Link className="studio-btn" href="/studio/system" title="إعادة تشغيل جميع الفحوصات في طلب جديد">
+            <SIcon name="refresh" size={14} /> إعادة الفحص
           </Link>
         }
       />
 
       <div className="studio-bento">
-        <Tile span="w4" title={<b>Failing</b>} provenance={<>Probes that failed on this request</>}>
-          <div className="studio-hero studio-hero--xl" style={{ color: fails.length ? "var(--s-danger)" : undefined }}>
+        <Tile span="w4" title={<b>أعطال</b>} provenance={<>الفحوصات التي فشلت في هذا الطلب</>}>
+          <div className="studio-hero studio-hero--xl studio-mono" style={{ color: fails.length ? "var(--s-danger)" : undefined }}>
             {fails.length}
           </div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            {fails.length ? fails.map((f) => f.name).join(", ") : "everything that must work, works"}
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            {fails.length ? fails.map((f) => f.name).join("، ") : "كل الخدمات الأساسية تعمل بشكل سليم"}
           </p>
         </Tile>
-        <Tile span="w4" title={<b>Warnings</b>} provenance={<>Configured-but-imperfect, or a known platform limitation</>}>
-          <div className="studio-hero studio-hero--xl" style={{ color: warns.length ? "var(--s-warn)" : undefined }}>
+        <Tile span="w4" title={<b>تحذيرات</b>} provenance={<>إعداد ناقص أو قيد معروف في الخطة</>}>
+          <div className="studio-hero studio-hero--xl studio-mono" style={{ color: warns.length ? "var(--s-warn)" : undefined }}>
             {warns.length}
           </div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            {warns.length ? warns.map((f) => f.name).join(", ") : "no warnings"}
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            {warns.length ? warns.map((f) => f.name).join("، ") : "لا توجد تحذيرات"}
           </p>
         </Tile>
-        <Tile span="w4" title={<b>Healthy</b>} provenance={<>Probes that passed their real check</>}>
-          <div className="studio-hero studio-hero--xl" style={{ color: "var(--s-ok)" }}>
+        <Tile span="w4" title={<b>سليم</b>} provenance={<>الفحوصات التي اجتازت الاختبار الفعلي بنجاح</>}>
+          <div className="studio-hero studio-hero--xl studio-mono" style={{ color: "var(--s-ok)" }}>
             {oks.length}
           </div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            checked at {shortTime(checkedAt)}
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            فُحصت في {shortTime(checkedAt)}
           </p>
         </Tile>
       </div>
 
       <Tile
         span="w12"
-        title={<b>Integration checks</b>}
-        aside={<Chip tone="neutral">run {shortTime(checkedAt)}</Chip>}
+        title={<b>فحوصات التكامل الحيّة</b>}
+        aside={<Chip tone="neutral">آخر فحص {shortTime(checkedAt)}</Chip>}
         provenance={
           <>
-            Database: <code>select 1</code> round-trip · Storage: token the upload path actually reads · Email: SMTP + notify address
+            قاعدة البيانات: استعلام <code>select 1</code> · التخزين: رمز Vercel Blob الفعلي · البريد: إعدادات SMTP وعنوان الاستلام
           </>
         }
       >
         {probes.length === 0 ? (
-          <EmptyState title="No probes ran" body="That is itself a failure — the metrics module did not return any checks." />
+          <EmptyState title="لم يُنفذ أي فحص" body="هذا بحد ذاته خلل — لم يرجع وحدة القياس أي فحص." />
         ) : (
           <div className="studio-probes">
             {probes.map((probe) => (
@@ -80,29 +71,33 @@ export function SystemView({ probes, env }: { probes: Probe[]; env: EnvRow[] }) 
 
       <Tile
         span="w12"
-        title={<b>Environment & integrations</b>}
-        aside={<Chip tone="neutral">presence only — values never leave the server</Chip>}
-        provenance={<>Read from <code>process.env</code> on this request · a missing row explains a dark feature, never a zero metric</>}
+        title={<b>متغيرات البيئة والتكاملات</b>}
+        aside={<Chip tone="neutral">فحص الوجود فقط — القيم السرية لا تغادر الخادم</Chip>}
+        provenance={
+          <>
+            تُقرأ من <code>process.env</code> في هذا الطلب · المتغير المفقود يوضح سبب غياب الميزة بدلًا من إظهار صفر وهمي
+          </>
+        }
       >
         <div className="studio-scroll-x">
           <table className="studio-table">
             <thead>
               <tr>
-                <th>Variable</th>
-                <th>Status</th>
-                <th>What it powers</th>
+                <th>المتغير</th>
+                <th>الحالة</th>
+                <th>الوظيفة المرتبطة به</th>
               </tr>
             </thead>
             <tbody>
               {env.map((row) => (
                 <tr key={row.name}>
-                  <td style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11 }}>
+                  <td className="studio-mono" style={{ fontSize: 12.5 }}>
                     {row.name}
                     {row.hint ? <span style={{ color: "var(--s-accent)" }}> · {row.hint}</span> : null}
                   </td>
                   <td>
                     <Chip tone={row.present ? "ok" : "warn"} icon={row.present ? "check" : "minus"}>
-                      {row.present ? "set" : "missing"}
+                      {row.present ? "مضبوط" : "مفقود"}
                     </Chip>
                   </td>
                   <td style={{ color: "var(--s-muted)" }}>{row.purpose}</td>
@@ -116,57 +111,59 @@ export function SystemView({ probes, env }: { probes: Probe[]; env: EnvRow[] }) 
       <div className="studio-bento">
         <Tile
           span="w7"
-          title={<b>How traffic is counted now</b>}
+          title={<b>آلية احتساب حركة الزيارات حاليًا</b>}
           variant="invert"
-          provenance={<>The limitation recorded in docs/EVENTS.md, and the P2 answer to it</>}
+          provenance={<>التقييد الموثّق في docs/EVENTS.md وحلّه عبر مُجمّع الطرف الأول</>}
         >
           <p className="studio-sub" style={{ marginBlockEnd: 10 }}>
-            The vendor copy of every event still exists, but reading its totals back requires a Pro/Enterprise plan — the
-            aggregation request returns <b>HTTP 402</b>. Since P2 the site also writes each event to its own Postgres through{" "}
-            <code>/api/track</code>, so the console counts what it owns:
+            توجد نسخة من الأحداث لدى المزود الخارجي، لكن استرجاع تجميعاتها يتطلب خطة أعلى — إذ يرجع الطلب رمز{" "}
+            <b>HTTP 402</b>. لذا يسجّل الموقع أيضًا كل حدث في قاعدة بياناته عبر <code>/api/track</code>، وتعرض اللوحة ما
+            تملكه فعليًا:
           </p>
-          <ul style={{ margin: "0 0 12px", paddingInlineStart: 16, display: "flex", flexDirection: "column", gap: 7, fontSize: 11.5, color: "var(--s-muted)", lineHeight: 1.5 }}>
-            <li>Pageviews, sessions, referrer hosts and the event funnel on the Analytics screen are first-party counts with printed definitions.</li>
-            <li>No IP, user-agent string or fingerprint is stored; a session is a random per-tab id.</li>
-            <li>The <b style={{ color: "var(--s-ink)" }}>saved enquiry</b> remains the ground truth — when a browser signal and the database disagree, the database wins.</li>
+          <ul style={{ margin: "0 0 13px", paddingInlineStart: 18, display: "flex", flexDirection: "column", gap: 7, fontSize: 13, color: "var(--s-muted)", lineHeight: 1.6 }}>
+            <li>مشاهدات الصفحات، الجلسات، نطاقات الإحالة، وقمع الأحداث كلها قراءات من الطرف الأول بتعاريف مكتوبة بوضوح.</li>
+            <li>لا يُخزّن أي عنوان IP أو سلسلة User-Agent أو بصمة جهاز؛ الجلسة مجرد معرّف عشوائي للتبويب.</li>
+            <li>
+              تبقى <b style={{ color: "var(--s-ink)" }}>صفوف الاستفسارات المحفوظة</b> هي المرجع الحاسم دائمًا.
+            </li>
           </ul>
           <Link className="studio-btn studio-btn--sm" href="/studio/analytics">
-            Open Analytics <SIcon name="arrowRight" size={11} />
+            فتح التحليلات <SIcon name="arrowLeft" size={13} />
           </Link>
         </Tile>
 
         <Tile
           span="w5"
-          title={<b>Not verified from here</b>}
-          provenance={<>Stated plainly rather than shown as a green dot</>}
+          title={<b>غير متحقق منه من هنا</b>}
+          provenance={<>مذكور صراحةً بدلًا من افتراض اللون الأخضر</>}
         >
           <div className="studio-probes">
             <div className="studio-probe">
               <SIcon name="minus" className="studio-probe__ico" {...{ "data-state": "warn" }} />
               <div>
-                <span className="studio-probe__name">Deployment status</span>
+                <span className="studio-probe__name">حالة النشر على Vercel</span>
                 <p className="studio-probe__detail">
-                  The console cannot read the Vercel project from inside the app (no API token in this runtime). Check the dashboard for
-                  the live build.
+                  لا تستطيع اللوحة قراءة مشاريع Vercel من داخل بيئة التشغيل (لا يوجد API token هنا). راجع لوحة Vercel للتحقق من
+                  آخر بناء منشور.
                 </p>
               </div>
             </div>
             <div className="studio-probe">
               <SIcon name="minus" className="studio-probe__ico" {...{ "data-state": "warn" }} />
               <div>
-                <span className="studio-probe__name">Search Console</span>
+                <span className="studio-probe__name">Google Search Console</span>
                 <p className="studio-probe__detail">
-                  Not connected. Organic clicks and impressions need a Google Search Console service account; the Content screen
-                  shows the connection state and the exact env vars — the data itself is not faked meanwhile.
+                  غير متصل بعد. النقرات ومرات الظهور العضوية تتطلب ربط حساب خدمة Google؛ توضّح صفحة المحتوى حالة الربط
+                  والمتغيرات المطلوبة دون تخمين أي أرقام.
                 </p>
               </div>
             </div>
             <div className="studio-probe">
               <SIcon name="minus" className="studio-probe__ico" {...{ "data-state": "warn" }} />
               <div>
-                <span className="studio-probe__name">Core Web Vitals</span>
+                <span className="studio-probe__name">مؤشرات Core Web Vitals</span>
                 <p className="studio-probe__detail">
-                  Field data requires CrUX; lab data requires running Lighthouse against production. Neither is wired up yet.
+                  البيانات الميدانية تتطلب ربط CrUX، والمخبرية تتطلب تشغيل Lighthouse على بيئة الإنتاج.
                 </p>
               </div>
             </div>

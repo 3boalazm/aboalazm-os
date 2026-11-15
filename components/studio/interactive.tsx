@@ -3,14 +3,6 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { SIcon } from "@/components/studio/ui";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   STUDIO INTERACTIVE — the client-side primitives the NPF-grade polish
-   needs: a slide-over drawer, toasts, and the light/dark theme switch.
-
-   Kept apart from ui.tsx, which stays server-renderable: tiles and chips
-   are pure markup, while everything here owns state or touches the DOM.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 /* ── theme ──────────────────────────────────────────────────────────────── */
 
 const THEME_KEY = "abo-studio-theme";
@@ -29,11 +21,6 @@ export function readStudioTheme(): "dark" | "light" {
   }
 }
 
-/** Mounted by the studio layout: applies the stored theme once the
- *  console's root element exists. Dark is the default and the pre-JS
- *  paint, so a light-theme operator may see one dark frame on a hard
- *  load — noted honestly rather than hidden behind a boot script the
- *  layout tests forbid. */
 export function ThemeBoot() {
   useEffect(() => {
     applyStudioTheme(readStudioTheme());
@@ -52,7 +39,7 @@ export function ThemeToggle() {
     try {
       localStorage.setItem(THEME_KEY, next);
     } catch {
-      /* private mode: the toggle still works for this page */
+      /* وضع التصفح الخاص: يظل التبديل يعمل لهذه الجلسة */
     }
     applyStudioTheme(next);
   };
@@ -61,10 +48,10 @@ export function ThemeToggle() {
       type="button"
       className="studio-btn studio-btn--sm"
       onClick={toggle}
-      aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-      title={theme === "dark" ? "Light theme" : "Dark theme"}
+      aria-label={theme === "dark" ? "التبديل إلى المظهر الفاتح" : "التبديل إلى المظهر الداكن"}
+      title={theme === "dark" ? "المظهر الفاتح" : "المظهر الداكن"}
     >
-      <SIcon name={theme === "dark" ? "sun" : "moon"} size={12} />
+      <SIcon name={theme === "dark" ? "sun" : "moon"} size={14} />
     </button>
   );
 }
@@ -85,9 +72,9 @@ export function SignOutButton() {
       className="studio-btn studio-btn--sm"
       onClick={() => void signOut()}
       disabled={busy}
-      title="Sign out of Studio & Payload"
+      title="تسجيل الخروج من لوحة الاستوديو"
     >
-      {busy ? "Signing out…" : "Sign out"}
+      {busy ? "جارٍ الخروج…" : "تسجيل الخروج"}
     </button>
   );
 }
@@ -119,7 +106,7 @@ export function Toasts({ items }: { items: ToastMsg[] }) {
     <div className="studio-toasts" role="status" aria-live="polite">
       {items.map((t) => (
         <div key={t.id} className={`studio-toast studio-toast--${t.tone}`}>
-          <SIcon name={t.tone === "ok" ? "check" : t.tone === "danger" ? "alert" : "info"} size={13} />
+          <SIcon name={t.tone === "ok" ? "check" : t.tone === "danger" ? "alert" : "info"} size={15} />
           <span>{t.text}</span>
         </div>
       ))}
@@ -129,11 +116,6 @@ export function Toasts({ items }: { items: ToastMsg[] }) {
 
 /* ── drawer ─────────────────────────────────────────────────────────────── */
 
-/**
- * Slide-over panel. One at a time, Escape closes, focus starts on the
- * close button. The scrim click also closes — a drawer that traps the
- * operator is a modal with better PR.
- */
 export function Drawer({
   open,
   onClose,
@@ -161,11 +143,11 @@ export function Drawer({
   return (
     <>
       <div className="studio-drawer-scrim" onClick={onClose} aria-hidden />
-      <aside className="studio-drawer" role="dialog" aria-modal="true" aria-label="Lead detail">
+      <aside className="studio-drawer" role="dialog" aria-modal="true" aria-label="لوحة التفاصيل">
         <div className="studio-drawer__head">
           <div style={{ minWidth: 0, flex: 1 }}>{title}</div>
-          <button ref={closeRef} type="button" className="studio-btn studio-btn--sm" onClick={onClose} aria-label="Close panel">
-            <SIcon name="x" size={12} />
+          <button ref={closeRef} type="button" className="studio-btn studio-btn--sm" onClick={onClose} aria-label="إغلاق اللوحة">
+            <SIcon name="x" size={14} />
           </button>
         </div>
         <div className="studio-drawer__body">{children}</div>

@@ -67,13 +67,13 @@ export function PostEditor({
   return (
     <DocumentEditorFrame
       collectionSlug="posts"
-      collectionLabel="Writing"
-      singularLabel="Post"
+      collectionLabel="المقالات"
+      singularLabel="مقال"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
       supportsDrafts
       currentStatus={docStatus}
-      title={title || "Untitled essay"}
+      title={title || "مقال بدون عنوان"}
       liveUrl={!isNew && slug && docStatus === "published" ? `/${lang}/writing/${slug}` : null}
       saving={saving}
       error={error}
@@ -81,9 +81,9 @@ export function PostEditor({
     >
       <div className="studio-bento">
         <div className="studio-w8" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Article header</b>}>
+          <Tile span="w12" title={<b>ترويسة المقال</b>}>
             <div className="studio-field">
-              <label htmlFor="post-title">Title *</label>
+              <label htmlFor="post-title">العنوان *</label>
               <input
                 id="post-title"
                 className="studio-input"
@@ -96,12 +96,12 @@ export function PostEditor({
                 }}
               />
               <span className="studio-tiny">
-                {title.length} chars {title.length > 60 ? "· search results truncate above ~60 chars" : ""}
+                {title.length} حرف {title.length > 60 ? "· تقتطع محركات البحث العناوين فوق ~60 حرفًا" : ""}
               </span>
             </div>
 
             <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-              <label htmlFor="post-standfirst">Standfirst / Meta description ({standfirst.length}/120)</label>
+              <label htmlFor="post-standfirst">المقدمة المختصرة / الوصف التعريفي للسيو ({standfirst.length}/120)</label>
               <textarea
                 id="post-standfirst"
                 className="studio-input"
@@ -110,58 +110,61 @@ export function PostEditor({
                 rows={2}
                 value={standfirst}
                 onChange={(e) => setStandfirst(e.target.value)}
-                placeholder="One crisp sentence summarizing the essay — also powers SEO meta description."
+                placeholder="جملة مركّزة تلخّص المقال — وتُستخدم أيضًا كوصف meta description لمحركات البحث."
               />
             </div>
           </Tile>
 
-          <Tile span="w12" title={<b>Article body (Lexical blocks)</b>}>
+          <Tile span="w12" title={<b>محتوى المقال (كتل Lexical)</b>}>
             <LexicalBlockEditor blocks={blocks} lang={lang} onChange={setBlocks} />
           </Tile>
         </div>
 
         <div className="studio-w4" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Metadata & taxonomy</b>}>
+          <Tile span="w12" title={<b>البيانات الوصفية والتصنيف</b>}>
             <div className="studio-field">
-              <label htmlFor="post-slug">Slug *</label>
+              <label htmlFor="post-slug">المعرّف (Slug) *</label>
               <input
                 id="post-slug"
                 className="studio-input"
-                style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 12 }}
+                dir="ltr"
+                style={{ fontFamily: "var(--s-font-mono)", fontSize: 13 }}
                 value={slug}
                 onChange={(e) => setSlug(e.target.value)}
               />
             </div>
 
             <div className="studio-field">
-              <label htmlFor="post-index">W-Index</label>
+              <label htmlFor="post-index">رقم السجل (W-Index)</label>
               <input
                 id="post-index"
                 className="studio-input"
+                dir="ltr"
                 value={indexCode}
                 onChange={(e) => setIndexCode(e.target.value)}
-                placeholder="e.g. W-003"
+                placeholder="مثال: W-003"
               />
             </div>
 
             <div className="studio-field">
-              <label htmlFor="post-lang">Language</label>
+              <label htmlFor="post-lang">لغة المقال</label>
               <select
                 id="post-lang"
                 className="studio-input"
                 value={lang}
                 onChange={(e) => setLang(e.target.value === "ar" ? "ar" : "en")}
               >
-                <option value="en">English (en)</option>
-                <option value="ar">Arabic (ar)</option>
+                <option value="en">الإنجليزية (en)</option>
+                <option value="ar">العربية (ar)</option>
               </select>
             </div>
 
             <div className="studio-field">
-              <label htmlFor="post-date">Published date</label>
+              <label htmlFor="post-date">تاريخ النشر</label>
               <input
                 id="post-date"
                 type="date"
+                dir="ltr"
                 className="studio-input"
                 value={publishedAt}
                 onChange={(e) => setPublishedAt(e.target.value)}
@@ -169,11 +172,12 @@ export function PostEditor({
             </div>
 
             <StringListField
-              label="Topics (max 5)"
+              label="المواضيع (الحد الأقصى 5)"
               items={topics}
               onChange={setTopics}
               maxItems={5}
-              placeholder="e.g. Design Systems"
+              dir={lang === "ar" ? "rtl" : "ltr"}
+              placeholder="مثال: أنظمة التصميم"
             />
           </Tile>
         </div>
