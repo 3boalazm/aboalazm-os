@@ -37,19 +37,19 @@ export function HeroWall({ tiles }: { tiles: readonly HeroWallTile[] }) {
             key={tile.slug}
             className={joinClasses(
               first && "col-span-2",
-              "max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start",
-              !first && "max-lg:w-[62%]",
+              "max-lg:w-[86%] max-lg:shrink-0 max-lg:snap-start",
+              !first && "max-lg:w-[64%]",
             )}
           >
             <Link
               href={`/case-studies/${tile.slug}`}
-              className="group relative block aspect-[16/10] overflow-hidden rounded-card border border-border-subtle bg-surface-1 max-lg:aspect-[4/5]"
+              className="group relative block aspect-[16/10] overflow-hidden rounded-card border border-border-subtle bg-surface-1 max-lg:aspect-[4/3]"
             >
               <Image
                 src={tile.src}
                 alt=""
                 fill
-                sizes={first ? "(min-width: 1024px) 40vw, 84vw" : "(min-width: 1024px) 20vw, 62vw"}
+                sizes={first ? "(min-width: 1024px) 40vw, 86vw" : "(min-width: 1024px) 20vw, 64vw"}
                 loading={first ? "eager" : "lazy"}
                 fetchPriority={first ? "high" : "auto"}
                 className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.03]"

@@ -9,6 +9,7 @@ import { StatementBand } from "@/features/home/statement-band";
 import { LanguageBand } from "@/features/home/language-band";
 import { ServicesSnapshot } from "@/features/home/services-snapshot";
 import { InsightsTeaser } from "@/features/home/insights-teaser";
+import { PhotoStrip } from "@/features/home/photo-strip";
 import { ReelsShortcuts } from "@/features/reels/reels-shortcuts";
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -138,6 +139,11 @@ export default async function Home() {
         </div>
         <SocialProof />
       </section>
+
+      {/* Mobile visual breath — the six type-only bands from 06 to 11 leave a
+          phone with nothing to look at. The strip swipes real files; it is
+          `lg:hidden`, where the two showcases already carry the pictures. */}
+      <PhotoStrip />
 
       {/* 07 · Process & Methodology */}
       <section className="narrative-section narrative-section--process">

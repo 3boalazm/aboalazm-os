@@ -515,7 +515,8 @@ export function FeaturedCard({
         {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
         className="block rounded-[inherit] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       >
-        {/* On a phone the card is a poster: portrait 4:5 with the title,
+        {/* On a phone the card is a poster: 4:3 — the sources are 1600×1000,
+            so a taller crop would cut the identity work — with the title,
             outcome and CTA painted on the picture (the reference boards'
             idiom). The text block below collapses to the badges row only.
             Desktop keeps the 16:10 frame with the story under it. The
@@ -524,7 +525,7 @@ export function FeaturedCard({
         <MediaCard
           className={joinClasses(
             "group relative overflow-hidden bg-surface-1",
-            project.thumbnail ? "aspect-[4/5] md:aspect-[16/10]" : "aspect-[16/10]",
+            project.thumbnail ? "aspect-[4/3] md:aspect-[16/10]" : "aspect-[16/10]",
           )}
         >
           <div
