@@ -4,8 +4,11 @@
 //   - Built assets (/_next/static/*, /fonts/*): cache-first (content-hashed or immutable).
 //   - Images (/images/*, /_next/image*): stale-while-revalidate so offline works without pinning stale thumbnails.
 //   - Studio, Admin & API (/studio*, /admin*, /api*): network-only, never cached.
+//   - Video / audio and any Range request (/reels/*.mp4 …): network-only. Media is
+//     streamed with 206 partial responses, which the Cache API cannot store, and a
+//     cached full 200 breaks seeking/playback (notably iOS Safari).
 
-const CACHE_VERSION = "v5";
+const CACHE_VERSION = "v6";
 const STATIC_CACHE = `aboalazm-os-pwa-static-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `aboalazm-os-pwa-runtime-${CACHE_VERSION}`;
 
@@ -51,6 +54,15 @@ self.addEventListener("fetch", (event) => {
   const { pathname } = url;
 
   if (pathname.startsWith("/studio") || pathname.startsWith("/admin") || pathname.startsWith("/api")) {
+    return;
+  }
+
+  if (
+    request.headers.has("range") ||
+    request.destination === "video" ||
+    request.destination === "audio" ||
+    /\.(mp4|webm|mov|m4v|mp3|m4a)$/i.test(pathname)
+  ) {
     return;
   }
 
