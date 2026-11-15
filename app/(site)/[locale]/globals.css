@@ -1628,32 +1628,6 @@ html[data-theme="light"] .grain-layer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-/* Phones swipe the eight figures instead of stacking four text rows: the
-   same numbers, one shelf instead of a wall. Same idiom as the other home
-   carousels (84% card, snap-start, hidden scrollbar). */
-@media (max-width: 639px) {
-  .stats-dash__grid {
-    display: flex;
-    gap: 0.5rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: calc(var(--spacing) * 3);
-    padding-inline: calc(var(--spacing) * 3);
-    padding-bottom: 0.5rem;
-    scrollbar-width: none;
-  }
-  .stats-dash__grid::-webkit-scrollbar { display: none; }
-  .stats-dash__cell {
-    width: 72%;
-    max-width: 16rem;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-    border-top: none;
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-card);
-    background: var(--color-surface-1);
-  }
-}
 @media (min-width: 768px) {
   .stats-dash__grid { grid-template-columns: repeat(4, 1fr); }
 }

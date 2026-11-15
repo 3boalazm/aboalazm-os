@@ -194,6 +194,19 @@ export function ClientJourneyBand() {
   const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = React.useState(0);
 
+  /* Below md the stages are a swipe shelf, not the scroll story: the viewer
+     swipes one card at a time to read it, so ghosting the ones beside it would
+     grey out cards they are about to read. Dimming only applies to the
+     desktop scroll story, where all four are on screen at once. */
+  const [desktop, setDesktop] = React.useState(false);
+  React.useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   /* The active stage is whichever card sits in a thin band at the middle of
      the viewport. (Mapping total section progress ÷ 4 drifted out of sync
      with the cards: a card scrolled off-screen while still "active" and the
@@ -276,7 +289,11 @@ export function ClientJourneyBand() {
               >
                 <motion.div
                   initial={false}
-                  animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }}
+                  animate={
+                    reduceMotion || !desktop
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }
+                  }
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
                   className="border-t border-border-subtle pt-4 max-md:rounded-panel max-md:border max-md:border-border-subtle max-md:bg-surface-1 max-md:p-4"
                 >
