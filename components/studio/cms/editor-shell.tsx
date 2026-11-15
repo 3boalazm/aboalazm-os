@@ -8,10 +8,10 @@ import { Toasts, useToasts } from "@/components/studio/interactive";
 import { deleteCollectionDocAction } from "@/app/studio/manage/actions";
 import { STUDIO_COLLECTIONS, STUDIO_GLOBALS } from "@/lib/studio/cms-meta";
 
-/** Quick switcher across every collection & global in Studio Manage. */
+/** شريط التنقل السريع بين المجموعات والإعدادات العامة في إدارة المحتوى. */
 export function ManageNavStrip({ activeSlug }: { activeSlug: string }) {
   return (
-    <nav className="studio-switcher" aria-label="CMS collections and globals">
+    <nav className="studio-switcher" aria-label="مجموعات وإعدادات نظام المحتوى">
       {STUDIO_COLLECTIONS.map((c) => (
         <Link
           key={c.slug}
@@ -37,7 +37,7 @@ export function ManageNavStrip({ activeSlug }: { activeSlug: string }) {
   );
 }
 
-/** Shared editor frame with status badge, Save / Save Draft / Publish / Delete controls. */
+/** إطار التحرير المشترك مع شارة الحالة وأزرار الحفظ / حفظ كمسودة / النشر / الحذف. */
 export function DocumentEditorFrame({
   collectionSlug,
   collectionLabel,
@@ -81,7 +81,7 @@ export function DocumentEditorFrame({
 
   useEffect(() => {
     if (wasSaving.current && !saving && !error) {
-      push("ok", warning ? "Saved with notice" : "Changes saved");
+      push("ok", warning ? "تم الحفظ مع وجود تنبيه" : "تم حفظ التعديلات بنجاح");
     }
     wasSaving.current = saving;
   }, [saving, error, warning, push]);
@@ -105,23 +105,26 @@ export function DocumentEditorFrame({
       <ManageNavStrip activeSlug={collectionSlug} />
 
       <ViewHeader
-        eyebrow={`${collectionLabel} · ${isNew ? "New" : `#${docId}`}`}
-        title={title || `New ${singularLabel}`}
-        description={subtitle ?? `Edits save directly through Payload (${collectionSlug}) with your operator session and trigger live revalidation.`}
+        eyebrow={`${collectionLabel} · ${isNew ? "جديد" : `#${docId}`}`}
+        title={title || `إضافة ${singularLabel}`}
+        description={
+          subtitle ??
+          `تُحفظ التعديلات مباشرة عبر Payload (${collectionSlug}) بنفس جلسة دخولك وتُحدّث صفحات الموقع تلقائيًا.`
+        }
         aside={
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
             <Link className="studio-btn studio-btn--sm" href={`/studio/manage/${collectionSlug}`}>
-              ← All {collectionLabel}
+              <SIcon name="chevronRight" size={13} /> كل {collectionLabel}
             </Link>
             {liveUrl ? (
               <Link className="studio-btn studio-btn--sm" href={liveUrl} target="_blank" rel="noopener">
-                View live <SIcon name="arrowUpRight" size={11} />
+                معاينة على الموقع <SIcon name="arrowUpRight" size={12} />
               </Link>
             ) : null}
             {supportsDrafts ? (
               <>
                 <Chip tone={currentStatus === "published" ? "ok" : "warn"}>
-                  {currentStatus === "published" ? "published" : "draft"}
+                  {currentStatus === "published" ? "منشور" : "مسودة"}
                 </Chip>
                 <button
                   type="button"
@@ -129,7 +132,7 @@ export function DocumentEditorFrame({
                   disabled={saving || deleting}
                   onClick={() => void onSave("draft")}
                 >
-                  {saving ? "Saving…" : "Save draft"}
+                  {saving ? "جارٍ الحفظ…" : "حفظ كمسودة"}
                 </button>
                 <button
                   type="button"
@@ -137,7 +140,7 @@ export function DocumentEditorFrame({
                   disabled={saving || deleting}
                   onClick={() => void onSave("published")}
                 >
-                  {saving ? "Publishing…" : currentStatus === "published" ? "Update published" : "Publish"}
+                  {saving ? "جارٍ النشر…" : currentStatus === "published" ? "تحديث المنشور" : "نشر الآن"}
                 </button>
               </>
             ) : (
@@ -147,7 +150,7 @@ export function DocumentEditorFrame({
                 disabled={saving || deleting}
                 onClick={() => void onSave()}
               >
-                {saving ? "Saving…" : isNew ? `Create ${singularLabel}` : "Save changes"}
+                {saving ? "جارٍ الحفظ…" : isNew ? `إنشاء ${singularLabel}` : "حفظ التعديلات"}
               </button>
             )}
           </div>
@@ -157,7 +160,7 @@ export function DocumentEditorFrame({
       {error ? <div className="studio-login__err">{error}</div> : null}
       {warning ? (
         <div className="studio-warn-banner">
-          <SIcon name="alert" size={14} />
+          <SIcon name="alert" size={16} />
           <span>{warning}</span>
         </div>
       ) : null}
@@ -167,15 +170,15 @@ export function DocumentEditorFrame({
       {!isNew && allowDelete && docId !== undefined ? (
         <div className="studio-danger-bar">
           <div>
-            <strong style={{ fontSize: 12.5 }}>Danger zone</strong>
+            <strong style={{ fontSize: 14 }}>منطقة الخطر</strong>
             <p className="studio-tiny" style={{ margin: "2px 0 0" }}>
-              Deleting removes this record from Postgres and revalidates dependent routes.
+              يؤدي الحذف إلى إزالة هذا السجل نهائيًا من PostgreSQL وتحديث المسارات المرتبطة به.
             </p>
           </div>
           {confirmDelete ? (
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
               <span className="studio-tiny" style={{ color: "var(--s-danger)" }}>
-                Confirm delete?
+                هل تؤكد الحذف النهائي؟
               </span>
               <button
                 type="button"
@@ -183,15 +186,15 @@ export function DocumentEditorFrame({
                 disabled={deleting}
                 onClick={() => void handleDelete()}
               >
-                {deleting ? "Deleting…" : "Yes, delete permanently"}
+                {deleting ? "جارٍ الحذف…" : "نعم، احذف نهائيًا"}
               </button>
               <button type="button" className="studio-btn studio-btn--sm" onClick={() => setConfirmDelete(false)}>
-                Cancel
+                إلغاء
               </button>
             </div>
           ) : (
             <button type="button" className="studio-btn studio-btn--sm studio-btn--danger" onClick={() => setConfirmDelete(true)}>
-              Delete {singularLabel}
+              حذف {singularLabel}
             </button>
           )}
         </div>
@@ -202,7 +205,7 @@ export function DocumentEditorFrame({
   );
 }
 
-/** Reusable tag/string list input (used for stack, topics, visualVectors, componentStates). */
+/** حقل قائمة نصوص قابل للتعديل (للتقنيات والمواضيع وغيرها). */
 export function StringListField({
   label,
   hint,
@@ -238,16 +241,16 @@ export function StringListField({
               type="button"
               className="studio-btn studio-btn--sm"
               onClick={() => onChange(items.filter((_, j) => j !== idx))}
-              aria-label="Remove item"
+              aria-label="إزالة العنصر"
             >
-              <SIcon name="x" size={11} />
+              <SIcon name="x" size={13} />
             </button>
           </div>
         ))}
         {canAdd ? (
           <div>
             <button type="button" className="studio-btn studio-btn--sm" onClick={() => onChange([...items, ""])}>
-              + Add item
+              + إضافة عنصر
             </button>
           </div>
         ) : null}
@@ -257,7 +260,6 @@ export function StringListField({
   );
 }
 
-/** Generate URL-safe slug from English title/name. */
 export function slugify(raw: string): string {
   return raw
     .toLowerCase()

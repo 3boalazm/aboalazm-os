@@ -6,7 +6,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { CollectionDocumentEditor } from "@/components/studio/cms/document-editor";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Manage · Edit", robots: { index: false, follow: false } };
+export const metadata = { title: "إدارة المحتوى · تعديل مستند", robots: { index: false, follow: false } };
 
 export default async function StudioManageEditDocPage({
   params,

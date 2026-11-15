@@ -6,7 +6,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { CollectionDocumentEditor } from "@/components/studio/cms/document-editor";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Manage · New", robots: { index: false, follow: false } };
+export const metadata = { title: "إدارة المحتوى · إضافة جديد", robots: { index: false, follow: false } };
 
 export default async function StudioManageNewDocPage({
   params,
@@ -33,7 +33,7 @@ export default async function StudioManageNewDocPage({
       counts={shell.counts}
       attention={shell.attention}
       userEmail={user.email}
-      version={`CMS · New ${meta.singular}`}
+      version={`CMS · إضافة ${meta.singular}`}
     >
       <CollectionDocumentEditor
         slug={meta.slug}

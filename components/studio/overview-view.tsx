@@ -3,7 +3,6 @@ import {
   Chip,
   Delta,
   EmptyState,
-  Provenance,
   RangeControl,
   SIcon,
   Tile,
@@ -11,28 +10,24 @@ import {
   ago,
   initials,
   num,
+  probeStateLabel,
   shortTime,
   stageMeta,
   usd,
 } from "@/components/studio/ui";
-import { deltaOf, loadOverview, type Overview, type Probe } from "@/lib/studio/metrics";
+import { deltaOf, type Overview, type Probe } from "@/lib/studio/metrics";
 import type { analyticsSummary } from "@/lib/studio/analytics";
 
 /**
- * OVERVIEW — three questions, in order:
- *   1. What needs attention?  (top-left, because it is the reason to be here)
- *   2. What is performing?    (pipeline, contracted value, resource capture)
- *   3. What is the state?     (content health, integrations)
- *
- * Tile order is the argument. A dashboard that opens with traffic tells you
- * about strangers; this one opens with the three enquiries nobody has answered
- * yet.
+ * النظرة العامة — ثلاثة أسئلة بالترتيب:
+ *   1. ما الذي ينتظر انتباهك الآن؟
+ *   2. كيف يسير الأداء؟
+ *   3. ما حالة المحتوى والنظام؟
  */
 export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awaited<ReturnType<typeof analyticsSummary>> }) {
   const { leads, content, activity, resources, probes } = data;
   const all = leads.all;
-  const atendimento = leads.recent.filter((l) => !l.isRead);
-  const newLeads = all.byStage.new ?? 0;
+  const unreadList = leads.recent.filter((l) => !l.isRead);
   const qualified = all.byStage.qualified ?? 0;
   const proposal = all.byStage["proposal-sent"] ?? 0;
   const won = all.byStage.won ?? 0;
@@ -40,7 +35,7 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
 
   const leadDelta = deltaOf({
     id: "leads",
-    label: "Enquiries",
+    label: "الاستفسارات",
     value: leads.window.total,
     previous: leads.window.previous,
     definition: "",
@@ -48,16 +43,12 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
     asOf: data.asOf,
   });
 
-  /* The funnel is drawn from stages that exist in the database. There is no
-     "visits" or "CTA clicks" bar: those events cannot be read back on this
-     plan (HTTP 402, docs/EVENTS.md), and a fabricated top-of-funnel is worse
-     than a short funnel. */
   const funnelMax = Math.max(all.total, 1);
   const funnel = [
-    { key: "captured", label: "Enquiries saved", value: all.total, note: "every row in messages" },
-    { key: "qualified", label: "Qualified", value: qualified + proposal + won, note: "stage moved past New" },
-    { key: "proposal", label: "Proposal sent", value: proposal + won, note: "a real number was quoted" },
-    { key: "won", label: "Won", value: won, note: "contracted" },
+    { key: "captured", label: "استفسارات محفوظة", value: all.total },
+    { key: "qualified", label: "مؤهل", value: qualified + proposal + won },
+    { key: "proposal", label: "أُرسل عرض سعر", value: proposal + won },
+    { key: "won", label: "صفقة فائزة", value: won },
   ];
 
   const fails = probes.filter((p) => p.state === "fail");
@@ -66,39 +57,43 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
   return (
     <>
       <ViewHeader
-        eyebrow={`Overview · ${data.range.label}`}
-        title="What needs you right now"
-        description="Every figure below is read live from Payload/PostgreSQL on this request, and each tile states what it counts. There are no demo numbers on this screen."
+        eyebrow={`النظرة العامة · ${data.range.label}`}
+        title="ما يحتاج إليك الآن"
+        description="كل رقم أدناه يُقرأ لحظيًا من قاعدة بيانات PostgreSQL مع كل طلب، وكل بطاقة توضّح ما تحسبه ومصدره. لا توجد أي أرقام تقديرية أو تجريبية هنا."
         aside={<RangeControl current={data.range.key} basePath="/studio" />}
       />
 
       <div className="studio-bento">
-        {/* ── 1 · needs attention ─────────────────────────────────────── */}
+        {/* ── 1 · بانتظارك ──────────────────────────────────────────────── */}
         <Tile
           span="w7"
           variant="accent"
-          title={
-            <b>
-              Waiting on you
-            </b>
-          }
+          title={<b>بانتظار ردك</b>}
           aside={
-            atendimento.length ? <Chip tone="accent" dot>{atendimento.length} unread</Chip> : <Chip tone="ok" icon="check">inbox clear</Chip>
+            unreadList.length ? (
+              <Chip tone="accent" dot>
+                {unreadList.length} غير مقروء
+              </Chip>
+            ) : (
+              <Chip tone="ok" icon="check">
+                الصندوق مقروء بالكامل
+              </Chip>
+            )
           }
           provenance={
             <>
-              {atendimento.length ? `${atendimento.length} of the ${num(all.total)} leads in ` : `All ${num(all.total)} leads in `}
-              <code>messages</code> · read at {shortTime(data.asOf)}
+              {unreadList.length ? `${unreadList.length} من أصل ${num(all.total)} سجل في ` : `إجمالي ${num(all.total)} سجل في `}
+              <code>messages</code> · آخر قراءة: {shortTime(data.asOf)}
             </>
           }
         >
           {leads.recent.length === 0 ? (
             <EmptyState
-              title="No enquiries yet"
-              body="This is a real empty state, not a loading placeholder. The moment the contact form saves one, it appears here."
+              title="لا توجد استفسارات بعد"
+              body="هذه حالة فراغ حقيقية من قاعدة البيانات وليست عنصرًا تجريبيًا. فور إرسال أي زائر نموذج التواصل سيظهر هنا."
               action={
                 <Link className="studio-btn studio-btn--sm" href="/contact" target="_blank" rel="noopener">
-                  Open the form <SIcon name="arrowUpRight" size={11} />
+                  فتح صفحة التواصل <SIcon name="arrowUpRight" size={13} />
                 </Link>
               }
             />
@@ -107,20 +102,25 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
               {leads.recent.slice(0, 4).map((lead) => {
                 const stage = stageMeta(lead.leadStage);
                 return (
-                  <Link key={String(lead.id)} href={`/studio/manage/messages/${lead.id}`} className="studio-row" style={{ gridTemplateColumns: "26px minmax(0,1fr) auto" }}>
-                    <span className="studio-ava">{initials(lead.name ?? "?")}</span>
+                  <Link
+                    key={String(lead.id)}
+                    href={`/studio/manage/messages/${lead.id}`}
+                    className="studio-row"
+                    style={{ gridTemplateColumns: "30px minmax(0,1fr) auto" }}
+                  >
+                    <span className="studio-ava">{initials(lead.name ?? "؟")}</span>
                     <span style={{ minWidth: 0 }}>
                       <span className="studio-row__name">
-                        {lead.isRead ? null : <span className="studio-dot" style={{ display: "inline-block", marginInlineEnd: 5, verticalAlign: "middle" }} />}
-                        {lead.name ?? "Unnamed"}
+                        {lead.isRead ? null : <span className="studio-dot" style={{ display: "inline-block", marginInlineEnd: 6, verticalAlign: "middle" }} />}
+                        {lead.name ?? "بدون اسم"}
                       </span>
                       <span className="studio-row__meta">
                         <em>{lead.company || lead.email}</em>
                         <span aria-hidden>·</span>
-                        <em>{lead.sourcePage || "direct"}</em>
+                        <em>{lead.sourcePage || "مباشر"}</em>
                       </span>
                     </span>
-                    <span style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                    <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                       <Chip tone={stage.tone}>{stage.short}</Chip>
                       <span className="studio-tiny" style={{ whiteSpace: "nowrap" }}>
                         {ago(lead.createdAt)}
@@ -133,62 +133,64 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
           )}
         </Tile>
 
-        {/* ── 2 · pipeline value ──────────────────────────────────────── */}
+        {/* ── 2 · مسار المبيعات ─────────────────────────────────────────── */}
         <Tile
           span="w5"
-          title={<b>Pipeline</b>}
-          aside={<Chip tone={proposal ? "warn" : "neutral"} dot={Boolean(proposal)}>{proposal} at proposal</Chip>}
+          title={<b>قيمة الفرص والعقود</b>}
+          aside={
+            <Chip tone={proposal ? "warn" : "neutral"} dot={Boolean(proposal)}>
+              {proposal} بمرحلة عرض السعر
+            </Chip>
+          }
           provenance={
             <>
-              Sum of <code>proposalValue</code> on open stages and <code>wonValue</code> on Won · entered by hand, never estimated
+              مجموع <code>proposalValue</code> في المراحل المفتوحة و<code>wonValue</code> في الصفقات الفائزة · مُدخلة يدويًا وليست تقديرية
             </>
           }
         >
-          <p className="studio-up" style={{ margin: "0 0 2px" }}>
-            Open proposals
+          <p className="studio-up" style={{ margin: "0 0 3px" }}>
+            العروض المفتوحة
           </p>
-          <div className="studio-hero studio-hero--xl">
-            {usd(all.openProposalValue)}
-          </div>
-          <div style={{ display: "flex", gap: 14, marginBlock: "12px 4px", flexWrap: "wrap" }}>
+          <div className="studio-hero studio-hero--xl studio-mono">{usd(all.openProposalValue)}</div>
+          <div style={{ display: "flex", gap: 18, marginBlock: "13px 6px", flexWrap: "wrap" }}>
             <span>
               <span className="studio-up" style={{ display: "block" }}>
-                Contracted
+                القيمة المتعاقد عليها
               </span>
-              <b className="studio-num" style={{ fontSize: 15 }}>
+              <b className="studio-num" style={{ fontSize: 17 }}>
                 {usd(all.contractedValue)}
               </b>
             </span>
             <span>
               <span className="studio-up" style={{ display: "block" }}>
-                Won
+                فائز
               </span>
-              <b className="studio-num" style={{ fontSize: 15 }}>
+              <b className="studio-num" style={{ fontSize: 17 }}>
                 {won}
               </b>
             </span>
             <span>
               <span className="studio-up" style={{ display: "block" }}>
-                Lost / no fit
+                خاسر / غير مناسب
               </span>
-              <b className="studio-num" style={{ fontSize: 15 }}>
+              <b className="studio-num" style={{ fontSize: 17 }}>
                 {lost}
               </b>
             </span>
           </div>
           <p className="studio-tiny" style={{ marginBlockStart: "auto" }}>
-            Contracted value is what was actually signed, not revenue booked.
+            القيمة المتعاقد عليها تعبّر عن قيمة العقود الموقّعة فقط، وليست إيرادات محققة.
           </p>
         </Tile>
 
-        {/* ── 3 · funnel ──────────────────────────────────────────────── */}
+        {/* ── 3 · قمع التحويل ───────────────────────────────────────────── */}
         <Tile
           span="w8"
-          title={<b>Enquiry funnel</b>}
-          aside={<Chip tone="neutral">all time</Chip>}
+          title={<b>مسار تحويل الاستفسارات</b>}
+          aside={<Chip tone="neutral">كل الفترات</Chip>}
           provenance={
             <>
-              Stage counts from <code>messages.leadStage</code> · stages are set by you, never inferred from a form submission
+              توزيع الحالات من <code>messages.leadStage</code> · المراحل يحدّدها فريقك يدويًا
             </>
           }
         >
@@ -202,7 +204,7 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
                   <span className="studio-funnel__track">
                     <span className="studio-funnel__fill" style={{ width: `${width}%` }} />
                   </span>
-                  <span className="studio-funnel__count">
+                  <span className="studio-funnel__count studio-mono">
                     {num(step.value)}
                     {dropFromPrev != null ? (
                       <span className="studio-tiny" style={{ display: "block", fontWeight: 400 }}>
@@ -214,40 +216,39 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
               );
             })}
           </div>
-          <p className="studio-tiny" style={{ marginBlockStart: 10 }}>
-            This funnel starts at <b>saved enquiries</b> by design — it is the money view. The visit-level funnel (pageview →
-            click → form → submit) lives on the Analytics screen, counted from our own event store; the vendor equivalent still
-            cannot be read back on this plan (HTTP 402).
+          <p className="studio-tiny" style={{ marginBlockStart: 12 }}>
+            يبدأ هذا القمع من <b>الاستفسارات المحفوظة</b> ليركّز على الصفقات الفعلية. أمّا مسار الزيارة الكامل (تصفح ← نقر ←
+            نموذج ← إرسال) فيظهر في شاشة التحليلات من مخزننا الخاص؛ إذ لا تزال تجميعات المزوّد الخارجي مقيدة (HTTP 402).
           </p>
         </Tile>
 
-        {/* ── 4 · window performance ──────────────────────────────────── */}
+        {/* ── 4 · أداء الفترة ───────────────────────────────────────────── */}
         <Tile
           span="w4"
-          title={<b>This window</b>}
+          title={<b>خلال هذه الفترة</b>}
           aside={<Chip tone="neutral">{data.range.label}</Chip>}
           provenance={
             <>
-              <code>messages.createdAt</code> within the last {data.range.days} days · compared with the {data.range.days} days before
+              <code>messages.createdAt</code> خلال آخر {data.range.days} يومًا · مقارنة بالـ {data.range.days} يومًا السابقة
             </>
           }
         >
-          <p className="studio-up" style={{ margin: "0 0 2px" }}>
-            New enquiries
+          <p className="studio-up" style={{ margin: "0 0 3px" }}>
+            استفسارات جديدة
           </p>
-          <div className="studio-hero">{num(leads.window.total)}</div>
-          <div style={{ marginBlock: "7px 12px" }}>
+          <div className="studio-hero studio-mono">{num(leads.window.total)}</div>
+          <div style={{ marginBlock: "8px 13px" }}>
             <Delta pct={leadDelta.pct} />
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBlockStart: "auto" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBlockStart: "auto" }}>
             <span className="studio-row__meta" style={{ justifyContent: "space-between" }}>
-              <span>Won this window</span>
+              <span>فائز خلال الفترة</span>
               <b className="studio-num" style={{ color: "var(--s-ink)" }}>
                 {leads.window.won}
               </b>
             </span>
             <span className="studio-row__meta" style={{ justifyContent: "space-between" }}>
-              <span>Resource sign-ups</span>
+              <span>تسجيلات الموارد</span>
               <b className="studio-num" style={{ color: "var(--s-ink)" }}>
                 {resources.inWindow}
               </b>
@@ -255,36 +256,35 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
           </div>
         </Tile>
 
-        {/* ── 4b · traffic (first-party, P2) ──────────────────────────── */}
+        {/* ── 4b · حركة الزيارات ─────────────────────────────────────────── */}
         {traffic ? (
           <Tile
             span="w4"
             variant="aurora"
-            title={<b>Traffic</b>}
+            title={<b>حركة الزيارات</b>}
             aside={
               <Link className="studio-tile__more" href="/studio/analytics">
-                full funnel
+                التفاصيل الكاملة
               </Link>
             }
             provenance={
               <>
-                First-party <code>pageview</code> events in <code>analytics-events</code> · sessions are random per-tab ids, not
-                people · vendor aggregates remain unreadable (HTTP 402)
+                أحداث <code>pageview</code> من الطرف الأول في <code>analytics-events</code> · إحصائيات المزود الخارجي ما زالت تعيد HTTP 402
               </>
             }
           >
             {traffic.totalEvents === 0 ? (
               <EmptyState
-                title="Collector live, no visits yet"
-                body="The first-party beacon has stored nothing in this window. This is a real empty state — open the site once and it fills."
+                title="المُجمّع جاهز — لا توجد زيارات بعد"
+                body="هذه حالة فراغ حقيقية. زر الموقع العام مرة واحدة وستصل القراءات هنا فورًا."
               />
             ) : (
               <>
-                <p className="studio-up" style={{ margin: "0 0 2px" }}>
-                  Pageviews · {data.range.label}
+                <p className="studio-up" style={{ margin: "0 0 3px" }}>
+                  مشاهدات الصفحة · {data.range.label}
                 </p>
-                <div className="studio-hero">{num(traffic.pageviews)}</div>
-                <div style={{ marginBlock: "7px 12px" }}>
+                <div className="studio-hero studio-mono">{num(traffic.pageviews)}</div>
+                <div style={{ marginBlock: "8px 13px" }}>
                   <Delta
                     pct={
                       traffic.prevPageviews
@@ -295,15 +295,15 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
                     }
                   />
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 5, marginBlockStart: "auto" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBlockStart: "auto" }}>
                   <span className="studio-row__meta" style={{ justifyContent: "space-between" }}>
-                    <span>Sessions</span>
+                    <span>الجلسات</span>
                     <b className="studio-num" style={{ color: "var(--s-ink)" }}>
                       {num(traffic.sessions)}
                     </b>
                   </span>
                   <span className="studio-row__meta" style={{ justifyContent: "space-between" }}>
-                    <span>Events stored</span>
+                    <span>الأحداث المحفوظة</span>
                     <b className="studio-num" style={{ color: "var(--s-ink)" }}>
                       {num(traffic.totalEvents)}
                     </b>
@@ -314,19 +314,22 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
           </Tile>
         ) : null}
 
-        {/* ── 5 · where leads come from ───────────────────────────────── */}
+        {/* ── 5 · مصادر الاستفسارات ─────────────────────────────────────── */}
         <Tile
           span="w5"
-          title={<b>Where enquiries came from</b>}
+          title={<b>من أين تأتي الاستفسارات</b>}
           aside={<Chip tone="neutral">{data.range.label}</Chip>}
           provenance={
             <>
-              <code>messages.sourcePage</code> + <code>utmSource</code> · one row per saved enquiry, not per click
+              <code>messages.sourcePage</code> + <code>utmSource</code> · كل صف يمثل استفسارًا محفوظًا
             </>
           }
         >
           {leads.window.total === 0 ? (
-            <EmptyState title="No enquiries in this window" body="Widen the range, or check that the contact form is saving. Nothing here is a placeholder." />
+            <EmptyState
+              title="لا توجد استفسارات في هذه الفترة"
+              body="وسّع النطاق الزمني أو تحقق من استقبال نموذج التواصل. لا توجد بيانات وهمية هنا."
+            />
           ) : (
             <div className="studio-dist">
               {[
@@ -339,10 +342,10 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
                   const max = Math.max(...leads.window.bySource.map(([, v]) => v), ...leads.window.byUtm.map(([, v]) => v), 1);
                   return (
                     <div key={row.key} className="studio-dist__row">
-                      <span className="studio-dist__label" title={row.label}>
+                      <span className="studio-dist__label studio-mono" title={row.label}>
                         {row.label}
                       </span>
-                      <span className="studio-dist__val">{row.value}</span>
+                      <span className="studio-dist__val studio-mono">{row.value}</span>
                       <span className="studio-dist__track">
                         <span className="studio-dist__fill" style={{ width: `${(row.value / max) * 100}%` }} />
                       </span>
@@ -353,21 +356,21 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
           )}
         </Tile>
 
-        {/* ── 6 · resources ───────────────────────────────────────────── */}
+        {/* ── 6 · بوابة الموارد ─────────────────────────────────────────── */}
         <Tile
           span="w3"
-          title={<b>Resource gate</b>}
+          title={<b>بوابة الموارد</b>}
           provenance={
             <>
-              <code>resource-leads</code> rows · emails captured at /resources
+              سجلات <code>resource-leads</code> · عناوين البريد المسجلة من صفحة /resources
             </>
           }
         >
-          <div className="studio-hero">{num(resources.total)}</div>
-          <p className="studio-sub" style={{ marginBlock: "1px 0 10px" }}>
-            emails captured
+          <div className="studio-hero studio-mono">{num(resources.total)}</div>
+          <p className="studio-sub" style={{ marginBlock: "2px 11px" }}>
+            بريد مسجّل
           </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
             {Object.entries(resources.byResource)
               .sort((a, b) => b[1] - a[1])
               .slice(0, 3)
@@ -379,37 +382,37 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
                   </b>
                 </span>
               ))}
-            {resources.total === 0 ? <span className="studio-tiny">Nothing captured yet.</span> : null}
+            {resources.total === 0 ? <span className="studio-tiny">لم يُسجّل أي تحميل بعد.</span> : null}
           </div>
         </Tile>
 
-        {/* ── 7 · content health ──────────────────────────────────────── */}
+        {/* ── 7 · صحة المحتوى ───────────────────────────────────────────── */}
         <Tile
           span="w4"
-          title={<b>Content</b>}
+          title={<b>حالة المحتوى</b>}
           aside={
             <Link className="studio-tile__more" href="/studio/content">
-              details
+              التفاصيل
             </Link>
           }
           provenance={
             <>
-              <code>_status</code> on projects / posts / case-studies · thumbnails checked on published rows only
+              حقل <code>_status</code> في المشاريع والمقالات ودراسات الحالة · تُفحص الصور على الصفوف المنشورة فقط
             </>
           }
         >
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 11 }}>
             {[
-              { label: "Projects live", value: content.projectsPublished, sub: `${content.projectsDraft} draft` },
-              { label: "Articles live", value: content.postsPublished, sub: `${content.postsDraft} draft` },
-              { label: "Case studies", value: content.caseStudiesPublished, sub: "published" },
-              { label: "Media files", value: content.mediaCount, sub: "in library" },
+              { label: "مشاريع منشورة", value: content.projectsPublished, sub: `${content.projectsDraft} مسودة` },
+              { label: "مقالات منشورة", value: content.postsPublished, sub: `${content.postsDraft} مسودة` },
+              { label: "دراسات الحالة", value: content.caseStudiesPublished, sub: "منشورة" },
+              { label: "ملفات الوسائط", value: content.mediaCount, sub: "في المكتبة" },
             ].map((s) => (
               <span key={s.label}>
                 <span className="studio-up" style={{ display: "block" }}>
                   {s.label}
                 </span>
-                <b className="studio-hero" style={{ fontSize: 20, fontWeight: 500 }}>
+                <b className="studio-hero studio-mono" style={{ fontSize: 23, fontWeight: 500 }}>
                   {num(s.value)}
                 </b>
                 <span className="studio-tiny" style={{ display: "block" }}>
@@ -420,31 +423,30 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
           </div>
           {content.projectsWithoutThumbnail > 0 ? (
             <p className="studio-tiny" style={{ marginBlockStart: "auto", color: "var(--s-warn)" }}>
-              {content.projectsWithoutThumbnail} published project{content.projectsWithoutThumbnail === 1 ? "" : "s"} without a
-              thumbnail — invisible on /work.
+              يوجد {content.projectsWithoutThumbnail} مشروع منشور بدون صورة مصغرة — يظهر فارغًا في صفحة الأعمال.
             </p>
           ) : null}
         </Tile>
 
-        {/* ── 8 · recent edits ────────────────────────────────────────── */}
+        {/* ── 8 · أحدث التعديلات ─────────────────────────────────────────── */}
         <Tile
           span="w5"
-          title={<b>Recently changed</b>}
+          title={<b>أحدث التعديلات</b>}
           provenance={
             <>
-              Newest <code>updatedAt</code> across projects, posts and case studies
+              أحدث قيمة <code>updatedAt</code> عبر المشاريع والمقالات ودراسات الحالة
             </>
           }
         >
           <div className="studio-rows">
             {activity.map((row) => (
-              <Link key={row.id} href={row.href} className="studio-row" style={{ gridTemplateColumns: "minmax(0,1fr) auto", padding: "7px 6px" }}>
+              <Link key={row.id} href={row.href} className="studio-row" style={{ gridTemplateColumns: "minmax(0,1fr) auto", padding: "8px 7px" }}>
                 <span style={{ minWidth: 0 }}>
                   <span className="studio-row__name">{row.title}</span>
                   <span className="studio-row__meta">
                     <em>{row.kind}</em>
                     <span aria-hidden>·</span>
-                    <em>{row.status}</em>
+                    <em>{row.status === "published" ? "منشور" : "مسودة"}</em>
                   </span>
                 </span>
                 <span className="studio-tiny" style={{ whiteSpace: "nowrap" }}>
@@ -452,42 +454,42 @@ export function OverviewView({ data, traffic }: { data: Overview; traffic?: Awai
                 </span>
               </Link>
             ))}
-            {activity.length === 0 ? <span className="studio-tiny">No content yet.</span> : null}
+            {activity.length === 0 ? <span className="studio-tiny">لا يوجد محتوى حتى الآن.</span> : null}
           </div>
         </Tile>
 
-        {/* ── 9 · system ──────────────────────────────────────────────── */}
+        {/* ── 9 · حالة النظام ───────────────────────────────────────────── */}
         <Tile
           span="w3"
-          title={<b>System</b>}
+          title={<b>النظام</b>}
           aside={
             <Link className="studio-tile__more" href="/studio/system">
-              all checks
+              كل الفحوصات
             </Link>
           }
           provenance={
             <>
-              Live probes of database, storage, email, analytics · run at {shortTime(probes[0]?.checkedAt ?? data.asOf)}
+              فحوصات حية لقاعدة البيانات والتخزين والبريد والتحليلات · فُحصت في {shortTime(probes[0]?.checkedAt ?? data.asOf)}
             </>
           }
         >
-          <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginBlockEnd: 10 }}>
+          <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBlockEnd: 11 }}>
             {fails.length ? (
               <Chip tone="danger" icon="x">
-                {fails.length} failing
+                {fails.length} عطل
               </Chip>
             ) : (
               <Chip tone="ok" icon="check">
-                0 failing
+                0 أعطال
               </Chip>
             )}
             {warns.length ? (
               <Chip tone="warn" icon="alert">
-                {warns.length} warning{warns.length === 1 ? "" : "s"}
+                {warns.length} تحذير
               </Chip>
             ) : null}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBlockStart: "auto" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBlockStart: "auto" }}>
             {probes.slice(0, 4).map((probe) => (
               <span key={probe.id} className="studio-row__meta" style={{ justifyContent: "space-between" }}>
                 <em>{probe.name}</em>
@@ -506,7 +508,7 @@ function ProbeDot({ probe }: { probe: Probe }) {
   const [tone, icon] = map[probe.state];
   return (
     <Chip tone={tone} icon={icon}>
-      {probe.state}
+      {probeStateLabel(probe.state)}
     </Chip>
   );
 }

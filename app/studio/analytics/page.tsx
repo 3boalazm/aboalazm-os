@@ -1,13 +1,12 @@
 import { requireStudioUser } from "@/lib/studio/auth";
-import { allLeads, contentHealth, loadOverview } from "@/lib/studio/metrics";
+import { allLeads, contentHealth, loadOverview, makeCtx } from "@/lib/studio/metrics";
 import { loadAnalytics } from "@/lib/studio/analytics";
-import { makeCtx } from "@/lib/studio/metrics";
 import { getPayload } from "@/lib/payload";
 import { StudioShell } from "@/components/studio/shell";
 import { AnalyticsView } from "@/components/studio/analytics-view";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Analytics", robots: { index: false, follow: false } };
+export const metadata = { title: "التحليلات · لوحة الاستوديو", robots: { index: false, follow: false } };
 
 export default async function StudioAnalyticsPage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const params = await searchParams;
@@ -29,11 +28,16 @@ export default async function StudioAnalyticsPage({ searchParams }: { searchPara
       counts={{ unreadLeads, newLeads: leads.filter((l) => (l.leadStage ?? "new") === "new").length, drafts: content.projectsDraft + content.postsDraft }}
       attention={
         unreadLeads
-          ? { title: `${unreadLeads} unread enquir${unreadLeads === 1 ? "y" : "ies"}`, body: "Traffic is trivia until the inbox is answered.", href: "/studio/leads", cta: "Work the queue" }
+          ? {
+              title: unreadLeads === 1 ? "استفسار واحد غير مقروء" : `${unreadLeads} استفسارات غير مقروءة`,
+              body: "الأولوية للرد على العملاء المحتملين قبل متابعة حركة الزوار.",
+              href: "/studio/leads",
+              cta: "فتح قائمة العملاء",
+            }
           : null
       }
       userEmail={user.email}
-      version={`P2 · ${overview.range.label}`}
+      version={`التحليلات · ${overview.range.label}`}
     >
       <AnalyticsView report={report} />
     </StudioShell>

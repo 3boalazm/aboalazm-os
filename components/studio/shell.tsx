@@ -6,18 +6,6 @@ import { useEffect, useState, type ReactNode } from "react";
 import { SIcon, type StudioIconName } from "@/components/studio/ui";
 import { SignOutButton, ThemeToggle } from "@/components/studio/interactive";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   STUDIO SHELL — the persistent frame around every console screen.
-
-   Navigation is grouped by the *question being asked*, not by Payload
-   collection. "Leads" is a question ("who is waiting on me?"); "Messages" is
-   a database table. The old flat list of nine collections is why the panel
-   felt like a filing cabinet: it described storage, not work.
-
-   Counts come from the server and are only rendered when > 0 — a badge that
-   says "0" trains the eye to ignore badges.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 export interface NavCounts {
   unreadLeads: number;
   newLeads: number;
@@ -42,7 +30,6 @@ export function StudioShell({
 }: {
   children: ReactNode;
   counts: NavCounts;
-  /** The single most urgent thing, or null when nothing is burning. */
   attention: { title: string; body: string; href: string; cta: string } | null;
   userEmail?: string;
   version: string;
@@ -50,13 +37,10 @@ export function StudioShell({
   const pathname = usePathname() ?? "/studio";
   const [open, setOpen] = useState(false);
 
-  /* Close the drawer whenever the route changes — otherwise a tap on a nav
-     item on mobile leaves the scrim covering the page it just navigated to. */
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  /* Escape closes the drawer, matching every other overlay on the site. */
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -68,49 +52,45 @@ export function StudioShell({
 
   const groups: { label: string; items: Item[] }[] = [
     {
-      label: "Answer",
+      label: "المؤشرات",
       items: [
-        { key: "overview", href: "/studio", label: "Overview", icon: "grid" },
-        { key: "analytics", href: "/studio/analytics", label: "Analytics", icon: "chart" },
+        { key: "overview", href: "/studio", label: "النظرة العامة", icon: "grid" },
+        { key: "analytics", href: "/studio/analytics", label: "التحليلات", icon: "chart" },
       ],
     },
     {
-      label: "Revenue",
+      label: "المبيعات والوارد",
       items: [
         {
           key: "leads",
           href: "/studio/leads",
-          label: "Leads & pipeline",
+          label: "العملاء المحتملون",
           icon: "inbox",
           count: counts.unreadLeads,
-          countLabel: "unread",
+          countLabel: "غير مقروء",
         },
       ],
     },
     {
-      label: "Editing",
+      label: "التحرير والمحتوى",
       items: [
-        { key: "content", href: "/studio/content", label: "Content", icon: "layers", count: counts.drafts, countLabel: "drafts" },
-        { key: "manage", href: "/studio/manage", label: "Manage CMS", icon: "sliders" },
-        { key: "projects", href: "/studio/manage/projects", label: "Projects", icon: "grid" },
-        { key: "case-studies", href: "/studio/manage/case-studies", label: "Case studies", icon: "column" },
-        { key: "posts", href: "/studio/manage/posts", label: "Writing", icon: "sparkle" },
-        { key: "media", href: "/studio/manage/media", label: "Media", icon: "image" },
+        { key: "content", href: "/studio/content", label: "المحتوى والسيو", icon: "layers", count: counts.drafts, countLabel: "مسودة" },
+        { key: "manage", href: "/studio/manage", label: "إدارة المحتوى", icon: "sliders" },
+        { key: "projects", href: "/studio/manage/projects", label: "المشاريع", icon: "grid" },
+        { key: "case-studies", href: "/studio/manage/case-studies", label: "دراسات الحالة", icon: "column" },
+        { key: "posts", href: "/studio/manage/posts", label: "المقالات", icon: "sparkle" },
+        { key: "media", href: "/studio/manage/media", label: "الوسائط", icon: "image" },
       ],
     },
     {
-      label: "Site & Operations",
+      label: "الموقع والنظام",
       items: [
-        { key: "offers", href: "/studio/manage/globals/offers", label: "Offers & pricing", icon: "bolt" },
-        { key: "settings", href: "/studio/manage/globals/settings", label: "Site settings", icon: "sliders" },
-        { key: "system", href: "/studio/system", label: "System", icon: "pulse" },
+        { key: "offers", href: "/studio/manage/globals/offers", label: "العروض والأسعار", icon: "bolt" },
+        { key: "settings", href: "/studio/manage/globals/settings", label: "إعدادات الموقع", icon: "sliders" },
+        { key: "system", href: "/studio/system", label: "النظام", icon: "pulse" },
       ],
     },
   ];
-
-  /* The raw editors live one level deeper now, on /studio/manage — with
-     real counts and create links. The sidebar stays a set of questions;
-     the filing cabinet sits behind exactly one of them. */
 
   const isActive = (href: string) => {
     if (href === "/studio" || href === "/studio/manage") return pathname === href || pathname === `${href}/`;
@@ -122,15 +102,15 @@ export function StudioShell({
       <div className="studio-atmos" aria-hidden />
 
       <div className="studio-shell">
-        {/* ── sidebar ─────────────────────────────────────────────────── */}
-        <aside className="studio-panel studio-nav" id="studio-nav" data-open={open} aria-label="Studio navigation">
+        {/* ── القائمة الجانبية ──────────────────────────────────────────── */}
+        <aside className="studio-panel studio-nav" id="studio-nav" data-open={open} aria-label="التنقل في لوحة الاستوديو">
           <div className="studio-brand">
             <span className="studio-brand__mark" aria-hidden>
               A
             </span>
             <span className="studio-brand__text">
               <strong>Aboalazm OS</strong>
-              <span>Studio console</span>
+              <span>لوحة الاستوديو</span>
             </span>
           </div>
 
@@ -156,38 +136,36 @@ export function StudioShell({
                 ))}
               </div>
             ))}
-
           </div>
 
-          {/* The attention card is the console's whole point: one thing to do. */}
           {attention ? (
             <div className="studio-alert">
               <p className="studio-alert__eye">
-                <SIcon name="alert" size={10} /> Needs you
+                <SIcon name="alert" size={12} /> يحتاج انتباهك
               </p>
               <strong>{attention.title}</strong>
               <p>{attention.body}</p>
               <Link href={attention.href}>
-                {attention.cta} <SIcon name="arrowRight" size={11} />
+                {attention.cta} <SIcon name="arrowLeft" size={13} />
               </Link>
             </div>
           ) : (
             <div className="studio-alert" style={{ background: "var(--s-ok-dim)", borderColor: "rgb(52 211 153 / 0.28)" }}>
               <p className="studio-alert__eye" style={{ color: "var(--s-ok)" }}>
-                <SIcon name="check" size={10} /> Clear
+                <SIcon name="check" size={12} /> الوضع مستقر
               </p>
-              <strong>Nothing is waiting on you.</strong>
-              <p>No unread enquiries and no unanswered leads.</p>
+              <strong>لا شيء بانتظارك.</strong>
+              <p>لا توجد استفسارات غير مقروءة ولا عملاء بلا متابعة.</p>
             </div>
           )}
 
           <div style={{ display: "flex", alignItems: "center", gap: 6, paddingInline: 6 }}>
-            <Link href="/" className="studio-nav__item" style={{ padding: 0, fontSize: 11 }}>
-              <SIcon name="external" className="studio-nav__ico" size={12} />
-              <span>View site</span>
+            <Link href="/" className="studio-nav__item" style={{ padding: 0, fontSize: 13 }}>
+              <SIcon name="external" className="studio-nav__ico" size={14} />
+              <span>معاينة الموقع</span>
             </Link>
             <span style={{ flex: 1 }} />
-            <span className="studio-up" style={{ fontSize: 8.5 }} title={userEmail}>
+            <span className="studio-up studio-mono" style={{ fontSize: 11 }} title={userEmail}>
               {version}
             </span>
           </div>
@@ -195,7 +173,7 @@ export function StudioShell({
 
         <div className="studio-scrim" data-open={open} onClick={() => setOpen(false)} aria-hidden />
 
-        {/* ── main ────────────────────────────────────────────────────── */}
+        {/* ── المحتوى الرئيسي ──────────────────────────────────────────── */}
         <div className="studio-main">
           <div className="studio-panel studio-top">
             <button
@@ -204,18 +182,18 @@ export function StudioShell({
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="studio-nav"
-              aria-label="Toggle navigation"
+              aria-label="فتح أو إغلاق القائمة"
             >
               <SIcon name="menu" />
             </button>
             <Breadcrumb pathname={pathname} />
             <span className="studio-spacer" />
-            <span className="studio-chip studio-chip--live" title="Data is read live from Payload/Postgres on every request">
-              live data
+            <span className="studio-chip studio-chip--live" title="تُقرأ البيانات مباشرة من PostgreSQL في كل طلب">
+              بيانات حية
             </span>
             <ThemeToggle />
-            <Link href="/studio/manage" className="studio-btn studio-btn--sm" title="All CMS collections & globals">
-              CMS
+            <Link href="/studio/manage" className="studio-btn studio-btn--sm" title="جميع مجموعات وإعدادات نظام المحتوى">
+              المحتوى الكامل
             </Link>
             <SignOutButton />
           </div>
@@ -228,38 +206,38 @@ export function StudioShell({
 }
 
 const CRUMB: Record<string, string> = {
-  studio: "Studio",
-  analytics: "Analytics",
-  leads: "Leads & pipeline",
-  content: "Content",
-  manage: "Manage",
-  globals: "Globals",
-  projects: "Projects",
-  "case-studies": "Case studies",
-  posts: "Writing",
-  media: "Media",
-  testimonials: "Testimonials",
-  "team-members": "Team members",
-  messages: "Enquiries",
-  "resource-leads": "Resource leads",
-  "analytics-events": "Analytics events",
-  users: "Users",
-  offers: "Offers & pricing",
-  settings: "Site settings",
-  new: "New",
-  system: "System",
+  studio: "الاستوديو",
+  analytics: "التحليلات",
+  leads: "العملاء المحتملون",
+  content: "المحتوى والسيو",
+  manage: "إدارة المحتوى",
+  globals: "الإعدادات العامة",
+  projects: "المشاريع",
+  "case-studies": "دراسات الحالة",
+  posts: "المقالات",
+  media: "الوسائط",
+  testimonials: "آراء العملاء",
+  "team-members": "أعضاء الفريق",
+  messages: "الاستفسارات",
+  "resource-leads": "مهتمو الموارد",
+  "analytics-events": "أحداث التحليلات",
+  users: "المستخدمون",
+  offers: "العروض والأسعار",
+  settings: "إعدادات الموقع",
+  new: "إنشاء جديد",
+  system: "النظام",
 };
 
 function Breadcrumb({ pathname }: { pathname: string }) {
   const parts = pathname.split("/").filter(Boolean);
   const isRoot = parts.length <= 1;
   return (
-    <nav className="studio-crumbs" aria-label="Breadcrumb">
-      <span>Console</span>
+    <nav className="studio-crumbs" aria-label="مسار التنقل">
+      <span>لوحة التحكم</span>
       {isRoot ? (
         <>
-          <SIcon name="arrowRight" size={10} />
-          <b>Overview</b>
+          <SIcon name="chevronLeft" size={12} />
+          <b>النظرة العامة</b>
         </>
       ) : (
         parts.map((part, idx) => {
@@ -267,7 +245,7 @@ function Breadcrumb({ pathname }: { pathname: string }) {
           const label = CRUMB[part] ?? part;
           return (
             <span key={`${part}-${idx}`} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-              <SIcon name="arrowRight" size={10} />
+              <SIcon name="chevronLeft" size={12} />
               {isLast ? <b>{label}</b> : <span>{label}</span>}
             </span>
           );

@@ -7,13 +7,6 @@ import { OverviewView } from "@/components/studio/overview-view";
 
 export const dynamic = "force-dynamic";
 
-/**
- * /studio — the console's front door.
- *
- * `dynamic = "force-dynamic"` is not a performance choice: these numbers must
- * be the numbers at the moment of the request. A cached dashboard is a
- * dashboard that lies about "now", which is the one thing it cannot do.
- */
 export default async function StudioPage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const params = await searchParams;
   const user = await requireStudioUser(`/studio${params.range ? `?range=${params.range}` : ""}`);
@@ -30,8 +23,6 @@ export default async function StudioPage({ searchParams }: { searchParams: Promi
   const newLeads = leads.filter((l) => (l.leadStage ?? "new") === "new").length;
   const drafts = content.projectsDraft + content.postsDraft;
 
-  /* One attention item, chosen by seniority of consequence:
-     an unread enquiry outranks an unanswered lead outranks a broken system. */
   const failing = overview.probes.filter((p) => p.state === "fail");
   const oldestNew = leads
     .filter((l) => (l.leadStage ?? "new") === "new")
@@ -40,25 +31,25 @@ export default async function StudioPage({ searchParams }: { searchParams: Promi
   let attention: { title: string; body: string; href: string; cta: string } | null = null;
   if (unreadLeads > 0) {
     attention = {
-      title: `${unreadLeads} unread enquir${unreadLeads === 1 ? "y" : "ies"}`,
-      body: "Nobody has opened these yet. They are the only people currently waiting on the studio.",
+      title: unreadLeads === 1 ? "استفسار واحد غير مقروء" : `${unreadLeads} استفسارات غير مقروءة`,
+      body: "لم يفتحها أحد بعد — هم الأشخاص الوحيدون بانتظار رد الاستوديو حاليًا.",
       href: "/studio/leads",
-      cta: "Open the pipeline",
+      cta: "فتح مسار العملاء",
     };
   } else if (oldestNew) {
     const days = Math.floor((Date.now() - new Date(oldestNew.createdAt ?? Date.now()).getTime()) / 86400000);
     attention = {
-      title: "Unqualified enquiry",
-      body: `${oldestNew.name ?? "A lead"} has been at stage “New” for ${days} day${days === 1 ? "" : "s"}.`,
+      title: "استفسار بانتظار التأهيل",
+      body: `${oldestNew.name ?? "عميل محتمل"} ما زال في مرحلة «جديد» منذ ${days} يومًا.`,
       href: "/studio/leads",
-      cta: "Review it",
+      cta: "مراجعته الآن",
     };
   } else if (failing.length) {
     attention = {
-      title: `${failing.length} integration${failing.length === 1 ? "" : "s"} failing`,
-      body: failing.map((f) => f.name).join(", "),
+      title: failing.length === 1 ? "تكامل واحد معطّل" : `${failing.length} تكاملات معطّلة`,
+      body: failing.map((f) => f.name).join("، "),
       href: "/studio/system",
-      cta: "See what broke",
+      cta: "تفحص الأعطال",
     };
   }
 
@@ -67,19 +58,16 @@ export default async function StudioPage({ searchParams }: { searchParams: Promi
       counts={{ unreadLeads, newLeads, drafts }}
       attention={attention}
       userEmail={user.email}
-      version={`P6 · ${RANGES.length} ranges`}
+      version={`الاستوديو · ${RANGES.length} نطاقات`}
     >
       <OverviewView data={overview} traffic={traffic} />
     </StudioShell>
   );
 }
 
-/** Guarantees the range parser is exercised on every render path. */
 export const metadata = {
-  title: "Studio console · Aboalazm OS",
+  title: "لوحة الاستوديو · Aboalazm OS",
   robots: { index: false, follow: false },
 };
 
-// Keep the imported helper in this module's dependency graph so a future
-// refactor cannot silently drop range validation from the entry point.
 void resolveRange;

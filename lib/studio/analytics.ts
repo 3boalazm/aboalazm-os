@@ -2,30 +2,7 @@ import type { Payload } from "payload";
 import { resolveRange } from "./metrics";
 
 /**
- * STUDIO ANALYTICS (P2) — reading back the first-party collector.
- *
- * Every figure here comes from the `analytics-events` table written by
- * app/api/track/route.ts. Definitions are fixed and stated on screen:
- *
- *   · pageview  — one stored `pageview` event. Emitted once per route
- *                 change by components/seo/pageview-tracker.tsx.
- *   · session   — a distinct `sessionId`: a random value in the tab's
- *                 sessionStorage. It identifies a tab session, not a
- *                 person. Visitors with storage disabled send events
- *                 without one; they count as events/pageviews but cannot
- *                 join the session funnel, and the funnel tile states
- *                 its own coverage instead of hiding that.
- *   · funnel    — for each step, the number of distinct sessions with at
- *                 least one event of that kind in the window. Steps are
- *                 NOT forced to be nested: a session can appear at
- *                 form_start without a stored pageview if the collector
- *                 started mid-visit. Percentages are "of sessions that
- *                 viewed a page", labelled as such.
- *
- * The vendor limitation has not changed: Vercel's own aggregates still
- * return HTTP 402 on this plan. These numbers exist because the events
- * are now also stored in our own Postgres — one source of truth, read
- * with the operator's session (overrideAccess: false).
+ * STUDIO ANALYTICS — قراءة مُجمّع التحليلات من الطرف الأول (`analytics-events`).
  */
 
 type Ctx = { payload: Payload; user: { id: string | number; email?: string } };
@@ -57,23 +34,20 @@ async function eventsInWindow({ payload, user }: Ctx, start: Date, end: Date): P
   return res.docs as RawEvent[];
 }
 
-/* ── pure builders (unit-tested without a database) ─────────────────────── */
-
 export interface FunnelStep {
   key: string;
   label: string;
   sessions: number;
   events: number;
-  /** Share of the first step's sessions, 0–100. Null when the first step is empty. */
   pctOfFirst: number | null;
 }
 
 const FUNNEL_STEPS: { key: string; label: string }[] = [
-  { key: "pageview", label: "Viewed a page" },
-  { key: "cta_start_project", label: "Clicked “start a project”" },
-  { key: "form_start", label: "Started the enquiry form" },
-  { key: "form_submit_attempt", label: "Attempted to submit" },
-  { key: "contact_submit", label: "Enquiry confirmed saved" },
+  { key: "pageview", label: "تصفح صفحة" },
+  { key: "cta_start_project", label: "ضغط «ابدأ مشروعًا»" },
+  { key: "form_start", label: "بدأ نموذج الاستفسار" },
+  { key: "form_submit_attempt", label: "حاول الإرسال" },
+  { key: "contact_submit", label: "تأكد حفظ الاستفسار" },
 ];
 
 export function buildSessionFunnel(events: RawEvent[]): { steps: FunnelStep[]; sessionsWithId: number; eventsWithSession: number } {
@@ -102,8 +76,8 @@ export function buildSessionFunnel(events: RawEvent[]): { steps: FunnelStep[]; s
 }
 
 export interface DayPoint {
-  day: string; // yyyy-mm-dd, UTC
-  label: string; // "12 Nov"
+  day: string;
+  label: string;
   pageviews: number;
   sessions: number;
 }
@@ -117,7 +91,7 @@ export function buildDailySeries(events: RawEvent[], days: number, end: Date): D
     byDay.set(key, { pageviews: 0, sessions: new Set() });
     points.push({
       day: key,
-      label: d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", timeZone: "UTC" }),
+      label: d.toLocaleDateString("ar-EG-u-nu-latn", { day: "2-digit", month: "short", timeZone: "UTC" }),
       pageviews: 0,
       sessions: 0,
     });
@@ -151,7 +125,6 @@ export function countBy(events: RawEvent[], pick: (e: RawEvent) => string | null
   return topEntries(counts, n);
 }
 
-/** Strip the locale prefix so /en/writing/x and /ar/writing/x rank as one page. */
 export function normalizePath(path: string): string {
   const parts = path.split("/").filter(Boolean);
   if (parts[0] === "en" || parts[0] === "ar" || parts[0] === "ms") {
@@ -160,20 +133,15 @@ export function normalizePath(path: string): string {
   return path;
 }
 
-/* ── the report ─────────────────────────────────────────────────────────── */
-
 export interface AnalyticsReport {
   range: { key: string; label: string; days: number };
   asOf: string;
-  /** Total stored events of every kind in the window. */
   totalEvents: number;
   pageviews: number;
   prevPageviews: number;
   sessions: number;
   prevSessions: number;
-  /** contact_submit EVENTS in window — the client's confirmation signal. */
   contactSubmitEvents: number;
-  /** Rows actually saved in `messages` in window — the database's own word. */
   enquiriesSaved: number;
   daily: DayPoint[];
   funnel: ReturnType<typeof buildSessionFunnel>;
@@ -183,7 +151,6 @@ export interface AnalyticsReport {
   campaigns: [string, number][];
   locales: [string, number][];
   devices: [string, number][];
-  /** True once a single event exists — drives the honest empty state. */
   hasData: boolean;
 }
 
@@ -235,7 +202,6 @@ export async function loadAnalytics(ctx: Ctx, rangeKey?: string | null): Promise
   };
 }
 
-/** Small summary for the Overview tile — one window, no funnel. */
 export async function analyticsSummary(ctx: Ctx, rangeKey?: string | null) {
   const range = resolveRange(rangeKey);
   const [events, prevEvents] = await Promise.all([
@@ -255,7 +221,6 @@ export async function analyticsSummary(ctx: Ctx, rangeKey?: string | null) {
   };
 }
 
-/** Pageviews by normalized path in the window — the content-performance join key. */
 export async function contentViews(ctx: Ctx, rangeKey?: string | null): Promise<[string, number][]> {
   const range = resolveRange(rangeKey);
   const events = await eventsInWindow(ctx, range.start, range.end);

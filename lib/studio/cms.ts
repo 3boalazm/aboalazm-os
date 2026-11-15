@@ -39,16 +39,9 @@ export {
 };
 
 /**
- * STUDIO CMS LAYER — direct Payload Local API CRUD for every collection
- * and global declared in payload.config.ts.
- *
- * Every read and write runs with:
- *   · `overrideAccess: false` and the signed-in operator's `user`
- *   · Payload's native validation, drafts/versions, and revalidation hooks
- *   · Postgres 42703 tolerance for `projects.status` (see 03_SCHEMA_FINDINGS.md §3)
+ * STUDIO CMS LAYER — عمليات CRUD المباشرة عبر Payload Local API لكل
+ * المجموعات والإعدادات العامة المعلنة في payload.config.ts.
  */
-
-/* ── shared utilities ─────────────────────────────────────────────────── */
 
 export function isMissingColumnError(error: unknown): boolean {
   const err = error as { cause?: { code?: string }; code?: string } | null | undefined;
@@ -56,7 +49,7 @@ export function isMissingColumnError(error: unknown): boolean {
 }
 
 export function formatPayloadError(error: unknown): string {
-  if (!error || typeof error !== "object") return String(error || "Unknown error");
+  if (!error || typeof error !== "object") return String(error || "خطأ غير معروف");
   const err = error as {
     message?: string;
     data?: { errors?: { field?: string; path?: string; message?: string }[] };
@@ -66,12 +59,12 @@ export function formatPayloadError(error: unknown): string {
     return fieldErrors
       .map((item) => {
         const key = item.field || item.path;
-        const msg = item.message || "Invalid value";
+        const msg = item.message || "قيمة غير صالحة";
         return key ? `${key}: ${msg}` : msg;
       })
       .join(" · ");
   }
-  return err.message || "Operation failed.";
+  return err.message || "تعذر إتمام العملية.";
 }
 
 export function extractMediaId(value: unknown): number | null {
@@ -84,7 +77,7 @@ export function extractMediaId(value: unknown): number | null {
   return null;
 }
 
-/** Explicit select omitting `projects.status` when Postgres 42703 triggers. */
+/** استعلام آمن يستثني `projects.status` عند وقوع خطأ 42703 في قواعد البيانات المعتمدة على الترحيلات فقط. */
 export const SAFE_PROJECT_EDITOR_SELECT = {
   slug: true,
   category: true,
@@ -128,7 +121,7 @@ export async function listCollectionDocs(
   } = {},
 ): Promise<ListDocsResult> {
   const meta = getCollectionMeta(slug);
-  if (!meta) throw new Error(`Unknown collection: ${slug}`);
+  if (!meta) throw new Error(`مجموعة غير معروفة: ${slug}`);
 
   const page = Math.max(1, Math.floor(opts.page ?? 1));
   const limit = Math.min(60, Math.max(1, Math.floor(opts.limit ?? 24)));
@@ -302,10 +295,10 @@ export async function loadManageShellProps(
     counts: { unreadLeads, newLeads, drafts },
     attention: unreadLeads
       ? {
-          title: `${unreadLeads} unread enquir${unreadLeads === 1 ? "y" : "ies"}`,
-          body: "Editing can wait; a person is waiting.",
+          title: unreadLeads === 1 ? "استفسار واحد غير مقروء" : `${unreadLeads} استفسارات غير مقروءة`,
+          body: "التعديل يمكن أن ينتظر؛ هناك شخص ينتظر الرد.",
           href: "/studio/leads",
-          cta: "Work the queue",
+          cta: "فتح قائمة العملاء",
         }
       : null,
   };

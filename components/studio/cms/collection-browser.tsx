@@ -55,44 +55,44 @@ export function CollectionBrowser({
     }
     setUploading(false);
     if (okCount > 0) {
-      push("ok", `Uploaded ${okCount} file${okCount === 1 ? "" : "s"}`);
+      push("ok", okCount === 1 ? "تم رفع ملف واحد بنجاح" : `تم رفع ${okCount} ملفات بنجاح`);
       router.refresh();
     }
   };
 
   const handleQuickDelete = async (id: number | string, label: string) => {
-    if (!window.confirm(`Delete “${label}”? This cannot be undone.`)) return;
+    if (!window.confirm(`هل أنت متأكد من حذف «${label}»؟ لا يمكن التراجع عن هذا الإجراء.`)) return;
     const res = await deleteCollectionDocAction(meta.slug, id);
     if (!res.ok) {
       push("danger", res.error);
       return;
     }
-    push("ok", `Deleted ${label}`);
+    push("ok", `تم حذف «${label}»`);
     router.refresh();
   };
 
   const filterOptions: { key: string; label: string }[] =
     meta.slug === "projects"
       ? [
-          { key: "", label: "All categories" },
-          { key: "design", label: "Design" },
-          { key: "development", label: "Development" },
+          { key: "", label: "جميع الفئات" },
+          { key: "design", label: "تصميم" },
+          { key: "development", label: "تطوير وبرمجة" },
         ]
       : meta.slug === "posts"
         ? [
-            { key: "", label: "All languages" },
-            { key: "en", label: "English" },
-            { key: "ar", label: "Arabic" },
+            { key: "", label: "جميع اللغات" },
+            { key: "en", label: "الإنجليزية (EN)" },
+            { key: "ar", label: "العربية (AR)" },
           ]
         : meta.slug === "messages"
           ? [
-              { key: "", label: "All enquiries" },
-              { key: "unread", label: "Unread" },
-              { key: "new", label: "New" },
-              { key: "qualified", label: "Qualified" },
-              { key: "proposal-sent", label: "Proposal" },
-              { key: "won", label: "Won" },
-              { key: "lost", label: "Lost" },
+              { key: "", label: "جميع الاستفسارات" },
+              { key: "unread", label: "غير مقروء" },
+              { key: "new", label: "جديد" },
+              { key: "qualified", label: "مؤهل" },
+              { key: "proposal-sent", label: "عرض سعر" },
+              { key: "won", label: "فائز" },
+              { key: "lost", label: "خاسر" },
             ]
           : [];
 
@@ -101,17 +101,17 @@ export function CollectionBrowser({
       <ManageNavStrip activeSlug={meta.slug} />
 
       <ViewHeader
-        eyebrow={`Manage · ${meta.group}`}
+        eyebrow={`إدارة المحتوى · ${meta.group}`}
         title={meta.label}
         description={meta.description}
         aside={
           <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
             <Link className="studio-btn" href="/studio/manage">
-              ← Manage overview
+              <SIcon name="chevronRight" size={14} /> كل المجموعات
             </Link>
             {meta.allowsCreate ? (
               <Link className="studio-btn studio-btn--primary" href={`/studio/manage/${meta.slug}/new`}>
-                + New {meta.singular}
+                + إضافة {meta.singular}
               </Link>
             ) : null}
           </div>
@@ -120,21 +120,24 @@ export function CollectionBrowser({
 
       {meta.slug === "projects" && !result.deliveryStatusAvailable ? (
         <div className="studio-warn-banner">
-          <SIcon name="alert" size={14} />
+          <SIcon name="alert" size={16} />
           <span>
-            This database does not have the <code>projects.status</code> column (<code>42703</code>). Project lists and edits stay
-            safe without it; delivery status is omitted until synced.
+            قاعدة البيانات الحالية لا تحتوي على عمود <code>projects.status</code> (<code>42703</code>). تعمل قائمة المشاريع
+            وتعديلها بأمان بدونه، مع إخفاء حالة التسليم مؤقتًا.
           </span>
         </div>
       ) : null}
 
-      {/* Quick upload dropzone for Media */}
       {meta.slug === "media" ? (
         <Tile
           span="w12"
-          title={<b>Quick upload to Vercel Blob</b>}
-          aside={<Chip tone="neutral">Images & PDFs</Chip>}
-          provenance={<>Posts directly to Payload’s upload endpoint (<code>/api/media</code>) with your operator session</>}
+          title={<b>رفع سريع إلى Vercel Blob</b>}
+          aside={<Chip tone="neutral">صور وملفات PDF</Chip>}
+          provenance={
+            <>
+              يرفع مباشرة إلى مسار Payload (<code>/api/media</code>) باستخدام جلسة دخولك الحالية
+            </>
+          }
         >
           <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
             <input
@@ -142,41 +145,41 @@ export function CollectionBrowser({
               multiple
               accept="image/*,application/pdf"
               className="studio-input"
-              style={{ maxWidth: 420 }}
+              style={{ maxWidth: 440 }}
               disabled={uploading}
               onChange={(e) => {
                 void handleQuickUpload(e.target.files);
                 e.currentTarget.value = "";
               }}
             />
-            <span className="studio-sub" style={{ fontSize: 12 }}>
-              {uploading ? "Uploading files…" : "Alt text defaults cleanly from filename and can be edited per asset."}
+            <span className="studio-sub" style={{ fontSize: 13 }}>
+              {uploading ? "جارٍ رفع الملفات…" : "يُنشأ النص البديل تلقائيًا من اسم الملف ويمكن تعديله لكل ملف على حدة."}
             </span>
           </div>
         </Tile>
       ) : null}
 
-      {/* Search & filter bar */}
+      {/* شريط البحث والتصفية */}
       <div className="studio-toolbar">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             router.push(buildUrl({ search: query, page: 1 }));
           }}
-          style={{ display: "flex", gap: 8, flex: "1 1 260px", maxWidth: 420 }}
+          style={{ display: "flex", gap: 8, flex: "1 1 280px", maxWidth: 440 }}
         >
           <input
             className="studio-input"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder={`Search ${meta.label.toLowerCase()}…`}
+            placeholder={`ابحث في ${meta.label}…`}
           />
           <button type="submit" className="studio-btn">
-            <SIcon name="search" size={13} /> Search
+            <SIcon name="search" size={14} /> بحث
           </button>
           {search ? (
             <Link className="studio-btn" href={buildUrl({ search: "", page: 1 })}>
-              Reset
+              إعادة ضبط
             </Link>
           ) : null}
         </form>
@@ -184,9 +187,9 @@ export function CollectionBrowser({
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
           {meta.drafts
             ? [
-                { key: "", label: "All status" },
-                { key: "published", label: "Published" },
-                { key: "draft", label: "Drafts" },
+                { key: "", label: "جميع الحالات" },
+                { key: "published", label: "منشور" },
+                { key: "draft", label: "مسودة" },
               ].map((opt) => (
                 <Link
                   key={opt.key || "all"}
@@ -210,25 +213,29 @@ export function CollectionBrowser({
         </div>
       </div>
 
-      {/* Results */}
+      {/* النتائج */}
       <Tile
         span="w12"
-        title={<b>Records</b>}
-        aside={<Chip tone="neutral">{num(result.totalDocs)} total</Chip>}
-        provenance={<>Queried live from <code>{meta.slug}</code> · page {result.page} of {result.totalPages}</>}
+        title={<b>السجلات</b>}
+        aside={<Chip tone="neutral">{num(result.totalDocs)} سجل</Chip>}
+        provenance={
+          <>
+            قراءة حية من <code>{meta.slug}</code> · صفحة {result.page} من {result.totalPages}
+          </>
+        }
       >
         {result.docs.length === 0 ? (
           <EmptyState
-            title={`No ${meta.label.toLowerCase()} match`}
+            title={`لا توجد نتائج مطابقة في ${meta.label}`}
             body={
               search || status || filter
-                ? "Try clearing the search or filter."
-                : `Create your first ${meta.singular.toLowerCase()} to populate this collection.`
+                ? "جرّب مسح نص البحث أو إزالة الفلاتر المختارة."
+                : `أضف أول ${meta.singular} لبدء تعبئة هذه المجموعة.`
             }
             action={
               meta.allowsCreate ? (
                 <Link className="studio-btn studio-btn--sm studio-btn--primary" href={`/studio/manage/${meta.slug}/new`}>
-                  + New {meta.singular}
+                  + إضافة {meta.singular}
                 </Link>
               ) : undefined
             }
@@ -250,21 +257,21 @@ export function CollectionBrowser({
                       <img src={url} alt={alt} />
                     ) : (
                       <span className="studio-media-pdf">
-                        <SIcon name={pdf ? "layers" : "image"} size={22} />
+                        <SIcon name={pdf ? "layers" : "image"} size={24} />
                         <span>{pdf ? "PDF" : `#${id}`}</span>
                       </span>
                     )}
                   </Link>
                   <div className="studio-media-tile__body">
-                    <Link href={`/studio/manage/media/${id}`} className="studio-row__name" style={{ fontSize: 12.5 }}>
+                    <Link href={`/studio/manage/media/${id}`} className="studio-row__name" style={{ fontSize: 13.5 }}>
                       {alt}
                     </Link>
-                    <span className="studio-tiny" style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    <span className="studio-tiny studio-mono" style={{ display: "block", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                       {filename} · {formatBytes(doc.filesize as number | undefined)}
                     </span>
                     <div style={{ display: "flex", gap: 6, marginBlockStart: 8, flexWrap: "wrap" }}>
                       <Link className="studio-btn studio-btn--sm" href={`/studio/manage/media/${id}`}>
-                        Edit
+                        تعديل
                       </Link>
                       {url ? (
                         <button
@@ -272,10 +279,10 @@ export function CollectionBrowser({
                           className="studio-btn studio-btn--sm"
                           onClick={() => {
                             void navigator.clipboard?.writeText(url);
-                            push("info", "Copied media URL");
+                            push("info", "تم نسخ رابط الملف");
                           }}
                         >
-                          Copy URL
+                          نسخ الرابط
                         </button>
                       ) : null}
                       <button
@@ -283,7 +290,7 @@ export function CollectionBrowser({
                         className="studio-btn studio-btn--sm studio-btn--danger"
                         onClick={() => void handleQuickDelete(id, alt)}
                       >
-                        Delete
+                        حذف
                       </button>
                     </div>
                   </div>
@@ -296,10 +303,10 @@ export function CollectionBrowser({
             <table className="studio-table">
               <thead>
                 <tr>
-                  <th>{meta.slug === "users" || meta.slug === "resource-leads" ? "Email" : "Item"}</th>
-                  <th>Details</th>
-                  <th>{meta.drafts ? "Status" : meta.slug === "messages" ? "Stage" : "Updated"}</th>
-                  <th className="num">Actions</th>
+                  <th>{meta.slug === "users" || meta.slug === "resource-leads" ? "البريد الإلكتروني" : "العنصر"}</th>
+                  <th>التفاصيل</th>
+                  <th>{meta.drafts ? "الحالة" : meta.slug === "messages" ? "المرحلة" : "آخر تحديث"}</th>
+                  <th className="num">إجراءات</th>
                 </tr>
               </thead>
               <tbody>
@@ -333,7 +340,7 @@ export function CollectionBrowser({
                             <img
                               src={imgUrl}
                               alt=""
-                              style={{ width: 34, height: 34, borderRadius: 8, objectFit: "cover", flex: "none", border: "1px solid var(--s-hair)" }}
+                              style={{ width: 36, height: 36, borderRadius: 8, objectFit: "cover", flex: "none", border: "1px solid var(--s-hair)" }}
                             />
                           ) : null}
                           <div style={{ minWidth: 0 }}>
@@ -351,13 +358,13 @@ export function CollectionBrowser({
                           </div>
                         </div>
                       </td>
-                      <td style={{ color: "var(--s-muted)", fontSize: 12 }}>
+                      <td style={{ color: "var(--s-muted)", fontSize: 13 }}>
                         {renderSummaryCell(meta.slug, doc)}
                       </td>
                       <td>
                         {meta.drafts ? (
                           <Chip tone={doc._status === "published" ? "ok" : "warn"}>
-                            {doc._status === "published" ? "published" : "draft"}
+                            {doc._status === "published" ? "منشور" : "مسودة"}
                           </Chip>
                         ) : meta.slug === "messages" ? (
                           <Chip tone={stageMeta(doc.leadStage as string | undefined).tone}>
@@ -370,14 +377,14 @@ export function CollectionBrowser({
                       <td className="num">
                         <div style={{ display: "inline-flex", gap: 6 }}>
                           <Link className="studio-btn studio-btn--sm" href={href}>
-                            {meta.slug === "analytics-events" ? "Inspect" : "Edit"}
+                            {meta.slug === "analytics-events" ? "فحص" : "تعديل"}
                           </Link>
                           <button
                             type="button"
                             className="studio-btn studio-btn--sm studio-btn--danger"
                             onClick={() => void handleQuickDelete(id, title)}
                           >
-                            Delete
+                            حذف
                           </button>
                         </div>
                       </td>
@@ -389,20 +396,20 @@ export function CollectionBrowser({
           </div>
         )}
 
-        {/* Pagination */}
+        {/* الترقيم */}
         {result.totalPages > 1 ? (
-          <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", alignItems: "center", marginBlockStart: 12 }}>
+          <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", alignItems: "center", marginBlockStart: 14 }}>
             {result.page > 1 ? (
               <Link className="studio-btn studio-btn--sm" href={buildUrl({ page: result.page - 1 })}>
-                ← Previous
+                <SIcon name="chevronRight" size={13} /> السابق
               </Link>
             ) : null}
-            <span className="studio-tiny">
-              Page {result.page} / {result.totalPages}
+            <span className="studio-tiny studio-mono">
+              {result.page} / {result.totalPages}
             </span>
             {result.page < result.totalPages ? (
               <Link className="studio-btn studio-btn--sm" href={buildUrl({ page: result.page + 1 })}>
-                Next →
+                التالي <SIcon name="chevronLeft" size={13} />
               </Link>
             ) : null}
           </div>
@@ -417,7 +424,9 @@ export function CollectionBrowser({
 function renderSummaryCell(slug: string, doc: Record<string, unknown>): string {
   switch (slug) {
     case "projects":
-      return [doc.category, doc.discipline, doc.year].filter(Boolean).join(" · ") || "—";
+      return [doc.category === "design" ? "تصميم" : doc.category === "development" ? "تطوير" : doc.category, doc.discipline, doc.year]
+        .filter(Boolean)
+        .join(" · ") || "—";
     case "case-studies":
       return [doc.discipline, doc.nameAr].filter(Boolean).join(" · ") || "—";
     case "posts":
@@ -425,7 +434,7 @@ function renderSummaryCell(slug: string, doc: Record<string, unknown>): string {
     case "testimonials":
       return [doc.role, doc.company, doc.record].filter(Boolean).join(" · ") || "—";
     case "team-members":
-      return [`Order ${doc.order ?? 0}`, doc.nameAr].filter(Boolean).join(" · ");
+      return [`الترتيب ${doc.order ?? 0}`, doc.nameAr].filter(Boolean).join(" · ");
     case "messages": {
       const val = doc.leadStage === "won" ? doc.wonValue : doc.proposalValue;
       return [doc.service, doc.budget, typeof val === "number" && val > 0 ? usd(val) : null, ago(doc.createdAt as string | undefined)]
@@ -437,7 +446,7 @@ function renderSummaryCell(slug: string, doc: Record<string, unknown>): string {
     case "analytics-events":
       return [doc.locale, doc.device, doc.referrerHost, shortTime(String(doc.createdAt ?? ""))].filter(Boolean).join(" · ") || "—";
     case "users":
-      return `Joined ${shortTime(String(doc.createdAt ?? ""))}`;
+      return `تاريخ الإنشاء: ${shortTime(String(doc.createdAt ?? ""))}`;
     default:
       return "—";
   }

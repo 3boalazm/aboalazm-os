@@ -22,7 +22,7 @@ export interface CollectionMeta {
   slug: StudioCollectionSlug;
   label: string;
   singular: string;
-  group: "Content" | "Inbox" | "System";
+  group: "المحتوى" | "الوارد" | "النظام";
   description: string;
   drafts: boolean;
   allowsCreate: boolean;
@@ -39,10 +39,10 @@ export interface GlobalMeta {
 export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   {
     slug: "projects",
-    label: "Projects",
-    singular: "Project",
-    group: "Content",
-    description: "Work ledger entries — EN/AR copy, thumbnails, glow accents, and destination links.",
+    label: "المشاريع",
+    singular: "مشروع",
+    group: "المحتوى",
+    description: "سجل الأعمال — النصوص الإنجليزية والعربية، الصور المصغرة، ألوان التوهج، والروابط.",
     drafts: true,
     allowsCreate: true,
     defaultSort: "-updatedAt",
@@ -50,10 +50,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "case-studies",
-    label: "Case studies",
-    singular: "Case study",
-    group: "Content",
-    description: "Four-panel case files: Context, Research & Positioning, Execution & Tokens, Retro.",
+    label: "دراسات الحالة",
+    singular: "دراسة حالة",
+    group: "المحتوى",
+    description: "ملفات المشاريع ذات الأربع لوحات: السياق، البحث والتموضع، التنفيذ والمتغيرات، والمراجعة.",
     drafts: true,
     allowsCreate: true,
     defaultSort: "-updatedAt",
@@ -61,10 +61,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "posts",
-    label: "Writing",
-    singular: "Post",
-    group: "Content",
-    description: "Essays and system notes with structured Lexical blocks (tables, Mermaid, stats).",
+    label: "المقالات",
+    singular: "مقال",
+    group: "المحتوى",
+    description: "مقالات وملاحظات النظام مع محرر كتل Lexical (جداول، مخططات Mermaid، إحصائيات).",
     drafts: true,
     allowsCreate: true,
     defaultSort: "-publishedAt",
@@ -72,10 +72,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "media",
-    label: "Media",
-    singular: "Asset",
-    group: "Content",
-    description: "Uploaded images and PDFs backed by Vercel Blob with bilingual alt text.",
+    label: "الوسائط",
+    singular: "ملف",
+    group: "المحتوى",
+    description: "الصور وملفات PDF المرفوعة على Vercel Blob مع نصوص بديلة ثنائية اللغة.",
     drafts: false,
     allowsCreate: true,
     defaultSort: "-createdAt",
@@ -83,10 +83,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "testimonials",
-    label: "Testimonials",
-    singular: "Testimonial",
-    group: "Content",
-    description: "Client quotes tied to source records.",
+    label: "آراء العملاء",
+    singular: "رأي عميل",
+    group: "المحتوى",
+    description: "اقتباسات العملاء المرتبطة بأرقام السجلات المصدرية.",
     drafts: false,
     allowsCreate: true,
     defaultSort: "-createdAt",
@@ -94,10 +94,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "team-members",
-    label: "Team members",
-    singular: "Team member",
-    group: "Content",
-    description: "Studio team profiles ordered by ascending display order.",
+    label: "أعضاء الفريق",
+    singular: "عضو فريق",
+    group: "المحتوى",
+    description: "ملفات فريق الاستوديو مرتبة تصاعديًا حسب حقل الترتيب.",
     drafts: false,
     allowsCreate: true,
     defaultSort: "order",
@@ -105,10 +105,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "messages",
-    label: "Enquiries (raw)",
-    singular: "Enquiry",
-    group: "Inbox",
-    description: "Full /contact submissions with attribution, deal stage, and values.",
+    label: "الاستفسارات (خام)",
+    singular: "استفسار",
+    group: "الوارد",
+    description: "كامل رسائل صفحة التواصل مع بيانات الإحالة، مرحلة الصفقة، والقيم المالية.",
     drafts: false,
     allowsCreate: false,
     defaultSort: "-createdAt",
@@ -116,10 +116,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "resource-leads",
-    label: "Resource leads",
-    singular: "Resource lead",
-    group: "Inbox",
-    description: "Emails captured at the /resources download gate.",
+    label: "مهتمو الموارد",
+    singular: "مهتم بمورد",
+    group: "الوارد",
+    description: "عناوين البريد المسجلة عند بوابة تحميل الموارد في /resources.",
     drafts: false,
     allowsCreate: true,
     defaultSort: "-createdAt",
@@ -127,10 +127,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "analytics-events",
-    label: "Analytics events",
-    singular: "Analytics event",
-    group: "System",
-    description: "First-party browser telemetry collected by /api/track.",
+    label: "أحداث التحليلات",
+    singular: "حدث تحليلات",
+    group: "النظام",
+    description: "قياسات المتصفح من الطرف الأول التي يجمعها المسار /api/track.",
     drafts: false,
     allowsCreate: false,
     defaultSort: "-createdAt",
@@ -138,10 +138,10 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
   },
   {
     slug: "users",
-    label: "Users",
-    singular: "User",
-    group: "System",
-    description: "Operator logins sharing the single Payload authentication table.",
+    label: "المستخدمون",
+    singular: "مستخدم",
+    group: "النظام",
+    description: "حسابات المشغلين المشاركة في جدول مصادقة Payload الموحّد.",
     drafts: false,
     allowsCreate: true,
     defaultSort: "-createdAt",
@@ -152,13 +152,13 @@ export const STUDIO_COLLECTIONS: readonly CollectionMeta[] = [
 export const STUDIO_GLOBALS: readonly GlobalMeta[] = [
   {
     slug: "offers",
-    label: "Offers & pricing",
-    description: "Service tiers, investment-value metrics, and à la carte pricing tables.",
+    label: "العروض والأسعار",
+    description: "الباقات الخدمية، مؤشرات قيمة الاستثمار، وجداول الخدمات المنفصلة.",
   },
   {
     slug: "settings",
-    label: "Site settings",
-    description: "Contact details, social links, CV PDF, and fallback SEO metadata.",
+    label: "إعدادات الموقع",
+    description: "بيانات التواصل، الروابط الاجتماعية، ملف السيرة الذاتية PDF، وبيانات SEO الافتراضية.",
   },
 ] as const;
 

@@ -8,25 +8,6 @@ import { Drawer, Toasts, useToasts } from "@/components/studio/interactive";
 import { moveLeadStage, saveLeadDetails, setLeadRead } from "@/app/studio/leads/actions";
 import type { LeadCounts, Overview } from "@/lib/studio/metrics";
 
-/**
- * LEADS & PIPELINE — the working surface for the only funnel stage with a
- * complete audit trail, now with hands (P3).
- *
- * The board still is ordered by *commitment*, left to right (New →
- * Qualified → Proposal → Won), and Lost / Not-a-fit are still not board
- * columns — closed work is not pipeline. What changed: cards move.
- * Dragging a card (or using the drawer's stage select) writes
- * `leadStage` through app/studio/leads/actions.ts with the operator's
- * own Payload session — the same access rules as the admin panel, no
- * console-only write path. A failed save reverts the card and says why;
- * nothing is ever "moved" only on screen.
- *
- * The drawer edits the fields a stage decision actually needs — stage,
- * proposal/won values, closed reason, read flag — and links out to the
- * full Payload document for everything else. One editor of record,
- * two speeds of working.
- */
-
 type Lead = {
   id: string | number;
   name?: string;
@@ -52,18 +33,18 @@ type Lead = {
 };
 
 const COLUMNS = [
-  { key: "new", label: "New", hint: "Not opened yet" },
-  { key: "qualified", label: "Qualified", hint: "Real conversation" },
-  { key: "proposal-sent", label: "Proposal", hint: "A number was quoted" },
-  { key: "won", label: "Won", hint: "Contracted" },
+  { key: "new", label: "جديد", hint: "لم يُفتح بعد" },
+  { key: "qualified", label: "مؤهل", hint: "بدأ النقاش الفعلي" },
+  { key: "proposal-sent", label: "عرض سعر", hint: "أُرسلت تسعيرة محددة" },
+  { key: "won", label: "فائز", hint: "تم التعاقد" },
 ] as const;
 
 const CLOSED_REASONS = [
-  { value: "budget", label: "Budget" },
-  { value: "timing", label: "Timing" },
-  { value: "scope", label: "Scope mismatch" },
-  { value: "no-response", label: "No response" },
-  { value: "other", label: "Other / unknown" },
+  { value: "budget", label: "الميزانية" },
+  { value: "timing", label: "التوقيت" },
+  { value: "scope", label: "عدم توافق النطاق" },
+  { value: "no-response", label: "عدم الاستجابة" },
+  { value: "other", label: "أخرى / غير معروف" },
 ] as const;
 
 export function LeadsView({
@@ -82,7 +63,6 @@ export function LeadsView({
   const { toasts, push } = useToasts();
   const router = useRouter();
 
-  /* Server refreshes (after a save) deliver a new array; adopt it. */
   useEffect(() => {
     setLeads(initialLeads);
   }, [initialLeads]);
@@ -100,8 +80,6 @@ export function LeadsView({
   const openLead = (lead: Lead) => {
     setSelectedId(lead.id);
     if (!lead.isRead) {
-      // Opening an enquiry means it has been read. Optimistic, and
-      // reverted loudly if the database disagrees.
       setLeads((ls) => ls.map((l) => (String(l.id) === String(lead.id) ? { ...l, isRead: true } : l)));
       void setLeadRead(lead.id, true).then((res) => {
         if (!res.ok) {
@@ -123,95 +101,103 @@ export function LeadsView({
       push("danger", res.error);
       return;
     }
-    push("ok", `${current.name ?? "Enquiry"} → ${stageMeta(stage).label}`);
+    push("ok", `${current.name ?? "الاستفسار"} ← ${stageMeta(stage).label}`);
     router.refresh();
   };
 
   return (
     <>
       <ViewHeader
-        eyebrow={`Leads & pipeline · ${overview.range.label}`}
-        title="Who is waiting on the studio"
-        description="Every row is an enquiry that was actually saved to the database. Drag a card to move its stage — the move is saved, or it rolls back and tells you why."
+        eyebrow={`العملاء المحتملون ومسار البيع · ${overview.range.label}`}
+        title="من ينتظر الاستوديو الآن"
+        description="كل صف هنا استفسار محفوظ فعليًا في قاعدة البيانات. اسحب أي بطاقة لنقلها إلى مرحلة أخرى — يتم الحفظ مباشرًة في Payload أو يتراجع ويوضح السبب."
         aside={<RangeControl current={overview.range.key} basePath="/studio/leads" />}
       />
 
-      {/* ── the four numbers that decide the week ─────────────────────── */}
+      {/* ── الأرقام الأربعة الحاسمة ───────────────────────────────────────── */}
       <div className="studio-bento">
         <Tile
           span="w3"
-          title={<b>Open enquiries</b>}
-          provenance={<>Rows in <code>messages</code> at stage New / Qualified / Proposal</>}
+          title={<b>استفسارات مفتوحة</b>}
+          provenance={
+            <>
+              صفوف <code>messages</code> في مراحل: جديد / مؤهل / عرض سعر
+            </>
+          }
         >
-          <div className="studio-hero studio-hero--xl">
+          <div className="studio-hero studio-hero--xl studio-mono">
             {num((counts.byStage.new ?? 0) + (counts.byStage.qualified ?? 0) + (counts.byStage["proposal-sent"] ?? 0))}
           </div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            {counts.unread} unread · {counts.byStage.new ?? 0} untouched
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            {counts.unread} غير مقروء · {counts.byStage.new ?? 0} لم يُفتح بعد
           </p>
         </Tile>
 
         <Tile
           span="w3"
-          title={<b>Quoted & open</b>}
+          title={<b>عروض مفتوحة</b>}
           provenance={
             <>
-              Sum of <code>proposalValue</code> where the stage is still open
+              مجموع <code>proposalValue</code> في المراحل التي لا تزال مفتوحة
             </>
           }
         >
-          <div className="studio-hero studio-hero--xl">{usd(counts.openProposalValue)}</div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            across {counts.byStage["proposal-sent"] ?? 0} live proposal{(counts.byStage["proposal-sent"] ?? 0) === 1 ? "" : "s"}
+          <div className="studio-hero studio-hero--xl studio-mono">{usd(counts.openProposalValue)}</div>
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            عبر {counts.byStage["proposal-sent"] ?? 0} عرض سعر قيد الانتظار
           </p>
         </Tile>
 
         <Tile
           span="w3"
-          title={<b>Contracted</b>}
+          title={<b>القيمة المتعاقد عليها</b>}
           provenance={
             <>
-              Sum of <code>wonValue</code> on Won only — revenue booked is a different number this dashboard cannot see
+              مجموع <code>wonValue</code> للصفقات الفائزة فقط — تعبّر عن العقود الموقّعة وليست إيرادات محققة
             </>
           }
         >
-          <div className="studio-hero studio-hero--xl">{usd(counts.contractedValue)}</div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            {counts.wonCount} won · {counts.lostCount} closed without
+          <div className="studio-hero studio-hero--xl studio-mono">{usd(counts.contractedValue)}</div>
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            {counts.wonCount} فائز · {counts.lostCount} مغلق دون تعاقد
           </p>
         </Tile>
 
         <Tile
           span="w3"
-          title={<b>Enquiry → won</b>}
-          provenance={<>Won ÷ all saved enquiries, all time. A form submission is not a lead; this ratio shows how many became work.</>}
+          title={<b>معدل التحويل للفوز</b>}
+          provenance={
+            <>
+              الفائز ÷ إجمالي الاستفسارات المحفوظة (كل الفترات)
+            </>
+          }
         >
-          <div className="studio-hero studio-hero--xl">{conversion == null ? "—" : `${conversion}%`}</div>
-          <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-            {closedValue > 0 ? `${usd(closedValue)} quoted and lost` : "no quoted value lost"}
+          <div className="studio-hero studio-hero--xl studio-mono">{conversion == null ? "—" : `${conversion}%`}</div>
+          <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+            {closedValue > 0 ? `${usd(closedValue)} قيمة عروض لم تُغلق بالفوز` : "لم تُفقد أي عروض مسعّرة"}
           </p>
         </Tile>
       </div>
 
-      {/* ── the board ─────────────────────────────────────────────────── */}
+      {/* ── لوحة المراحل (Kanban) ───────────────────────────────────────── */}
       <Tile
         span="w12"
-        title={<b>Pipeline board</b>}
-        aside={<Chip tone="neutral">{leads.length} enquiries total</Chip>}
+        title={<b>لوحة مراحل المبيعات</b>}
+        aside={<Chip tone="neutral">{leads.length} استفسار إجمالًا</Chip>}
         provenance={
           <>
-            Grouped by <code>leadStage</code> · drag a card or use its drawer to move it · card values are the manually entered{" "}
-            <code>proposalValue</code> / <code>wonValue</code>
+            مجمّعة حسب <code>leadStage</code> · اسحب البطاقة أو افتحها لتعديل المرحلة والقيمة <code>proposalValue</code> /{" "}
+            <code>wonValue</code>
           </>
         }
       >
         {leads.length === 0 ? (
           <EmptyState
-            title="No enquiries yet"
-            body="When the contact form saves one, it lands in the New column. Nothing is seeded on this screen."
+            title="لا توجد استفسارات بعد"
+            body="عند إرسال أي زائر نموذج التواصل سيصل إلى عمود «جديد». لا توجد بيانات تجريبية على هذه الشاشة."
             action={
               <Link className="studio-btn studio-btn--sm" href="/contact" target="_blank" rel="noopener">
-                Open the contact form <SIcon name="arrowUpRight" size={11} />
+                فتح نموذج التواصل <SIcon name="arrowUpRight" size={13} />
               </Link>
             }
           />
@@ -224,7 +210,7 @@ export function LeadsView({
                 <section
                   key={col.key}
                   className={`studio-col ${overCol === col.key ? "studio-col--over" : ""}`}
-                  aria-label={`${col.label} — ${items.length} leads`}
+                  aria-label={`${col.label} — ${items.length} عميل محتمل`}
                   onDragOver={(e) => {
                     e.preventDefault();
                     setOverCol(col.key);
@@ -242,12 +228,12 @@ export function LeadsView({
                     <b>{items.length}</b>
                   </div>
                   {col.key === "won" && total > 0 ? (
-                    <p className="studio-tiny" style={{ marginBlockEnd: 7, color: "var(--s-ok)" }}>
-                      {usd(total)} contracted
+                    <p className="studio-tiny studio-mono" style={{ marginBlockEnd: 8, color: "var(--s-ok)" }}>
+                      {usd(total)} متعاقد عليه
                     </p>
                   ) : col.key === "proposal-sent" && total > 0 ? (
-                    <p className="studio-tiny" style={{ marginBlockEnd: 7, color: "var(--s-warn)" }}>
-                      {usd(total)} quoted
+                    <p className="studio-tiny studio-mono" style={{ marginBlockEnd: 8, color: "var(--s-warn)" }}>
+                      {usd(total)} عروض مفتوحة
                     </p>
                   ) : null}
 
@@ -255,7 +241,7 @@ export function LeadsView({
                     <div className="studio-empty">
                       {col.hint}
                       <br />
-                      nothing here
+                      لا شيء هنا
                     </div>
                   ) : (
                     items.map((lead) => (
@@ -281,24 +267,24 @@ export function LeadsView({
                             openLead(lead);
                           }
                         }}
-                        title="Drag to move · click to open"
+                        title="اسحب لنقل المرحلة · اضغط لفتح التفاصيل"
                       >
                         <span className="studio-card__top">
                           {lead.isRead ? null : <span className="studio-dot" />}
-                          <span className="studio-card__name">{lead.name ?? "Unnamed"}</span>
-                          <SIcon name="grip" size={12} className="studio-card__grip" />
+                          <span className="studio-card__name">{lead.name ?? "بدون اسم"}</span>
+                          <SIcon name="grip" size={14} className="studio-card__grip" />
                         </span>
                         <span className="studio-card__co">{lead.company || lead.email}</span>
                         <span className="studio-card__foot">
-                          <span className="studio-ava" style={{ width: 18, height: 18, fontSize: 8 }}>
-                            {initials(lead.name ?? "?")}
+                          <span className="studio-ava" style={{ width: 20, height: 20, fontSize: 10 }}>
+                            {initials(lead.name ?? "؟")}
                           </span>
-                          <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                            {lead.sourcePage || "direct"}
+                          <span className="studio-mono" style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                            {lead.sourcePage || "مباشر"}
                           </span>
-                          {valueOf(lead) > 0 ? <span className="studio-card__val">{usd(valueOf(lead))}</span> : null}
+                          {valueOf(lead) > 0 ? <span className="studio-card__val studio-mono">{usd(valueOf(lead))}</span> : null}
                         </span>
-                        <span className="studio-card__foot" style={{ marginBlockStart: 3 }}>
+                        <span className="studio-card__foot" style={{ marginBlockStart: 4 }}>
                           <span>{ago(lead.createdAt)}</span>
                           {lead.budget ? <span style={{ marginInlineStart: "auto" }}>{lead.budget}</span> : null}
                         </span>
@@ -312,16 +298,30 @@ export function LeadsView({
         )}
       </Tile>
 
-      {/* ── stale + closed ────────────────────────────────────────────── */}
+      {/* ── متأخرة + مغلقة ──────────────────────────────────────────────── */}
       <div className="studio-bento">
         <Tile
           span="w7"
-          title={<b>Untouched for 3+ days</b>}
-          aside={stale.length ? <Chip tone="warn" icon="clock">{stale.length}</Chip> : <Chip tone="ok" icon="check">none</Chip>}
-          provenance={<>Enquiries still at stage New whose <code>createdAt</code> is older than 3 days</>}
+          title={<b>لم تُمس منذ +3 أيام</b>}
+          aside={
+            stale.length ? (
+              <Chip tone="warn" icon="clock">
+                {stale.length}
+              </Chip>
+            ) : (
+              <Chip tone="ok" icon="check">
+                لا يوجد
+              </Chip>
+            )
+          }
+          provenance={
+            <>
+              استفسارات ما زالت في مرحلة «جديد» وتجاوز <code>createdAt</code> الخاص بها 3 أيام
+            </>
+          }
         >
           {stale.length === 0 ? (
-            <p className="studio-sub">Nothing has been sitting at New for more than three days.</p>
+            <p className="studio-sub">لا توجد استفسارات متروكة في مرحلة «جديد» لأكثر من ثلاثة أيام.</p>
           ) : (
             <div className="studio-rows">
               {stale.map((lead) => {
@@ -331,19 +331,19 @@ export function LeadsView({
                     key={String(lead.id)}
                     type="button"
                     className="studio-row studio-row--btn"
-                    style={{ gridTemplateColumns: "26px minmax(0,1fr) auto" }}
+                    style={{ gridTemplateColumns: "30px minmax(0,1fr) auto" }}
                     onClick={() => openLead(lead)}
                   >
-                    <span className="studio-ava">{initials(lead.name ?? "?")}</span>
+                    <span className="studio-ava">{initials(lead.name ?? "؟")}</span>
                     <span style={{ minWidth: 0, textAlign: "start" }}>
-                      <span className="studio-row__name">{lead.name ?? "Unnamed"}</span>
+                      <span className="studio-row__name">{lead.name ?? "بدون اسم"}</span>
                       <span className="studio-row__meta">
-                        <em>{lead.service ?? "no service"}</em>
+                        <em>{lead.service ?? "بدون خدمة محددة"}</em>
                         <span aria-hidden>·</span>
-                        <em>{lead.budget ?? "no budget"}</em>
+                        <em>{lead.budget ?? "بدون ميزانية"}</em>
                       </span>
                     </span>
-                    <Chip tone="danger">{days}d</Chip>
+                    <Chip tone="danger">منذ {days} ي</Chip>
                   </button>
                 );
               })}
@@ -353,17 +353,20 @@ export function LeadsView({
 
         <Tile
           span="w5"
-          title={<b>Closed without work</b>}
+          title={<b>أُغلقت دون تعاقد</b>}
           aside={<Chip tone="neutral">{closed.length}</Chip>}
-          provenance={<>Rows at stage Lost or Not a fit, with the reason recorded on the document</>}
+          provenance={<>الصفوف في مرحلة «خاسر» أو «غير مناسب» حسب السبب المسجّل</>}
         >
           {closed.length === 0 ? (
-            <p className="studio-sub">No enquiries have been closed out yet.</p>
+            <p className="studio-sub">لم يُغلق أي استفسار بدون تعاقد حتى الآن.</p>
           ) : (
             <div className="studio-dist">
               {Object.entries(
                 closed.reduce<Record<string, number>>((acc, l) => {
-                  const key = l.closedReason || "no reason recorded";
+                  const key =
+                    CLOSED_REASONS.find((r) => r.value === l.closedReason)?.label ??
+                    l.closedReason ??
+                    "دون سبب مسجّل";
                   acc[key] = (acc[key] ?? 0) + 1;
                   return acc;
                 }, {}),
@@ -372,7 +375,7 @@ export function LeadsView({
                 .map(([reason, count]) => (
                   <div key={reason} className="studio-dist__row">
                     <span className="studio-dist__label">{reason}</span>
-                    <span className="studio-dist__val">{count}</span>
+                    <span className="studio-dist__val studio-mono">{count}</span>
                     <span className="studio-dist__track">
                       <span className="studio-dist__fill" style={{ width: `${(count / closed.length) * 100}%` }} />
                     </span>
@@ -383,31 +386,31 @@ export function LeadsView({
         </Tile>
       </div>
 
-      {/* ── every enquiry ─────────────────────────────────────────────── */}
+      {/* ── كل الاستفسارات ─────────────────────────────────────────────── */}
       <Tile
         span="w12"
-        title={<b>All enquiries</b>}
-        aside={<Chip tone="neutral">{leads.length} rows</Chip>}
+        title={<b>جميع الاستفسارات</b>}
+        aside={<Chip tone="neutral">{leads.length} سجل</Chip>}
         provenance={
           <>
-            <code>messages</code>, newest first · times are relative to this request · click a row to open its drawer
+            مجموعة <code>messages</code>، الأحدث أولًا · اضغط على أي اسم لفتح لوحة التعديل السريع
           </>
         }
       >
         {leads.length === 0 ? (
-          <EmptyState title="Nothing saved yet" body="The table fills itself the moment a real enquiry arrives." />
+          <EmptyState title="لا توجد سجلات محفوظة بعد" body="يمتلئ الجدول تلقائيًا فور وصول أول استفسار حقيقي." />
         ) : (
           <div className="studio-scroll-x">
             <table className="studio-table">
               <thead>
                 <tr>
-                  <th>Who</th>
-                  <th>Service</th>
-                  <th>Budget</th>
-                  <th>Stage</th>
-                  <th>Source</th>
-                  <th>Value</th>
-                  <th>Arrived</th>
+                  <th>العميل</th>
+                  <th>الخدمة</th>
+                  <th>الميزانية</th>
+                  <th>المرحلة</th>
+                  <th>المصدر</th>
+                  <th style={{ textAlign: "end" }}>القيمة</th>
+                  <th style={{ textAlign: "end" }}>الوصول</th>
                 </tr>
               </thead>
               <tbody>
@@ -417,8 +420,8 @@ export function LeadsView({
                     <tr key={String(lead.id)}>
                       <td>
                         <button type="button" className="studio-table__link" onClick={() => openLead(lead)}>
-                          {lead.isRead ? null : <span className="studio-dot" style={{ display: "inline-block", marginInlineEnd: 5, verticalAlign: "middle" }} />}
-                          {lead.name ?? "Unnamed"}
+                          {lead.isRead ? null : <span className="studio-dot" style={{ display: "inline-block", marginInlineEnd: 6, verticalAlign: "middle" }} />}
+                          {lead.name ?? "بدون اسم"}
                         </button>
                         <span className="studio-tiny" style={{ display: "block" }}>
                           {lead.company || lead.email}
@@ -429,11 +432,11 @@ export function LeadsView({
                       <td>
                         <Chip tone={stage.tone}>{stage.short}</Chip>
                       </td>
-                      <td style={{ color: "var(--s-muted)", whiteSpace: "nowrap", fontFamily: "var(--font-mono, monospace)", fontSize: 10.5 }}>
+                      <td className="studio-mono" style={{ color: "var(--s-muted)", whiteSpace: "nowrap", fontSize: 12 }}>
                         {lead.sourcePage || "direct"}
                         {lead.utmSource ? ` · ${lead.utmSource}` : ""}
                       </td>
-                      <td className="num">{valueOf(lead) > 0 ? usd(valueOf(lead)) : "—"}</td>
+                      <td className="num studio-mono">{valueOf(lead) > 0 ? usd(valueOf(lead)) : "—"}</td>
                       <td className="num" style={{ color: "var(--s-muted)" }}>
                         {ago(lead.createdAt)}
                       </td>
@@ -447,22 +450,22 @@ export function LeadsView({
       </Tile>
 
       <p className="studio-tiny" style={{ paddingInline: 4 }}>
-        Stage and values save to the same <code>messages</code> documents Payload edits — this board is a faster hand on the same
-        record, not a second copy. The full document (brief history, every field) is one click away inside the drawer.
+        تحفظ هذه اللوحة المرحلة والقيم المالية مباشرة في مستندات <code>messages</code> نفسها داخل قاعدة البيانات. ويمكنك فتح
+        المستند الكامل بضغطة واحدة من داخل الدرج الجانبي.
       </p>
 
-      {/* ── the drawer ────────────────────────────────────────────────── */}
+      {/* ── الدرج الجانبي ──────────────────────────────────────────────── */}
       <Drawer
         open={Boolean(selected)}
         onClose={() => setSelectedId(null)}
         title={
           selected ? (
             <span style={{ display: "flex", alignItems: "center", gap: 9, minWidth: 0 }}>
-              <span className="studio-ava">{initials(selected.name ?? "?")}</span>
+              <span className="studio-ava">{initials(selected.name ?? "؟")}</span>
               <span style={{ minWidth: 0 }}>
-                <strong style={{ display: "block", fontSize: 14, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                <strong style={{ display: "block", fontSize: 15, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                   {selected.isRead ? null : <span className="studio-dot" style={{ display: "inline-block", marginInlineEnd: 6, verticalAlign: "middle" }} />}
-                  {selected.name ?? "Unnamed enquiry"}
+                  {selected.name ?? "استفسار بدون اسم"}
                 </strong>
                 <span className="studio-tiny" style={{ display: "block" }}>
                   {selected.company || selected.email || ""}
@@ -480,7 +483,7 @@ export function LeadsView({
             key={String(selected.id)}
             lead={selected}
             onSaved={() => {
-              push("ok", "Lead saved");
+              push("ok", "تم حفظ بيانات العميل");
               router.refresh();
             }}
             onError={(msg) => push("danger", msg)}
@@ -521,14 +524,14 @@ function LeadDrawer({
   };
 
   const meta: [string, string][] = [
-    ["Service", lead.service ?? "—"],
-    ["Package", lead.packageTier ?? "—"],
-    ["Budget", lead.budget ?? "—"],
-    ["Timeline", lead.timeline ?? "—"],
-    ["Language", lead.locale ?? "—"],
-    ["Source page", lead.sourcePage || "direct"],
-    ["Campaign", [lead.utmSource, lead.utmMedium, lead.utmCampaign].filter(Boolean).join(" / ") || "—"],
-    ["Arrived", lead.createdAt ? `${shortTime(lead.createdAt)} (${ago(lead.createdAt)})` : "—"],
+    ["الخدمة", lead.service ?? "—"],
+    ["الباقة", lead.packageTier ?? "—"],
+    ["الميزانية", lead.budget ?? "—"],
+    ["الجدول الزمني", lead.timeline ?? "—"],
+    ["اللغة", lead.locale ?? "—"],
+    ["صفحة المصدر", lead.sourcePage || "مباشر"],
+    ["الحملة الإعلانية", [lead.utmSource, lead.utmMedium, lead.utmCampaign].filter(Boolean).join(" / ") || "—"],
+    ["تاريخ الوصول", lead.createdAt ? `${shortTime(lead.createdAt)} (${ago(lead.createdAt)})` : "—"],
   ];
 
   return (
@@ -544,16 +547,16 @@ function LeadDrawer({
 
       {lead.brief ? (
         <div>
-          <p className="studio-up" style={{ margin: "0 0 5px" }}>
-            Brief
+          <p className="studio-up" style={{ margin: "0 0 6px" }}>
+            ملخص المشروع
           </p>
           <p className="studio-brief">{lead.brief}</p>
         </div>
       ) : null}
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         <div className="studio-field">
-          <label htmlFor="lead-stage">Stage</label>
+          <label htmlFor="lead-stage">المرحلة</label>
           <select id="lead-stage" className="studio-input" value={stage} onChange={(e) => setStage(e.target.value)}>
             {STAGES.map((s) => (
               <option key={s.key} value={s.key}>
@@ -565,23 +568,25 @@ function LeadDrawer({
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label htmlFor="lead-proposal">Proposal value (USD)</label>
+            <label htmlFor="lead-proposal">قيمة العرض (USD)</label>
             <input
               id="lead-proposal"
               className="studio-input"
+              dir="ltr"
               inputMode="decimal"
-              placeholder="Only once quoted"
+              placeholder="عند التسعير فقط"
               value={proposalValue}
               onChange={(e) => setProposalValue(e.target.value)}
             />
           </div>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label htmlFor="lead-won">Won value (USD)</label>
+            <label htmlFor="lead-won">قيمة العقد الفائز (USD)</label>
             <input
               id="lead-won"
               className="studio-input"
+              dir="ltr"
               inputMode="decimal"
-              placeholder="Only once signed"
+              placeholder="عند التوقيع فقط"
               value={wonValue}
               onChange={(e) => setWonValue(e.target.value)}
             />
@@ -590,9 +595,9 @@ function LeadDrawer({
 
         {(stage === "lost" || stage === "not-a-fit") && (
           <div className="studio-field">
-            <label htmlFor="lead-reason">Closed reason</label>
+            <label htmlFor="lead-reason">سبب الإغلاق</label>
             <select id="lead-reason" className="studio-input" value={closedReason} onChange={(e) => setClosedReason(e.target.value)}>
-              <option value="">No reason recorded</option>
+              <option value="">دون سبب مسجّل</option>
               {CLOSED_REASONS.map((r) => (
                 <option key={r.value} value={r.value}>
                   {r.label}
@@ -604,27 +609,26 @@ function LeadDrawer({
 
         <label className="studio-check">
           <input type="checkbox" checked={isRead} onChange={(e) => setIsRead(e.target.checked)} />
-          <span>Read</span>
+          <span>مقروء</span>
         </label>
       </div>
 
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
         <button type="button" className="studio-btn studio-btn--primary" onClick={() => void save()} disabled={saving}>
-          {saving ? "Saving…" : "Save changes"}
+          {saving ? "جارٍ الحفظ…" : "حفظ التعديلات"}
         </button>
         {lead.email ? (
           <a className="studio-btn" href={`mailto:${lead.email}`}>
-            <SIcon name="mail" size={12} /> Reply
+            <SIcon name="mail" size={14} /> رد بالبريد
           </a>
         ) : null}
         <Link className="studio-btn" href={`/studio/manage/messages/${lead.id}`}>
-          Full document <SIcon name="arrowRight" size={11} />
+          المستند الكامل <SIcon name="arrowLeft" size={13} />
         </Link>
       </div>
 
       <p className="studio-tiny">
-        Saves write the same <code>messages</code> row Payload edits, with your own session — if access is ever revoked, these
-        buttons stop working at the same moment the admin panel does.
+        تكتب هذه التعديلات مباشرة في نفس صف <code>messages</code> داخل Payload بجلسة دخولك الحالية.
       </p>
     </div>
   );

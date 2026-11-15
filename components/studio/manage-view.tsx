@@ -2,31 +2,25 @@ import Link from "next/link";
 import { Chip, SIcon, Tile, ViewHeader, ago, num, shortTime } from "@/components/studio/ui";
 import type { CmsInventory, Overview } from "@/lib/studio/metrics";
 
-/**
- * MANAGE — native Studio CMS hub for all 10 collections and 2 globals.
- *
- * Every card reports live Postgres row counts (with draft breakdowns where
- * `_status` exists) and opens the native Studio editor directly inside `/studio`.
- */
 export function ManageView({ inventory, activity }: { inventory: CmsInventory; activity: Overview["activity"] }) {
   const groups = [...new Set(inventory.collections.map((c) => c.group))];
 
   return (
     <>
       <ViewHeader
-        eyebrow="Manage CMS"
-        title="Everything the CMS holds"
-        description="Real row counts from Postgres across all 10 collections and 2 globals. Browse, upload, draft, publish, and revalidate directly inside Studio."
+        eyebrow="إدارة المحتوى (CMS)"
+        title="كل ما يحتويه نظام المحتوى"
+        description="إحصائيات حقيقية من PostgreSQL لجميع المجموعات العشر والإعدادين العامين. تصفّح، ارفع الوسائط، أنشئ مسودات، انشر وحدّث الموقع مباشرة من داخل الاستوديو."
         aside={
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Link className="studio-btn studio-btn--primary" href="/studio/manage/posts/new">
-              + New post
+              + مقال جديد
             </Link>
             <Link className="studio-btn" href="/studio/manage/projects/new">
-              + New project
+              + مشروع جديد
             </Link>
             <Link className="studio-btn" href="/studio/manage/media">
-              Media library <SIcon name="arrowRight" size={12} />
+              مكتبة الوسائط <SIcon name="arrowLeft" size={14} />
             </Link>
           </div>
         }
@@ -48,27 +42,31 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
                   aside={
                     col.drafts ? (
                       <Chip tone="warn" icon="alert">
-                        {col.drafts} draft{col.drafts === 1 ? "" : "s"}
+                        {col.drafts} مسودة
                       </Chip>
                     ) : undefined
                   }
                   provenance={
                     <>
-                      Rows in <code>{col.slug}</code> · counted at {shortTime(inventory.asOf)}
+                      صفوف <code>{col.slug}</code> · في {shortTime(inventory.asOf)}
                     </>
                   }
                 >
-                  <div className="studio-hero">{num(col.total)}</div>
-                  <p className="studio-sub" style={{ marginBlock: "1px 0 12px" }}>
-                    {col.drafts == null ? (col.total === 1 ? "document" : "documents") : `${col.total === 1 ? "document" : "documents"} · ${col.total - col.drafts} published`}
+                  <div className="studio-hero studio-mono">{num(col.total)}</div>
+                  <p className="studio-sub" style={{ marginBlock: "2px 13px" }}>
+                    {col.drafts == null
+                      ? col.total === 1
+                        ? "مستند واحد"
+                        : `${num(col.total)} مستندات`
+                      : `${num(col.total)} مستند · ${num(col.total - col.drafts)} منشور`}
                   </p>
                   <div style={{ display: "flex", gap: 7, marginBlockStart: "auto", flexWrap: "wrap" }}>
                     <Link className="studio-btn studio-btn--sm" href={col.href}>
-                      Open <SIcon name="arrowRight" size={11} />
+                      فتح <SIcon name="arrowLeft" size={13} />
                     </Link>
                     {col.allowsCreate ? (
                       <Link className="studio-btn studio-btn--sm" href={col.createHref}>
-                        New
+                        جديد
                       </Link>
                     ) : null}
                   </div>
@@ -81,12 +79,16 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
       <div className="studio-bento">
         <Tile
           span="w7"
-          title={<b>Recently changed</b>}
-          aside={<Chip tone="neutral">newest first</Chip>}
-          provenance={<>Newest <code>updatedAt</code> across projects, posts and case studies — opens native Studio editors</>}
+          title={<b>أحدث التعديلات</b>}
+          aside={<Chip tone="neutral">الأحدث أولًا</Chip>}
+          provenance={
+            <>
+              أحدث قيم <code>updatedAt</code> في المشاريع والمقالات ودراسات الحالة
+            </>
+          }
         >
           {activity.length === 0 ? (
-            <p className="studio-sub">No content rows yet.</p>
+            <p className="studio-sub">لا توجد عناصر محتوى بعد.</p>
           ) : (
             <div className="studio-rows">
               {activity.map((row) => (
@@ -97,7 +99,7 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
                       <em>{row.kind}</em>
                     </span>
                   </span>
-                  <Chip tone={row.status === "published" ? "ok" : "warn"}>{row.status}</Chip>
+                  <Chip tone={row.status === "published" ? "ok" : "warn"}>{row.status === "published" ? "منشور" : "مسودة"}</Chip>
                   <span className="studio-tiny" style={{ whiteSpace: "nowrap" }}>
                     {ago(row.at)}
                   </span>
@@ -109,29 +111,29 @@ export function ManageView({ inventory, activity }: { inventory: CmsInventory; a
 
         <Tile
           span="w5"
-          title={<b>Site-wide documents</b>}
-          provenance={<>Payload globals — single documents the whole site reads, edited directly inside Studio</>}
+          title={<b>الإعدادات العامة للموقع</b>}
+          provenance={<>مستندات Payload العامة (Globals) — تُحرَّر مباشرة من داخل الاستوديو</>}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
             {inventory.globals.map((g) => (
               <div key={g.slug} style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <span style={{ minWidth: 0, flex: 1 }}>
-                  <span className="studio-row__name" style={{ fontSize: 12.5 }}>
+                  <span className="studio-row__name" style={{ fontSize: 14 }}>
                     {g.label}
                   </span>
                   <span className="studio-tiny" style={{ display: "block" }}>
-                    {g.updatedAt ? `last edited ${ago(g.updatedAt)}` : "never edited"}
+                    {g.updatedAt ? `آخر تعديل ${ago(g.updatedAt)}` : "لم يُعدّل بعد"}
                   </span>
                 </span>
                 <Link className="studio-btn studio-btn--sm" href={g.href}>
-                  Edit <SIcon name="arrowRight" size={11} />
+                  تعديل <SIcon name="arrowLeft" size={13} />
                 </Link>
               </div>
             ))}
           </div>
-          <p className="studio-tiny" style={{ marginBlockStart: 12 }}>
-            Offers drive the pricing page; Settings drive contact details and the CV link. Saving either revalidates the live site
-            through the same Payload hooks as a collection save.
+          <p className="studio-tiny" style={{ marginBlockStart: 14 }}>
+            مستند «العروض» يدير صفحة الباقات والأسعار؛ ومستند «الإعدادات» يدير بيانات التواصل وملف السيرة الذاتية. حفظ أي
+            منهما يحدّث الموقع العام فورًا.
           </p>
         </Tile>
       </div>

@@ -5,18 +5,8 @@ import { getPayload } from "@/lib/payload";
 import { getStudioUser } from "@/lib/studio/auth";
 
 /**
- * LEAD WRITES (P3) — the console's first mutations, deliberately narrow.
- *
- * The board used to be read-only by design: Payload owned the save path.
- * P3 keeps that ownership and adds the two gestures an operator actually
- * repeats all day — moving a stage and recording the numbers — through
- * the same Local API, with `overrideAccess: false` and the operator's own
- * session. Access rules that protect the admin panel protect these
- * actions identically; there is no console-only write path.
- *
- * Validation mirrors collections/Messages.ts (the stage and closed-reason
- * enums, non-negative values). Anything outside the lists is refused with
- * a message the UI can show, never silently coerced.
+ * كتابات العملاء المحتملين — حفظ مرحلة الصفقة وقيم العقود وسبب الإغلاق وحالة القراءة
+ * عبر Payload Local API بنفس جلسة المشغل (`overrideAccess: false`).
  */
 
 const STAGES = ["new", "qualified", "proposal-sent", "won", "lost", "not-a-fit"] as const;
@@ -33,7 +23,7 @@ function parseValue(raw: unknown): number | null | undefined {
 
 async function updateLead(id: string | number, data: Record<string, unknown>): Promise<ActionResult> {
   const user = await getStudioUser();
-  if (!user) return { ok: false, error: "Session expired — sign in again." };
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
   try {
     const payload = await getPayload();
     await payload.update({
@@ -48,13 +38,12 @@ async function updateLead(id: string | number, data: Record<string, unknown>): P
     revalidatePath("/studio/analytics");
     return { ok: true };
   } catch {
-    return { ok: false, error: "Save failed — the database refused it. Nothing was changed." };
+    return { ok: false, error: "تعذر الحفظ — رفضت قاعدة البيانات التعديل ولم يتغير شيء." };
   }
 }
 
-/** Drag-and-drop and the drawer's stage select both land here. */
 export async function moveLeadStage(id: string | number, stage: string): Promise<ActionResult> {
-  if (!(STAGES as readonly string[]).includes(stage)) return { ok: false, error: `Unknown stage “${stage}”.` };
+  if (!(STAGES as readonly string[]).includes(stage)) return { ok: false, error: `مرحلة غير معروفة: «${stage}».` };
   return updateLead(id, { leadStage: stage });
 }
 
@@ -67,15 +56,15 @@ export interface LeadDetailsInput {
 }
 
 export async function saveLeadDetails(id: string | number, input: LeadDetailsInput): Promise<ActionResult> {
-  if (!(STAGES as readonly string[]).includes(input.stage)) return { ok: false, error: `Unknown stage “${input.stage}”.` };
+  if (!(STAGES as readonly string[]).includes(input.stage)) return { ok: false, error: `مرحلة غير معروفة: «${input.stage}».` };
   const proposalValue = parseValue(input.proposalValue);
   const wonValue = parseValue(input.wonValue);
   if (proposalValue === undefined || wonValue === undefined) {
-    return { ok: false, error: "Values must be non-negative numbers (USD)." };
+    return { ok: false, error: "يجب أن تكون القيم أرقامًا موجبة أو صفرية (بالدولار الأمريكي)." };
   }
   const closedReason = input.closedReason === "" ? null : input.closedReason;
   if (closedReason !== null && !(CLOSED_REASONS as readonly string[]).includes(closedReason)) {
-    return { ok: false, error: `Unknown closed reason “${closedReason}”.` };
+    return { ok: false, error: `سبب إغلاق غير معروف: «${closedReason}».` };
   }
   return updateLead(id, {
     leadStage: input.stage,

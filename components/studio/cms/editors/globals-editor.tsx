@@ -9,10 +9,6 @@ import { ManageNavStrip } from "@/components/studio/cms/editor-shell";
 import { MediaPickerField, normalizeMediaRef, type MediaRef } from "@/components/studio/cms/media-picker";
 import { saveGlobalDocAction } from "@/app/studio/manage/actions";
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   GLOBALS: OFFERS & SETTINGS
-   ═══════════════════════════════════════════════════════════════════════════ */
-
 type Bi = { en: string; ar: string };
 
 type TierRow = {
@@ -56,7 +52,7 @@ function BiInputs({
         {required ? " *" : ""}
       </label>
       <div className="studio-grid-2">
-        <input className="studio-input" placeholder="English" value={value.en} onChange={(e) => onChange({ ...value, en: e.target.value })} />
+        <input className="studio-input" dir="ltr" placeholder="English" value={value.en} onChange={(e) => onChange({ ...value, en: e.target.value })} />
         <input className="studio-input" dir="rtl" placeholder="عربي" value={value.ar} onChange={(e) => onChange({ ...value, ar: e.target.value })} />
       </div>
     </div>
@@ -80,6 +76,7 @@ function BiArrayEditor({
           <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 6 }}>
             <input
               className="studio-input"
+              dir="ltr"
               placeholder="English"
               value={item.en}
               onChange={(e) => onChange(items.map((x, j) => (j === i ? { ...x, en: e.target.value } : x)))}
@@ -95,15 +92,15 @@ function BiArrayEditor({
               type="button"
               className="studio-btn studio-btn--sm"
               onClick={() => onChange(items.filter((_, j) => j !== i))}
-              aria-label="Remove item"
+              aria-label="إزالة البند"
             >
-              <SIcon name="x" size={11} />
+              <SIcon name="x" size={13} />
             </button>
           </div>
         ))}
         <div>
           <button type="button" className="studio-btn studio-btn--sm" onClick={() => onChange([...items, { en: "", ar: "" }])}>
-            + Add row
+            + إضافة صف
           </button>
         </div>
       </div>
@@ -185,7 +182,7 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
     });
     setSaving(false);
     if (!res.ok) return setError(res.error);
-    push("ok", "Offers & pricing saved and revalidated");
+    push("ok", "تم حفظ العروض والأسعار وتحديث الموقع");
     router.refresh();
   };
 
@@ -193,19 +190,19 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
     <>
       <ManageNavStrip activeSlug="offers" />
       <ViewHeader
-        eyebrow="Global · Site Content"
-        title="Offers & pricing"
-        description={`Drives /pricing, /services, and /agreement · ${initialDoc.updatedAt ? `last edited ${ago(String(initialDoc.updatedAt))}` : "never edited"}`}
+        eyebrow="الإعدادات العامة · محتوى الموقع"
+        title="العروض والأسعار"
+        description={`يغذّي صفحات /pricing و /services و /agreement · ${initialDoc.updatedAt ? `آخر تعديل ${ago(String(initialDoc.updatedAt))}` : "لم يُعدّل بعد"}`}
         aside={
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <div style={{ display: "flex", gap: 8, alignItems: "center", flexWrap: "wrap" }}>
             <Link className="studio-btn studio-btn--sm" href="/studio/manage">
-              ← Manage
+              <SIcon name="chevronRight" size={13} /> إدارة المحتوى
             </Link>
             <Link className="studio-btn studio-btn--sm" href="/en/pricing" target="_blank" rel="noopener">
-              View /pricing <SIcon name="arrowUpRight" size={11} />
+              عرض /pricing <SIcon name="arrowUpRight" size={12} />
             </Link>
             <button type="button" className="studio-btn studio-btn--primary" disabled={saving} onClick={() => void handleSave()}>
-              {saving ? "Saving…" : "Save offers"}
+              {saving ? "جارٍ الحفظ…" : "حفظ العروض"}
             </button>
           </div>
         }
@@ -214,12 +211,12 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
       {error ? <div className="studio-login__err">{error}</div> : null}
 
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-        <Tile span="w12" title={<b>Service tiers</b>}>
+        <Tile span="w12" title={<b>باقات الخدمات</b>}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {tiers.map((tier, i) => (
               <div key={i} className="studio-block-card">
                 <div className="studio-block-card__head">
-                  <strong style={{ fontSize: 13 }}>{tier.name.en || `Tier #${i + 1}`}</strong>
+                  <strong style={{ fontSize: 14.5 }}>{tier.name.ar || tier.name.en || `الباقة #${i + 1}`}</strong>
                   <span className="studio-spacer" />
                   <label className="studio-check">
                     <input
@@ -227,26 +224,26 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                       checked={tier.recommended}
                       onChange={(e) => setTiers(tiers.map((x, j) => (j === i ? { ...x, recommended: e.target.checked } : x)))}
                     />
-                    <span>Recommended</span>
+                    <span>باقة موصى بها</span>
                   </label>
                   <button
                     type="button"
                     className="studio-btn studio-btn--sm studio-btn--danger"
                     onClick={() => setTiers(tiers.filter((_, j) => j !== i))}
                   >
-                    Remove tier
+                    إزالة الباقة
                   </button>
                 </div>
 
                 <div className="studio-grid-2">
                   <BiInputs
-                    label="Tag"
+                    label="الوسم (Tag)"
                     required
                     value={tier.tag}
                     onChange={(v) => setTiers(tiers.map((x, j) => (j === i ? { ...x, tag: v } : x)))}
                   />
                   <BiInputs
-                    label="Tier name"
+                    label="اسم الباقة"
                     required
                     value={tier.name}
                     onChange={(v) => setTiers(tiers.map((x, j) => (j === i ? { ...x, name: v } : x)))}
@@ -255,17 +252,19 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
 
                 <div className="studio-grid-2">
                   <div className="studio-field">
-                    <label>Price *</label>
+                    <label>السعر *</label>
                     <input
                       className="studio-input"
+                      dir="ltr"
                       value={tier.price}
                       onChange={(e) => setTiers(tiers.map((x, j) => (j === i ? { ...x, price: e.target.value } : x)))}
                     />
                   </div>
                   <div className="studio-field">
-                    <label>Payment terms *</label>
+                    <label>شروط الدفع *</label>
                     <input
                       className="studio-input"
+                      dir="ltr"
                       value={tier.payment}
                       onChange={(e) => setTiers(tiers.map((x, j) => (j === i ? { ...x, payment: e.target.value } : x)))}
                     />
@@ -273,25 +272,25 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                 </div>
 
                 <BiInputs
-                  label="Price note"
+                  label="ملاحظة السعر"
                   required
                   value={tier.priceNote}
                   onChange={(v) => setTiers(tiers.map((x, j) => (j === i ? { ...x, priceNote: v } : x)))}
                 />
                 <BiInputs
-                  label="Best for"
+                  label="مناسبة لـ"
                   required
                   value={tier.bestFor}
                   onChange={(v) => setTiers(tiers.map((x, j) => (j === i ? { ...x, bestFor: v } : x)))}
                 />
                 <BiInputs
-                  label="Duration"
+                  label="المدة الزمنية"
                   required
                   value={tier.duration}
                   onChange={(v) => setTiers(tiers.map((x, j) => (j === i ? { ...x, duration: v } : x)))}
                 />
                 <BiInputs
-                  label="Includes heading"
+                  label="عنوان قسم المشمولات"
                   required
                   value={tier.includesHead}
                   onChange={(v) => setTiers(tiers.map((x, j) => (j === i ? { ...x, includesHead: v } : x)))}
@@ -299,12 +298,12 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
 
                 <div className="studio-grid-2">
                   <BiArrayEditor
-                    label="Includes"
+                    label="ما يشمله النطاق"
                     items={tier.includes}
                     onChange={(next) => setTiers(tiers.map((x, j) => (j === i ? { ...x, includes: next } : x)))}
                   />
                   <BiArrayEditor
-                    label="Excludes"
+                    label="ما لا يشمله النطاق"
                     items={tier.excludes}
                     onChange={(next) => setTiers(tiers.map((x, j) => (j === i ? { ...x, excludes: next } : x)))}
                   />
@@ -334,18 +333,18 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                   ])
                 }
               >
-                + Add tier
+                + إضافة باقة جديدة
               </button>
             </div>
           </div>
         </Tile>
 
-        <Tile span="w12" title={<b>Investment value metrics</b>}>
+        <Tile span="w12" title={<b>مؤشرات قيمة الاستثمار</b>}>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {investmentValue.map((iv, i) => (
               <div key={i} className="studio-block-card">
                 <div className="studio-block-card__head">
-                  <span className="studio-tiny">Metric #{i + 1}</span>
+                  <span className="studio-tiny">مؤشر #{i + 1}</span>
                   <span className="studio-spacer" />
                   <label className="studio-check">
                     <input
@@ -355,34 +354,36 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                         setInvestmentValue(investmentValue.map((x, j) => (j === i ? { ...x, pending: e.target.checked } : x)))
                       }
                     />
-                    <span>Pending real measurement</span>
+                    <span>قيد القياس الفعلي</span>
                   </label>
                   <button
                     type="button"
                     className="studio-btn studio-btn--sm"
                     onClick={() => setInvestmentValue(investmentValue.filter((_, j) => j !== i))}
-                    aria-label="Remove metric"
+                    aria-label="إزالة المؤشر"
                   >
-                    <SIcon name="x" size={11} />
+                    <SIcon name="x" size={13} />
                   </button>
                 </div>
                 <div className="studio-grid-3">
                   <input
                     className="studio-input"
-                    placeholder="Value *"
+                    dir="ltr"
+                    placeholder="القيمة *"
                     value={iv.value}
                     onChange={(e) => setInvestmentValue(investmentValue.map((x, j) => (j === i ? { ...x, value: e.target.value } : x)))}
                   />
                   <input
                     className="studio-input"
-                    placeholder="Label (EN) *"
+                    dir="ltr"
+                    placeholder="التسمية (EN) *"
                     value={iv.en}
                     onChange={(e) => setInvestmentValue(investmentValue.map((x, j) => (j === i ? { ...x, en: e.target.value } : x)))}
                   />
                   <input
                     className="studio-input"
                     dir="rtl"
-                    placeholder="Label (AR) *"
+                    placeholder="التسمية (عربي) *"
                     value={iv.ar}
                     onChange={(e) => setInvestmentValue(investmentValue.map((x, j) => (j === i ? { ...x, ar: e.target.value } : x)))}
                   />
@@ -390,14 +391,15 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                 <div className="studio-grid-2">
                   <input
                     className="studio-input"
-                    placeholder="Sublabel (EN)"
+                    dir="ltr"
+                    placeholder="التفصيل الفرعي (EN)"
                     value={iv.subEn}
                     onChange={(e) => setInvestmentValue(investmentValue.map((x, j) => (j === i ? { ...x, subEn: e.target.value } : x)))}
                   />
                   <input
                     className="studio-input"
                     dir="rtl"
-                    placeholder="Sublabel (AR)"
+                    placeholder="التفصيل الفرعي (عربي)"
                     value={iv.subAr}
                     onChange={(e) => setInvestmentValue(investmentValue.map((x, j) => (j === i ? { ...x, subAr: e.target.value } : x)))}
                   />
@@ -410,29 +412,29 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                 className="studio-btn studio-btn--sm"
                 onClick={() => setInvestmentValue([...investmentValue, { value: "", en: "", ar: "", subEn: "", subAr: "", pending: true }])}
               >
-                + Add metric
+                + إضافة مؤشر
               </button>
             </div>
           </div>
         </Tile>
 
-        <Tile span="w12" title={<b>À la carte service groups</b>}>
+        <Tile span="w12" title={<b>مجموعات الخدمات المنفردة (À la carte)</b>}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {alaCarte.map((grp, gIdx) => (
               <div key={gIdx} className="studio-block-card">
                 <div className="studio-block-card__head">
-                  <strong style={{ fontSize: 13 }}>{grp.group.en || `Group #${gIdx + 1}`}</strong>
+                  <strong style={{ fontSize: 14 }}>{grp.group.ar || grp.group.en || `المجموعة #${gIdx + 1}`}</strong>
                   <span className="studio-spacer" />
                   <button
                     type="button"
                     className="studio-btn studio-btn--sm studio-btn--danger"
                     onClick={() => setAlaCarte(alaCarte.filter((_, j) => j !== gIdx))}
                   >
-                    Remove group
+                    إزالة المجموعة
                   </button>
                 </div>
                 <BiInputs
-                  label="Group name"
+                  label="اسم المجموعة"
                   required
                   value={grp.group}
                   onChange={(v) => setAlaCarte(alaCarte.map((x, j) => (j === gIdx ? { ...x, group: v } : x)))}
@@ -441,7 +443,7 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                   {grp.rows.map((row, rIdx) => (
                     <div key={rIdx} className="studio-block-card">
                       <div className="studio-block-card__head">
-                        <span className="studio-tiny">Service #{rIdx + 1}</span>
+                        <span className="studio-tiny">الخدمة #{rIdx + 1}</span>
                         <span className="studio-spacer" />
                         <button
                           type="button"
@@ -451,15 +453,16 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                               alaCarte.map((x, j) => (j === gIdx ? { ...x, rows: x.rows.filter((_, k) => k !== rIdx) } : x)),
                             )
                           }
-                          aria-label="Remove service row"
+                          aria-label="إزالة الخدمة"
                         >
-                          <SIcon name="x" size={11} />
+                          <SIcon name="x" size={13} />
                         </button>
                       </div>
                       <div className="studio-grid-3">
                         <input
                           className="studio-input"
-                          placeholder="Service (EN) *"
+                          dir="ltr"
+                          placeholder="الخدمة (EN) *"
                           value={row.service.en}
                           onChange={(e) =>
                             setAlaCarte(
@@ -479,7 +482,7 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                         <input
                           className="studio-input"
                           dir="rtl"
-                          placeholder="Service (AR) *"
+                          placeholder="الخدمة (عربي) *"
                           value={row.service.ar}
                           onChange={(e) =>
                             setAlaCarte(
@@ -498,7 +501,8 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                         />
                         <input
                           className="studio-input"
-                          placeholder="Price *"
+                          dir="ltr"
+                          placeholder="السعر *"
                           value={row.price}
                           onChange={(e) =>
                             setAlaCarte(
@@ -514,7 +518,8 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                       <div className="studio-grid-2">
                         <input
                           className="studio-input"
-                          placeholder="Details (EN) *"
+                          dir="ltr"
+                          placeholder="التفاصيل (EN) *"
                           value={row.details.en}
                           onChange={(e) =>
                             setAlaCarte(
@@ -534,7 +539,7 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                         <input
                           className="studio-input"
                           dir="rtl"
-                          placeholder="Details (AR) *"
+                          placeholder="التفاصيل (عربي) *"
                           value={row.details.ar}
                           onChange={(e) =>
                             setAlaCarte(
@@ -568,7 +573,7 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                         )
                       }
                     >
-                      + Add service row
+                      + إضافة خدمة
                     </button>
                   </div>
                 </div>
@@ -580,7 +585,7 @@ export function OffersGlobalEditor({ initialDoc }: { initialDoc: Record<string, 
                 className="studio-btn studio-btn--sm"
                 onClick={() => setAlaCarte([...alaCarte, { group: { en: "", ar: "" }, rows: [] }])}
               >
-                + Add service group
+                + إضافة مجموعة خدمات
               </button>
             </div>
           </div>
@@ -629,7 +634,7 @@ export function SettingsGlobalEditor({ initialDoc }: { initialDoc: Record<string
     });
     setSaving(false);
     if (!res.ok) return setError(res.error);
-    push("ok", "Site settings saved");
+    push("ok", "تم حفظ إعدادات الموقع");
     router.refresh();
   };
 
@@ -637,16 +642,16 @@ export function SettingsGlobalEditor({ initialDoc }: { initialDoc: Record<string
     <>
       <ManageNavStrip activeSlug="settings" />
       <ViewHeader
-        eyebrow="Global · Site Content"
-        title="Site settings"
-        description={`Contact details, social links, CV download, and default SEO · ${initialDoc.updatedAt ? `last edited ${ago(String(initialDoc.updatedAt))}` : "never edited"}`}
+        eyebrow="الإعدادات العامة · محتوى الموقع"
+        title="إعدادات الموقع"
+        description={`بيانات التواصل والروابط الاجتماعية وملف السيرة الذاتية وبيانات SEO الافتراضية · ${initialDoc.updatedAt ? `آخر تعديل ${ago(String(initialDoc.updatedAt))}` : "لم يُعدّل بعد"}`}
         aside={
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <Link className="studio-btn studio-btn--sm" href="/studio/manage">
-              ← Manage
+              <SIcon name="chevronRight" size={13} /> إدارة المحتوى
             </Link>
             <button type="button" className="studio-btn studio-btn--primary" disabled={saving} onClick={() => void handleSave()}>
-              {saving ? "Saving…" : "Save settings"}
+              {saving ? "جارٍ الحفظ…" : "حفظ الإعدادات"}
             </button>
           </div>
         }
@@ -655,50 +660,50 @@ export function SettingsGlobalEditor({ initialDoc }: { initialDoc: Record<string
       {error ? <div className="studio-login__err">{error}</div> : null}
 
       <div className="studio-bento">
-        <Tile span="w6" title={<b>Contact details</b>}>
+        <Tile span="w6" title={<b>بيانات التواصل</b>}>
           <div className="studio-field">
-            <label htmlFor="set-email">Email</label>
-            <input id="set-email" type="email" className="studio-input" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <label htmlFor="set-email">البريد الإلكتروني</label>
+            <input id="set-email" type="email" dir="ltr" className="studio-input" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label htmlFor="set-phone">Phone / WhatsApp</label>
-            <input id="set-phone" className="studio-input" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <label htmlFor="set-phone">الهاتف / واتساب</label>
+            <input id="set-phone" dir="ltr" className="studio-input" value={phone} onChange={(e) => setPhone(e.target.value)} />
           </div>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label htmlFor="set-loc">Location</label>
+            <label htmlFor="set-loc">المقر الجغرافي</label>
             <input id="set-loc" className="studio-input" value={location} onChange={(e) => setLocation(e.target.value)} />
           </div>
         </Tile>
 
-        <Tile span="w6" title={<b>Social links</b>}>
+        <Tile span="w6" title={<b>الروابط الاجتماعية</b>}>
           <div className="studio-grid-2">
             <div className="studio-field">
               <label>LinkedIn</label>
-              <input className="studio-input" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
+              <input className="studio-input" dir="ltr" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} />
             </div>
             <div className="studio-field">
               <label>GitHub</label>
-              <input className="studio-input" value={github} onChange={(e) => setGithub(e.target.value)} />
+              <input className="studio-input" dir="ltr" value={github} onChange={(e) => setGithub(e.target.value)} />
             </div>
             <div className="studio-field">
               <label>Behance</label>
-              <input className="studio-input" value={behance} onChange={(e) => setBehance(e.target.value)} />
+              <input className="studio-input" dir="ltr" value={behance} onChange={(e) => setBehance(e.target.value)} />
             </div>
             <div className="studio-field">
               <label>Dribbble</label>
-              <input className="studio-input" value={dribbble} onChange={(e) => setDribbble(e.target.value)} />
+              <input className="studio-input" dir="ltr" value={dribbble} onChange={(e) => setDribbble(e.target.value)} />
             </div>
           </div>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
             <label>X / Twitter</label>
-            <input className="studio-input" value={xHandle} onChange={(e) => setXHandle(e.target.value)} />
+            <input className="studio-input" dir="ltr" value={xHandle} onChange={(e) => setXHandle(e.target.value)} />
           </div>
         </Tile>
 
-        <Tile span="w6" title={<b>Files (CV)</b>}>
+        <Tile span="w6" title={<b>الملفات (السيرة الذاتية)</b>}>
           <MediaPickerField
-            label="CV (PDF)"
-            hint="Served by /cv route."
+            label="السيرة الذاتية (PDF)"
+            hint="تُقدّم عبر مسار /cv على الموقع."
             value={cv}
             onChange={setCv}
             mimePrefix="application/pdf"
@@ -706,17 +711,17 @@ export function SettingsGlobalEditor({ initialDoc }: { initialDoc: Record<string
           />
         </Tile>
 
-        <Tile span="w6" title={<b>Default SEO</b>}>
+        <Tile span="w6" title={<b>بيانات SEO الافتراضية</b>}>
           <div className="studio-field">
-            <label htmlFor="set-mtitle">Default meta title</label>
+            <label htmlFor="set-mtitle">العنوان الافتراضي (Meta Title)</label>
             <input id="set-mtitle" className="studio-input" value={metaTitle} onChange={(e) => setMetaTitle(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label htmlFor="set-mdesc">Default meta description</label>
+            <label htmlFor="set-mdesc">الوصف التعريفي الافتراضي (Meta Description)</label>
             <textarea id="set-mdesc" className="studio-input" rows={3} value={metaDescription} onChange={(e) => setMetaDescription(e.target.value)} />
           </div>
           <MediaPickerField
-            label="Default OG image"
+            label="صورة المشاركة الافتراضية (OG Image)"
             value={ogImage}
             onChange={setOgImage}
             mimePrefix="image/"

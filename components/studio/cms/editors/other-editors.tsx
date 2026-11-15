@@ -8,7 +8,7 @@ import { MediaPickerField, normalizeMediaRef, type MediaRef } from "@/components
 import { saveCollectionDocAction } from "@/app/studio/manage/actions";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TESTIMONIALS EDITOR
+   محرر آراء العملاء
    ═══════════════════════════════════════════════════════════════════════════ */
 export function TestimonialEditor({ initialDoc, isNew }: { initialDoc: Record<string, unknown> | null; isNew: boolean }) {
   const router = useRouter();
@@ -40,18 +40,18 @@ export function TestimonialEditor({ initialDoc, isNew }: { initialDoc: Record<st
   return (
     <DocumentEditorFrame
       collectionSlug="testimonials"
-      collectionLabel="Testimonials"
-      singularLabel="Testimonial"
+      collectionLabel="آراء العملاء"
+      singularLabel="رأي عميل"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
-      title={author || "New testimonial"}
+      title={author || "رأي عميل جديد"}
       saving={saving}
       error={error}
       onSave={handleSave}
     >
-      <Tile span="w12" title={<b>Client quote</b>}>
+      <Tile span="w12" title={<b>اقتباس العميل</b>}>
         <div className="studio-field">
-          <label htmlFor="test-quote">Quote * ({quote.length}/200)</label>
+          <label htmlFor="test-quote">نص الاقتباس * ({quote.length}/200)</label>
           <textarea
             id="test-quote"
             className="studio-input"
@@ -63,21 +63,21 @@ export function TestimonialEditor({ initialDoc, isNew }: { initialDoc: Record<st
         </div>
         <div className="studio-grid-3">
           <div className="studio-field">
-            <label htmlFor="test-author">Author *</label>
+            <label htmlFor="test-author">الاسم *</label>
             <input id="test-author" className="studio-input" value={author} onChange={(e) => setAuthor(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label htmlFor="test-role">Role</label>
+            <label htmlFor="test-role">المنصب</label>
             <input id="test-role" className="studio-input" value={role} onChange={(e) => setRole(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label htmlFor="test-company">Company</label>
+            <label htmlFor="test-company">الشركة</label>
             <input id="test-company" className="studio-input" value={company} onChange={(e) => setCompany(e.target.value)} />
           </div>
         </div>
         <div className="studio-field" style={{ maxWidth: 260, marginBlockEnd: 0 }}>
-          <label htmlFor="test-rec">Record №</label>
-          <input id="test-rec" className="studio-input" value={record} onChange={(e) => setRecord(e.target.value)} placeholder="e.g. REC-04" />
+          <label htmlFor="test-rec">رقم السجل (Record №)</label>
+          <input id="test-rec" className="studio-input" dir="ltr" value={record} onChange={(e) => setRecord(e.target.value)} placeholder="مثال: REC-04" />
         </div>
       </Tile>
     </DocumentEditorFrame>
@@ -85,7 +85,7 @@ export function TestimonialEditor({ initialDoc, isNew }: { initialDoc: Record<st
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   TEAM MEMBERS EDITOR
+   محرر أعضاء الفريق
    ═══════════════════════════════════════════════════════════════════════════ */
 const SOCIAL_PLATFORMS = ["LinkedIn", "Behance", "Dribbble", "GitHub", "X"] as const;
 
@@ -136,56 +136,57 @@ export function TeamMemberEditor({ initialDoc, isNew }: { initialDoc: Record<str
   return (
     <DocumentEditorFrame
       collectionSlug="team-members"
-      collectionLabel="Team members"
-      singularLabel="Team member"
+      collectionLabel="أعضاء الفريق"
+      singularLabel="عضو فريق"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
-      title={name || "New team member"}
+      title={nameAr || name || "عضو فريق جديد"}
       saving={saving}
       error={error}
       onSave={handleSave}
     >
       <div className="studio-bento">
         <div className="studio-w8" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Profile & bilingual bio</b>}>
+          <Tile span="w12" title={<b>الملف الشخصي والنبذة ثنائية اللغة</b>}>
             <div className="studio-grid-2">
               <div className="studio-field">
-                <label>Name (EN) *</label>
-                <input className="studio-input" value={name} onChange={(e) => setName(e.target.value)} />
+                <label>الاسم (بالإنجليزية) *</label>
+                <input className="studio-input" dir="ltr" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Name (AR)</label>
+                <label>الاسم (بالعربية)</label>
                 <input className="studio-input" dir="rtl" value={nameAr} onChange={(e) => setNameAr(e.target.value)} />
               </div>
             </div>
             <div className="studio-grid-2">
               <div className="studio-field">
-                <label>Role (EN) *</label>
-                <input className="studio-input" value={role} onChange={(e) => setRole(e.target.value)} />
+                <label>الدور الوظيفي (بالإنجليزية) *</label>
+                <input className="studio-input" dir="ltr" value={role} onChange={(e) => setRole(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Role (AR)</label>
+                <label>الدور الوظيفي (بالعربية)</label>
                 <input className="studio-input" dir="rtl" value={roleAr} onChange={(e) => setRoleAr(e.target.value)} />
               </div>
             </div>
             <div className="studio-grid-2">
               <div className="studio-field">
-                <label>Bio (EN)</label>
-                <textarea className="studio-input" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} />
+                <label>النبذة (بالإنجليزية)</label>
+                <textarea className="studio-input" dir="ltr" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Bio (AR)</label>
+                <label>النبذة (بالعربية)</label>
                 <textarea className="studio-input" dir="rtl" rows={4} value={bioAr} onChange={(e) => setBioAr(e.target.value)} />
               </div>
             </div>
           </Tile>
 
-          <Tile span="w12" title={<b>Social links</b>}>
+          <Tile span="w12" title={<b>الروابط الاجتماعية</b>}>
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
               {socialLinks.map((link, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "150px minmax(0,1fr) auto", gap: 8 }}>
+                <div key={i} style={{ display: "grid", gridTemplateColumns: "155px minmax(0,1fr) auto", gap: 8 }}>
                   <select
                     className="studio-input"
+                    dir="ltr"
                     value={link.platform}
                     onChange={(e) => setSocialLinks(socialLinks.map((x, j) => (j === i ? { ...x, platform: e.target.value } : x)))}
                   >
@@ -197,6 +198,7 @@ export function TeamMemberEditor({ initialDoc, isNew }: { initialDoc: Record<str
                   </select>
                   <input
                     className="studio-input"
+                    dir="ltr"
                     placeholder="https://…"
                     value={link.url}
                     onChange={(e) => setSocialLinks(socialLinks.map((x, j) => (j === i ? { ...x, url: e.target.value } : x)))}
@@ -205,9 +207,9 @@ export function TeamMemberEditor({ initialDoc, isNew }: { initialDoc: Record<str
                     type="button"
                     className="studio-btn studio-btn--sm"
                     onClick={() => setSocialLinks(socialLinks.filter((_, j) => j !== i))}
-                    aria-label="Remove social link"
+                    aria-label="إزالة الرابط"
                   >
-                    <SIcon name="x" size={11} />
+                    <SIcon name="x" size={13} />
                   </button>
                 </div>
               ))}
@@ -217,7 +219,7 @@ export function TeamMemberEditor({ initialDoc, isNew }: { initialDoc: Record<str
                   className="studio-btn studio-btn--sm"
                   onClick={() => setSocialLinks([...socialLinks, { platform: "LinkedIn", url: "" }])}
                 >
-                  + Add social link
+                  + إضافة رابط اجتماعي
                 </button>
               </div>
             </div>
@@ -225,12 +227,12 @@ export function TeamMemberEditor({ initialDoc, isNew }: { initialDoc: Record<str
         </div>
 
         <div className="studio-w4" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Photo & order</b>}>
-            <MediaPickerField label="Photo" value={photo} onChange={setPhoto} mimePrefix="image/" accept="image/*" />
+          <Tile span="w12" title={<b>الصورة والترتيب</b>}>
+            <MediaPickerField label="الصورة الشخصية" value={photo} onChange={setPhoto} mimePrefix="image/" accept="image/*" />
             <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-              <label htmlFor="tm-order">Display order</label>
-              <input id="tm-order" type="number" className="studio-input" value={order} onChange={(e) => setOrder(e.target.value)} />
-              <p className="studio-tiny">Lower numbers appear first on `/team`.</p>
+              <label htmlFor="tm-order">ترتيب العرض</label>
+              <input id="tm-order" type="number" dir="ltr" className="studio-input" value={order} onChange={(e) => setOrder(e.target.value)} />
+              <p className="studio-tiny">الأرقام الأصغر تظهر أولًا في صفحة <code>/team</code>.</p>
             </div>
           </Tile>
         </div>
@@ -240,7 +242,7 @@ export function TeamMemberEditor({ initialDoc, isNew }: { initialDoc: Record<str
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   MESSAGES (RAW ENQUIRY) EDITOR
+   محرر الاستفسارات الخام (Messages)
    ═══════════════════════════════════════════════════════════════════════════ */
 export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unknown> }) {
   const router = useRouter();
@@ -297,64 +299,64 @@ export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unkno
   return (
     <DocumentEditorFrame
       collectionSlug="messages"
-      collectionLabel="Enquiries (raw)"
-      singularLabel="Enquiry"
+      collectionLabel="الاستفسارات (خام)"
+      singularLabel="استفسار"
       docId={doc.id as number | string | undefined}
       isNew={false}
-      title={name || email || "Enquiry"}
-      subtitle={`Arrived ${doc.createdAt ? shortTime(String(doc.createdAt)) : "—"} · full document editor`}
+      title={name || email || "استفسار"}
+      subtitle={`وصل في ${doc.createdAt ? shortTime(String(doc.createdAt)) : "—"} · محرر المستند الكامل`}
       saving={saving}
       error={error}
       onSave={handleSave}
     >
       <div className="studio-bento">
         <div className="studio-w8" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Sender & brief</b>}>
+          <Tile span="w12" title={<b>المُرسل وملخص الطلب</b>}>
             <div className="studio-grid-3">
               <div className="studio-field">
-                <label>Name *</label>
+                <label>الاسم *</label>
                 <input className="studio-input" value={name} onChange={(e) => setName(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Email *</label>
-                <input className="studio-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label>البريد الإلكتروني *</label>
+                <input className="studio-input" dir="ltr" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Company</label>
+                <label>الشركة</label>
                 <input className="studio-input" value={company} onChange={(e) => setCompany(e.target.value)} />
               </div>
             </div>
             <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-              <label>Brief *</label>
+              <label>ملخص المشروع *</label>
               <textarea className="studio-input" rows={6} value={brief} onChange={(e) => setBrief(e.target.value)} />
             </div>
           </Tile>
 
-          <Tile span="w12" title={<b>Qualifiers & attribution</b>}>
+          <Tile span="w12" title={<b>مؤشرات التأهيل ومصادر الإحالة</b>}>
             <div className="studio-grid-3">
               <div className="studio-field">
-                <label>Service</label>
+                <label>الخدمة</label>
                 <select className="studio-input" value={service} onChange={(e) => setService(e.target.value)}>
                   <option value="">—</option>
-                  <option value="brand-identity">Brand identity</option>
-                  <option value="website">Website / landing page</option>
-                  <option value="digital-product">Digital product</option>
-                  <option value="brand-support">Brand support</option>
-                  <option value="not-sure">Scope not defined</option>
+                  <option value="brand-identity">هوية بصرية</option>
+                  <option value="website">موقع إلكتروني / صفحة هبوط</option>
+                  <option value="digital-product">منتج رقمي</option>
+                  <option value="brand-support">دعم العلامة التجارية</option>
+                  <option value="not-sure">النطاق غير محدد بعد</option>
                 </select>
               </div>
               <div className="studio-field">
-                <label>Package tier</label>
+                <label>الباقة المختارة</label>
                 <select className="studio-input" value={packageTier} onChange={(e) => setPackageTier(e.target.value)}>
                   <option value="">—</option>
-                  <option value="logo-design">Logo design</option>
-                  <option value="brand-identity">Brand identity</option>
-                  <option value="full-brand-system">Full brand system</option>
+                  <option value="logo-design">تصميم شعار</option>
+                  <option value="brand-identity">هوية بصرية</option>
+                  <option value="full-brand-system">نظام علامة تجارية متكامل</option>
                 </select>
               </div>
               <div className="studio-field">
-                <label>Budget</label>
-                <select className="studio-input" value={budget} onChange={(e) => setBudget(e.target.value)}>
+                <label>الميزانية</label>
+                <select className="studio-input" dir="ltr" value={budget} onChange={(e) => setBudget(e.target.value)}>
                   <option value="">—</option>
                   <option value="< $1K">&lt; $1K</option>
                   <option value="$1–3K">$1–3K</option>
@@ -366,20 +368,20 @@ export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unkno
 
             <div className="studio-grid-3">
               <div className="studio-field">
-                <label>Timeline</label>
+                <label>الجدول الزمني</label>
                 <input className="studio-input" value={timeline} onChange={(e) => setTimeline(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Source page</label>
-                <input className="studio-input" value={sourcePage} onChange={(e) => setSourcePage(e.target.value)} />
+                <label>صفحة المصدر</label>
+                <input className="studio-input" dir="ltr" value={sourcePage} onChange={(e) => setSourcePage(e.target.value)} />
               </div>
               <div className="studio-field">
-                <label>Locale</label>
+                <label>اللغة</label>
                 <select className="studio-input" value={locale} onChange={(e) => setLocale(e.target.value)}>
                   <option value="">—</option>
-                  <option value="en">English (en)</option>
-                  <option value="ar">Arabic (ar)</option>
-                  <option value="ms">Malay (ms)</option>
+                  <option value="en">الإنجليزية (en)</option>
+                  <option value="ar">العربية (ar)</option>
+                  <option value="ms">الماليزية (ms)</option>
                 </select>
               </div>
             </div>
@@ -387,24 +389,24 @@ export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unkno
             <div className="studio-grid-3">
               <div className="studio-field" style={{ marginBlockEnd: 0 }}>
                 <label>UTM Source</label>
-                <input className="studio-input" value={utmSource} onChange={(e) => setUtmSource(e.target.value)} />
+                <input className="studio-input" dir="ltr" value={utmSource} onChange={(e) => setUtmSource(e.target.value)} />
               </div>
               <div className="studio-field" style={{ marginBlockEnd: 0 }}>
                 <label>UTM Medium</label>
-                <input className="studio-input" value={utmMedium} onChange={(e) => setUtmMedium(e.target.value)} />
+                <input className="studio-input" dir="ltr" value={utmMedium} onChange={(e) => setUtmMedium(e.target.value)} />
               </div>
               <div className="studio-field" style={{ marginBlockEnd: 0 }}>
                 <label>UTM Campaign</label>
-                <input className="studio-input" value={utmCampaign} onChange={(e) => setUtmCampaign(e.target.value)} />
+                <input className="studio-input" dir="ltr" value={utmCampaign} onChange={(e) => setUtmCampaign(e.target.value)} />
               </div>
             </div>
           </Tile>
         </div>
 
         <div className="studio-w4" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
-          <Tile span="w12" title={<b>Pipeline & deal value</b>}>
+          <Tile span="w12" title={<b>مرحلة البيع وقيمة الصفقة</b>}>
             <div className="studio-field">
-              <label>Lead stage</label>
+              <label>مرحلة العميل</label>
               <select className="studio-input" value={leadStage} onChange={(e) => setLeadStage(e.target.value)}>
                 {STAGES.map((s) => (
                   <option key={s.key} value={s.key}>
@@ -414,32 +416,32 @@ export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unkno
               </select>
             </div>
             <div className="studio-field">
-              <label>Closed reason</label>
+              <label>سبب الإغلاق</label>
               <select className="studio-input" value={closedReason} onChange={(e) => setClosedReason(e.target.value)}>
                 <option value="">—</option>
-                <option value="budget">Budget</option>
-                <option value="timing">Timing</option>
-                <option value="scope">Scope mismatch</option>
-                <option value="no-response">No response</option>
-                <option value="other">Other / unknown</option>
+                <option value="budget">الميزانية</option>
+                <option value="timing">التوقيت</option>
+                <option value="scope">عدم توافق النطاق</option>
+                <option value="no-response">عدم الاستجابة</option>
+                <option value="other">أخرى / غير معروف</option>
               </select>
             </div>
             <div className="studio-field">
-              <label>Proposal value (USD)</label>
-              <input className="studio-input" inputMode="decimal" value={proposalValue} onChange={(e) => setProposalValue(e.target.value)} />
+              <label>قيمة العرض (USD)</label>
+              <input className="studio-input" dir="ltr" inputMode="decimal" value={proposalValue} onChange={(e) => setProposalValue(e.target.value)} />
             </div>
             <div className="studio-field">
-              <label>Won value (USD)</label>
-              <input className="studio-input" inputMode="decimal" value={wonValue} onChange={(e) => setWonValue(e.target.value)} />
+              <label>قيمة العقد الفائز (USD)</label>
+              <input className="studio-input" dir="ltr" inputMode="decimal" value={wonValue} onChange={(e) => setWonValue(e.target.value)} />
             </div>
             <label className="studio-check">
               <input type="checkbox" checked={isRead} onChange={(e) => setIsRead(e.target.checked)} />
-              <span>Marked as read</span>
+              <span>مقروء</span>
             </label>
             {email ? (
               <div style={{ marginBlockStart: 14 }}>
                 <a className="studio-btn" href={`mailto:${email}`}>
-                  <SIcon name="mail" size={12} /> Reply to {email}
+                  <SIcon name="mail" size={14} /> الرد على {email}
                 </a>
               </div>
             ) : null}
@@ -451,7 +453,7 @@ export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unkno
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   RESOURCE LEADS EDITOR
+   محرر مهتمي الموارد
    ═══════════════════════════════════════════════════════════════════════════ */
 export function ResourceLeadEditor({ initialDoc, isNew }: { initialDoc: Record<string, unknown> | null; isNew: boolean }) {
   const router = useRouter();
@@ -479,28 +481,28 @@ export function ResourceLeadEditor({ initialDoc, isNew }: { initialDoc: Record<s
   return (
     <DocumentEditorFrame
       collectionSlug="resource-leads"
-      collectionLabel="Resource leads"
-      singularLabel="Resource lead"
+      collectionLabel="مهتمو الموارد"
+      singularLabel="مهتم بمورد"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
-      title={email || "New resource lead"}
+      title={email || "إضافة مهتم بمورد"}
       saving={saving}
       error={error}
       onSave={handleSave}
     >
-      <Tile span="w12" title={<b>Lead details</b>}>
+      <Tile span="w12" title={<b>بيانات المهتم</b>}>
         <div className="studio-grid-3">
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label>Email *</label>
-            <input className="studio-input" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <label>البريد الإلكتروني *</label>
+            <input className="studio-input" dir="ltr" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label>Resource requested</label>
+            <label>المورد المطلوب</label>
             <input className="studio-input" value={resource} onChange={(e) => setResource(e.target.value)} />
           </div>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label>Source</label>
-            <input className="studio-input" value={source} onChange={(e) => setSource(e.target.value)} />
+            <label>المصدر</label>
+            <input className="studio-input" dir="ltr" value={source} onChange={(e) => setSource(e.target.value)} />
           </div>
         </div>
       </Tile>
@@ -509,16 +511,20 @@ export function ResourceLeadEditor({ initialDoc, isNew }: { initialDoc: Record<s
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   ANALYTICS EVENTS INSPECTOR / EDITOR
+   فاحص ومحرّر أحداث التحليلات
    ═══════════════════════════════════════════════════════════════════════════ */
 export function AnalyticsEventEditor({ initialDoc }: { initialDoc: Record<string, unknown> }) {
   const router = useRouter();
   const doc = initialDoc;
   const [name, setName] = useState(String(doc.name ?? ""));
+  const [sessionId, setSessionId] = useState(String(doc.sessionId ?? ""));
   const [path, setPath] = useState(String(doc.path ?? ""));
   const [locale, setLocale] = useState(String(doc.locale ?? ""));
   const [referrerHost, setReferrerHost] = useState(String(doc.referrerHost ?? ""));
   const [device, setDevice] = useState(String(doc.device ?? ""));
+  const [utmSource, setUtmSource] = useState(String(doc.utmSource ?? ""));
+  const [utmMedium, setUtmMedium] = useState(String(doc.utmMedium ?? ""));
+  const [utmCampaign, setUtmCampaign] = useState(String(doc.utmCampaign ?? ""));
   const [propsJson, setPropsJson] = useState(() => (doc.props ? JSON.stringify(doc.props, null, 2) : "{}"));
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -530,17 +536,21 @@ export function AnalyticsEventEditor({ initialDoc }: { initialDoc: Record<string
       try {
         parsedProps = JSON.parse(propsJson);
       } catch {
-        setError("Props must be valid JSON.");
+        setError("يجب أن يكون حقل الخصائص بصيغة JSON صالحة.");
         return;
       }
     }
     setSaving(true);
     const res = await saveCollectionDocAction("analytics-events", String(doc.id ?? ""), {
       name: name.trim(),
+      sessionId: sessionId.trim() || null,
       path: path.trim() || null,
       locale: locale.trim() || null,
       referrerHost: referrerHost.trim() || null,
       device: device.trim() || null,
+      utmSource: utmSource.trim() || null,
+      utmMedium: utmMedium.trim() || null,
+      utmCampaign: utmCampaign.trim() || null,
       props: parsedProps,
     });
     setSaving(false);
@@ -551,54 +561,65 @@ export function AnalyticsEventEditor({ initialDoc }: { initialDoc: Record<string
   return (
     <DocumentEditorFrame
       collectionSlug="analytics-events"
-      collectionLabel="Analytics events"
-      singularLabel="Event"
+      collectionLabel="أحداث التحليلات"
+      singularLabel="حدث تحليلات"
       docId={doc.id as number | string | undefined}
       isNew={false}
-      title={`${name || "Event"} · ${path || "/"}`}
-      subtitle={`Recorded ${doc.createdAt ? shortTime(String(doc.createdAt)) : "—"} · session ${String(doc.sessionId ?? "none")}`}
+      title={`${name || "حدث"} · ${path || "/"}`}
+      subtitle={`سُجّل في ${doc.createdAt ? shortTime(String(doc.createdAt)) : "—"} · الجلسة ${sessionId || "غير متوفرة"}`}
       saving={saving}
       error={error}
       onSave={handleSave}
     >
-      <Tile span="w12" title={<b>First-party event record</b>}>
+      <Tile span="w12" title={<b>سجل الحدث من الطرف الأول</b>}>
         <div className="studio-grid-3">
           <div className="studio-field">
-            <label>Event name *</label>
-            <input className="studio-input" value={name} onChange={(e) => setName(e.target.value)} />
+            <label>اسم الحدث *</label>
+            <input className="studio-input" dir="ltr" value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label>Path</label>
-            <input className="studio-input" value={path} onChange={(e) => setPath(e.target.value)} />
+            <label>المسار</label>
+            <input className="studio-input" dir="ltr" value={path} onChange={(e) => setPath(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label>Locale</label>
-            <input className="studio-input" value={locale} onChange={(e) => setLocale(e.target.value)} />
+            <label>معرّف الجلسة (sessionId)</label>
+            <input className="studio-input" dir="ltr" value={sessionId} onChange={(e) => setSessionId(e.target.value)} />
           </div>
         </div>
         <div className="studio-grid-3">
           <div className="studio-field">
-            <label>Referrer host</label>
-            <input className="studio-input" value={referrerHost} onChange={(e) => setReferrerHost(e.target.value)} />
+            <label>اللغة</label>
+            <input className="studio-input" dir="ltr" value={locale} onChange={(e) => setLocale(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label>Device class</label>
-            <input className="studio-input" value={device} onChange={(e) => setDevice(e.target.value)} />
+            <label>نطاق المُحيل</label>
+            <input className="studio-input" dir="ltr" value={referrerHost} onChange={(e) => setReferrerHost(e.target.value)} />
           </div>
           <div className="studio-field">
-            <label>UTM (source / medium / campaign)</label>
-            <input
-              className="studio-input"
-              readOnly
-              value={[doc.utmSource, doc.utmMedium, doc.utmCampaign].filter(Boolean).join(" / ") || "—"}
-            />
+            <label>تصنيف الجهاز</label>
+            <input className="studio-input" dir="ltr" value={device} onChange={(e) => setDevice(e.target.value)} />
+          </div>
+        </div>
+        <div className="studio-grid-3">
+          <div className="studio-field">
+            <label>UTM Source</label>
+            <input className="studio-input" dir="ltr" value={utmSource} onChange={(e) => setUtmSource(e.target.value)} />
+          </div>
+          <div className="studio-field">
+            <label>UTM Medium</label>
+            <input className="studio-input" dir="ltr" value={utmMedium} onChange={(e) => setUtmMedium(e.target.value)} />
+          </div>
+          <div className="studio-field">
+            <label>UTM Campaign</label>
+            <input className="studio-input" dir="ltr" value={utmCampaign} onChange={(e) => setUtmCampaign(e.target.value)} />
           </div>
         </div>
         <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-          <label>Sanitized props (JSON)</label>
+          <label>الخصائص المنقّحة (JSON)</label>
           <textarea
             className="studio-input"
-            style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 12 }}
+            dir="ltr"
+            style={{ fontFamily: "var(--s-font-mono)", fontSize: 13 }}
             rows={5}
             value={propsJson}
             onChange={(e) => setPropsJson(e.target.value)}
@@ -610,7 +631,7 @@ export function AnalyticsEventEditor({ initialDoc }: { initialDoc: Record<string
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   USERS EDITOR
+   محرر المستخدمين
    ═══════════════════════════════════════════════════════════════════════════ */
 export function UserEditor({
   initialDoc,
@@ -633,9 +654,9 @@ export function UserEditor({
 
   const handleSave = async () => {
     setError(null);
-    if (!email.trim()) return setError("Email is required.");
-    if (isNew && password.length < 6) return setError("Password must be at least 6 characters.");
-    if (password && password !== confirm) return setError("Passwords do not match.");
+    if (!email.trim()) return setError("البريد الإلكتروني مطلوب.");
+    if (isNew && password.length < 6) return setError("يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.");
+    if (password && password !== confirm) return setError("كلمتا المرور غير متطابقتين.");
 
     setSaving(true);
     const payload: Record<string, unknown> = { email: email.trim() };
@@ -653,27 +674,28 @@ export function UserEditor({
   return (
     <DocumentEditorFrame
       collectionSlug="users"
-      collectionLabel="Users"
-      singularLabel="User"
+      collectionLabel="المستخدمون"
+      singularLabel="مستخدم"
       docId={doc.id as number | string | undefined}
       isNew={isNew}
-      title={email || "New operator account"}
+      title={email || "حساب مشغّل جديد"}
       allowDelete={!isSelf}
       saving={saving}
       error={error}
       onSave={handleSave}
     >
-      <Tile span="w12" title={<b>Account credentials</b>}>
-        <div className="studio-field" style={{ maxWidth: 420 }}>
-          <label htmlFor="usr-email">Email *</label>
-          <input id="usr-email" type="email" className="studio-input" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <Tile span="w12" title={<b>بيانات الحساب</b>}>
+        <div className="studio-field" style={{ maxWidth: 440 }}>
+          <label htmlFor="usr-email">البريد الإلكتروني *</label>
+          <input id="usr-email" type="email" dir="ltr" className="studio-input" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <div className="studio-grid-2" style={{ maxWidth: 640 }}>
+        <div className="studio-grid-2" style={{ maxWidth: 660 }}>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label htmlFor="usr-pass">{isNew ? "Password *" : "New password (leave blank to keep current)"}</label>
+            <label htmlFor="usr-pass">{isNew ? "كلمة المرور *" : "كلمة مرور جديدة (اتركها فارغة للإبقاء على الحالية)"}</label>
             <input
               id="usr-pass"
               type="password"
+              dir="ltr"
               autoComplete="new-password"
               className="studio-input"
               value={password}
@@ -681,10 +703,11 @@ export function UserEditor({
             />
           </div>
           <div className="studio-field" style={{ marginBlockEnd: 0 }}>
-            <label htmlFor="usr-conf">Confirm password</label>
+            <label htmlFor="usr-conf">تأكيد كلمة المرور</label>
             <input
               id="usr-conf"
               type="password"
+              dir="ltr"
               autoComplete="new-password"
               className="studio-input"
               value={confirm}
@@ -694,7 +717,7 @@ export function UserEditor({
         </div>
         {isSelf ? (
           <p className="studio-tiny" style={{ marginBlockStart: 12 }}>
-            You are signed in as this account. Self-deletion is blocked to avoid locking out the console.
+            أنت مسجّل الدخول بهذا الحساب حاليًا. الحذف الذاتي معطّل لتفادي إغلاق اللوحة على نفسك.
           </p>
         ) : null}
       </Tile>

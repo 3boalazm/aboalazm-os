@@ -2,17 +2,6 @@ import Link from "next/link";
 import { AreaChart, Chip, Delta, EmptyState, RangeControl, SIcon, Sparkline, Tile, ViewHeader, num, shortTime } from "@/components/studio/ui";
 import type { AnalyticsReport } from "@/lib/studio/analytics";
 
-/**
- * ANALYTICS (P2) — the funnel, finally with a top.
- *
- * Until P2 this screen could not exist honestly: events were emitted to a
- * vendor whose aggregates return HTTP 402 on this plan. Now every event
- * is also stored in our own Postgres by /api/track, and this screen reads
- * that table. Definitions are printed on the tiles; a session is a
- * random per-tab id, not a person; and the one number that matters most —
- * enquiries actually saved — is cross-checked against `messages`, the
- * database's own word, next to the client's `contact_submit` signal.
- */
 export function AnalyticsView({ report }: { report: AnalyticsReport }) {
   const { funnel } = report;
   const funnelMax = Math.max(1, funnel.steps[0]?.sessions ?? 0);
@@ -24,20 +13,28 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
   return (
     <>
       <ViewHeader
-        eyebrow={`Analytics · ${report.range.label}`}
-        title="Who showed up, and how far they got"
-        description="First-party counts from our own event store. The vendor copy of these events still exists, but its aggregates return HTTP 402 on this plan — nothing below is read from it."
+        eyebrow={`التحليلات · ${report.range.label}`}
+        title="من زار الموقع، وإلى أين وصل"
+        description="قراءات من مخزن الأحداث الأولي الخاص بنا (analytics-events). تجميعات المزود الخارجي ما زالت مقيدة على الخطة الحالية (HTTP 402)، لذا لا يُقرأ أي رقم أدناه منها."
         aside={<RangeControl current={report.range.key} basePath="/studio/analytics" />}
       />
 
       {!report.hasData ? (
-        <Tile span="w12" title={<b>Collector status</b>} provenance={<>Checked <code>analytics-events</code> for the last {report.range.days} days · read at {shortTime(report.asOf)}</>}>
+        <Tile
+          span="w12"
+          title={<b>حالة مُجمّع التحليلات</b>}
+          provenance={
+            <>
+              فُحص جدول <code>analytics-events</code> لآخر {report.range.days} يومًا · قُرئ في {shortTime(report.asOf)}
+            </>
+          }
+        >
           <EmptyState
-            title="The collector is live — no events yet in this window"
-            body="This is a real empty state, not a zero. Visit the public site, click a case study and submit nothing; then reload. Pageviews land within a second."
+            title="المُجمّع فعّال — لا توجد أحداث مسجّلة في هذه الفترة"
+            body="هذه حالة فراغ حقيقية. افتح الموقع العام وتنقّل بين صفحاته ثم أعد تحميل هذه الشاشة لتظهر القراءات فورًا."
             action={
               <Link className="studio-btn studio-btn--sm" href="/" target="_blank" rel="noopener">
-                Open the site <SIcon name="arrowUpRight" size={11} />
+                فتح الموقع العام <SIcon name="arrowUpRight" size={13} />
               </Link>
             }
           />
@@ -47,47 +44,63 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
           <div className="studio-bento">
             <Tile
               span="w3"
-              title={<b>Pageviews</b>}
+              title={<b>مشاهدات الصفحة</b>}
               aside={<Delta pct={pageviewDelta} />}
-              provenance={<>Stored <code>pageview</code> events · one per route change, path only (no query string)</>}
+              provenance={
+                <>
+                  أحداث <code>pageview</code> المخزّنة · قراءة واحدة لكل انتقال مسار (دون سلسلة الاستعلام)
+                </>
+              }
             >
-              <div className="studio-hero studio-hero--xl">{num(report.pageviews)}</div>
-              <div style={{ marginBlockStart: 6 }}>
+              <div className="studio-hero studio-hero--xl studio-mono">{num(report.pageviews)}</div>
+              <div style={{ marginBlockStart: 8 }}>
                 <Sparkline values={report.daily.map((d) => d.pageviews)} />
               </div>
             </Tile>
 
             <Tile
               span="w3"
-              title={<b>Sessions</b>}
+              title={<b>الجلسات</b>}
               aside={<Delta pct={sessionDelta} />}
-              provenance={<>Distinct random per-tab <code>sessionId</code> values · a session is not a person</>}
+              provenance={
+                <>
+                  معرّفات <code>sessionId</code> عشوائية مميزة لكل تبويب · الجلسة ليست شخصًا بعينه
+                </>
+              }
             >
-              <div className="studio-hero studio-hero--xl">{num(report.sessions)}</div>
-              <div style={{ marginBlockStart: 6 }}>
+              <div className="studio-hero studio-hero--xl studio-mono">{num(report.sessions)}</div>
+              <div style={{ marginBlockStart: 8 }}>
                 <Sparkline values={report.daily.map((d) => d.sessions)} />
               </div>
             </Tile>
 
             <Tile
               span="w3"
-              title={<b>Enquiries saved</b>}
-              provenance={<>Rows in <code>messages</code> created in this window · the database's count, not the browser's</>}
+              title={<b>استفسارات محفوظة</b>}
+              provenance={
+                <>
+                  صفوف <code>messages</code> المنشأة خلال الفترة · شهادة قاعدة البيانات وليس المتصفح
+                </>
+              }
             >
-              <div className="studio-hero studio-hero--xl">{num(report.enquiriesSaved)}</div>
-              <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-                {report.contactSubmitEvents} <code>contact_submit</code> events fired
+              <div className="studio-hero studio-hero--xl studio-mono">{num(report.enquiriesSaved)}</div>
+              <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+                {report.contactSubmitEvents} حدث <code>contact_submit</code> أُرسل من المتصفح
               </p>
             </Tile>
 
             <Tile
               span="w3"
-              title={<b>Events stored</b>}
-              provenance={<>All rows in <code>analytics-events</code> in this window · {coverage}% carry a session id</>}
+              title={<b>إجمالي الأحداث</b>}
+              provenance={
+                <>
+                  كل الصفوف في <code>analytics-events</code> بهذه الفترة · {coverage}% تحمل معرّف جلسة
+                </>
+              }
             >
-              <div className="studio-hero studio-hero--xl">{num(report.totalEvents)}</div>
-              <p className="studio-sub" style={{ marginBlockStart: 2 }}>
-                {funnel.sessionsWithId} sessions tracked · storage-disabled visits count as events only
+              <div className="studio-hero studio-hero--xl studio-mono">{num(report.totalEvents)}</div>
+              <p className="studio-sub" style={{ marginBlockStart: 4 }}>
+                {funnel.sessionsWithId} جلسة متتبّعة · الجلسات المعطّلة التخزين تُعدّ كأحداث فقط
               </p>
             </Tile>
           </div>
@@ -95,39 +108,46 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
           <div className="studio-bento">
             <Tile
               span="w8"
-              title={<b>Traffic by day</b>}
+              title={<b>الزيارات يومًا بيوم</b>}
               aside={<Chip tone="neutral">{report.range.label}</Chip>}
-              provenance={<>Daily buckets (UTC) of <code>pageview</code> events and distinct sessions · read at {shortTime(report.asOf)}</>}
+              provenance={
+                <>
+                  تجميع يومي (UTC) لأحداث <code>pageview</code> والجلسات المميزة · قُرئ في {shortTime(report.asOf)}
+                </>
+              }
             >
               <AreaChart points={report.daily} />
             </Tile>
 
             <Tile
               span="w4"
-              title={<b>Session funnel</b>}
-              provenance={<>Distinct sessions with ≥1 event of each kind · steps are not forced nested — a session can start the form without a stored pageview if the collector loaded mid-visit</>}
+              title={<b>قمع الجلسات</b>}
+              provenance={
+                <>
+                  الجلسات المميزة التي سجلت حدثًا واحدًا على الأقل في كل خطوة · تقارن مع الاستفسارات المحفوظة في القاعدة
+                </>
+              }
             >
               <div className="studio-funnel">
                 {funnel.steps.map((step) => (
-                  <div className="studio-funnel__step" key={step.key} style={{ gridTemplateColumns: "104px minmax(0,1fr) auto" }}>
+                  <div className="studio-funnel__step" key={step.key} style={{ gridTemplateColumns: "122px minmax(0,1fr) auto" }}>
                     <span className="studio-funnel__label">{step.label}</span>
                     <span className="studio-funnel__track">
                       <span className="studio-funnel__fill" style={{ width: `${Math.max((step.sessions / funnelMax) * 100, step.sessions ? 4 : 0)}%` }} />
                     </span>
-                    <span className="studio-funnel__count">
+                    <span className="studio-funnel__count studio-mono">
                       {num(step.sessions)}
                       {step.pctOfFirst != null ? (
                         <span className="studio-tiny" style={{ display: "block", fontWeight: 400 }}>
-                          {step.pctOfFirst}% of viewers
+                          {step.pctOfFirst}% من الزوار
                         </span>
                       ) : null}
                     </span>
                   </div>
                 ))}
               </div>
-              <p className="studio-tiny" style={{ marginBlockStart: 10 }}>
-                The last step is a browser signal. The saved-enquiries tile above is the database confirming it — when they
-                disagree, believe the database.
+              <p className="studio-tiny" style={{ marginBlockStart: 12 }}>
+                الخطوة الأخيرة إشارة من المتصفح، بينما بطاقة «استفسارات محفوظة» أعلاه هي تأكيد قاعدة البيانات الفعلي.
               </p>
             </Tile>
           </div>
@@ -135,28 +155,37 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
           <div className="studio-bento">
             <Tile
               span="w7"
-              title={<b>Top pages</b>}
-              aside={<Chip tone="neutral">locale prefixes merged</Chip>}
-              provenance={<><code>pageview</code> paths with /en, /ar, /ms prefixes folded together</>}
+              title={<b>أكثر الصفحات زيارة</b>}
+              aside={<Chip tone="neutral">دمج بادئات اللغة</Chip>}
+              provenance={
+                <>
+                  مسارات <code>pageview</code> مع دمج <code>/en</code> و<code>/ar</code> و<code>/ms</code> معًا
+                </>
+              }
             >
               {report.topPages.length === 0 ? (
-                <EmptyState title="No pageviews in this window" body="Events exist, but none are pageviews — check that PageviewTracker is mounted in the site layout." />
+                <EmptyState
+                  title="لا توجد مشاهدات صفحات في هذه الفترة"
+                  body="توجد أحداث مسجّلة، لكن لا يوجد بينها أحداث pageview — تأكد من تثبيت PageviewTracker في تخطيط الموقع."
+                />
               ) : (
                 <div className="studio-scroll-x">
                   <table className="studio-table">
                     <thead>
                       <tr>
-                        <th>Path</th>
-                        <th style={{ textAlign: "end" }}>Views</th>
-                        <th style={{ textAlign: "end" }}>Share</th>
+                        <th>المسار</th>
+                        <th style={{ textAlign: "end" }}>المشاهدات</th>
+                        <th style={{ textAlign: "end" }}>النسبة</th>
                       </tr>
                     </thead>
                     <tbody>
                       {report.topPages.map(([path, views]) => (
                         <tr key={path}>
-                          <td style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11 }}>{path}</td>
-                          <td className="num">{num(views)}</td>
-                          <td className="num" style={{ color: "var(--s-muted)" }}>
+                          <td className="studio-mono" style={{ fontSize: 13 }}>
+                            {path}
+                          </td>
+                          <td className="num studio-mono">{num(views)}</td>
+                          <td className="num studio-mono" style={{ color: "var(--s-muted)" }}>
                             {report.pageviews ? Math.round((views / report.pageviews) * 100) : 0}%
                           </td>
                         </tr>
@@ -170,11 +199,15 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
             <div className="studio-w5" style={{ display: "flex", flexDirection: "column", gap: "var(--s-gap)" }}>
               <Tile
                 span="w12"
-                title={<b>Where they came from</b>}
-                provenance={<>Referrer <b>host only</b> on pageviews · full referring URLs are never stored</>}
+                title={<b>مصادر الإحالة والحملات</b>}
+                provenance={
+                  <>
+                    نطاق المُحيل <b>فقط</b> في مشاهدات الصفحة · الروابط الكاملة لا تُحفظ حفاظًا على الخصوصية
+                  </>
+                }
               >
                 {report.referrers.length === 0 && report.campaigns.length === 0 ? (
-                  <p className="studio-sub">No external referrers or campaigns recorded — direct visits carry neither.</p>
+                  <p className="studio-sub">لم تُسجّل إحالات خارجية أو حملات — الزيارات المباشرة لا تحمل أيًا منهما.</p>
                 ) : (
                   <div className="studio-dist">
                     {report.referrers.map(([host, count]) => (
@@ -189,8 +222,12 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
 
               <Tile
                 span="w12"
-                title={<b>Language & device</b>}
-                provenance={<>Event <code>locale</code> prop · device is a coarse class from the user-agent at ingest (the UA itself is not stored)</>}
+                title={<b>اللغة والجهاز</b>}
+                provenance={
+                  <>
+                    خاصية <code>locale</code> · تصنيف الجهاز يُستخلص وقت الاستقبال دون تخزين سلسلة User-Agent
+                  </>
+                }
               >
                 <div className="studio-dist">
                   {report.locales.map(([locale, count]) => (
@@ -206,25 +243,35 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
 
           <Tile
             span="w12"
-            title={<b>Event mix</b>}
-            aside={<Link className="studio-tile__more" href="/studio/manage/analytics-events">raw rows</Link>}
-            provenance={<>Counts by event name in <code>analytics-events</code> · definitions in docs/EVENTS.md</>}
+            title={<b>توزيع الأحداث</b>}
+            aside={
+              <Link className="studio-tile__more" href="/studio/manage/analytics-events">
+                السجلات الخام
+              </Link>
+            }
+            provenance={
+              <>
+                العدد حسب اسم الحدث في <code>analytics-events</code> · تعريفات الأحداث في docs/EVENTS.md
+              </>
+            }
           >
             <div className="studio-scroll-x">
               <table className="studio-table">
                 <thead>
                   <tr>
-                    <th>Event</th>
-                    <th style={{ textAlign: "end" }}>Count</th>
-                    <th style={{ textAlign: "end" }}>Share</th>
+                    <th>الحدث</th>
+                    <th style={{ textAlign: "end" }}>العدد</th>
+                    <th style={{ textAlign: "end" }}>النسبة</th>
                   </tr>
                 </thead>
                 <tbody>
                   {report.topEvents.map(([name, count]) => (
                     <tr key={name}>
-                      <td style={{ fontFamily: "var(--font-mono, monospace)", fontSize: 11 }}>{name}</td>
-                      <td className="num">{num(count)}</td>
-                      <td className="num" style={{ color: "var(--s-muted)" }}>
+                      <td className="studio-mono" style={{ fontSize: 13 }}>
+                        {name}
+                      </td>
+                      <td className="num studio-mono">{num(count)}</td>
+                      <td className="num studio-mono" style={{ color: "var(--s-muted)" }}>
                         {Math.round((count / report.totalEvents) * 100)}%
                       </td>
                     </tr>
@@ -242,10 +289,10 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
 function DistRow({ label, value, max }: { label: string; value: number; max: number }) {
   return (
     <div className="studio-dist__row">
-      <span className="studio-dist__label" title={label}>
+      <span className="studio-dist__label studio-mono" title={label}>
         {label}
       </span>
-      <span className="studio-dist__val">{num(value)}</span>
+      <span className="studio-dist__val studio-mono">{num(value)}</span>
       <span className="studio-dist__track">
         <span className="studio-dist__fill" style={{ width: `${max ? (value / max) * 100 : 0}%` }} />
       </span>

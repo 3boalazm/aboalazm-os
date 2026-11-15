@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -107,7 +107,7 @@ test("the analytics gap is stated, not hidden", () => {
 test("contracted value is never presented as revenue", () => {
   assert.match(
     METRICS + OVERVIEW + LEADS,
-    /(not revenue|never as revenue|revenue booked is a different number)/i,
+    /(ليست إيرادات محققة|not revenue|never as revenue|revenue booked is a different number)/i,
     "wonValue must be labelled as contracted value, not revenue",
   );
 });
@@ -166,7 +166,7 @@ test("probes run real checks, and unverifiable ones say so", () => {
   assert.match(METRICS, /SMTP_HOST/, "email probe must read the SMTP config");
   // Vercel/deployment status is not readable from the runtime; it must be
   // declared unverified rather than shown green.
-  assert.match(SYSTEM, /Not verified from here/);
+  assert.match(SYSTEM, /غير متحقق منه من هنا|Not verified from here/);
 });
 
 /* ───────────────────────────────────────────────────────── 4 · isolation of the console */
@@ -193,7 +193,10 @@ test("the console does not ship the marketing site's providers", () => {
   for (const heavy of ["SmoothScroll", "TerminalOverlay", "PersonaProvider", "Analytics", "OsTray", "PwaRegistration"]) {
     assert.equal(layout.includes(heavy), false, `studio layout must not mount ${heavy}`);
   }
-  // …but it does use the brand's real faces.
+  // …but it does use the brand's real faces and Arabic RTL root.
+  assert.match(layout, /lang="ar"/);
+  assert.match(layout, /dir="rtl"/);
+  assert.match(layout, /ibm-plex-sans-arabic/);
   assert.match(layout, /montserrat/);
   assert.match(layout, /jetbrains-mono/);
 });
@@ -420,3 +423,17 @@ test("CMS utility helpers handle media IDs, 42703 detection, and validation mess
   assert.equal(isMissingColumnError({ code: "23505" }), false);
   assert.match(formatPayloadError({ data: { errors: [{ message: "Slug must be unique" }] } }), /Slug must be unique/);
 });
+
+test("built-in Payload /admin UI is retired and /studio owns first-admin setup", () => {
+  assert.equal(existsSync(path.join(root, "app/(payload)/admin")), false, "app/(payload)/admin must be removed");
+  assert.equal(existsSync(path.join(root, "app/(payload)/layout.tsx")), false, "app/(payload)/layout.tsx must be removed");
+  assert.equal(existsSync(path.join(root, "app/(payload)/custom.css")), false, "app/(payload)/custom.css must be removed");
+  assert.equal(existsSync(path.join(root, "app/(payload)/api/[...slug]/route.ts")), true, "Payload REST API must remain intact");
+  assert.equal(existsSync(path.join(root, "app/(payload)/api/graphql/route.ts")), true, "Payload GraphQL API must remain intact");
+
+  const loginPage = read("app/studio/login", "page.tsx");
+  const loginForm = read("components/studio", "login-form.tsx");
+  assert.match(loginPage, /needsFirstUser/);
+  assert.match(loginForm, /\/api\/users\/first-register/);
+});
+

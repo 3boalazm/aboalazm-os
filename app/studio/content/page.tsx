@@ -7,7 +7,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { ContentView } from "@/components/studio/content-view";
 
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Content", robots: { index: false, follow: false } };
+export const metadata = { title: "المحتوى والسيو · لوحة الاستوديو", robots: { index: false, follow: false } };
 
 export default async function StudioContentPage({ searchParams }: { searchParams: Promise<{ range?: string }> }) {
   const params = await searchParams;
@@ -24,7 +24,6 @@ export default async function StudioContentPage({ searchParams }: { searchParams
   ]);
 
   const performance = matchContentViews(views, seo.posts, seo.caseStudies);
-
   const unreadLeads = leads.filter((l) => !l.isRead).length;
 
   return (
@@ -33,15 +32,15 @@ export default async function StudioContentPage({ searchParams }: { searchParams
       attention={
         content.projectsWithoutThumbnail
           ? {
-              title: `${content.projectsWithoutThumbnail} project${content.projectsWithoutThumbnail === 1 ? "" : "s"} without a thumbnail`,
-              body: "They are published, so they render as empty cards on the public work page.",
+              title: `${content.projectsWithoutThumbnail} مشروع بدون صورة مصغرة`,
+              body: "هذه المشاريع منشورة، ما يجعل بطاقاتها فارغة في صفحة الأعمال العامة.",
               href: "/studio/manage/projects",
-              cta: "Fix in Projects",
+              cta: "تعديل المشاريع",
             }
           : null
       }
       userEmail={user.email}
-      version={`P4 · ${range.label}`}
+      version={`المحتوى · ${range.label}`}
     >
       <ContentView
         content={content}
