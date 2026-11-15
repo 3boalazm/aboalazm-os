@@ -10,6 +10,7 @@ import { LanguageBand } from "@/features/home/language-band";
 import { ServicesSnapshot } from "@/features/home/services-snapshot";
 import { InsightsTeaser } from "@/features/home/insights-teaser";
 import { PhotoStrip } from "@/features/home/photo-strip";
+import "@/features/home/home-rhythm.css";
 import { ReelsShortcuts } from "@/features/reels/reels-shortcuts";
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -62,7 +63,7 @@ export default async function Home() {
       <Hero wall={pickHeroWall(projects)} />
 
       {/* 01 · The three disciplines — read before the proof */}
-      <section className="narrative-section narrative-section--cta">
+      <section className="narrative-section narrative-section--cta narrative-raise">
         <div className="container-wide">
           <SectionMarker index="01" label="WHAT WE DO" labelAr="اللي بنعمله" />
         </div>
@@ -118,7 +119,7 @@ export default async function Home() {
       <StatementBand />
 
       {/* 05 · How the studio actually runs — the operating-model answer */}
-      <section className="narrative-section narrative-section--about">
+      <section className="narrative-section narrative-section--about narrative-raise">
         <div className="container-wide">
           <SectionMarker index="05" label="THE STUDIO MODEL" labelAr="نموذج الاستوديو" />
         </div>
@@ -146,7 +147,7 @@ export default async function Home() {
       <PhotoStrip />
 
       {/* 07 · Process & Methodology */}
-      <section className="narrative-section narrative-section--process">
+      <section className="narrative-section narrative-section--process narrative-raise">
         <div className="container-wide">
           <SectionMarker index="07" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
         </div>
@@ -172,7 +173,7 @@ export default async function Home() {
           languages behind one button, so /ms was unreachable for anyone who
           did not guess twice. Its marker takes the slot the funnel steps down
           from, so the narrative stays one continuous count. */}
-      <section className="narrative-section narrative-section--about">
+      <section className="narrative-section narrative-section--about narrative-raise">
         <div className="container-wide">
           <SectionMarker index="09" label="LANGUAGES / THREE SCRIPTS" labelAr="اللغات / ثلاث كتابات" />
         </div>
@@ -192,7 +193,7 @@ export default async function Home() {
       </section>
 
       {/* 11 · The thinking — journal teaser inside the funnel */}
-      <section className="narrative-section narrative-section--proof">
+      <section className="narrative-section narrative-section--proof narrative-raise">
         <div className="container-wide">
           <SectionMarker index="11" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
         </div>

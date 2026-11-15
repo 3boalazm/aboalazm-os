@@ -10,6 +10,7 @@
  */
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { BandFrame } from "@/components/ui/band-frame";
 import { Icon } from "@/components/ui/Icon";
 import { buttonVariants } from "@/components/ui/Button";
 import { joinClasses } from "@/lib/utils";
@@ -36,7 +37,15 @@ export function StartFunnel({
       aria-label={ar ? "كيف تبدأ" : "How to start"}
       className={joinClasses("flex flex-col gap-4", className)}
     >
-      <div className="flex flex-col gap-1">
+      {/* A discovery call is a conversation, not a document — the band sits
+          on the studio's own dashboard work so the first step looks like the
+          place the work happens, not like another paragraph. */}
+      <BandFrame
+        src="/images/work/dev-cards/farm-console-card.jpg"
+        veil="start"
+        priority={false}
+        contentClassName="flex flex-col gap-1 max-lg:p-4"
+      >
         <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">
           {ar ? "طريقة البدء" : "How to start"}
         </p>
@@ -56,7 +65,7 @@ export function StartFunnel({
             ? "مش محتاج تكون عارف إيه اللي طالبه بالضبط. احجز مكالمة، نشرح المشكلة، وتستلم نطاقًا وعرضًا سعر مكتوبًا قبل أي التزام."
             : "You do not need to know exactly what you need. Book the call, describe the problem, and you get a written scope and price before any commitment."}
         </p>
-      </div>
+      </BandFrame>
 
       {showSteps ? (
         <ol className="grid grid-cols-2 gap-3 md:grid-cols-4">

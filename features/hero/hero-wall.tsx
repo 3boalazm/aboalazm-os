@@ -25,10 +25,21 @@ export function HeroWall({ tiles }: { tiles: readonly HeroWallTile[] }) {
   const ar = lang === "ar";
 
   return (
-    <ul
-      className="grid grid-cols-2 gap-3 max-lg:-mx-3 max-lg:flex max-lg:snap-x max-lg:snap-mandatory max-lg:scroll-px-3 max-lg:gap-2 max-lg:overflow-x-auto max-lg:px-3 max-lg:pb-2 max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden"
-      aria-label={ar ? "من الأعمال" : "From the work"}
-    >
+    <div className="flex flex-col gap-1.5">
+      {/* On a phone the strip is labelled and counted, so the shelf reads as a
+          gallery you can swipe rather than an image that happens to overflow. */}
+      <div className="flex items-baseline justify-between gap-3 lg:hidden">
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+          {ar ? "من الأعمال" : "FROM THE WORK"}
+        </p>
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
+          {ar ? `اسحب · ${tiles.length}` : `SWIPE · ${tiles.length}`}
+        </p>
+      </div>
+      <ul
+        className="grid grid-cols-2 gap-3 max-lg:-mx-3 max-lg:flex max-lg:snap-x max-lg:snap-mandatory max-lg:scroll-px-3 max-lg:gap-2 max-lg:overflow-x-auto max-lg:px-3 max-lg:pb-2 max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden"
+        aria-label={ar ? "من الأعمال" : "From the work"}
+      >
       {tiles.map((tile, i) => {
         const first = i === 0;
         const name = ar ? tile.nameAr : tile.name;
@@ -37,7 +48,7 @@ export function HeroWall({ tiles }: { tiles: readonly HeroWallTile[] }) {
             key={tile.slug}
             className={joinClasses(
               first && "col-span-2",
-              "max-lg:w-[86%] max-lg:shrink-0 max-lg:snap-start",
+              "max-lg:w-[88%] max-lg:shrink-0 max-lg:snap-start",
               !first && "max-lg:w-[64%]",
             )}
           >
@@ -49,7 +60,7 @@ export function HeroWall({ tiles }: { tiles: readonly HeroWallTile[] }) {
                 src={tile.src}
                 alt=""
                 fill
-                sizes={first ? "(min-width: 1024px) 40vw, 86vw" : "(min-width: 1024px) 20vw, 64vw"}
+                sizes={first ? "(min-width: 1024px) 40vw, 88vw" : "(min-width: 1024px) 20vw, 64vw"}
                 loading={first ? "eager" : "lazy"}
                 fetchPriority={first ? "high" : "auto"}
                 className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.03]"
@@ -71,6 +82,7 @@ export function HeroWall({ tiles }: { tiles: readonly HeroWallTile[] }) {
           </li>
         );
       })}
-    </ul>
+      </ul>
+    </div>
   );
 }

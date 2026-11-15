@@ -411,6 +411,28 @@ export function HomeFaq() {
         <div>
           <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : lang === "ms" ? "SOALAN LAZIM" : "FAQ"}</p>
           <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
+          {/* A closed <details> is a row of type: seven of them read as a table.
+              The header carries the studio's own work instead, so the last
+              band before the closing CTA is not the only text-only screen
+              left on the page. */}
+          <div className="relative mt-4 hidden overflow-hidden rounded-panel border border-border-subtle max-lg:block">
+            <Image
+              src="/images/work/ahmed-bedeer-mockup.jpg"
+              alt=""
+              width={1600}
+              height={1200}
+              sizes="100vw"
+              loading="lazy"
+              className="aspect-[16/10] w-full object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/80 via-obsidian/30 to-transparent"
+            />
+            <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
+              {ar ? "أحمد بدير — نظام هوية" : "Ahmed Bedeer — identity system"}
+            </span>
+          </div>
         </div>
         <div className="border-t border-border-subtle">
           {items.map(([q, a]) => (

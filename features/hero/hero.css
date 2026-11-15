@@ -65,6 +65,47 @@
   .home-hero { --text-hero: clamp(3.5rem, 2.5rem + 1.5625vw, 4.5rem); }
 }
 
+/* ── The first screen on a phone ──
+   The pitch above was five same-weight lines in a column: status pill, studio
+   name, three-line headline, lead, two pills, two links. Nothing in it said
+   which line mattered. On a phone the poster rule applies — one big statement,
+   everything else quiet — so the headline is pushed up to poster scale, the
+   lead is demoted to one short paragraph, and the buttons keep full width of
+   the type column instead of shrinking to their labels. */
+@media (max-width: 47.9375rem) {
+  .home-hero { --text-hero: clamp(2.75rem, 12.5vw, 4.25rem); }
+
+  .home-hero h1 {
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+  }
+
+  /* Arabic needs its descenders; 1.02 would clip the tails inside the
+     overflow-hidden line wrappers. */
+  [dir="rtl"] .home-hero h1 {
+    line-height: 1.16;
+  }
+
+  /* The lead is proof of voice, not the headline: two lines, then out. */
+  .home-hero h1 + div > p {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
+
+  /* Both actions share the row and split it — a thumb-sized target each,
+     instead of two pills huddled on the left. */
+  .home-hero h1 + div > div:first-of-type {
+    gap: 0.5rem;
+  }
+
+  .home-hero h1 + div > div:first-of-type > a {
+    flex: 1 1 0%;
+    justify-content: center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-line,
   .hero-rise,

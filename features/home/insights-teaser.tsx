@@ -10,6 +10,7 @@ import type { Locale } from "@/lib/locale";
 import Link from "@/components/ui/localized-link";
 import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
+import { BandFrame } from "@/components/ui/band-frame";
 import { Icon } from "@/components/ui/Icon";
 
 export interface TeaserPost {
@@ -47,7 +48,14 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+      {/* The essays are about systems, and the band's own cover is a system:
+          the ERP console the method produced. Type stays on the page canvas
+          below — the covers under it carry the colour. */}
+      <BandFrame
+        src="/images/work/dev-cards/nile-erp-command-center-card.jpg"
+        veil="start"
+        contentClassName="flex flex-col gap-2 max-lg:p-4 md:flex-row md:items-end md:justify-between"
+      >
         <div className="flex max-w-[46ch] flex-col gap-1">
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
             {ar ? (
@@ -75,7 +83,7 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
             <Icon name="arrow-right" />
           </span>
         </Link>
-      </div>
+      </BandFrame>
 
       <div className="grid gap-4 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-3">
         {picked.map((p, i) => (
