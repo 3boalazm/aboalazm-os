@@ -31,6 +31,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null);
   const [installed, setInstalled] = useState(false);
   const [appleMobile, setAppleMobile] = useState(false);
+  const [safariDesktop, setSafariDesktop] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
 
   useEffect(() => {
@@ -39,10 +40,18 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
       const safariStandalone = (navigator as Navigator & { standalone?: boolean }).standalone === true;
       setInstalled(displayMode.matches || safariStandalone);
     };
+    type WindowWithPrompt = Window & { __pwaInstallPrompt?: InstallPromptEvent | null };
+    const w = window as WindowWithPrompt;
+    const adoptStashed = () => {
+      if (w.__pwaInstallPrompt) setInstallPrompt(w.__pwaInstallPrompt);
+    };
     const onBeforeInstallPrompt = (event: Event) => {
       event.preventDefault();
+      w.__pwaInstallPrompt = event as InstallPromptEvent;
       setInstallPrompt(event as InstallPromptEvent);
     };
+    // The event usually fires before hydration — the boot script keeps it.
+    adoptStashed();
     const onInstalled = () => {
       setInstalled(true);
       setHelpOpen(false);
@@ -56,12 +65,20 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
       (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ||
       /iOS/i.test(platform.userAgentData?.platform ?? "");
     setAppleMobile(isAppleTouchDevice);
+    // macOS Safari 17+ installs via File → Add to Dock (no programmatic prompt).
+    setSafariDesktop(
+      !isAppleTouchDevice &&
+        /Macintosh/.test(navigator.userAgent) &&
+        /Version\/(1[7-9]|[2-9]\d)[\d.]* Safari/.test(navigator.userAgent),
+    );
 
     window.addEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+    window.addEventListener("pwa:installable", adoptStashed);
     window.addEventListener("appinstalled", onInstalled);
     displayMode.addEventListener("change", syncInstalled);
     return () => {
       window.removeEventListener("beforeinstallprompt", onBeforeInstallPrompt);
+      window.removeEventListener("pwa:installable", adoptStashed);
       window.removeEventListener("appinstalled", onInstalled);
       displayMode.removeEventListener("change", syncInstalled);
     };
@@ -89,6 +106,8 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
     try {
       await installPrompt.prompt();
       const result = await installPrompt.userChoice;
+      // A prompt event can only be used once.
+      (window as Window & { __pwaInstallPrompt?: unknown }).__pwaInstallPrompt = null;
       setInstallPrompt(null);
       setHelpOpen(false);
       if (result.outcome === "accepted") setInstalled(true);
@@ -99,6 +118,12 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
   };
 
   if (installed) return null;
+  // In the tray the control means "install now": show it only where one tap
+  // really installs (the browser handed us its native prompt) or on iOS,
+  // where Safari's Share → Add to Home Screen is the only route. Browsers that
+  // cannot install (in-app webviews, Firefox desktop…) get no dead button and
+  // no manual-instructions popup. /developer's inline card keeps the help.
+  if (variant !== "inline" && !installPrompt && !appleMobile && !safariDesktop) return null;
 
   return (
     <div
@@ -111,7 +136,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
             : /* docked: a ROW (divider beside the button, not above it) and no
                  w-full — as a flex child of the tray that would stretch the
                  pill across the whole bar. */
-              "relative flex flex-row items-center"
+              "flex flex-row items-center"
       }
       style={variant === "floating" ? { bottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)" } : undefined}
     >
@@ -129,7 +154,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
              button and stretch the bar. Docked, it is taken out of flow and
              anchored above its trigger. */
           className={docked
-            ? "absolute bottom-[calc(100%+0.6rem)] end-0 z-50 w-64 max-w-[calc(100vw-2rem)] rounded-card border border-border-default bg-surface-3 p-3.5 text-start shadow-panel"
+            ? "absolute bottom-[calc(100%+0.6rem)] end-0 z-50 w-72 max-w-[calc(100vw-4rem)] rounded-card border border-border-default bg-surface-3 p-3.5 text-start shadow-panel"
             : "mb-3 w-72 max-w-[calc(100vw-2rem)] rounded-card border border-border-default bg-surface-1 p-4 text-start shadow-card backdrop-blur-xl"}
         >
           <div className="flex items-start justify-between gap-3">
@@ -159,7 +184,13 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
           </div>
 
           <p className="mt-2 text-body-sm leading-relaxed text-text-secondary">
-            {appleMobile
+            {safariDesktop
+              ? ar
+                ? "من قائمة File في Safari اختار «Add to Dock»."
+                : lang === "ms"
+                  ? "Dalam Safari, pilih File → “Add to Dock”."
+                  : "In Safari, choose File → “Add to Dock.”"
+              : appleMobile
               ? ar
                 ? "افتح قائمة المشاركة في Safari، ثم اختَر «إضافة إلى الشاشة الرئيسية»."
                 : lang === "ms"
@@ -201,7 +232,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
           docked
             /* No border/backdrop of its own: the tray pill IS the surface. A
                second bordered pill inside it read as two nested controls. */
-            ? "group inline-flex items-center gap-1.5 rounded-pill px-1 py-1 text-text-primary transition-colors duration-base ease-physics hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
+            ? "group inline-flex items-center gap-1 rounded-pill p-0.5 text-text-primary sm:pe-1.5 transition-colors duration-base ease-physics hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
             : variant === "floating"
               ? "group inline-flex items-center gap-1.5 rounded-pill border border-accent/45 bg-surface-1/95 px-2 py-1 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:gap-2 sm:px-2.5 sm:py-1.5"
               : "group inline-flex w-full items-center justify-between gap-4 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem]"
@@ -209,15 +240,20 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
       >
         <span
           className={
-            docked || variant === "floating"
+            docked
+              ? "grid size-[2.25rem] shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"
+              : variant === "floating"
               ? "grid size-6 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"
               : "grid size-10 shrink-0 place-items-center rounded-full bg-accent text-obsidian transition-transform duration-200 group-hover:scale-105"
           }
         >
           <Icon name="download" size={variant === "inline" ? 20 : 14} />
         </span>
-        <span className="flex flex-col items-start gap-0.5">
-          <span className="whitespace-nowrap font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro">
+        {/* Docked on phones: icon only, so the language chips get the room. */}
+        <span className={docked ? "hidden flex-col items-start gap-0.5 sm:flex" : "flex flex-col items-start gap-0.5"}>
+          <span className={docked
+            ? "whitespace-nowrap font-mono text-micro font-semibold uppercase leading-tight tracking-[0.06em]"
+            : "whitespace-nowrap font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro"}>
             {variant === "inline"
               ? (ar ? "ثبّت Aboalazm OS" : lang === "ms" ? "DAPATKAN APLIKASI OS" : "GET THE OS APP")
               : (ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app")}
