@@ -67,7 +67,7 @@ function MetricCard({ metric }: { metric: Metric }) {
     <motion.div
       variants={reveal.item}
       whileHover="hover"
-      className="group relative flex-1 cursor-default px-3 py-3 first:pl-0 sm:py-4"
+      className="group relative flex-1 cursor-default px-3 py-3 first:pl-0 max-sm:basis-[72%] max-sm:shrink-0 max-sm:snap-start max-sm:rounded-card max-sm:border max-sm:border-border-subtle max-sm:bg-surface-1 max-sm:pl-3 sm:py-4"
     >
       <span className="absolute inset-x-0 top-0 h-px bg-border-subtle" />
       <motion.span
@@ -119,7 +119,7 @@ export function MetricRow() {
         variants={reveal.container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
-        className="flex flex-col gap-2 sm:flex-row sm:gap-4"
+        className="flex flex-col gap-2 max-sm:-mx-3 max-sm:snap-x max-sm:snap-mandatory max-sm:scroll-px-3 max-sm:flex-row max-sm:overflow-x-auto max-sm:px-3 max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden sm:flex-row sm:gap-4"
       >
         {metrics.map((m) => (
           <MetricCard key={m.label} metric={m} />

@@ -137,7 +137,7 @@ export function LanguageBand() {
         <p className="max-w-[62ch] text-body-sm leading-relaxed text-text-secondary">{heading.lead}</p>
       </div>
 
-      <ul className="grid gap-2 md:grid-cols-3">
+      <ul className="grid gap-2 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-3">
         {MODULES.map((module) => {
           const current = module.locale === lang;
           const isArabicColumn = module.locale === "ar";
@@ -147,7 +147,7 @@ export function LanguageBand() {
               key={module.locale}
               data-active={current ? "true" : "false"}
               className={joinClasses(
-                "group relative flex min-w-0 flex-col overflow-hidden rounded-panel border p-4 transition-colors duration-base ease-physics",
+                "group relative flex min-w-0 flex-col overflow-hidden rounded-panel border p-4 transition-colors duration-base ease-physics max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
                 current
                   ? "border-accent/45 bg-surface-2"
                   : "border-border-subtle bg-surface-1 hover:border-border-strong",

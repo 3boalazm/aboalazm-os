@@ -11,6 +11,7 @@
  * Styles: .statement-editorial in globals.css — the closing CTA's language
  * without the picture.
  */
+import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
@@ -20,8 +21,21 @@ export function StatementBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <section aria-label={ar ? "بيان المنهج" : lang === "ms" ? "Kenyataan studio" : "Studio statement"} className="statement-editorial">
-      <div className="container-wide statement-editorial__inner">
+    <section aria-label={ar ? "بيان المنهج" : lang === "ms" ? "Kenyataan studio" : "Studio statement"} className="statement-editorial relative overflow-hidden">
+      {/* The studio's closing frame, held back under a dark veil — the
+          manifesto now sits on a picture, not on an empty dot grid. */}
+      <Image
+        src="/images/cta/closing-duotone-npf.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover opacity-35"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-obsidian/85 via-obsidian/60 to-obsidian/90"
+      />
+      <div className="container-wide statement-editorial__inner relative z-10">
         <p className="statement-editorial__kicker">{ar ? "الموقف" : lang === "ms" ? "KEDUDUKAN" : "THE POSITION"}</p>
         <h2 className="editorial-display statement-editorial__title">
           {ar ? (

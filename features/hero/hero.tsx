@@ -189,12 +189,14 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
         {/* Right — proof, not decoration.
             The column used to hold the system constellation: an animated
             diagram of the idea and not one pixel of the work. It now holds
-            the work (desktop only; see HeroWall). If fewer than two curated
-            cases are available it falls back to the constellation, so the
-            column is never empty. A definite `w-full` still matters: without
-            it the frame resolved against an auto-width parent and collapsed. */}
+            the work. On a phone the wall becomes a swipeable poster strip
+            under the CTAs (see HeroWall) — the first screen shows real work
+            instead of pure type. If fewer than two curated cases are
+            available it falls back to the constellation, so the column is
+            never empty. A definite `w-full` still matters: without it the
+            frame resolved against an auto-width parent and collapsed. */}
         {wall.length >= 2 ? (
-          <div className="hero-settle hidden w-full lg:block">
+          <div className="hero-settle w-full">
             <HeroWall tiles={wall} />
           </div>
         ) : (

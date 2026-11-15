@@ -15,33 +15,41 @@ import type { HeroWallTile } from "./hero-wall-data";
  * link to its case study, named in the tile itself, so the picture is never
  * the only thing telling you what you are about to open.
  *
- * Desktop only (the parent hides it below `lg`): on a phone the featured
- * cards are the very next thing down, so repeating them above the fold would
- * only push the call to action off the screen.
+ * On a phone the wall is a swipeable poster strip (first tile 84% wide,
+ * portrait 4:5, the rest peeking at 62%) sitting under the CTAs — the first
+ * screen finally shows the work instead of pure type. On desktop it keeps
+ * the two-column grid.
  */
 export function HeroWall({ tiles }: { tiles: readonly HeroWallTile[] }) {
   const { lang } = useLang();
   const ar = lang === "ar";
 
   return (
-    <ul className="grid grid-cols-2 gap-3" aria-label={ar ? "من الأعمال" : "From the work"}>
+    <ul
+      className="grid grid-cols-2 gap-3 max-lg:-mx-3 max-lg:flex max-lg:snap-x max-lg:snap-mandatory max-lg:scroll-px-3 max-lg:gap-2 max-lg:overflow-x-auto max-lg:px-3 max-lg:pb-2 max-lg:[scrollbar-width:none] max-lg:[&::-webkit-scrollbar]:hidden"
+      aria-label={ar ? "من الأعمال" : "From the work"}
+    >
       {tiles.map((tile, i) => {
         const first = i === 0;
         const name = ar ? tile.nameAr : tile.name;
         return (
-          <li key={tile.slug} className={joinClasses(first && "col-span-2")}>
+          <li
+            key={tile.slug}
+            className={joinClasses(
+              first && "col-span-2",
+              "max-lg:w-[84%] max-lg:shrink-0 max-lg:snap-start",
+              !first && "max-lg:w-[62%]",
+            )}
+          >
             <Link
               href={`/case-studies/${tile.slug}`}
-              className="group relative block aspect-[16/10] overflow-hidden rounded-card border border-border-subtle bg-surface-1"
+              className="group relative block aspect-[16/10] overflow-hidden rounded-card border border-border-subtle bg-surface-1 max-lg:aspect-[4/5]"
             >
               <Image
                 src={tile.src}
                 alt=""
                 fill
-                /* The wall is `hidden` under lg: a 1px slot makes a phone that
-                   still resolves this <img> pick the 16w variant instead of a
-                   full-size file it will never show. */
-                sizes={first ? "(min-width: 1024px) 40vw, 1px" : "(min-width: 1024px) 20vw, 1px"}
+                sizes={first ? "(min-width: 1024px) 40vw, 84vw" : "(min-width: 1024px) 20vw, 62vw"}
                 loading={first ? "eager" : "lazy"}
                 fetchPriority={first ? "high" : "auto"}
                 className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.03]"

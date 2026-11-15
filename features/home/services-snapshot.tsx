@@ -6,6 +6,7 @@
  * the home page can never drift from /pricing. Recommended tier carries the
  * accent edge; every card includes a primary "Book with a deposit" CTA.
  */
+import Image from "next/image";
 import { ServicePaths } from "@/features/offers/service-paths";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
@@ -18,6 +19,13 @@ import {
   DISCOVERY_CTA_LABEL,
   TIERS,
 } from "@/lib/offers";
+
+/* One real deliverable per tier, cropped for the card frame. */
+const TIER_ART: Record<string, string> = {
+  "logo-design": "/images/work/ahmed-bedeer-card.jpg",
+  "brand-identity": "/images/work/gad/gad-card.jpg",
+  "full-brand-system": "/images/work/cc-logo-hero.jpg",
+};
 
 export function ServicesSnapshot() {
   const { lang } = useLang();
@@ -78,13 +86,27 @@ export function ServicesSnapshot() {
               className="relative flex flex-col gap-3 rounded-panel p-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:p-4"
             >
               {recommended ? (
-                <span className="absolute -top-2.5 start-4 rounded-pill bg-accent px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-obsidian">
+                <span className="absolute -top-2.5 start-4 z-elevated rounded-pill bg-accent px-2 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-obsidian">
                   {ar ? "موصى بها" : lang === "ms" ? "Disyorkan" : "Recommended"}
                 </span>
               ) : null}
-              <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                {ar ? tier.tag[1] : tier.tag[0]}
-              </p>
+              {/* The tier's own deliverable, with its tag painted on it. */}
+              <div className="relative aspect-[16/8] overflow-hidden rounded-card">
+                <Image
+                  src={TIER_ART[tier.id] ?? "/images/work/cc-logo-hero.jpg"}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 30vw, 84vw"
+                  className="object-cover"
+                />
+                <div
+                  aria-hidden
+                  className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/70 via-obsidian/20 to-transparent"
+                />
+                <span className="absolute bottom-2.5 start-3 font-mono text-micro uppercase tracking-[0.10em] text-alabaster">
+                  {ar ? tier.tag[1] : tier.tag[0]}
+                </span>
+              </div>
               <div className="flex flex-col gap-1">
                 <h3 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">
                   {ar ? tier.name[1] : tier.name[0]}

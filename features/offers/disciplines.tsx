@@ -11,6 +11,7 @@
  *
  * Copy lives in lib/offers DISCIPLINES (single source); this file is layout only.
  */
+import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
@@ -22,6 +23,14 @@ const SERVICE_FOR: Record<Discipline["id"], "brand-identity" | "website" | "digi
   brand: "brand-identity",
   digital: "website",
   systems: "digital-product",
+};
+
+/* One real piece of work per discipline, cropped for the card frame — the
+   card leads with proof, not with a paragraph. */
+const DISCIPLINE_ART: Record<Discipline["id"], string> = {
+  brand: "/images/work/gad/gad-card.jpg",
+  digital: "/images/work/dev-cards/nile-pharma-storefront-card.jpg",
+  systems: "/images/work/dev-cards/nile-erp-command-center-card.jpg",
 };
 
 export function DisciplineCards({
@@ -53,63 +62,80 @@ export function DisciplineCards({
           <article
             key={d.id}
             className={joinClasses(
-              "flex flex-col gap-3 rounded-panel border bg-surface-1 p-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:p-4",
+              "flex flex-col overflow-hidden rounded-panel border bg-surface-1 max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
               isHighlight ? "border-accent-border bg-accent/[0.04]" : "border-border-default",
             )}
           >
-            <div className="flex items-baseline justify-between gap-2">
-              <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{d.n}</p>
-              <p className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost">
+            {/* Proof first: the discipline's own work, with its number and
+                starting price painted on the picture. */}
+            <div className="relative aspect-[16/9] shrink-0 overflow-hidden">
+              <Image
+                src={DISCIPLINE_ART[d.id]}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 30vw, 84vw"
+                className="object-cover"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/70 via-obsidian/20 to-transparent"
+              />
+              <span className="absolute start-3 top-3 rounded-pill bg-obsidian/55 px-2 py-0.5 font-mono text-micro uppercase tracking-[0.12em] text-alabaster backdrop-blur-sm">
+                {d.n}
+              </span>
+              <span className="absolute bottom-2.5 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
                 {ar ? d.from[1] : d.from[0]}
-              </p>
+              </span>
             </div>
 
-            <h3 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">
-              {ar ? d.name[1] : d.name[0]}
-            </h3>
+            <div className="flex flex-1 flex-col gap-3 p-3 md:p-4">
+              <h3 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">
+                {ar ? d.name[1] : d.name[0]}
+              </h3>
 
-            <p className="text-body-sm text-text-secondary">{ar ? d.forWhom[1] : d.forWhom[0]}</p>
+              <p className="text-body-sm text-text-secondary">{ar ? d.forWhom[1] : d.forWhom[0]}</p>
 
-            <div className="border-t border-border-subtle pt-2">
-              <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                {ar ? "اللي بتخرج بيه" : "What you walk away with"}
-              </p>
-              <p className="mt-1 text-body-sm text-text-primary">{ar ? d.outcome[1] : d.outcome[0]}</p>
-            </div>
+              <div className="border-t border-border-subtle pt-2">
+                <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
+                  {ar ? "اللي بتخرج بيه" : "What you walk away with"}
+                </p>
+                <p className="mt-1 text-body-sm text-text-primary">{ar ? d.outcome[1] : d.outcome[0]}</p>
+              </div>
 
-            <ul className="flex flex-col gap-1.5">
-              {items.map((item, i) => (
-                <li
-                  key={item[0]}
-                  className={joinClasses(
-                    "flex items-start gap-2 text-body-sm text-text-secondary",
-                    compact && i >= 2 && "max-sm:hidden",
-                  )}
-                >
-                  <span aria-hidden className="mt-[0.55em] size-1 shrink-0 rounded-pill bg-accent" />
-                  {ar ? item[1] : item[0]}
-                </li>
-              ))}
-            </ul>
+              <ul className="flex flex-col gap-1.5">
+                {items.map((item, i) => (
+                  <li
+                    key={item[0]}
+                    className={joinClasses(
+                      "flex items-start gap-2 text-body-sm text-text-secondary",
+                      compact && i >= 2 && "max-sm:hidden",
+                    )}
+                  >
+                    <span aria-hidden className="mt-[0.55em] size-1 shrink-0 rounded-pill bg-accent" />
+                    {ar ? item[1] : item[0]}
+                  </li>
+                ))}
+              </ul>
 
-            <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
-              <Link
-                href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
-                className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] text-accent transition-colors hover:text-text-primary"
-              >
-                {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
-                <span aria-hidden className="inline-flex">
-                  <Icon name="arrow-right" />
-                </span>
-              </Link>
-              {!compact ? (
+              <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
                 <Link
-                  href={d.href}
-                  className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary"
+                  href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
+                  className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] text-accent transition-colors hover:text-text-primary"
                 >
-                  {ar ? "التفاصيل" : "Details"}
+                  {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
+                  <span aria-hidden className="inline-flex">
+                    <Icon name="arrow-right" />
+                  </span>
                 </Link>
-              ) : null}
+                {!compact ? (
+                  <Link
+                    href={d.href}
+                    className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary"
+                  >
+                    {ar ? "التفاصيل" : "Details"}
+                  </Link>
+                ) : null}
+              </div>
             </div>
           </article>
         );
@@ -230,14 +256,19 @@ export function StudioModelBand({ className }: { className?: string }) {
         </h2>
         <p className="max-w-[62ch] text-body text-text-secondary">{copy.lead}</p>
       </div>
-      <dl className="grid gap-x-6 gap-y-0 md:grid-cols-2">
+      {/* Numbered glass cards (the "Built on Principles" idiom): on a phone
+          they swipe one at a time instead of stacking into a text wall. */}
+      <dl className="grid gap-3 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
         {copy.points.map(([head, body], i) => (
-          <div key={head} className="border-t border-border-subtle py-3">
-            <dt className="flex items-baseline gap-2 font-display text-subtitle tracking-[-0.01em] text-text-primary">
-              <span className="font-mono text-micro text-accent">{`0${i + 1}`}</span>
-              {head}
+          <div
+            key={head}
+            className="flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1 p-4 max-md:w-[84%] max-md:shrink-0 max-md:snap-start"
+          >
+            <dt className="flex items-baseline gap-3">
+              <span className="font-display text-title leading-none text-accent">{`0${i + 1}`}</span>
+              <span className="font-display text-subtitle tracking-[-0.01em] text-text-primary">{head}</span>
             </dt>
-            <dd className="mt-1 max-w-[52ch] text-body-sm text-text-secondary">{body}</dd>
+            <dd className="text-body-sm text-text-secondary">{body}</dd>
           </div>
         ))}
       </dl>

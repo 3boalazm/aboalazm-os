@@ -4,6 +4,7 @@
  * HOME BANDS — the sections the old home had, in the new system's
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
+import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import * as React from "react";
 import { Icon } from "@/components/ui/Icon";
@@ -44,6 +45,24 @@ export function AboutTeaser() {
   return (
     <section className="container-content grid gap-8 py-6 lg:grid-cols-[7fr_5fr]">
       <div className="flex flex-col gap-3">
+        {/* Mobile visual anchor — the section was pure type. Code & Canvas
+            is named in the copy below, so its closing frame carries it. */}
+        <div className="relative aspect-[16/10] overflow-hidden rounded-panel border border-border-subtle lg:hidden">
+          <Image
+            src="/images/work/cc-closing.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/75 via-obsidian/25 to-transparent"
+          />
+          <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
+            {ar ? "Code & Canvas — شريك مؤسس ومدير إبداعي" : "Code & Canvas — Co-Founder & Creative Lead"}
+          </span>
+        </div>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "01 / نبذة" : lang === "ms" ? "01 / TENTANG" : "01 / ABOUT"}
         </p>
@@ -243,7 +262,9 @@ export function ClientJourneyBand() {
           </Link>
         </div>
 
-        <div className="relative">
+        {/* On a phone the four stages swipe as cards instead of scrolling
+            as a four-screen text wall; the sticky scroll story stays on lg. */}
+        <div className="relative max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden">
           {steps.map((step, i) => {
             const isActive = i === active;
             return (
@@ -251,13 +272,13 @@ export function ClientJourneyBand() {
                 key={step.n}
                 ref={(el) => { stepRefs.current[i] = el; }}
                 data-step={i}
-                className="py-3 sm:min-h-[36vh] sm:py-4 lg:min-h-[48vh] lg:py-5"
+                className="py-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start max-md:py-0 sm:min-h-[36vh] sm:py-4 lg:min-h-[48vh] lg:py-5"
               >
                 <motion.div
                   initial={false}
                   animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }}
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-t border-border-subtle pt-4"
+                  className="border-t border-border-subtle pt-4 max-md:rounded-panel max-md:border max-md:border-border-subtle max-md:bg-surface-1 max-md:p-4"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <span className={`font-mono text-label ${[
