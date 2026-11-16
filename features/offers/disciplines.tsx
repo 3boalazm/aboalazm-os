@@ -13,7 +13,6 @@
  */
 import type React from "react";
 import Image from "next/image";
-import { BandFrame } from "@/components/ui/band-frame";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
@@ -304,38 +303,28 @@ export function StudioModelBand({ className }: { className?: string }) {
         </h2>
         <p className="max-w-[62ch] text-body text-text-secondary">{copy.lead}</p>
       </div>
-      {/* Numbered glass cards (the "Built on Principles" idiom): on a phone
-          they swipe one at a time instead of stacking into a text wall — and
-          they sit on a glass sculpture plate, so the section opens on an image
-          instead of on three paragraphs. */}
-      <BandFrame
-        src="/images/generated/creative-chrome-figure.jpg"
-        veil="bottom"
-        shape="bleed"
-        contentClassName="flex flex-col gap-3 max-lg:p-4"
-      >
-        {/* Phones: the shelf must break out of BOTH paddings it sits in — the
-            frame's own p-4 (32px) and the page container's 24px — or it is
-            clipped to a ~296px window and each card collapses to a 144px
-            column of one-word lines. -mx-7 = 56px returns it to the screen
-            edges; px-3 lines the first card up with every other shelf. */}
-        <dl className="grid gap-3 max-md:-mx-7 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
+      {/* Bento (redesign v3): one picture panel carries the eye, four glass
+          panels carry the words — unequal sizes, so the block reads as a
+          composition instead of a list of identical text cards. */}
+      <div className="bento">
+        <figure className="panel panel--image b-5 flex flex-col justify-end md:row-span-2">
+          <Image src="/images/generated/creative-chrome-figure.jpg" alt="" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+          <figcaption className="flex flex-col gap-1 p-4">
+            <span className="font-mono text-micro uppercase tracking-[0.12em] text-alabaster/80">{ar ? "استوديو يقوده مؤسسه" : "Founder-led"}</span>
+            <span className="panel__num">{ar ? "واحد" : "One"}</span>
+            <span className="max-w-[26ch] text-body-sm text-alabaster/85">
+              {ar ? "شخص واحد مسؤول عن مشروعك من أول مكالمة للتسليم." : "person accountable for your project, from first call to handover."}
+            </span>
+          </figcaption>
+        </figure>
         {copy.points.map(([head, body], i) => (
-          <div
-            key={head}
-            className="flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1 p-4 max-md:w-[84%] max-md:shrink-0 max-md:snap-start max-md:p-3"
-          >
-            {/* Number above the title on phones: side by side, a long display
-                word ("MANAGEMENT") ran out of the card. */}
-            <dt className="flex items-baseline gap-3 max-md:flex-col max-md:gap-1">
-              <span className="font-display text-title leading-none text-accent">{`0${i + 1}`}</span>
-              <span className="min-w-0 font-display text-subtitle tracking-[-0.01em] text-text-primary [overflow-wrap:anywhere]">{head}</span>
-            </dt>
-            <dd className="text-body-sm text-text-secondary">{body}</dd>
+          <div key={head} className={joinClasses("panel panel--glass flex flex-col gap-2", i === 0 ? "b-7" : i === 1 ? "b-7" : "b-6")}>
+            <span className="font-mono text-micro tabular-nums" style={{ color: "var(--color-gold-text)" }}>{`0${i + 1}`}</span>
+            <h3 className="min-w-0 font-display text-subtitle tracking-[-0.01em] text-text-primary [overflow-wrap:anywhere]">{head}</h3>
+            <p className="max-w-[52ch] text-body-sm text-text-secondary">{body}</p>
           </div>
         ))}
-        </dl>
-      </BandFrame>
+      </div>
       <p className="max-w-[62ch] border-s-2 border-accent/40 ps-3 font-mono text-micro uppercase tracking-[0.06em] leading-[1.7] text-text-tertiary">
         {copy.note}
       </p>

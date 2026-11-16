@@ -75,7 +75,7 @@ export function Footer() {
      page up to 18px wider than the viewport (768-877px, English) while labels wrapped to three
      lines. Below `lg` the brand stacks above four full-width columns, as it already did under 768. */
   return (
-    <footer className="ground ground-plum !pb-0">
+    <footer className="ground ground-ink !pb-0">
       <div className="container-wide grid gap-8 py-8 lg:grid-cols-[1.2fr_2fr]">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2.5">

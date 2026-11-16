@@ -36,9 +36,10 @@ const pageMetadata: Metadata = {
  *   REDESIGN V2 (2026-11): seven modules on four grounds, down from thirteen
  *   sections on one.
  *
- *   00 BOOT (obsidian · hero) → 01 OFFER (bone) → 02 WORK (obsidian) →
- *   03 WATCH (plum) → 04 METHOD (bone) → 05 STUDIO (obsidian) →
- *   06 START (coral, with the index of what moved off the page)
+ *   00 BOOT (cinematic hero) → 01 OFFER (ember) → 02 WORK (obsidian) →
+ *   03 WATCH (ink) → 04 METHOD (ember) → 05 STUDIO (obsidian) →
+ *   06 START (glow, with the index of what moved off the page)
+ *   Dark theme: every ground is dark (lib/theme-tokens.ts, contrast-tested).
  *
  *   Moved, not deleted: the services snapshot and social proof live on
  *   /services and /pricing; practice/background on /about; writing on
@@ -70,8 +71,8 @@ export default async function Home() {
       {/* The boot rail: the page read as an OS loading module by module. */}
       <BootRail />
 
-      {/* 01 · OFFER — bone ground. The three disciplines, colour-coded. */}
-      <section id="offer" className="narrative-section narrative-section--proof ground ground-bone ground-sheet">
+      {/* 01 · OFFER — ember ground. The three disciplines, colour-coded. */}
+      <section id="offer" className="narrative-section narrative-section--proof ground ground-ember ground-sheet">
         <div className="container-wide">
           <SectionMarker index="01" label="OFFER / WHAT WE DO" labelAr="العرض / اللي بنعمله" />
         </div>
@@ -81,7 +82,7 @@ export default async function Home() {
       </section>
 
       {/* 02 · WORK — obsidian. Identity, the files, then digital: one module. */}
-      <section id="work" className="narrative-section narrative-section--proof ground">
+      <section id="work" className="narrative-section narrative-section--proof ground ground-base ground-sheet">
         <div className="container-wide">
           <SectionMarker index="02" label="WORK / PROOF" labelAr="الأعمال / الدليل" />
         </div>
@@ -108,8 +109,8 @@ export default async function Home() {
         </ScrollReveal>
       </section>
 
-      {/* 03 · WATCH — plum ground. Exactly three reel shortcuts. */}
-      <section id="watch" className="narrative-section narrative-section--proof ground ground-plum ground-sheet">
+      {/* 03 · WATCH — ink ground. Exactly three reel shortcuts. */}
+      <section id="watch" className="narrative-section narrative-section--proof ground ground-ink ground-sheet">
         <div className="container-wide">
           <SectionMarker index="03" label="WATCH / REELS" labelAr="شاهد / ريلز" />
         </div>
@@ -118,8 +119,8 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 04 · METHOD — bone ground. How a project runs, then how it starts. */}
-      <section id="method" className="narrative-section narrative-section--process ground ground-bone ground-sheet">
+      {/* 04 · METHOD — ember ground. How a project runs, then how it starts. */}
+      <section id="method" className="narrative-section narrative-section--process ground ground-ember ground-sheet">
         <div className="container-wide">
           <SectionMarker index="04" label="METHOD / HOW IT RUNS" labelAr="المنهج / إزاي بيمشي" />
         </div>
@@ -136,7 +137,7 @@ export default async function Home() {
       {/* 05 · STUDIO — obsidian. Who you are buying, and the three scripts.
           The language band stays on the home page on purpose: it is what makes
           the third locale believable (lib/discoverability.test.ts). */}
-      <section id="studio" className="narrative-section narrative-section--about ground ground-sheet">
+      <section id="studio" className="narrative-section narrative-section--about ground ground-base ground-sheet">
         <div className="container-wide">
           <SectionMarker index="05" label="STUDIO / WHO YOU WORK WITH" labelAr="الاستوديو / مين هتشتغل معاه" />
         </div>
@@ -150,10 +151,10 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 06 · START — coral ground. One next step, then the index of
+      {/* 06 · START — glow ground (near-black under a coral sun). One next step, then the index of
           everything that left the home page (pricing, writing, FAQ, about):
           six sections became six lines. */}
-      <section id="start" className="narrative-section narrative-section--cta ground ground-coral ground-sheet">
+      <section id="start" className="narrative-section narrative-section--cta ground ground-glow ground-sheet">
         <div className="container-wide">
           <SectionMarker index="06" label="START / NEXT STEP" labelAr="ابدأ / الخطوة الجاية" />
         </div>
