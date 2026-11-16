@@ -53,7 +53,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
             rel="noopener noreferrer"
             className="x-btn x-btn--solid"
           >
-            {ar ? "تحدّث عبر واتساب" : lang === "ms" ? "Sembang di WhatsApp" : "Chat on WhatsApp"} ↗
+            {ar ? "تحدّث عبر واتساب" : lang === "ms" ? "Sembang di WhatsApp" : "Chat on WhatsApp"} {ar ? "↖" : "↗"}
           </a>
           <a href={CONTACT_EMAIL_HREF} className="underline underline-offset-4">
             {ar ? "أرسل بريدًا إلكترونيًا" : lang === "ms" ? "Hantar e-mel" : "Send an email"}
@@ -66,7 +66,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
               data-booking-click="true"
               className="text-accent underline underline-offset-4"
             >
-              {ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} ↗
+              {ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
             </a>
           ) : null}
         </div>
@@ -104,7 +104,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
                   data-booking-click="true"
                   className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-border-default px-2 py-1.5 text-body-sm hover:border-accent"
                 >
-                  <span>{ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} ↗</span>
+                  <span>{ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}</span>
                   <span className="font-mono text-micro text-text-secondary">30 min</span>
                 </a>
               ) : null}
@@ -117,7 +117,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
                     : {})}
                   className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-border-default px-2 py-1.5 text-body-sm hover:border-accent"
                 >
-                  <span>{ar ? c.ar : c.en} ↗</span>
+                  <span>{ar ? c.ar : c.en} {ar ? "↖" : "↗"}</span>
                   <span dir="ltr" className="break-all text-text-secondary">
                     {c.label}
                   </span>

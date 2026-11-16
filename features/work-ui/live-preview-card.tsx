@@ -17,6 +17,6 @@ export function LivePreviewCard({ project }: { project: Project }) {
       <h2 className="px-3 pt-3 font-display font-display-sm text-subtitle">{ar ? project.nameAr ?? project.name : project.name}</h2>
     </Link>
     <p className="px-3 pt-1 text-body-sm text-text-secondary">{ar ? project.outcomeAr ?? project.outcome : project.outcome}</p>
-    <div className="flex flex-wrap gap-3 p-3 text-body-sm"><Link href={`/case-studies/${project.slug}`} className="text-accent underline underline-offset-4">{ar ? "تفاصيل المشروع" : "Project details"} →</Link>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{ar ? "افتح المعاينة" : "Open preview"} ↗</a>}</div>
+    <div className="flex flex-wrap gap-3 p-3 text-body-sm"><Link href={`/case-studies/${project.slug}`} className="text-accent underline underline-offset-4">{ar ? "تفاصيل المشروع ←" : "Project details →"}</Link>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{ar ? "افتح المعاينة" : "Open preview"} {ar ? "↖" : "↗"}</a>}</div>
   </article>;
 }

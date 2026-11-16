@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { cardArt } from "@/features/work/card-art";
+import { yearLabel } from "@/lib/utils";
 import type { Project } from "@/features/work/types";
 import { ProductCase } from "./product-case";
 import { OVERVIEW_TECHNICAL_CASES } from "./overview-technical.data";
@@ -26,12 +27,12 @@ export function ProjectOverview({ project }: { project: Project }) {
     <div className="container-content flex flex-col gap-4 pb-6 pt-2">
       <div className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
         <Link href="/work" className="transition-colors hover:text-text-primary">
-          ← {ar ? "كل الأعمال" : "All work"}
+          {ar ? "→ كل الأعمال" : "← All work"}
         </Link>
       </div>
       <header className="flex flex-col gap-2">
         <p className="font-mono text-micro text-accent">
-          {ar ? "نظرة تقنية على المشروع" : "PROJECT OVERVIEW"} · {project.year}
+          {ar ? "نظرة تقنية على المشروع" : "PROJECT OVERVIEW"} · {yearLabel(project.year, ar)}
         </p>
         <h1 className="font-display text-title">
           {ar ? project.nameAr ?? project.name : project.name}
@@ -60,7 +61,7 @@ export function ProjectOverview({ project }: { project: Project }) {
           rel="noopener noreferrer"
           className="w-fit rounded-pill border border-border-default px-3 py-1.5 text-body-sm hover:border-border-strong"
         >
-          {ar ? "افتح الموقع" : "Open website"} ↗
+          {ar ? "افتح الموقع" : "Open website"} {ar ? "↖" : "↗"}
         </a>
       ) : (
         <p className="text-caption text-text-tertiary">

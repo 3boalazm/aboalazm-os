@@ -15,7 +15,7 @@ import { Icon } from "@/components/ui/Icon";
 import { MediaCard } from "@/components/ui/MediaCard";
 import { Section, SectionLabel } from "@/components/ui/Section";
 import { buttonVariants } from "@/components/ui/Button";
-import { joinClasses } from "@/lib/utils";
+import { joinClasses, yearLabel } from "@/lib/utils";
 import { BEHANCE } from "./projects.data";
 import { cardArt } from "./card-art";
 import { evidenceOf, EVIDENCE_COPY } from "./project-evidence";
@@ -630,7 +630,7 @@ export function FeaturedCard({
             </Badge>
           </div>
           <span className="font-mono text-micro tracking-[0.08em] text-text-ghost">
-            {project.year}
+            {yearLabel(project.year, ar)}
           </span>
         </div>
 
@@ -692,7 +692,7 @@ export function FeaturedCard({
               rel={project.liveUrl.startsWith("/") ? undefined : "noopener noreferrer"}
               className="font-mono text-micro uppercase tracking-[0.08em] text-accent/90 transition-colors duration-base ease-physics hover:text-accent"
             >
-              {ar ? "معاينة حية ↗" : "Live preview ↗"}
+              {ar ? "معاينة حية ↖" : "Live preview ↗"}
             </Link>
           ) : null}
         </div>

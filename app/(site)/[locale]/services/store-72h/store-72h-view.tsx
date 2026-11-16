@@ -97,7 +97,7 @@ export function Store72hView() {
                     "inline-flex items-center gap-1.5 border border-border-default px-4 py-2 font-mono text-label tracking-[0.06em] text-text-secondary hover:text-text-primary",
                 })}
               >
-                {ar ? WHATSAPP_ASK_CTA_LABEL[1] : WHATSAPP_ASK_CTA_LABEL[0]} ↗
+                {ar ? WHATSAPP_ASK_CTA_LABEL[1] : WHATSAPP_ASK_CTA_LABEL[0]} {ar ? "↖" : "↗"}
               </a>
               {BOOKING_URL ? (
                 <a
@@ -107,7 +107,7 @@ export function Store72hView() {
                   data-booking-click="true"
                   className="inline-flex min-h-[38px] items-center px-2 font-mono text-micro text-accent underline underline-offset-4"
                 >
-                  {ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} ↗
+                  {ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
                 </a>
               ) : null}
             </div>
@@ -412,7 +412,7 @@ export function Store72hView() {
                 "inline-flex items-center gap-1.5 border border-border-default px-4 py-2 font-mono text-label tracking-[0.06em] text-text-secondary hover:text-text-primary",
             })}
           >
-            {ar ? WHATSAPP_ASK_CTA_LABEL[1] : WHATSAPP_ASK_CTA_LABEL[0]} ↗
+            {ar ? WHATSAPP_ASK_CTA_LABEL[1] : WHATSAPP_ASK_CTA_LABEL[0]} {ar ? "↖" : "↗"}
           </a>
         </div>
       </PanelCard>

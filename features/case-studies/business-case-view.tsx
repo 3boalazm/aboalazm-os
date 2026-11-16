@@ -13,6 +13,7 @@ import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { cardArt } from "@/features/work/card-art";
 import { projectEnquiryService } from "@/features/work/project-enquiry-service";
 import { contactHref } from "@/lib/contact-context";
+import { yearLabel } from "@/lib/utils";
 import type { Project } from "@/features/work/types";
 import type { BusinessCaseData, Bilingual } from "./business-case.types";
 import { ClientOriginStamp } from "./client-origin-stamp";
@@ -76,7 +77,7 @@ export function BusinessCaseView({
   const name = ar
     ? (project?.nameAr ?? fallbackNameAr ?? project?.name ?? fallbackName ?? data.slug)
     : (project?.name ?? fallbackName ?? data.slug);
-  const year = project?.year ?? fallbackYear;
+  const year = yearLabel(project?.year ?? fallbackYear, ar);
   const isDev = project ? project.category === "development" : true;
   const service = project ? projectEnquiryService(project) : "brand-identity";
   const trackHref = isDev ? "/work/development" : "/work/design";

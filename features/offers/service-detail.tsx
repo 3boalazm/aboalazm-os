@@ -68,7 +68,7 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
     <main className="container-content flex flex-col gap-6 pb-8">
       <header className="flex max-w-[70ch] flex-col gap-3">
         <Link href="/services" className="text-caption text-text-tertiary">
-          {ar ? "كل الخدمات" : "All services"} ←
+          {ar ? "→ كل الخدمات" : "← All services"}
         </Link>
         <h1 className="font-display text-title">{title}</h1>
         <p className="text-body text-text-secondary">{intro}</p>

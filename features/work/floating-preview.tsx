@@ -26,6 +26,8 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE_PHYSICS, DURATION } from "@/lib/tokens";
 import type { Project } from "./types";
 import { cardArt } from "./card-art";
+import { useLang } from "@/components/providers/lang-provider";
+import { yearLabel } from "@/lib/utils";
 
 const SIZE = { w: 280, h: 200 } as const; // 8px-scale friendly footprint
 const OFFSET = { x: 24, y: -100 } as const; // cursor anchor (md gap, vertical center)
@@ -52,6 +54,7 @@ export function FloatingPreview(props: FloatingPreviewProps) {
 }
 
 function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
+  const { lang } = useLang();
   const frameRef = useRef<HTMLDivElement>(null);
   const lastX = useRef(0);
   const reduceMotion = useReducedMotion();
@@ -160,7 +163,7 @@ function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
                 {active.slug}
               </span>
               <span className="font-geist text-micro text-text-tertiary">
-                {active.year}
+                {yearLabel(active.year, lang === "ar")}
               </span>
             </div>
           </motion.div>
