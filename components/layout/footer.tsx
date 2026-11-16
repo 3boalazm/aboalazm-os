@@ -16,9 +16,9 @@ const COLUMNS: { head: [string, string, string]; links: [string, string, string,
   {
     head: ["Engage", "التعاون", "Kerjasama"],
     links: [
-      ["Book a discovery call", "احجز مكالمة استكشاف", "Tempah panggilan penemuan", "/contact"],
+      ["Book a discovery call", "احجز مكالمة استكشافية", "Tempah panggilan penemuan", "/contact"],
       ["Services", "الخدمات", "Perkhidmatan", "/services"],
-      ["Pricing", "التسعير", "Harga", "/pricing"],
+      ["Pricing", "الأسعار", "Harga", "/pricing"],
       ["Partnership & support", "الشراكة والدعم", "Perkongsian & sokongan", "/partnership"],
       ["Agreement", "الاتفاقية", "Perjanjian", "/agreement"],
       ["Book with a deposit", "احجز بعربون", "Tempah dengan deposit", "/book"],
@@ -28,21 +28,21 @@ const COLUMNS: { head: [string, string, string]; links: [string, string, string,
     head: ["Studio", "الاستوديو", "Studio"],
     links: [
       ["Work", "الأعمال", "Kerja", "/work"],
-      ["Process", "المنهجية", "Proses", "/process"],
-      ["About", "نبذة", "Tentang", "/about"],
+      ["Process", "المنهج", "Proses", "/process"],
+      ["About", "عن الاستوديو", "Tentang", "/about"],
       ["Writing", "مقالات", "Penulisan", "/writing"],
       ["Reels", "ريلز", "Reel", "/reels"],
-      ["Labs", "المعمل", "Makmal", "/labs"],
+      ["Labs", "المختبر", "Makmal", "/labs"],
     ],
   },
   {
     head: ["Reach", "تواصل", "Hubungi"],
     links: [
-      ["Email", "إيميل", "E-mel", CONTACT_EMAIL_HREF],
+      ["Email", "البريد الإلكتروني", "E-mel", CONTACT_EMAIL_HREF],
       ["WhatsApp", "واتساب", "WhatsApp", "https://wa.me/201092500454"],
-      ["LinkedIn", "لينكدإن", "LinkedIn", "https://www.linkedin.com/in/aboalazm"],
-      ["Behance", "بيهانس", "Behance", "https://www.behance.net/aboalazm"],
-      ["GitHub", "جيت هب", "GitHub", "https://github.com/3boalazm"],
+      ["LinkedIn", "LinkedIn", "LinkedIn", "https://www.linkedin.com/in/aboalazm"],
+      ["Behance", "Behance", "Behance", "https://www.behance.net/aboalazm"],
+      ["GitHub", "GitHub", "GitHub", "https://github.com/3boalazm"],
       ["Download CV", "تحميل السيرة الذاتية", "Muat turun CV", "/cv"],
     ],
   },
@@ -59,11 +59,11 @@ export function Footer() {
         <div className="x-foot__grid">
           <div className="grid content-start gap-4">
             <p className="x-display" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", lineHeight: lang === "ar" ? 1.3 : 0.95 }}>
-              {k === 1 ? "مبنية لتشتغل." : k === 2 ? "Dibina untuk jalan." : "Built to run."}
+              {k === 1 ? "مبنية لتعمل." : k === 2 ? "Dibina untuk jalan." : "Built to run."}
             </p>
             <p className="max-w-[34ch] text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
               {k === 1
-                ? "Aboalazm OS — استوديو هوية ورقمي وأنظمة يقوده مصطفى أبوالعزم."
+                ? "Aboalazm OS — استوديو للهوية والتجربة الرقمية والأنظمة، يقوده مصطفى أبوالعزم."
                 : k === 2
                   ? "Aboalazm OS — studio jenama, digital dan sistem yang dipimpin oleh Mustafa Aboalazm."
                   : "Aboalazm OS — a brand, digital and systems studio led by Mustafa Aboalazm."}
@@ -110,9 +110,9 @@ export function Footer() {
         </p>
 
         <div className="x-foot__bar x-mono">
-          <span>© 2026 Mustafa Aboalazm</span>
+          <bdi dir="ltr">© 2026 Mustafa Aboalazm</bdi>
           <CairoClock label={k === 1 ? "العبور، القاهرة" : "Al Obour, Cairo"} />
-          <span>{k === 1 ? "صُمم وبُني داخل الاستوديو" : k === 2 ? "Direka & dibina oleh studio" : "Designed & built by the studio"}</span>
+          <span>{k === 1 ? "تصميم وبناء الاستوديو" : k === 2 ? "Direka & dibina oleh studio" : "Designed & built by the studio"}</span>
         </div>
       </div>
     </footer>

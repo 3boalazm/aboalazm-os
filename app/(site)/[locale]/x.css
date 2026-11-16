@@ -66,6 +66,10 @@ html[dir="rtl"] .x-display { text-transform: none; letter-spacing: 0; line-heigh
   white-space: nowrap;
 }
 html[dir="rtl"] .x-btn { letter-spacing: 0; font-family: var(--font-arabic), var(--font-mono); font-size: 14px; }
+/* Narrow screens: a long label wraps inside the pill instead of widening the page. */
+@media (max-width: 520px) {
+  .x-btn { height: auto; min-height: 3.25rem; padding-block: 0.65rem; white-space: normal; text-align: center; justify-content: center; line-height: 1.25; }
+}
 .x-btn:hover { transform: translateY(-2px); }
 .x-btn--solid { background: #FF6B47; color: #0B0709; }
 .x-btn--solid:hover { background: #FF8466; }
@@ -598,3 +602,124 @@ html[data-skip] .x-boot { animation: x-boot-skip .28s ease-out forwards; }
 .x-cursor[data-label="true"] span { width: 96px; height: 96px; font-size: 11px; box-shadow: 0 0 50px rgb(255 107 71 / 0.5); }
 
 @media (prefers-reduced-motion: reduce) { .x-boot { display: none; } .x-portal__orbit svg { animation: none; } }
+
+/* ==========================================================================
+   X-PAGES — the same language on every inner page (2026-11-16).
+   One block of rules, reached through the shared primitives (Heading,
+   SectionHead, Faq, CtaBand, buttons, panels), so no page is restyled by
+   hand. Everything sits in `components` on purpose: a call site's own
+   utilities (max-w-*, px-*, text-*) still win, exactly as the old
+   primitives promised. Role colour (--x-role) comes from <RoleScope>.
+   ========================================================================== */
+.site-stage[data-x-role="orange"] { --x-role: var(--color-accent-text); }
+.site-stage[data-x-role="citron"] { --x-role: var(--color-gold-text); }
+.site-stage[data-x-role="teal"]   { --x-role: var(--color-mint-text); }
+.site-stage[data-x-role="violet"] { --x-role: var(--color-lilac-text); }
+
+@layer components {
+  /* PAGE HEAD — the h1 is the poster of the page. */
+  .x-page-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.9rem, 8.2vw, 8.4rem);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    max-width: 15ch;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 440px) {
+    .x-page-title { font-size: clamp(2.1rem, 10.5vw, 2.9rem); }
+  }
+  html[dir="rtl"] .x-page-title {
+    text-transform: none; letter-spacing: 0; line-height: 1.2;
+    font-size: clamp(2.5rem, 6.4vw, 6.2rem); max-width: 16ch;
+  }
+  .x-page-title em { font-style: normal; color: var(--color-accent-text); }
+  /* A sentence, not a slogan: about / hiring set a statement as the h1. */
+  .x-page-title--long { font-size: clamp(2.1rem, 4.7vw, 4.7rem); line-height: 0.96; letter-spacing: -0.03em; max-width: 24ch; }
+  html[dir="rtl"] .x-page-title--long { font-size: clamp(1.9rem, 3.9vw, 3.9rem); line-height: 1.28; max-width: 26ch; }
+  .x-page-lead { color: var(--color-text-secondary); font-size: clamp(1.02rem, 1.3vw, 1.2rem); line-height: 1.65; max-width: 52ch; }
+
+  /* SECTION HEAD — the chapter head, sized for a page that has several. */
+  .x-sec { position: relative; display: grid; gap: 0.9rem; padding-block: clamp(2.25rem, 5vw, 4.5rem) 0.25rem; }
+  .x-sec__num {
+    position: absolute; inset-inline-end: 0; top: clamp(0.25rem, 2.4vw, 1.75rem);
+    font-family: var(--font-display); font-size: clamp(4.5rem, 13vw, 12rem); line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--x-role, var(--color-text-primary)) 34%, transparent);
+    pointer-events: none; user-select: none;
+  }
+  .x-sec__title {
+    position: relative; font-family: var(--font-display);
+    font-size: clamp(2.1rem, 5.2vw, 4.8rem); line-height: 0.92; letter-spacing: -0.03em;
+    text-transform: uppercase; max-width: 16ch; color: var(--color-text-primary); text-wrap: balance;
+  }
+  html[dir="rtl"] .x-sec__title { text-transform: none; letter-spacing: 0; line-height: 1.22; font-size: clamp(1.9rem, 4.3vw, 3.9rem); }
+  .x-sec__title em { font-style: normal; color: var(--color-accent-text); }
+
+  /* FAQ — rows, not boxes. */
+  .x-faq { display: grid; border-top: 1px solid var(--color-border-subtle); }
+  .x-faq__item { border-bottom: 1px solid var(--color-border-subtle); }
+  .x-faq__q {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding-block: 1.25rem; cursor: pointer; list-style: none;
+    font-size: clamp(1.08rem, 1.5vw, 1.45rem); line-height: 1.3; color: var(--color-text-primary);
+    transition: color 0.3s;
+  }
+  .x-faq__q::-webkit-details-marker { display: none; }
+  .x-faq__q:hover { color: var(--color-accent-text); }
+  .x-faq__plus {
+    flex: none; width: 2.5rem; height: 2.5rem; border-radius: 999px; display: grid; place-items: center;
+    border: 1px solid var(--color-border-default); color: var(--x-role, var(--color-accent-text));
+    font-family: var(--font-mono); font-size: 1.1rem; line-height: 1;
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), background 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .x-faq__item[open] .x-faq__plus { transform: rotate(45deg); background: var(--x-role, var(--color-accent-text)); color: var(--color-surface-0); border-color: transparent; }
+  .x-faq__a { padding-bottom: 1.5rem; max-width: 70ch; color: var(--color-text-secondary); line-height: 1.7; }
+
+  /* BUTTONS — every CTA wears the X type: mono, tracked, lifts on hover. */
+  .x-bt {
+    display: inline-flex; align-items: center; gap: 0.6rem; min-height: 3.25rem;
+    font-family: var(--font-mono); font-weight: 600; letter-spacing: 0.1em; white-space: nowrap;
+    transition: transform 0.4s cubic-bezier(.2,.8,.2,1), background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  .x-bt:hover { transform: translateY(-2px); }
+  html[dir="rtl"] .x-bt { letter-spacing: 0; font-family: var(--font-arabic), var(--font-mono); }
+  html[dir="rtl"] .x-bt svg { transform: scaleX(-1); }
+  @media (max-width: 520px) {
+    .x-bt { white-space: normal; text-align: center; justify-content: center; line-height: 1.25; padding-block: 0.65rem; }
+  }
+
+  /* CLOSING GATE — every page ends the way the home page does: dark in both
+     themes, a sun on the floor, one question, two buttons. */
+  .x-cta {
+    --color-text-primary: rgb(248 248 250);
+    --color-text-secondary: rgb(248 248 250 / 0.74);
+    --color-text-tertiary: rgb(248 248 250 / 0.58);
+    --color-border-default: rgb(255 255 255 / 0.18);
+    --color-border-subtle: rgb(255 255 255 / 0.1);
+    --color-accent-text: #FF6B47;
+    position: relative; overflow: hidden; isolation: isolate;
+    display: grid; justify-items: center; gap: 1.5rem; text-align: center;
+    border-radius: clamp(28px, 4vw, 44px);
+    padding: clamp(3.5rem, 8vw, 7rem) clamp(1.25rem, 4vw, 4rem) clamp(8.5rem, 16vw, 12rem);
+    background: #050407; color: var(--color-text-primary);
+    margin-block: clamp(2rem, 5vw, 4rem);
+  }
+  /* The sun only rises over the floor of the panel: its solid part stays in
+     the bottom padding, so no word ever sits on the orange. */
+  .x-cta__sun {
+    --d: min(60rem, 140vw);
+    position: absolute; z-index: -1; left: 50%; bottom: calc(var(--d) * -0.75); translate: -50% 0;
+    width: var(--d); aspect-ratio: 1; border-radius: 999px;
+    background: radial-gradient(circle at 50% 50%, #FF6B47 0 44%, rgb(255 107 71 / 0.55) 49%, rgb(255 107 71 / 0.12) 60%, transparent 70%);
+    filter: blur(2px); animation: x-breathe 7s ease-in-out infinite;
+  }
+  .x-cta__title { font-size: clamp(2.5rem, 7.2vw, 7rem); max-width: 14ch; }
+  html[dir="rtl"] .x-cta__title { font-size: clamp(2.3rem, 6vw, 5.6rem); }
+  .x-cta__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
+  .x-cta__promise { color: var(--color-text-tertiary); }
+  @media (prefers-reduced-motion: reduce) { .x-cta__sun { animation: none; } }
+}

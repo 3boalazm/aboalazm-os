@@ -24,37 +24,37 @@ const layers = [
     name: "Storefront",
     tech: "React + Vite",
     detail: "A fast client-rendered shop: drop landing, catalogue, product detail and brand story.",
-    detailAr: "متجر سريع يُعرض من جهة العميل: صفحة الدروب، الكتالوج، تفاصيل المنتج وقصة البراند.",
+    detailAr: "متجر سريع يُعرض من جهة العميل: صفحة الدروب، والكتالوج، وتفاصيل المنتج، وقصة العلامة.",
   },
   {
     no: "02",
     name: "Commerce & data",
     tech: "Drizzle ORM · PostgreSQL",
     detail: "Typed schema and migrations for products, variants, orders, customers and stock.",
-    detailAr: "مخطط مكتوب الأنواع وترحيلات للمنتجات والمتغيرات والطلبات والعملاء والمخزون.",
+    detailAr: "مخطط مكتوب الأنواع وترحيلات للمنتجات والمتغيّرات والطلبات والعملاء والمخزون.",
   },
   {
     no: "03",
     name: "Payments",
     tech: "Card · MEEZA · Vodafone Cash",
     detail: "Local rails first — the checkout was designed around how Egyptian shoppers actually pay.",
-    detailAr: "المسارات المحلية أولًا — إتمام الشراء مبني على طرق الدفع اللي المصري فعلًا بيستخدمها.",
+    detailAr: "المسارات المحلية أولًا: صُمّم إتمام الشراء حول الطريقة التي يدفع بها المتسوق المصري فعلًا.",
   },
   {
     no: "04",
     name: "Operations",
     tech: "Loyalty & roles · Admin analytics",
     detail: "Customer tiers, staff permissions and a dashboard that reads the same database the store writes to.",
-    detailAr: "مستويات العملاء وصلاحيات الفريق ولوحة إدارة تقرأ نفس قاعدة البيانات اللي المتجر بيكتب فيها.",
+    detailAr: "مستويات العملاء وصلاحيات الفريق ولوحة إدارة تقرأ قاعدة البيانات نفسها التي يكتب فيها المتجر.",
   },
 ] as const;
 
 const journeys = [
-  ["Discovery", "Drop landing · announcement bar · new-arrival rail", "الاكتشاف", "صفحة الدروب · شريط الإعلانات · صف الوصول الجديد"],
+  ["Discovery", "Drop landing · announcement bar · new-arrival rail", "الاكتشاف", "صفحة الدروب · شريط الإعلانات · صف الوصولات الجديدة"],
   ["Product", "Colour/alternate views · price · quick add", "المنتج", "صور بديلة · السعر · إضافة سريعة"],
-  ["Consideration", "Wishlist · size and fit copy · brand story", "الاهتمام", "المفضلة · دليل المقاس · قصة البراند"],
+  ["Consideration", "Wishlist · size and fit copy · brand story", "الاهتمام", "المفضلة · دليل المقاسات · قصة العلامة"],
   ["Purchase", "Cart · checkout · local payment rails", "الشراء", "السلة · إتمام الطلب · وسائل دفع محلية"],
-  ["Retention", "Account · loyalty tiers · Instagram loop", "الاحتفاظ", "الحساب · مستويات الولاء · حلقة إنستجرام"],
+  ["Retention", "Account · loyalty tiers · Instagram loop", "الاحتفاظ", "الحساب · مستويات الولاء · حلقة إنستغرام"],
 ] as const;
 
 const decisions = [
@@ -63,42 +63,42 @@ const decisions = [
     "The drop is the homepage",
     "Streetwear sells in waves, not a permanent catalogue. The landing page leads with one drop, a countdown/announcement bar and a short new-arrival rail; the full catalogue is one tap away at /shop. Merchandising follows the release calendar instead of a department-store grid.",
     "الدروب هو الصفحة الرئيسية",
-    "الستريت وير بيتباع على موجات، مش كتالوج ثابت. الصفحة الرئيسية بتقدّم دروب واحد وشريط إعلانات وصف قصير للوصل الجديد، والكتالوج الكامل على بعد ضغطة في /shop.",
+    "يُباع الستريت وير على موجات لا من كتالوج دائم. تبدأ الصفحة الرئيسية بدروب واحد، وشريط عدّ تنازلي وإعلانات، ورفّ قصير للوصولات الجديدة؛ والكتالوج الكامل على بُعد نقرة في /shop. ويتبع ترتيب العرض تقويم الإصدارات لا شبكة المتاجر الكبرى.",
   ],
   [
     "02",
     "Prices are a first-class number",
     "Every product carries an explicit EGP price, and discounted items show both the old and the new figure (1100 instead of 1300) rather than a percentage badge. Nothing is priced in a foreign currency and converted at checkout.",
     "السعر رقم أساسي",
-    "كل منتج ليه سعر بالجنيه صريح، والمنتجات المخفّضة بتعرض السعر القديم والجديد (1100 بدل 1300) مش نسبة خصم. مفيش سعر بعملة أجنبية بيتحوّل وقت الدفع.",
+    "لكل منتج سعر صريح بالجنيه، وتعرض المنتجات المخفّضة السعرين القديم والجديد (1100 بدل 1300) لا نسبة الخصم. ولا يوجد سعر بعملة أجنبية يُحوَّل وقت الدفع.",
   ],
   [
     "03",
     "Payment matches the market",
     "Card, MEEZA and Vodafone Cash sit together in the same reassurance strip. Supporting the wallet rail is not an afterthought — for a large share of Egyptian buyers it is the primary way to pay.",
-    "الدفع مناسب للسوق",
-    "الكارت وميزة وفودافون كاش في نفس شريط الطمأنة. دعم المحفظة مش حاجة ثانوية — لنسبة كبيرة من المشترين المصريين دي وسيلة الدفع الأساسية.",
+    "الدفع يناسب السوق",
+    "الكارت وميزة وفودافون كاش في شريط الطمأنة نفسه. ودعم المحفظة ليس أمرًا ثانويًا: فهي وسيلة الدفع الأساسية لنسبة كبيرة من المشترين المصريين.",
   ],
   [
     "04",
     "Shipping thresholds are stated, not discovered",
     "“Free shipping over 2,000 LE” is announced in the marquee before the first product is seen. A shopper can plan a basket instead of finding the threshold at checkout.",
-    "حد الشحن معلن مش مفاجأة",
-    "«شحن مجاني فوق 2000 جنيه» بيُعلن في الشريط قبل ما تشوف أول منتج. المتسوق يقدر يخطّط سلته بدل ما يكتشف الحد عند الدفع.",
+    "حدّ الشحن معلن لا مفاجأة",
+    "يُعلَن «شحن مجاني فوق 2000 جنيه» في الشريط قبل أن ترى أول منتج. فيستطيع المتسوق أن يخطّط سلته بدل أن يكتشف الحدّ عند الدفع.",
   ],
   [
     "05",
     "One database, two faces",
     "The storefront and the admin dashboard are two views of the same PostgreSQL schema through Drizzle. Stock and order state edited in the dashboard are the same rows the shop reads — no nightly export, no second source of truth.",
-    "قاعدة بيانات واحدة، واجهتان",
-    "المتجر ولوحة الإدارة واجهتان لنفس مخطط PostgreSQL عبر Drizzle. المخزون وحالة الطلب اللي بتتعدل في اللوحة هي نفس السجلات اللي المتجر بيقرأها.",
+    "قاعدة بيانات واحدة، وواجهتان",
+    "المتجر ولوحة الإدارة واجهتان لمخطط PostgreSQL نفسه عبر Drizzle. والمخزون وحالة الطلب اللذان يُعدَّلان في اللوحة هما السجلات نفسها التي يقرؤها المتجر.",
   ],
   [
     "06",
     "Identity carries the shop",
     "The brand is editorial rather than template-commerce: a heavy condensed wordmark, black-on-amber palette and product photography on concrete. The UI stays quiet so the garments lead.",
     "الهوية هي المتجر",
-    "الهوية تحريرية مش قالب جاهز: ووردمارك ثقيل، أسود على عنبري، وتصوير المنتجات على خرسانة. الواجهة بتسكت عشان الملابس تتكلم.",
+    "الهوية تحريرية لا قالب جاهز: شعار نصي ثقيل، وأسود على عنبري، وتصوير للمنتجات على خرسانة. وتصمت الواجهة لتتكلّم الملابس.",
   ],
 ] as const;
 
@@ -147,7 +147,7 @@ export function OltreCollectiveCaseStudy() {
             </h1>
             <p className="mt-4 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
               {ar
-                ? "متجر ستريت وير مصري كامل: دروبات، سلة، مفضلة، برنامج ولاء ولوحة إدارة — بفلوس بالجنيه ووسائل دفع محلية."
+                ? "متجر ستريت وير مصري متكامل: دروبات وسلة ومفضلة وبرنامج ولاء ولوحة إدارة، بأسعار بالجنيه ووسائل دفع محلية."
                 : "An Egyptian streetwear store, end to end: drops, cart, wishlist, loyalty and an admin dashboard — priced in EGP and paid the way people here actually pay."}
             </p>
           </div>
@@ -173,7 +173,7 @@ export function OltreCollectiveCaseStudy() {
             </div>
             <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">
               {ar
-                ? "الأرقام دي بتوصف بنية التطبيق، وهي مش مؤشرات مبيعات أو أرقام أداء."
+                ? "هذه الأعداد تصف بنية التطبيق، وليست مؤشرات مبيعات أو أرقام أداء."
                 : "These counts describe the application's structure; they are not sales figures or performance claims."}
             </p>
           </div>
@@ -206,7 +206,7 @@ export function OltreCollectiveCaseStudy() {
             className="h-auto w-full object-cover"
           />
           <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle px-4 py-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
-            <span>{ar ? "واجهة المتجر — المنتجات والسعر والإضافة السريعة" : "Storefront — products, price and quick add"}</span>
+            <span>{ar ? "واجهة المتجر: المنتجات والسعر والإضافة السريعة" : "Storefront — products, price and quick add"}</span>
             <span className="text-amber-300">LIVE / 2026</span>
           </figcaption>
         </figure>
@@ -218,24 +218,24 @@ export function OltreCollectiveCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">01 / {ar ? "التحدي" : "The challenge"}</p>
             <h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? "براند بيتنفّس بالدروب — ومحتاج متجر يجاريه." : "A brand that sells in drops needs a shop that can keep up."}
+              {ar ? "علامة تبيع بالدروب تحتاج متجرًا يجاريها." : "A brand that sells in drops needs a shop that can keep up."}
             </h2>
           </div>
           <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             <p>
               {ar
-                ? "براندات الستريت وير عمرها ما بتبيع من كتالوج ثابت. كل دروب ليه كمية محدودة ولحظة إطلاق وزخم على السوشيال ميديا. المتجر لازم يستقبل موجة زيارات في نفس اللحظة، ويعرض المنتجات اللي خلصت بوضوح، ويحوّل الاهتمام لطلب بدفع سهل."
+                ? "لا تبيع علامات الستريت وير من كتالوج ثابت. فلكل دروب كمية محدودة، ولحظة إطلاق، وزخم على وسائل التواصل الاجتماعي. وعلى المتجر أن يستقبل موجة زيارات تصل دفعة واحدة، وأن يعرض المنتجات التي نفدت بوضوح، وأن يحوّل الاهتمام إلى طلب سهل الدفع."
                 : "Streetwear labels do not sell from a static catalogue. Every drop has a limited run, a launch moment and social momentum. The store has to absorb visits that arrive all at once, retire sold-out items honestly, and turn attention into an order that is easy to pay for."}
             </p>
             <p>
               {ar
-                ? "والجزء التاني من المشكلة إن البراند مش بس واجهة. ورا الواجهة فيه مخزون وطلبات وعملاء ومستويات ولاء وصلاحيات فريق. لو المتجر واللوحة اتكلموا بيانات مختلفة، المشكلة بتظهر في أول دروب بيخلص."
+                ? "والنصف الآخر من المشكلة أن العلامة ليست واجهة فحسب. فخلف الواجهة مخزون وطلبات وعملاء ومستويات ولاء وصلاحيات فريق. وإذا تكلّم المتجر واللوحة بيانات مختلفة ظهر الخلل في أول دروب ينفد."
                 : "The second half of the problem is that a brand is not just a storefront. Behind it sit inventory, orders, customers, loyalty tiers and staff permissions. If the shop and the dashboard speak different data, the breakage shows up in the first drop that sells out."}
             </p>
             <div className="rounded-xl border-s-2 border-amber-400 bg-amber-400/[0.04] p-4">
               <p className="text-sm leading-[1.65] text-text-primary">
                 {ar
-                  ? "القرار الأساسي: متجر واحد، وقاعدة بيانات واحدة، ودفع بالطريقة اللي الناس هنا بتدفع بيها."
+                  ? "القرار الأساسي: متجر واحد، وقاعدة بيانات واحدة، ودفع بالطريقة التي يدفع بها الناس هنا."
                   : "The core decision: one storefront, one database, and payment in the form people here actually use."}
               </p>
             </div>
@@ -247,14 +247,14 @@ export function OltreCollectiveCaseStudy() {
       <section className="container-wide py-6 md:py-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">02 / {ar ? "المعمارية" : "Architecture"}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">02 / {ar ? "البنية" : "Architecture"}</p>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
-              {ar ? "أربع طبقات، طريق واحد للبيانات." : "Four layers, one path for the data."}
+              {ar ? "أربع طبقات، ومسار واحد للبيانات." : "Four layers, one path for the data."}
             </h2>
           </div>
           <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">
             {ar
-              ? "الواجهة بتقرأ من نفس الـ schema اللي لوحة الإدارة بتكتب فيه — من غير تصدير ليلي ولا مصدر حقيقة تاني."
+              ? "تقرأ الواجهة من الـ schema نفسه الذي تكتب فيه لوحة الإدارة، بلا تصدير ليلي ولا مصدر حقيقة ثانٍ."
               : "The shopfront reads the same schema the admin writes to — no nightly export, no second source of truth."}
           </p>
         </div>
@@ -291,7 +291,7 @@ export function OltreCollectiveCaseStudy() {
             </div>
           </div>
           <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
-            {ar ? "رسم مبسط لمسار البيانات حسب حزمة التقنيات المعلنة للمشروع." : "A simplified data-path view based on the project's declared stack."}
+            {ar ? "رسم مبسّط لمسار البيانات بحسب حزمة التقنيات المعلنة للمشروع." : "A simplified data-path view based on the project's declared stack."}
           </p>
         </div>
       </section>
@@ -301,7 +301,7 @@ export function OltreCollectiveCaseStudy() {
         <div className="container-wide py-6 md:py-8">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">03 / {ar ? "منظومة الرحلة" : "Journey map"}</p>
           <h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
-            {ar ? "من «شفت الدروب» لحد «لبسته واشتريت تاني»." : "From “saw the drop” to “wore it, came back for more”."}
+            {ar ? "من «رأيتُ الدروب» إلى «ارتديتُه فعدتُ إلى الشراء»." : "From “saw the drop” to “wore it, came back for more”."}
           </h2>
           <div className="mt-6 divide-y divide-border-subtle border-y border-border-subtle">
             {journeys.map(([name, body, nameAr, bodyAr]) => (
@@ -319,7 +319,7 @@ export function OltreCollectiveCaseStudy() {
         <div className="mb-6">
           <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">04 / {ar ? "قرارات المنتج" : "Product decisions"}</p>
           <h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
-            {ar ? "المتجر بيتصرف زي البراند، مش زي القالب." : "The shop behaves like the brand, not like a template."}
+            {ar ? "يتصرّف المتجر كالعلامة لا كالقالب." : "The shop behaves like the brand, not like a template."}
           </h2>
         </div>
         <div className="grid gap-3 md:grid-cols-2">
@@ -342,7 +342,7 @@ export function OltreCollectiveCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">05 / {ar ? "الأدلة" : "Evidence"}</p>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? "اللي المتجر بيقوله فعلًا." : "What the storefront actually shows."}
+              {ar ? "ما يقوله المتجر فعلًا." : "What the storefront actually shows."}
             </h2>
           </div>
           <div className="space-y-4">
@@ -356,12 +356,12 @@ export function OltreCollectiveCaseStudy() {
             </div>
             <p className="text-xs leading-[1.65] text-text-tertiary">
               {ar
-                ? "الأرقام دي مقروءة من المتجر المباشر وقت كتابة الملف. اللوحة والولاء والتحليلات جزء من نطاق المشروع المعلن، لكنها تحتاج تسجيل دخول إداري — فمش معروضة هنا كسكرين شوت مُتحقق منه."
+                ? "هذه الأرقام مقروءة من المتجر المباشر وقت كتابة الملف. أما اللوحة والولاء والتحليلات فجزء من نطاق المشروع المعلن، لكنها تحتاج إلى تسجيل دخول إداري، ولذلك لا تُعرض هنا بوصفها لقطات شاشة مُتحقَّقًا منها."
                 : "These figures were read off the live storefront while writing this file. The dashboard, loyalty and analytics are part of the declared project scope, but sit behind staff authentication — so they are not presented here as verified screenshots."}
             </p>
             <p className="text-xs leading-[1.65] text-text-tertiary">
               {ar
-                ? "مفيش في الملف ده أرقام مبيعات أو تحويل أو نمو، لأن مفيش مصدر موثق ليها."
+                ? "لا توجد في هذا الملف أرقام مبيعات أو تحويل أو نمو، لأنه لا يوجد مصدر موثّق لها."
                 : "No sales, conversion or growth figures appear in this file, because there is no reviewed source for them."}
             </p>
           </div>
@@ -374,7 +374,7 @@ export function OltreCollectiveCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">06 / {ar ? "التقنيات" : "Technology stack"}</p>
             <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">
-              {ar ? "واجهة، بيانات، دفع وتشغيل." : "Experience, data, payments and operations."}
+              {ar ? "الواجهة والبيانات والدفع والتشغيل." : "Experience, data, payments and operations."}
             </h2>
           </div>
           <div>
@@ -385,7 +385,7 @@ export function OltreCollectiveCaseStudy() {
             </div>
             <p className="mt-6 text-sm leading-[1.65] text-text-secondary">
               {ar
-                ? "المشروع متجر شغال بيتصفح ويتبض منه، مش واجهة تسويقية. ده الفرق اللي بيخلّي الملف ده يتكلم عن قرارات الدفع والمخزون، مش عن موك أب."
+                ? "المشروع متجر حيّ يمكن التصفح والشراء منه، لا واجهة تسويقية. ولهذا يتحدث هذا الملف عن قرارات الدفع والمخزون لا عن نماذج العرض (mockups)."
                 : "This is a storefront you can browse and buy from, not a marketing skin. That is why this file talks about payment and inventory decisions rather than mockups."}
             </p>
           </div>
@@ -398,11 +398,11 @@ export function OltreCollectiveCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">HAND-OFF / 006</p>
             <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
-              {ar ? "براند بيتباع بالدروب، ومتجر جاهز لكل دروب." : "A drop-led brand with a shop that is ready for the next one."}
+              {ar ? "علامة تُباع بالدروب، ومتجر جاهز لكل دروب." : "A drop-led brand with a shop that is ready for the next one."}
             </h2>
             <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">
               {ar
-                ? "الخطوة التالية هي التوسع في الكتالوج والمرتجعات، مع الحفاظ على نفس قاعدة البيانات اللي بتشغّل اللوحة."
+                ? "الخطوة التالية هي التوسّع في الكتالوج والمرتجعات، مع الإبقاء على قاعدة البيانات الواحدة نفسها التي تشغّل اللوحة."
                 : "The next step is scaling catalogue and returns, without splitting the single database that already runs the dashboard."}
             </p>
           </div>
@@ -411,7 +411,7 @@ export function OltreCollectiveCaseStudy() {
               {ar ? "كل الأعمال" : "All work"}
             </Link>
             <a href="https://momo-shop.vercel.app/" target="_blank" rel="noreferrer" className="rounded-full bg-amber-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">
-              {ar ? "جرّب المتجر" : "Visit the store"} ↗
+              {ar ? "زُر المتجر" : "Visit the store"} ↗
             </a>
           </div>
         </div>

@@ -26,19 +26,19 @@ import { SkipLink } from "./skip-link";
 const LINKS: { href: string; en: string; ar: string; ms: string }[] = [
   { href: "/work", en: "Work", ar: "الأعمال", ms: "Kerja" },
   { href: "/services", en: "Services", ar: "الخدمات", ms: "Perkhidmatan" },
-  { href: "/pricing", en: "Pricing", ar: "التسعير", ms: "Harga" },
-  { href: "/process", en: "Process", ar: "المنهجية", ms: "Proses" },
+  { href: "/pricing", en: "Pricing", ar: "الأسعار", ms: "Harga" },
+  { href: "/process", en: "Process", ar: "المنهج", ms: "Proses" },
   { href: "/writing", en: "Writing", ar: "مقالات", ms: "Penulisan" },
-  { href: "/about", en: "About", ar: "نبذة", ms: "Tentang" },
+  { href: "/about", en: "About", ar: "عن الاستوديو", ms: "Tentang" },
 ];
 
 const MORE: { href: string; en: string; ar: string; ms: string }[] = [
   { href: "/reels", en: "Reels", ar: "ريلز", ms: "Reel" },
   { href: "/developer", en: "Maker", ar: "المطوّر", ms: "Pembangun" },
   { href: "/for-hiring", en: "For hiring", ar: "للتوظيف", ms: "Untuk pengambilan" },
-  { href: "/labs", en: "Labs", ar: "المعمل", ms: "Makmal" },
+  { href: "/labs", en: "Labs", ar: "المختبر", ms: "Makmal" },
   { href: "/books", en: "Library", ar: "المكتبة", ms: "Perpustakaan" },
-  { href: "/portfolio", en: "Portfolio PDF", ar: "بورتفوليو PDF", ms: "Portfolio PDF" },
+  { href: "/portfolio", en: "Portfolio PDF", ar: "ملف الأعمال PDF", ms: "Portfolio PDF" },
 ];
 
 /* Each language named in its own script, so a visitor recognises theirs. */
@@ -190,7 +190,7 @@ export function Nav() {
             type="button"
             className="x-ctl x-head__theme"
             onClick={toggle}
-            aria-label={theme === "dark" ? t("Switch to light mode", "الوضع الفاتح", "Tukar ke mod cerah") : t("Switch to dark mode", "الوضع الداكن", "Tukar ke mod gelap")}
+            aria-label={theme === "dark" ? t("Switch to light mode", "التبديل إلى الوضع الفاتح", "Tukar ke mod cerah") : t("Switch to dark mode", "التبديل إلى الوضع الداكن", "Tukar ke mod gelap")}
           >
             {theme === "dark" ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
@@ -255,7 +255,7 @@ export function Nav() {
 
             <div className="x-menu__side">
               <div className="grid gap-3">
-                <p className="x-mono x-kicker">{t("More", "أكتر", "Lagi")}</p>
+                <p className="x-mono x-kicker">{t("More", "المزيد", "Lagi")}</p>
                 <div className="x-menu__more">
                   {MORE.map((l) => (
                     <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
@@ -295,7 +295,7 @@ export function Nav() {
               </div>
 
               <Link href="/contact" className="x-btn x-btn--solid w-fit" onClick={() => setOpen(false)}>
-                {t("Book a discovery call", "احجز مكالمة استكشاف", "Tempah panggilan penemuan")}
+                {t("Book a discovery call", "احجز مكالمة استكشافية", "Tempah panggilan penemuan")}
               </Link>
             </div>
           </motion.nav>

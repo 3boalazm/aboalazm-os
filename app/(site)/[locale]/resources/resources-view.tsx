@@ -24,7 +24,7 @@ export function ResourcesView() {
     <main className="container-content flex flex-col gap-8 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
-          eyebrow={ar ? "المصادر / قاعدة المعرفة" : "RESOURCES / KNOWLEDGE BASE"}
+          eyebrow={ar ? "الموارد / قاعدة المعرفة" : "RESOURCES / KNOWLEDGE BASE"}
           title={
             <>
               {ar ? "ثمانية أطر. " : "Eight frameworks. "}
@@ -33,7 +33,7 @@ export function ResourcesView() {
           }
           subtitle={
             ar
-              ? "ليست ثمانية تنزيلات منفصلة، بل منهجية واحدة مترابطة لبناء البراندات بوضوح واتساق وقابلية للتوسّع — كل إطار يغذّي التالي."
+              ? "ليست ثمانية تنزيلات منفصلة، بل منهجية واحدة مترابطة لبناء العلامات التجارية بوضوح واتساق وقابلية للتوسع، يغذّي فيها كل إطار الإطار الذي يليه."
               : "Not eight separate downloads — one connected methodology for building brands with clarity, consistency, and scale. Each framework feeds the next."
           }
           titleClassName="heading-fit-long"
@@ -45,8 +45,8 @@ export function ResourcesView() {
       <section className="flex flex-col gap-3">
         <SectionHead
           label={["01 / THE SPINE", "01 / العمود الفقري"]}
-          title={["The operating", "نظام التشغيل"]}
-          italic={["spine.", "المتسلسل."]}
+          title={["The operating", "العمود الفقري"]}
+          italic={["spine.", "التشغيلي."]}
         />
         <SpineRail />
       </section>
@@ -75,7 +75,7 @@ export function ResourcesView() {
       <CtaBand
         kicker={["FROM RESOURCES TO RESULTS", "من المصادر إلى النتائج"]}
         title={["Frameworks are the map.", "الأطر هي الخريطة."]}
-        italic={["Let's build the brand.", "لنبنِ البراند."]}
+        italic={["Let's build the brand.", "لنبنِ العلامة."]}
         primary={["Start a project", "ابدأ مشروعًا"]}
         primaryHref="/contact"
         secondary={["See the work", "شاهد الأعمال"]}

@@ -54,7 +54,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Shoppers don't buy health supplements impulse-style like T-shirts—they need clear dosage instructions, active ingredients, usage precautions, and scientific trust first.",
-          ar: "المستهلك لا يشتري مكملاً غذائياً بشكل عشوائي؛ بل يحتاج أولاً لقراءة التركيبة، طريقة الاستخدام، الفوائد، ومحاذير الاستعمال بوضوح وثقة.",
+          ar: "المستهلك لا يشتري مكملًا غذائيًا بشكل عشوائي؛ بل يحتاج أولًا لقراءة التركيبة، طريقة الاستخدام، الفوائد، ومحاذير الاستعمال بوضوح وثقة.",
         },
         {
           en: "In monolithic WooCommerce/WordPress stores, a content editor updating a banner or blog post can accidentally break product variants, tax rules, or checkout plugins.",
@@ -62,7 +62,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Bilingual health copy requires careful Arabic RTL and English presentation so dosage numbers and units never flip or misread.",
-          ar: "المحتوى الصحي ثنائي اللغة يتطلب ضبطاً دقيقاً لاتجاه الأرقام والجرعات والوحدات بالعربية والإنجليزية لمنع أي لبس لدى المشتري.",
+          ar: "المحتوى الصحي ثنائي اللغة يتطلب ضبطًا دقيقًا لاتجاه الأرقام والجرعات والوحدات بالعربية والإنجليزية لمنع أي لبس لدى المشتري.",
         },
       ],
       afterTitle: {
@@ -80,7 +80,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Includes built-in operational safeguards so if a backend service slows down, product pages degrade gracefully instead of showing raw crash screens.",
-          ar: "تضمين ضوابط حماية تشغيلية تضمن بقاء التصفح مستقراً وواضحاً للزائر حتى في حال تأخر استجابة إحدى الخدمات الخلفية.",
+          ar: "تضمين ضوابط حماية تشغيلية تضمن بقاء التصفح مستقرًا وواضحًا للزائر حتى في حال تأخر استجابة إحدى الخدمات الخلفية.",
         },
       ],
       stakeholders: [
@@ -157,7 +157,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Because supplements are recurring monthly purchases, customers can sign in to view past orders and reorder quickly.",
-          ar: "نظراً لأن المكملات الغذائية تُستهلك شهرياً، يتيح حساب العميل مراجعة مشترياته السابقة وإعادة طلبها بسهولة.",
+          ar: "نظرًا لأن المكملات الغذائية تُستهلك شهريًا، يتيح حساب العميل مراجعة مشترياته السابقة وإعادة طلبها بسهولة.",
         },
       },
     ],
@@ -181,7 +181,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         tag: { en: "Clinical Trust UX", ar: "واجهة تبني الثقة الصحية" },
         title: {
           en: "Designed for informed health purchases, not noisy flash sales",
-          ar: "مصممة للشراء الصحي الواعي بعيداً عن ضجيج المتاجر العشوائية",
+          ar: "مصممة للشراء الصحي الواعي بعيدًا عن ضجيج المتاجر العشوائية",
         },
         body: {
           en: "Prioritizes legibility of active ingredients, pack sizes, and usage directions across mobile and desktop.",
@@ -218,7 +218,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Reduces friction when customers return every 30 days to replenish vitamins or Proxeed courses.",
-          ar: "يسهّل عودة العميل شهرياً لتجديد كورس الفيتامينات أو المكملات بخطوات مختصرة.",
+          ar: "يسهّل عودة العميل شهريًا لتجديد كورس الفيتامينات أو المكملات بخطوات مختصرة.",
         },
       },
       {
@@ -229,7 +229,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Matches the physical boxes customers see in pharmacies, reinforcing authenticity against counterfeit supplements.",
-          ar: "تتطابق بصرياً مع العبوات الفعلية في الصيدليات، ما يعزز اطمئنان العميل لأصالة المنتج.",
+          ar: "تتطابق بصريًا مع العبوات الفعلية في الصيدليات، ما يعزز اطمئنان العميل لأصالة المنتج.",
         },
       },
     ],
@@ -268,7 +268,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Zad (زاد) is an installable Islamic daily companion built to replace four or five ad-cluttered utility apps with one calm, private Arabic experience. It works offline after installation—calculating local GPS prayer times and Qibla direction, providing a full 604-page Mushaf with customizable Khatma completion plans, morning/evening adhkar, a persistent floating tasbih counter, Ramadan/worship trackers, and 'Thuraya' (واحة ثريا), a safe interactive learning space for kids.",
-      ar: "صُمّم تطبيق (زاد - Zad) ليكون رفيق عبادة يومياً متكاملاً يغني المستخدم وأسرته عن تثبيت أربعة أو خمسة تطبيقات مليئة بالإعلانات المزعجة وتتبع البيانات. يعمل التطبيق بكفاءة بدون اتصال بالإنترنت بعد تثبيته على الهاتف، موفراً مواقيت الصلاة الدقيقة واتجاه القبلة، المصحف الكامل (604 صفحات) مع خطط الختمة، الأذكار اليومية، السبحة العائمة، متابعة الورد الرمضاني واليومي، بالإضافة إلى (واحة ثريا) التربوية المخصصة للأطفال.",
+      ar: "صُمّم تطبيق (زاد - Zad) ليكون رفيق عبادة يوميًا متكاملًا يغني المستخدم وأسرته عن تثبيت أربعة أو خمسة تطبيقات مليئة بالإعلانات المزعجة وتتبع البيانات. يعمل التطبيق بكفاءة بدون اتصال بالإنترنت بعد تثبيته على الهاتف، موفرًا مواقيت الصلاة الدقيقة واتجاه القبلة، المصحف الكامل (604 صفحات) مع خطط الختمة، الأذكار اليومية، السبحة العائمة، متابعة الورد الرمضاني واليومي، بالإضافة إلى (واحة ثريا) التربوية المخصصة للأطفال.",
     },
     snapshot: [
       {
@@ -289,7 +289,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         label: { en: "Core Product Promise", ar: "القيمة الأساسية للمستخدم" },
         value: {
           en: "Zero ads · Works offline · Optional manual cloud backup",
-          ar: "خالٍ تماماً من الإعلانات · يعمل بدون إنترنت · خصوصية كاملة",
+          ar: "خالٍ تمامًا من الإعلانات · يعمل بدون إنترنت · خصوصية كاملة",
         },
       },
       {
@@ -326,7 +326,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       afterPoints: [
         {
           en: "Strictly zero ads and zero mandatory sign-up—everything saves locally on the user's device first, with optional manual cloud sync only if desired.",
-          ar: "خلو تام من الإعلانات أو إجبار المستخدم على إنشاء حساب؛ تُحفظ كل البيانات محلياً على الهاتف مع خيار نسخ احتياطي يدوي عند الرغبة فقط.",
+          ar: "خلو تام من الإعلانات أو إجبار المستخدم على إنشاء حساب؛ تُحفظ كل البيانات محليًا على الهاتف مع خيار نسخ احتياطي يدوي عند الرغبة فقط.",
         },
         {
           en: "Offline-first engineering caches all 64 screens, prayer calculations, adhkar, and Quran progress so it opens instantly anywhere.",
@@ -375,7 +375,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Users open the link, add Zad to their home screen like a native app, and set their city/GPS calculation method with zero account registration.",
-          ar: "يُثبّت التطبيق من المتصفح مباشرة على شاشة الهاتف ويضبط المواقيت حسب المدينة أو GPS فوراً دون طلب بريد أو كلمة مرور.",
+          ar: "يُثبّت التطبيق من المتصفح مباشرة على شاشة الهاتف ويضبط المواقيت حسب المدينة أو GPS فورًا دون طلب بريد أو كلمة مرور.",
         },
       },
       {
@@ -407,7 +407,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Family & Backup", ar: "واحة الطفل والنسخ الاحتياطي" },
         title: {
           en: "Kids explore Thuraya & adults optionally sync progress",
-          ar: "تفاعل الأبناء في (واحة ثريا) وحفظ التقدم اختيارياً",
+          ar: "تفاعل الأبناء في (واحة ثريا) وحفظ التقدم اختياريًا",
         },
         detail: {
           en: "Children engage with simplified adhkar and learning activities in Thuraya, while users changing phones can trigger a manual backup sync.",
@@ -439,7 +439,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Local storage and Service Worker caching keep daily worship tools responsive without network signal.",
-          ar: "تُحفظ الشاشات والحسابات محلياً ليبقى التطبيق سريعاً وجاهزاً في كل الظروف دون انتظار اتصال.",
+          ar: "تُحفظ الشاشات والحسابات محليًا ليبقى التطبيق سريعًا وجاهزًا في كل الظروف دون انتظار اتصال.",
         },
       },
       {
@@ -457,11 +457,11 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         tag: { en: "Thuraya Kids Space", ar: "واحة ثريا للأطفال" },
         title: {
           en: "Dedicated child-friendly Islamic learning oasis",
-          ar: "ركن تربوي تفاعلي مصمم خصيصاً لتحبيب الأطفال في العبادة",
+          ar: "ركن تربوي تفاعلي مصمم خصيصًا لتحبيب الأطفال في العبادة",
         },
         body: {
           en: "Gives families a safe, warm environment introducing young kids to daily prayers, short surahs, and good manners.",
-          ar: "يقدم للأبناء محتوى مبسطاً وجذاباً يغرس حب الصلاة والأذكار والأخلاق في بيئة آمنة تماماً.",
+          ar: "يقدم للأبناء محتوى مبسطًا وجذابًا يغرس حب الصلاة والأذكار والأخلاق في بيئة آمنة تمامًا.",
         },
       },
       {
@@ -476,14 +476,14 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
       },
       {
-        tag: { en: "Privacy by Design", ar: "الخصوصية أولاً" },
+        tag: { en: "Privacy by Design", ar: "الخصوصية أولًا" },
         title: {
           en: "Local-first data with explicit manual-only cloud sync",
           ar: "بياناتك ملكك على جهازك مع مزامنة يدوية باختيارك فقط",
         },
         body: {
           en: "Worship logs stay private on the phone unless the user explicitly chooses to back up or restore across devices.",
-          ar: "تظل سجلات عبادتك وأورادك محفوظة على هاتفك وحده، ولا تُرفع سحابياً إلا إذا اخترت النسخ الاحتياطي بنفسك.",
+          ar: "تظل سجلات عبادتك وأورادك محفوظة على هاتفك وحده، ولا تُرفع سحابيًا إلا إذا اخترت النسخ الاحتياطي بنفسك.",
         },
       },
     ],
@@ -499,7 +499,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       highlights: [
         {
           en: "64 complete Arabic RTL screens live in production",
-          ar: "64 شاشة عربية متكاملة تعمل فعلياً ومتاحة للمعاينة",
+          ar: "64 شاشة عربية متكاملة تعمل فعليًا ومتاحة للمعاينة",
         },
         {
           en: "Installs directly to phone home screen & runs offline",
@@ -522,7 +522,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Mini Exam is an assessment studio built around how private tutors, school teachers, and training instructors in Egypt and MENA actually run classes. Teachers generate questions from lesson material (via AI or question bank), review and approve every question before publishing, and drop a single exam link into their student WhatsApp group; students enter their name and take the test immediately, answers are graded tamper-proof on the server, and results format cleanly for WhatsApp follow-up.",
-      ar: "صُمّمت منصة (Mini Exam) لتناسب الطريقة الواقعية التي يدير بها المعلمون والمحاضرون اختبارات طلابهم في مصر والمنطقة العربية. يولّد المعلم الأسئلة من محتوى الدرس بالذكاء الاصطناعي أو بنك الأسئلة، يراجع ويعتمد كل سؤال بنفسه قبل النشر، ثم يرسل رابطاً واحداً على مجموعة واتساب؛ يدخل الطالب اسمه ويحل الاختبار فوراً دون تعقيد إنشاء حساب، ليتم التصحيح بأمان على الخادم وتجهيز تقرير النتيجة للإرسال عبر واتساب.",
+      ar: "صُمّمت منصة (Mini Exam) لتناسب الطريقة الواقعية التي يدير بها المعلمون والمحاضرون اختبارات طلابهم في مصر والمنطقة العربية. يولّد المعلم الأسئلة من محتوى الدرس بالذكاء الاصطناعي أو بنك الأسئلة، يراجع ويعتمد كل سؤال بنفسه قبل النشر، ثم يرسل رابطًا واحدًا على مجموعة واتساب؛ يدخل الطالب اسمه ويحل الاختبار فورًا دون تعقيد إنشاء حساب، ليتم التصحيح بأمان على الخادم وتجهيز تقرير النتيجة للإرسال عبر واتساب.",
     },
     snapshot: [
       {
@@ -566,7 +566,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Typing 20 fresh multiple-choice, true/false, and short-answer questions from scratch after every lesson drains hours of a teacher's evening.",
-          ar: "كتابة وإعداد اختبار جديد متنوع الأسئلة يدوياً بعد كل حصة يستنزف ساعات طويلة من وقت المعلم أسبوعياً.",
+          ar: "كتابة وإعداد اختبار جديد متنوع الأسئلة يدويًا بعد كل حصة يستنزف ساعات طويلة من وقت المعلم أسبوعيًا.",
         },
         {
           en: "Simple client-side quiz pages leak correct answers in browser source code, while raw AI quiz generators embarrass teachers with unreviewed mistakes.",
@@ -610,7 +610,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
           role: { en: "Parents & Teaching Assistants", ar: "المساعدون وأولياء الأمور" },
           benefit: {
             en: "Clear score breakdowns and formatted WhatsApp result messages make weekly student follow-up effortless.",
-            ar: "تقارير درجات واضحة ورسائل نتائج جاهزة للإرسال تسهل متابعة مستوى الطالب أولاً بأول.",
+            ar: "تقارير درجات واضحة ورسائل نتائج جاهزة للإرسال تسهل متابعة مستوى الطالب أولًا بأول.",
           },
         },
       ],
@@ -641,7 +641,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "No AI output goes live automatically—the teacher inspects answers, adjusts grades or timers, and publishes with confidence.",
-          ar: "لا يُنشر أي سؤال آلياً؛ يدقق المعلم الصياغة والإجابة النموذجية ويضبط الوقت والدرجة ثم يعتمد النشر.",
+          ar: "لا يُنشر أي سؤال آليًا؛ يدقق المعلم الصياغة والإجابة النموذجية ويضبط الوقت والدرجة ثم يعتمد النشر.",
         },
       },
       {
@@ -682,7 +682,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Built for real student WhatsApp and Telegram groups where any extra registration step cuts participation in half.",
-          ar: "مصمم خصيصاً لبيئة مجموعات واتساب وتليجرام التعليمية حيث يمثل السهولة والسرعة عامل الحسم.",
+          ar: "مصمم خصيصًا لبيئة مجموعات واتساب وتليجرام التعليمية حيث يمثل السهولة والسرعة عامل الحسم.",
         },
       },
       {
@@ -704,7 +704,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Even tech-savvy students inspecting page source cannot see correct answers before submitting.",
-          ar: "لا تُرسل الإجابات الصحيحة أبداً إلى جهاز الطالب أثناء الحل، ما يحمي مصداقية الدرجات.",
+          ar: "لا تُرسل الإجابات الصحيحة أبدًا إلى جهاز الطالب أثناء الحل، ما يحمي مصداقية الدرجات.",
         },
       },
       {
@@ -715,7 +715,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Meets teachers and parents on the exact communication channel they already use every day.",
-          ar: "تخاطب المعلم وولي الأمر عبر وسيلة التواصل اليومية المعتمدة فعلاً دون إجبارهم على بوابات معقدة.",
+          ar: "تخاطب المعلم وولي الأمر عبر وسيلة التواصل اليومية المعتمدة فعلًا دون إجبارهم على بوابات معقدة.",
         },
       },
       {
@@ -726,7 +726,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Tests recall, comprehension, and written terms rather than relying solely on four-option guessing.",
-          ar: "يتيح تنويع الاختبار بين الاختياري والصواب والخطأ والإجابة القصيرة والترتيب بدلاً من الاعتماد على التخمين فقط.",
+          ar: "يتيح تنويع الاختبار بين الاختياري والصواب والخطأ والإجابة القصيرة والترتيب بدلًا من الاعتماد على التخمين فقط.",
         },
       },
       {
@@ -748,7 +748,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Deployed in production and inspectable via the live preview link on this page.",
-        ar: "المنصة منشورة وتعمل فعلياً ويمكن زيارتها وتجربتها عبر رابط المعاينة الحية في هذه الصفحة.",
+        ar: "المنصة منشورة وتعمل فعليًا ويمكن زيارتها وتجربتها عبر رابط المعاينة الحية في هذه الصفحة.",
       },
       highlights: [
         {
@@ -772,11 +772,11 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     headline: {
       en: "Presenting a Data Analyst's SQL rigor and HungerStation operational scope in clear business language that hiring managers and founders can act on in two minutes.",
-      ar: "تقديم خبرة محلل بيانات في قطاع المطاعم ومنصات التوصيل (HungerStation) بلغة عملية واضحة تمكّن مديري التوظيف وأصحاب الشركات من تقييم كفاءته فوراً.",
+      ar: "تقديم خبرة محلل بيانات في قطاع المطاعم ومنصات التوصيل (HungerStation) بلغة عملية واضحة تمكّن مديري التوظيف وأصحاب الشركات من تقييم كفاءته فورًا.",
     },
     summary: {
       en: "Ahmed Kamar's platform (ahmed-kamar-portfolio.vercel.app) is a bilingual AR/EN executive portfolio built for a Data Analyst working across restaurant, retail, and delivery-platform datasets (including 350+ menu and catalog items at HungerStation across 3 organizations). Instead of dumping raw code notebooks that non-technical managers skip—or generic web templates that hide SQL modeling depth—it frames his methodology, NDA-safe impact scope, skills, and CV for Egypt, Gulf, and remote hiring teams.",
-      ar: "يمثل موقع (أحمد قمر) منصة مهنية ثنائية اللغة (عربي/إنجليزي) صُممت لمحلل بيانات متخصص في قطاع المطاعم والتجزئة ومنصات التوصيل (بما يشمل العمل على أكثر من 350 صنفاً وقائمة طعام في HungerStation عبر 3 مؤسسات). بدلاً من عرض أكواد خام يصعب على مديري الأعمال قراءتها أو قوالب عامة تخفي العمق التقني في SQL ونمذجة قواعد البيانات، يقدّم الموقع منهجيته ونطاق أعماله المحمي باتفاقيات السرية (NDA) وسيرته الذاتية بوضوح لفرق التوظيف في مصر والخليج والعمل عن بُعد.",
+      ar: "يمثل موقع (أحمد قمر) منصة مهنية ثنائية اللغة (عربي/إنجليزي) صُممت لمحلل بيانات متخصص في قطاع المطاعم والتجزئة ومنصات التوصيل (بما يشمل العمل على أكثر من 350 صنفًا وقائمة طعام في HungerStation عبر 3 مؤسسات). بدلًا من عرض أكواد خام يصعب على مديري الأعمال قراءتها أو قوالب عامة تخفي العمق التقني في SQL ونمذجة قواعد البيانات، يقدّم الموقع منهجيته ونطاق أعماله المحمي باتفاقيات السرية (NDA) وسيرته الذاتية بوضوح لفرق التوظيف في مصر والخليج والعمل عن بُعد.",
     },
     snapshot: [
       {
@@ -850,7 +850,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
           role: { en: "Technical Analytics Leads", ar: "قادة فرق البيانات والمهندسون" },
           benefit: {
             en: "See immediately that his SQL skill is grounded in relational database modeling and structured analytical method—not just basic dashboard drag-and-drop.",
-            ar: "يتأكدون سريعاً من تأسيسه القوي في تصميم قواعد البيانات والاستعلامات المتقدمة (SQL) ومنهجية التحليل المنظمة.",
+            ar: "يتأكدون سريعًا من تأسيسه القوي في تصميم قواعد البيانات والاستعلامات المتقدمة (SQL) ومنهجية التحليل المنظمة.",
           },
         },
         {
@@ -879,11 +879,11 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         actor: { en: "10-Second Scan", ar: "الفحص السريع الأول" },
         title: {
           en: "Role, availability, HungerStation context & SQL focus",
-          ar: "قراءة التخصص، الإتاحة الجغرافية، والخبرة الحالية فوراً",
+          ar: "قراءة التخصص، الإتاحة الجغرافية، والخبرة الحالية فورًا",
         },
         detail: {
           en: "Above the fold, visitors immediately see role scope, Egypt/Gulf/Remote availability, current HungerStation analyst role, and CV/GitHub buttons.",
-          ar: "توضّح الشاشة الافتتاحية فوراً المسمى الوظيفي، التواجد في HungerStation، الإتاحة لمصر والخليج وعن بُعد، وأزرار السيرة الذاتية وGitHub.",
+          ar: "توضّح الشاشة الافتتاحية فورًا المسمى الوظيفي، التواجد في HungerStation، الإتاحة لمصر والخليج وعن بُعد، وأزرار السيرة الذاتية وGitHub.",
         },
       },
       {
@@ -947,7 +947,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Explicitly labels summary-level scope figures—signaling professional trustworthiness to future employers.",
-          ar: "ينص صراحةً على حماية تفاصيل العملاء تحت مظلة السرية، ما يمنح جهات التوظيف انطباعاً عالياً بالأمانة المهنية.",
+          ar: "ينص صراحةً على حماية تفاصيل العملاء تحت مظلة السرية، ما يمنح جهات التوظيف انطباعًا عاليًا بالأمانة المهنية.",
         },
       },
       {
@@ -1002,7 +1002,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Live in production and accessible directly via the preview button on this page across English and Arabic.",
-        ar: "الموقع منشور ويعمل فعلياً باللغتين العربية والإنجليزية ومتاح للتصفح المباشر عبر زر المعاينة.",
+        ar: "الموقع منشور ويعمل فعليًا باللغتين العربية والإنجليزية ومتاح للتصفح المباشر عبر زر المعاينة.",
       },
       highlights: [
         {
@@ -1030,7 +1030,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Continuum is a 21-screen personal 'Memory OS' designed for engineers, designers, founders, and researchers juggling multiple active projects. Instead of scattering tasks in one app, meeting/decision notes in another, and reference links in browser tabs—or waiting on slow cloud workspaces—Continuum runs instantly on local browser storage first, connects every task, note, and decision back to its project context, and supports optional Firebase sync when moving across devices.",
-      ar: "صُمّم نظام (Continuum) كمساحة ذاكرة وتشغيل شخصية من 21 شاشة للمهندسين والمصممين وأصحاب المشاريع والباحثين الذين يديرون عدة أعمال في وقت واحد. بدلاً من تبعثر المهام في تطبيق، والملاحظات والقرارات في تطبيق آخر، والروابط المهمة في عشرات تبويبات المتصفح، يجمع النظام كل هذه العناصر في واجهة فورية تعمل محلياً أولاً (Local-First) بدون بطء، وتربط كل مهمة وقرار وملاحظة بسياق مشروعها، مع إتاحة مزامنة سحابية اختيارية عبر Firebase.",
+      ar: "صُمّم نظام (Continuum) كمساحة ذاكرة وتشغيل شخصية من 21 شاشة للمهندسين والمصممين وأصحاب المشاريع والباحثين الذين يديرون عدة أعمال في وقت واحد. بدلًا من تبعثر المهام في تطبيق، والملاحظات والقرارات في تطبيق آخر، والروابط المهمة في عشرات تبويبات المتصفح، يجمع النظام كل هذه العناصر في واجهة فورية تعمل محليًا أولًا (Local-First) بدون بطء، وتربط كل مهمة وقرار وملاحظة بسياق مشروعها، مع إتاحة مزامنة سحابية اختيارية عبر Firebase.",
     },
     snapshot: [
       {
@@ -1058,7 +1058,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         label: { en: "Operating Model", ar: "آلية التشغيل" },
         value: {
           en: "21 local-first views · Zero build bloat · Optional Firebase sync",
-          ar: "21 شاشة فورية الاستجابة محلياً + مزامنة سحابية اختيارية",
+          ar: "21 شاشة فورية الاستجابة محليًا + مزامنة سحابية اختيارية",
         },
       },
     ],
@@ -1074,7 +1074,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Heavy cloud workspace apps take seconds to load every page, require constant internet, and lock personal notes behind proprietary formats.",
-          ar: "تطبيقات إدارة المهام السحابية الثقيلة بطيئة الفتح، تتطلب إنترنت دائماً، وتقيّد بياناتك الشخصية داخل قوالب معقدة.",
+          ar: "تطبيقات إدارة المهام السحابية الثقيلة بطيئة الفتح، تتطلب إنترنت دائمًا، وتقيّد بياناتك الشخصية داخل قوالب معقدة.",
         },
         {
           en: "To-do lists track 'what to do' but lose 'why we decided it' and which reference articles or links belong to that task.",
@@ -1083,7 +1083,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       ],
       afterTitle: {
         en: "How Continuum preserves working memory",
-        ar: "كيف يحفظ Continuum ذاكرة العمل عملياً",
+        ar: "كيف يحفظ Continuum ذاكرة العمل عمليًا",
       },
       afterPoints: [
         {
@@ -1137,7 +1137,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "The overview surfaces active projects, today's priority tasks, recent journal notes, and pinned context immediately.",
-          ar: "تعرض الشاشة الرئيسية المشاريع الجارية، أولويات اليوم، وآخر الملاحظات المسجلة لتبدأ العمل فوراً دون تشتت.",
+          ar: "تعرض الشاشة الرئيسية المشاريع الجارية، أولويات اليوم، وآخر الملاحظات المسجلة لتبدأ العمل فورًا دون تشتت.",
         },
       },
       {
@@ -1149,7 +1149,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "As work progresses, tasks move forward, key trade-offs are recorded so they aren't forgotten later, and useful URLs save to Bookmarks.",
-          ar: "أثناء العمل تُحدّث حالة المهام، وتُسجّل أسباب القرارات المهمة للرجوع إليها مستقبلاً، وتُحفظ الروابط المفيدة ضمن نفس السياق.",
+          ar: "أثناء العمل تُحدّث حالة المهام، وتُسجّل أسباب القرارات المهمة للرجوع إليها مستقبلًا، وتُحفظ الروابط المفيدة ضمن نفس السياق.",
         },
       },
       {
@@ -1161,7 +1161,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "A two-minute end-of-day log captures blockers and tomorrow's first move so the next session starts effortlessly.",
-          ar: "تدوين سريع في نهاية اليوم يوضح ما تم إنجازه وما هي الخطوة الأولى غداً، ليصبح استئناف العمل لاحقاً سهلاً ومباشراً.",
+          ar: "تدوين سريع في نهاية اليوم يوضح ما تم إنجازه وما هي الخطوة الأولى غدًا، ليصبح استئناف العمل لاحقًا سهلًا ومباشرًا.",
         },
       },
       {
@@ -1173,7 +1173,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Users stay 100% offline/local by default or sign into Firebase when they want automatic multi-device continuity.",
-          ar: "يبقى العمل محفوظاً محلياً افتراضياً، مع حرية تصدير نسخة احتياطية أو تفعيل المزامنة السحابية بين الأجهزة.",
+          ar: "يبقى العمل محفوظًا محليًا افتراضيًا، مع حرية تصدير نسخة احتياطية أو تفعيل المزامنة السحابية بين الأجهزة.",
         },
       },
     ],
@@ -1212,18 +1212,18 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Capturing a fleeting thought or checking a task takes milliseconds—even with zero Wi-Fi.",
-          ar: "تسجيل فكرة سريعة أو مراجعة مهمة يتم في أجزاء من الثانية حتى عند انقطاع الإنترنت تماماً.",
+          ar: "تسجيل فكرة سريعة أو مراجعة مهمة يتم في أجزاء من الثانية حتى عند انقطاع الإنترنت تمامًا.",
         },
       },
       {
         tag: { en: "Optional Cloud", ar: "مزامنة اختيارية غير إجبارية" },
         title: {
           en: "Works immediately without login; Firebase sync when needed",
-          ar: "جاهز للعمل فوراً بدون حساب، مع دعم المزامنة وقت الحاجة",
+          ar: "جاهز للعمل فورًا بدون حساب، مع دعم المزامنة وقت الحاجة",
         },
         body: {
           en: "Try and use the full workspace locally right away, and connect cloud sync only if you work across multiple machines.",
-          ar: "استخدم النظام بكامل إمكانياته محلياً، وفعّل المزامنة السحابية فقط إذا أردت ربط أكثر من جهاز.",
+          ar: "استخدم النظام بكامل إمكانياته محليًا، وفعّل المزامنة السحابية فقط إذا أردت ربط أكثر من جهاز.",
         },
       },
       {
@@ -1284,7 +1284,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Pharmacy Web is the operator-facing Arabic RTL application for a multi-tenant retail pharmacy SaaS platform. Organized across 15 clear operational modules—including Counter POS, Drug Utilization Review (DUR) clinical safety checks, FEFO batch inventory, prescriptions, purchasing, suppliers, shifts, and financial ledgers—it is engineered around real pharmacy counter risks: patient medication safety, exact decimal money calculation, and protection against double-submitting invoices on shaky internet.",
-      ar: "يمثل مشروع (Pharmacy Web) واجهة التشغيل العربية لنظام سحابي لإدارة الصيدليات وسلاسل التجزئة الدوائية. ينظم النظام العمل عبر 15 وحدة تشغيلية واضحة تشمل كاشير الصرف السريع (POS)، فحص التداخلات والسلامة الدوائية (DUR)، مخزون التشغيلات وتواريخ الصلاحية (FEFO)، الروشتات، المشتريات والموردين، الورديات، والدفاتر المالية؛ مع تركيز صارم على سلامة المريض ودقة الحسابات المالية ومنع تكرار الفواتير عند تذبذب الإنترنت.",
+      ar: "يمثل مشروع (Pharmacy Web) واجهة التشغيل العربية لنظام سحابي لإدارة الصيدليات وسلاسل التجزئة الدوائية. ينظم النظام العمل عبر 15 وحدة تشغيلية واضحة تشمل كاشير الصرف السريع (POS)، فحص التداخلات والسلامة الدوائية (DUR)، مخزون التشغيلات وتواريخ الصلاحية (FEFO)، الوصفات الطبية، المشتريات والموردين، الورديات، والدفاتر المالية؛ مع تركيز صارم على سلامة المريض ودقة الحسابات المالية ومنع تكرار الفواتير عند تذبذب الإنترنت.",
     },
     snapshot: [
       {
@@ -1324,11 +1324,11 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "During rush hours, dispensing multiple items without automated Drug Utilization Review (DUR) risks missing dangerous drug-drug interactions or contraindications.",
-          ar: "في أوقات الذروة، قد يمر صرف عدة أصناف معاً دون الانتباه لتداخل دوائي خطير أو تعارض مع حالة المريض إذا غاب التنبيه الآلي.",
+          ar: "في أوقات الذروة، قد يمر صرف عدة أصناف معًا دون الانتباه لتداخل دوائي خطير أو تعارض مع حالة المريض إذا غاب التنبيه الآلي.",
         },
         {
           en: "Standard POS software treats medicines like grocery barcodes—ignoring batch expiry order and rounding piastres/halalas inaccurately across thousands of daily receipts.",
-          ar: "أنظمة الكاشير التجارية العادية لا تراعي ترتيب صلاحية التشغيلات الدوائية، وقد تسبب فروقات تقريب عشرية تتراكم عبر آلاف الفواتير شهرياً.",
+          ar: "أنظمة الكاشير التجارية العادية لا تراعي ترتيب صلاحية التشغيلات الدوائية، وقد تسبب فروقات تقريب عشرية تتراكم عبر آلاف الفواتير شهريًا.",
         },
         {
           en: "When store Wi-Fi flickers and a cashier clicks 'Confirm Sale' twice, naive web apps charge twice or deduct stock twice.",
@@ -1379,7 +1379,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     workflowIntro: {
       en: "How a prescription or OTC sale moves safely through the pharmacy:",
-      ar: "رحلة صرف الروشتة والبيع داخل الصيدلية عبر النظام:",
+      ar: "رحلة صرف الوصفة الطبية والبيع داخل الصيدلية عبر النظام:",
     },
     workflow: [
       {
@@ -1391,7 +1391,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Incoming medicines register into branch inventory with exact batch expiry dates so FEFO order is ready at the counter.",
-          ar: "تُسجّل الأصناف الواردة بتشغيلاتها وتواريخ صلاحيتها ليعرف النظام تلقائياً أي تشغيلة يجب صرفها أولاً.",
+          ar: "تُسجّل الأصناف الواردة بتشغيلاتها وتواريخ صلاحيتها ليعرف النظام تلقائيًا أي تشغيلة يجب صرفها أولًا.",
         },
       },
       {
@@ -1437,7 +1437,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     features: [
       {
-        tag: { en: "Patient Safety (DUR)", ar: "سلامة المريض أولاً" },
+        tag: { en: "Patient Safety (DUR)", ar: "سلامة المريض أولًا" },
         title: {
           en: "Built-in Drug Utilization Review before sale completion",
           ar: "بوابة تنبيه للتفاعلات والتعارضات الدوائية أثناء الصرف",
@@ -1455,7 +1455,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Eliminates subtle JavaScript rounding errors across unit splits (strip vs box), taxes, and insurance co-pays.",
-          ar: "تقضي تماماً على أخطاء التقريب الحسابي عند بيع الشرائط المجزأة أو حساب نسب تحمل التأمين الطبي.",
+          ar: "تقضي تمامًا على أخطاء التقريب الحسابي عند بيع الشرائط المجزأة أو حساب نسب تحمل التأمين الطبي.",
         },
       },
       {
@@ -1477,7 +1477,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Keeps older valid stock moving first and gives purchasing teams clear visibility before re-ordering.",
-          ar: "يساعد في تصريف التشغيلات الأقدم أولاً ويمنح مسؤول المشتريات رؤية واضحة قبل طلب كميات إضافية.",
+          ar: "يساعد في تصريف التشغيلات الأقدم أولًا ويمنح مسؤول المشتريات رؤية واضحة قبل طلب كميات إضافية.",
         },
       },
       {
@@ -1530,22 +1530,22 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     slug: "youssef-guba",
     sector: {
       en: "Creator & Engineering Studio OS · Mobile Products, Courses & Writing",
-      ar: "منصات المهندسين وصناع المنتجات · تطبيقات الموبايل والدورات والمقالات",
+      ar: "منصات المهندسين وصناع المنتجات · تطبيقات الجوّال والدورات والمقالات",
     },
     headline: {
       en: "Uniting a Flutter mobile engineer's shipped App Store/Play Store work, educational courses, technical articles, and client project intake inside one Sanity-powered bilingual platform.",
-      ar: "جمع أعمال مهندس تطبيقات موبايل منشورة على المتاجر، ودوراته التدريبية، ومقالاته التقنية، وطلبات العملاء في منصة ثنائية اللغة تدار بالكامل عبر Sanity CMS.",
+      ar: "جمع أعمال مهندس تطبيقات جوّال منشورة على المتاجر، ودوراته التدريبية، ومقالاته التقنية، وطلبات العملاء في منصة ثنائية اللغة تدار بالكامل عبر Sanity CMS.",
     },
     summary: {
       en: "Youssef Guba's platform (youssefguba-os.vercel.app) is a personal portfolio operating system built for a Cairo-based production Flutter engineer. Rather than splitting his professional presence across LinkedIn posts, Medium blogs, course links, and PDF portfolios, it brings 10 mirrored Arabic/English routes—Work, Services, Courses, Writing, Media, About, and Start a Project—under one fast Next.js interface where he publishes new case studies, courses, and articles directly from Sanity Studio without touching code.",
-      ar: "يمثل موقع (يوسف جوبا - Youssef Guba OS) نظام بورتفوليو وتشغيل شخصياً متكاملاً لمهندس تطوير تطبيقات موبايل (Flutter) في القاهرة. بدلاً من تشتيت حضوره المهني بين منشورات لينكدإن ومنصات المقالات وروابط الدورات المتفرقة، توحّد المنصة 10 مسارات كاملة ومتطابقة بالعربية والإنجليزية تشمل الأعمال المنشورة، الخدمات، الدورات التدريبية، المدونة التقنية، واستقبال المشاريع، مع لوحة إدارة محتوى (Sanity CMS) تمكّنه من النشر والتحديث فوراً دون تعديل الكود.",
+      ar: "يمثل موقع (يوسف جوبا - Youssef Guba OS) نظام ملف أعمال وتشغيل شخصيًا متكاملًا لمهندس تطوير تطبيقات جوّال (Flutter) في القاهرة. بدلًا من تشتيت حضوره المهني بين منشورات لينكدإن ومنصات المقالات وروابط الدورات المتفرقة، توحّد المنصة 10 مسارات كاملة ومتطابقة بالعربية والإنجليزية تشمل الأعمال المنشورة، الخدمات، الدورات التدريبية، المدونة التقنية، واستقبال المشاريع، مع لوحة إدارة محتوى (Sanity CMS) تمكّنه من النشر والتحديث فورًا دون تعديل الكود.",
     },
     snapshot: [
       {
         label: { en: "Domain", ar: "التخصص" },
         value: {
           en: "Production Flutter Mobile Engineering & Technical Education",
-          ar: "هندسة تطبيقات الموبايل (Flutter) والتدريب التقني",
+          ar: "هندسة تطبيقات الجوّال (Flutter) والتدريب التقني",
         },
       },
       {
@@ -1573,20 +1573,20 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     problemAndShift: {
       beforeTitle: {
         en: "Why developer-educators outgrow static one-page portfolios",
-        ar: "لماذا لا تكفي صفحة البورتفوليو العادية للمهندس المحاضر وصانع المحتوى",
+        ar: "لماذا لا تكفي صفحة ملف الأعمال العادية للمهندس المحاضر وصانع المحتوى",
       },
       beforePoints: [
         {
           en: "A developer who ships client apps, teaches courses, and writes articles looks unfocused unless each stream has a structured home.",
-          ar: "المهندس الذي يطوّر تطبيقات للعملاء ويقدم دورات ويكتب مقالات يبدو مشتتاً إذا عُرضت كل هذه المسارات في صفحة واحدة مزدحمة.",
+          ar: "المهندس الذي يطوّر تطبيقات للعملاء ويقدم دورات ويكتب مقالات يبدو مشتتًا إذا عُرضت كل هذه المسارات في صفحة واحدة مزدحمة.",
         },
         {
           en: "Hardcoded developer portfolios go stale quickly because publishing a new article or course update requires opening an IDE and redeploying.",
-          ar: "المواقع المبرمجة بنصوص ثابتة تُهمل سريعاً لأن إضافة مشروع جديد أو مقال تتطلب فتح الكود وإعادة النشر في كل مرة.",
+          ar: "المواقع المبرمجة بنصوص ثابتة تُهمل سريعًا لأن إضافة مشروع جديد أو مقال تتطلب فتح الكود وإعادة النشر في كل مرة.",
         },
         {
           en: "Serving both Arab developer communities/local founders and international clients demands real RTL Arabic and LTR English parity.",
-          ar: "مخاطبة المتعلمين وأصحاب الشركات محلياً ودولياً تتطلب تجربة عربية أصيلة لا تقل جودة عن النسخة الإنجليزية.",
+          ar: "مخاطبة المتعلمين وأصحاب الشركات محليًا ودوليًا تتطلب تجربة عربية أصيلة لا تقل جودة عن النسخة الإنجليزية.",
         },
       ],
       afterTitle: {
@@ -1604,7 +1604,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Highlights real mobile production credentials—offline-capable modular Flutter apps shipped to App Store & Google Play—right in the hero.",
-          ar: "إبراز نقاط القوة الهندسية الحقيقية من اللحظة الأولى: بناء تطبيقات Flutter معيارية تعمل بدون إنترنت ومنشورة فعلياً على متجري آبل وجوجل.",
+          ar: "إبراز نقاط القوة الهندسية الحقيقية من اللحظة الأولى: بناء تطبيقات Flutter معيارية تعمل بدون إنترنت ومنشورة فعليًا على متجري آبل وجوجل.",
         },
       ],
       stakeholders: [
@@ -1633,7 +1633,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     },
     workflowIntro: {
       en: "How the platform serves both client acquisition and content publishing:",
-      ar: "كيف تشتغل المنصة بين نشر المحتوى وجذب العملاء والدارسين:",
+      ar: "كيف تعمل المنصة بين نشر المحتوى وجذب العملاء والدارسين:",
     },
     workflow: [
       {
@@ -1698,7 +1698,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Keeps the site alive as an active publishing and course hub rather than a static snapshot frozen on launch day.",
-          ar: "يضمن بقاء المنصة متجددة دائماً بأحدث المشاريع والمقالات والدورات دون الحاجة لتعديل برمجي.",
+          ar: "يضمن بقاء المنصة متجددة دائمًا بأحدث المشاريع والمقالات والدورات دون الحاجة لتعديل برمجي.",
         },
       },
       {
@@ -1709,7 +1709,7 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Gives each audience—app clients, recruiters, and students—a clear path without cluttering the others.",
-          ar: "تمنح كل زائر — سواء كان عميلاً أو متعلماً أو مسؤول توظيف — مساره الواضح دون تشتيت.",
+          ar: "تمنح كل زائر — سواء كان عميلًا أو متعلمًا أو مسؤول توظيف — مساره الواضح دون تشتيت.",
         },
       },
       {
@@ -1760,11 +1760,11 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     operationalNote: {
       statusLabel: {
         en: "Live Production Platform (youssefguba-os.vercel.app)",
-        ar: "منصة حية منشورة وتعمل فعلياً (youssefguba-os.vercel.app)",
+        ar: "منصة حية منشورة وتعمل فعليًا (youssefguba-os.vercel.app)",
       },
       summary: {
         en: "Live in production across all 10 bilingual AR/EN routes and connected to Sanity CMS; open the live site directly from the preview button on this page.",
-        ar: "المنصة منشورة وتعمل فعلياً عبر مساراتها العشرة باللغتين العربية والإنجليزية ومرتبطة بـ Sanity CMS، ومتاحة للزيارة الفورية عبر زر المعاينة.",
+        ar: "المنصة منشورة وتعمل فعليًا عبر مساراتها العشرة باللغتين العربية والإنجليزية ومرتبطة بـ Sanity CMS، ومتاحة للزيارة الفورية عبر زر المعاينة.",
       },
       highlights: [
         {

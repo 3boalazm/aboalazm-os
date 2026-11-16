@@ -147,7 +147,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
           }
           subtitle={
             ar
-              ? "صور مجمّعة من كل مشاريع الهوية البصرية — مقسّمة حسب العميل. اختَر مشروعًا للفلترة، واضغط أي صورة لتكبيرها."
+              ? "صور مجمّعة من كل مشاريع الهوية البصرية — مقسّمة حسب العميل. اختَر مشروعًا للتصفية، واضغط أي صورة لتكبيرها."
               : "Brand imagery pulled from every identity project — grouped by client. Filter by project, then tap any image to open it full-size."
           }
           subtitleClassName="max-w-[56ch]"
@@ -258,7 +258,7 @@ export function GalleryView({ projects: GALLERY_PROJECTS, images: GALLERY_IMAGES
       <section aria-hidden className="relative -mx-3 mt-4 overflow-x-clip border-t border-border-subtle pt-6">
         <div className="px-4 sm:px-6 lg:px-8 mb-4">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            {ar ? "عرض بصري — اسكرول للاستكشاف" : "VISUAL REEL — SCROLL TO EXPLORE"}
+            {ar ? "عرض بصري: مرّر للاستكشاف" : "VISUAL REEL — SCROLL TO EXPLORE"}
           </p>
           <h2 className="mt-1 font-display text-title tracking-[-0.02em] text-text-primary">
             {ar ? "النظام، مُرَندَر." : "The system, rendered."}

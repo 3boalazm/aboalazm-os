@@ -257,7 +257,7 @@ test("single source of truth for Recommended badge, 72h store, response promise,
   );
   assert.equal(
     RESPONSE_PROMISE.ar,
-    "رد في نفس اليوم في أيام العمل (الأحد–الخميس بتوقيت القاهرة). واتساب أسرع وسيلة.",
+    "الرد في اليوم نفسه خلال أيام العمل (الأحد–الخميس بتوقيت القاهرة). واتساب أسرع وسيلة.",
   );
 
   const entries = buildSitemap({ caseStudies: [], posts: [] });

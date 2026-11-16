@@ -96,7 +96,7 @@ export function TestimonialsSection({
           {ar ? "آراء العملاء" : "CLIENT FEEDBACK"}
         </p>
         <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-          {ar ? "كلمات من عملاء المشروع." : "Words from project partners."}
+          {ar ? "كلمات من شركاء المشروع." : "Words from project partners."}
         </h2>
       </div>
       <div className="mt-4 grid gap-3 md:grid-cols-2">

@@ -53,10 +53,10 @@ const NODES_EN = {
 } as const;
 
 const NODES_AR = {
-  brand:      "البراند",
-  token:      "توكن",
-  component:  "كومبوننت",
-  page:       "صفحة",
+  brand:      "العلامة",
+  token:      "المتغيّرات",
+  component:  "المكوّنات",
+  page:       "الصفحات",
   experience: "التجربة",
 } as const;
 

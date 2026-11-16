@@ -12,12 +12,12 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     heroLead:
       "A bilingual AR/EN executive portfolio engineered for a restaurant, retail, and delivery-platform Data Analyst—framing SQL modeling depth and NDA-safe operational scope.",
     heroLeadAr:
-      "منصة بورتفوليو تنفيذية ثنائية اللغة لمحلل بيانات متخصص في قطاع المطاعم والتجزئة ومنصات التوصيل، تعرض العمق التقني في SQL ونمذجة البيانات ضمن حدود اتفاقيات السرية.",
+      "منصة تنفيذية ثنائية اللغة لملف أعمال محلل بيانات متخصص في قطاع المطاعم والتجزئة ومنصات التوصيل، تعرض العمق التقني في SQL ونمذجة البيانات ضمن حدود اتفاقيات السرية.",
     badges: [
       { en: "Next.js", ar: "Next.js" },
       { en: "Bilingual AR/EN", ar: "ثنائي اللغة عربي/إنجليزي" },
       { en: "Light & Dark Theme", ar: "وضع فاتح وداكن" },
-      { en: "Live Production", ar: "منشور فعلياً" },
+      { en: "Live Production", ar: "منشور فعليًا" },
     ],
     snapshotTitle: { en: "System snapshot", ar: "ملخص البنية" },
     snapshotCode: "LIVE · VERCEL",
@@ -130,7 +130,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         {
           n: "D-01",
           title: "Graph-grid canvas instead of dark-neon developer clichés",
-          titleAr: "خلفية شبكية هادئة بدلاً من قوالب المبرمجين الصاخبة",
+          titleAr: "خلفية شبكية هادئة بدلًا من قوالب المبرمجين الصاخبة",
           body: "A light architectural grid with warm amber highlights reads like a clean analytical workbook, keeping dense numbers and headings effortless to scan.",
           bodyAr: "اعتماد شبكة هندسية خفيفة مع تمييز لوني كهرماني يمنح الموقع طابع دفاتر التحليل الدقيقة ويسهّل قراءة الأرقام.",
         },
@@ -146,14 +146,14 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "Dual entry paths for technical vs HR reviewers",
           titleAr: "مساران متوازيان لمسؤول الموارد البشرية والمدير التقني",
           body: "HR can grab the CV and verify role/location in 10 seconds, while analytics leads jump straight to method, schema depth, and selected work.",
-          bodyAr: "يستطيع مسؤول التوظيف تحميل السيرة الذاتية والتحقق من التفرغ فوراً، بينما ينتقل قائد الفريق مباشرة لفحص المنهجية والمشاريع.",
+          bodyAr: "يستطيع مسؤول التوظيف تحميل السيرة الذاتية والتحقق من التفرغ فورًا، بينما ينتقل قائد الفريق مباشرة لفحص المنهجية والمشاريع.",
         },
         {
           n: "D-04",
           title: "First-class Arabic RTL parity for Gulf & Egypt roles",
           titleAr: "دعم أصيل للعربية RTL لخدمة سوقي مصر والخليج",
           body: "Built natively for bilingual regional teams rather than relying on browser auto-translate.",
-          bodyAr: "بناء النسخة العربية بتايبوجرافيا واتجاه أصيل يناسب الشركات الإقليمية في السعودية والخليج ومصر.",
+          bodyAr: "بناء النسخة العربية بتيبوغرافيا واتجاه أصيل يناسب الشركات الإقليمية في السعودية والخليج ومصر.",
         },
       ],
     },
@@ -170,7 +170,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         "Client-specific commercial numbers remain intentionally summarized under NDA on the live portfolio.",
       ],
       notesAr: [
-        "تُعرض مؤشرات المشاريع بشكل إجمالي التزاماً باتفاقيات عدم الإفصاح الخاصة بجهات العمل.",
+        "تُعرض مؤشرات المشاريع بشكل إجمالي التزامًا باتفاقيات عدم الإفصاح الخاصة بجهات العمل.",
       ],
     },
     stack: {
@@ -200,12 +200,12 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     heroLead:
       "A bilingual AR/EN personal studio operating system uniting production Flutter case studies, courses, technical writing, and Sanity CMS publishing across 10 live routes.",
     heroLeadAr:
-      "نظام بورتفوليو وتشغيل شخصي ثنائي اللغة يجمع دراسات حالة تطبيقات Flutter، الدورات التعليمية، المقالات التقنية، والنشر الحي عبر Sanity CMS في 10 مسارات متطابقة.",
+      "نظام ملف أعمال وتشغيل شخصي ثنائي اللغة يجمع دراسات حالة تطبيقات Flutter، الدورات التعليمية، المقالات التقنية، والنشر الحي عبر Sanity CMS في 10 مسارات متطابقة.",
     badges: [
       { en: "Next.js App Router", ar: "Next.js App Router" },
       { en: "Sanity CMS · ISR", ar: "Sanity CMS · تحديث تلقائي" },
       { en: "10 Mirrored Routes", ar: "10 مسارات عربي/إنجليزي" },
-      { en: "Live Production", ar: "منشور فعلياً" },
+      { en: "Live Production", ar: "منشور فعليًا" },
     ],
     snapshotTitle: { en: "System constellation", ar: "مكونات المنظومة" },
     snapshotCode: "SANITY · LIVE",
@@ -218,14 +218,14 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     snapshotNote:
       "Combines headless Sanity Studio content publishing with ISR revalidation so courses, work, and journal entries update without code deploys.",
     snapshotNoteAr:
-      "يربط استوديو Sanity CMS بإعادة التوليد التلقائي (ISR) لتحديث المشاريع والدورات والمقالات فوراً دون إعادة نشر الكود.",
+      "يربط استوديو Sanity CMS بإعادة التوليد التلقائي (ISR) لتحديث المشاريع والدورات والمقالات فورًا دون إعادة نشر الكود.",
     role: { en: "Platform Architecture & Bilingual UI Engineering", ar: "هندسة المنصة وتصميم وتطوير الواجهة ثنائية اللغة" },
     domain: { en: "Mobile Engineer & Educator OS", ar: "نظام تشغيل شخصي لمهندس ومحاضر تطبيقات" },
     year: "2026",
     cover: {
       src: "/images/work/dev-cards/youssef-guba-card.jpg",
       alt: "Youssef Guba personal portfolio OS interface",
-      altAr: "واجهة نظام بورتفوليو المهندس يوسف جوبا",
+      altAr: "واجهة نظام ملف أعمال المهندس يوسف جوبا",
       caption: "Dark studio surface, YG. pill navigation, System Constellation status cards, and 10-route bilingual architecture",
       captionAr: "واجهة داكنة عالية التباين تعرض حالة النظام ومسارات العمل والدورات والمقالات عبر Sanity CMS",
       tag: "LIVE STUDIO OS",
@@ -243,13 +243,13 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         "Youssef Guba OS separates concerns cleanly: Next.js App Router handles fast SSR/ISR rendering and strict RTL/LTR layout mirroring across 10 routes, while Sanity Studio provides structured bilingual schemas for Work, Courses, Media, and Writing.",
       ],
       paragraphsAr: [
-        "المهندس الذي يطوّر تطبيقات منشورة على متجري آبل وجوجل ويقدم في الوقت نفسه دورات تدريبية ومقالات تقنية يتجاوز سريعاً حدود صفحة البورتفوليو الثابتة التقليدية.",
+        "المهندس الذي يطوّر تطبيقات منشورة على متجري آبل وجوجل ويقدم في الوقت نفسه دورات تدريبية ومقالات تقنية يتجاوز سريعًا حدود صفحة ملف الأعمال الثابتة التقليدية.",
         "يفصل النظام بين طبقة العرض وطبقة المحتوى بوضوح: يتولى Next.js App Router سرعة الأداء والتطابق الكامل بين العربية RTL والإنجليزية LTR عبر 10 مسارات، بينما يدير Sanity Studio بيانات المشاريع والدورات والمقالات بحقول منظمة.",
       ],
       callout:
         "Publishing a new Flutter article or course module happens in Sanity Studio and revalidates via ISR—zero code edits required.",
       calloutAr:
-        "نشر مقال تقني جديد أو تحديث دورة تدريبية يتم مباشرة من لوحة Sanity وينعكس تلقائياً عبر ISR دون تعديل سطر كود واحد.",
+        "نشر مقال تقني جديد أو تحديث دورة تدريبية يتم مباشرة من لوحة Sanity وينعكس تلقائيًا عبر ISR دون تعديل سطر كود واحد.",
     },
     system: {
       kicker: "Platform architecture",
@@ -318,23 +318,23 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         {
           n: "D-01",
           title: "Headless CMS over MDX git-commits for active publishing",
-          titleAr: "اعتماد Sanity CMS بدلاً من الملفات النصية داخل الكود",
+          titleAr: "اعتماد Sanity CMS بدلًا من الملفات النصية داخل الكود",
           body: "When courses, media, and articles update frequently in two languages, a visual studio with typed fields removes deployment friction.",
-          bodyAr: "عند تحديث الدورات والمقالات باستمرار بلغتين، توفّر لوحة التحكم المرئية سرعة وانضباطاً أعلى بكثير من تحرير ملفات الكود.",
+          bodyAr: "عند تحديث الدورات والمقالات باستمرار بلغتين، توفّر لوحة التحكم المرئية سرعة وانضباطًا أعلى بكثير من تحرير ملفات الكود.",
         },
         {
           n: "D-02",
           title: "Explicit route separation per audience intent",
           titleAr: "فصل المسارات حسب هدف كل زائر",
           body: "Separating Work/Services from Courses/Writing lets B2B app founders evaluate hiring quickly while giving students a dedicated learning hub.",
-          bodyAr: "فصل صفحات الخدمات والأعمال عن الدورات والمقالات يمنح العملاء مسار تعاقد مباشراً ويمنح الطلاب مساحة تعليمية واضحة.",
+          bodyAr: "فصل صفحات الخدمات والأعمال عن الدورات والمقالات يمنح العملاء مسار تعاقد مباشرًا ويمنح الطلاب مساحة تعليمية واضحة.",
         },
         {
           n: "D-03",
           title: "System Constellation hero card instead of decorative graphics",
-          titleAr: "بطاقة حالة معمارية في الواجهة بدلاً من الزخارف الشكلية",
+          titleAr: "بطاقة حالة معمارية في الواجهة بدلًا من الزخارف الشكلية",
           body: "Immediately communicates mobile stack, CMS live status, and 10-route RTL/LTR parity in structured engineering language.",
-          bodyAr: "توضّح منذ النظرة الأولى تخصص الموبايل وحالة ربط نظام المحتوى وتطابق اللغتين بأسلوب هندسي منظم.",
+          bodyAr: "توضّح منذ النظرة الأولى تخصص الجوّال وحالة ربط نظام المحتوى وتطابق اللغتين بأسلوب هندسي منظم.",
         },
         {
           n: "D-04",
@@ -421,7 +421,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     cta: {
       href: "https://www.behance.net/aboalazm",
       en: "External portfolio",
-      ar: "البورتفوليو الخارجي",
+      ar: "ملف الأعمال الخارجي",
     },
     challenge: {
       title: "Design one system that works on mobile feeds and under desert sun.",
@@ -431,13 +431,13 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         "The ESFC system bridged both by pairing a bold strata-inspired mark with high-contrast amber-gold (#FFC83C) and deep slate surfaces, structured print grids for field guides and role badges, and modular campaign templates for student volunteers.",
       ],
       paragraphsAr: [
-        "يمر المعسكر العلمي ببيئتين مختلفتين تماماً: منصات التواصل الجامعية حيث يتعرف الطلاب على البرنامج ويتقدمون له، والموقع الجيولوجي المفتوح حيث تُستخدم الكتيبات والشارات والملابس تحت إضاءة النهار القوية.",
+        "يمر المعسكر العلمي ببيئتين مختلفتين تمامًا: منصات التواصل الجامعية حيث يتعرف الطلاب على البرنامج ويتقدمون له، والموقع الجيولوجي المفتوح حيث تُستخدم الكتيبات والشارات والملابس تحت إضاءة النهار القوية.",
         "ربط النظام بين البيئتين عبر علامة بصرية جريئة ولوحة ألوان كهرمانية عالية التباين على أرضيات داكنة، مع شبكات طباعة واضحة للأدلة الميدانية وبطاقات الصلاحيات وقوالب نشر سريعة لفريق المتطوعين.",
       ],
       callout:
         "High-luminance amber on dark slate preserves badge and cover legibility outdoors while standing out immediately in crowded student feeds.",
       calloutAr:
-        "التباين العالي بين الأصفر الكهرماني والرمادي الصخري الداكن يحفظ مقروئية الشارات والمطبوعات ميدانياً ويمنح الإعلانات حضوراً فورياً.",
+        "التباين العالي بين الأصفر الكهرماني والرمادي الصخري الداكن يحفظ مقروئية الشارات والمطبوعات ميدانيًا ويمنح الإعلانات حضورًا فوريًا.",
     },
     system: {
       kicker: "Deliverable architecture",
@@ -485,7 +485,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           detail:
             "Limited-ink spot-color friendly artwork for camp T-shirts, caps, and stickers so screen printing stays crisp and budget-friendly.",
           detailAr:
-            "تجهيز الرسومات بعدد ألوان مدروس يناسب طباعة السلك سكرين على الملابس والملصقات بجودة عالية وتكلفة منضبطة.",
+            "تجهيز الرسومات بعدد ألوان مدروس يناسب الطباعة الحريرية على الملابس والملصقات بجودة عالية وتكلفة منضبطة.",
         },
       ],
       flow: {
@@ -508,7 +508,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "Strata-inspired amber & ochre palette (#FFC83C / #E07A22)",
           titleAr: "لوحة ألوان مستمدة من الطبقات الصخرية والبيئة الصحراوية",
           body: "Grounded the visual identity in geoscience terrain rather than generic academic blue crests.",
-          bodyAr: "ربط الهوية بصرياً بطبيعة علوم الأرض والصحراء بدلاً من الشعارات الجامعية الزرقاء التقليدية.",
+          bodyAr: "ربط الهوية بصريًا بطبيعة علوم الأرض والصحراء بدلًا من الشعارات الجامعية الزرقاء التقليدية.",
         },
         {
           n: "S-02",
@@ -540,7 +540,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         { value: "2020", label: "Egypt SEG Field Camp annual cycle", labelAr: "دورة مخيم SEG مصر الميداني لعام 2020", origin: "declared" },
         { value: "3 TRACKS", label: "Identity, Print Collateral & Event Media", labelAr: "الهوية البصرية والمطبوعات والتغطية الرقمية", origin: "declared" },
         { value: "CMYK+RGB", label: "Coordinated print, apparel & social specs", labelAr: "مواصفات متوافقة للمطبوعات والملابس والشاشات", origin: "declared" },
-        { value: "HONESTY", label: "Unverified registration counts omitted", labelAr: "عدم إدراج أي أرقام تسجيل غير موثقة أولياً", origin: "repo" },
+        { value: "HONESTY", label: "Unverified registration counts omitted", labelAr: "عدم إدراج أي أرقام تسجيل غير موثقة أوليًا", origin: "repo" },
       ],
       notes: [
         "This 2020 archive record summarizes the delivered identity, print, and event system; primary registration telemetry is not published without archived event logs.",
@@ -560,7 +560,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       title: "One field-ready identity from recruitment to camp wrap.",
       titleAr: "هوية ميدانية موحّدة من أول إعلان وحتى ختام المعسكر.",
       note: "Need an event, conference, or institutional identity system? Reach out via the project enquiry below.",
-      noteAr: "هل تخطط لفعالية أو مؤتمر أو برنامج تدريبي يحتاج نظام هوية ومطبوعات منضبطاً؟ تواصل معنا مباشرة بالأسفل.",
+      noteAr: "هل تخطط لفعالية أو مؤتمر أو برنامج تدريبي يحتاج نظام هوية ومطبوعات منضبطًا؟ تواصل معنا مباشرة بالأسفل.",
     },
   },
 
@@ -577,7 +577,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     heroLeadAr:
       "منظومة هوية تعليمية عربية متكاملة مقترنة بتجهيز استوديو تصوير فعلي من الصفر وحزمة موشن جرافيك لإنتاج دروس تقنية واضحة ومتسقة.",
     badges: [
-      { en: "Arabic Typography", ar: "تايبوجرافيا عربية" },
+      { en: "Arabic Typography", ar: "تيبوغرافيا عربية" },
       { en: "DIY Studio Build", ar: "بناء استوديو تصوير" },
       { en: "Motion Package", ar: "حزمة موشن جرافيك" },
       { en: "2020–2021", ar: "2020–2021" },
@@ -593,7 +593,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     snapshotNote:
       "Designed so on-camera physical lighting/backdrop colors match digital motion overlays and social lesson cards.",
     snapshotNoteAr:
-      "صُممت إضاءة وخلفية الاستوديو الفعلي لتتطابق لونياً وبصرياً مع قوالب الموشن جرافيك وبطاقات الدروس.",
+      "صُممت إضاءة وخلفية الاستوديو الفعلي لتتطابق لونيًا وبصريًا مع قوالب الموشن جرافيك وبطاقات الدروس.",
     role: { en: "Identity Designer, Studio Builder & Motion Lead", ar: "مصمم الهوية ومنفّذ الاستوديو والموشن جرافيك" },
     domain: { en: "Arabic Technical Education (MSP)", ar: "مبادرة تعليم تقني باللغة العربية" },
     year: "2020–21",
@@ -602,13 +602,13 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       alt: "Learn in Arabic typographic and educational study materials",
       altAr: "مواد وهوية مبادرة تعلّم بالعربي",
       caption: "Clear, modern Arabic typographic sensibility built to make technical learning approachable and structured",
-      captionAr: "معالجة بصرية وتايبوجرافية واضحة تجعل التعلّم التقني باللغة العربية عصرياً ومرتباً",
+      captionAr: "معالجة بصرية وتيبوغرافية واضحة تجعل التعلّم التقني باللغة العربية عصريًا ومرتبًا",
       tag: "ARABIC-FIRST SYSTEM",
     },
     cta: {
       href: "https://www.behance.net/aboalazm",
       en: "External portfolio",
-      ar: "البورتفوليو الخارجي",
+      ar: "ملف الأعمال الخارجي",
     },
     challenge: {
       title: "A logo alone cannot fix inconsistent educational video production.",
@@ -618,13 +618,13 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         "Learn in Arabic treated the brand, the physical room, and the editing timeline as one system: designing a bold Arabic typographic mark, building a budget-conscious DIY recording set from zero, and packaging reusable motion templates.",
       ],
       paragraphsAr: [
-        "عندما يسجّل المحاضرون دروساً تقنية في أماكن متفرقة بإضاءة وخلفيات وعروض غير متناسقة، فلن ينجح مجرد وضع شعار في زاوية الشاشة في منح القناة مظهراً احترافياً موثوقاً.",
-        "لذلك تعامل المشروع مع الهوية ومكان التصوير وخط المونتاج كنظام واحد: علامة تايبوجرافية عربية واضحة، استوديو تصوير فعلي جُهّز من الصفر بتكلفة اقتصادية ذكية، وحزمة قوالب تحريك جاهزة للحلقات.",
+        "عندما يسجّل المحاضرون دروسًا تقنية في أماكن متفرقة بإضاءة وخلفيات وعروض غير متناسقة، فلن ينجح مجرد وضع شعار في زاوية الشاشة في منح القناة مظهرًا احترافيًا موثوقًا.",
+        "لذلك تعامل المشروع مع الهوية ومكان التصوير وخط المونتاج كنظام واحد: علامة تيبوغرافية عربية واضحة، استوديو تصوير فعلي جُهّز من الصفر بتكلفة اقتصادية ذكية، وحزمة قوالب تحريك جاهزة للحلقات.",
       ],
       callout:
         "Matching physical set lighting and backdrop hues directly to the #60A5FA / #2563EB digital palette eliminated jarring transitions between talking-head shots and motion slides.",
       calloutAr:
-        "مواءمة ألوان خلفية وإضاءة الاستوديو الفعلي مع اللوحة اللونية الرقمية حققت انتقالاً بصرياً سلساً بين كادر المحاضر وشرائح الشرح المتحركة.",
+        "مواءمة ألوان خلفية وإضاءة الاستوديو الفعلي مع اللوحة اللونية الرقمية حققت انتقالًا بصريًا سلسًا بين كادر المحاضر وشرائح الشرح المتحركة.",
     },
     system: {
       kicker: "System components",
@@ -637,7 +637,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         {
           no: "01",
           name: "Arabic-First Typographic Mark & Palette",
-          nameAr: "العلامة التايبوجرافية العربية ونظام الألوان",
+          nameAr: "العلامة التيبوغرافية العربية ونظام الألوان",
           tech: "Custom Arabic Lockup · #60A5FA / #2563EB",
           detail:
             "Constructed around clear Arabic letterforms paired with a crisp blue technical palette that reads cleanly on mobile thumbnails.",
@@ -695,7 +695,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "Native Arabic typography rather than Latin-first adaptation",
           titleAr: "الانطلاق من الحرف العربي أصالةً لا ترجمةً",
           body: "Set Arabic optical balance and headline rhythm first so technical concepts felt natural in Arabic.",
-          bodyAr: "ضبط الكتلة البصرية وإيقاع العناوين للغة العربية أولاً ليظهر المحتوى التقني العربي بثقة وحداثة.",
+          bodyAr: "ضبط الكتلة البصرية وإيقاع العناوين للغة العربية أولًا ليظهر المحتوى التقني العربي بثقة وحداثة.",
         },
         {
           n: "S-02",
@@ -747,7 +747,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       title: "Brand, space, and motion engineered as one educational system.",
       titleAr: "الهوية والمكان والحركة في خدمة التعليم العربي الواضح.",
       note: "Building an academy, media channel, or educational product? Let's scope the visual and digital system below.",
-      noteAr: "هل تؤسس أكاديمية أو قناة تعليمية أو منتجاً معرفياً؟ تواصل معنا بالأسفل لتحديد النطاق المناسب.",
+      noteAr: "هل تؤسس أكاديمية أو قناة تعليمية أو منتجًا معرفيًا؟ تواصل معنا بالأسفل لتحديد النطاق المناسب.",
     },
   },
 
@@ -762,11 +762,11 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     heroLead:
       "Two consecutive ground-up seasonal identity systems paired with end-to-end media team leadership—built so student volunteers ship consistent workshops, campaigns, and stage print fast.",
     heroLeadAr:
-      "بناء نظامين بصريين كاملين من الصفر لموسمين متتاليين مع قيادة فريق الميديا بالكامل لتمكين المتطوعين من إنتاج حملات ومطبوعات متسقة بسرعة عالية.",
+      "بناء نظامين بصريين كاملين من الصفر لموسمين متتاليين مع قيادة فريق الإعلام بالكامل لتمكين المتطوعين من إنتاج حملات ومطبوعات متسقة بسرعة عالية.",
     badges: [
       { en: "Systemic Identity", ar: "هوية مؤسسية مرنة" },
       { en: "2 Full Seasons", ar: "موسمان متتاليان" },
-      { en: "Media Team Lead", ar: "قيادة فريق الميديا" },
+      { en: "Media Team Lead", ar: "قيادة فريق الإعلام" },
       { en: "2019–2021", ar: "2019–2021" },
     ],
     snapshotTitle: { en: "Governance summary", ar: "ملخص الحوكمة والتشغيل" },
@@ -780,8 +780,8 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     snapshotNote:
       "Combined visual system architecture with daily team direction, critique loops, and print pre-flight across 2019–2021.",
     snapshotNoteAr:
-      "جمع الدور بين هندسة النظام البصري وإدارة فريق المصممين المتطوعين ومراجعة المطبوعات والمنشورات يومياً.",
-    role: { en: "Identity Architect & Head of Media (2 Seasons)", ar: "مصمم النظام ورئيس فريق الميديا لموسمين" },
+      "جمع الدور بين هندسة النظام البصري وإدارة فريق المصممين المتطوعين ومراجعة المطبوعات والمنشورات يوميًا.",
+    role: { en: "Identity Architect & Head of Media (2 Seasons)", ar: "مصمم النظام ورئيس فريق الإعلام لموسمين" },
     domain: { en: "Youth Organization & Live Workshops", ar: "مؤسسة شبابية وورش عمل وفعاليات" },
     year: "2019–21",
     cover: {
@@ -795,11 +795,11 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     cta: {
       href: "https://www.behance.net/aboalazm",
       en: "External portfolio",
-      ar: "البورتفوليو الخارجي",
+      ar: "ملف الأعمال الخارجي",
     },
     challenge: {
       title: "Keep visual quality consistent when a volunteer team ships daily.",
-      titleAr: "الحفاظ على ثبات الجودة البصرية مع فريق متطوعين ينشر يومياً.",
+      titleAr: "الحفاظ على ثبات الجودة البصرية مع فريق متطوعين ينشر يوميًا.",
       paragraphs: [
         "Youth organizations publish at high volume—committee recruitment, speaker cards, workshop slides, stage backdrops, and live event coverage—executed by student volunteers with mixed experience levels.",
         "Across two consecutive seasons (2019–2021), Youth Scope was re-identified from scratch each year with modular template guardrails, locked color/typography rules, and hands-on team leadership so every designer could ship fast without breaking the brand.",
@@ -819,7 +819,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       title: "Seasonal rules, modular grids, venue print, and team QA.",
       titleAr: "هوية موسمية، شبكات قوالب، مطبوعات مسرح، ومراجعة جودة.",
       aside: "Rebuilt cleanly across Season 1 and Season 2 to give each board a fresh identity.",
-      asideAr: "بُنيت المنظومة مرتين لمنح كل موسم روحاً متجددة مع الحفاظ على الانضباط البصري.",
+      asideAr: "بُنيت المنظومة مرتين لمنح كل موسم روحًا متجددة مع الحفاظ على الانضباط البصري.",
       modules: [
         {
           no: "01",
@@ -880,7 +880,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         {
           n: "S-01",
           title: "Design templates around junior-designer failure modes",
-          titleAr: "تصميم القوالب لمنع الأخطاء الشائعة مسبقاً",
+          titleAr: "تصميم القوالب لمنع الأخطاء الشائعة مسبقًا",
           body: "Locked safe zones and contrast-tested text containers prevented crowded edges and unreadable photo overlays.",
           bodyAr: "تثبيت المساحات الآمنة وخلفيات النصوص منع تداخل الكتابة مع الصور أو ازدحام الأطراف.",
         },
@@ -889,7 +889,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "Fresh seasonal skin over a repeatable operational spine",
           titleAr: "تجديد المظهر الموسمي مع تثبيت آلية التشغيل",
           body: "Changed visual theme between Season 1 and Season 2 for audience excitement while keeping workflow structure familiar for the team.",
-          bodyAr: "منح الموسم الثاني مظهراً بصرياً جديداً ينعش تفاعل الجمهور مع الإبقاء على نفس منهجية تنظيم الملفات للفريق.",
+          bodyAr: "منح الموسم الثاني مظهرًا بصريًا جديدًا ينعش تفاعل الجمهور مع الإبقاء على نفس منهجية تنظيم الملفات للفريق.",
         },
         {
           n: "S-03",
@@ -903,7 +903,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "Mentorship through concrete system rules, not subjective taste",
           titleAr: "بناء المراجعة الفنية على قواعد واضحة لا انطباعات شخصية",
           body: "Cut revision rounds dramatically by reviewing volunteer drafts against explicit grid and hierarchy rules.",
-          bodyAr: "تقليل جولات التعديل عبر الاحتكام لقواعد الشبكة والتسلسل البصري المتفق عليها مسبقاً.",
+          bodyAr: "تقليل جولات التعديل عبر الاحتكام لقواعد الشبكة والتسلسل البصري المتفق عليها مسبقًا.",
         },
       ],
     },
@@ -913,7 +913,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       items: [
         { value: "2019–21", label: "Two consecutive annual program seasons", labelAr: "موسمان سنويان متتاليان (2019–2021)", origin: "declared" },
         { value: "2 SYSTEMS", label: "Full seasonal identity rebuild each year", labelAr: "بناء هوية موسمية متكاملة في كل عام", origin: "declared" },
-        { value: "TEAM LEAD", label: "End-to-end media team direction & QA", labelAr: "قيادة وإشراف كامل على فريق الميديا", origin: "declared" },
+        { value: "TEAM LEAD", label: "End-to-end media team direction & QA", labelAr: "قيادة وإشراف كامل على فريق الإعلام", origin: "declared" },
         { value: "360°", label: "Campaigns, workshops & stage print collateral", labelAr: "تغطية شاملة للحملات والورش ومطبوعات المسرح", origin: "declared" },
       ],
       notes: [

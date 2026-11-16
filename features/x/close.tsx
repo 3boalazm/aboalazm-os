@@ -18,17 +18,17 @@ import { trackEvent } from "@/lib/analytics";
 import { Arrow, useX } from "./shared";
 
 const CHIPS: { id: ServiceId; en: string; ar: string; ms: string }[] = [
-  { id: "brand-identity", en: "Brand identity", ar: "هوية", ms: "Identiti jenama" },
+  { id: "brand-identity", en: "Brand identity", ar: "هوية العلامة", ms: "Identiti jenama" },
   { id: "website", en: "Website / store", ar: "موقع / متجر", ms: "Laman / kedai" },
-  { id: "digital-product", en: "Business system", ar: "سيستم تشغيل", ms: "Sistem perniagaan" },
-  { id: "not-sure", en: "Not sure yet", ar: "لسه مش محدد", ms: "Belum pasti" },
+  { id: "digital-product", en: "Business system", ar: "نظام تشغيل", ms: "Sistem perniagaan" },
+  { id: "not-sure", en: "Not sure yet", ar: "لم أحدّد بعد", ms: "Belum pasti" },
 ];
 
 const INDEX: { href: string; en: string; ar: string; ms: string }[] = [
   { href: "/services", en: "Services", ar: "الخدمات", ms: "Perkhidmatan" },
-  { href: "/pricing", en: "Pricing", ar: "التسعير", ms: "Harga" },
-  { href: "/process", en: "Process", ar: "المنهجية", ms: "Proses" },
-  { href: "/about", en: "About", ar: "نبذة", ms: "Tentang" },
+  { href: "/pricing", en: "Pricing", ar: "الأسعار", ms: "Harga" },
+  { href: "/process", en: "Process", ar: "المنهج", ms: "Proses" },
+  { href: "/about", en: "About", ar: "عن الاستوديو", ms: "Tentang" },
   { href: "/writing", en: "Writing", ar: "مقالات", ms: "Penulisan" },
   { href: "/contact#faq", en: "FAQ", ar: "الأسئلة الشائعة", ms: "Soalan lazim" },
 ];
@@ -61,12 +61,12 @@ export function Close() {
           <p className="x-mono x-kicker">07 — {t("Start", "ابدأ", "Mula")}</p>
         </div>
         <h2 className="x-display x-close__title">
-          {t("Have a business", "عندك بيزنس", "Ada perniagaan")} <span className="x-accent">{t("to build?", "عايز تبنيه؟", "untuk dibina?")}</span>
+          {t("Have a business", "لديك مشروع", "Ada perniagaan")} <span className="x-accent">{t("to build?", "تريد بناءه؟", "untuk dibina?")}</span>
         </h2>
 
-        <form onSubmit={go} className="x-brief" aria-label={t("Describe your project", "اوصف مشروعك", "Terangkan projek anda")}>
+        <form onSubmit={go} className="x-brief" aria-label={t("Describe your project", "صف مشروعك", "Terangkan projek anda")}>
           <label htmlFor="x-brief" className="sr-only">
-            {t("Describe your project in a line", "اوصف مشروعك في سطر", "Terangkan projek anda dalam satu baris")}
+            {t("Describe your project in a line", "صف مشروعك في سطر واحد", "Terangkan projek anda dalam satu baris")}
           </label>
           <div className="x-brief__row">
             <input
@@ -77,7 +77,7 @@ export function Close() {
               autoComplete="off"
               placeholder={t(
                 "Describe it in a line — e.g. identity for a new clinic",
-                "اوصفه في سطر — مثلًا: هوية لعيادة جديدة",
+                "صفه في سطر، مثلًا: هوية لعيادة جديدة",
                 "Terangkan dalam satu baris — cth. identiti klinik baharu",
               )}
             />
@@ -96,10 +96,10 @@ export function Close() {
         </form>
 
         <p className="mt-4 text-center text-[14px] text-[var(--color-text-tertiary)]">
-          {t("Discovery call first — free, 30 minutes. Written scope before any payment.", "مكالمة استكشاف الأول — مجانية، 30 دقيقة. نطاق مكتوب قبل أي دفعة.", "Panggilan penemuan dahulu — percuma, 30 minit. Skop bertulis sebelum bayaran.")}
+          {t("Discovery call first — free, 30 minutes. Written scope before any payment.", "مكالمة استكشافية أولًا: مجانية، 30 دقيقة. نطاق مكتوب قبل أي دفعة.", "Panggilan penemuan dahulu — percuma, 30 minit. Skop bertulis sebelum bayaran.")}
         </p>
 
-        <nav className="x-index" aria-label={t("More of the studio", "باقي الاستوديو", "Lagi tentang studio")}>
+        <nav className="x-index" aria-label={t("More of the studio", "المزيد عن الاستوديو", "Lagi tentang studio")}>
           {INDEX.map((l) => (
             <Link key={l.href} href={l.href} className="x-mono">
               {pick(l)}

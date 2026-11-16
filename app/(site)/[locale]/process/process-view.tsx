@@ -24,7 +24,6 @@ import { physics, physicsSlow } from "@/lib/motion";
 import "@/features/hero/hero.css";
 import { GateStepper } from "@/features/process";
 import { AnchorNav } from "@/features/navigation";
-import { buttonVariants } from "@/components/ui/Button";
 import { panelCardVariants } from "@/components/ui/PanelCard";
 
 /* ─── types ───────────────────────────────────────────────────── */
@@ -63,30 +62,30 @@ const COPY = {
     ctaItalic: "day one.",
     ctaSub: "The whole method starts with a 30-minute discovery call. No commitment — just clarity on scope, fit, and timeline.",
     ctaPrimary: "Chat on WhatsApp",
-    ctaSecondary: "See the Client Journey",
+    ctaSecondary: "Send a project brief",
   },
   ar: {
-    kicker: "المنهجية",
+    kicker: "المنهج",
     h1a: "38 يومًا،",
     h1b: "أربع بوابات.",
-    lede: "جدول توضيحي لنظام البراند المتكامل، ومدته عادة 5–7 أسابيع. الشعار 7–10 أيام والهوية 3–4 أسابيع. المواعيد النهائية حسب النطاق والردود والاعتمادات وتُثبت في العرض.",
+    lede: "جدول توضيحي لنظام العلامة المتكامل، ومدته عادةً 5–7 أسابيع. ويستغرق الشعار 7–10 أيام، والهوية 3–4 أسابيع. وتتحدد المواعيد النهائية بحسب النطاق والردود والاعتمادات، وتُثبَّت في العرض.",
     metaDays: "يومًا",
     metaGates: "بوابات",
     metaRounds: "جولات مراجعة",
     tasksLabel: "ماذا يحدث",
-    deliverablesLabel: "ماذا تستلم",
-    gateLabel: "بوابة — موافقة مطلوبة",
-    paymentLabel: "محطة دفع",
+    deliverablesLabel: "ما تستلمه",
+    gateLabel: "بوابة: يلزم الاعتماد",
+    paymentLabel: "دفعة مرحلية",
     expandHint: "اضغط للتوسيع",
-    principlesKicker: "مبادئ التشغيل",
+    principlesKicker: "مبادئ العمل",
     principlesTitle: "القواعد التي",
-    principlesItalic: "تحمي الشغل.",
-    ctaKicker: "جاهز نبدأ؟",
+    principlesItalic: "تحمي العمل.",
+    ctaKicker: "جاهز للبدء؟",
     ctaTitle: "ابدأ من",
     ctaItalic: "اليوم الأول.",
-    ctaSub: "المنهجية كلها تبدأ بمكالمة اكتشاف 30 دقيقة. بدون التزام — بس وضوح عن النطاق والتوافق والجدول الزمني.",
-    ctaPrimary: "نتكلم على واتساب",
-    ctaSecondary: "شوف رحلة العميل",
+    ctaSub: "يبدأ المنهج كله بمكالمة استكشافية مدتها 30 دقيقة. بلا التزام، فقط وضوح بشأن النطاق ومدى التوافق والجدول الزمني.",
+    ctaPrimary: "تحدّث عبر واتساب",
+    ctaSecondary: "أرسل موجز مشروعك",
   },
 } as const;
 
@@ -193,45 +192,45 @@ const PHASES_AR: Phase[] = [
     name: "الاكتشاف والبحث",
     days: "الأيام 1–6",
     dayRange: [1, 6],
-    summary: "تعلّم عالمك قبل تصميم أي شيء. الأساس الذي لا يعوّضه أي شعار.",
+    summary: "تعرّف على عالم العميل قبل تصميم أي شيء. هذا هو الأساس الذي لا يعوّضه أي شعار.",
     tasks: [
-      "مكالمة البدء وبريف مشروع موقّع",
-      "مراجعة شاملة للبراند الحالي (إن وُجد)",
-      "تحليل المنافسين — من 5 إلى 8 مباشرين وغير مباشرين",
-      "خريطة فجوات الألوان لإيجاد المساحة البصرية المفتوحة",
-      "بيرسونا الجمهور والوظائف المطلوب إنجازها",
+      "مكالمة البدء وموجز مشروع موقّع",
+      "مراجعة شاملة للعلامة الحالية (إن وُجدت)",
+      "تحليل المنافسين: من 5 إلى 8 منافسين مباشرين وغير مباشرين",
+      "خريطة فجوات الألوان لإيجاد المساحة البصرية الشاغرة",
+      "شخصية الجمهور والمهام التي يريد إنجازها",
       "بحث ثقافي ولغوي (حاسم للهويات ثنائية اللغة)",
     ],
     deliverables: [
       "تقرير بحثي (PDF)",
       "عرض تحليل المنافسين",
-      "ملخص مراجعة البراند",
-      "بريف مشروع معتمد",
+      "ملخص مراجعة العلامة",
+      "موجز مشروع معتمد",
     ],
-    gate: "توافق على بريف المشروع كتابيًا قبل بدء الاستراتيجية.",
-    payment: "50% مقدّم عند البدء",
+    gate: "الموافقة كتابةً على موجز المشروع قبل بدء الاستراتيجية.",
+    payment: "50% مقدّمًا عند البدء",
   },
   {
     n: "02",
-    name: "استراتيجية البراند",
+    name: "استراتيجية العلامة",
     days: "الأيام 5–9",
     dayRange: [5, 9],
-    summary: "الغاية والتموضع ونبرة الصوت — معتمدة على الورق قبل رسم أي شكل.",
+    summary: "الغاية والتموضع ونبرة الصوت، وتُعتمد كتابةً قبل رسم أي شكل.",
     tasks: [
-      "جوهر البراند: الغاية، الرؤية، الرسالة، القيم",
+      "جوهر العلامة: الغاية والرؤية والرسالة والقيم",
       "بيان التموضع والقيمة الفريدة",
-      "شخصية البراند واختيار النموذج",
-      "نبرة الصوت، مصاغة بأسلوب «X وليس Y»",
-      "قصة البراند ووعده",
-      "عرض الاستراتيجية ومناقشته مباشرة",
+      "شخصية العلامة واختيار النموذج الأصلي",
+      "نبرة الصوت، مصوغة بصيغة «س وليس ص»",
+      "قصة العلامة ووعدها",
+      "عرض الاستراتيجية ومناقشتها مباشرةً",
     ],
     deliverables: [
-      "وثيقة استراتيجية البراند (PDF)",
+      "وثيقة استراتيجية العلامة (PDF)",
       "بيان التموضع",
       "دليل الشخصية ونبرة الصوت",
       "اتجاه بصري معتمد",
     ],
-    gate: "تُعتمد الاستراتيجية قبل بدء أي تصميم بصري. ده بيقفل الباب على «مش عارف اللي عايزه» لاحقًا.",
+    gate: "تُعتمد الاستراتيجية قبل بدء أي تصميم بصري، وهذا يغلق الباب أمام «لا أعرف ما أريد» لاحقًا.",
     payment: "25% عند اعتماد الاستراتيجية (الفئتان 2 و3)",
   },
   {
@@ -239,47 +238,47 @@ const PHASES_AR: Phase[] = [
     name: "المفهوم والتصميم",
     days: "الأيام 9–27",
     dayRange: [9, 27],
-    summary: "عشرات الإسكتشات تُختصر لاتجاهات قليلة، ثم تُطوّر لنظام كامل.",
+    summary: "عشرات الرسومات الأولية تُختصر إلى اتجاهات قليلة، ثم يُطوَّر أحدها إلى نظام كامل.",
     tasks: [
-      "20–30 إسكتش خام — الكمية قبل الجودة",
-      "التضييق لـ2–3 اتجاهات استراتيجية",
+      "20–30 رسمًا أوليًا خامًا: الكمّ قبل الجودة",
+      "التضييق إلى 2–3 اتجاهات استراتيجية",
       "استكشاف الخطوط والألوان لكل اتجاه",
-      "بناء المفهوم الأساسي فيكتور بالكامل",
-      "نظام الشعار: أساسي، ثانوي، مصغّر، شعار ثنائي اللغة",
-      "نظام الألوان، هرمية الخطوط، العناصر البصرية",
-      "التطبيقات الأساسية وموك-أب واقعية",
-      "لقطات تقدم في منتصف المرحلة — لا مفاجآت",
+      "بناء المفهوم الأساسي كاملًا بالرسم المتجهي",
+      "نظام الشعار: الأساسي والثانوي والمصغّر والثنائي اللغة",
+      "نظام الألوان، وهرمية الخطوط، والعناصر البصرية",
+      "التطبيقات الأساسية ونماذج عرض واقعية",
+      "لقطات للتقدم في منتصف المرحلة، فلا مفاجآت",
     ],
     deliverables: [
-      "2–3 اتجاهات مع المنطق وراءها",
-      "نظام شعار كامل (الاتجاه المختار)",
+      "2–3 اتجاهات مع المنطق الذي يقف وراء كل منها",
+      "نظام شعار كامل (للاتجاه المختار)",
       "نظام الألوان والخطوط",
-      "العناصر البصرية والموك-أب الأساسية",
+      "العناصر البصرية ونماذج العرض الأساسية",
     ],
-    gate: "تختار اتجاهًا واحدًا، معتمدًا، قبل تطويره للشكل النهائي.",
+    gate: "تختار اتجاهًا واحدًا وتعتمده قبل تطويره إلى الشكل النهائي.",
   },
   {
     n: "04",
     name: "المراجعة والتسليم",
     days: "الأيام 27–38",
     dayRange: [27, 38],
-    summary: "جولتا مراجعة منظمتان، اعتماد نهائي، ونظام يقدر فريقك يشغّله.",
+    summary: "جولتا مراجعة منظّمتان، واعتماد نهائي، ونظام يستطيع فريقك تشغيله.",
     tasks: [
-      "جولتا المراجعة 1 و2 (حسب العقد)",
-      "سجل المراجعات يتتبع كل طلب داخل/خارج النطاق",
-      "اعتماد نهائي كتابيًا",
-      "حزمة الملفات: AI, EPS, SVG, PNG, JPG",
-      "دليل الهوية PDF (12–40 صفحة حسب الفئة)",
-      "مكالمة التسليم — كيفية استخدام النظام",
-      "نافذة دعم 30 يومًا بعد التسليم",
+      "جولتا المراجعة 1 و2 (بحسب العقد)",
+      "سجل للمراجعات يتتبع كل طلب، داخل النطاق أو خارجه",
+      "اعتماد نهائي مكتوب",
+      "حزمة الملفات: AI · EPS · SVG · PNG · JPG",
+      "دليل الهوية PDF (12–40 صفحة بحسب الفئة)",
+      "مكالمة التسليم: كيفية استخدام النظام",
+      "فترة دعم مدتها 30 يومًا بعد التسليم",
     ],
     deliverables: [
-      "كل ملفات الشعار، بكل الصيغ والنسخ",
+      "جميع ملفات الشعار بكل الصيغ والنسخ",
       "دليل الهوية PDF",
-      "قوالب السوشيال والتطبيقات",
-      "إيصال تسليم موقّع + نقل الملكية الفكرية",
+      "قوالب وسائل التواصل والتطبيقات",
+      "إيصال تسليم موقّع مع نقل الملكية الفكرية",
     ],
-    gate: "الاعتماد النهائي وسداد الباقي قبل تسليم الملفات النهائية. حمايةً للطرفين.",
+    gate: "الاعتماد النهائي وسداد الباقي قبل تسليم الملفات النهائية، حمايةً للطرفين.",
     payment: "الباقي قبل التسليم: 25% (الفئتان 2 و3) · 50% (الفئة 1)",
   },
 ];
@@ -294,12 +293,12 @@ const PRINCIPLES = {
     ["No final files before balance", "The final payment clears before the delivery package is released."],
   ],
   ar: [
-    ["لا شغل قبل المقدّم", "دفعة الـ50% عند البدء هي ما يُطلق المشروع. لا شيء قبلها."],
-    ["الاستراتيجية قبل التصميم", "دائمًا. شعار بدون استراتيجية رهان عشوائي بلا معيار للحكم."],
-    ["كل اتفاق شفهي، كتابيًا", "كل قرار يُؤكَّد في إيميل أو في بريف المشروع. ده بيحمي الطرفين."],
-    ["تحكّم بالإصدارات، بدون Final_FINAL", "الملفات مرقّمة بوضوح. لقطات تقدم في كل مرحلة — لا مفاجأة عند المراجعة."],
-    ["جولتا مراجعة، ثم بالساعة", "ليس تقييدًا لرأيك — بنية تحمي الاستراتيجية من التآكل العشوائي."],
-    ["لا ملفات نهائية قبل السداد", "الدفعة الأخيرة تُسدَّد قبل تسليم حزمة الملفات."],
+    ["لا عمل قبل دفعة البدء", "دفعة الـ50% عند البدء هي ما يُطلق المشروع، ولا شيء قبلها."],
+    ["الاستراتيجية قبل التصميم", "دائمًا. فالشعار بلا استراتيجية رهان عشوائي بلا معيار يُحكم به عليه."],
+    ["كل اتفاق شفهي يُدوَّن كتابةً", "يُؤكَّد كل قرار في بريد إلكتروني أو في موجز المشروع، وهذا يحمي الطرفين."],
+    ["ضبط الإصدارات، بلا Final_FINAL", "الملفات مرقّمة بوضوح، ولقطات للتقدم في كل مرحلة، فلا مفاجأة عند المراجعة."],
+    ["جولتا مراجعة، ثم بالساعة", "ليس تقييدًا لرأيك، بل بنية تحمي الاستراتيجية من التآكل العشوائي."],
+    ["لا ملفات نهائية قبل السداد", "تُسدَّد الدفعة الأخيرة قبل تسليم حزمة الملفات."],
   ],
 } as const;
 
@@ -337,13 +336,13 @@ export function ProcessView() {
       <section className="relative overflow-hidden bg-surface-0 px-6 py-8 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
         <div className="relative z-10 flex max-w-[760px] flex-col gap-5">
-          <p className="hero-rise font-mono text-caption uppercase tracking-[0.16em] text-accent" style={{ "--i": 0 } as CSSProperties}>
+          <p className="hero-rise x-mono x-kicker" style={{ "--i": 0 } as CSSProperties}>
             {c.kicker}
           </p>
-          <h1 className="hero-rise font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" style={{ "--i": 1 } as CSSProperties}>
-            {c.h1a}<br /><em className="text-accent">{c.h1b}</em>
+          <h1 className="hero-rise x-page-title" style={{ "--i": 1 } as CSSProperties}>
+            {c.h1a}<br /><em>{c.h1b}</em>
           </h1>
-          <p className="hero-rise max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)", "--i": 2 } as CSSProperties}>
+          <p className="hero-rise x-page-lead" style={{ "--i": 2 } as CSSProperties}>
             {c.lede}
           </p>
 
@@ -396,9 +395,9 @@ export function ProcessView() {
           The accordion below holds every task; this is the picture of it:
           four cards alternating across a spine, each with its day range and
           what you receive. A card opens its phase in the accordion. */}
-      <section id="timeline" aria-label={ar ? "الـ 38 يوم في نظرة" : "38 days at a glance"} className="chapter-a px-6 pb-2 pt-6 lg:px-16">
+      <section id="timeline" aria-label={ar ? "38 يومًا في لمحة" : "38 days at a glance"} className="chapter-a px-6 pb-2 pt-6 lg:px-16">
         <div className="mx-auto max-w-[900px]">
-          <p className="hook-line mb-4">{ar ? "الـ 38 يوم في نظرة واحدة." : lang === "ms" ? "38 hari sepintas lalu." : "38 days at a glance."}</p>
+          <p className="hook-line mb-4">{ar ? "38 يومًا في لمحة واحدة." : lang === "ms" ? "38 hari sepintas lalu." : "38 days at a glance."}</p>
           <ol className="relative flex flex-col gap-3 md:gap-0">
             <span aria-hidden className="absolute bottom-3 top-3 w-px bg-border-default max-md:start-[calc(var(--spacing)*2.5)] md:left-1/2" />
             {phases.map((phase, i) => {
@@ -450,11 +449,11 @@ export function ProcessView() {
       <section id="gates" className="chapter-b px-6 pb-6 pt-4 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
-            {ar ? "أربع موافقات كتابية. لا مفاجآت." : lang === "ms" ? "Empat kelulusan bertulis. Tiada kejutan." : "Four written approvals. No surprises."}
+            {ar ? "أربع موافقات كتابية، بلا مفاجآت." : lang === "ms" ? "Empat kelulusan bertulis. Tiada kejutan." : "Four written approvals. No surprises."}
           </p>
           <p className="hook-sub mb-6">
             {ar
-              ? "كل بوابة تحمي مرحلة كاملة من إعادة العمل — أنت توافق قبل ما نكمل، مش بعد ما نخلص."
+              ? "كل بوابة تحمي مرحلة كاملة من إعادة العمل: توافق أنت قبل أن ننتقل، لا بعد أن ننتهي."
               : "Each gate protects an entire phase from rework — you approve before we move on, not after we're done."}
           </p>
           <GateStepper />
@@ -465,10 +464,10 @@ export function ProcessView() {
       <section id="phases" className="chapter-a px-6 pb-8 pt-8 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
-            {ar ? "أربع مراحل واضحة. افتح أي واحدة." : lang === "ms" ? "Empat fasa yang jelas. Buka mana-mana satu." : "Four clear phases. Open any one."}
+            {ar ? "أربع مراحل واضحة. افتح أيّها شئت." : lang === "ms" ? "Empat fasa yang jelas. Buka mana-mana satu." : "Four clear phases. Open any one."}
           </p>
           <p className="hook-sub mb-6">
-            {ar ? "التفاصيل مطوية عمدًا — اضغط على أي مرحلة لترى المهام والمخرجات الفعلية بداخلها." : lang === "ms" ? "Butiran sengaja dilipat — klik mana-mana fasa untuk melihat tugas dan hasil kerja di dalamnya." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
+            {ar ? "التفاصيل مطوية عمدًا. اضغط على أي مرحلة لترى المهام والمخرجات بداخلها." : lang === "ms" ? "Butiran sengaja dilipat — klik mana-mana fasa untuk melihat tugas dan hasil kerja di dalamnya." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
           </p>
           <div className="relative flex flex-col">
             {/* connecting spine — centred on the nodes (half of their 11-unit width, minus half its own 1px) */}
@@ -624,43 +623,29 @@ export function ProcessView() {
       </section>
 
       {/* ── CTA ── */}
-      <section id="cta" className="relative overflow-hidden chapter-a border-t border-border-subtle px-6 py-7 text-center lg:px-16">
-        <motion.div
-          className="relative z-10 mx-auto flex max-w-[560px] flex-col items-center gap-5"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={physicsSlow}
-        >
-          <p className="font-mono text-caption uppercase tracking-[0.16em] text-accent">{c.ctaKicker}</p>
-          <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-[-0.025em] text-text-primary">
-            {c.ctaTitle} <em className="text-accent">{c.ctaItalic}</em>
-          </h2>
-          <p className="max-w-[44ch] text-body-sm leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
-            {c.ctaSub}
+      <section id="cta" className="x-wrap py-7">
+        <div className="x-cta x-iris">
+          <div aria-hidden className="x-cta__sun" />
+          <p className="x-mono x-kicker">{c.ctaKicker}</p>
+          <p className="x-display x-cta__title">
+            {c.ctaTitle} <span className="x-accent">{c.ctaItalic}</span>
           </p>
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <p className="x-page-lead">{c.ctaSub}</p>
+          <div className="x-cta__row">
             <a
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
+              className="x-btn x-btn--solid"
             >
               {c.ctaPrimary}
+              <Icon name="arrow-right" flip={false} />
             </a>
-            <Link
-              href="/contact"
-              className={buttonVariants({
-                variant: "ghost",
-                className:
-                  "inline-flex items-center gap-1.5 border border-accent-32 px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
-              })}
-            >
+            <Link href="/contact" className="x-btn x-btn--line">
               {c.ctaSecondary}
-              <Icon name="arrow-right" />
             </Link>
           </div>
-        </motion.div>
+        </div>
       </section>
 
     </main>

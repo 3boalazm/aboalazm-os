@@ -280,7 +280,7 @@ export function WritingDetailView({
         </article>
       ) : (
         <p className="text-body-sm text-text-tertiary">
-          {ar ? "لسه بتتكتب." : "This one's still being written."}
+          {ar ? "ما زال هذا المقال قيد الكتابة." : "This one's still being written."}
         </p>
       )}
 

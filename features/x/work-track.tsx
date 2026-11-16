@@ -73,13 +73,13 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
               <h2 className="x-display" style={{ fontSize: "clamp(2.8rem, 6vw, 6rem)" }}>
                 {t("Systems", "أنظمة", "Sistem")}
                 <br />
-                <span className="x-accent">{t("in production.", "شغالة فعلًا.", "dalam pengeluaran.")}</span>
+                <span className="x-accent">{t("in production.", "قيد التشغيل.", "dalam pengeluaran.")}</span>
               </h2>
             </div>
             <p className="max-w-[34ch] leading-relaxed text-[var(--color-text-secondary)]">
               {t(
                 "Three identities, three digital builds. Each card says whether it was client work, a studio build or a demo.",
-                "تلات هويات وتلات منتجات رقمية. كل كارت بيقول بوضوح: مشروع عميل، بناء داخلي، ولا نسخة تجريبية.",
+                "ثلاث هويات وثلاثة منتجات رقمية. تذكر كل بطاقة بوضوح إن كان المشروع لعميل، أو بناءً داخليًا للاستوديو، أو نسخة تجريبية.",
                 "Tiga identiti, tiga binaan digital. Setiap kad menyatakan sama ada kerja klien, binaan studio atau demo.",
               )}
             </p>

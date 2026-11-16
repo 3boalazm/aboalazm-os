@@ -21,6 +21,7 @@ import { SITE_URL } from "@/lib/site";
 import { BOOT_SCRIPT } from "@/lib/boot-script";
 import { PwaRegistration } from "@/components/pwa/pwa-registration";
 import { OsTray } from "@/components/layout/os-tray";
+import { RoleScope } from "@/components/layout/role-scope";
 import "./globals.css";
 import "./theme-grounds.css";
 import "./x.css";
@@ -88,7 +89,7 @@ export function generateStaticParams() { return LOCALES.map((locale) => ({ local
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
   const titles = {
-    ar: { default: "مصطفى أبوالعزم — تصميم هوية ومواقع", template: "%s · مصطفى أبوالعزم" },
+    ar: { default: "مصطفى أبوالعزم — تصميم الهوية البصرية والمواقع", template: "%s · مصطفى أبوالعزم" },
     ms: { default: "Mustafa Aboalazm — Reka Bentuk Identiti Jenama & Web", template: "%s · Mustafa Aboalazm" },
     en: { default: "Mustafa Aboalazm — Brand Identity & Web Design", template: "%s · Mustafa Aboalazm" },
   } as const;
@@ -134,7 +135,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
             <PersonaProvider>
               <SmoothScroll>
                 <Nav />
-                <div className="site-stage">{children}</div>
+                <RoleScope>{children}</RoleScope>
                 <Footer />
                 {/* Persistent install + language dock. Sits inside
                     SmoothScroll so it shares the page's scroll context, and

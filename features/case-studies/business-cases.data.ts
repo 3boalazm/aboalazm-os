@@ -77,7 +77,7 @@ export function getBusinessCase(
       beforePoints: [
         {
           en: record?.problem ?? `Establishing a clear, dependable system for ${nameEn}.`,
-          ar: record?.problemAr ?? `بناء نظام واضح ومتماسك يلبي احتياجات ${nameAr} عملياً.`,
+          ar: record?.problemAr ?? `بناء نظام واضح ومتماسك يلبي احتياجات ${nameAr} عمليًا.`,
         },
       ],
       afterTitle: {

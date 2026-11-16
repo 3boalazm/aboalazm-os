@@ -17,7 +17,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "GAD Heart & Lungs Institute provides specialized cardiac and pulmonary medical care across outpatient clinics, diagnostics, and inpatient services. The V2.0 brand system unifies how the hospital presents itself across building facades, reception desks, corridor signage, clinical stationery, medical uniforms, and regional healthcare exhibitions.",
-      ar: `يقدّم ${GAD_NAME_AR} خدمات طبية تخصصية دقيقة في أمراض وجراحات القلب والصدر عبر العيادات والتشخيص والرعاية الداخلية. يعمل نظام الهوية (الإصدار V2.0) على توحيد حضور المستشفى في كل نقطة يمر بها المريض أو الشريك المؤسسي: من لافتة الواجهة والاستقبال ولوحات التوجيه الداخلي، إلى الروشتات والزي الطبي وأجنحة المعارض الصحية.`,
+      ar: `يقدّم ${GAD_NAME_AR} خدمات طبية تخصصية دقيقة في أمراض وجراحات القلب والصدر عبر العيادات والتشخيص والرعاية الداخلية. يعمل نظام الهوية (الإصدار V2.0) على توحيد حضور المستشفى في كل نقطة يمر بها المريض أو الشريك المؤسسي: من لافتة الواجهة والاستقبال ولوحات التوجيه الداخلي، إلى الوصفات الطبية والزي الطبي وأجنحة المعارض الصحية.`,
     },
     snapshot: [
       {
@@ -61,7 +61,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Arabic and English names often break alignment across facade signs, prescriptions, and corridor directories when designed separately.",
-          ar: "تباين شكل الاسم العربي والإنجليزي على واجهات المباني ولوحات الممرات والروشتات يضعف الاتساق البصري ويربك الزائر.",
+          ar: "تباين شكل الاسم العربي والإنجليزي على واجهات المباني ولوحات الممرات والوصفات الطبية يضعف الاتساق البصري ويربك الزائر.",
         },
         {
           en: "Contractors printing signage, uniforms, and exhibition booths need exact color and layout rules so output stays consistent across vendors.",
@@ -70,16 +70,16 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       ],
       afterTitle: {
         en: "What the V2.0 system changes in practice",
-        ar: "ما الذي يغيّره النظام عملياً على أرض الواقع",
+        ar: "ما الذي يغيّره النظام عمليًا على أرض الواقع",
       },
       afterPoints: [
         {
           en: "One fused Heart + Lung mark instantly communicates the hospital's exact medical specialty before reading a single word.",
-          ar: "رمز بصري موحّد يدمج القلب والرئة يوضّح تخصص المستشفى فوراً حتى قبل قراءة الاسم.",
+          ar: "رمز بصري موحّد يدمج القلب والرئة يوضّح تخصص المستشفى فورًا حتى قبل قراءة الاسم.",
         },
         {
           en: "Balanced Arabic/English horizontal and vertical lockups keep reception signs, corridor boards, and forms legible at a glance.",
-          ar: "توازن مدروس بين النسختين العربية والإنجليزية (أفقياً وعمودياً) يضمن قراءة سريعة وواضحة في الاستقبال والممرات والنماذج الطبية.",
+          ar: "توازن مدروس بين النسختين العربية والإنجليزية (أفقيًا وعموديًا) يضمن قراءة سريعة وواضحة في الاستقبال والممرات والنماذج الطبية.",
         },
         {
           en: "Pantone-locked colors, infographic palettes, and the V2.0 guidelines let marketing, procurement, and print vendors execute without guesswork.",
@@ -112,7 +112,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     workflowIntro: {
       en: "How the brand system operates across the real patient and institutional journey:",
-      ar: "كيف يعمل النظام عملياً عبر رحلة المريض والشركاء داخل المستشفى وخارجه:",
+      ar: "كيف يعمل النظام عمليًا عبر رحلة المريض والشركاء داخل المستشفى وخارجه:",
     },
     workflow: [
       {
@@ -136,7 +136,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Inside the building, reception signage, floor directories, and staff uniforms/badges use consistent color coding so visitors immediately distinguish clinical departments and care staff.",
-          ar: "داخل المبنى تتكامل جدارية الاستقبال ولوحات توجيه الأقسام مع الزي الطبي وبطاقات التعريف ليسهل تمييز العيادات والطاقم المختص فوراً.",
+          ar: "داخل المبنى تتكامل جدارية الاستقبال ولوحات توجيه الأقسام مع الزي الطبي وبطاقات التعريف ليسهل تمييز العيادات والطاقم المختص فورًا.",
         },
       },
       {
@@ -144,11 +144,11 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Clinical Documentation", ar: "التوثيق والمطبوعات الطبية" },
         title: {
           en: "Prescriptions, patient folders, cards & health infographics",
-          ar: "الروشتات، ملفات المرضى، والرسوم التوضيحية الصحية",
+          ar: "الوصفات الطبية، ملفات المرضى، والرسوم التوضيحية الصحية",
         },
         detail: {
           en: "Doctors and administrative desks issue prescriptions, appointment cards, and patient education charts built on a dedicated clinical data palette for unmistakable readability.",
-          ar: "يستلم المريض الروشتات وبطاقات المواعيد والنشرات التثقيفية المبنية على لوحة ألوان بيانات مخصصة تضمن وضوح التعليمات والأرقام الطبية.",
+          ar: "يستلم المريض الوصفات الطبية وبطاقات المواعيد والنشرات التثقيفية المبنية على لوحة ألوان بيانات مخصصة تضمن وضوح التعليمات والأرقام الطبية.",
         },
       },
       {
@@ -311,7 +311,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Operating without visual governance meant corporate stationery, supplement cartons, and social posts looked like unrelated companies.",
-          ar: "العمل بدون حوكمة بصرية جعل مطبوعات الشركة وعلب المنتجات ومنشورات السوشيال ميديا تبدو وكأنها لشركات منفصلة لا رابط بينها.",
+          ar: "العمل بدون حوكمة بصرية جعل مطبوعات الشركة وعلب المنتجات ومنشورات وسائل التواصل الاجتماعي تبدو وكأنها لشركات منفصلة لا رابط بينها.",
         },
         {
           en: "On crowded Egyptian pharmacy shelves, weak packaging hierarchy loses trust with both pharmacists recommending a product and consumers comparing boxes.",
@@ -352,7 +352,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
           role: { en: "End Consumers", ar: "المستهلك النهائي" },
           benefit: {
             en: "Consistent, trustworthy visual recognition from seeing a highway billboard or pharmacy post to picking up the box in-store.",
-            ar: "اتساق بصري يبني الثقة بدءاً من رؤية الإعلان الخارجي أو منشور الصيدلية وحتى استلام العبوة الفعلية.",
+            ar: "اتساق بصري يبني الثقة بدءًا من رؤية الإعلان الخارجي أو منشور الصيدلية وحتى استلام العبوة الفعلية.",
           },
         },
         {
@@ -442,7 +442,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Uses clear color blocking and typographic hierarchy so pharmacists and buyers spot product variants quickly.",
-          ar: "يعتمد تقسيماً لونياً وتدرجاً واضحاً في الخطوط يمكّن الصيدلي والمشتري من تمييز كل صنف بسرعة ودقة.",
+          ar: "يعتمد تقسيمًا لونيًا وتدرجًا واضحًا في الخطوط يمكّن الصيدلي والمشتري من تمييز كل صنف بسرعة ودقة.",
         },
       },
       {
@@ -506,7 +506,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Companion digital commerce case study also available (Nile Pharma Storefront)",
-          ar: "يرتبط أيضاً بدراسة حالة المتجر الرقمي الحديث (Nile Pharma Storefront)",
+          ar: "يرتبط أيضًا بدراسة حالة المتجر الرقمي الحديث (Nile Pharma Storefront)",
         },
       ],
     },
@@ -521,11 +521,11 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     headline: {
       en: "A gallery-clean brand and layout system that lets a framed-art studio sell premium wall pieces without gallery snobbery or poster-shop clutter.",
-      ar: "نظام هوية وعرض بصري يمكّن استوديو فنون ومطبوعات مؤطرة من تقديم منتج راقٍ بعيداً عن فوضى متاجر البوسترات أو جمود المعارض النخبوية.",
+      ar: "نظام هوية وعرض بصري يمكّن استوديو فنون ومطبوعات مؤطرة من تقديم منتج راقٍ بعيدًا عن فوضى متاجر الملصقات أو جمود المعارض النخبوية.",
     },
     summary: {
       en: "Reflection produces framed wall art and curated prints for homes, workspaces, and interior projects. The V1.0 brand system builds the entire identity around a single constructed 'R' monogram, a neutral white/black gallery canvas so the artwork's own colors never clash with the brand, and a strict three-part layout recipe that lets the team publish new collections rapidly.",
-      ar: "يقدّم براند ريفلكشن (Reflection) لوحات فنية ومطبوعات مؤطرة عالية الجودة للمنازل والمكاتب ومشاريع التصميم الداخلي. بُني نظام الهوية (V1.0) بالكامل انطلاقاً من حرف (R) واحد يعمل كرمز وتوقيع للعلامة، مع أرضية بيضاء وسوداء محايدة لا تنافس ألوان اللوحات المعروضة، ومعادلة تصميم ثابتة تسهّل إطلاق المجموعات الجديدة بسرعة واتساق.",
+      ar: "تقدّم علامة ريفلكشن (Reflection) لوحات فنية ومطبوعات مؤطرة عالية الجودة للمنازل والمكاتب ومشاريع التصميم الداخلي. بُني نظام الهوية (V1.0) بالكامل انطلاقًا من حرف (R) واحد يعمل كرمز وتوقيع للعلامة، مع أرضية بيضاء وسوداء محايدة لا تنافس ألوان اللوحات المعروضة، ومعادلة تصميم ثابتة تسهّل إطلاق المجموعات الجديدة بسرعة واتساق.",
     },
     snapshot: [
       {
@@ -565,7 +565,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Mass-market poster shops use loud promotional banners and discount stickers that make framed prints look disposable.",
-          ar: "متاجر البوسترات التجارية تستخدم تصاميم صاخبة وعروضاً مزدحمة تفقد اللوحة قيمتها الفنية كقطعة ديكور مقتناة.",
+          ar: "متاجر الملصقات التجارية تستخدم تصاميم صاخبة وعروضًا مزدحمة تفقد اللوحة قيمتها الفنية كقطعة ديكور مقتناة.",
         },
         {
           en: "Fine-art galleries often feel intimidating and opaque to everyday buyers furnishing an apartment or office.",
@@ -573,12 +573,12 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "If a print brand uses a dominant brand color on every post, that color clashes with warm, cool, or monochrome artworks in the catalog.",
-          ar: "اعتماد لون براند صارخ وثابت في كل الإعلانات يصطدم بصرياً مع تنوع ألوان اللوحات الفنية المختلفة من مجموعة لأخرى.",
+          ar: "اعتماد لون علامة صارخ وثابت في كل الإعلانات يصطدم بصريًا مع تنوع ألوان اللوحات الفنية المختلفة من مجموعة لأخرى.",
         },
       ],
       afterTitle: {
         en: "How Reflection's brand architecture solves it",
-        ar: "كيف يعالج نظام ريفلكشن هذه المعادلة عملياً",
+        ar: "كيف يعالج نظام ريفلكشن هذه المعادلة عمليًا",
       },
       afterPoints: [
         {
@@ -656,7 +656,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Physical frames carry clean hangtags and corner identifiers stamped with the 'R' mark so the unboxing experience feels like receiving a gallery edition.",
-          ar: "تحمل الإطارات بطاقات تعريف أنيقة مختومة بشعار R ليحصل المشتري عند فتح العبوة على تجربة تضاهي اقتناء قطعة من جاليري متخصص.",
+          ar: "تحمل الإطارات بطاقات تعريف أنيقة مختومة بشعار R ليحصل المشتري عند فتح العبوة على تجربة تضاهي اقتناء قطعة من معرض متخصص.",
         },
       },
       {
@@ -674,7 +674,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     ],
     featuresIntro: {
       en: "Why this identity system works commercially for an art & print business:",
-      ar: "لماذا ينجح هذا النظام تجارياً مع نشاط الفنون والمطبوعات:",
+      ar: "لماذا ينجح هذا النظام تجاريًا مع نشاط الفنون والمطبوعات:",
     },
     features: [
       {
@@ -692,7 +692,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         tag: { en: "Single-Letter Recall", ar: "قوة الرمز الواحد" },
         title: {
           en: "Constructed 'R' doubles as product stamp and avatar",
-          ar: "حرف R مرسوم هندسياً يصلح كختم للمنتج وأيقونة رقمية",
+          ar: "حرف R مرسوم هندسيًا يصلح كختم للمنتج وأيقونة رقمية",
         },
         body: {
           en: "Compact enough to sit discreetly on a frame tag or social profile circle while staying unmistakable at storefront scale.",
@@ -711,14 +711,14 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
       },
       {
-        tag: { en: "Distinct Typography", ar: "شخصية تايبوجرافية مميزة" },
+        tag: { en: "Distinct Typography", ar: "شخصية تيبوغرافية مميزة" },
         title: {
           en: "Architectural Neue Machina paired with approachable Quicksand",
           ar: "موازنة بين الحداثة الهندسية والود البصري في الخطوط",
         },
         body: {
           en: "Neue Machina gives headlines an editorial, gallery-curated edge while Quicksand keeps sizes, dimensions, and pricing friendly to read.",
-          ar: "يمنح خط Neue Machina العناوين طابعاً فنياً معاصراً، بينما يضمن خط Quicksand سهولة قراءة المقاسات والتفاصيل والأسعار.",
+          ar: "يمنح خط Neue Machina العناوين طابعًا فنيًا معاصرًا، بينما يضمن خط Quicksand سهولة قراءة المقاسات والتفاصيل والأسعار.",
         },
       },
       {
@@ -729,7 +729,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Turns generic wooden or metal frames into recognizable branded pieces that generate word-of-mouth when gifted or hung.",
-          ar: "تحوّل الإطار من مجرد منتج عام إلى قطعة تحمل توقيع براند واضح يعزز التوصية الشفهية والإهداء.",
+          ar: "تحوّل الإطار من مجرد منتج عام إلى قطعة تحمل توقيعًا واضحًا للعلامة يعزّز التوصية الشفهية والإهداء.",
         },
       },
       {
@@ -760,7 +760,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Engineered specifically for visual retail where product imagery changes constantly",
-          ar: "مصمم خصيصاً للأنشطة التجارية التي تتغير ألوان وصور منتجاتها باستمرار",
+          ar: "مصمم خصيصًا للأنشطة التجارية التي تتغير ألوان وصور منتجاتها باستمرار",
         },
       ],
     },
@@ -771,7 +771,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     slug: "ahmed-bedeer",
     sector: {
       en: "Executive Personal Brand · Healthcare IT (KSA & MENA)",
-      ar: "براند شخصي تنفيذي · تكنولوجيا المعلومات الصحية (السعودية والمنطقة)",
+      ar: "علامة شخصية تنفيذية · تكنولوجيا المعلومات الصحية (السعودية والمنطقة)",
     },
     headline: {
       en: "Positioning a Healthcare IT consultant as a trusted senior authority for hospital digital transformation across Saudi Arabia and MENA.",
@@ -779,7 +779,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Ahmed Bedeer works at the intersection of hospital operations and clinical interoperability standards (HL7, FHIR, CPHIMS, HIMSS) across Saudi Arabia and the wider MENA region. The brand system gives him an executive identity—anchored by a custom 'ab' quotation-mark monogram—across advisory decks, conference speaking profiles, executive stationery, and digital thought leadership.",
-      ar: "يعمل أحمد بدير كقيادي واستشاري في نظم المعلومات الصحية ومعايير الربط الطبي (HL7 وFHIR وCPHIMS وHIMSS) في السوق السعودي والشرق الأوسط. صُمّم هذا النظام ليمنحه حضوراً تنفيذياً رصيناً يرتكز على مونوجرام (ab) المبتكر على هيئة علامة اقتباس، ويحكم عروضه الاستشارية ومشاركاته في المؤتمرات ومطبوعاته الرسمية ومنصاته المهنية.",
+      ar: "يعمل أحمد بدير كقيادي واستشاري في نظم المعلومات الصحية ومعايير الربط الطبي (HL7 وFHIR وCPHIMS وHIMSS) في السوق السعودي والشرق الأوسط. صُمّم هذا النظام ليمنحه حضورًا تنفيذيًا رصينًا يرتكز على مونوغرام (ab) المبتكر على هيئة علامة اقتباس، ويحكم عروضه الاستشارية ومشاركاته في المؤتمرات ومطبوعاته الرسمية ومنصاته المهنية.",
     },
     snapshot: [
       {
@@ -807,7 +807,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         label: { en: "Core Assets", ar: "المخرجات الأساسية" },
         value: {
           en: "ab monogram, gunmetal/teal palette, type & V1.0 guide",
-          ar: "مونوجرام ab، لوحة ألوان تنفيذية، نظام خطوط، ودليل V1.0",
+          ar: "مونوغرام ab، لوحة ألوان تنفيذية، نظام خطوط، ودليل V1.0",
         },
       },
     ],
@@ -827,21 +827,21 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Advisory proposals and keynote slides in Gulf enterprise settings require executive polish without looking flashy or self-promotional.",
-          ar: "الاجتماعات التنفيذية والمؤتمرات في السوق الخليجي تتطلب مظهراً وقوراً ومنضبطاً بعيداً عن المبالغة الدعائية.",
+          ar: "الاجتماعات التنفيذية والمؤتمرات في السوق الخليجي تتطلب مظهرًا وقورًا ومنضبطًا بعيدًا عن المبالغة الدعائية.",
         },
       ],
       afterTitle: {
         en: "What the personal brand system delivers",
-        ar: "ما الذي يقدمه نظام البراند الشخصي عملياً",
+        ar: "ما الذي يقدمه نظام العلامة الشخصية عمليًا",
       },
       afterPoints: [
         {
           en: "Constructs lowercase 'a + b' into a geometric quotation form—signaling advisory voice, documented standards, and precision engineering.",
-          ar: "دمج حرفي a وb هندسياً في شكل علامة اقتباس تعبّر بذكاء عن الرأي الاستشاري والمرجعية المعرفية والدقة التقنية.",
+          ar: "دمج حرفي a وb هندسيًا في شكل علامة اقتباس تعبّر بذكاء عن الرأي الاستشاري والمرجعية المعرفية والدقة التقنية.",
         },
         {
           en: "Pairs Gunmetal authority (#1C2B33) and Steel Blue clinical trust (#118AB2) with a crisp Teal innovation accent (#06D6A0).",
-          ar: "توظيف الرمادي المعدني الداكن للوقار والأزرق الفولاذي للثقة الطبية مع لمسة تركوازية تعكس الحداثة التقنية.",
+          ar: "توظيف الرمادي المعدني الداكن للوقار والأزرق الفولاذي للثقة الطبية مع لمسة فيروزية تعكس الحداثة التقنية.",
         },
         {
           en: "Gives consistent visual dress across business cards, LinkedIn/social headers, slide decks, and whitepaper documents.",
@@ -874,7 +874,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     workflowIntro: {
       en: "How an executive personal brand works across real career and advisory touchpoints:",
-      ar: "كيف تشتغل الهوية الشخصية التنفيذية في مواقف العمل الفعلية:",
+      ar: "كيف تعمل الهوية الشخصية التنفيذية في مواقف العمل الفعلية:",
     },
     workflow: [
       {
@@ -886,7 +886,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "When decision-makers look up Ahmed's insights on HL7, FHIR, or hospital HIS rollouts, every post and banner carries the unmistakable 'ab' signature and palette.",
-          ar: "عند بحث صناع القرار عن مقالاته أو تحليلاته حول أنظمة المستشفيات ومعايير الربط الصحي، يظهر المحتوى ببصمة لونية وتايبوجرافية ثابتة.",
+          ar: "عند بحث صناع القرار عن مقالاته أو تحليلاته حول أنظمة المستشفيات ومعايير الربط الصحي، يظهر المحتوى ببصمة لونية وتيبوغرافية ثابتة.",
         },
       },
       {
@@ -898,7 +898,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "At health-tech summits in Riyadh, Cairo, or Dubai, tactile stationery with the geometric monogram leaves a memorable impression distinct from corporate employee cards.",
-          ar: "في مؤتمرات الصحة الرقمية بالرياض أو القاهرة أو دبي، تترك بطاقة العمل المصممة بدقة أثراً مهنياً يبقى في الذاكرة.",
+          ar: "في مؤتمرات الصحة الرقمية بالرياض أو القاهرة أو دبي، تترك بطاقة العمل المصممة بدقة أثرًا مهنيًا يبقى في الذاكرة.",
         },
       },
       {
@@ -922,7 +922,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Specifies exact monogram construction grids, Lubalin Graph + Uncut Sans pairings, and dark/light surface rules.",
-          ar: "تحديد شبكة بناء المونوجرام، قواعد استخدام خطّي Lubalin Graph وUncut Sans، وضوابط الظهور على الخلفيات الفاتحة والداكنة.",
+          ar: "تحديد شبكة بناء المونوغرام، قواعد استخدام خطّي Lubalin Graph وUncut Sans، وضوابط الظهور على الخلفيات الفاتحة والداكنة.",
         },
       },
     ],
@@ -939,7 +939,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Communicates consulting voice, authority, and dialogue without falling back on clichés like medical crosses or circuit boards.",
-          ar: "يعبّر عن الحضور الاستشاري وصوت الخبير بلمسة هندسية مبتكرة بعيداً عن الرموز الطبية أو التقنية المكررة.",
+          ar: "يعبّر عن الحضور الاستشاري وصوت الخبير بلمسة هندسية مبتكرة بعيدًا عن الرموز الطبية أو التقنية المكررة.",
         },
       },
       {
@@ -972,7 +972,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Geometric slab-serif display type echoes the monogram's architecture while Uncut Sans keeps dense technical text crisp.",
-          ar: "يمنح خط Lubalin Graph العناوين حضوراً هندسياً متناغماً مع الشعار، بينما يحفظ خط Uncut Sans وضوح النصوص التقنية.",
+          ar: "يمنح خط Lubalin Graph العناوين حضورًا هندسيًا متناغمًا مع الشعار، بينما يحفظ خط Uncut Sans وضوح النصوص التقنية.",
         },
       },
       {
@@ -983,7 +983,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Maintains sharp geometry whether debossed on heavy cardstock, embroidered, or rendered as a small digital badge.",
-          ar: "يحافظ المونوجرام على حدّته وتفاصيله سواء عند الطباعة البارزة على الكروت أو الاستخدام المصغّر على الشاشات.",
+          ar: "يحافظ المونوغرام على حدّته وتفاصيله سواء عند الطباعة البارزة على الكروت أو الاستخدام المصغّر على الشاشات.",
         },
       },
       {
@@ -994,7 +994,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Every design choice supports his concrete interoperability and healthcare IT track record rather than vague coaching tropes.",
-          ar: "تخدم الهوية خبرته الفعلية الموثقة في معايير المعلوماتية الصحية بدلاً من الشعارات التحفيزية العامة.",
+          ar: "تخدم الهوية خبرته الفعلية الموثقة في معايير المعلوماتية الصحية بدلًا من الشعارات التحفيزية العامة.",
         },
       },
     ],
@@ -1005,7 +1005,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Delivered with full monogram construction specs, primary and extended color systems, typography hierarchy, stationery mockups, and multi-surface media rules.",
-        ar: "شمل التسليم بناء المونوجرام الهندسي، لوحات الألوان الأساسية والموسّعة، نظام الخطوط، تطبيقات المطبوعات التنفيذية، وقواعد الاستخدام عبر الوسائط المختلفة.",
+        ar: "شمل التسليم بناء المونوغرام الهندسي، لوحات الألوان الأساسية والموسّعة، نظام الخطوط، تطبيقات المطبوعات التنفيذية، وقواعد الاستخدام عبر الوسائط المختلفة.",
       },
       highlights: [
         {
@@ -1014,7 +1014,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Tailored for B2B Healthcare IT consulting across KSA & MENA",
-          ar: "مصمم خصيصاً لقطاع استشارات تقنية المعلومات الصحية في السعودية والمنطقة",
+          ar: "مصمم خصيصًا لقطاع استشارات تقنية المعلومات الصحية في السعودية والمنطقة",
         },
       ],
     },
@@ -1033,7 +1033,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Code & Canvas is a bilingual studio serving MENA startups, healthcare organizations, and growing enterprises across two disciplines: creative brand systems and software engineering. Built before taking client briefs, the V1.0 brand system fuses both practices into a single squircle '</>' mark, a dark-canvas aesthetic, and an 8-gradient token system that runs the studio's own website, proposals, social proof, and print deliverables.",
-      ar: "يعمل استوديو كود آند كانفاس (Code & Canvas) كشريك ثنائي التخصص للشركات الناشئة والمؤسسات الصحية والتجارية في المنطقة، جامعاً بين بناء الهويات البصرية وهندسة المنتجات الرقمية. صُمّم نظام الهوية (V1.0) منذ لحظة التأسيس ليدمج العالمين في رمز واحد، مع لوحة ألوان داكنة ومكتبة تدرجات محكومة تشغّل موقع الاستوديو وعروضه الفنية ومطبوعاته ومنصاته الاجتماعية.",
+      ar: "يعمل استوديو كود آند كانفاس (Code & Canvas) كشريك ثنائي التخصص للشركات الناشئة والمؤسسات الصحية والتجارية في المنطقة، جامعًا بين بناء الهويات البصرية وهندسة المنتجات الرقمية. صُمّم نظام الهوية (V1.0) منذ لحظة التأسيس ليدمج العالمين في رمز واحد، مع لوحة ألوان داكنة ومكتبة تدرجات محكومة تشغّل موقع الاستوديو وعروضه الفنية ومطبوعاته ومنصاته الاجتماعية.",
     },
     snapshot: [
       {
@@ -1054,7 +1054,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         label: { en: "Commercial Advantage", ar: "الميزة التجارية" },
         value: {
           en: "One accountable partner instead of two disconnected agencies",
-          ar: "شريك واحد مسؤول بدلاً من التشتت بين وكالة تصميم وشركة برمجة",
+          ar: "شريك واحد مسؤول بدلًا من التشتت بين وكالة تصميم وشركة برمجة",
         },
       },
       {
@@ -1081,7 +1081,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Without strict gradient and typography rules from day one, multi-service marketing quickly turns chaotic across social and proposals.",
-          ar: "تقديم خدمات متنوعة (تقنية وإبداعية) بدون قواعد لونية وتايبوجرافية صارمة يؤدي لتشتت الرسالة التسويقية للاستوديو.",
+          ar: "تقديم خدمات متنوعة (تقنية وإبداعية) بدون قواعد لونية وتيبوغرافية صارمة يؤدي لتشتت الرسالة التسويقية للاستوديو.",
         },
       ],
       afterTitle: {
@@ -1091,15 +1091,15 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       afterPoints: [
         {
           en: "Fuses the code tag '</>' inside a constructed creative squircle—communicating both disciplines in one unmistakable icon.",
-          ar: "دمج رمز البرمجة </> داخل إطار Squircle تصميمي متزن ليقرأ العميل التخصصين معاً في لمحة واحدة.",
+          ar: "دمج رمز البرمجة </> داخل إطار Squircle تصميمي متزن ليقرأ العميل التخصصين معًا في لمحة واحدة.",
         },
         {
           en: "Pairs a deep technical canvas (#0B0F1A) with governed Teal (#48CCCC), Violet (#7850C8), and 8 named gradients to distinguish tracks cleanly.",
-          ar: "المزاوجة بين الخلفية الداكنة الرصينة والتركواز والبنفسجي ومكتبة من 8 تدرجات معتمدة لتمييز مسارات الخدمات بوضوح.",
+          ar: "المزاوجة بين الخلفية الداكنة الرصينة والفيروزي والبنفسجي ومكتبة من 8 تدرجات معتمدة لتمييز مسارات الخدمات بوضوح.",
         },
         {
           en: "Proves the studio's doctrine ('governed systems from day one') by running its own commercial operations on V1.0 guidelines.",
-          ar: "إثبات منهجية الاستوديو عملياً أمام العميل، لأن الاستوديو نفسه يدار من اليوم الأول بدليل هوية قياسي منضبط.",
+          ar: "إثبات منهجية الاستوديو عمليًا أمام العميل، لأن الاستوديو نفسه يدار من اليوم الأول بدليل هوية قياسي منضبط.",
         },
       ],
       stakeholders: [
@@ -1107,14 +1107,14 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
           role: { en: "Startup Founders & Product Owners", ar: "مؤسسو الشركات وأصحاب المنتجات" },
           benefit: {
             en: "Immediately understand they can scope brand identity, UI/UX, and full-stack build in one coordinated engagement.",
-            ar: "يدركون فوراً إمكانية استلام الهوية البصرية وتصميم الواجهات والتطوير البرمجي في مسار متكامل واحد.",
+            ar: "يدركون فورًا إمكانية استلام الهوية البصرية وتصميم الواجهات والتطوير البرمجي في مسار متكامل واحد.",
           },
         },
         {
           role: { en: "Healthcare & Enterprise Buyers", ar: "عملاء القطاع الصحي والشركات" },
           benefit: {
             en: "Receive structured proposals, scope breakdowns, and brand documentation that read with engineering discipline.",
-            ar: "يستلمون عروضاً فنية ومالية وأدلة عمل مصاغة بدقة تنظيمية تعكس نضج الاستوديو.",
+            ar: "يستلمون عروضًا فنية ومالية وأدلة عمل مصاغة بدقة تنظيمية تعكس نضج الاستوديو.",
           },
         },
         {
@@ -1164,7 +1164,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Typography hierarchy (Signate Grotesk + Raleway + Poppins) structures service deliverables, pricing bands, and timelines clearly.",
-          ar: "يساعد التسلسل التايبوجرافي الواضح في عرض بنود الأعمال والتكلفة والجدول الزمني بشكل مريح ومباشر لصانع القرار.",
+          ar: "يساعد وضوح التسلسل الهرمي للخطوط في عرض بنود الأعمال والتكلفة والجدول الزمني بشكل مريح ومباشر لصانع القرار.",
         },
       },
       {
@@ -1244,7 +1244,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         tag: { en: "Print & Digital Parity", ar: "تكامل المطبوع والرقمي" },
         title: {
           en: "Covers posters, social grids, manifestos & web layouts",
-          ar: "يشمل البوسترات، قوالب السوشيال، البيان التأسيسي، والويب",
+          ar: "يشمل الملصقات، قوالب وسائل التواصل، البيان التأسيسي، والويب",
         },
         body: {
           en: "12 documented plates in V1.0 give immediate starting templates for campaigns and client communications.",
@@ -1259,7 +1259,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Actively governs the Code & Canvas studio brand; its full static web platform implementation can also be explored in the companion 'Code & Canvas Web Platform' case study.",
-        ar: "تحكم هذه الهوية علامة استوديو كود آند كانفاس فعلياً، ويمكن أيضاً استعراض التطبيق البرمجي الكامل لمنصة الاستوديو في دراسة حالة (منصة كود آند كانفاس الرقمية).",
+        ar: "تحكم هذه الهوية علامة استوديو كود آند كانفاس فعليًا، ويمكن أيضًا استعراض التطبيق البرمجي الكامل لمنصة الاستوديو في دراسة حالة (منصة كود آند كانفاس الرقمية).",
       },
       highlights: [
         {
@@ -1268,7 +1268,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Directly powers codeandcanvas.net across EN & AR",
-          ar: "تشغّل بصرياً منصة codeandcanvas.net باللغتين الإنجليزية والعربية",
+          ar: "تشغّل بصريًا منصة codeandcanvas.net باللغتين الإنجليزية والعربية",
         },
       ],
     },
@@ -1287,7 +1287,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Egypt SEG Field Camp (ESFC) is an annual student-run geophysics and geology training camp organized under the Society of Exploration Geophysicists student community in Egypt. The project delivered a complete event identity spanning student recruitment visuals, printed field guides, participant and staff ID badges, desert-ready apparel, sponsor backdrops, and event coverage templates.",
-      ar: "يُعد مخيم SEG مصر الميداني (ESFC) برنامجاً تدريبياً ميدانياً سنوياً لطلاب الجيوفيزياء وعلوم الأرض. قدّم المشروع منظومة هوية متكاملة للفعالية شملت حملات فتح باب التقديم، كتيّبات وأدلة العمل الميداني المطبوعة، شارات تعريف المشاركين والمنظمين، ملابس المعسكر الصحراوي، خلفيات الرعاة، وقوالب التغطية الإعلامية.",
+      ar: "يُعد مخيم SEG مصر الميداني (ESFC) برنامجًا تدريبيًا ميدانيًا سنويًا لطلاب الجيوفيزياء وعلوم الأرض. قدّم المشروع منظومة هوية متكاملة للفعالية شملت حملات فتح باب التقديم، كتيّبات وأدلة العمل الميداني المطبوعة، شارات تعريف المشاركين والمنظمين، ملابس المعسكر الصحراوي، خلفيات الرعاة، وقوالب التغطية الإعلامية.",
     },
     snapshot: [
       {
@@ -1327,7 +1327,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Volunteer student committees often piece together announcements, printed booklets, and T-shirts hastily, hurting credibility with sponsors and applicants.",
-          ar: "غالباً ما تُصمم إعلانات التقديم والكتيبات والملابس بشكل متفرق وسريع بين لجان المتطوعين، مما يضعف الانطباع أمام الرعاة والمتقدمين.",
+          ar: "غالبًا ما تُصمم إعلانات التقديم والكتيبات والملابس بشكل متفرق وسريع بين لجان المتطوعين، مما يضعف الانطباع أمام الرعاة والمتقدمين.",
         },
         {
           en: "Field camps take place in bright desert terrain where low-contrast badges, schedules, and field guides become hard to read.",
@@ -1340,7 +1340,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       ],
       afterTitle: {
         en: "How the ESFC event system worked in practice",
-        ar: "كيف عالج نظام هوية ESFC هذه الاحتياجات عملياً",
+        ar: "كيف عالج نظام هوية ESFC هذه الاحتياجات عمليًا",
       },
       afterPoints: [
         {
@@ -1353,7 +1353,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Prepared modular social and sponsor frames ahead of camp week so student media volunteers could publish daily field recaps rapidly.",
-          ar: "تجهيز قوالب النشر وإطارات الرعاة مسبقاً لتمكين فريق التغطية الطلابي من توثيق ونشر فعاليات كل يوم ميداني بسرعة.",
+          ar: "تجهيز قوالب النشر وإطارات الرعاة مسبقًا لتمكين فريق التغطية الطلابي من توثيق ونشر فعاليات كل يوم ميداني بسرعة.",
         },
       ],
       stakeholders: [
@@ -1418,7 +1418,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "High-visibility amber accents unify group photos, safety/team identification on outcrops, and daily photo frames shared online.",
-          ar: "تساعد الألوان الواضحة في تمييز أعضاء المعسكر أثناء المسح الجيولوجي وتمنح الصور والتغطيات اليومية طابعاً بصرياً موحّداً.",
+          ar: "تساعد الألوان الواضحة في تمييز أعضاء المعسكر أثناء المسح الجيولوجي وتمنح الصور والتغطيات اليومية طابعًا بصريًا موحّدًا.",
         },
       },
       {
@@ -1430,7 +1430,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Closes the program with cohesive certificates for trainees and summary visuals archived for the next annual edition.",
-          ar: "اختتام المعسكر بشهادات موثقة للمشاركين ولوحات شكر منظمة للرعاة والمحاضرين تبقى مرجعاً للنسخ اللاحقة.",
+          ar: "اختتام المعسكر بشهادات موثقة للمشاركين ولوحات شكر منظمة للرعاة والمحاضرين تبقى مرجعًا للنسخ اللاحقة.",
         },
       },
     ],
@@ -1480,7 +1480,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Gives petroleum, mining, and academic sponsors clean visibility across banners and camp media without crowding core content.",
-          ar: "تمنح الشركات الراعية والجهات الأكاديمية ظهوراً مرتباً على اللافتات والمطبوعات دون الإخلال بوضوح المحتوى.",
+          ar: "تمنح الشركات الراعية والجهات الأكاديمية ظهورًا مرتبًا على اللافتات والمطبوعات دون الإخلال بوضوح المحتوى.",
         },
       },
       {
@@ -1491,7 +1491,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Built so student media volunteers can swap daily photos, session titles, and schedules without breaking typography.",
-          ar: "مصممة بحيث يستطيع فريق الميديا الطلابي تحديث الصور والجداول اليومية بسرعة مع الحفاظ على ثبات الهوية.",
+          ar: "مصممة بحيث يستطيع فريق الإعلام الطلابي تحديث الصور والجداول اليومية بسرعة مع الحفاظ على ثبات الهوية.",
         },
       },
       {
@@ -1541,7 +1541,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Learn in Arabic (تعلّم بالعربي) is an educational initiative created within an MSP student/community tech program (2020–2021) to teach technical and modern skills in clear, accessible Arabic. Instead of stopping at a logo, the project combined three connected pieces: a bold typographic brand identity, a physical DIY video studio built from zero, and reusable motion graphics templates for episodes and social publishing.",
-      ar: "انطلقت مبادرة (تعلّم بالعربي) خلال الفترة 2020–2021 بهدف تبسيط وتقديم المهارات التقنية والحديثة باللغة العربية بصورة عصرية واضحة. لم يتوقف المشروع عند تصميم شعار، بل جمع ثلاث ركائز عملية مترابطة: هوية تايبوجرافية عربية مميزة، بناء وتجهيز استوديو تصوير فعلي من الصفر بإمكانات ذاتية، وحزمة قوالب موشن جرافيك لتوحيد الحلقات والمنشورات.",
+      ar: "انطلقت مبادرة (تعلّم بالعربي) خلال الفترة 2020–2021 بهدف تبسيط وتقديم المهارات التقنية والحديثة باللغة العربية بصورة عصرية واضحة. لم يتوقف المشروع عند تصميم شعار، بل جمع ثلاث ركائز عملية مترابطة: هوية تيبوغرافية عربية مميزة، بناء وتجهيز استوديو تصوير فعلي من الصفر بإمكانات ذاتية، وحزمة قوالب موشن جرافيك لتوحيد الحلقات والمنشورات.",
     },
     snapshot: [
       {
@@ -1581,11 +1581,11 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Arabic technical content often looks outdated or overly academic, pushing young learners to assume quality material only exists in English.",
-          ar: "يظهر كثير من المحتوى التقني العربي بتصاميم تقليدية جامدة، ما يعطي انطباعاً خاطئاً بأن المحتوى العصري المتقن لا يتوفر إلا بالإنجليزية.",
+          ar: "يظهر كثير من المحتوى التقني العربي بتصاميم تقليدية جامدة، ما يعطي انطباعًا خاطئًا بأن المحتوى العصري المتقن لا يتوفر إلا بالإنجليزية.",
         },
         {
           en: "When every instructor records in a different room with uneven lighting and audio, episodes look disjointed and editing takes days.",
-          ar: "عندما يسجّل كل محاضر في مكان مختلف بإضاءة وخلفية غير موحّدة، تتفاوت جودة الحلقات وتستغرق عملية المونتاج وقتاً مضاعفاً.",
+          ar: "عندما يسجّل كل محاضر في مكان مختلف بإضاءة وخلفية غير موحّدة، تتفاوت جودة الحلقات وتستغرق عملية المونتاج وقتًا مضاعفًا.",
         },
         {
           en: "Without standardized intros, lower-thirds, and thumbnail grids, viewers cannot tell courses or tracks apart on social feeds.",
@@ -1594,16 +1594,16 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       ],
       afterTitle: {
         en: "How the Brand + Studio + Motion setup worked together",
-        ar: "كيف تكاملت الهوية مع الاستوديو والموشن عملياً",
+        ar: "كيف تكاملت الهوية مع الاستوديو والموشن عمليًا",
       },
       afterPoints: [
         {
           en: "Designed a clean, contemporary Arabic-first typographic mark and color system (#60A5FA / #2563EB) that makes technical topics feel approachable.",
-          ar: "تصميم علامة تايبوجرافية عربية معاصرة ونظام لوني أزرق واضح يمنح المواد التقنية مظهراً حديثاً ومباشراً.",
+          ar: "تصميم علامة تيبوغرافية عربية معاصرة ونظام لوني أزرق واضح يمنح المواد التقنية مظهرًا حديثًا ومباشرًا.",
         },
         {
           en: "Built a physical DIY recording space from scratch—matching backdrop tones, framing, and lighting directly to the brand palette.",
-          ar: "تجهيز مساحة تصوير فعلية من الصفر بخلفيات وإضاءة وتكوين كادر متطابق بصرياً مع ألوان الهوية الرقمية.",
+          ar: "تجهيز مساحة تصوير فعلية من الصفر بخلفيات وإضاءة وتكوين كادر متطابق بصريًا مع ألوان الهوية الرقمية.",
         },
         {
           en: "Shipped plug-and-play motion graphics (intros, transitions, callout cards) and social carousels so editors assemble episodes predictably.",
@@ -1612,7 +1612,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       ],
       stakeholders: [
         {
-          role: { en: "Arabic-Speaking Students & Self-Learners", ar: "الطلاب والمتعلمون ذاتياً" },
+          role: { en: "Arabic-Speaking Students & Self-Learners", ar: "الطلاب والمتعلمون ذاتيًا" },
           benefit: {
             en: "Clear visual explanations, structured episode thumbnails, and distraction-free video framing that respect their time.",
             ar: "شروحات مرئية منظمة وأغلفة حلقات واضحة العناوين وتصوير مريح للعين يسهّل الاستيعاب والمتابعة.",
@@ -1622,7 +1622,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
           role: { en: "Instructors & Subject Speakers", ar: "المحاضرون ومقدمو المحتوى" },
           benefit: {
             en: "Walk into a pre-lit, pre-framed studio setup and focus strictly on explaining the lesson instead of fighting camera gear.",
-            ar: "الدخول إلى استوديو مجهّز مسبقاً بالإضاءة والكادر للتفرغ الكامل لشرح المادة العلمية دون عناء التجهيز الفردي.",
+            ar: "الدخول إلى استوديو مجهّز مسبقًا بالإضاءة والكادر للتفرغ الكامل لشرح المادة العلمية دون عناء التجهيز الفردي.",
           },
         },
         {
@@ -1656,11 +1656,11 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         actor: { en: "In-Studio Recording", ar: "التصوير داخل الاستوديو" },
         title: {
           en: "Filming in the custom-built DIY studio environment",
-          ar: "تسجيل الحلقات في الاستوديو المصمم خصيصاً للهوية",
+          ar: "تسجيل الحلقات في الاستوديو المصمم خصيصًا للهوية",
         },
         detail: {
           en: "Instructors record against the physical set built to match the brand's lighting and color mood, ensuring every video looks part of one series.",
-          ar: "يُسجّل المحاضر أمام خلفية وإضاءة مضبوطة مسبقاً على ألوان المبادرة ليخرج كل فيديو بنفس الهوية البصرية.",
+          ar: "يُسجّل المحاضر أمام خلفية وإضاءة مضبوطة مسبقًا على ألوان المبادرة ليخرج كل فيديو بنفس الهوية البصرية.",
         },
       },
       {
@@ -1705,14 +1705,14 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
       },
       {
-        tag: { en: "Arabic-First Type", ar: "تايبوجرافيا عربية أصيلة" },
+        tag: { en: "Arabic-First Type", ar: "تيبوغرافيا عربية أصيلة" },
         title: {
           en: "Bold Arabic mark designed natively, not adapted from Latin",
-          ar: "علامة عربية مبنية أصلاً للحرف العربي وليست مترجمة",
+          ar: "علامة عربية مبنية أصلًا للحرف العربي وليست مترجمة",
         },
         body: {
           en: "Celebrates modern Arabic letterforms so technical education feels confident and contemporary in its own script.",
-          ar: "تمنح الحرف العربي حضوراً هندسياً معاصراً يكسر الصورة النمطية القديمة للمطبوعات التعليمية.",
+          ar: "تمنح الحرف العربي حضورًا هندسيًا معاصرًا يكسر الصورة النمطية القديمة للمطبوعات التعليمية.",
         },
       },
       {
@@ -1745,7 +1745,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Learners scrolling a channel or feed can immediately read the lesson subject and track without visual clutter.",
-          ar: "يستطيع المتابع قراءة موضوع الدرس والمسار التابع له فوراً أثناء التصفح السريع دون تشتيت.",
+          ar: "يستطيع المتابع قراءة موضوع الدرس والمسار التابع له فورًا أثناء التصفح السريع دون تشتيت.",
         },
       },
       {
@@ -1767,7 +1767,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Delivered across the 2020–2021 MSP cycle, combining Arabic brand design, hands-on physical studio construction from scratch, and motion graphics templates.",
-        ar: "نُفّذ المشروع خلال دورة 2020–2021 جامعاً بين تصميم الهوية العربية، التجهيز الفعلي لاستوديو التصوير من الصفر، وبناء قوالب التحريك والنشر.",
+        ar: "نُفّذ المشروع خلال دورة 2020–2021 جامعًا بين تصميم الهوية العربية، التجهيز الفعلي لاستوديو التصوير من الصفر، وبناء قوالب التحريك والنشر.",
       },
       highlights: [
         {
@@ -1776,7 +1776,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Designed specifically for Arabic-first technical education",
-          ar: "مصمم خصيصاً لخدمة المحتوى التقني والمعرفي باللغة العربية",
+          ar: "مصمم خصيصًا لخدمة المحتوى التقني والمعرفي باللغة العربية",
         },
       ],
     },
@@ -1791,11 +1791,11 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     headline: {
       en: "Two consecutive full-season identity rebuilds paired with hands-on media team leadership for a high-output youth organization.",
-      ar: "بناء الهوية البصرية من الصفر لموسمين متتاليين مع قيادة فريق الميديا بالكامل لضبط النشر السريع عبر الورش والفعاليات الشبابية.",
+      ar: "بناء الهوية البصرية من الصفر لموسمين متتاليين مع قيادة فريق الإعلام بالكامل لضبط النشر السريع عبر الورش والفعاليات الشبابية.",
     },
     summary: {
       en: "Youth Scope is a youth community organization running skill workshops, stage events, and seasonal student programs. Across two consecutive annual seasons (2019–2021), the organization's visual identity was rebuilt from scratch each season while leading the media team end-to-end—governing recruitment campaigns, workshop collateral, stage branding, and volunteer social publishing.",
-      ar: "تعمل مبادرة يوث سكوب (Youth Scope) على تنظيم برامج تدريبية وورش عمل وفعاليات جماهيرية للشباب والطلاب. على مدار موسمين سنويين متتاليين (2019–2021)، أعيد بناء الهوية البصرية للمؤسسة من الصفر في كل موسم، بالتوازي مع قيادة فريق الميديا بالكامل لإدارة حملات الاستقطاب ومطبوعات الورش وتجهيزات المسرح والنشر اليومي للمتطوعين.",
+      ar: "تعمل مبادرة يوث سكوب (Youth Scope) على تنظيم برامج تدريبية وورش عمل وفعاليات جماهيرية للشباب والطلاب. على مدار موسمين سنويين متتاليين (2019–2021)، أعيد بناء الهوية البصرية للمؤسسة من الصفر في كل موسم، بالتوازي مع قيادة فريق الإعلام بالكامل لإدارة حملات الاستقطاب ومطبوعات الورش وتجهيزات المسرح والنشر اليومي للمتطوعين.",
     },
     snapshot: [
       {
@@ -1816,7 +1816,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         label: { en: "Role & Tenure", ar: "الدور وفترة العمل" },
         value: {
           en: "System Designer & Media Team Lead · 2 Seasons (2019–21)",
-          ar: "مصمم النظام وقائد فريق الميديا · موسمان متتاليان (2019–2021)",
+          ar: "مصمم النظام وقائد فريق الإعلام · موسمان متتاليان (2019–2021)",
         },
       },
       {
@@ -1853,7 +1853,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       afterPoints: [
         {
           en: "Engineered a fresh seasonal identity from zero for each of the two years—giving every board launch unmistakable new energy while keeping brand recognition.",
-          ar: "تأسيس هوية موسمية متكاملة من الصفر في كل عام لمنح انطلاقة الموسم زخماً جديداً مع الحفاظ على شخصية المؤسسة.",
+          ar: "تأسيس هوية موسمية متكاملة من الصفر في كل عام لمنح انطلاقة الموسم زخمًا جديدًا مع الحفاظ على شخصية المؤسسة.",
         },
         {
           en: "Built modular template grids (#3DDC84 / #149E5A energetic palette) with locked typography zones so junior volunteers could produce clean assets reliably.",
@@ -1861,12 +1861,12 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Led the media team directly—setting task distribution, critique checklists, and print pre-flight checks before stage events.",
-          ar: "قيادة فريق الميديا ميدانياً عبر توزيع المهام، وضع معايير مراجعة سريعة، وفحص ملفات الطباعة قبل الفعاليات الكبرى.",
+          ar: "قيادة فريق الإعلام ميدانيًا عبر توزيع المهام، وضع معايير مراجعة سريعة، وفحص ملفات الطباعة قبل الفعاليات الكبرى.",
         },
       ],
       stakeholders: [
         {
-          role: { en: "Volunteer Media Team", ar: "أعضاء فريق الميديا المتطوعون" },
+          role: { en: "Volunteer Media Team", ar: "أعضاء فريق الإعلام المتطوعون" },
           benefit: {
             en: "Clear grids, shared asset kits, and structured mentorship instead of vague 'redesign this' feedback.",
             ar: "قوالب وأصول عمل واضحة وتوجيه عملي محدد يرفع مستواهم ويمنع إهدار الوقت في التعديلات العشوائية.",
@@ -1898,7 +1898,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Season Kickoff", ar: "تأسيس الموسم" },
         title: {
           en: "Seasonal concept, color/type kit & volunteer onboarding",
-          ar: "بناء هوية الموسم وتدريب فريق الميديا على القوالب",
+          ar: "بناء هوية الموسم وتدريب فريق الإعلام على القوالب",
         },
         detail: {
           en: "Before public launch, the season's visual direction, template files, and export standards are built and walked through with the media team.",
@@ -2017,11 +2017,11 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     operationalNote: {
       statusLabel: {
         en: "Completed Two-Season Identity & Media Leadership (2019–2021)",
-        ar: "منظومة موسمين متتاليين وقيادة فريق ميديا (2019–2021)",
+        ar: "منظومة موسمين متتاليين وقيادة فريق إعلام (2019–2021)",
       },
       summary: {
         en: "Delivered across two full annual cycles (2019–2021), encompassing two ground-up seasonal visual systems, recruitment and event campaigns, print assets, and media team leadership.",
-        ar: "نُفّذ العمل عبر دورتين سنويتين كاملتين (2019–2021)، شاملاً تأسيس هويتين موسميتين من الصفر، وإدارة حملات الاستقطاب والفعاليات والمطبوعات وقيادة فريق الميديا.",
+        ar: "نُفّذ العمل عبر دورتين سنويتين كاملتين (2019–2021)، شاملًا تأسيس هويتين موسميتين من الصفر، وإدارة حملات الاستقطاب والفعاليات والمطبوعات وقيادة فريق الإعلام.",
       },
       highlights: [
         {
@@ -2030,7 +2030,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Recognized as Best Head across both consecutive seasons",
-          ar: "تضمن قيادة فريق الميديا من التخطيط وحتى التسليم الميداني",
+          ar: "تضمن قيادة فريق الإعلام من التخطيط وحتى التسليم الميداني",
         },
       ],
     },

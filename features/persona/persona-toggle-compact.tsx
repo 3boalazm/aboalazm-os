@@ -12,9 +12,9 @@ import { usePersona, type Persona } from "@/components/providers/persona-provide
 import { useLang } from "@/components/providers/lang-provider";
 
 const OPTIONS: { value: Persona; en: string; ar: string; titleEn: string; titleAr: string }[] = [
-  { value: null,        en: "ALL",  ar: "الكل",  titleEn: "General — speaks to everyone", titleAr: "عام — يخاطب الجميع" },
-  { value: "founder",   en: "FND",  ar: "مؤسس",  titleEn: "Founder — ROI & timeline focus", titleAr: "مؤسس — تركيز على العائد والجدول الزمني" },
-  { value: "technical", en: "TECH", ar: "تقني",  titleEn: "Technical — systems & architecture focus", titleAr: "تقني — تركيز على الأنظمة والمعمارية" },
+  { value: null,        en: "ALL",  ar: "الكل",  titleEn: "General — speaks to everyone", titleAr: "عام: يخاطب الجميع" },
+  { value: "founder",   en: "FND",  ar: "مؤسس",  titleEn: "Founder — ROI & timeline focus", titleAr: "مؤسس: تركيز على العائد والجدول الزمني" },
+  { value: "technical", en: "TECH", ar: "تقني",  titleEn: "Technical — systems & architecture focus", titleAr: "تقني: تركيز على الأنظمة والبنية" },
 ];
 
 export function PersonaToggleCompact({ className }: { className?: string }) {
@@ -26,7 +26,7 @@ export function PersonaToggleCompact({ className }: { className?: string }) {
     <div
       className={["persona-toggle", className].filter(Boolean).join(" ")}
       role="group"
-      aria-label={ar ? "خاطبني كـ" : "Speak to me as"}
+      aria-label={ar ? "خاطبني بوصفي" : "Speak to me as"}
     >
       {OPTIONS.map((o) => {
         const active = persona === o.value;

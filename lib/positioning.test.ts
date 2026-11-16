@@ -93,7 +93,7 @@ test("the funnel is discovery-first and the deposit is the last step, not the fi
 
 test("the production menu is explicitly framed as production, not strategy", () => {
   assert.match(PRODUCTION_MENU_NOTE[0], /not a substitute/i);
-  assert.match(PRODUCTION_MENU_NOTE[1], /مش بديل/);
+  assert.match(PRODUCTION_MENU_NOTE[1], /ليست بديلًا/);
   for (const path of ["app/(site)/[locale]/pricing/pricing-view.tsx", "app/(site)/[locale]/agreement/agreement-view.tsx"]) {
     assert.match(read(path), /PRODUCTION_MENU_NOTE/, `${path} must state the production-menu framing`);
   }

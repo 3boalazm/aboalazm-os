@@ -28,7 +28,7 @@ export type PlanId =
 
 /** Step 04 only — used on /book and after a scope is agreed, never as the first ask. */
 export const DEPOSIT_CTA_LABEL: Bi = ["Pay the kickoff deposit", "ادفع دفعة البدء"];
-export const DISCOVERY_CTA_LABEL: Bi = ["Book a discovery call", "احجز مكالمة استكشاف"];
+export const DISCOVERY_CTA_LABEL: Bi = ["Book a discovery call", "احجز مكالمة استكشافية"];
 export const SCOPE_CTA_LABEL: Bi = ["Scope a project", "حدّد نطاق مشروعك"];
 
 /**
@@ -42,10 +42,10 @@ export const SCOPE_CTA_LABEL: Bi = ["Scope a project", "حدّد نطاق مشر
 export const FUNNEL_STEPS: readonly { n: string; title: Bi; body: Bi }[] = [
   {
     n: "01",
-    title: ["Discovery call — free, 30 minutes", "مكالمة استكشاف — مجانية، 30 دقيقة"],
+    title: ["Discovery call — free, 30 minutes", "مكالمة استكشافية: مجانية، 30 دقيقة"],
     body: [
       "We talk about the business problem, not the deliverables. No scope, no commitment, no deck.",
-      "بنتكلم عن مشكلة البيزنس، مش عن التسليمات. بدون نطاق ولا التزام ولا عرض تقديمي.",
+      "نتحدّث عن المشكلة التي يواجهها عملك، لا عن المخرجات. بلا نطاق ولا التزام ولا عرض تقديمي.",
     ],
   },
   {
@@ -53,7 +53,7 @@ export const FUNNEL_STEPS: readonly { n: string; title: Bi; body: Bi }[] = [
     title: ["Written scope & proposal", "نطاق مكتوب وعرض"],
     body: [
       "You receive the recommended solution, the deliverables, the timeline and the price in writing — usually within two working days.",
-      "تستلم الحل المقترح والتسليمات والجدول والسعر كتابيًا — عادة خلال يومَي عمل.",
+      "يصلك الحل المقترح والمخرجات والجدول الزمني والسعر كتابةً، عادةً خلال يومَي عمل.",
     ],
   },
   {
@@ -61,15 +61,15 @@ export const FUNNEL_STEPS: readonly { n: string; title: Bi; body: Bi }[] = [
     title: ["Agreement signed", "توقيع الاتفاقية"],
     body: [
       "Both sides approve the same document: scope, milestones, payments, revisions, IP and cancellation.",
-      "الطرفان يعتمدان نفس المستند: النطاق والمراحل والدفعات والتعديلات والملكية والإلغاء.",
+      "يعتمد الطرفان المستند نفسه: النطاق والمراحل والدفعات والتعديلات والملكية وشروط الإلغاء.",
     ],
   },
   {
     n: "04",
-    title: ["Kickoff deposit & start", "دفعة البدء ونبدأ"],
+    title: ["Kickoff deposit & start", "دفعة البدء وانطلاق العمل"],
     body: [
       "Only after the scope is agreed: the kickoff instalment reserves the studio slot and phase 01 begins.",
-      "بعد اعتماد النطاق فقط: دفعة البدء تحجز مكان المشروع في جدول الاستوديو وتبدأ المرحلة 01.",
+      "بعد اعتماد النطاق فقط: تحجز دفعة البدء موعد المشروع في جدول الاستوديو، وتنطلق المرحلة 01.",
     ],
   },
 ];
@@ -78,7 +78,7 @@ export const FUNNEL_STEPS: readonly { n: string; title: Bi; body: Bi }[] = [
 export const START_HREF = "/contact";
 export const WHATSAPP_ORDER_CTA_LABEL: Bi = ["Order on WhatsApp", "اطلب عبر واتساب"];
 export const WHATSAPP_ASK_CTA_LABEL: Bi = ["Ask on WhatsApp", "اسأل عبر واتساب"];
-export const RECOMMENDED_LABEL: Bi = ["Recommended", "موصى به"];
+export const RECOMMENDED_LABEL: Bi = ["Recommended", "موصى بها"];
 
 export interface Tier {
   id: PlanId;
@@ -111,17 +111,17 @@ export const TIERS: readonly Tier[] = [
     payment: "50% / 50%",
     includesHead: ["What's included", "ما يشمله"],
     includes: [
-      ["Discovery Call (30 min)", "مكالمة اكتشاف (30 دقيقة)"],
-      ["3 concept directions with strategic logic", "3 اتجاهات بمنطق استراتيجي"],
+      ["Discovery Call (30 min)", "مكالمة استكشافية (30 دقيقة)"],
+      ["3 concept directions with strategic logic", "3 اتجاهات مفاهيمية بمنطق استراتيجي"],
       ["One direction developed to final", "تطوير الاتجاه المختار للشكل النهائي"],
       ["2 revision rounds", "جولتا مراجعة"],
       ["Files: AI · EPS · SVG · PNG · JPG", "الملفات: AI · EPS · SVG · PNG · JPG"],
-      ["Versions: Color · White · Black · Mono", "نسخ: ملوّن · أبيض · أسود · أحادي"],
-      ["CMYK + RGB formats", "صيغ CMYK للطباعة و RGB للديجيتال"],
+      ["Versions: Color · White · Black · Mono", "النسخ: ملوّن · أبيض · أسود · أحادي اللون"],
+      ["CMYK + RGB formats", "صيغ CMYK للطباعة وRGB للشاشات"],
       ["Mini Usage Guide (5 pages)", "دليل استخدام مصغّر (5 صفحات)"],
     ],
     excludes: [
-      ["Brand strategy", "استراتيجية البراند"],
+      ["Brand strategy", "استراتيجية العلامة"],
       ["Full color system", "نظام ألوان كامل"],
       ["Brand applications", "تطبيقات الهوية"],
     ],
@@ -134,20 +134,20 @@ export const TIERS: readonly Tier[] = [
     name: ["Brand Identity Essentials", "أساسيات الهوية البصرية"],
     price: "$697 – $1,097",
     priceNote: ["Starting at $697", "يبدأ من $697"],
-    bestFor: ["Emerging brands · SMEs", "براندات صاعدة · شركات صغيرة ومتوسطة"],
+    bestFor: ["Emerging brands · SMEs", "علامات صاعدة · شركات صغيرة ومتوسطة"],
     duration: ["3 – 4 weeks", "3 – 4 أسابيع"],
     payment: "50% / 25% / 25%",
     recommended: true,
-    includesHead: ["Everything in Tier 01, plus", "كل ما في الفئة 01، بالإضافة إلى"],
+    includesHead: ["Everything in Tier 01, plus", "كل ما تتضمنه الفئة 01، إضافةً إلى"],
     includes: [
-      ["Brand Audit (if existing)", "مراجعة شاملة للبراند الحالي"],
+      ["Brand Audit (if existing)", "مراجعة شاملة للعلامة الحالية"],
       ["Competitor Analysis", "تحليل المنافسين"],
-      ["Concise Audience Persona", "بيرسونا مختصرة للجمهور"],
+      ["Concise Audience Persona", "شخصية مختصرة للجمهور"],
       ["Full Logo System (Primary + Secondary + Submark)", "نظام شعار كامل (أساسي + ثانوي + مصغّر)"],
       ["Color System (HEX · RGB · CMYK · Pantone)", "نظام ألوان (HEX · RGB · CMYK · Pantone)"],
       ["Typography Hierarchy", "هرمية الخطوط"],
       ["Brand Guidelines PDF (12–18 pages)", "دليل هوية PDF (12–18 صفحة)"],
-      ["3 applications: Card · Letterhead · Social", "3 تطبيقات: كارت · ورق رسمي · سوشيال"],
+      ["3 applications: Card · Letterhead · Social", "3 تطبيقات: بطاقة أعمال · ورق رسمي · وسائل التواصل"],
     ],
   },
   {
@@ -155,26 +155,26 @@ export const TIERS: readonly Tier[] = [
     startingUsd: 1497,
     hasDiscoveryCall: true,
     tag: ["TIER 03", "الفئة 03"],
-    name: ["Full Brand System", "نظام براند متكامل"],
+    name: ["Full Brand System", "نظام علامة متكامل"],
     price: "$1,497 – $2,997+",
     priceNote: ["Starting at $1,497", "يبدأ من $1,497"],
-    bestFor: ["Launches & re-launches at scale", "إطلاقات وإعادة إطلاق على نطاق واسع"],
+    bestFor: ["Launches & re-launches at scale", "إطلاق العلامات وإعادة إطلاقها على نطاق واسع"],
     duration: ["5 – 7 weeks", "5 – 7 أسابيع"],
     payment: "50% / 25% / 25%",
-    includesHead: ["Everything in Tier 02, plus", "كل ما في الفئة 02، بالإضافة إلى"],
+    includesHead: ["Everything in Tier 02, plus", "كل ما تتضمنه الفئة 02، إضافةً إلى"],
     includes: [
-      ["Extended Discovery & Research", "بحث واكتشاف موسّع"],
-      ["Full Brand Strategy Document", "وثيقة استراتيجية كاملة"],
+      ["Extended Discovery & Research", "استكشاف وبحث موسّعان"],
+      ["Full Brand Strategy Document", "وثيقة استراتيجية العلامة كاملة"],
       ["Purpose · Vision · Mission · Values", "الغاية · الرؤية · الرسالة · القيم"],
-      ["Positioning · UVP · Personality · Archetype", "التموضع · القيمة الفريدة · الشخصية · النموذج"],
-      ["Tone of Voice · Brand Story", "نبرة الصوت · قصة البراند"],
+      ["Positioning · UVP · Personality · Archetype", "التموضع · القيمة الفريدة · الشخصية · النموذج الأصلي"],
+      ["Tone of Voice · Brand Story", "نبرة الصوت · قصة العلامة"],
       ["Bilingual Lockup (Arabic / English)", "شعار ثنائي اللغة (عربي / إنجليزي)"],
       ["Brand Elements (Patterns · Icons · Photo Direction)", "عناصر بصرية (أنماط · أيقونات · توجيه التصوير)"],
       ["Brand Guidelines PDF (25–40 pages)", "دليل هوية PDF (25–40 صفحة)"],
-      ["8+ applications", "8+ تطبيقات"],
+      ["8+ applications", "أكثر من 8 تطبيقات"],
       ["Brand Training Workshop (1–2h)", "ورشة تدريب للفريق (1–2 ساعة)"],
-      ["30 days post-delivery support", "دعم 30 يومًا بعد التسليم"],
-      ["Portfolio Case Study setup", "تجهيز دراسة حالة"],
+      ["30 days post-delivery support", "دعم لمدة 30 يومًا بعد التسليم"],
+      ["Portfolio Case Study setup", "إعداد دراسة حالة لملف الأعمال"],
     ],
   },
 ];
@@ -215,15 +215,15 @@ export const DISCIPLINES: readonly Discipline[] = [
     name: ["Brand & Business Identity", "الهوية والتموضع"],
     forWhom: [
       "A new venture, or an established company whose image no longer matches the business it has become.",
-      "شركة جديدة، أو شركة قائمة صورتها لم تعد تعبّر عن حجمها الفعلي.",
+      "شركة جديدة، أو شركة قائمة لم تعد صورتها تعبّر عن حجم عملها الفعلي.",
     ],
     outcome: [
       "A position your market understands, an identity system in Arabic and English, and guidelines your team can run without me in the room.",
-      "تموضع واضح للسوق، ونظام هوية بالعربي والإنجليزي، ودليل تشغيل يشتغل بيه فريقك بدون وجودي.",
+      "تموضع يفهمه السوق، ونظام هوية بالعربية والإنجليزية، ودليل استخدام يستطيع فريقك العمل به دون الحاجة إليّ.",
     ],
     includes: [
-      ["Positioning · naming · brand strategy", "التموضع · التسمية · استراتيجية البراند"],
-      ["Logo systems + bilingual lockups", "أنظمة الشعار + الصيغ ثنائية اللغة"],
+      ["Positioning · naming · brand strategy", "التموضع · التسمية · استراتيجية العلامة"],
+      ["Logo systems + bilingual lockups", "أنظمة الشعار والصيغ ثنائية اللغة"],
       ["Packaging & print systems", "التغليف وأنظمة المطبوعات"],
       ["Brand guidelines & team training", "دليل الهوية وتدريب الفريق"],
     ],
@@ -237,15 +237,15 @@ export const DISCIPLINES: readonly Discipline[] = [
     name: ["Digital Experience", "التجربة الرقمية"],
     forWhom: [
       "A company with a brand to carry online: a site, a store, or a product launch that has to look and work like the brand, not like a template.",
-      "شركة عندها براند محتاج يوصل أونلاين: موقع أو متجر أو إطلاق منتج لازم يبان ويشتغل كبراند لا كقالب جاهز.",
+      "شركة لديها علامة تحتاج إلى حضور على الإنترنت: موقع أو متجر أو إطلاق منتج، ينبغي أن يبدو ويعمل كعلامة لا كقالب جاهز.",
     ],
     outcome: [
       "Sites and storefronts built on the identity itself — bilingual, fast, and measurable from the day they launch.",
-      "مواقع ومتاجر مبنية على الهوية نفسها — ثنائية اللغة وسريعة وقابلة للقياس من أول يوم.",
+      "مواقع ومتاجر مبنية على الهوية نفسها: ثنائية اللغة وسريعة وقابلة للقياس منذ اليوم الأول.",
     ],
     includes: [
       ["Bilingual marketing sites (AR / EN · RTL)", "مواقع تعريفية ثنائية اللغة (عربي/إنجليزي · RTL)"],
-      ["E-commerce & 72-hour stores", "متاجر إلكترونية ومتجر خلال 72 ساعة"],
+      ["E-commerce & 72-hour stores", "متاجر إلكترونية، ومتجر خلال 72 ساعة"],
       ["Landing pages & launch campaigns", "صفحات هبوط وحملات إطلاق"],
       ["CMS, SEO foundation & analytics", "نظام إدارة محتوى وأساس SEO وتحليلات"],
     ],
@@ -259,11 +259,11 @@ export const DISCIPLINES: readonly Discipline[] = [
     name: ["Business Systems & Automation", "أنظمة التشغيل والأتمتة"],
     forWhom: [
       "A business losing hours to spreadsheets, WhatsApp orders and disconnected tools — or one that needs its operations visible in one place.",
-      "شركة بتخسر ساعات في الشيتات وأوردرات الواتساب وأدوات منفصلة — أو محتاجة تشوف تشغيلها في مكان واحد.",
+      "شركة تخسر ساعات بين الجداول وطلبات واتساب وأدوات متفرقة، أو تحتاج إلى رؤية تشغيلها في مكان واحد.",
     ],
     outcome: [
       "Internal dashboards, ERPs and automations that replace manual steps, so decisions rest on numbers instead of memory.",
-      "لوحات تحكم داخلية وأنظمة ERP وأتمتة تستبدل الخطوات اليدوية، فتبنى القرارات على أرقام لا على الذاكرة.",
+      "لوحات تحكم داخلية وأنظمة ERP وأتمتة تحلّ محل الخطوات اليدوية، لتُبنى القرارات على الأرقام لا على الذاكرة.",
     ],
     includes: [
       ["Operations & sales dashboards", "لوحات تشغيل ومبيعات"],
@@ -296,7 +296,7 @@ export const STRATEGIC_TIER_IDS: readonly PlanId[] = [
  */
 export const PRODUCTION_MENU_NOTE: Bi = [
   "Production menu — standalone print and social items, ordered directly on WhatsApp. These are production services for a brand that already has its system; they are not a substitute for identity or systems work.",
-  "قائمة الإنتاج — بنود مطبوعات وسوشيال مستقلة تُطلب مباشرة عبر واتساب. دي خدمات إنتاج لبراند عنده نظامه بالفعل، ومش بديل عن شغل الهوية أو الأنظمة.",
+  "قائمة الإنتاج: بنود مطبوعات ومحتوى اجتماعي مستقلة تُطلب مباشرة عبر واتساب. هذه خدمات تنفيذ لعلامة لديها نظامها بالفعل، وليست بديلًا عن أعمال الهوية أو الأنظمة.",
 ];
 
 export interface AlaCarteRow {
@@ -318,20 +318,20 @@ export const ALACARTE: readonly AlaCarteGroup[] = [
   {
     group: ["Print & Brand Applications", "مطبوعات وتطبيقات الهوية"],
     rows: [
-      { id: "business-card", service: ["Business Card", "بيزنس كارد"], details: ["Two-sided · 2 versions · 3 revisions", "وجهان · نسختان · 3 تعديلات"], price: "$27", startingUsd: 27, ctaKind: "whatsapp" },
+      { id: "business-card", service: ["Business Card", "بطاقة الأعمال"], details: ["Two-sided · 2 versions · 3 revisions", "وجهان · نسختان · 3 تعديلات"], price: "$27", startingUsd: 27, ctaKind: "whatsapp" },
       { id: "brochure", service: ["Brochure", "بروشور"], details: ["4 pages · A4 / A5 · up to 4 folds", "4 صفحات · A4 / A5 · حتى 4 طيّات"], price: "$39", startingUsd: 39, ctaKind: "whatsapp" },
-      { id: "flyer", service: ["Flyer", "فلاير"], details: ["Bi / Tri / Quad fold", "طيّة ثنائية / ثلاثية / رباعية"], price: "$29 – $47", startingUsd: 29, ctaKind: "whatsapp" },
-      { id: "promotional-poster", service: ["Promotional Poster", "بوستر دعائي"], details: ["Digital or print", "ديجيتال أو مطبوع"], price: "$29 – $47", startingUsd: 29, ctaKind: "whatsapp" },
-      { id: "banner", service: ["Banner", "بانر"], details: ["Square meter + $12 / additional sq.m", "متر مربع + 12$ لكل متر إضافي"], price: "$37", startingUsd: 37, ctaKind: "whatsapp" },
+      { id: "flyer", service: ["Flyer", "نشرة دعائية"], details: ["Bi / Tri / Quad fold", "طيّة ثنائية / ثلاثية / رباعية"], price: "$29 – $47", startingUsd: 29, ctaKind: "whatsapp" },
+      { id: "promotional-poster", service: ["Promotional Poster", "ملصق دعائي"], details: ["Digital or print", "رقمي أو مطبوع"], price: "$29 – $47", startingUsd: 29, ctaKind: "whatsapp" },
+      { id: "banner", service: ["Banner", "لافتة"], details: ["Square meter + $12 / additional sq.m", "المتر المربع + $12 لكل متر إضافي"], price: "$37", startingUsd: 37, ctaKind: "whatsapp" },
       { id: "standard-roll-up", service: ["Standard Roll-Up", "رول أب"], details: ["80×200 / 85×200 / 90×200 cm", "80×200 / 85×200 / 90×200 سم"], price: "$37", startingUsd: 37, ctaKind: "whatsapp" },
     ],
   },
   {
-    group: ["Social Media Design", "تصميم السوشيال ميديا"],
+    group: ["Social Media Design", "تصميم وسائل التواصل الاجتماعي"],
     rows: [
-      { id: "single-post", service: ["Single Post", "بوست واحد"], details: ["Facebook · Instagram · LinkedIn", "فيسبوك · انستجرام · لينكدإن"], price: "$14", startingUsd: 14, ctaKind: "whatsapp" },
-      { id: "pack-10", service: ["Pack of 10", "باقة 10"], details: ["Save $29", "وفّر 29$"], price: "$111", startingUsd: 111, ctaKind: "whatsapp" },
-      { id: "pack-20", service: ["Pack of 20", "باقة 20"], details: ["Save $69", "وفّر 69$"], price: "$211", startingUsd: 211, ctaKind: "whatsapp" },
+      { id: "single-post", service: ["Single Post", "منشور واحد"], details: ["Facebook · Instagram · LinkedIn", "Facebook · Instagram · LinkedIn"], price: "$14", startingUsd: 14, ctaKind: "whatsapp" },
+      { id: "pack-10", service: ["Pack of 10", "باقة من 10 منشورات"], details: ["Save $29", "وفّر $29"], price: "$111", startingUsd: 111, ctaKind: "whatsapp" },
+      { id: "pack-20", service: ["Pack of 20", "باقة من 20 منشورًا"], details: ["Save $69", "وفّر $69"], price: "$211", startingUsd: 211, ctaKind: "whatsapp" },
     ],
   },
   {
@@ -340,39 +340,39 @@ export const ALACARTE: readonly AlaCarteGroup[] = [
       {
         id: "store-72h",
         service: ["Bilingual Online Store / Catalogue (72h)", "متجر أو كتالوج إلكتروني ثنائي اللغة (72 ساعة)"],
-        details: ["Up to ~30 products · AR + EN · Order on WhatsApp · COD + InstaPay · custom domain", "حتى ~30 منتجاً · عربي + إنجليزي · طلب عبر واتساب · الدفع عند الاستلام + إنستاباي · ربط الدومين"],
+        details: ["Up to ~30 products · AR + EN · Order on WhatsApp · COD + InstaPay · custom domain", "حتى 30 منتجًا تقريبًا · عربي وإنجليزي · الطلب عبر واتساب · الدفع عند الاستلام أو عبر إنستاباي · ربط اسم النطاق"],
         price: "From $197",
         startingUsd: 197,
         ctaKind: "deposit",
         planId: "store-72h",
       },
-      { id: "custom-web-platform", service: ["Custom Web Platform", "منصة ويب مخصّصة"], details: ["Next.js · Bilingual EN/AR + RTL · multi-section · performance-tuned · brand-aligned", "Next.js · ثنائي اللغة + RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية"], price: "$1,297 – $2,997", startingUsd: 1297, ctaKind: "deposit", planId: "custom-web-platform" },
+      { id: "custom-web-platform", service: ["Custom Web Platform", "منصة ويب مخصّصة"], details: ["Next.js · Bilingual EN/AR + RTL · multi-section · performance-tuned · brand-aligned", "Next.js · ثنائي اللغة مع RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية"], price: "$1,297 – $2,997", startingUsd: 1297, ctaKind: "deposit", planId: "custom-web-platform" },
       { id: "bilingual-site", service: ["Bilingual Marketing Site", "موقع تعريفي ثنائي اللغة"], details: ["Up to 7 pages · EN/AR · responsive · CMS-ready · SEO foundation", "حتى 7 صفحات · عربي/إنجليزي · متجاوب · جاهز لـ CMS · أساس SEO"], price: "$597 – $1,097", startingUsd: 597, ctaKind: "deposit", planId: "bilingual-site" },
-      { id: "wordpress-website", service: ["WordPress Website", "موقع ووردبريس"], details: ["Up to 7 pages · Responsive · Auth · 3 months support", "حتى 7 صفحات · متجاوب · تسجيل دخول · دعم 3 شهور"], price: "$297 – $597", startingUsd: 297, ctaKind: "deposit", planId: "wordpress-website" },
+      { id: "wordpress-website", service: ["WordPress Website", "موقع ووردبريس"], details: ["Up to 7 pages · Responsive · Auth · 3 months support", "حتى 7 صفحات · متجاوب · تسجيل دخول · دعم 3 أشهر"], price: "$297 – $597", startingUsd: 297, ctaKind: "deposit", planId: "wordpress-website" },
       { id: "landing-page", service: ["Landing Page", "صفحة هبوط"], details: ["Single conversion-focused page · responsive · fast", "صفحة واحدة موجّهة للتحويل · متجاوبة · سريعة"], price: "$197 – $397", startingUsd: 197, ctaKind: "deposit", planId: "landing-page" },
     ],
   },
   {
-    group: ["Retainer Services (monthly)", "خدمات شهرية (ريتينر)"],
+    group: ["Retainer Services (monthly)", "خدمات شهرية بعقد مستمر"],
     rows: [
-      { id: "social-retainer", service: ["Social Media Retainer", "ريتينر سوشيال ميديا"], details: ["15–20 designs + content templates", "15–20 تصميم + قوالب محتوى"], price: "$197 – $297", startingUsd: 197, ctaKind: "deposit", planId: "social-retainer" },
+      { id: "social-retainer", service: ["Social Media Retainer", "عقد مستمر لوسائل التواصل الاجتماعي"], details: ["15–20 designs + content templates", "15–20 تصميمًا مع قوالب محتوى"], price: "$197 – $297", startingUsd: 197, ctaKind: "deposit", planId: "social-retainer" },
       { id: "brand-maintenance", service: ["Brand Maintenance", "صيانة الهوية"], details: ["Templates · light edits · quality oversight", "قوالب · تعديلات خفيفة · إشراف على الجودة"], price: "$247", startingUsd: 247, ctaKind: "deposit", planId: "brand-maintenance" },
-      { id: "full-marketing-retainer", service: ["Full Marketing Design", "تصميم تسويقي شامل"], details: ["Social + Print + Digital + Light Video", "سوشيال + مطبوعات + ديجيتال + فيديو خفيف"], price: "$447 – $697", startingUsd: 447, ctaKind: "deposit", planId: "full-marketing-retainer" },
+      { id: "full-marketing-retainer", service: ["Full Marketing Design", "تصميم تسويقي شامل"], details: ["Social + Print + Digital + Light Video", "وسائل التواصل + مطبوعات + رقمي + فيديو خفيف"], price: "$447 – $697", startingUsd: 447, ctaKind: "deposit", planId: "full-marketing-retainer" },
     ],
   },
 ];
 
 export const PROCESS = [
-  { n: "01", name: ["Discovery & Research", "الاكتشاف والبحث"], body: ["Brand audit, competitor analysis, color-gap mapping, audience persona, cultural research. The foundation no logo can replace.", "مراجعة البراند، تحليل المنافسين، خريطة فجوات الألوان، بيرسونا الجمهور، والبحث الثقافي — الأساس الذي لا يعوّضه أي شعار."], days: ["Days 1–6", "الأيام 1–6"] },
-  { n: "02", name: ["Brand Strategy", "استراتيجية البراند"], body: ["Purpose, positioning, archetype, voice & tone, value proposition. Approved on paper before a single shape is drawn.", "الغاية، التموضع، النموذج، نبرة الصوت، والقيمة الفريدة — تُعتمد كتابيًا قبل رسم أي شكل."], days: ["Days 5–9", "الأيام 5–9"] },
-  { n: "03", name: ["Concept & Design", "المفهوم والتصميم"], body: ["Sketches in dozens, narrowed to 2–3 directions. Logo system, color, typography, brand elements, and key applications.", "عشرات الإسكتشات تُختصر إلى 2–3 اتجاهات: نظام الشعار، الألوان، الخطوط، العناصر، والتطبيقات الأساسية."], days: ["Days 9–27", "الأيام 9–27"] },
-  { n: "04", name: ["Refine & Deliver", "المراجعة والتسليم"], body: ["Two structured revision rounds, sign-off, final files in every format, brand guidelines PDF, handover call & 30-day support.", "جولتا مراجعة منظمتان، اعتماد نهائي، ملفات بكل الصيغ، دليل هوية PDF، مكالمة تسليم ودعم 30 يومًا."], days: ["Days 27–38", "الأيام 27–38"] },
+  { n: "01", name: ["Discovery & Research", "الاكتشاف والبحث"], body: ["Brand audit, competitor analysis, color-gap mapping, audience persona, cultural research. The foundation no logo can replace.", "مراجعة العلامة، وتحليل المنافسين، وخريطة فجوات الألوان، وشخصية الجمهور، والبحث الثقافي: الأساس الذي لا يعوّضه أي شعار."], days: ["Days 1–6", "الأيام 1–6"] },
+  { n: "02", name: ["Brand Strategy", "استراتيجية العلامة"], body: ["Purpose, positioning, archetype, voice & tone, value proposition. Approved on paper before a single shape is drawn.", "الغاية والتموضع والنموذج الأصلي ونبرة الصوت والقيمة الفريدة، وتُعتمد كتابةً قبل رسم أي شكل."], days: ["Days 5–9", "الأيام 5–9"] },
+  { n: "03", name: ["Concept & Design", "المفهوم والتصميم"], body: ["Sketches in dozens, narrowed to 2–3 directions. Logo system, color, typography, brand elements, and key applications.", "عشرات المسودات تُختصر إلى 2–3 اتجاهات: نظام الشعار والألوان والخطوط والعناصر والتطبيقات الأساسية."], days: ["Days 9–27", "الأيام 9–27"] },
+  { n: "04", name: ["Refine & Deliver", "المراجعة والتسليم"], body: ["Two structured revision rounds, sign-off, final files in every format, brand guidelines PDF, handover call & 30-day support.", "جولتا مراجعة منظّمتان، واعتماد نهائي، وملفات بكل الصيغ، ودليل هوية PDF، ومكالمة تسليم، ودعم لمدة 30 يومًا."], days: ["Days 27–38", "الأيام 27–38"] },
 ] as const;
 
 export const PAYMENT = {
-  t1: { title: ["Tier 1 — Logo Design", "الفئة 1 — تصميم الشعار"], split: "50% / 50%", steps: [["50% at Kickoff", "50% عند البدء"], ["50% before final file delivery", "50% قبل تسليم الملفات النهائية"]] },
-  t23: { title: ["Tier 2 & 3 — Brand Identity", "الفئتان 2 و3 — الهوية البصرية"], split: "50% / 25% / 25%", steps: [["50% at Kickoff", "50% عند البدء"], ["25% at Strategy Sign-off", "25% عند اعتماد الاستراتيجية"], ["25% before final delivery", "25% قبل التسليم النهائي"]] },
-  methods: ["Bank transfer (local / international) · PayPal & Wise (international) · Electronic wallets (local) · Cash for in-person meetings. Transfer fees may apply.", "تحويل بنكي (محلي / دولي) · PayPal وWise (للعملاء الدوليين) · محافظ إلكترونية (محليًا) · كاش للمقابلات المباشرة. قد تُضاف رسوم تحويل حسب الوسيلة."],
+  t1: { title: ["Tier 1 — Logo Design", "الفئة 1: تصميم الشعار"], split: "50% / 50%", steps: [["50% at Kickoff", "50% عند البدء"], ["50% before final file delivery", "50% قبل تسليم الملفات النهائية"]] },
+  t23: { title: ["Tier 2 & 3 — Brand Identity", "الفئتان 2 و3: الهوية البصرية"], split: "50% / 25% / 25%", steps: [["50% at Kickoff", "50% عند البدء"], ["25% at Strategy Sign-off", "25% عند اعتماد الاستراتيجية"], ["25% before final delivery", "25% قبل التسليم النهائي"]] },
+  methods: ["Bank transfer (local / international) · PayPal & Wise (international) · Electronic wallets (local) · Cash for in-person meetings. Transfer fees may apply.", "تحويل بنكي (محلي / دولي) · PayPal وWise (للعملاء الدوليين) · محافظ إلكترونية (محليًا) · نقدًا عند اللقاء المباشر. قد تُضاف رسوم تحويل بحسب الوسيلة."],
 } as const;
 
 /**
@@ -384,7 +384,7 @@ export const PAYMENT = {
  */
 export const TERMS_LINE: readonly [string, string] = [
   "How payment works: 50% kickoff for every tier. The balance is due before final files — Tier 1 pays it as one 50% installment, Tiers 2–3 as 25% at strategy sign-off + 25% before delivery. The agreed scope and milestones are confirmed in writing before kickoff.",
-  "إزاي بيتم الدفع: 50% مقدّم لكل الفئات. الباقي قبل تسليم الملفات النهائية — الفئة 1 دفعة واحدة 50%، والفئتان 2 و3: 25% عند اعتماد الاستراتيجية + 25% قبل التسليم. بنتفق كتابيًا على النطاق والمراحل قبل البدء.",
+  "آلية الدفع: 50% مقدّمًا لكل الفئات، ويُسدَّد الباقي قبل تسليم الملفات النهائية: دفعة واحدة بنسبة 50% للفئة 1، و25% عند اعتماد الاستراتيجية و25% قبل التسليم للفئتين 2 و3. نتفق كتابةً على النطاق والمراحل قبل البدء.",
 ] as const;
 
 /**
@@ -420,16 +420,16 @@ export const STORE_72H_OFFER = {
   ] as Bi,
   subheadline: [
     "Designed by a senior brand designer and built on a fast, mobile-first bilingual architecture — with WhatsApp ordering, COD & InstaPay instructions, and a shipping-policy page.",
-    "بتصميم هوية بصرية احترافية وبنية تقنية سريعة ثنائية اللغة (عربي/إنجليزي) — مع الطلب عبر واتساب، وتعليمات الدفع عند الاستلام وإنستاباي، وصفحة سياسة الشحن وربط الدومين.",
+    "بتصميم هوية بصرية احترافية وبنية تقنية سريعة ثنائية اللغة (عربي/إنجليزي)، مع الطلب عبر واتساب، وتعليمات الدفع عند الاستلام وإنستاباي، وصفحة سياسة الشحن، وربط اسم النطاق.",
   ] as Bi,
   clockRule: [
     "The 72 hours start when I receive all content (products, photos, texts), not at payment.",
-    "تبدأ مهلة الـ 72 ساعة عند استلام كل المحتوى (المنتجات، الصور، النصوص) كاملًا، وليس عند لحظة الدفع.",
+    "تبدأ مهلة الـ72 ساعة عند استلام كل المحتوى كاملًا (المنتجات والصور والنصوص)، لا عند الدفع.",
   ] as Bi,
   included: [
     [
       "Up to ~30 products organized in clean categories",
-      "إضافة وتنظيم حتى ~30 منتجاً في أقسام واضحة",
+      "إضافة حتى 30 منتجًا تقريبًا وتنظيمها في أقسام واضحة",
     ],
     [
       "Full Arabic (RTL) + English (LTR) bilingual interface",
@@ -449,7 +449,7 @@ export const STORE_72H_OFFER = {
     ],
     [
       "Custom-domain connection + HTTPS / SSL setup",
-      "ربط الدومين الخاص بك مع تفعيل شهادة الأمان HTTPS / SSL",
+      "ربط اسم النطاق الخاص بك مع تفعيل شهادة الأمان HTTPS / SSL",
     ],
     [
       "One structured revision round before launch",
@@ -468,24 +468,24 @@ export const STORE_72H_OFFER = {
   ] as readonly Bi[],
   whyDifferent: [
     {
-      title: ["Senior brand identity craft", "حرفة هوية بصرية على مستوى خبير"] as Bi,
+      title: ["Senior brand identity craft", "صنعة هوية بصرية بمستوى خبير"] as Bi,
       body: [
         "Most low-cost store setups drop your products into an unstyled theme. Your store is art-directed with paired Arabic/English typography, disciplined spacing, and brand-consistent colors.",
-        "أغلب المتاجر السريعة تضع منتجاتك في قالب تقليدي مكرر. هنا يُبنى المتجر بإخراج بصري متقن وتنسيق مدروس للخطوط العربية والإنجليزية وألوان علامتك.",
+        "تضع أغلب المتاجر السريعة منتجاتك في قالب مكرر. هنا يُبنى المتجر بإخراج بصري متقن وتنسيق مدروس للخطوط العربية والإنجليزية وألوان علامتك.",
       ] as Bi,
     },
     {
-      title: ["Built for how Egypt & Gulf buyers actually pay", "مصمم لطريقة الشراء الفعلية في مصر والخليج"] as Bi,
+      title: ["Built for how Egypt & Gulf buyers actually pay", "مبني على طريقة الشراء الفعلية في مصر والخليج"] as Bi,
       body: [
         "Warm traffic from Instagram, TikTok, and WhatsApp converts fastest when buyers can inspect products in Arabic or English, see clear COD or InstaPay steps, and confirm their order on WhatsApp in one tap.",
-        "الزوار القادمون من إنستغرام وتيك توك وواتساب يشترون أسرع عندما يتصفحون بالعربية أو الإنجليزية، ويرون خطوات الدفع عند الاستلام أو إنستاباي بوضوح، ويؤكدون الطلب عبر واتساب بضغطة واحدة.",
+        "يشتري الزوار القادمون من Instagram وTikTok وواتساب أسرع حين يتصفحون بالعربية أو الإنجليزية، ويرون خطوات الدفع عند الاستلام أو عبر إنستاباي بوضوح، ويؤكدون الطلب عبر واتساب بضغطة واحدة.",
       ] as Bi,
     },
     {
       title: ["Live production proof you can test today", "أعمال حية يمكنك تجربتها الآن قبل التعاقد"] as Bi,
       body: [
         "Inspect four live commerce and catalogue deployments below — on your phone right now — before you send a deposit.",
-        "تصفّح أربعة متاجر وكتالوجات منشورة ومباشرة بالأسفل — من هاتفك الآن — قبل إرسال العربون.",
+        "تصفّح أربعة متاجر وكتالوجات منشورة بالأسفل، من هاتفك الآن، قبل إرسال العربون.",
       ] as Bi,
     },
   ],
@@ -497,12 +497,12 @@ export const STORE_72H_OFFER = {
       href: "https://momo-shop.vercel.app",
       summary: [
         "Drop-led streetwear store with product variants, lookbook, cart & wishlist, and EGP checkout.",
-        "متجر أزياء ستريت وير مع خيارات المقاسات، سلة المشتريات، والأسعار بالجنيه المصري.",
+        "متجر ملابس شبابية يقوم على الإصدارات المحدودة، بخيارات المنتجات ودليل إطلالات وسلة مشتريات وقائمة مفضلة والدفع بالجنيه المصري.",
       ],
       tags: [
         ["E-Commerce", "متجر إلكتروني"],
         ["EGP Checkout", "دفع بالجنيه المصري"],
-        ["Mobile-First", "مصمم للهاتف أولاً"],
+        ["Mobile-First", "مصمم للهاتف أولًا"],
       ],
       thumbnail: "/images/work/dev-cards/oltre-collective-card.jpg",
     },
@@ -513,7 +513,7 @@ export const STORE_72H_OFFER = {
       href: "https://nile-vercel-seven.vercel.app/ar",
       summary: [
         "Bilingual Arabic/English storefront with structured product catalogue, dynamic pricing, and order flow.",
-        "متجر وواجهة منتجات ثنائية اللغة (عربي/إنجليزي) بكتالوج منظم ومسار طلب واضح.",
+        "واجهة متجر ثنائية اللغة (عربي/إنجليزي) بكتالوج منتجات منظم وتسعير ديناميكي ومسار طلب واضح.",
       ],
       tags: [
         ["Bilingual AR/EN", "ثنائي اللغة عربي/إنجليزي"],
@@ -529,7 +529,7 @@ export const STORE_72H_OFFER = {
       href: "https://nile-bed.vercel.app",
       summary: [
         "Bilingual B2B spring manufacturing & mattress supply catalogue (69 products across 8 categories) with WhatsApp inquiry routing.",
-        "كتالوج صناعي ثنائي اللغة لمصنع سوست وخامات مراتب (69 منتجاً في 8 أقسام) مع طلب عروض الأسعار عبر واتساب.",
+        "كتالوج صناعي ثنائي اللغة لمصنع نوابض وخامات مراتب (69 منتجًا في 8 أقسام) مع طلب عروض الأسعار عبر واتساب.",
       ],
       tags: [
         ["B2B Catalogue", "كتالوج جملة وتوريد"],
@@ -544,10 +544,10 @@ export const STORE_72H_OFFER = {
       href: "https://craft-egypt.vercel.app",
       summary: [
         "Arabic RTL storefront and regional craft catalogue for handmade Egyptian copperware, textiles, pottery, and home decor.",
-        "متجر وكتالوج عربي RTL للحرف اليدوية والتراثية المصرية (نحاس، تطريز، فخار، وديكور منزلي) مع دليل الطلب المخصص.",
+        "متجر وكتالوج عربي RTL للحرف اليدوية والتراثية المصرية (النحاس والتطريز والفخار والديكور المنزلي) مع دليل للطلبات المخصصة.",
       ],
       tags: [
-        ["Mobile-First", "مصمم للهاتف أولاً"],
+        ["Mobile-First", "مصمم للهاتف أولًا"],
         ["Handmade Storefront", "متجر حرف يدوية"],
         ["Product Catalogue", "كتالوج منتجات"],
       ],
@@ -580,7 +580,7 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["72 hours (once all content is received)", "72 ساعة (تبدأ عند استلام المحتوى كاملًا)"],
     summary: [
       "Up to ~30 products, AR + EN, Order on WhatsApp, COD + InstaPay instructions, shipping link, custom domain, 1 revision round.",
-      "حتى ~30 منتجاً، عربي + إنجليزي، طلب عبر واتساب، الدفع عند الاستلام + إنستاباي، ربط الشحن والدومين، جولة تعديل واحدة.",
+      "حتى 30 منتجًا تقريبًا، عربي وإنجليزي، الطلب عبر واتساب، الدفع عند الاستلام أو عبر إنستاباي، ربط الشحن واسم النطاق، وجولة تعديل واحدة.",
     ],
     supportsLogoAddon: true,
   },
@@ -595,7 +595,7 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["7 – 10 days", "7 – 10 أيام"],
     summary: [
       "Discovery call, 3 concept directions, final logo files (AI, EPS, SVG, PNG, JPG), color/mono versions, and 5-page mini usage guide.",
-      "مكالمة اكتشاف، 3 اتجاهات للشعار، الملفات النهائية بكل الصيغ، النسخ اللونية، ودليل استخدام مصغّر (5 صفحات).",
+      "مكالمة استكشافية، و3 اتجاهات للشعار، والملفات النهائية بكل الصيغ، والنسخ اللونية، ودليل استخدام مصغّر (5 صفحات).",
     ],
   },
   {
@@ -609,13 +609,13 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["3 – 4 weeks", "3 – 4 أسابيع"],
     summary: [
       "Brand audit, competitor analysis, full logo system, color & typography hierarchy, 12–18p brand guidelines PDF, and 3 key applications.",
-      "مراجعة البراند، تحليل المنافسين، نظام شعار كامل، الألوان والخطوط، دليل هوية PDF (12–18 صفحة)، و3 تطبيقات.",
+      "مراجعة العلامة، وتحليل المنافسين، ونظام شعار كامل، والألوان والخطوط، ودليل هوية PDF (12–18 صفحة)، و3 تطبيقات.",
     ],
   },
   {
     id: "full-brand-system",
     category: ["Tier 03 · Full System", "الفئة 03 · النظام الكامل"],
-    name: ["Full Brand System (Tier 03)", "نظام براند متكامل (الفئة 03)"],
+    name: ["Full Brand System (Tier 03)", "نظام علامة متكامل (الفئة 03)"],
     priceDisplay: "$1,497 – $2,997+",
     startingUsd: 1497,
     paymentSchedule: "50% / 25% / 25%",
@@ -623,7 +623,7 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["5 – 7 weeks", "5 – 7 أسابيع"],
     summary: [
       "Full brand strategy, bilingual Arabic/English lockups, brand elements, 25–40p guidelines PDF, 8+ applications, training workshop, and 30-day support.",
-      "وثيقة استراتيجية كاملة، شعار ثنائي اللغة، عناصر بصرية، دليل هوية (25–40 صفحة)، 8+ تطبيقات، ورشة تدريب، ودعم 30 يومًا.",
+      "وثيقة استراتيجية كاملة، وشعار ثنائي اللغة، وعناصر بصرية، ودليل هوية (25–40 صفحة)، وأكثر من 8 تطبيقات، وورشة تدريب، ودعم لمدة 30 يومًا.",
     ],
   },
   {
@@ -648,10 +648,10 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     startingUsd: 297,
     paymentSchedule: "50% / 50%",
     depositPercent: 50,
-    duration: ["1 – 2 weeks", "1 – 2 أسبوع"],
+    duration: ["1 – 2 weeks", "من أسبوع إلى أسبوعين"],
     summary: [
       "Up to 7 pages · Responsive · Auth · 3 months support.",
-      "حتى 7 صفحات · متجاوب · تسجيل دخول · دعم 3 شهور.",
+      "حتى 7 صفحات · متجاوب · تسجيل دخول · دعم 3 أشهر.",
     ],
   },
   {
@@ -679,13 +679,13 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["3 – 6 weeks", "3 – 6 أسابيع"],
     summary: [
       "Next.js · Bilingual EN/AR + RTL · multi-section · performance-tuned · brand-aligned.",
-      "Next.js · ثنائي اللغة + RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية.",
+      "Next.js · ثنائي اللغة مع RTL · متعدد الأقسام · أداء محسّن · متوافق مع الهوية.",
     ],
   },
   {
     id: "social-retainer",
-    category: ["Retainer Services (monthly)", "خدمات شهرية (ريتينر)"],
-    name: ["Social Media Retainer", "ريتينر سوشيال ميديا"],
+    category: ["Retainer Services (monthly)", "خدمات شهرية بعقد مستمر"],
+    name: ["Social Media Retainer", "عقد مستمر لوسائل التواصل الاجتماعي"],
     priceDisplay: "$197 – $297",
     startingUsd: 197,
     paymentSchedule: "50% / 50%",
@@ -693,12 +693,12 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["Monthly", "شهريًا"],
     summary: [
       "15–20 designs + content templates.",
-      "15–20 تصميم + قوالب محتوى.",
+      "15–20 تصميمًا مع قوالب محتوى.",
     ],
   },
   {
     id: "brand-maintenance",
-    category: ["Retainer Services (monthly)", "خدمات شهرية (ريتينر)"],
+    category: ["Retainer Services (monthly)", "خدمات شهرية بعقد مستمر"],
     name: ["Brand Maintenance", "صيانة الهوية"],
     priceDisplay: "$247",
     startingUsd: 247,
@@ -712,7 +712,7 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
   },
   {
     id: "full-marketing-retainer",
-    category: ["Retainer Services (monthly)", "خدمات شهرية (ريتينر)"],
+    category: ["Retainer Services (monthly)", "خدمات شهرية بعقد مستمر"],
     name: ["Full Marketing Design", "تصميم تسويقي شامل"],
     priceDisplay: "$447 – $697",
     startingUsd: 447,
@@ -721,7 +721,7 @@ export const BOOKABLE_PLANS: readonly BookablePlan[] = [
     duration: ["Monthly", "شهريًا"],
     summary: [
       "Social + Print + Digital + Light Video.",
-      "سوشيال + مطبوعات + ديجيتال + فيديو خفيف.",
+      "وسائل التواصل + مطبوعات + رقمي + فيديو خفيف.",
     ],
   },
 ];
@@ -750,7 +750,7 @@ export function bookHref(
 export function alacarteWhatsappHref(row: AlaCarteRow, lang: Locale): string {
   const msg =
     lang === "ar"
-      ? `أهلاً مصطفى، أود طلب خدمة: ${row.service[1]} (${row.price}).`
+      ? `أهلًا مصطفى، أودّ طلب خدمة: ${row.service[1]} (${row.price}).`
       : `Hi Mustafa, I'd like to order: ${row.service[0]} (${row.price}).`;
   return whatsappPrefillHref(msg);
 }
@@ -771,22 +771,22 @@ export interface AgreementTerm {
  * now — the `draft` flag and every public "DRAFT" label were retired with them.
  */
 export const AGREEMENT_TERMS: readonly AgreementTerm[] = [
-  { n: "01", head: ["Scope of Work", "نطاق العمل"], body: ["The attached terms apply per signed invoice; deliverables and scope are listed in the proposal approved before kickoff.", "البنود المرفقة تخص الفاتورة الموقّعة، وتُحدَّد التسليمات والنطاق في العرض المعتمد قبل البدء."] },
-  { n: "02", head: ["Commitment & Content Standards", "الالتزام والمعايير"], body: ["The designer commits to delivering the agreed designs within the agreed period, and refrains from including any material deemed religiously or socially inappropriate.", "يلتزم المصمم بتنفيذ التصاميم المتفق عليها خلال المدة المتفق عليها، مع الامتناع عن إدخال أي مواد غير لائقة دينيًا أو اجتماعيًا."] },
-  { n: "03", head: ["Confidentiality", "السرية"], body: ["No project information is shared with third parties before completion — except seeking professional opinion or assistance.", "لا تُقدَّم أي معلومات لأطراف ثالثة حول التصاميم وبنود العمل قبل إتمامه — باستثناء طلب رأي أو مساعدة مهنية."] },
-  { n: "04", head: ["Portfolio Rights", "حقوق العرض"], body: ["Portfolio publication, its timing and any confidentiality requirements are agreed in writing before kickoff. Any commercial adjustment is itemised in the proposal; there is no automatic publication or confidentiality fee.", "بنتفق كتابيًا قبل البدء على السماح بعرض المشروع وتوقيته وأي متطلبات سرية. أي تعديل تجاري يتذكر كبند واضح في العرض؛ لا توجد رسوم عرض أو سرية تلقائية."] },
+  { n: "01", head: ["Scope of Work", "نطاق العمل"], body: ["The attached terms apply per signed invoice; deliverables and scope are listed in the proposal approved before kickoff.", "تسري البنود المرفقة على الفاتورة الموقّعة، وتُحدَّد المخرجات والنطاق في العرض المعتمد قبل البدء."] },
+  { n: "02", head: ["Commitment & Content Standards", "الالتزام والمعايير"], body: ["The designer commits to delivering the agreed designs within the agreed period, and refrains from including any material deemed religiously or socially inappropriate.", "يلتزم المصمم بتنفيذ التصاميم المتفق عليها خلال المدة المحددة، ويمتنع عن إدخال أي مواد غير لائقة دينيًا أو اجتماعيًا."] },
+  { n: "03", head: ["Confidentiality", "السرية"], body: ["No project information is shared with third parties before completion — except seeking professional opinion or assistance.", "لا تُقدَّم أي معلومات عن التصاميم وبنود العمل إلى أطراف ثالثة قبل إتمامه، باستثناء طلب رأي مهني أو مساعدة مهنية."] },
+  { n: "04", head: ["Portfolio Rights", "حقوق العرض"], body: ["Portfolio publication, its timing and any confidentiality requirements are agreed in writing before kickoff. Any commercial adjustment is itemised in the proposal; there is no automatic publication or confidentiality fee.", "يُتفق كتابةً قبل البدء على نشر المشروع في ملف الأعمال وتوقيته وأي متطلبات سرية. وأي تعديل تجاري يُذكر كبند واضح في العرض، ولا توجد رسوم نشر أو رسوم سرية تلقائية."] },
   {
     n: "05",
     head: ["Payment Structure", "نظام الدفع"],
     body: [
       "Kickoff is 50% for every tier. Tier 01 (Logo Design) follows a 50% / 50% schedule (50% before work begins, 50% before final files are delivered). Tier 02 (Brand Identity Essentials) and Tier 03 (Full Brand System) follow a 50% / 25% / 25% schedule (50% at kickoff, 25% at strategy sign-off, 25% before final delivery). A 10% discount applies when paid upfront in full at kickoff.",
-      "دفعة البدء 50% لكل الفئات. الفئة 01 (تصميم الشعار) بنظام 50% / 50% (50% قبل بدء العمل، و50% قبل تسليم الملفات النهائية). الفئة 02 (أساسيات الهوية البصرية) والفئة 03 (نظام براند متكامل) بنظام 50% / 25% / 25% (50% عند البدء، و25% عند اعتماد الاستراتيجية، و25% قبل التسليم النهائي). يُطبَّق خصم 10% عند سداد إجمالي الفاتورة كاملًا مقدمًا عند البدء.",
+      "دفعة البدء 50% لكل الفئات. الفئة 01 (تصميم الشعار) بنظام 50% / 50% (50% قبل بدء العمل، و50% قبل تسليم الملفات النهائية). الفئة 02 (أساسيات الهوية البصرية) والفئة 03 (نظام العلامة المتكامل) بنظام 50% / 25% / 25% (50% عند البدء، و25% عند اعتماد الاستراتيجية، و25% قبل التسليم النهائي). يُطبَّق خصم 10% عند سداد إجمالي الفاتورة كاملًا مقدمًا عند البدء.",
     ],
   },
-  { n: "06", head: ["Payment Methods", "وسائل الدفع"], body: ["EGP, SAR or USD — cash, bank transfer, electronic wallets, InstaPay, or Vodafone Cash (01092500454). A 1% service fee may apply.", "بالجنيه أو الريال أو الدولار — كاش، تحويل بنكي أو إلكتروني، إنستاباي، أو فودافون كاش (01092500454) مع إضافة تكلفة خدمة 1% من قيمة المبلغ."] },
-  { n: "07", head: ["Revisions", "التعديلات"], body: ["Each tier includes its stated revision rounds; revisions that don't alter the overall design substantially. Beyond the included rounds, each additional revision is billed as stated per tier.", "كل فئة تشمل جولات المراجعة المذكورة بها — تعديلات لا تغيّر التصميم العام كثيرًا. وما بعدها يُحاسب كل تعديل إضافي كما هو موضح بكل فئة."] },
+  { n: "06", head: ["Payment Methods", "وسائل الدفع"], body: ["EGP, SAR or USD — cash, bank transfer, electronic wallets, InstaPay, or Vodafone Cash (01092500454). A 1% service fee may apply.", "بالجنيه أو الريال أو الدولار: نقدًا، أو تحويلًا بنكيًا أو إلكترونيًا، أو عبر إنستاباي أو فودافون كاش (01092500454)، مع إضافة رسوم خدمة بنسبة 1% من قيمة المبلغ."] },
+  { n: "07", head: ["Revisions", "التعديلات"], body: ["Each tier includes its stated revision rounds; revisions that don't alter the overall design substantially. Beyond the included rounds, each additional revision is billed as stated per tier.", "تشمل كل فئة جولات المراجعة المذكورة فيها، وهي تعديلات لا تغيّر التصميم العام كثيرًا. وما زاد على ذلك يُحاسَب عليه كل تعديل إضافي كما هو موضح في كل فئة."] },
   { n: "08", head: ["Additional Terms", "بنود إضافية"], body: ["Further terms may be added at the client's request upon mutual agreement.", "تُضاف أي بنود أخرى في حال طلب العميل ذلك بعد الاتفاق بين الطرفين."] },
-  { n: "09", head: ["IP Transfer", "نقل الملكية"], body: ["Full design rights transfer to the client in writing after the final payment clears.", "تنتقل حقوق التصميم كاملة للعميل كتابيًا بعد سداد الدفعة الأخيرة."] },
+  { n: "09", head: ["IP Transfer", "نقل الملكية"], body: ["Full design rights transfer to the client in writing after the final payment clears.", "تنتقل حقوق التصميم كاملة إلى العميل كتابةً بعد سداد الدفعة الأخيرة."] },
   { n: "10", head: ["Good Faith", "حسن التعامل"], body: ["The designer guarantees flexibility and good conduct within a framework that protects both parties' rights.", "يضمن المصمم للعميل مرونة وحسن التعامل في إطار حفظ حقوق الطرفين."] },
   {
     n: "11",

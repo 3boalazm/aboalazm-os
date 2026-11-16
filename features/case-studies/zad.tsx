@@ -3,6 +3,7 @@
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
 import Link from "@/components/ui/localized-link";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 
 const stack = [
@@ -185,7 +186,7 @@ export function ZadCaseStudy() {
               </div>
               <div className="rounded-xl border border-border-subtle p-4">
                 <p className="font-display text-3xl text-text-primary">3</p>
-                <p className="mt-1 text-xs text-text-tertiary">{ar ? "ثيمات · فاتح/داكن/OLED" : "Themes · light/dark/OLED"}</p>
+                <p className="mt-1 text-xs text-text-tertiary">{ar ? "سمات · فاتح/داكن/OLED" : "Themes · light/dark/OLED"}</p>
               </div>
               <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "هوية المنتج" : "Product identity"}</p>
@@ -242,7 +243,7 @@ export function ZadCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">01 / {ar ? "نظرة عامة" : "Overview"}</p>
             <h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? "تطبيق واحد يرافقك، مش يشتتك." : "One companion, not a cluster of apps."}
+              {ar ? "تطبيق واحد يرافقك ولا يشتّتك." : "One companion, not a cluster of apps."}
             </h2>
           </div>
           <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
@@ -322,7 +323,7 @@ export function ZadCaseStudy() {
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">{ar ? "مبدأ المنتج" : "Product principle"}</p>
               <p className="mt-3 text-lg font-medium leading-[1.65] text-text-primary">
                 {ar
-                  ? "افتح كزائر وابدأ فورًا. أنشئ حسابًا فقط إذا أردت مزامنة. لا مزامنة تلقائية، لا فقدان بيانات عند الأوفلاين."
+                  ? "افتح كزائر وابدأ فورًا. أنشئ حسابًا فقط إذا أردت مزامنة. لا مزامنة تلقائية، ولا فقدان بيانات عند انقطاع الاتصال."
                   : "Open as guest and start. Create an account only if you want sync. No auto-sync, no offline data loss."}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -422,7 +423,7 @@ export function ZadCaseStudy() {
                 </div>
                 <p className="mt-3 text-sm leading-[1.65] text-text-secondary">
                   {ar
-                    ? "أخضر عميق للثقة والسكينة، ذهبي للاحتفاء، ورمل فاتح للقراءة الطويلة. كلها معرفة كـ CSS variables."
+                    ? "أخضر عميق للثقة والسكينة، ذهبي للاحتفاء، ورمل فاتح للقراءة الطويلة. كلها معرّفة كمتغيّرات CSS."
                     : "Deep green for trust, gold for celebration, light sand for long reading — all as CSS variables."}
                 </p>
               </div>
@@ -430,10 +431,10 @@ export function ZadCaseStudy() {
               <div className="rounded-2xl border border-border-subtle bg-background/60 p-4">
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-300">{ar ? "العربية أولًا" : "Arabic-first"}</p>
                 <ul className="mt-3 space-y-2 text-sm leading-[1.65] text-text-secondary">
-                  <li>• {ar ? "dir=\"rtl\" افتراضي مع منطق logical properties" : "dir=\"rtl\" by default with logical CSS properties"}</li>
+                  <li>• {ar ? "dir=\"rtl\" افتراضي مع خصائص CSS المنطقية" : "dir=\"rtl\" by default with logical CSS properties"}</li>
                   <li>• {ar ? "خطوط: IBM Plex Arabic + Amiri للآيات + ThmanyahSans للعناوين" : "Type: IBM Plex Arabic + Amiri for verses + ThmanyahSans for headings"}</li>
                   <li>• {ar ? "EN/FR عبر lang.js مع تبديل dir تلقائي" : "EN/FR via lang.js with automatic dir switching"}</li>
-                  <li>• {ar ? "3 ثيمات: فاتح / داكن / OLED مع حفظ التفضيل" : "3 themes: light / dark / OLED with saved preference"}</li>
+                  <li>• {ar ? "3 سمات: فاتح / داكن / OLED مع حفظ التفضيل" : "3 themes: light / dark / OLED with saved preference"}</li>
                 </ul>
               </div>
 
@@ -486,7 +487,7 @@ export function ZadCaseStudy() {
                 <p className="font-mono text-[12px] text-orange-400">{j.step}</p>
                 <p className="mt-2 text-sm font-medium leading-tight text-text-primary">{ar ? j.title : j.titleEn}</p>
                 <p className="mt-2 text-xs leading-[1.65] text-text-tertiary">{ar ? j.desc : j.descEn}</p>
-                <span className="absolute -right-3 top-1/2 hidden -translate-y-1/2 text-orange-300 lg:block">→</span>
+                <span aria-hidden className="absolute -end-3 top-1/2 hidden -translate-y-1/2 text-orange-300 lg:block"><Icon name="arrow-right" /></span>
               </div>
             ))}
           </div>
@@ -532,7 +533,7 @@ export function ZadCaseStudy() {
               <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-orange-400">{ar ? "عملي الموثق" : "Verified — my work"}</p>
               <ul className="mt-3 list-disc space-y-2 ps-5 text-sm leading-[1.65] text-text-secondary">
                 <li>{ar ? "تصميم المفهوم: 64 صفحة كـ PWA واحدة بواجهة عربية RTL أولًا." : "Concept design: 64 pages as one PWA with Arabic RTL-first UI."}</li>
-                <li>{ar ? "هندسة الواجهة: HTML/CSS/JS فانيلا مع premium-ui ودعم 3 ثيمات وRTL منطقي." : "Frontend engineering: vanilla HTML/CSS/JS with premium-ui, 3 themes and logical RTL."}</li>
+                <li>{ar ? "هندسة الواجهة: HTML/CSS/JS فانيلا مع premium-ui ودعم 3 سمات وRTL منطقي." : "Frontend engineering: vanilla HTML/CSS/JS with premium-ui, 3 themes and logical RTL."}</li>
                 <li>{ar ? "نظام PWA: manifest، Service Worker، offline-ui وتثبيت كتطبيق مستقل." : "PWA system: manifest, Service Worker, offline-ui and standalone install."}</li>
                 <li>{ar ? "تكامل Firebase: تهيئة zadullashr، مجموعات عائلية، إشعارات FCM." : "Firebase integration: zadullashr init, family groups, FCM push."}</li>
                 <li>{ar ? "الـ API الخاص: Express + TypeScript + PostgreSQL (سبرنت Z0—Z11)، مصادقة بجلسات HttpOnly ومسارات /sync." : "Private API: Express + TS + PostgreSQL (sprints Z0—Z11), HttpOnly session auth and /sync routes."}</li>
@@ -581,7 +582,7 @@ export function ZadCaseStudy() {
                 <p className="font-mono text-[12px] uppercase tracking-[0.10em] text-emerald-700">✓ {ar ? "مُختبر" : "Tested"}</p>
                 <p className="mt-2 text-sm leading-[1.65] text-text-primary">
                   {ar
-                    ? "تدقيق وصول 23-08-2026، مجموعة QA، وإصلاحات RTL وheadings وService Worker."
+                    ? "تدقيق وصول 23-08-2026، مجموعة QA، وإصلاحات RTL والعناوين وService Worker."
                     : "A11y audit 23-08-2026, QA suite and fixes for RTL, headings and SW."}
                 </p>
               </div>

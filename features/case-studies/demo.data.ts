@@ -14,13 +14,13 @@ export const NILE_PHARMA: CaseStudyRecord = {
   problem:
     "A pharma and food-supplements company operating with no visual identity at all — no logo system, no palette, no templates, no website. Every sales document, label, and post was improvised, and in a regulated sector, improvisation reads as risk.",
   problemAr:
-    "شركة أدوية ومكملات غذائية تعمل بدون هوية بصرية على الإطلاق — لا نظام لوجو، لا لوحة ألوان، لا قوالب، لا موقع. كل وثيقة مبيعات وملصق وبوست كان مرتجلاً، وفي قطاع منظَّم، الارتجال يُقرأ كخطر.",
+    "شركة أدوية ومكملات غذائية تعمل بدون هوية بصرية على الإطلاق — لا نظام شعار، لا لوحة ألوان، لا قوالب، لا موقع. كل وثيقة مبيعات وملصق ومنشور كان مرتجلًا، وفي قطاع منظَّم، الارتجال يُقرأ كخطر.",
   teamScale: "Brand Lead (Mustafa) · Sales Director · Regulatory Affairs · Print Vendors",
-  teamScaleAr: "مدير البراند (مصطفى) · مدير المبيعات · الشؤون التنظيمية · مطابع التغليف",
+  teamScaleAr: "مدير العلامة التجارية (مصطفى) · مدير المبيعات · الشؤون التنظيمية · مطابع التغليف",
   timeline: "2020 → 2025 · identity from zero, then full rebrand",
-  timelineAr: "2020 → 2025 · هوية من الصفر ثم إعادة براند كاملة",
+  timelineAr: "2020 ← 2025 · هوية من الصفر ثم إعادة بناء كاملة للعلامة",
   kpis: [
-    { value: "0",  label: "Brand assets at start",   labelAr: "أصول البراند في البداية", context: "BUILT FROM ZERO",  contextAr: "بُني من الصفر"          },
+    { value: "0",  label: "Brand assets at start",   labelAr: "أصول العلامة في البداية", context: "BUILT FROM ZERO",  contextAr: "بُني من الصفر"          },
     { value: "4",  label: "Departments to align",    labelAr: "أقسام تم توحيدها",        context: "CENTRAL LIAISON",  contextAr: "حلقة الوصل المركزية"   },
     { value: "1",  label: "Designer on the system",  labelAr: "مصمم على النظام",          context: "FULL OWNERSHIP",   contextAr: "ملكية كاملة"            },
   ],
@@ -28,7 +28,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
   researchSummary:
     "Working positioning hypothesis: the brand needed to balance pharmaceutical credibility with the warmth and accessibility expected of food-supplement products. The chosen direction joined both needs in one visual system. The accompanying map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "فرضية التموضع التي قادت العمل: احتاجت العلامة إلى الجمع بين المصداقية الصيدلانية والدفء والوضوح المتوقعين من منتجات المكملات الغذائية. وجاء الاتجاه المختار ليجمع الاحتياجين في نظام بصري واحد. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
+    "فرضية التموضع التي قادت العمل: احتاجت العلامة إلى الجمع بين المصداقية الصيدلانية والدفء والوضوح المتوقعين من منتجات المكملات الغذائية. وجاء الاتجاه المختار ليجمع الاحتياجين في نظام بصري واحد. خريطة التموضع توضيحية وليست تدقيقًا موثقًا لمنافسين بأسمائهم.",
   competitors: [
     { name: "Illustrative clinical A",  x: 30, y: 55 },
     { name: "Clinical B",  x: 22, y: 40 },
@@ -38,7 +38,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
     { name: "Nile Pharma", x: 82, y: 84, isClient: true },
   ],
   visualVectors:   ["TRUST-FIRST", "BILINGUAL", "SHELF-READY", "TEMPLATE-DRIVEN", "WARM CLINICAL"],
-  visualVectorsAr: ["الثقة أولاً", "ثنائي اللغة", "جاهز للرف", "قائم على القوالب", "دفء سريري"],
+  visualVectorsAr: ["الثقة أولًا", "ثنائي اللغة", "جاهز للرف", "قائم على القوالب", "دفء سريري"],
 
   tokens: [
     { token: "nile-navy",      value: "#1B2A5B", role: "Approved Primary · Corporate Heritage & Trust",           roleAr: "اللون الأساسي المعتمد · وقار مؤسسي وثقة صيدلانية" },
@@ -91,15 +91,15 @@ export const NILE_PHARMA: CaseStudyRecord = {
     guidingIdea:
       "Pharmaceutical Rigor + Food Supplement Vitality — anchoring the identity in corporate stability ('Nile Navy') combined with the active freshness of dietary health. Embodied by 'The Blue Box' packaging architecture and a bespoke geometric bilingual wordmark.",
     guidingIdeaAr:
-      "الصرامة الصيدلانية + حيوية المكملات — ترسيخ الهوية في وقار مؤسسي ('كحلي النيل') ممزوجاً بحيوية العافية والتغذية. تجسد ذلك في معمارية تغليف 'العلبة الزرقاء' وشعار عربي/إنجليزي هندسي دقيق.",
+      "الصرامة الصيدلانية + حيوية المكملات — ترسيخ الهوية في وقار مؤسسي ('كحلي النيل') ممزوجًا بحيوية العافية والتغذية. تجسد ذلك في معمارية تغليف 'العلبة الزرقاء' وشعار عربي/إنجليزي هندسي دقيق.",
     rejectedDirections:
       "1) Cliché green leaf & water droplet symbols: Rejected because the company produces regulated pharmaceutical-grade formulations, not raw herbal teas.\n2) High-vibrancy electric cyan (#00C8D2): Rejected in packaging press proofs because it compromised the clinical seriousness required on pharmacy shelves.",
     rejectedDirectionsAr:
-      "1) كليشيهات ورقة الشجر وقطرة الماء: رُفضت لأن الشركة تنتج تركيبات دوائية مصرحة وليست أعشاباً شعبية، وتحتاج مصداقية علمية.\n2) الأزرق النيون الفاقع (#00C8D2): رُفض في تجارب الطباعة لكونه يقلل من وقار وموثوقية عبوة الدواء في الصيدلية.",
+      "1) كليشيهات ورقة الشجر وقطرة الماء: رُفضت لأن الشركة تنتج تركيبات دوائية مصرحة وليست أعشابًا شعبية، وتحتاج مصداقية علمية.\n2) الأزرق النيون الفاقع (#00C8D2): رُفض في تجارب الطباعة لكونه يقلل من وقار وموثوقية عبوة الدواء في الصيدلية.",
     roleAndTeam:
       "Official role: Media Director & Account Manager (Mustafa Aboalazm, 2020–2025). Functional scope included brand direction, identity redesign, packaging architecture, marketing campaign systems, and digital web presence. Collaborated closely with the Sales Director, Regulatory Pharmacist, and print production houses.",
     roleAndTeamAr:
-      "المسمى الوظيفي الرسمي: مدير الميديا ومدير الحسابات (مصطفى أبوالعزم) من 2020 حتى 2025. شمل النطاق الوظيفي توجيه البراند، إعادة تصميم الهوية، معمارية التغليف، أنظمة الحملات التسويقية، والحضور الرقمي، بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
+      "المسمى الوظيفي الرسمي: مدير الإعلام ومدير الحسابات (مصطفى أبوالعزم) من 2020 حتى 2025. شمل النطاق الوظيفي توجيه العلامة، إعادة تصميم الهوية، معمارية التغليف، أنظمة الحملات التسويقية، والحضور الرقمي، بالتنسيق مع مدير المبيعات والصيادلة ومطابع التغليف.",
     whereUsed:
       "Distributed across pharmacy retail channels across Egypt, primary product carton boxes (Proxeed line), highway outdoor billboards, medical presentation flyers, official website, and bilingual Ramadan & seasonal campaigns.",
     whereUsedAr:
@@ -109,7 +109,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
   designProofItems: [
     {
       title: "Logo Geometric Construction Grid",
-      titleAr: "شبكة بناء اللوجو الهندسية",
+      titleAr: "شبكة بناء الشعار الهندسية",
       description: "Bilingual wordmark engineered on a strict geometric modular grid ensuring identical optical balance in Arabic and English.",
       descriptionAr: "شعار لفظي ثنائي اللغة مبني على شبكة قياسية تضمن التكافؤ البصري والوزني بين العربية والإنجليزية.",
       image: "/images/work/nile-pharma/npf-logo-grid.png",
@@ -132,28 +132,28 @@ export const NILE_PHARMA: CaseStudyRecord = {
       title: "Outdoor Billboard & Campaign Advertising",
       titleAr: "حملات اللوحات الإعلانية بالطرق السريعة",
       description: "Large-scale highway advertising translating the brand voice ('We Care About You') with immediate high-speed legibility.",
-      descriptionAr: "إعلانات الطرق السريعة واسعة النطاق ناقلة صوت البراند ('نهتم بك') بمقروئية فورية للمركبات المارة.",
+      descriptionAr: "إعلانات الطرق السريعة واسعة النطاق ناقلة صوت العلامة ('نهتم بك') بمقروئية فورية للمركبات المارة.",
       image: "/images/work/nile-pharma/npf-img-b.png",
     },
   ],
   images: [
-    { src: "/images/work/nile-pharma/npf-logo-grid.png",        caption: "Logo construction grid",    captionAr: "شبكة بناء اللوجو",         w: 1400, h: 700  },
+    { src: "/images/work/nile-pharma/npf-logo-grid.png",        caption: "Logo construction grid",    captionAr: "شبكة بناء الشعار",         w: 1400, h: 700  },
     { src: "/images/work/nile-pharma/npf-logo-waves.png",       caption: "Identity on palm leaves",   captionAr: "الهوية على أوراق النخيل",   w: 1181, h: 1594 },
-    { src: "/images/work/nile-pharma/npf-business-card-box.jpg",caption: "Business card & packaging", captionAr: "كارت البيزنيس والتغليف",    w: 4000, h: 3000 },
+    { src: "/images/work/nile-pharma/npf-business-card-box.jpg",caption: "Business card & packaging", captionAr: "بطاقات العمل والتغليف",    w: 4000, h: 3000 },
     { src: "/images/work/nile-pharma/npf-proxeed-products.png", caption: "Proxeed Plus & Proxerex",   captionAr: "Proxeed Plus و Proxerex",   w: 652,  h: 454  },
-    { src: "/images/work/nile-pharma/npf-ramadan.png",          caption: "Ramadan campaign post",     captionAr: "بوست حملة رمضان",          w: 1880, h: 1576 },
+    { src: "/images/work/nile-pharma/npf-ramadan.png",          caption: "Ramadan campaign post",     captionAr: "منشور حملة رمضان",          w: 1880, h: 1576 },
     { src: "/images/work/nile-pharma/npf-proxeed-post.jpg",     caption: "Proxeed — campaign",        captionAr: "Proxeed — الحملة",          w: 1880, h: 1576 },
     { src: "/images/work/nile-pharma/npf-img-b.png",            caption: "Billboard — New Story",     captionAr: "لوحة إعلانية — قصة جديدة", w: 1400, h: 1050 },
     { src: "/images/work/nile-pharma/npf-img-c.png",            caption: "Product flyers",            captionAr: "فلايرات المنتجات",          w: 1400, h: 700  },
     { src: "/images/work/nile-pharma/npf-img-a.png",            caption: "We care about you",         captionAr: "نهتم بك",                  w: 1400, h: 700  },
-    { src: "/images/work/nile-pharma/npf-ezaby-post.jpg",       caption: "Ezaby — social post",       captionAr: "Ezaby — بوست سوشيال",      w: 1880, h: 1576 },
-    { src: "/images/work/nile-pharma/npf-logo-motion.webp",      caption: "Logo motion study",         captionAr: "دراسة حركة اللوجو",        w: 1400, h: 700  },
+    { src: "/images/work/nile-pharma/npf-ezaby-post.jpg",       caption: "Ezaby — social post",       captionAr: "Ezaby: منشور لوسائل التواصل",      w: 1880, h: 1576 },
+    { src: "/images/work/nile-pharma/npf-logo-motion.webp",      caption: "Logo motion study",         captionAr: "دراسة حركة الشعار",        w: 1400, h: 700  },
   ],
 
   retro: [
-    { verdict: "KEEP",   note: "Templates as deliverables — every department could publish on-brand without me.", noteAr: "القوالب كمخرجات — كل قسم يقدر ينشر on-brand من غيري." },
+    { verdict: "KEEP",   note: "Templates as deliverables — every department could publish on-brand without me.", noteAr: "القوالب بوصفها مخرجات: يستطيع كل قسم النشر بما يلتزم بالعلامة دون الرجوع إليّ." },
     { verdict: "KEEP",   note: "Stakeholder liaison role from day one; alignment was design work too.",            noteAr: "دور التنسيق مع أصحاب المصلحة من اليوم الأول؛ التوافق كان شغل تصميم هو الآخر." },
-    { verdict: "CHANGE", note: "Brand guidelines should have shipped in year one, not at the rebrand.",           noteAr: "دليل الهوية كان لازم يتسلّم في السنة الأولى، مش عند إعادة البراند." },
+    { verdict: "CHANGE", note: "Brand guidelines should have shipped in year one, not at the rebrand.",           noteAr: "كان ينبغي تسليم دليل الهوية في السنة الأولى، لا عند إعادة بناء العلامة." },
   ],
 };
 

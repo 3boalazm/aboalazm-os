@@ -111,7 +111,7 @@ export function DisciplineCards({
 
               <div className="border-t border-border-subtle pt-2">
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                  {ar ? "اللي بتخرج بيه" : "What you walk away with"}
+                  {ar ? "ما تخرج به" : "What you walk away with"}
                 </p>
                 <p className="mt-1 text-body-sm text-text-primary">{ar ? d.outcome[1] : d.outcome[0]}</p>
               </div>
@@ -188,7 +188,7 @@ export function DisciplineRings({ highlight }: { highlight?: Discipline["id"] })
         ))}
       </div>
       <p className="font-mono text-micro uppercase tracking-[0.12em] text-text-ghost">
-        {ar ? "حيث يتقاطعوا: بيزنس مبني عشان يشتغل" : lang === "ms" ? "Di mana ia bertemu: dibina untuk berfungsi" : "Where they overlap: built to run"}
+        {ar ? "حيث تتقاطع الثلاثة: مبنيّ ليعمل" : lang === "ms" ? "Di mana ia bertemu: dibina untuk berfungsi" : "Where they overlap: built to run"}
       </p>
     </div>
   );
@@ -212,7 +212,7 @@ export function DisciplinesBand({
         <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
           {ar ? (
             <>
-              ثلاث حاجات بيشتريها البيزنس. <em className="text-accent">مش اثنتا عشر خدمة.</em>
+              ثلاثة أشياء تشتريها الشركات. <em className="text-accent">لا اثنتا عشرة خدمة.</em>
             </>
           ) : (
             <>
@@ -222,7 +222,7 @@ export function DisciplinesBand({
         </h2>
         <p className="text-body-sm text-text-secondary">
           {ar
-            ? "أغلب الاستوديوهات بتبيع مهام. الشغل هنا متجمّع حسب النتيجة اللي بينتجها — براند يثق فيه السوق، وطبقة رقمية بتشتغل، وأنظمة بتخلي التشغيل واضح. تقدر تبدأ بواحدة وتضيف الباقي بعدين؛ الاتنين مصممين يوصلوا لبعض."
+            ? "أغلب الاستوديوهات تبيع مهامّ. أما هنا فيُجمَّع العمل بحسب نتيجته: علامة يثق بها السوق، وطبقة رقمية تعمل، وأنظمة تجعل التشغيل واضحًا. تستطيع أن تبدأ بواحدة وتضيف الباقي لاحقًا؛ فالثلاثة مصمَّمة لتتصل ببعضها."
             : "Most studios sell tasks. The work here is grouped by the outcome it produces — a brand the market trusts, a digital layer that performs, and systems that make the operation visible. Start with one and add the others later; they are designed to connect."}
         </p>
       </div>
@@ -264,28 +264,28 @@ export const STUDIO_MODEL = {
     note: "If the work needs a team larger than the studio can carry responsibly, we say so at the proposal stage — before any payment.",
   },
   ar: {
-    label: "كيف يشتغل الاستوديو",
-    title: "استوديو يقوده مؤسسه، مع فريق يتسع على قدر النطاق.",
-    lead: "Aboalazm OS استوديو يقوده مؤسسه. مصطفى يقود الاستراتيجية والهوية واتجاه كل بناء رقمي — ولا يسلّم مشروعك لمصمم أقل خبرة ثم ينسحب.",
+    label: "كيف يعمل الاستوديو",
+    title: "استوديو يقوده مؤسسه، وفريق يتسع بقدر النطاق.",
+    lead: "Aboalazm OS استوديو يقوده مؤسسه. يتولى مصطفى الاستراتيجية والهوية واتجاه كل عمل رقمي، ولا يسلّم مشروعك لمصمم أقل خبرة ثم ينسحب.",
     points: [
       [
-        "مع مين هتتعامل",
-        "مع مصطفى مباشرة، من أول مكالمة للتسليم. لا مدير حساب بينك وبين من ينفّذ العمل فعليًا.",
+        "مع من ستعمل",
+        "مع مصطفى مباشرةً، من أول مكالمة حتى التسليم. لا مدير حسابات بينك وبين من ينفّذ العمل فعليًا.",
       ],
       [
-        "لما النطاق يحتاج أيدي أكتر",
-        "المشروعات الكبيرة تستعين بمتخصصين محددين — تطوير، تصوير، موشن، إنتاج طباعي — بتنسيق ومراجعة جودة من الاستوديو، ونطاق مكتوب واحد.",
+        "حين يحتاج النطاق إلى أيدٍ أكثر",
+        "تستعين المشاريع الكبيرة بمتخصصين بعينهم (تطوير، تصوير، رسوم متحركة، إنتاج طباعي) بتنسيق ومراجعة جودة من الاستوديو، وضمن نطاق مكتوب واحد.",
       ],
       [
         "إدارة المشروع",
-        "كل مشروع يسير بمنهج الـ38 يومًا نفسه مع اعتمادات كتابية عند كل مرحلة، ونظام ملفات مشترك، وتقرير حالة أسبوعي مكتوب.",
+        "يسير كل مشروع وفق المنهج نفسه (38 يومًا) مع اعتمادات كتابية عند كل مرحلة، ونظام ملفات مشترك، وتقرير حالة أسبوعي مكتوب.",
       ],
       [
         "بعد الإطلاق",
-        "التسليم يشمل نظام الأدلة، وجلسة تدريب للفريق، و30 يوم دعم. الشراكة المستمرة اختيارية، بتسعير شهري، ولا تُفترض تلقائيًا.",
+        "يشمل التسليم نظام الأدلة، وجلسة تدريب للفريق، و30 يومًا من الدعم. أما الشراكة المستمرة فاختيارية بتسعير شهري، ولا تُفترض تلقائيًا.",
       ],
     ] as const,
-    note: "لو العمل محتاج فريقًا أكبر من قدرة الاستوديو على تحمّله بمسؤولية، نقولها في مرحلة العرض — قبل أي دفعة.",
+    note: "إن احتاج العمل إلى فريق أكبر مما يستطيع الاستوديو تحمّله بمسؤولية، فسنقول ذلك في مرحلة العرض، قبل أي دفعة.",
   },
 } as const;
 
@@ -313,7 +313,7 @@ export function StudioModelBand({ className }: { className?: string }) {
             <span className="font-mono text-micro uppercase tracking-[0.12em] text-alabaster/80">{ar ? "استوديو يقوده مؤسسه" : "Founder-led"}</span>
             <span className="panel__num">{ar ? "واحد" : "One"}</span>
             <span className="max-w-[26ch] text-body-sm text-alabaster/85">
-              {ar ? "شخص واحد مسؤول عن مشروعك من أول مكالمة للتسليم." : "person accountable for your project, from first call to handover."}
+              {ar ? "مسؤول عن مشروعك من أول مكالمة حتى التسليم." : "person accountable for your project, from first call to handover."}
             </span>
           </figcaption>
         </figure>

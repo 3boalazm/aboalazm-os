@@ -36,16 +36,16 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     name: "GAD Heart & Lungs Institute",
     nameAr: GAD_NAME_AR,
     category: "Healthcare Brand Identity",
-    categoryAr: "هوية رعاية صحية متخصصة",
+    categoryAr: "هوية مؤسسة رعاية صحية متخصصة",
     thumbnail: "/images/work/gad/gad-card.jpg",
     challenge:
       "A high-stakes specialized cardiac and pulmonary institute operating with generic, cold hospital branding — needed an authoritative, comforting bilingual brand system to govern physical architectural signage and digital care.",
     challengeAr:
-      "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى عامة وباردة — احتاج نظام هوية ثنائي اللغة يجمع بين الوقار الطبي والدفء الإنساني ليحكم اللافتات المعمارية والتواصل الرقمي.",
+      "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى عام بارد. احتاج إلى نظام هوية ثنائي اللغة يجمع بين الوقار الطبي والدفء الإنساني، ويضبط اللافتات المعمارية والتواصل الرقمي.",
     role: "Lead Brand Identity Designer & Creative Director",
     roleAr: "قائد تصميم الهوية البصرية والمدير الإبداعي",
     team: "Mustafa (Sole Designer) in direct collaboration with Medical Director (clinical anatomical accuracy) & Marketing Manager.",
-    teamAr: "مصطفى (المصمم الوحيد) بالتعاون المباشر مع المدير الطبي (دقة التشريح الطبي) ومدير التسويق.",
+    teamAr: "مصطفى (المصمم الوحيد)، بالتعاون المباشر مع المدير الطبي لضمان الدقة التشريحية، ومع مدير التسويق.",
     whatShipped: [
       "Dual heart + lung circular seal & monogram",
       "Bilingual Latin (Trap) & Arabic (Alexandria) typography pairing",
@@ -55,13 +55,13 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     whatShippedAr: [
       "شعار دائري مدمج يجمع رمز القلب والرئة بدقة تشريحية",
       "مواءمة طباعية ثنائية اللغة: خط Trap اللاتيني مع خط Alexandria العربي",
-      "نظام ألوان مقفل ببانتون (أزرق عميق 107-8 U وقرمزي 49-16 U)",
+      "نظام ألوان مثبّت على بانتون (أزرق عميق 107-8 U وقرمزي 49-16 U)",
       "دليل هوية متكامل (V2.0)",
     ],
     deployment:
       "Exterior hospital facade signage, 3D reception wall seal, patient wayfinding, staff uniforms, bilingual diagnosis folders, prescription stationery, and medical summit stands.",
     deploymentAr:
-      "لافتات الواجهة الرئيسية، جدار الاستقبال ثلاثي الأبعاد، لافتات الإرشاد الداخلي، زي الأطباء والتمريض، ملفات المرضى، الروشتات، وأجنحة المعارض الطبية.",
+      "لافتات الواجهة الرئيسية، وجدار الاستقبال المجسّم، ولافتات الإرشاد الداخلي، وزي الأطباء والتمريض، وملفات المرضى، والوصفات الطبية، وأجنحة المعارض الطبية.",
     accent: "rgb(0 88 149 / 0.20)",
   },
   {
@@ -74,11 +74,11 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     challenge:
       "A fine-art framing and print studio needed a warm, airy editorial identity to position it apart from cheap mass-market poster shops and cold, sterile galleries.",
     challengeAr:
-      "استوديو فنون ومطبوعات احتاج هوية تحريرية دافئة تميزه عن متاجر البوسترات الشعبية وصالات العرض الباردة المنعزلة.",
+      "استوديو فنون ومطبوعات احتاج إلى هوية تحريرية دافئة تميّزه عن متاجر الملصقات الشعبية وصالات العرض الباردة المنعزلة.",
     role: "Sole Brand Identity Designer",
-    roleAr: "مصمم الهوية البصرية (منفرداً)",
+    roleAr: "مصمم الهوية البصرية (منفردًا)",
     team: "Mustafa (Solo Engagement) working directly with the Founder.",
-    teamAr: "مصطفى (مشروع مستقل) بالعمل مباشرة مع المؤسس.",
+    teamAr: "مصطفى (مشروع مستقل)، بالعمل مباشرة مع المؤسس.",
     whatShipped: [
       "Constructed 'R' monogram based on pure geometric balance (circle + triangle)",
       "Airy white foundation with controlled violet-to-teal color spectrum",
@@ -86,15 +86,15 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "Focal-area layout doctrine (Image, Headline, Icon rules) and 18-page brand book",
     ],
     whatShippedAr: [
-      "مونوجرام حرف R الهندسي المبني بتوازن الدائرة والمثلث",
-      "نظام أبيض رحب بطيف لوني محسوب من البنفسجي إلى التركواز",
-      "طباعة تحريرية: خط Neue Machina للعناوين مع Quicksand للمتن",
-      "عقيدة المنطقة المحورية (صورة، عنوان، أيقونة) ودليل براند من 18 صفحة",
+      "مونوغرام حرف R الهندسي، مبني على توازن الدائرة والمثلث",
+      "مساحات بيضاء رحبة وطيف لوني محسوب من البنفسجي إلى الفيروزي",
+      "نظام خطوط تحريري: Neue Machina للعناوين مع Quicksand للمتن",
+      "قواعد تخطيط المنطقة البؤرية (الصورة والعنوان والأيقونة) ودليل علامة من 18 صفحة",
     ],
     deployment:
       "Framed museum-grade prints, storefront signage, product authentication tags, packaging tissue and shipping tape, storefront digital presence.",
     deploymentAr:
-      "المطبوعات المؤطرة الفاخرة، لافتة واجهة المتجر، بطاقات أصالة الأعمال، تغليف الشحن والأشرطة، والمتجر الرقمي.",
+      "المطبوعات المؤطرة الفاخرة، ولافتة واجهة المتجر، وبطاقات أصالة الأعمال، وتغليف الشحن والأشرطة، والمتجر الرقمي.",
     accent: "rgb(150 70 140 / 0.18)",
   },
   {
@@ -102,16 +102,16 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     name: "Nile Pharma Food",
     nameAr: "شركة نايل فارما فود",
     category: "Consumer Packaging & Pharma-Food",
-    categoryAr: "تغليف استهلاكي وهوية دوائية غذائية",
+    categoryAr: "تغليف استهلاكي وهوية لقطاع الدواء والغذاء",
     thumbnail: "/images/work/nile-pharma/npf-card.jpg",
     challenge:
       "A pharma and dietary-supplements company operating for years without visual governance, resulting in fragmented packaging and weak pharmacy shelf presence against imported brands.",
     challengeAr:
-      "شركة أدوية ومكملات غذائية عملت لسنوات دون حوكمة بصرية، مما نتج عنه تغليف متباين وحضور ضعيف على أرفف الصيدليات الكبرى أمام المستورد.",
+      "شركة أدوية ومكملات غذائية عملت لسنوات دون حوكمة بصرية، فنتج عن ذلك تغليف متباين وحضور ضعيف على رفوف كبرى الصيدليات في مواجهة المنتجات المستوردة.",
     role: "Media Director & Account Manager (2020–2025) · functional scope: brand & art direction",
-    roleAr: "مدير الميديا ومدير الحسابات (2020–2025) · النطاق الوظيفي: توجيه البراند والإدارة الفنية",
+    roleAr: "مدير الإعلام ومدير الحسابات (2020–2025) · نطاق العمل: توجيه العلامة والإدارة الفنية",
     team: "Mustafa leading visual strategy with Sales Leadership, Regulatory Pharmacists, and Packaging Printers.",
-    teamAr: "مصطفى قائداً للاستراتيجية البصرية بالتنسيق مع المبيعات والصيادلة ومطابع التغليف.",
+    teamAr: "مصطفى قائدًا للاستراتيجية البصرية، بالتنسيق مع المبيعات والصيادلة ومطابع التغليف.",
     whatShipped: [
       "Bilingual geometric logomark engineered on a modular grid",
       "'The Blue Box' consumer packaging architecture (Proxeed Plus & Proxerex)",
@@ -120,14 +120,14 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     ],
     whatShippedAr: [
       "شعار هندسي ثنائي اللغة مبني على شبكة قياسية متوازنة",
-      "معمارية تغليف 'العلبة الزرقاء' لخط المكملات (Proxeed Plus و Proxerex)",
-      "نظام لوني موحد (كحلي النيل #1B2A5B وأخضر الحياة #37A66B) بمعايير طباعة دقيقة",
-      "حملات تسويقية: لوحات الطرق السريعة، بوستات صيدليات العزبي، والموقع الإلكتروني",
+      "هيكل تغليف «العلبة الزرقاء» لخط المكملات (Proxeed Plus وProxerex)",
+      "نظام لوني موحّد (كحلي النيل #1B2A5B وأخضر الحياة #37A66B) بمعايير طباعة دقيقة",
+      "حملات تسويقية متعددة القنوات: لوحات الطرق السريعة، وحملات صيدليات العزبي على وسائل التواصل، والموقع الإلكتروني",
     ],
     deployment:
       "Pharmacy retail channels across Egypt, primary product cartons, highway advertising, clinical brochures, and digital channels.",
     deploymentAr:
-      "قنوات الصيدليات والبيع بالتجزئة في مصر، علب المنتجات الدوائية، لوحات الطرق السريعة، والمطبوعات والمنصات الرقمية.",
+      "قنوات الصيدليات وتجارة التجزئة في مصر، وعلب المنتجات الدوائية، ولوحات الطرق السريعة، والمطبوعات والمنصات الرقمية.",
     accent: "rgb(27 42 91 / 0.22)",
   },
   {
@@ -135,16 +135,16 @@ const CASES_FOR_HIRING: CaseBrief[] = [
     name: "Ahmed Bedeer",
     nameAr: "أحمد بدير",
     category: "Healthcare IT Leadership Identity",
-    categoryAr: "هوية قيادية في تكنولوجيا المعلومات الصحية",
+    categoryAr: "هوية قيادية في تقنية المعلومات الصحية",
     thumbnail: "/images/work/ahmed-bedeer-card.jpg",
     challenge:
       "A healthcare IT executive and regional consultant needed a personal brand identity that communicated executive gravitas without corporate stiffness.",
     challengeAr:
-      "قائد تنفيذي في تكنولوجيا المعلومات الصحية واستشاري إقليمي احتاج براند شخصي بوقار وهيبة، بعيداً عن الجمود المؤسسي.",
+      "قائد تنفيذي في تقنية المعلومات الصحية واستشاري إقليمي، احتاج إلى علامة شخصية بوقار وهيبة بعيدًا عن الجمود المؤسسي.",
     role: "Lead Identity Designer",
     roleAr: "مصمم الهوية الرئيسي",
     team: "Mustafa working 1:1 with the executive client.",
-    teamAr: "مصطفى بالعمل المباشر مع العميل التنفيذي.",
+    teamAr: "مصطفى، بالعمل المباشر مع العميل التنفيذي.",
     whatShipped: [
       "Geometric 'ab' monogram integrating quotation-mark curvature",
       "Deep teal & mint authority palette with extended digital shades",
@@ -152,15 +152,15 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "Executive stationery system: debossed business cards, letterheads, and digital deck templates",
     ],
     whatShippedAr: [
-      "مونوجرام 'ab' الهندسي المدمج بمنحنى علامات الاقتباس",
-      "لوحة ألوان مستوحاة من التكنولوجيا الصحية (تيل عميق ونعناعي)",
+      "مونوغرام «ab» الهندسي المدمج مع منحنى علامات الاقتباس",
+      "لوحة ألوان مستوحاة من التقنية الصحية (تيل عميق ونعناعي)",
       "هرمية خطوط تجمع Lubalin Graph مع Uncut Sans",
-      "قرطاسية تنفيذية: كروت أعمال محفورة، ورق رسمي، وقوالب عروض تقديمية",
+      "قرطاسية تنفيذية: بطاقات أعمال محفورة، وورق رسمي، وقوالب عروض تقديمية",
     ],
     deployment:
       "Executive business stationery, digital consulting proposals, presentation slide systems, and personal website.",
     deploymentAr:
-      "القرطاسية التنفيذية، عروض الاستشارات الرقمية، قوالب العروض، والموقع الشخصي.",
+      "القرطاسية التنفيذية، وعروض الاستشارات الرقمية، وقوالب العروض، والموقع الشخصي.",
     accent: "rgb(17 138 178 / 0.20)",
   },
 ];
@@ -168,25 +168,25 @@ const CASES_FOR_HIRING: CaseBrief[] = [
 const SKILL_GROUPS = [
   {
     title: "Brand Strategy & Architecture",
-    titleAr: "استراتيجية البراند والمعمارية",
+    titleAr: "استراتيجية العلامة وهيكلتها",
     skills: ["Brand Audit & Diagnostics", "Competitor Positioning Maps", "Archetype & Tone of Voice", "Brand Architecture (Branded House / House of Brands)", "Strategic Briefs"],
-    skillsAr: ["تدقيق وتشخيص الهوية", "خرائط تموضع المنافسين", "شخصية البراند ونبرة الصوت", "معمارية العلامات التجارية", "الموجزات الاستراتيجية"],
+    skillsAr: ["تدقيق الهوية وتشخيصها", "خرائط تموضع المنافسين", "شخصية العلامة ونبرة الصوت", "هيكلة العلامات التجارية", "الموجزات الاستراتيجية"],
   },
   {
     title: "Bilingual Identity & Typography",
     titleAr: "الهوية ثنائية اللغة والخطوط",
     skills: ["Arabic & Latin Script Harmonization", "Geometric & Monogram Logomarks", "Bilingual Wordmarks & Lockups", "Typeface Hierarchy & Scaling", "Legibility Across Extremes (16px to Facades)"],
-    skillsAr: ["مواءمة الخطين العربي واللاتيني", "الشعارات الهندسية والمونوجرام", "الشعارات اللفظية ثنائية اللغة", "الهرمية الطباعية والمقاييس", "المقروئية في الأحجام المتطرفة (من 16px للافتات)"],
+    skillsAr: ["مواءمة الخطين العربي واللاتيني", "الشعارات الهندسية والمونوغرام", "الشعارات النصية ثنائية اللغة", "الهرمية الطباعية والمقاييس", "المقروئية في الأحجام القصوى (من 16px إلى اللافتات)"],
   },
   {
     title: "Design Systems & Token Governance",
-    titleAr: "أنظمة التصميم وحوكمة التوكنز",
+    titleAr: "أنظمة التصميم وحوكمة المتغيّرات",
     skills: ["Design Tokens Architecture", "Color Palette Formulation (Pantone, CMYK, Hex)", "Grid & Spatial Systems", "Component States & Interactive Specs", "Comprehensive Brand Guidelines"],
-    skillsAr: ["معمارية توكنز التصميم", "معايرة الألوان (بانتون، CMYK، Hex)", "الشبكات والأنظمة الفراغية", "حالات العناصر والمواصفات", "أدلة الهوية الشاملة والمحكومة"],
+    skillsAr: ["بنية متغيّرات التصميم", "معايرة الألوان (بانتون وCMYK وHex)", "الشبكات وأنظمة المسافات", "حالات العناصر ومواصفاتها", "أدلة هوية شاملة ومحكومة"],
   },
   {
     title: "Production & Physical Delivery",
-    titleAr: "الإنتاج والتنفيذ الفيزيائي",
+    titleAr: "الإنتاج والتنفيذ المادي",
     skills: ["Carton & Product Packaging", "Architectural & Wayfinding Signage", "Print Pre-Press & Vendor Proofing", "Stationery & Collateral Toolkits", "Campaign Asset Systems"],
     skillsAr: ["تغليف الكرتون والمنتجات", "اللافتات المعمارية والإرشاد البيئي", "تجهيز الطباعة وفحص العينات", "القرطاسية ومواد التسويق", "أنظمة أصول الحملات"],
   },
@@ -201,7 +201,7 @@ const TIMELINE = [
     company: "Nile Pharma Food & Food Supplements",
     companyAr: "نايل فارما فود والمكملات الغذائية",
     detail: "Leading the company digital product and platform direction across brand, website, ERP, marketing, UX/UI, and technical coordination.",
-    detailAr: "قيادة اتجاه المنتج والمنصة الرقمية عبر الهوية والموقع وERP والتسويق وUX/UI والتنسيق التقني.",
+    detailAr: "قيادة اتجاه المنتج والمنصة الرقمية عبر الهوية والموقع وERP والتسويق وتصميم الواجهات والتجربة (UX/UI) والتنسيق التقني.",
   },
   {
     period: "2024 → Present",
@@ -211,47 +211,47 @@ const TIMELINE = [
     company: "Code & Canvas",
     companyAr: "كود آند كانفاس",
     detail: "Directing brand identity systems, typography, and design systems for regional SMEs and startups.",
-    detailAr: "إدارة أنظمة الهوية البصرية والطباعة وأنظمة التصميم للشركات الناشئة والمتوسطة في المنطقة.",
+    detailAr: "قيادة أنظمة الهوية البصرية والطباعة وأنظمة التصميم للشركات الصغيرة والمتوسطة في المنطقة.",
   },
   {
     period: "2020 – 2025",
     periodAr: "2020 – 2025",
     role: "Media Director & Account Manager",
-    roleAr: "مدير الميديا ومدير الحسابات",
+    roleAr: "مدير الإعلام ومدير الحسابات",
     company: "Nile Pharma Food",
     companyAr: "نايل فارما فود",
     detail: "Five-year visual stewardship across the brand rework, packaging, and campaign systems, with visual governance for the product and communication touchpoints.",
-    detailAr: "حوكمة بصرية لخمس سنوات شملت تطوير الهوية والتغليف وأنظمة الحملات، مع توحيد تطبيق الهوية عبر المنتجات ومواد التواصل.",
+    detailAr: "خمس سنوات من الحوكمة البصرية شملت تطوير الهوية والتغليف وأنظمة الحملات، مع توحيد تطبيق الهوية عبر المنتجات ومواد التواصل.",
   },
   {
     period: "2020 – 2021",
     periodAr: "2020 – 2021",
     role: "Studio Lead & Visual Director",
-    roleAr: "مدير الاستوديو والمدير البصري",
+    roleAr: "قائد الاستوديو والمدير البصري",
     company: "Learn in Arabic (MSP)",
     companyAr: "تعلّم بالعربي (MSP)",
     detail: "Built educational visual identity, motion guidelines, and DIY production studio from scratch.",
-    detailAr: "بناء الهوية البصرية التعليمية، أدلة الحركة، واستوديو إنتاج متكامل من الصفر.",
+    detailAr: "بناء الهوية البصرية التعليمية، وأدلة الحركة، واستوديو إنتاج متكامل من الصفر.",
   },
   {
     period: "2019 – 2021",
     periodAr: "2019 – 2021",
     role: "Head of Media (2 Consecutive Seasons)",
-    roleAr: "رئيس لجنة الميديا (موسمان متتاليان)",
+    roleAr: "رئيس لجنة الإعلام (موسمان متتاليان)",
     company: "Youth Scope",
     companyAr: "يوث سكوب",
     detail: "Overhauled organizational identity twice. Led team of 12 designers; awarded Best Head both seasons.",
-    detailAr: "إعادة بناء هوية المنظمة مرتين. قيادة فريق من 12 مصمماً، والفوز بجائزة أفضل رئيس لجنة للموسمين.",
+    detailAr: "إعادة بناء هوية المنظمة مرتين، وقيادة فريق من 12 مصممًا، والفوز بجائزة أفضل رئيس لجنة في الموسمين.",
   },
   {
     period: "2017 → 2022",
-    periodAr: "2017 → 2022",
+    periodAr: "2017 ← 2022",
     role: "Graphic Designer",
     roleAr: "مصمم جرافيك",
     company: "Independent Practice",
-    companyAr: "ممارسة مستقلة",
+    companyAr: "عمل مستقل",
     detail: "Professional design practice across identity, digital, campaigns, and visual communication.",
-    detailAr: "ممارسة تصميم احترافية شملت الهوية والتصميم الرقمي والحملات والتواصل البصري.",
+    detailAr: "ممارسة تصميمية احترافية شملت الهوية والتصميم الرقمي والحملات والتواصل البصري.",
   },
   {
     period: "2022 → Present",
@@ -259,9 +259,9 @@ const TIMELINE = [
     role: "Brand Identity Designer & Consultant",
     roleAr: "مصمم هوية بصرية ومستشار",
     company: "Independent Practice",
-    companyAr: "ممارسة مستقلة",
+    companyAr: "عمل مستقل",
     detail: "4+ years focused on brand identity and systems; 20+ clients and organizations across healthcare, pharmaceuticals, food, education, government, and related sectors.",
-    detailAr: "أكثر من 4 سنوات في الهوية والأنظمة؛ أكثر من 20 عميلاً ومؤسسة في الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
+    detailAr: "أكثر من 4 سنوات في الهوية والأنظمة، وأكثر من 20 عميلًا ومؤسسة في الرعاية الصحية والأدوية والغذاء والتعليم والحكومة وغيرها.",
   },
 ];
 
@@ -279,7 +279,7 @@ export function ForHiringView() {
             {ar ? "متاح للتوظيف | ماليزيا أو الخليج أو عن بُعد" : lang === "ms" ? "TERSEDIA | MALAYSIA, TELUK ATAU JARAK JAUH" : "AVAILABLE | GULF OR REMOTE"}
           </Badge>
           <span className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-            {ar ? "ملف المرشح المخصص لفرق التوظيف" : lang === "ms" ? "DOSIER CALON // UNTUK PASUKAN PENGAMBILAN" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
+            {ar ? "ملف المرشح لفرق التوظيف" : lang === "ms" ? "DOSIER CALON // UNTUK PASUKAN PENGAMBILAN" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
           </span>
         </div>
 
@@ -287,14 +287,14 @@ export function ForHiringView() {
           eyebrow={ar ? "مصطفى أبوالعزم · مصمم هوية بصرية أول" : "MUSTAFA ABOALAZM · SENIOR BRAND IDENTITY DESIGNER"}
           title={
             ar ? (
-              <>هويات بصرية وأنظمة تصميم <em className="text-accent">تبنيها الفرق وتعيش في الواقع.</em></>
+              <>هويات بصرية وأنظمة تصميم <em className="text-accent">تستطيع الفرق تنفيذها وتوسيعها فعليًا.</em></>
             ) : (
               <>Brand identities and visual systems <em className="text-accent">teams can actually ship and scale.</em></>
             )
           }
           subtitle={
             ar
-              ? "9+ سنوات من الممارسة المهنية في التصميم، منها 4+ سنوات في بناء أنظمة هوية ثنائية اللغة (عربي وإنجليزي)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة مصمم هوية بصرية أول بدوام كامل (السعودية أو الإمارات أو قطر أو عن بُعد)."
+              ? "أكثر من 9 سنوات من الممارسة المهنية في التصميم، منها أكثر من 4 سنوات في بناء أنظمة الهوية ثنائية اللغة (العربية والإنجليزية)، والتغليف وأنظمة التصميم والتنفيذ الرقمي. أبحث عن فرصة بدوام كامل بوظيفة مصمم هوية بصرية أول (السعودية أو الإمارات أو قطر أو عن بُعد)."
               : "9+ years of professional design practice, including 4+ years focused on bilingual Arabic/English identity systems, packaging, governed design systems, and digital execution. Seeking full-time Senior Brand & Product Designer / Brand Identity Designer opportunities (Saudi Arabia, UAE, Qatar or remote)."
           }
         />
@@ -307,21 +307,21 @@ export function ForHiringView() {
             download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
-            <span>{ar ? "تحميل السيرة الذاتية المحدثة" : lang === "ms" ? "Muat Turun CV Terkini" : "Download Updated CV"}</span>
+            <span>{ar ? "تحميل أحدث نسخة من السيرة الذاتية" : lang === "ms" ? "Muat Turun CV Terkini" : "Download Updated CV"}</span>
             <Icon name="arrow-down" />
           </a>
           <a
             href="/portfolio"
             className="inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
           >
-            <span>{ar ? "عرض شرائح البورتفوليو (16:9)" : lang === "ms" ? "Lihat Dek Portfolio (16:9)" : "View Portfolio Deck (16:9)"}</span>
+            <span>{ar ? "عرض شرائح ملف الأعمال (16:9)" : lang === "ms" ? "Lihat Dek Portfolio (16:9)" : "View Portfolio Deck (16:9)"}</span>
             <Icon name="arrow-up-right" />
           </a>
           <a
             href="mailto:m1aboalazm@gmail.com"
             className="inline-flex items-center gap-2 rounded-pill border border-border-subtle px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:border-text-primary hover:text-text-primary"
           >
-            <span>{ar ? "تواصل مباشرة" : lang === "ms" ? "Hubungi Terus melalui E-mel" : "Email Directly"}</span>
+            <span>{ar ? "راسلني مباشرةً عبر البريد الإلكتروني" : lang === "ms" ? "Hubungi Terus melalui E-mel" : "Email Directly"}</span>
             <Icon name="arrow-right" />
           </a>
         </div>
@@ -332,19 +332,19 @@ export function ForHiringView() {
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-pill bg-accent" />
               <p className="font-mono text-micro uppercase tracking-wider text-text-primary">
-                {ar ? "تنويه توضيحي لمديري التوظيف والعملاء" : lang === "ms" ? "NOTA UNTUK PENGURUS PENGAMBILAN & KLIEN" : "NOTE FOR HIRING MANAGERS & CLIENTS"}
+                {ar ? "ملاحظة لمديري التوظيف والعملاء" : lang === "ms" ? "NOTA UNTUK PENGURUS PENGAMBILAN & KLIEN" : "NOTE FOR HIRING MANAGERS & CLIENTS"}
               </p>
             </div>
             <Link
               href="/pricing"
               className="font-mono text-micro font-medium text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors hover:text-accent"
             >
-              {ar ? "تصفح خدمات الاستوديو والتسعير المستقل ←" : lang === "ms" ? "Mencari Perkhidmatan & Harga Studio? Klik di sini →" : "Looking for Studio Services & Pricing? Click here →"}
+              {ar ? "تبحث عن خدمات الاستوديو والأسعار؟ اضغط هنا ←" : lang === "ms" ? "Mencari Perkhidmatan & Harga Studio? Klik di sini →" : "Looking for Studio Services & Pricing? Click here →"}
             </Link>
           </div>
           <p className="mt-2 text-body-sm text-text-secondary">
             {ar
-              ? "هذه الصفحة مخصصة لمديري التوظيف، قادة الفرق الإبداعية، وشركاء المواهب لتقييم مصطفى كمرشح لوظيفة مصمم هوية بصرية أول. أما إذا كنت عميلاً يبحث عن باقات تصميم الهوية المستقلة أو خدمات الاستوديو المحددة الأسعار، فقد فُصلت تماماً في صفحة الخدمات والتسعير."
+              ? "هذه الصفحة مخصصة لمديري التصميم ومسؤولي التوظيف الإبداعي ومديري التوظيف الذين يقيّمون مصطفى لوظيفة مصمم هوية بصرية داخل شركة أو وكالة. أما إن كنت عميلًا تبحث عن باقات تصميم الاستوديو أو الخدمات المنفردة أو أسعار العمل المستقل الثابتة، فهي منفصلة تمامًا في صفحتَي الخدمات والأسعار."
               : "This page is dedicated to design directors, creative recruiters, and hiring managers evaluating Mustafa for in-house or agency Brand Identity Designer roles. If you are a client looking for studio design packages, à la carte services, or fixed freelance pricing, those are kept completely separate on our Services & Pricing pages."}
           </p>
         </div>
@@ -354,9 +354,9 @@ export function ForHiringView() {
       <dl className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-6 sm:grid-cols-4">
         {[
           [ar ? "سنوات الممارسة" : lang === "ms" ? "PENGALAMAN KERJA" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
-          [ar ? "أنظمة تم تسليمها" : lang === "ms" ? "SISTEM IDENTITI DISERAHKAN" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "دواء، صحة، غذاء، تعليم، حكومة" : lang === "ms" ? "Penjagaan kesihatan, farmaseutikal, pendidikan, kerajaan" : "Healthcare, pharma, education, government"],
-          [ar ? "التخصص اللغوي" : lang === "ms" ? "KEMAHIRAN DWIBAHASA" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "حرفة أصلية متكافئة" : lang === "ms" ? "Kesetaraan tipografi asli" : "Native typographic parity"],
-          [ar ? "الموقع والجاهزية" : lang === "ms" ? "LOKASI & STATUS" : "LOCATION & STATUS", ar || lang === "ms" ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا، السعودية، الإمارات، قطر) أو عن بُعد" : lang === "ms" ? "Terbuka untuk berpindah (Malaysia, Arab Saudi, UAE, Qatar) atau jarak jauh" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
+          [ar ? "أنظمة هوية مُسلَّمة" : lang === "ms" ? "SISTEM IDENTITI DISERAHKAN" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "الصحة والدواء والغذاء والتعليم والحكومة" : lang === "ms" ? "Penjagaan kesihatan, farmaseutikal, pendidikan, kerajaan" : "Healthcare, pharma, education, government"],
+          [ar ? "إتقان اللغتين" : lang === "ms" ? "KEMAHIRAN DWIBAHASA" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "تكافؤ طباعي أصيل" : lang === "ms" ? "Kesetaraan tipografi asli" : "Native typographic parity"],
+          [ar ? "الموقع والجاهزية" : lang === "ms" ? "LOKASI & STATUS" : "LOCATION & STATUS", ar || lang === "ms" ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا أو السعودية أو الإمارات أو قطر) أو للعمل عن بُعد" : lang === "ms" ? "Terbuka untuk berpindah (Malaysia, Arab Saudi, UAE, Qatar) atau jarak jauh" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
         ].map(([label, val, sub]) => (
           <div key={label} className="flex flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost">{label}</dt>
@@ -370,14 +370,14 @@ export function ForHiringView() {
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            {ar ? "أبرز المشاريع وتفاصيل الدور الفعلي" : lang === "ms" ? "KERJA TERPILIH & PECAHAN PERANAN" : "SELECTED WORK & ROLE BREAKDOWN"}
+            {ar ? "أعمال مختارة وتفاصيل الدور" : lang === "ms" ? "KERJA TERPILIH & PECAHAN PERANAN" : "SELECTED WORK & ROLE BREAKDOWN"}
           </p>
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-            {ar ? "ماذا صممت أنا، وكيف اشتغلت مع الفريق؟" : lang === "ms" ? "Apa yang saya reka & bagaimana saya bekerjasama dengan pasukan" : "What I Designed & How I Collaborated"}
+            {ar ? "ماذا صمّمت، وكيف عملت مع الفريق؟" : lang === "ms" ? "Apa yang saya reka & bagaimana saya bekerjasama dengan pasukan" : "What I Designed & How I Collaborated"}
           </h2>
           <p className="max-w-[62ch] text-body text-text-secondary">
             {ar
-              ? "لكل مشروع، تجد هنا التحدي الحقيقي، دوري المحدد، أعضاء الفريق، المخرجات المنفذة، وأين يعيش النظام في الواقع اليوم."
+              ? "لكل مشروع رئيسي: التحدي الحقيقي، ودوري بالتحديد، وتكوين الفريق، والمخرجات المنفّذة، وأين يُستخدم النظام اليوم."
               : "For each key project: the real business challenge, my exact role, team composition, concrete artifacts shipped, and real-world deployment."}
           </p>
         </div>
@@ -391,7 +391,7 @@ export function ForHiringView() {
             const roleBlock = (
               <div className="flex flex-col gap-1">
                 <p className="font-mono text-micro uppercase tracking-wider text-accent">
-                  {ar ? "دوري وفريق العمل" : lang === "ms" ? "PERANAN & PASUKAN SAYA" : "MY ROLE & TEAM"}
+                  {ar ? "دوري والفريق" : lang === "ms" ? "PERANAN & PASUKAN SAYA" : "MY ROLE & TEAM"}
                 </p>
                 <p className="text-body-sm font-medium text-text-primary">
                   {ar ? project.roleAr : project.role}
@@ -439,7 +439,7 @@ export function ForHiringView() {
                       href={`/case-studies/${project.slug}`}
                       className="inline-flex items-center gap-1.5 rounded-pill border border-border-default px-3 py-1 font-mono text-micro uppercase tracking-wider text-text-primary transition-colors hover:border-accent hover:text-accent"
                     >
-                      <span>{ar ? "قراءة دراسة الحالة" : lang === "ms" ? "Baca Kajian Kes Penuh" : "Read Full Case Study"}</span>
+                      <span>{ar ? "قراءة دراسة الحالة كاملة" : lang === "ms" ? "Baca Kajian Kes Penuh" : "Read Full Case Study"}</span>
                       <Icon name="arrow-right" size="0.9em" />
                     </Link>
                   </div>
@@ -459,7 +459,7 @@ export function ForHiringView() {
                   <div className="grid grid-cols-1 gap-4 border-t border-border-subtle pt-3 md:grid-cols-2">
                     <div className="flex flex-col gap-1.5">
                       <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                        {ar ? "ما تم تصميمه وتسليمه" : lang === "ms" ? "HASIL KERJA DISERAHKAN" : "DELIVERABLES SHIPPED"}
+                        {ar ? "ما صُمِّم وسُلِّم" : lang === "ms" ? "HASIL KERJA DISERAHKAN" : "DELIVERABLES SHIPPED"}
                       </p>
                       <ul className="flex flex-col gap-1">
                         {(ar ? project.whatShippedAr : project.whatShipped).map((item, idx) => (
@@ -473,7 +473,7 @@ export function ForHiringView() {
 
                     <div className="flex flex-col gap-1.5">
                       <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                        {ar ? "أين استُخدم النظام في الواقع؟" : lang === "ms" ? "PENGGUNAAN DALAM PENGELUARAN" : "DEPLOYMENT IN PRODUCTION"}
+                        {ar ? "الاستخدام الفعلي" : lang === "ms" ? "PENGGUNAAN DALAM PENGELUARAN" : "DEPLOYMENT IN PRODUCTION"}
                       </p>
                       <p className="text-body-sm text-text-secondary">
                         {ar ? project.deploymentAr : project.deployment}
@@ -491,10 +491,10 @@ export function ForHiringView() {
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            {ar ? "المصفوفة المهارية والقدرات" : lang === "ms" ? "MATRIKS KEMAHIRAN & KEUPAYAAN" : "SKILLS & COMPETENCY MATRIX"}
+            {ar ? "مصفوفة المهارات والقدرات" : lang === "ms" ? "MATRIKS KEMAHIRAN & KEUPAYAAN" : "SKILLS & COMPETENCY MATRIX"}
           </p>
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-            {ar ? "القدرات الأساسية التي أضيفها لفريقكم" : lang === "ms" ? "Apa yang saya bawa kepada pasukan reka bentuk anda" : "What I Bring to Your Design Team"}
+            {ar ? "ما أقدّمه لفريق التصميم لديكم" : lang === "ms" ? "Apa yang saya bawa kepada pasukan reka bentuk anda" : "What I Bring to Your Design Team"}
           </h2>
         </div>
 
@@ -524,10 +524,10 @@ export function ForHiringView() {
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            {ar ? "المسيرة المهنية الموثقة" : lang === "ms" ? "JADUAL KERJAYA" : "CAREER TIMELINE"}
+            {ar ? "المسار المهني" : lang === "ms" ? "JADUAL KERJAYA" : "CAREER TIMELINE"}
           </p>
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-            {ar ? "مطابقة تامة مع الـ CV ولينكد إن" : lang === "ms" ? "Sejarah Kerja Disahkan (Selari dengan CV & LinkedIn)" : "Verified Work History (CV & LinkedIn Aligned)"}
+            {ar ? "سجل عمل موثَّق ومطابق للسيرة الذاتية ولـLinkedIn" : lang === "ms" ? "Sejarah Kerja Disahkan (Selari dengan CV & LinkedIn)" : "Verified Work History (CV & LinkedIn Aligned)"}
           </h2>
         </div>
 
@@ -560,11 +560,11 @@ export function ForHiringView() {
       <section className="flex flex-col items-center justify-between gap-6 rounded-panel border border-border-strong bg-surface-1 p-5 text-center sm:flex-row sm:text-left rtl:sm:text-right">
         <div className="flex flex-col gap-2 max-w-[50ch]">
           <h2 className="font-display font-display-sm text-subtitle font-bold text-text-primary">
-            {ar ? "جاهز للانضمام لفريقكم؟" : lang === "ms" ? "Berminat membincangkan jawatan kosong?" : "Interested in discussing an open role?"}
+            {ar ? "هل ترغبون في مناقشة وظيفة شاغرة؟" : lang === "ms" ? "Berminat membincangkan jawatan kosong?" : "Interested in discussing an open role?"}
           </h2>
           <p className="text-body-sm text-text-secondary">
             {ar
-              ? "متاح للمقابلات ومناقشة تفاصيل الشواغر لمصمم هوية بصرية أول (في ماليزيا أو الخليج أو عن بُعد). الرد سريع خلال يومي عمل."
+              ? "متاح لمقابلة أولية ولمراجعة ملف الأعمال لوظيفة مصمم هوية بصرية أول (في ماليزيا أو الخليج أو عن بُعد). الرد خلال يومَي عمل."
               : lang === "ms"
                 ? "Tersedia untuk temu duga awal dan semakan portfolio bagi jawatan Senior Brand Identity Designer di Malaysia, Teluk atau jarak jauh. Biasanya membalas dalam dua hari bekerja."
                 : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions across Malaysia, the Gulf or remote. Typically replies within two working days."}
@@ -578,7 +578,7 @@ export function ForHiringView() {
               className: "px-5 py-2.5 font-mono text-label uppercase tracking-wider",
             })}
           >
-            <span>{ar ? "إرسال إيميل" : lang === "ms" ? "Hubungi Mustafa" : "Contact Mustafa"}</span>
+            <span>{ar ? "راسل مصطفى" : lang === "ms" ? "Hubungi Mustafa" : "Contact Mustafa"}</span>
             <Icon name="arrow-right" />
           </a>
           <a

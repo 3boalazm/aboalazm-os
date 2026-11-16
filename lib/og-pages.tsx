@@ -26,6 +26,11 @@ export type OgPageId =
 interface PageDef {
   idx: string;
   eyebrow: string;
+  /**
+   * Arabic tag, set in Thmanyah Serif Display. Satori's shaper throws on a few
+   * letter pairs in that face (لا، لأ، را …), and a throw fails the whole deploy,
+   * so keep to wording that lib/og-pages.test.ts renders cleanly.
+   */
   tagAr: string;
   title: string[];
   desc: string;
@@ -640,13 +645,13 @@ async function vPortfolio() {
 
 export const OG_PAGES: Record<OgPageId, PageDef> = {
   home: {
-    idx: "00", eyebrow: "Portfolio", tagAr: "هوية بصرية بتتبني كنظام", route: "/",
+    idx: "00", eyebrow: "Portfolio", tagAr: "هوية بصرية تُبنى كنظام", route: "/",
     title: ["Identity,", "built as a", "system."],
     desc: "Mustafa Aboalazm — Senior Brand Identity Designer. Arabic + English, 9+ years in design.",
     alt: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist", visual: vHome,
   },
   work: {
-    idx: "01", eyebrow: "Selected work", tagAr: "أعمالي", route: "/work",
+    idx: "01", eyebrow: "Selected work", tagAr: "أعمال مختارة", route: "/work",
     title: ["Selected", "cases."],
     desc: "Identity systems and digital products — the problem, what shipped, and the outcome.",
     alt: "Work — selected brand identity and product cases", visual: vWork,
@@ -676,7 +681,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "About Mustafa Aboalazm — Senior Brand Identity Designer", visual: vAbout,
   },
   "for-hiring": {
-    idx: "05", eyebrow: "For hiring teams", tagAr: "للشركات والتوظيف", route: "/for-hiring",
+    idx: "05", eyebrow: "For hiring teams", tagAr: "لفرق التوظيف", route: "/for-hiring",
     title: ["For hiring", "teams."],
     desc: "Candidate dossier: 9+ years in design, 4+ focused on brand identity, across healthcare, food and consumer brands.",
     alt: "For hiring teams — candidate dossier, open to roles across Malaysia, the Gulf and remote", visual: vHiring,
@@ -694,19 +699,19 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Pricing — three tiers from $199, stated upfront", visual: vPricing,
   },
   process: {
-    idx: "08", eyebrow: "Method / process", tagAr: "المنهجية", route: "/process",
+    idx: "08", eyebrow: "Method / process", tagAr: "المنهج", route: "/process",
     title: ["The 38-day", "method."],
     desc: "Four phases, four gates — written sign-off at every step, refined over 9+ years.",
     alt: "Process — the 38-day, four-phase method", visual: vProcess,
   },
   why: {
-    idx: "09", eyebrow: "Why", tagAr: "ليه النظام؟", route: "/why",
+    idx: "09", eyebrow: "Why", tagAr: "لماذا النظام؟", route: "/why",
     title: ["Systems,", "not files."],
     desc: "Strategy before design, one source for every output, bilingual architecture built to scale.",
     alt: "Why — the case for systemic identity", visual: vWhy,
   },
   agreement: {
-    idx: "11", eyebrow: "Agreement", tagAr: "اتفاق العمل", route: "/agreement",
+    idx: "11", eyebrow: "Agreement", tagAr: "اتفاقية العمل", route: "/agreement",
     title: ["Work-flow", "agreement."],
     desc: "Eight phases, transparent terms and tiered payment splits — stated upfront.",
     alt: "Agreement — eight phases, transparent terms, tiered payments", visual: vAgreement,
@@ -718,19 +723,19 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Contact — start the conversation", visual: vContact,
   },
   capabilities: {
-    idx: "13", eyebrow: "Capabilities", tagAr: "إمكانياتي", route: "/capabilities",
+    idx: "13", eyebrow: "Capabilities", tagAr: "إمكاناتي", route: "/capabilities",
     title: ["Live token", "playground."],
     desc: "Drag the studio's real design tokens and watch a real layout recalculate. Zero design drift.",
     alt: "Capabilities — live design token playground", visual: vCapabilities,
   },
   labs: {
-    idx: "14", eyebrow: "Labs", tagAr: "المعمل", route: "/labs",
+    idx: "14", eyebrow: "Labs", tagAr: "المختبر", route: "/labs",
     title: ["Labs &", "R&D."],
     desc: "AI workflows, brand-OS experiments, prompt systems and internal tools — tested before they become frameworks.",
     alt: "Labs — the research and experimentation layer behind Aboalazm OS", visual: vLabs,
   },
   resources: {
-    idx: "15", eyebrow: "Resources", tagAr: "المصادر", route: "/resources",
+    idx: "15", eyebrow: "Resources", tagAr: "الموارد", route: "/resources",
     title: ["Knowledge", "base."],
     desc: "Eight connected frameworks for building brands with clarity, consistency and scale.",
     alt: "Resources — eight connected brand frameworks", visual: vResources,
@@ -748,7 +753,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Writing — notes from the system", visual: vWriting,
   },
   portfolio: {
-    idx: "26", eyebrow: "Portfolio deck 2026", tagAr: "بورتفوليو", route: "/portfolio",
+    idx: "26", eyebrow: "Portfolio deck 2026", tagAr: "ملف أعمالي", route: "/portfolio",
     title: ["Selected", "Works ’26."],
     desc: "A 14-slide, 16:9 deck — five brand chapters in Arabic + English. View, print or download as PDF.",
     alt: "Portfolio 2026 — Selected Works, a 14-slide 16:9 presentation deck", visual: vPortfolio,

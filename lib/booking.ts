@@ -122,7 +122,7 @@ export function computeBookingQuote(options: {
       : `50% kickoff deposit (schedule: ${plan.paymentSchedule})`;
   const modeLabelAr =
     mode === "full"
-      ? "دفع كامل المبلغ مقدماً (خصم 10%)"
+      ? "دفع المبلغ كاملًا مقدّمًا (خصم 10%)"
       : `عربون البدء 50% (جدول الدفعات: ${plan.paymentSchedule})`;
 
   const currencyNoteEn =
@@ -146,7 +146,7 @@ export function computeBookingQuote(options: {
   ].join("\n");
 
   const waMessageAr = [
-    `أهلاً مصطفى، أود حجز: ${planTitleAr}.`,
+    `أهلًا مصطفى، أودّ حجز: ${planTitleAr}.`,
     `نظام الدفع: ${modeLabelAr}`,
     `المبلغ: ${currencyNoteAr}`,
     `العملة: ${requestedCurrency}`,

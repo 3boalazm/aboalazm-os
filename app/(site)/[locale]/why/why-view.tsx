@@ -18,23 +18,23 @@ const REASONS = {
     ["AI-augmented operations","AI integrated into research, strategy, content workflows, documentation, and design ops — so projects move faster while keeping quality and strategic depth. Not replacing creativity; amplifying it."],
   ],
   ar: [
-    ["الاستراتيجية قبل التصميم","كل قرار بصري يحمل سببًا استراتيجيًا: أهداف الأعمال، الموضع التنافسي، سلوك الجمهور، الإدراك، المشهد المنافس. الهويات القوية مبنية على الوضوح لا الجماليات وحدها."],
-    ["أنظمة لا مخرجات","معظم المشاريع تنتهي عند تسليم الملفات. ما أقدّمه هو أنظمة تُمكّن الفرق من التوسع باتساق وتقليل الديون التصميمية والتعاون الأفضل. البراند يجب أن يكون قابلًا للاستخدام لا جميلًا فحسب."],
-    ["هندسة هوية ثنائية اللغة","العربية والإنجليزية أكثر من مجرد ترجمة: أنظمة الطباعة والسياق الثقافي وأنماط القراءة والتسلسل الهرمي البصري. هويات تعمل في العالمين دون التفريط بأيٍّ منهما."],
-    ["عبر قطاعات معقدة","الرعاية الصحية، الصيدلة، التعليم، المبادرات الحكومية، المنظمات غير الربحية — كل واحدة بقيود وجماهير وتحديات مختلفة. الدور واحد دائمًا: تحويل التعقيد إلى وضوح."],
-    ["تفكير أنظمة التصميم","العلامات العظيمة تتصرف كمنتجات. أطبّق انضباطًا من مستوى المنتج على الهوية: توكنز وكومبوننتس وقواعد وتوثيق وحوكمة."],
-    ["عمليات معززة بالذكاء الاصطناعي","الذكاء الاصطناعي مدمج في البحث والاستراتيجية وسير المحتوى والتوثيق — لتتحرك المشاريع بسرعة مع الحفاظ على العمق الاستراتيجي. لا يحل محل الإبداع؛ يضخّمه."],
+    ["الاستراتيجية قبل التصميم","لكل قرار بصري سبب استراتيجي: أهداف العمل، والمكانة في السوق، وسلوك الجمهور، وصورة العلامة في الأذهان، وطبيعة المنافسين. الهويات القوية تقوم على الوضوح لا على الجماليات وحدها."],
+    ["أنظمة لا ملفات","تنتهي معظم المشاريع بتسليم الملفات. أما ما أقدّمه فأنظمة تمكّن الفرق من التوسع باتساق، وتقلّل الدين التصميمي، وتحسّن التعاون. يجب أن تكون العلامة قابلة للاستخدام لا جميلة فحسب."],
+    ["هندسة هوية ثنائية اللغة","العربية والإنجليزية أكثر من ترجمة: أنظمة الخط، والسياق الثقافي، وأنماط القراءة، والتسلسل البصري، والاتساق بين اللغتين. هويات تعمل في العالمين دون أن تتنازل عن أيٍّ منهما."],
+    ["في قطاعات معقدة","الرعاية الصحية، والصناعات الدوائية، والتعليم، والمبادرات الحكومية، والمنظمات غير الربحية، والمنتجات الرقمية: لكل قطاع قيوده وجمهوره وتحدياته. أما الدور فواحد: تحويل التعقيد إلى وضوح."],
+    ["تفكير أنظمة التصميم","العلامات الكبرى تتصرف كالمنتجات. أطبّق على الهوية انضباط المنتجات: متغيّرات التصميم والمكوّنات والقواعد والتوثيق والحوكمة، لتبقى العلامة على حالها وهي تنمو."],
+    ["عمليات معزّزة بالذكاء الاصطناعي","الذكاء الاصطناعي حاضر في البحث والاستراتيجية وسير عمل المحتوى والتوثيق وعمليات التصميم، لتتحرك المشاريع أسرع دون أن تفقد جودتها أو عمقها الاستراتيجي. لا يحلّ محلّ الإبداع، بل يضاعف أثره."],
   ],
 } as const;
 
 const APPROACH = {
   en: [["Discover","Understand the business, audience, and opportunity."],["Define","Set strategic foundations and positioning."],["Architect","Design the structure connecting strategy to execution."],["Build","Develop the visual identity system and assets."],["Systemize","Document rules, components, and governance."],["Scale","Enable teams to run the system with confidence over time."]],
-  ar: [["الاكتشاف","فهم الأعمال والجمهور والفرصة."],["التحديد","وضع الأسس الاستراتيجية والتموضع."],["الهندسة","تصميم البنية التي تربط الاستراتيجية بالتنفيذ."],["البناء","تطوير نظام الهوية البصرية والأصول."],["التنظيم","توثيق القواعد والكومبوننتس والحوكمة."],["التوسع","تمكين الفرق من تشغيل النظام بثقة على المدى البعيد."]],
+  ar: [["الاكتشاف","فهم العمل والجمهور والفرصة."],["التحديد","وضع الأسس الاستراتيجية والتموضع."],["الهندسة","تصميم البنية التي تربط الاستراتيجية بالتنفيذ."],["البناء","تطوير نظام الهوية البصرية وأصوله."],["التنظيم","توثيق القواعد والمكوّنات والحوكمة."],["التوسع","تمكين الفرق من تشغيل النظام بثقة على المدى البعيد."]],
 } as const;
 
 const NUMBERS = {
   en: [["CLIENTS & ORGANIZATIONS","20+"],["YEARS OF DESIGN PRACTICE","9+"],["INDUSTRIES SERVED","6+"],["DESIGN ASSETS DELIVERED","500+"],["YEARS FOCUSED ON IDENTITY","4+"],["WEBSITES & DIGITAL EXPERIENCES","10+"]],
-  ar: [["عميل ومنظمة","20+"],["سنوات ممارسة التصميم","9+"],["قطاعات تم خدمتها","6+"],["أصول تصميم مسلّمة","500+"],["سنوات تركيز على الهوية","4+"],["موقع وتجربة رقمية","10+"]],
+  ar: [["عملاء وفرق","20+"],["سنوات من ممارسة التصميم","9+"],["قطاعات عملت فيها","6+"],["أصول تصميمية مُسلَّمة","500+"],["سنوات من التركيز على الهوية","4+"],["مواقع وتجارب رقمية","10+"]],
 } as const;
 
 /* Jargon → plain-value translation — each technical term paired with
@@ -47,10 +47,10 @@ const JARGON = {
     ["Zero Drift Standard", "Design governance principle: what gets approved in the brand book is what ships across production touchpoints, preventing rogue divergence."],
   ],
   ar: [
-    ["Brand Tokens", "قيم الألوان والخطوط والمسافات تُعرَّف مرة واحدة — تُبقي كل ملف وكل مطوّر وكل مصمم مستقبلي متزامنين تلقائيًا."],
-    ["Token-Driven Handoff", "المطورون يستلمون قيمًا دقيقة بدل التخمين من صورة — رسائل أقل ذهابًا وإيابًا، وألوان أقل اختلافًا في الإنتاج."],
-    ["Single Source of Truth", "ملف واحد معتمد يغذّي التصميم والتوثيق والكود. لا أحد يعمل من نسخة قديمة بالخطأ."],
-    ["معيار انعدام الانحراف", "مبدأ حوكمة التصميم: ما يُعتمد في دليل البراند هو ما يُنفَّذ تماماً عبر جميع نقاط الاتصال الحية دون تفاوت."],
+    ["Brand Tokens", "قيم الألوان والخطوط والمسافات تُعرَّف مرة واحدة، فتبقى كل الملفات وكل مطوّر وكل مصمم لاحق على اتساق تلقائي."],
+    ["Token-Driven Handoff", "يتسلّم المطوّرون قيمًا دقيقة بدل التخمين من صورة: مراسلات أقل ذهابًا وإيابًا، وألوان أقل اختلافًا عند الإنتاج."],
+    ["Single Source of Truth", "ملف واحد معتمد يغذّي التصميم والتوثيق والكود، فلا يعمل أحد على نسخة قديمة بالخطأ."],
+    ["معيار عدم الانحراف", "مبدأ حوكمة التصميم: ما يُعتمد في دليل العلامة هو ما يُنفَّذ بالضبط في جميع نقاط الاتصال الحيّة دون تفاوت."],
   ],
 } as const;
 
@@ -93,13 +93,13 @@ export function WhyView() {
               eyebrow={ar ? "لماذا مصطفى" : lang === "ms" ? "KENAPA MUSTAFA" : "WHY MUSTAFA"}
               title={
                 ar
-                  ? <>لا أصمّم براندات. <em>أبني أنظمة.</em></>
+                  ? <>لا أصمّم علامات تجارية. <em>أبني أنظمة.</em></>
                   : <>I don't design brands. <em>I build systems.</em></>
               }
               titleClassName="max-w-[20ch] text-balance-pretty"
               subtitle={
                 ar
-                  ? "معظم المصممين يسلّمون لوجوهات. أنا أساعد المؤسسات على بناء أنظمة هوية تتوسع عبر الفرق والمنتجات والحملات والتجارب الرقمية — شغل يجمع بين الاستراتيجية وهندسة الهوية والتفكير التشغيلي."
+                  ? "يسلّم معظم المصممين شعارات. أما أنا فأساعد المؤسسات على بناء أنظمة هوية تتسع عبر الفرق والمنتجات والحملات والتجارب الرقمية، في عمل يجمع بين الاستراتيجية وهندسة الهوية والتفكير التشغيلي."
                   : "Most designers deliver logos. I help organizations build identity systems that scale across teams, products, campaigns, and digital experiences — work at the intersection of strategy, identity architecture, and operational thinking."
               }
               subtitleClassName="max-w-[56ch]"
@@ -133,12 +133,12 @@ export function WhyView() {
               </p>
               <p className="hook-line">
                 {ar
-                  ? "المصطلحات التقنية موجودة لسبب — وكل واحد منها بيشتري لك حاجة ملموسة."
+                  ? "المصطلحات التقنية موجودة لسبب، وكل مصطلح منها يمنحك شيئًا ملموسًا."
                   : "The technical terms exist for a reason — each one buys you something concrete."}
               </p>
               <p className="hook-sub">
                 {ar
-                  ? "مش محتاج تفهم كل تفصيلة برمجية. محتاج بس تعرف إيه اللي بتدفع فيه."
+                  ? "لا يلزمك أن تفهم كل تفصيلة هندسية، يكفي أن تعرف ما الذي تدفع مقابله."
                   : "You don't need to understand every engineering detail. You just need to know what you're paying for."}
               </p>
             </div>
@@ -192,22 +192,22 @@ export function WhyView() {
         <div className="container-content flex flex-col gap-8 py-7">
           <section id="different" aria-label={t.whyAriaWhat} className="flex flex-col gap-3 border-s-2 border-accent ps-5">
             <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-              {ar ? "ما يجعل الشغل مختلفًا" : lang === "ms" ? "APA YANG MEMBEZAKAN KERJA INI" : "WHAT MAKES THE WORK DIFFERENT"}
+              {ar ? "ما يميّز هذا العمل" : lang === "ms" ? "APA YANG MEMBEZAKAN KERJA INI" : "WHAT MAKES THE WORK DIFFERENT"}
             </p>
             <p className="max-w-[60ch] text-lead text-text-secondary">
               {ar
-                ? "كثير من المصممين يركزون على البصريات. كثير من الاستراتيجيين يركزون على الأفكار. هذا الشغل يجمع الثلاثة — يربط استراتيجية الأعمال بالهوية البصرية والتنفيذ الرقمي في أنظمة أسهل إدارةً وأسرع توسعًا."
+                ? "كثير من المصممين يركّزون على البصريات، وكثير من الاستراتيجيين يركّزون على الأفكار. أما هذا العمل فيربط بين الثلاثة: استراتيجية العمل، والهوية البصرية، والتنفيذ الرقمي، في أنظمة أسهل إدارةً وأسرع توسعًا."
                 : "Many designers focus on visuals. Many strategists focus on ideas. This work connects all three — bridging business strategy, brand identity, and digital execution into systems that are easier to manage, easier to scale, and more effective in the real world."}
             </p>
           </section>
 
           <section className="flex flex-col gap-4">
             <p className="hook-line">
-              {ar ? "مصدر واحد معتمد. كل حاجة تانية بتتبعه." : lang === "ms" ? "Satu sumber yang diluluskan. Semua yang lain mengikutinya." : "One approved source. Everything else follows it."}
+              {ar ? "مصدر واحد معتمد. وكل ما عداه يتبعه." : lang === "ms" ? "Satu sumber yang diluluskan. Semua yang lain mengikutinya." : "One approved source. Everything else follows it."}
             </p>
             <p className="hook-sub">
               {ar
-                ? "بدل ملفات تصميم وتوثيق وكود منفصلة تتباعد مع الوقت، القيم المعتمدة (التوكنز) تغذّي الثلاثة في آن واحد."
+                ? "بدل ملفات تصميم وتوثيق وكود منفصلة تتباعد مع الوقت، تغذّي القيم المعتمدة (متغيّرات التصميم) الثلاثة في آنٍ واحد."
                 : "Instead of separate design, documentation, and code files that drift apart over time, the approved values (tokens) feed all three at once."}
             </p>
             <div className="max-w-[520px]">
@@ -223,7 +223,7 @@ export function WhyView() {
           <section id="os" aria-label={t.whyAriaOs} className="flex flex-col items-center gap-4">
             <p className="max-w-[56ch] text-center text-lead text-text-secondary">
               {ar
-                ? "Aboalazm OS هو تتويج لسنوات من العمل في البراندينج وتفكير الأنظمة والعمليات التصميمية وسير العمل بالذكاء الاصطناعي — ليس منهجية، بل نظام تشغيل لبناء البراندات الحديثة وإدارتها وتطويرها."
+                ? "Aboalazm OS هو حصيلة سنوات من العمل في بناء العلامات، والتفكير بالأنظمة، وعمليات التصميم، وسير العمل بالذكاء الاصطناعي. ليس منهجية، بل نظام تشغيل لبناء العلامات التجارية الحديثة وإدارتها وتطويرها."
                 : "Aboalazm OS is the culmination of years of work in branding, systems thinking, design operations, and AI-assisted workflows — not a methodology, an operating system for building, managing, and evolving modern brands."}
             </p>
             <SystemConstellation />
@@ -231,7 +231,7 @@ export function WhyView() {
 
           <section className="flex flex-col items-start gap-3 border-t border-border-subtle pt-8">
             <h2 className="max-w-[20ch] font-display text-title tracking-[-0.02em]">
-              {ar ? "ابنِ براندًا يتصرف كنظام." : lang === "ms" ? "Bina jenama yang berkelakuan seperti sistem." : "Build a brand that behaves like a system."}
+              {ar ? "ابنِ علامة تتصرف كنظام." : lang === "ms" ? "Bina jenama yang berkelakuan seperti sistem." : "Build a brand that behaves like a system."}
             </h2>
             <Link href="/contact" className="group font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
               {ar ? "ابدأ مشروعًا" : lang === "ms" ? "MULAKAN PROJEK" : "START A PROJECT"}

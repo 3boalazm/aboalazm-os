@@ -35,7 +35,7 @@ export function WorkHeader() {
         subtitleClassName="max-w-[56ch]"
       />
 
-      <p className="text-body-sm text-text-tertiary">{ar ? "عندك مشروع مشابه؟ " : "Have something similar in mind? "}<Link href="/contact" className="text-accent underline underline-offset-4">{ar ? "ناقش نطاقه معايا" : "Discuss your scope"} →</Link><span className="mx-2" aria-hidden>·</span><Link href="/for-hiring" className="underline underline-offset-4">{ar ? "ملف التوظيف" : "Hiring profile"}</Link></p>
+      <p className="text-body-sm text-text-tertiary">{ar ? "هل لديك مشروع مشابه؟" : "Have something similar in mind? "}<Link href="/contact" className="text-accent underline underline-offset-4">{ar ? "ناقش نطاق مشروعك معي" : "Discuss your scope"} →</Link><span className="mx-2" aria-hidden>·</span><Link href="/for-hiring" className="underline underline-offset-4">{ar ? "ملف التوظيف" : "Hiring profile"}</Link></p>
     </header>
     </PagePlate>
   );

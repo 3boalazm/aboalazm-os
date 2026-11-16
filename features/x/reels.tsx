@@ -23,15 +23,15 @@ export function Reels() {
     <section id="watch" className="x-room x-iris ground-ink">
       <Chapter
         n="04"
-        kicker={t("Watch it run", "شوفه بيشتغل", "Lihat ia berjalan")}
+        kicker={t("Watch it run", "شاهده يعمل", "Lihat ia berjalan")}
         title={
           <>
-            {t("The method,", "المنهج،", "Kaedahnya,")} <span className="x-accent">{t("in minutes.", "في دقايق.", "dalam minit.")}</span>
+            {t("The method,", "المنهج،", "Kaedahnya,")} <span className="x-accent">{t("in minutes.", "في دقائق.", "dalam minit.")}</span>
           </>
         }
         lead={t(
           "Short reels on the systems behind the work — research, a real execution plan, an independent audit.",
-          "ريلز قصيرة عن الأنظمة اللي ورا الشغل — بحث، وخطة تنفيذ حقيقية، ومراجعة مستقلة.",
+          "ريلز قصيرة عن الأنظمة التي تقف خلف العمل: بحث، وخطة تنفيذ حقيقية، ومراجعة مستقلة.",
           "Reel pendek tentang sistem di sebalik kerja — penyelidikan, pelan pelaksanaan sebenar, audit bebas.",
         )}
       >
@@ -48,7 +48,7 @@ export function Reels() {
               key={s.key}
               type="button"
               className="x-phone"
-              data-cursor={t("Play", "شغّل", "Main")}
+              data-cursor={t("Play", "تشغيل", "Main")}
               onClick={() => {
                 trackEvent("reel_open", { slug: s.reel.slug, surface: "x_reels" });
                 setOpen(s);

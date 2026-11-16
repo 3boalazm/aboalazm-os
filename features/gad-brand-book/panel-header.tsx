@@ -13,11 +13,11 @@ export function BrandBookPanelHeader() {
     <>
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{t.brandBook}</p>
       <h2 className="max-w-[24ch] font-display text-title tracking-[-0.015em]">
-        {ar ? "دليل الهوية V2.0 — النظام كامل" : "The brand book, V2.0 — the whole system"}
+        {ar ? "دليل الهوية V2.0: النظام كاملًا" : "The brand book, V2.0 — the whole system"}
       </h2>
       <p className="max-w-[60ch] text-body-sm text-text-secondary">
         {ar
-          ? "الدليل الذي سُلِّم للعميل: الاستراتيجية، الشخصية، منظومة الشعار، الألوان، الخطوط، والمقاسات — في مكان واحد."
+          ? "الدليل الذي سُلِّم للعميل: الاستراتيجية، والشخصية، ومنظومة الشعار، والألوان، والخطوط، والمقاسات، في مكان واحد."
           : "The guidelines document delivered to the client — strategy, persona, logo system, colour, typography and formats, in one place."}
       </p>
       <nav aria-label={ar ? "أقسام دليل الهوية" : "Brand book sections"} className="flex flex-wrap gap-2">
