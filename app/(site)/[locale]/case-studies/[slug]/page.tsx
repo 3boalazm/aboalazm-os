@@ -18,6 +18,8 @@ import {
 } from "@/lib/content";
 import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
+import { CaseMsProvider } from "@/features/case-studies/ms/context";
+import { loadCaseMs, loadCaseMsMeta } from "@/features/case-studies/ms/load";
 import {
   ProjectOverview,
   ScrollyCaseStudy,
@@ -200,15 +202,19 @@ async function originalMetadata({
 export default async function CaseStudyPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: Locale }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const project = PROJECTS.find((p) => p.slug === slug);
+  // /ms only: the shared frame copy plus this slug's translated body copy. English and Arabic
+  // never load it, so it costs them nothing.
+  const ms = locale === "ms" ? await loadCaseMs(slug) : null;
+  const withMs = (page: ReactElement) => (ms ? <CaseMsProvider dict={ms}>{page}</CaseMsProvider> : page);
 
   /* 1 · Project-overview slugs (upgraded with both Technical & Business views) */
   if ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug) && project) {
     const nextPeer = nextInTrack(project);
-    return (
+    return withMs(
       <CaseStudyShell
         technicalView={<ProjectOverview project={project} />}
         businessData={getBusinessCase(slug, project)}
@@ -237,7 +243,7 @@ export default async function CaseStudyPage({
   const renderCustomTechnical = CUSTOM_TECHNICAL_VIEWS[slug];
   if (renderCustomTechnical) {
     const nextPeer = nextInTrack(project);
-    return (
+    return withMs(
       <CaseStudyShell
         technicalView={renderCustomTechnical()}
         businessData={getBusinessCase(slug, project)}
@@ -276,7 +282,7 @@ export default async function CaseStudyPage({
   const nextRecord = nextSlug ? await fetchCaseStudy(nextSlug) : null;
   const nextPeer = nextRecord ?? nextInTrack(project);
 
-  return (
+  return withMs(
     <CaseStudyShell
       technicalView={
         <ScrollyCaseStudy
@@ -329,5 +335,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       };
     }
   }
-  return localizedMetadata(base, locale, `/case-studies/${slug}`, arabic);
+  // Slugs with a Malay overlay carry their own title and description; the rest keep the English ones.
+  const malay = locale === "ms" ? await loadCaseMsMeta(slug) : undefined;
+  return localizedMetadata(base, locale, `/case-studies/${slug}`, arabic, malay);
 }
