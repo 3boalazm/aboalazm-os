@@ -244,6 +244,13 @@ export function TrackArchive({
         </div>
       </header>
 
+      {/* The cards below are <h3>s: without this they follow the page's h1
+          directly (heading-order), which leaves a screen-reader user's
+          "next heading" jump with no section to land in. */}
+      <h2 className="sr-only">
+        {subFilter === "wall" && hasBrandWall ? (ar ? "الحائط البصري" : "Brand Wall") : ar ? "المشاريع" : "Projects"}
+      </h2>
+
       {/* Full Track Cards Grid or Brand Wall */}
       {subFilter === "wall" && hasBrandWall ? (
         <GalleryView projects={galleryProjects} images={galleryImages} embedded />

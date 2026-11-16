@@ -415,11 +415,14 @@ export function HomeFaq() {
       ];
 
   return (
-    <section className="container-content py-7 md:py-10">
+    /* Named, so it is a landmark: the contact page renders this after its
+       <main>, and content outside every landmark is skipped by region
+       navigation (axe: region). */
+    <section aria-labelledby="faq-heading" className="container-content py-7 md:py-10">
       <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
           <p className="x-mono x-kicker">{ar ? "أسئلة سريعة" : lang === "ms" ? "SOALAN LAZIM" : "FAQ"}</p>
-          <h2 className="x-sec__title mt-3">{ar ? <>قبل أن <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
+          <h2 id="faq-heading" className="x-sec__title mt-3">{ar ? <>قبل أن <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
           {/* A closed <details> is a row of type: seven of them read as a table.
               The header carries the studio's own work instead, so the last
               band before the closing CTA is not the only text-only screen
@@ -439,7 +442,7 @@ export function HomeFaq() {
               className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/80 via-obsidian/30 to-transparent"
             />
             <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
-              {ar ? "نظام تصميم: تكوين محكوم" : "Design system — governed composition"}
+              {ar ? "نظام تصميم: تكوين محكوم" : lang === "ms" ? "Sistem reka bentuk — komposisi terkawal" : "Design system — governed composition"}
             </span>
           </div>
         </div>

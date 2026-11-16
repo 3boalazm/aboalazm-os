@@ -193,6 +193,14 @@ html[dir="rtl"] .x-manifesto__text { text-transform: none; letter-spacing: 0; li
 .x-manifesto__text span { display: inline-block; margin-inline-end: 0.22em; }
 .x-manifesto__text .is-hot { color: var(--color-accent-text); }
 .x-manifesto__sign { margin-top: 2.5rem; color: var(--color-text-tertiary); text-align: center; }
+/* Reduced motion: the sentence is simply there, fully lit. The words are drawn
+   by the server before the preference is known and React keeps server-rendered
+   inline styles through hydration, so the dim 0.14 each word starts at would
+   stay — a sentence at ~1.3:1 contrast. The stylesheet is the one place that
+   knows the preference before any script runs. */
+@media (prefers-reduced-motion: reduce) {
+  .x-manifesto__text > span { opacity: 1 !important; }
+}
 
 /* --------------------------------------------------------------------------
    02 · DISCIPLINES — three portals. One opens, the others fold to spines.

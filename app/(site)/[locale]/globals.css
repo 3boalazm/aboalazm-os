@@ -1948,34 +1948,48 @@ html[data-theme="light"] .grain-layer {
 .anchor-nav {
   position: fixed;
   top: 50%;
-  inset-inline-end: 22px;
+  /* Each dot is a 24px target (WCAG 2.5.8) drawn as an 8px dot, so the column
+     sits 8px closer to the edge: the dots stay on the line they always had. */
+  inset-inline-end: 14px;
   transform: translateY(-50%);
   z-index: var(--z-elevated, 20);
   display: none;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 0;
 }
 @media (min-width: 1100px) {
   .anchor-nav { display: flex; }
 }
 .anchor-nav__dot {
   position: relative;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+/* The visible dot: 8px, as before. The button around it is the touch target. */
+.anchor-nav__dot::before {
+  content: "";
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--color-border-default);
   transition: background 220ms var(--ease-physics), transform 220ms var(--ease-physics);
-  cursor: pointer;
 }
-.anchor-nav__dot:hover { background: var(--color-text-tertiary); transform: scale(1.25); }
-.anchor-nav__dot--active {
+.anchor-nav__dot:hover::before { background: var(--color-text-tertiary); transform: scale(1.25); }
+.anchor-nav__dot--active::before {
   background: var(--color-accent);
   transform: scale(1.3);
 }
 .anchor-nav__label {
   position: absolute;
-  inset-inline-end: 18px;
+  inset-inline-end: 26px; /* 8px target padding + 8px dot + the same 10px gap as before */
   top: 50%;
   transform: translateY(-50%);
   white-space: nowrap;
@@ -1992,9 +2006,10 @@ html[data-theme="light"] .grain-layer {
   pointer-events: none;
   transition: opacity 180ms var(--ease-physics);
 }
-.anchor-nav__dot:hover .anchor-nav__label { opacity: 1; }
-[dir="rtl"] .anchor-nav { inset-inline-end: 22px; }
-[dir="rtl"] .anchor-nav__label { inset-inline-end: 18px; }
+.anchor-nav__dot:hover .anchor-nav__label,
+.anchor-nav__dot:focus-visible .anchor-nav__label { opacity: 1; }
+[dir="rtl"] .anchor-nav { inset-inline-end: 14px; }
+[dir="rtl"] .anchor-nav__label { inset-inline-end: 26px; }
 
 /* ── 10. Bento grid — flexible box layout for chunked info ── */
 .bento-grid {
@@ -3083,7 +3098,7 @@ html[data-theme="light"] .work-filter--tabs .work-filter__btn--active { backgrou
 html[data-theme="light"] .work-filter--tabs .work-filter__btn--active { border-bottom-color: #fff; }
 
 /* ── 08 · Three overlapping rings — the disciplines as one system ── */
-.discipline-rings { display: flex; justify-content: center; direction: ltr; }
+.discipline-rings { display: flex; justify-content: center; direction: ltr; list-style: none; margin: 0; padding: 0; }
 .discipline-ring {
   position: relative;
   display: grid;
@@ -3096,7 +3111,7 @@ html[data-theme="light"] .work-filter--tabs .work-filter__btn--active { border-b
   text-align: center;
   transition: border-color 220ms var(--ease-physics), background 220ms var(--ease-physics), transform 220ms var(--ease-physics);
 }
-.discipline-ring + .discipline-ring { margin-inline-start: clamp(-2.75rem, -5.5vw, -1.25rem); }
+.discipline-rings > li + li { margin-inline-start: clamp(-2.75rem, -5.5vw, -1.25rem); }
 .discipline-ring:hover, .discipline-ring:focus-visible {
   border-color: var(--color-accent);
   background: color-mix(in srgb, var(--color-accent) 8%, transparent);

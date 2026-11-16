@@ -504,9 +504,15 @@ export function FeaturedCard({
 
   return (
     <article className="flex flex-col gap-3">
+      {/* No aria-label here: the link's name is built from what the card
+          shows (WCAG 2.5.3 — the accessible name must contain the visible
+          text, and this card paints an outcome line / a poster overlay inside
+          the link). With a thumbnail the picture is decorative (alt="") and
+          the project name is added once, for the desktop layout only — on a
+          phone the poster overlay already prints it, so a name here would be
+          read twice. Without a thumbnail the name is real text in the card. */}
       <Link
         href={href}
-        aria-label={name}
         onClick={
           destination === "case"
             ? () => trackEvent("case_study_open", { slug: project.slug, surface: "card_media" })
@@ -515,6 +521,7 @@ export function FeaturedCard({
         {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
         className="block rounded-[inherit] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       >
+        {project.thumbnail ? <span className="sr-only max-md:hidden">{name}</span> : null}
         {/* On a phone the card is a poster: 4:3 — the sources are 1600×1000,
             so a taller crop would cut the identity work — with the title,
             outcome and CTA painted on the picture (the reference boards'
@@ -540,7 +547,7 @@ export function FeaturedCard({
           {project.thumbnail ? (
             <Image
               src={cardArt(project.thumbnail)}
-              alt={name}
+              alt=""
               fill
               sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 84vw"
               priority={priority}
@@ -690,7 +697,7 @@ export function FeaturedCard({
               href={project.liveUrl}
               target={project.liveUrl.startsWith("/") ? undefined : "_blank"}
               rel={project.liveUrl.startsWith("/") ? undefined : "noopener noreferrer"}
-              className="font-mono text-micro uppercase tracking-[0.08em] text-accent/90 transition-colors duration-base ease-physics hover:text-accent"
+              className="font-mono text-micro uppercase tracking-[0.08em] text-accent-text underline-offset-4 transition-colors duration-base ease-physics hover:underline"
             >
               {ar ? "معاينة حية ↖" : "Live preview ↗"}
             </Link>
