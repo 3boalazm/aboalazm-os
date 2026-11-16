@@ -131,7 +131,7 @@ export function LanguageBand() {
           that is the proof of it. The cards below stay on the page canvas:
           a swipe shelf inside a photo panel would fight itself. */}
       <BandFrame
-        src="/images/work/dev-cards/nile-pharma-storefront-card.jpg"
+        src="/images/generated/creative-type-texture.jpg"
         veil="full"
         contentClassName="flex flex-col gap-2 max-lg:p-4"
       >

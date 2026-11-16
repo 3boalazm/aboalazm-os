@@ -41,7 +41,7 @@ export function StartFunnel({
           on the studio's own dashboard work so the first step looks like the
           place the work happens, not like another paragraph. */}
       <BandFrame
-        src="/images/work/dev-cards/farm-console-card.jpg"
+        src="/images/generated/band-method.jpg"
         veil="start"
         priority={false}
         contentClassName="flex flex-col gap-1 max-lg:p-4"

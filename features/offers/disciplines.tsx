@@ -12,6 +12,7 @@
  * Copy lives in lib/offers DISCIPLINES (single source); this file is layout only.
  */
 import Image from "next/image";
+import { BandFrame } from "@/components/ui/band-frame";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
@@ -25,12 +26,15 @@ const SERVICE_FOR: Record<Discipline["id"], "brand-identity" | "website" | "digi
   systems: "digital-product",
 };
 
-/* One real piece of work per discipline, cropped for the card frame — the
-   card leads with proof, not with a paragraph. */
+/* One authored still per discipline — the card leads with an image, not with
+   a paragraph. These are studio-made plates (public/images/generated) rather
+   than project thumbnails: the discipline is the offer, so its picture has to
+   read as "a brand kit / an interface / a system", not as one client's work
+   standing in for the whole category. */
 const DISCIPLINE_ART: Record<Discipline["id"], string> = {
-  brand: "/images/work/gad/gad-card.jpg",
-  digital: "/images/work/dev-cards/nile-pharma-storefront-card.jpg",
-  systems: "/images/work/dev-cards/nile-erp-command-center-card.jpg",
+  brand: "/images/generated/discipline-brand.jpg",
+  digital: "/images/generated/discipline-digital.jpg",
+  systems: "/images/generated/discipline-systems.jpg",
 };
 
 export function DisciplineCards({
@@ -257,8 +261,16 @@ export function StudioModelBand({ className }: { className?: string }) {
         <p className="max-w-[62ch] text-body text-text-secondary">{copy.lead}</p>
       </div>
       {/* Numbered glass cards (the "Built on Principles" idiom): on a phone
-          they swipe one at a time instead of stacking into a text wall. */}
-      <dl className="grid gap-3 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
+          they swipe one at a time instead of stacking into a text wall — and
+          they sit on a glass sculpture plate, so the section opens on an image
+          instead of on three paragraphs. */}
+      <BandFrame
+        src="/images/generated/creative-chrome-figure.jpg"
+        veil="bottom"
+        shape="bleed"
+        contentClassName="flex flex-col gap-3 max-lg:p-4"
+      >
+        <dl className="grid gap-3 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
         {copy.points.map(([head, body], i) => (
           <div
             key={head}
@@ -271,7 +283,8 @@ export function StudioModelBand({ className }: { className?: string }) {
             <dd className="text-body-sm text-text-secondary">{body}</dd>
           </div>
         ))}
-      </dl>
+        </dl>
+      </BandFrame>
       <p className="max-w-[62ch] border-s-2 border-accent/40 ps-3 font-mono text-micro uppercase tracking-[0.06em] leading-[1.7] text-text-tertiary">
         {copy.note}
       </p>

@@ -28,34 +28,34 @@ interface Frame {
 
 const FRAMES: readonly Frame[] = [
   {
-    src: "/images/work/ahmed-bedeer-card.jpg",
-    name: ["Ahmed Bedeer", "أحمد بدير"],
-    kind: ["Identity system", "نظام هوية"],
+    src: "/images/generated/creative-type-texture.jpg",
+    name: ["Type & texture", "الحرف والملمس"],
+    kind: ["Identity plate", "لوحة هوية"],
   },
   {
-    src: "/images/work/cc-poster-mockup.jpg",
-    name: ["Code & Canvas", "كود آند كانفس"],
-    kind: ["Poster system", "نظام بوسترات"],
+    src: "/images/generated/discipline-brand.jpg",
+    name: ["Print system", "نظام مطبوعات"],
+    kind: ["Deboss & foil", "دِبوس ومعدن"],
   },
   {
-    src: "/images/work/dev-cards/nile-erp-command-center-card.jpg",
-    name: ["Nile Pharma ERP", "نايل فارما ERP"],
-    kind: ["Operations dashboard", "لوحة تشغيل"],
+    src: "/images/generated/creative-chrome-figure.jpg",
+    name: ["Form study", "دراسة شكل"],
+    kind: ["Art direction", "إدارة فنية"],
   },
   {
-    src: "/images/work/dev-cards/farm-console-card.jpg",
-    name: ["Farm Console", "فارم كونسول"],
-    kind: ["Business system", "نظام أعمال"],
+    src: "/images/generated/discipline-digital.jpg",
+    name: ["Interface", "واجهة"],
+    kind: ["Digital product", "منتج رقمي"],
   },
   {
-    src: "/images/work/dev-cards/oltre-collective-card.jpg",
-    name: ["Oltre Collective", "أولتري كولكتيف"],
-    kind: ["Digital experience", "تجربة رقمية"],
+    src: "/images/generated/discipline-systems.jpg",
+    name: ["System map", "خريطة نظام"],
+    kind: ["Operations", "تشغيل"],
   },
   {
-    src: "/images/work/ahmed-bedeer-applications.jpg",
-    name: ["Ahmed Bedeer", "أحمد بدير"],
-    kind: ["Applications", "تطبيقات الهوية"],
+    src: "/images/generated/band-faq.jpg",
+    name: ["Material", "مادة"],
+    kind: ["Paper & light", "ورق وضوء"],
   },
 ];
 

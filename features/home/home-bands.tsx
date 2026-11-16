@@ -14,6 +14,7 @@ import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
 import { buttonVariants } from "@/components/ui/Button";
 import { TIERS } from "@/lib/offers";
+import { BandFrame } from "@/components/ui/band-frame";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
 const SKILLS = ["Brand Identity", "Brand Strategy", "Visual Systems", "Art Direction", "Web Development"];
@@ -63,6 +64,13 @@ export function AboutTeaser() {
             {ar ? "Code & Canvas — شريك مؤسس ومدير إبداعي" : "Code & Canvas — Co-Founder & Creative Lead"}
           </span>
         </div>
+        <BandFrame
+          src="/images/generated/band-practice.jpg"
+          veil="start"
+          shape="bleed"
+          className="lg:hidden"
+          contentClassName="flex flex-col gap-3 max-lg:p-4"
+        >
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "01 / نبذة" : lang === "ms" ? "01 / TENTANG" : "01 / ABOUT"}
         </p>
@@ -88,6 +96,7 @@ export function AboutTeaser() {
         {/* The skills that used to live in the scrolling marquee — static
             chips now (overhaul S2: the marquee was motion for its own sake
             and repeated the same 8 words twice per row). */}
+        </BandFrame>
         <div className="mt-1 border-t border-border-subtle pt-3">
           <p className="mb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
             {ar ? "التخصص الأساسي" : lang === "ms" ? "BIDANG UTAMA" : "CORE DISCIPLINES"}
@@ -417,7 +426,7 @@ export function HomeFaq() {
               left on the page. */}
           <div className="relative mt-4 hidden overflow-hidden rounded-panel border border-border-subtle max-lg:block">
             <Image
-              src="/images/work/ahmed-bedeer-mockup.jpg"
+              src="/images/generated/band-faq.jpg"
               alt=""
               width={1600}
               height={1200}
@@ -430,7 +439,7 @@ export function HomeFaq() {
               className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/80 via-obsidian/30 to-transparent"
             />
             <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
-              {ar ? "أحمد بدير — نظام هوية" : "Ahmed Bedeer — identity system"}
+              {ar ? "نظام تصميم — تكوين محكوم" : "Design system — governed composition"}
             </span>
           </div>
         </div>

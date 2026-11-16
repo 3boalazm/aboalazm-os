@@ -52,7 +52,7 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
           the ERP console the method produced. Type stays on the page canvas
           below — the covers under it carry the colour. */}
       <BandFrame
-        src="/images/work/dev-cards/nile-erp-command-center-card.jpg"
+        src="/images/generated/band-insights.jpg"
         veil="start"
         contentClassName="flex flex-col gap-2 max-lg:p-4 md:flex-row md:items-end md:justify-between"
       >

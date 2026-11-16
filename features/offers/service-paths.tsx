@@ -21,11 +21,11 @@ const SERVICE_FOR = {
   systems: "digital-product",
 } as const;
 
-/* Same proof frames as the discipline cards (features/offers/disciplines.tsx). */
+/* Same plates as the discipline cards (features/offers/disciplines.tsx). */
 const PATH_ART: Record<string, string> = {
-  brand: "/images/work/gad/gad-card.jpg",
-  digital: "/images/work/dev-cards/nile-pharma-storefront-card.jpg",
-  systems: "/images/work/dev-cards/nile-erp-command-center-card.jpg",
+  brand: "/images/generated/discipline-brand.jpg",
+  digital: "/images/generated/discipline-digital.jpg",
+  systems: "/images/generated/discipline-systems.jpg",
 };
 
 export function ServicePaths() {

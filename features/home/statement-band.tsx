@@ -22,14 +22,17 @@ export function StatementBand() {
   const ar = lang === "ar";
   return (
     <section aria-label={ar ? "بيان المنهج" : lang === "ms" ? "Kenyataan studio" : "Studio statement"} className="statement-editorial relative overflow-hidden">
-      {/* The studio's closing frame, held back under a dark veil — the
-          manifesto now sits on a picture, not on an empty dot grid. */}
+      {/* The manifesto sits inside a picture, not on a dot grid. The plate is
+          a liquid-chrome sculpture lit by the accent — the same material the
+          loud reference boards are built from — held under a veil heavy enough
+          that the display type keeps its contrast. Full strength on a phone,
+          where the band is the one full-bleed break in a column of cards. */}
       <Image
-        src="/images/cta/closing-duotone-npf.jpg"
+        src="/images/generated/statement-bg.jpg"
         alt=""
         fill
         sizes="100vw"
-        className="object-cover opacity-35"
+        className="object-cover max-md:opacity-70 md:opacity-40"
       />
       <div
         aria-hidden
