@@ -2,7 +2,6 @@ import { BUILT_IN_CASE_SLUGS, PROJECT_OVERVIEW_SLUGS } from "@/lib/case-registry
 import { localizedMetadata } from "@/lib/localized-metadata";
 import type { Locale } from "@/lib/locale";
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
-import { ProjectOverview } from "@/features/case-studies/project-overview";
 import { CaseStudyShell } from "@/features/case-studies/case-study-shell";
 import { getBusinessCase } from "@/features/case-studies/business-cases.data";
 import { PROJECTS } from "@/features/work/projects.data";
@@ -11,7 +10,6 @@ import type { Project } from "@/features/work/types";
 import { cache, type ReactElement } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ScrollyCaseStudy } from "@/features/case-studies";
 import { NextCaseLink } from "@/features/case-studies/next-case-link";
 import {
   getCaseStudy as fetchCaseStudy,
@@ -20,18 +18,22 @@ import {
 } from "@/lib/content";
 import { truncateAtWord } from "@/lib/seo";
 import { GadBrandBook } from "@/features/gad-brand-book";
-import { ZadCaseStudy } from "@/features/case-studies/zad";
-import { NilePharmaERPCaseStudy } from "@/features/case-studies/nile-pharma-erp";
-import { SpeechToTextStudioCaseStudy } from "@/features/case-studies/speech-to-text-studio";
-import { NilePharmaStorefrontCaseStudy } from "@/features/case-studies/nile-pharma-storefront";
-import { UmmahAcademyCaseStudy } from "@/features/case-studies/ummah-academy";
-import { OltreCollectiveCaseStudy } from "@/features/case-studies/oltre-collective";
-import { FarmConsoleCaseStudy } from "@/features/case-studies/farm-console";
-import { MiniExamCaseStudy } from "@/features/case-studies/mini-exam";
-import { StemForgeCaseStudy } from "@/features/case-studies/stemforge";
-import { PharmacyWebCaseStudy } from "@/features/case-studies/pharmacy-web";
-import { ContinuumCaseStudy } from "@/features/case-studies/continuum";
-import { CodeCanvasDevCaseStudy } from "@/features/case-studies/code-canvas-dev";
+import {
+  ProjectOverview,
+  ScrollyCaseStudy,
+  ZadCaseStudy,
+  NilePharmaERPCaseStudy,
+  SpeechToTextStudioCaseStudy,
+  NilePharmaStorefrontCaseStudy,
+  UmmahAcademyCaseStudy,
+  OltreCollectiveCaseStudy,
+  FarmConsoleCaseStudy,
+  MiniExamCaseStudy,
+  StemForgeCaseStudy,
+  PharmacyWebCaseStudy,
+  ContinuumCaseStudy,
+  CodeCanvasDevCaseStudy,
+} from "@/features/case-studies/lazy-views";
 
 export const revalidate = 60;
 
