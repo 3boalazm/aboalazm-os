@@ -90,7 +90,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
             ? "ليست ركائز إضافية تنافس الهوية والتطوير، بل قدرات تطبيقية أستعين بها حين تخدم حلّ المشكلة، ويُحدَّد نطاقها لكل مشروع."
             : "Not extra pillars competing with brand identity and development. These are applied capabilities I bring in when they help solve the brief, scoped to the project."}
         </p>
-        <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-2 lg:grid-cols-3">
           {([
             {
               n: "A",

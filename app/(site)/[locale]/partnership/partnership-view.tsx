@@ -115,7 +115,7 @@ export function PartnershipView() {
 
       <section aria-label={copy.tiersLabel} className="flex flex-col gap-3">
         <h2 className="font-display text-subtitle tracking-[-0.01em] text-text-primary">{copy.tiersLabel}</h2>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 lg:grid-cols-3">
           {copy.tiers.map((tier) => (
             <article
               key={tier.name}
