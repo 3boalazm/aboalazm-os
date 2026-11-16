@@ -150,7 +150,7 @@ export function TierCard({ tier }: { tier: Tier }) {
             className: "w-full justify-center px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
           })}
         >
-          {pick(DISCOVERY_CTA_LABEL, lang)} →
+          {pick(DISCOVERY_CTA_LABEL, lang)}<Icon name="arrow-right" flip={false} className="ms-1.5" />
         </Link>
 
         <div className="flex flex-wrap items-center justify-between gap-2 font-mono text-micro text-text-tertiary">
@@ -244,7 +244,7 @@ export function TierCompare({ tiers }: { tiers: readonly Tier[] }) {
                   href={bookHref(planId)}
                   className="inline-flex min-h-[36px] w-full items-center justify-center rounded-pill bg-accent px-3 py-1 font-mono text-micro font-medium text-obsidian"
                 >
-                  {pick(DEPOSIT_CTA_LABEL, lang)} →
+                  {pick(DEPOSIT_CTA_LABEL, lang)}<Icon name="arrow-right" className="ms-1.5" />
                 </Link>
               </div>
             </div>
@@ -362,7 +362,7 @@ export function AlaCarteTables({ alaCarte }: { alaCarte: readonly AlaCarteGroup[
                       href={bookHref(r.planId)}
                       className="inline-flex min-h-[32px] items-center rounded-pill border border-accent/50 bg-accent/15 px-2.5 py-1 font-mono text-micro font-medium text-accent transition-colors hover:bg-accent/25"
                     >
-                      {pick(DEPOSIT_CTA_LABEL, lang)} →
+                      {pick(DEPOSIT_CTA_LABEL, lang)}<Icon name="arrow-right" className="ms-1.5" />
                     </Link>
                   ) : (
                     <a

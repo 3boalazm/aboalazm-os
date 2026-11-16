@@ -138,13 +138,13 @@ export function BookView({
         </div>
 
         <div className="flex flex-col gap-2">
-          <p className="font-mono text-micro uppercase tracking-[0.16em] text-accent">
+          <p className="x-mono x-kicker">
             {ar ? "بدء المشروع والعربون" : "PROJECT KICKOFF & DEPOSIT"}
           </p>
-          <h1 className="font-display text-title font-semibold tracking-tight text-text-primary">
+          <h1 className="x-page-title x-page-title--long">
             {ar ? "اتفقنا على النطاق؟ ابدأ من هنا." : "Scope agreed? Start here."}
           </h1>
-          <p className="max-w-[65ch] text-body text-text-secondary">
+          <p className="x-page-lead">
             {ar
               ? "هذه الصفحة هي الخطوة الرابعة في آلية البدء، وتُستخدم بعد اعتماد النطاق والعرض كتابةً. اختر الباقة والعملة، وأرسل دفعة البدء (50%) أو ادفع المبلغ كاملًا بخصم 10%، ثم أرسل لقطة شاشة الإيصال عبر واتساب."
               : "This page is step 04 of how we start: it is used after the scope and proposal are agreed in writing. Select the plan and currency, send the 50% kickoff deposit (or pay in full with -10%), then send the receipt screenshot on WhatsApp."}

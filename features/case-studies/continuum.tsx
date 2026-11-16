@@ -36,7 +36,7 @@ export function ContinuumCaseStudy() {
       badges={[
         { en: "Personal tool", ar: "أداة شخصية" },
         { en: "Local-first", ar: "محلي أولًا" },
-        { en: "No build step", ar: "بلا build step" },
+        { en: "No build step", ar: "بلا خطوة بناء" },
         { en: "Bilingual", ar: "ثنائي اللغة" },
       ]}
       snapshot={[
@@ -98,7 +98,7 @@ export function ContinuumCaseStudy() {
             name: "Page contract",
             nameAr: "عقد الصفحة",
             detail: "Each page sets window.__PAGE__ then loads the two shared files. Navigation is real links, so the back button and a bookmark both behave.",
-            detailAr: "تحدّد كل صفحة window.__PAGE__ ثم تحمّل الملفين. والتنقّل بروابط حقيقية، فيعمل زر الرجوع والإشارات المرجعية (bookmarks) كما ينبغي.",
+            detailAr: "تحدّد كل صفحة window.__PAGE__ ثم تحمّل الملفين. والتنقّل بروابط حقيقية، فيعمل زر الرجوع والإشارات المرجعية كما ينبغي.",
           },
           {
             no: "03",
@@ -150,7 +150,7 @@ export function ContinuumCaseStudy() {
             title: "The assistant is honest about being a heuristic",
             titleAr: "المساعد يعلن أنه heuristics",
             body: "The README states plainly that Suggestions and Ask are local heuristics, not a model. The interface says the same, because a fake assistant is worse than no assistant.",
-            bodyAr: "يقول README صراحةً إن Suggestions وAsk قواعد محلية (heuristics) لا نموذجًا. والواجهة تقول الشيء نفسه، لأن مساعدًا مزيفًا أسوأ من لا مساعد.",
+            bodyAr: "يقول README صراحةً إن Suggestions وAsk قواعد محلية لا نموذجًا. والواجهة تقول الشيء نفسه، لأن مساعدًا مزيفًا أسوأ من لا مساعد.",
           },
           {
             n: "04",
@@ -164,7 +164,7 @@ export function ContinuumCaseStudy() {
             title: "Batch actions on a real selection model",
             titleAr: "إجراءات جماعية على نموذج تحديد حقيقي",
             body: "Tasks carry filter, sort and a select-mode with checkboxes and bulk complete/delete — because a task list without batch operations is a list you stop using at fifty items.",
-            bodyAr: "تدعم المهام الفلترة والترتيب ووضع التحديد بـ checkboxes والإكمال أو الحذف الجماعي، لأن قائمة مهام بلا عمليات جماعية قائمة تتخلى عنها عند خمسين بندًا.",
+            bodyAr: "تدعم المهام التصفية والترتيب ووضع التحديد بمربعات الاختيار والإكمال أو الحذف الجماعي، لأن قائمة مهام بلا عمليات جماعية قائمة تتخلى عنها عند خمسين بندًا.",
           },
           {
             n: "06",
@@ -182,7 +182,7 @@ export function ContinuumCaseStudy() {
         titleAr: "ستة أشياء يحتفظ بها الشخص فعلًا.",
         items: [
           { name: "Projects", nameAr: "المشاريع", body: "projects.html and project.html?id=… — the long-running work, each with its own page.", bodyAr: "projects.html وproject.html?id=…: العمل الطويل، لكل مشروع صفحته." },
-          { name: "Tasks", nameAr: "المهام", body: "Filter, sort, select-mode and bulk actions; the part used every day.", bodyAr: "فلترة وترتيب ووضع تحديد وإجراءات جماعية؛ الجزء الذي يُستخدم كل يوم." },
+          { name: "Tasks", nameAr: "المهام", body: "Filter, sort, select-mode and bulk actions; the part used every day.", bodyAr: "تصفية وترتيب ووضع تحديد وإجراءات جماعية؛ الجزء الذي يُستخدم كل يوم." },
           { name: "Journal & timeline", nameAr: "اليوميات والخط الزمني", body: "Dated entries plus a timeline view — the same data read two ways.", bodyAr: "مدخلات مؤرخة وخط زمني: البيانات نفسها تُقرأ بطريقتين." },
           { name: "Knowledge", nameAr: "المعرفة", body: "A knowledge base that links out to courses, prompts and bookmarks instead of absorbing them.", bodyAr: "قاعدة معرفة تصل إلى الدورات والموجّهات والمفضلة بدل أن تبتلعها." },
           { name: "Library rails", nameAr: "أرفف المكتبة", body: "Courses, prompts, repos and servers — each a small page rather than a section of one huge one.", bodyAr: "دورات وموجّهات ومستودعات وخوادم: كل منها صفحة صغيرة لا قسم في صفحة ضخمة." },

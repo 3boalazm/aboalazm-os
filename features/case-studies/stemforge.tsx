@@ -163,7 +163,7 @@ export function StemForgeCaseStudy() {
             title: "Fallbacks are product, not error handling",
             titleAr: "البدائل جزء من المنتج، لا معالجة أخطاء",
             body: "A machine without WebGPU is a supported machine, not a failure: the fallback and Hugging Face paths exist so the tool still returns stems.",
-            bodyAr: "الجهاز الذي لا يدعم WebGPU جهاز مدعوم وليس حالة فشل: وُجدت طريقتا fallback وHugging Face لتظل الأداة تُخرج المسارات.",
+            bodyAr: "الجهاز الذي لا يدعم WebGPU جهاز مدعوم وليس حالة فشل: وُجد مسار احتياطي ومصدر Hugging Face لتظل الأداة تُخرج المسارات.",
           },
           {
             n: "05",
@@ -197,7 +197,7 @@ export function StemForgeCaseStudy() {
         ],
         notesAr: [
           "خمس اعتماديات تشغيل: @vercel/blob وnext وonnxruntime-web وreact وreact-dom. وما سواها من أدوات Next نفسها.",
-          "لا ادعاء هنا بدقة أو زمن استجابة أو عدد مستخدمين: المستودع لا يحمل أي benchmark، وما زال README على الصيغة الافتراضية للـframework.",
+          "لا ادعاء هنا بدقة أو زمن استجابة أو عدد مستخدمين: المستودع لا يحمل أي اختبار أداء، وما زال README على الصيغة الافتراضية للإطار.",
           "الخادم الخلفي بلغة Python (server/app.py وtria_app.py) موثّق كمسار سرعة اختياري، وليس شرطًا لإنتاج المسارات.",
         ],
       }}
@@ -206,7 +206,7 @@ export function StemForgeCaseStudy() {
         titleAr: "خمس اعتماديات وworker.",
         items: ["Next.js 16", "React 19", "onnxruntime-web", "WebGPU", "Web Workers", "Modal (CUDA)", "htdemucs_ft", "Python", "@vercel/blob"],
         note: "Small dependency surface by design: a model runtime, a framework, and blob storage. The rest is the platform.",
-        noteAr: "سطح اعتماديات صغير عن قصد: runtime للنموذج، وframework، وتخزين blob. والباقي هو المنصة.",
+        noteAr: "سطح اعتماديات صغير عن قصد: بيئة تشغيل للنموذج، وإطار العمل، وتخزين blob. والباقي هو المنصة.",
       }}
       handoff={{
         title: "Your master stays yours.",

@@ -120,14 +120,14 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
 
   results: [
     { value: "V2.0", label: "System, end to end",      labelAr: "نظام من الألف للياء",    context: "STRATEGY → IDENTITY → GUIDELINES", contextAr: "استراتيجية ← هوية ← دليل"       },
-    { value: "6+",   label: "Branded applications",    labelAr: "تطبيقات مبرندة",         context: "SIGNAGE · UNIFORM · STATIONERY · STAND", contextAr: "لافتات · يونيفورم · قرطاسية · ستاند" },
+    { value: "6+",   label: "Branded applications",    labelAr: "تطبيقات الهوية",         context: "SIGNAGE · UNIFORM · STATIONERY · STAND", contextAr: "لافتات · زيّ موحّد · قرطاسية · حوامل عرض" },
     { value: "1",    label: "Governed brand book",     labelAr: "دليل علامة محكوم",        context: "PANTONE-LOCKED, NOT GUESSED",      contextAr: "Pantone مقفول لا مرتجل"         },
   ],
 
   retro: [
     { verdict: "KEEP",   note: "The heart-and-lung mark — two symbols fused into one circular form, vitality and breath in one gesture.",                         noteAr: "شعار القلب والرئة — رمزان في شكل دائري واحد، حيوية وتنفس في إيماءة واحدة."                      },
     { verdict: "KEEP",   note: "Caregiver archetype as doctrine: 'closer to every heart' drives messaging, color, and environmental design consistently.",         noteAr: "نموذج مقدم الرعاية كعقيدة: 'أقرب لكل قلب' يقود الرسائل واللون والتصميم البيئي باتساق."       },
-    { verdict: "CHANGE", note: "Tighten Arabic/English vertical lockup balance at small sizes before the next signage run.",                                       noteAr: "تحسين توازن الـ lockup العمودي عربي/إنجليزي في الأحجام الصغيرة قبل جولة اللافتات القادمة." },
-    { verdict: "KEEP",   note: "Branded-house structure linking GAD Institute to GAD International — one equity, many expressions.",                               noteAr: "هيكل Branded House يربط GAD Institute بـ GAD International — حقوق واحدة، تعبيرات متعددة." },
+    { verdict: "CHANGE", note: "Tighten Arabic/English vertical lockup balance at small sizes before the next signage run.",                                       noteAr: "تحسين توازن تركيبة الشعار العمودية عربي/إنجليزي في الأحجام الصغيرة قبل جولة اللافتات القادمة." },
+    { verdict: "KEEP",   note: "Branded-house structure linking GAD Institute to GAD International — one equity, many expressions.",                               noteAr: "هيكل العلامة الموحّدة (Branded House) يربط GAD Institute بـ GAD International — حقوق واحدة، تعبيرات متعددة." },
   ],
 };

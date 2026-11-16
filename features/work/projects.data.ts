@@ -368,7 +368,7 @@ export const PROJECTS: readonly Project[] = [
     discipline: "Product Architecture",
     stack: ["Next.js", "TypeScript", "Tailwind CSS", "Frontend only"],
     outcome: "Arabic RTL pharmacy interface — frontend only; not a complete SaaS or backend system",
-    outcomeAr: "واجهة صيدلية عربية RTL: واجهة أمامية فقط، وليست نظام SaaS متكاملًا ولا Backend",
+    outcomeAr: "واجهة صيدلية عربية RTL: واجهة أمامية فقط، وليست نظام SaaS متكاملًا ولا واجهة خلفية",
     year: "2026",
     thumbnail: "/images/work/dev-cards/pharmacy-web-card.jpg",
     hasCaseStudy: true,

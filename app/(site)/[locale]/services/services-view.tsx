@@ -55,7 +55,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
               className: "px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
           </Link>
           <Link
             href="/services/store-72h"
@@ -141,7 +141,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— يختلف سعر المشروع بحسب النطاق · عقود شهرية مخصصة متاحة · خصم عند الدفع الكامل مقدّمًا —" : "— Project pricing varies by scope · Custom retainers available · Discount on full prepayment —"}
         </p>
-        <div className="flex justify-center gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           <Link href="/pricing" className={buttonVariants({ className: "px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
             <>{ar ? "الأسعار بالتفصيل" : lang === "ms" ? "Lihat Harga Terperinci" : "View Detailed Pricing"} <Icon name="sparkle" size="0.9em" /></>
           </Link>

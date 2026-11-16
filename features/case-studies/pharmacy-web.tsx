@@ -73,7 +73,7 @@ export function PharmacyWebCaseStudy() {
         ],
         paragraphsAr: [
           "تفشل برمجيات التجزئة بطريقة محددة: لا بالانهيار، بل بأن تخطئ قليلًا. إجمالي مقرَّب على العميل، ودفعة سُجّلت مرتين بعد شبكة متقطعة، ورصيد آجل كتبته شاشة يفترض أن تقرأ فقط.",
-          "وتضيف الصيدلية طبقة ثانية. فللصرف قواعد يجب أن يحترمها البرنامج: حجب التداخل ليس toast تحذيريًا، بل وقفة يجب أن يتجاوزها الصيدلي بوعي، ويجب أن يُسجَّل التجاوز نفسه.",
+          "وتضيف الصيدلية طبقة ثانية. فللصرف قواعد يجب أن يحترمها البرنامج: حجب التداخل ليس إشعارًا تحذيريًا عابرًا، بل وقفة يجب أن يتجاوزها الصيدلي بوعي، ويجب أن يُسجَّل التجاوز نفسه.",
           "هذه واجهة الويب لمنصة صيدليات SaaS، كُتبت على مستند قرار معماري من الـCTO ومواصفة عقد API. والعمل المهم ليس الشاشات، بل أن تصبح القواعد مستحيلة التجاوز.",
         ],
         callout: "Core decision: the server owns every number. The client may preview a total, but it never posts one — and it never posts twice, because every financial call carries an idempotency key.",
@@ -159,9 +159,9 @@ export function PharmacyWebCaseStudy() {
           {
             n: "04",
             title: "A DUR block is a stop, not a toast",
-            titleAr: "حجب التداخل وقفة، لا toast",
+            titleAr: "حجب التداخل وقفة، لا إشعار عابر",
             body: "Error codes drive the interface. DUR_BLOCK opens a pharmacist PIN-elevation modal and only then retries the request with an explicit override — so the override is an auditable act.",
-            bodyAr: "تقود أكواد الخطأ الواجهة. يفتح DUR_BLOCK نافذة (modal) لرفع الصلاحية بكود الصيدلي، وبعدها فقط يعيد الطلب بتجاوز صريح، فيصبح التجاوز فعلًا قابلًا للمراجعة.",
+            bodyAr: "تقود أكواد الخطأ الواجهة. يفتح DUR_BLOCK نافذة منبثقة لرفع الصلاحية بكود الصيدلي، وبعدها فقط يعيد الطلب بتجاوز صريح، فيصبح التجاوز فعلًا قابلًا للمراجعة.",
           },
           {
             n: "05",

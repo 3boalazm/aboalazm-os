@@ -139,7 +139,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
   images: [
     { src: "/images/work/nile-pharma/npf-logo-grid.png",        caption: "Logo construction grid",    captionAr: "شبكة بناء الشعار",         w: 1400, h: 700  },
     { src: "/images/work/nile-pharma/npf-logo-waves.png",       caption: "Identity on palm leaves",   captionAr: "الهوية على أوراق النخيل",   w: 1181, h: 1594 },
-    { src: "/images/work/nile-pharma/npf-business-card-box.jpg",caption: "Business card & packaging", captionAr: "كارت البيزنيس والتغليف",    w: 4000, h: 3000 },
+    { src: "/images/work/nile-pharma/npf-business-card-box.jpg",caption: "Business card & packaging", captionAr: "بطاقات العمل والتغليف",    w: 4000, h: 3000 },
     { src: "/images/work/nile-pharma/npf-proxeed-products.png", caption: "Proxeed Plus & Proxerex",   captionAr: "Proxeed Plus و Proxerex",   w: 652,  h: 454  },
     { src: "/images/work/nile-pharma/npf-ramadan.png",          caption: "Ramadan campaign post",     captionAr: "منشور حملة رمضان",          w: 1880, h: 1576 },
     { src: "/images/work/nile-pharma/npf-proxeed-post.jpg",     caption: "Proxeed — campaign",        captionAr: "Proxeed — الحملة",          w: 1880, h: 1576 },
@@ -151,7 +151,7 @@ export const NILE_PHARMA: CaseStudyRecord = {
   ],
 
   retro: [
-    { verdict: "KEEP",   note: "Templates as deliverables — every department could publish on-brand without me.", noteAr: "القوالب كمخرجات — كل قسم يقدر ينشر on-brand من غيري." },
+    { verdict: "KEEP",   note: "Templates as deliverables — every department could publish on-brand without me.", noteAr: "القوالب بوصفها مخرجات: يستطيع كل قسم النشر بما يلتزم بالعلامة دون الرجوع إليّ." },
     { verdict: "KEEP",   note: "Stakeholder liaison role from day one; alignment was design work too.",            noteAr: "دور التنسيق مع أصحاب المصلحة من اليوم الأول؛ التوافق كان شغل تصميم هو الآخر." },
     { verdict: "CHANGE", note: "Brand guidelines should have shipped in year one, not at the rebrand.",           noteAr: "كان ينبغي تسليم دليل الهوية في السنة الأولى، لا عند إعادة بناء العلامة." },
   ],

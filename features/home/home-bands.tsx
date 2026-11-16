@@ -280,7 +280,7 @@ export function ClientJourneyBand() {
           </div>
           <Link href="/process" className="mt-4 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary focus-visible:text-text-primary">
             {ar ? "استعرض المنهج كاملًا" : lang === "ms" ? "Lihat metodologi penuh" : "See the full method"}
-            <span aria-hidden className="ms-1">→</span>
+            <Icon name="arrow-right" className="ms-1" />
           </Link>
         </div>
 

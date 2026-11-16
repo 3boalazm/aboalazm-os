@@ -86,8 +86,8 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "Focal-area layout doctrine (Image, Headline, Icon rules) and 18-page brand book",
     ],
     whatShippedAr: [
-      "مونوجرام حرف R الهندسي، مبني على توازن الدائرة والمثلث",
-      "مساحات بيضاء رحبة وطيف لوني محسوب من البنفسجي إلى التركواز",
+      "مونوغرام حرف R الهندسي، مبني على توازن الدائرة والمثلث",
+      "مساحات بيضاء رحبة وطيف لوني محسوب من البنفسجي إلى الفيروزي",
       "نظام خطوط تحريري: Neue Machina للعناوين مع Quicksand للمتن",
       "قواعد تخطيط المنطقة البؤرية (الصورة والعنوان والأيقونة) ودليل علامة من 18 صفحة",
     ],
@@ -152,7 +152,7 @@ const CASES_FOR_HIRING: CaseBrief[] = [
       "Executive stationery system: debossed business cards, letterheads, and digital deck templates",
     ],
     whatShippedAr: [
-      "مونوجرام «ab» الهندسي المدمج مع منحنى علامات الاقتباس",
+      "مونوغرام «ab» الهندسي المدمج مع منحنى علامات الاقتباس",
       "لوحة ألوان مستوحاة من التقنية الصحية (تيل عميق ونعناعي)",
       "هرمية خطوط تجمع Lubalin Graph مع Uncut Sans",
       "قرطاسية تنفيذية: بطاقات أعمال محفورة، وورق رسمي، وقوالب عروض تقديمية",
@@ -176,7 +176,7 @@ const SKILL_GROUPS = [
     title: "Bilingual Identity & Typography",
     titleAr: "الهوية ثنائية اللغة والخطوط",
     skills: ["Arabic & Latin Script Harmonization", "Geometric & Monogram Logomarks", "Bilingual Wordmarks & Lockups", "Typeface Hierarchy & Scaling", "Legibility Across Extremes (16px to Facades)"],
-    skillsAr: ["مواءمة الخطين العربي واللاتيني", "الشعارات الهندسية والمونوجرام", "الشعارات النصية ثنائية اللغة", "الهرمية الطباعية والمقاييس", "المقروئية في الأحجام القصوى (من 16px إلى اللافتات)"],
+    skillsAr: ["مواءمة الخطين العربي واللاتيني", "الشعارات الهندسية والمونوغرام", "الشعارات النصية ثنائية اللغة", "الهرمية الطباعية والمقاييس", "المقروئية في الأحجام القصوى (من 16px إلى اللافتات)"],
   },
   {
     title: "Design Systems & Token Governance",
@@ -245,7 +245,7 @@ const TIMELINE = [
   },
   {
     period: "2017 → 2022",
-    periodAr: "2017 → 2022",
+    periodAr: "2017 ← 2022",
     role: "Graphic Designer",
     roleAr: "مصمم جرافيك",
     company: "Independent Practice",

@@ -98,7 +98,7 @@ const decisions = [
     "Identity carries the shop",
     "The brand is editorial rather than template-commerce: a heavy condensed wordmark, black-on-amber palette and product photography on concrete. The UI stays quiet so the garments lead.",
     "الهوية هي المتجر",
-    "الهوية تحريرية لا قالب جاهز: ووردمارك ثقيل، وأسود على عنبري، وتصوير للمنتجات على خرسانة. وتصمت الواجهة لتتكلّم الملابس.",
+    "الهوية تحريرية لا قالب جاهز: شعار نصي ثقيل، وأسود على عنبري، وتصوير للمنتجات على خرسانة. وتصمت الواجهة لتتكلّم الملابس.",
   ],
 ] as const;
 

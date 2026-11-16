@@ -25,24 +25,23 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
       <section className="container-wide relative flex min-h-[calc(88svh-5rem)] flex-col justify-center gap-8 pb-6 pt-0 lg:grid lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-6 lg:pb-12">
         <div className="pointer-events-none absolute -start-24 top-36 -z-10 size-72 rounded-full bg-accent/10 blur-[100px]" aria-hidden />
         <div className="flex flex-col items-start">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-pill border border-border-subtle px-3 py-1.5 font-mono text-micro uppercase tracking-[0.12em] text-text-tertiary">
-            <span className="size-1.5 rounded-full bg-accent" />
+          <p className="x-mono x-kicker mb-6">
             {ar ? "مصمّم · مهندس منتجات · باني أنظمة" : "Designer · Product Architect · Builder"}
-          </div>
-          <h1 className="max-w-[12ch] font-display text-[clamp(3.4rem,8vw,7.8rem)] font-medium leading-[0.88] tracking-[-0.065em] text-text-primary">
-            {ar ? <>أنا لا <em className="text-accent not-italic">أصمّم فقط.</em><br />أنا أبني.</> : <>I don’t just <em className="text-accent not-italic">design.</em><br />I build.</>}
+          </p>
+          <h1 className="x-page-title">
+            {ar ? <>أنا لا <em>أصمّم فقط.</em><br />أنا أبني.</> : <>I don’t just <em>design.</em><br />I build.</>}
           </h1>
-          <p className="mt-7 max-w-[54ch] text-base leading-relaxed text-text-secondary sm:text-lg">
+          <p className="x-page-lead mt-7">
             {ar
               ? "أنا مصطفى أبوالعزم. أحوّل الأفكار المبعثرة إلى علامات مميزة، ومنتجات رقمية نافعة، وأنظمة تكبر دون أن تفقد روحها. من أول قرار استراتيجي إلى آخر سطر برمجي."
               : "I’m Mustafa Aboalazm. I turn messy ideas into distinctive brands, useful digital products, and systems built to grow without losing their soul — from the first strategic decision to the last line of code."}
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center gap-2 rounded-pill bg-accent px-5 py-3 font-mono text-micro font-semibold uppercase tracking-[0.08em] text-obsidian transition-transform hover:-translate-y-0.5">
+            <a href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer" className="x-btn x-btn--solid">
               {ar ? "لديك فكرة؟ لنبنِها معًا" : "Have an idea? Let’s build it"}
-              <Icon name="arrow-up-right" size={15} />
+              <Icon name="arrow-up-right" flip={false} size={15} />
             </a>
-            <Link href="/work" className="inline-flex items-center gap-2 rounded-pill border border-border-default px-5 py-3 font-mono text-micro uppercase tracking-[0.08em] text-text-primary transition-colors hover:border-accent">
+            <Link href="/work" className="x-btn x-btn--line">
               {ar ? "استعرض الأعمال" : "Explore the work"}
               <Icon name="arrow-down" size={15} />
             </Link>
@@ -90,7 +89,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
               </a>
             </div>
           </div>
-          <p className="mt-3 text-end font-mono text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost">DESIGN WITH INTENT. BUILD WITH PROOF.</p>
+          <p className="mt-3 text-end font-mono text-[0.6rem] uppercase tracking-[0.12em] text-text-ghost"><bdi>DESIGN WITH INTENT. BUILD WITH PROOF.</bdi></p>
         </aside>
       </section>
 

@@ -12,6 +12,7 @@
  */
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Link from "@/components/ui/localized-link";
+import { Icon } from "@/components/ui/Icon";
 import { useLang } from "@/components/providers/lang-provider";
 
 const programmes = [
@@ -175,16 +176,16 @@ export function UmmahAcademyCaseStudy() {
                 <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "رحلة التحويل" : "Conversion path"}</p>
                 <p className="mt-2 text-sm text-text-primary">
                   {ar ? (
-                    <>تصفح <span className="text-amber-300">→</span> اختبار التحديد <span className="text-amber-300">→</span> حسّتان مجانيتان <span className="text-amber-300">→</span> خطة شهرية</>
+                    <>تصفح <span className="text-amber-300">←</span> اختبار التحديد <span className="text-amber-300">←</span> حصّتان مجانيتان <span className="text-amber-300">←</span> خطة شهرية</>
                   ) : (
-                    <>Browse <span className="text-amber-300">→</span> Placement test <span className="text-amber-300">→</span> 2 free lessons <span className="text-amber-300">→</span> Monthly plan</>
+                    <>Browse <Icon name="arrow-right" className="text-amber-300" /> Placement test <Icon name="arrow-right" className="text-amber-300" /> 2 free lessons <Icon name="arrow-right" className="text-amber-300" /> Monthly plan</>
                   )}
                 </p>
               </div>
             </div>
             <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">
               {ar
-                ? "الأرقام من README المشروع والنسخة المنشورة؛ المشروع قيد التطوير — البوابة التشغيلية ونقل الدومين ما زالا جاريين."
+                ? "الأرقام من README المشروع والنسخة المنشورة؛ المشروع قيد التطوير — البوابة التشغيلية ونقل النطاق ما زالا جاريين."
                 : "Numbers from the project README and the published site; the project is in progress — the operations portal and domain cut-over continue."}
             </p>
           </div>
@@ -194,7 +195,7 @@ export function UmmahAcademyCaseStudy() {
           <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
             <span>{ar ? "الدور: هندسة المنتج والويب" : "Role: Product & web engineering"}</span>
             <span>{ar ? "المجال: تعليم مباشر" : "Domain: Live education"}</span>
-            <span>2026 →</span>
+            <span>{ar ? "2026 ←" : "2026 →"}</span>
             <span className="text-amber-200/90">{ar ? "قيد التطوير" : "In progress"}</span>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -284,7 +285,7 @@ export function UmmahAcademyCaseStudy() {
             <div key={j.step} className="rounded-xl border border-border-subtle bg-background/55 p-4">
               <div className="mb-6 flex items-center justify-between">
                 <span className="font-mono text-xs text-text-ghost">{j.step}</span>
-                <span className="text-amber-300">→</span>
+                <Icon name="arrow-right" className="text-amber-300" />
               </div>
               <h3 className="text-sm font-medium text-text-primary">{ar ? j.titleAr : j.title}</h3>
               <p className="mt-2 text-xs leading-[1.65] text-text-tertiary">{ar ? j.descAr : j.desc}</p>
@@ -336,7 +337,7 @@ export function UmmahAcademyCaseStudy() {
                   >
                     {step}
                   </span>
-                  {i < 4 && <span className="text-amber-300">→</span>}
+                  {i < 4 && <Icon name="arrow-right" className="text-amber-300" />}
                 </span>
               ))}
             </div>
@@ -355,7 +356,7 @@ export function UmmahAcademyCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-amber-300">04 / {ar ? "نظام التصميم" : "The design system"}</p>
             <h2 className="mt-4 font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? "سَكينة زجاجية. ثيمان، صفر وميض." : "Sakinah Glass. Two themes, zero flash."}
+              {ar ? "سَكينة زجاجية. سمتان ولا وميض." : "Sakinah Glass. Two themes, zero flash."}
             </h2>
           </div>
           <div className="space-y-3 text-sm leading-[1.65] text-text-secondary">
@@ -451,7 +452,7 @@ export function UmmahAcademyCaseStudy() {
                 >
                   {step}
                 </span>
-                {i < 4 && <span className="text-amber-300">→</span>}
+                {i < 4 && <Icon name="arrow-right" className="text-amber-300" />}
               </span>
             ))}
           </div>
@@ -481,7 +482,7 @@ export function UmmahAcademyCaseStudy() {
           <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
             <p className="text-sm leading-[1.65] text-text-secondary">
               {ar
-                ? "الخصوصية افتراضية لا إضافية: بدون أي سكربتات خارجية أو كوكيز افتراضيًا. التحليلات اختيارية — Plausible بلا كوكيز، أو Google Tag Manager خلف موافقة Consent Mode v2 بلغة الزائر. وبوابة العمليات (طلاب، أسر، معلمون، سجل حصص، اشتراكات، صلاحيات مفحوصة على الخادم) عملية Node منفصلة عن الموقع الثابت."
+                ? "الخصوصية افتراضية لا إضافية: دون أي نصوص برمجية خارجية أو ملفات تعريف ارتباط افتراضيًا. التحليلات اختيارية: Plausible دون ملفات تعريف ارتباط، أو Google Tag Manager خلف موافقة Consent Mode v2 بلغة الزائر. وبوابة العمليات (طلاب، أسر، معلمون، سجل حصص، اشتراكات، صلاحيات مفحوصة على الخادم) عملية Node منفصلة عن الموقع الثابت."
                 : "Privacy is the default, not an add-on: with no analytics variables set, the site ships no third-party scripts and no cookies. Analytics stay optional — cookieless Plausible, or GTM behind Consent Mode v2 in the visitor’s language. The operations portal (students, families, teachers, session ledger, subscriptions, server-checked permissions) runs as a separate Node process beside the static site."}
             </p>
           </div>
@@ -524,7 +525,7 @@ export function UmmahAcademyCaseStudy() {
             </h2>
             <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">
               {ar
-                ? "الموقع حي وقابل للتثبيت بخمس لغات، وقصة المنتج — من سلسلة الإسناد إلى التقارير وخطط الأسعار — مبنية في الواجهة نفسها. ما زال قيد التطوير: بوابة العمليات ونقل الدومين من WordPress مستمران — وهذا سبب علامته كمشروع جارٍ في السجل."
+                ? "الموقع حي وقابل للتثبيت بخمس لغات، وقصة المنتج — من سلسلة الإسناد إلى التقارير وخطط الأسعار — مبنية في الواجهة نفسها. ما زال قيد التطوير: بوابة العمليات ونقل النطاق من WordPress مستمران — وهذا سبب علامته كمشروع جارٍ في السجل."
                 : "The site is live and installable in five languages, and the product story — from the Sanad chain to session reports and pricing — is built into the interface itself. It stays in progress: the operations portal and the WordPress domain cut-over continue — which is why the ledger marks it as ongoing."}
             </p>
           </div>

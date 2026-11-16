@@ -1530,22 +1530,22 @@ export const BUSINESS_DEVELOPMENT_B_CASES: readonly BusinessCaseData[] = [
     slug: "youssef-guba",
     sector: {
       en: "Creator & Engineering Studio OS · Mobile Products, Courses & Writing",
-      ar: "منصات المهندسين وصناع المنتجات · تطبيقات الموبايل والدورات والمقالات",
+      ar: "منصات المهندسين وصناع المنتجات · تطبيقات الجوّال والدورات والمقالات",
     },
     headline: {
       en: "Uniting a Flutter mobile engineer's shipped App Store/Play Store work, educational courses, technical articles, and client project intake inside one Sanity-powered bilingual platform.",
-      ar: "جمع أعمال مهندس تطبيقات موبايل منشورة على المتاجر، ودوراته التدريبية، ومقالاته التقنية، وطلبات العملاء في منصة ثنائية اللغة تدار بالكامل عبر Sanity CMS.",
+      ar: "جمع أعمال مهندس تطبيقات جوّال منشورة على المتاجر، ودوراته التدريبية، ومقالاته التقنية، وطلبات العملاء في منصة ثنائية اللغة تدار بالكامل عبر Sanity CMS.",
     },
     summary: {
       en: "Youssef Guba's platform (youssefguba-os.vercel.app) is a personal portfolio operating system built for a Cairo-based production Flutter engineer. Rather than splitting his professional presence across LinkedIn posts, Medium blogs, course links, and PDF portfolios, it brings 10 mirrored Arabic/English routes—Work, Services, Courses, Writing, Media, About, and Start a Project—under one fast Next.js interface where he publishes new case studies, courses, and articles directly from Sanity Studio without touching code.",
-      ar: "يمثل موقع (يوسف جوبا - Youssef Guba OS) نظام ملف أعمال وتشغيل شخصيًا متكاملًا لمهندس تطوير تطبيقات موبايل (Flutter) في القاهرة. بدلًا من تشتيت حضوره المهني بين منشورات لينكدإن ومنصات المقالات وروابط الدورات المتفرقة، توحّد المنصة 10 مسارات كاملة ومتطابقة بالعربية والإنجليزية تشمل الأعمال المنشورة، الخدمات، الدورات التدريبية، المدونة التقنية، واستقبال المشاريع، مع لوحة إدارة محتوى (Sanity CMS) تمكّنه من النشر والتحديث فورًا دون تعديل الكود.",
+      ar: "يمثل موقع (يوسف جوبا - Youssef Guba OS) نظام ملف أعمال وتشغيل شخصيًا متكاملًا لمهندس تطوير تطبيقات جوّال (Flutter) في القاهرة. بدلًا من تشتيت حضوره المهني بين منشورات لينكدإن ومنصات المقالات وروابط الدورات المتفرقة، توحّد المنصة 10 مسارات كاملة ومتطابقة بالعربية والإنجليزية تشمل الأعمال المنشورة، الخدمات، الدورات التدريبية، المدونة التقنية، واستقبال المشاريع، مع لوحة إدارة محتوى (Sanity CMS) تمكّنه من النشر والتحديث فورًا دون تعديل الكود.",
     },
     snapshot: [
       {
         label: { en: "Domain", ar: "التخصص" },
         value: {
           en: "Production Flutter Mobile Engineering & Technical Education",
-          ar: "هندسة تطبيقات الموبايل (Flutter) والتدريب التقني",
+          ar: "هندسة تطبيقات الجوّال (Flutter) والتدريب التقني",
         },
       },
       {

@@ -24,7 +24,6 @@ import { physics, physicsSlow } from "@/lib/motion";
 import "@/features/hero/hero.css";
 import { GateStepper } from "@/features/process";
 import { AnchorNav } from "@/features/navigation";
-import { buttonVariants } from "@/components/ui/Button";
 import { panelCardVariants } from "@/components/ui/PanelCard";
 
 /* ─── types ───────────────────────────────────────────────────── */
@@ -63,7 +62,7 @@ const COPY = {
     ctaItalic: "day one.",
     ctaSub: "The whole method starts with a 30-minute discovery call. No commitment — just clarity on scope, fit, and timeline.",
     ctaPrimary: "Chat on WhatsApp",
-    ctaSecondary: "See the Client Journey",
+    ctaSecondary: "Send a project brief",
   },
   ar: {
     kicker: "المنهج",
@@ -86,7 +85,7 @@ const COPY = {
     ctaItalic: "اليوم الأول.",
     ctaSub: "يبدأ المنهج كله بمكالمة استكشافية مدتها 30 دقيقة. بلا التزام، فقط وضوح بشأن النطاق ومدى التوافق والجدول الزمني.",
     ctaPrimary: "تحدّث عبر واتساب",
-    ctaSecondary: "شاهد رحلة العميل",
+    ctaSecondary: "أرسل موجز مشروعك",
   },
 } as const;
 
@@ -337,13 +336,13 @@ export function ProcessView() {
       <section className="relative overflow-hidden bg-surface-0 px-6 py-8 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
         <div className="relative z-10 flex max-w-[760px] flex-col gap-5">
-          <p className="hero-rise font-mono text-caption uppercase tracking-[0.16em] text-accent" style={{ "--i": 0 } as CSSProperties}>
+          <p className="hero-rise x-mono x-kicker" style={{ "--i": 0 } as CSSProperties}>
             {c.kicker}
           </p>
-          <h1 className="hero-rise font-display text-[clamp(2.8rem,7vw,6rem)] leading-[0.93] tracking-[-0.03em] text-text-primary" style={{ "--i": 1 } as CSSProperties}>
-            {c.h1a}<br /><em className="text-accent">{c.h1b}</em>
+          <h1 className="hero-rise x-page-title" style={{ "--i": 1 } as CSSProperties}>
+            {c.h1a}<br /><em>{c.h1b}</em>
           </h1>
-          <p className="hero-rise max-w-[56ch] text-body leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)", "--i": 2 } as CSSProperties}>
+          <p className="hero-rise x-page-lead" style={{ "--i": 2 } as CSSProperties}>
             {c.lede}
           </p>
 
@@ -624,43 +623,29 @@ export function ProcessView() {
       </section>
 
       {/* ── CTA ── */}
-      <section id="cta" className="relative overflow-hidden chapter-a border-t border-border-subtle px-6 py-7 text-center lg:px-16">
-        <motion.div
-          className="relative z-10 mx-auto flex max-w-[560px] flex-col items-center gap-5"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={physicsSlow}
-        >
-          <p className="font-mono text-caption uppercase tracking-[0.16em] text-accent">{c.ctaKicker}</p>
-          <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-[-0.025em] text-text-primary">
-            {c.ctaTitle} <em className="text-accent">{c.ctaItalic}</em>
-          </h2>
-          <p className="max-w-[44ch] text-body-sm leading-[1.7] text-text-secondary" style={{ fontFamily: "var(--font-sans)" }}>
-            {c.ctaSub}
+      <section id="cta" className="x-wrap py-7">
+        <div className="x-cta x-iris">
+          <div aria-hidden className="x-cta__sun" />
+          <p className="x-mono x-kicker">{c.ctaKicker}</p>
+          <p className="x-display x-cta__title">
+            {c.ctaTitle} <span className="x-accent">{c.ctaItalic}</span>
           </p>
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
+          <p className="x-page-lead">{c.ctaSub}</p>
+          <div className="x-cta__row">
             <a
               href="https://wa.me/201092500454"
               target="_blank"
               rel="noopener noreferrer"
-              className={buttonVariants({ className: "px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] transition-[transform,box-shadow] duration-[200ms] ease-physics hover:-translate-y-[2px] hover:shadow-[0_6px_20px_rgba(255,107,71,0.30)]" })}
+              className="x-btn x-btn--solid"
             >
               {c.ctaPrimary}
+              <Icon name="arrow-right" flip={false} />
             </a>
-            <Link
-              href="/contact"
-              className={buttonVariants({
-                variant: "ghost",
-                className:
-                  "inline-flex items-center gap-1.5 border border-accent-32 px-[24px] py-[12px] font-display font-[800] text-label tracking-[0.07em] text-text-secondary transition-[border-color,color,transform] duration-[200ms] ease-physics hover:border-accent hover:text-accent hover:-translate-y-[2px]",
-              })}
-            >
+            <Link href="/contact" className="x-btn x-btn--line">
               {c.ctaSecondary}
-              <Icon name="arrow-right" />
             </Link>
           </div>
-        </motion.div>
+        </div>
       </section>
 
     </main>

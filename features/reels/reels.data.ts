@@ -50,7 +50,7 @@ export const REELS: Reel[] = [
     slug: "ai-workflow",
     title: {
       en: "AI Workflow — it's a system, not one chat",
-      ar: "AI Workflow: نظام لا محادثة واحدة",
+      ar: "سير العمل بالذكاء الاصطناعي: نظام لا محادثة واحدة",
       ms: "Aliran Kerja AI — sistem, bukan satu sembang",
     },
     summary: {

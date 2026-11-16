@@ -656,7 +656,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Physical frames carry clean hangtags and corner identifiers stamped with the 'R' mark so the unboxing experience feels like receiving a gallery edition.",
-          ar: "تحمل الإطارات بطاقات تعريف أنيقة مختومة بشعار R ليحصل المشتري عند فتح العبوة على تجربة تضاهي اقتناء قطعة من جاليري متخصص.",
+          ar: "تحمل الإطارات بطاقات تعريف أنيقة مختومة بشعار R ليحصل المشتري عند فتح العبوة على تجربة تضاهي اقتناء قطعة من معرض متخصص.",
         },
       },
       {
@@ -711,7 +711,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
       },
       {
-        tag: { en: "Distinct Typography", ar: "شخصية تايبوجرافية مميزة" },
+        tag: { en: "Distinct Typography", ar: "شخصية تيبوغرافية مميزة" },
         title: {
           en: "Architectural Neue Machina paired with approachable Quicksand",
           ar: "موازنة بين الحداثة الهندسية والود البصري في الخطوط",
@@ -779,7 +779,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Ahmed Bedeer works at the intersection of hospital operations and clinical interoperability standards (HL7, FHIR, CPHIMS, HIMSS) across Saudi Arabia and the wider MENA region. The brand system gives him an executive identity—anchored by a custom 'ab' quotation-mark monogram—across advisory decks, conference speaking profiles, executive stationery, and digital thought leadership.",
-      ar: "يعمل أحمد بدير كقيادي واستشاري في نظم المعلومات الصحية ومعايير الربط الطبي (HL7 وFHIR وCPHIMS وHIMSS) في السوق السعودي والشرق الأوسط. صُمّم هذا النظام ليمنحه حضورًا تنفيذيًا رصينًا يرتكز على مونوجرام (ab) المبتكر على هيئة علامة اقتباس، ويحكم عروضه الاستشارية ومشاركاته في المؤتمرات ومطبوعاته الرسمية ومنصاته المهنية.",
+      ar: "يعمل أحمد بدير كقيادي واستشاري في نظم المعلومات الصحية ومعايير الربط الطبي (HL7 وFHIR وCPHIMS وHIMSS) في السوق السعودي والشرق الأوسط. صُمّم هذا النظام ليمنحه حضورًا تنفيذيًا رصينًا يرتكز على مونوغرام (ab) المبتكر على هيئة علامة اقتباس، ويحكم عروضه الاستشارية ومشاركاته في المؤتمرات ومطبوعاته الرسمية ومنصاته المهنية.",
     },
     snapshot: [
       {
@@ -807,7 +807,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         label: { en: "Core Assets", ar: "المخرجات الأساسية" },
         value: {
           en: "ab monogram, gunmetal/teal palette, type & V1.0 guide",
-          ar: "مونوجرام ab، لوحة ألوان تنفيذية، نظام خطوط، ودليل V1.0",
+          ar: "مونوغرام ab، لوحة ألوان تنفيذية، نظام خطوط، ودليل V1.0",
         },
       },
     ],
@@ -841,7 +841,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Pairs Gunmetal authority (#1C2B33) and Steel Blue clinical trust (#118AB2) with a crisp Teal innovation accent (#06D6A0).",
-          ar: "توظيف الرمادي المعدني الداكن للوقار والأزرق الفولاذي للثقة الطبية مع لمسة تركوازية تعكس الحداثة التقنية.",
+          ar: "توظيف الرمادي المعدني الداكن للوقار والأزرق الفولاذي للثقة الطبية مع لمسة فيروزية تعكس الحداثة التقنية.",
         },
         {
           en: "Gives consistent visual dress across business cards, LinkedIn/social headers, slide decks, and whitepaper documents.",
@@ -886,7 +886,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "When decision-makers look up Ahmed's insights on HL7, FHIR, or hospital HIS rollouts, every post and banner carries the unmistakable 'ab' signature and palette.",
-          ar: "عند بحث صناع القرار عن مقالاته أو تحليلاته حول أنظمة المستشفيات ومعايير الربط الصحي، يظهر المحتوى ببصمة لونية وتايبوجرافية ثابتة.",
+          ar: "عند بحث صناع القرار عن مقالاته أو تحليلاته حول أنظمة المستشفيات ومعايير الربط الصحي، يظهر المحتوى ببصمة لونية وتيبوغرافية ثابتة.",
         },
       },
       {
@@ -922,7 +922,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Specifies exact monogram construction grids, Lubalin Graph + Uncut Sans pairings, and dark/light surface rules.",
-          ar: "تحديد شبكة بناء المونوجرام، قواعد استخدام خطّي Lubalin Graph وUncut Sans، وضوابط الظهور على الخلفيات الفاتحة والداكنة.",
+          ar: "تحديد شبكة بناء المونوغرام، قواعد استخدام خطّي Lubalin Graph وUncut Sans، وضوابط الظهور على الخلفيات الفاتحة والداكنة.",
         },
       },
     ],
@@ -983,7 +983,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Maintains sharp geometry whether debossed on heavy cardstock, embroidered, or rendered as a small digital badge.",
-          ar: "يحافظ المونوجرام على حدّته وتفاصيله سواء عند الطباعة البارزة على الكروت أو الاستخدام المصغّر على الشاشات.",
+          ar: "يحافظ المونوغرام على حدّته وتفاصيله سواء عند الطباعة البارزة على الكروت أو الاستخدام المصغّر على الشاشات.",
         },
       },
       {
@@ -1005,7 +1005,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Delivered with full monogram construction specs, primary and extended color systems, typography hierarchy, stationery mockups, and multi-surface media rules.",
-        ar: "شمل التسليم بناء المونوجرام الهندسي، لوحات الألوان الأساسية والموسّعة، نظام الخطوط، تطبيقات المطبوعات التنفيذية، وقواعد الاستخدام عبر الوسائط المختلفة.",
+        ar: "شمل التسليم بناء المونوغرام الهندسي، لوحات الألوان الأساسية والموسّعة، نظام الخطوط، تطبيقات المطبوعات التنفيذية، وقواعد الاستخدام عبر الوسائط المختلفة.",
       },
       highlights: [
         {
@@ -1081,7 +1081,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Without strict gradient and typography rules from day one, multi-service marketing quickly turns chaotic across social and proposals.",
-          ar: "تقديم خدمات متنوعة (تقنية وإبداعية) بدون قواعد لونية وتايبوجرافية صارمة يؤدي لتشتت الرسالة التسويقية للاستوديو.",
+          ar: "تقديم خدمات متنوعة (تقنية وإبداعية) بدون قواعد لونية وتيبوغرافية صارمة يؤدي لتشتت الرسالة التسويقية للاستوديو.",
         },
       ],
       afterTitle: {
@@ -1095,7 +1095,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Pairs a deep technical canvas (#0B0F1A) with governed Teal (#48CCCC), Violet (#7850C8), and 8 named gradients to distinguish tracks cleanly.",
-          ar: "المزاوجة بين الخلفية الداكنة الرصينة والتركواز والبنفسجي ومكتبة من 8 تدرجات معتمدة لتمييز مسارات الخدمات بوضوح.",
+          ar: "المزاوجة بين الخلفية الداكنة الرصينة والفيروزي والبنفسجي ومكتبة من 8 تدرجات معتمدة لتمييز مسارات الخدمات بوضوح.",
         },
         {
           en: "Proves the studio's doctrine ('governed systems from day one') by running its own commercial operations on V1.0 guidelines.",
@@ -1164,7 +1164,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Typography hierarchy (Signate Grotesk + Raleway + Poppins) structures service deliverables, pricing bands, and timelines clearly.",
-          ar: "يساعد التسلسل التايبوجرافي الواضح في عرض بنود الأعمال والتكلفة والجدول الزمني بشكل مريح ومباشر لصانع القرار.",
+          ar: "يساعد وضوح التسلسل الهرمي للخطوط في عرض بنود الأعمال والتكلفة والجدول الزمني بشكل مريح ومباشر لصانع القرار.",
         },
       },
       {
@@ -1541,7 +1541,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Learn in Arabic (تعلّم بالعربي) is an educational initiative created within an MSP student/community tech program (2020–2021) to teach technical and modern skills in clear, accessible Arabic. Instead of stopping at a logo, the project combined three connected pieces: a bold typographic brand identity, a physical DIY video studio built from zero, and reusable motion graphics templates for episodes and social publishing.",
-      ar: "انطلقت مبادرة (تعلّم بالعربي) خلال الفترة 2020–2021 بهدف تبسيط وتقديم المهارات التقنية والحديثة باللغة العربية بصورة عصرية واضحة. لم يتوقف المشروع عند تصميم شعار، بل جمع ثلاث ركائز عملية مترابطة: هوية تايبوجرافية عربية مميزة، بناء وتجهيز استوديو تصوير فعلي من الصفر بإمكانات ذاتية، وحزمة قوالب موشن جرافيك لتوحيد الحلقات والمنشورات.",
+      ar: "انطلقت مبادرة (تعلّم بالعربي) خلال الفترة 2020–2021 بهدف تبسيط وتقديم المهارات التقنية والحديثة باللغة العربية بصورة عصرية واضحة. لم يتوقف المشروع عند تصميم شعار، بل جمع ثلاث ركائز عملية مترابطة: هوية تيبوغرافية عربية مميزة، بناء وتجهيز استوديو تصوير فعلي من الصفر بإمكانات ذاتية، وحزمة قوالب موشن جرافيك لتوحيد الحلقات والمنشورات.",
     },
     snapshot: [
       {
@@ -1599,7 +1599,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
       afterPoints: [
         {
           en: "Designed a clean, contemporary Arabic-first typographic mark and color system (#60A5FA / #2563EB) that makes technical topics feel approachable.",
-          ar: "تصميم علامة تايبوجرافية عربية معاصرة ونظام لوني أزرق واضح يمنح المواد التقنية مظهرًا حديثًا ومباشرًا.",
+          ar: "تصميم علامة تيبوغرافية عربية معاصرة ونظام لوني أزرق واضح يمنح المواد التقنية مظهرًا حديثًا ومباشرًا.",
         },
         {
           en: "Built a physical DIY recording space from scratch—matching backdrop tones, framing, and lighting directly to the brand palette.",
@@ -1705,7 +1705,7 @@ export const BUSINESS_DESIGN_CASES: readonly BusinessCaseData[] = [
         },
       },
       {
-        tag: { en: "Arabic-First Type", ar: "تايبوجرافيا عربية أصيلة" },
+        tag: { en: "Arabic-First Type", ar: "تيبوغرافيا عربية أصيلة" },
         title: {
           en: "Bold Arabic mark designed natively, not adapted from Latin",
           ar: "علامة عربية مبنية أصلًا للحرف العربي وليست مترجمة",

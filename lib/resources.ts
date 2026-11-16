@@ -54,7 +54,7 @@ export const RESOURCES: readonly Resource[] = [
     subtitle: ["Diagnose before you design", "شخّص قبل أن تصمّم"],
     desc: [
       "Scores strategic, identity, digital, and operational debt into a complete Brand Health Report.",
-      "يقيس الدين الاستراتيجي والبصري والرقمي والتشغيلي، ويجمعها في تقرير متكامل لصحة العلامة.",
+      "يقيس ما تراكم على العلامة من ديون استراتيجية وبصرية ورقمية وتشغيلية، ويجمعها في تقرير متكامل لصحة العلامة.",
     ],
     feeds: "→ R01 · R05",
     file: "/resources/02-audit-framework.pdf",

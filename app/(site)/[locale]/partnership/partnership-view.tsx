@@ -104,13 +104,13 @@ export function PartnershipView() {
 
   return (
     <main className="container-content flex flex-col gap-8 pb-8">
-      <header className="flex max-w-[70ch] flex-col gap-3">
-        <Link href="/services" className="text-caption text-text-tertiary">
-          {ar ? "كل الخدمات" : "All services"} ←
+      <header className="flex flex-col gap-4">
+        <Link href="/services" className="x-mono w-fit text-text-tertiary transition-colors hover:text-text-primary">
+          {ar ? "→ كل الخدمات" : "← All services"}
         </Link>
-        <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">{copy.eyebrow}</p>
-        <h1 className="font-display text-display tracking-[-0.025em] text-text-primary">{copy.title}</h1>
-        <p className="text-lead text-text-secondary">{copy.intro}</p>
+        <p className="x-mono x-kicker">{copy.eyebrow}</p>
+        <h1 className={`x-page-title${copy.title.length > 34 ? " x-page-title--long" : ""}`}>{copy.title}</h1>
+        <p className="x-page-lead">{copy.intro}</p>
       </header>
 
       <section aria-label={copy.tiersLabel} className="flex flex-col gap-3">

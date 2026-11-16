@@ -29,6 +29,7 @@ import { FxSubline } from "@/components/ui/fx-price";
 import { Heading } from "@/components/ui/Heading";
 import { SocialProof } from "@/components/shared/social-proof";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
+import { Icon } from "@/components/ui/Icon";
 
 const PRICING_MOOD = {
   primary: "rgb(255 107 71 / 0.10)",
@@ -103,7 +104,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
                 "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]} →
+            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
           </Link>
           <Link
             href="/services/store-72h"

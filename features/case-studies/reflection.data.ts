@@ -45,7 +45,7 @@ export const REFLECTION: CaseStudyRecord = {
     { token: "black",           value: "#0A0A0A", role: "Text / graphic accent · CMYK 0,0,0,100", roleAr: "نص / تمييز جرافيك" },
     { token: "spectrum-violet", value: "#9646BC", role: "Secondary · violet end",            roleAr: "ثانوي · نهاية البنفسجي" },
     { token: "spectrum-red",    value: "#E84040", role: "Secondary · red mid",               roleAr: "ثانوي · أحمر وسط"        },
-    { token: "spectrum-teal",   value: "#009696", role: "Secondary · turquoise",             roleAr: "ثانوي · تركواز"          },
+    { token: "spectrum-teal",   value: "#009696", role: "Secondary · turquoise",             roleAr: "ثانوي · فيروزي"          },
     { token: "Neue Machina",    value: "Ultra",   role: "Headlines · brand typeface",        roleAr: "عناوين · خط العلامة"     },
     { token: "Quicksand",       value: "Regular", role: "Body / subheads",                   roleAr: "متن / عناوين فرعية"      },
   ],
@@ -59,7 +59,7 @@ export const REFLECTION: CaseStudyRecord = {
   results: [
     { value: "18p", label: "Brand book",       labelAr: "دليل العلامة",     context: "OVERVIEW → LOGO → COLOR → TYPE → LAYOUT", contextAr: "نظرة عامة ← شعار ← لون ← خط ← تخطيط" },
     { value: "3",   label: "Focal-area rules", labelAr: "قواعد المنطقة المحورية", context: "IMAGE · HEADLINE · ICON",          contextAr: "صورة · عنوان · أيقونة"               },
-    { value: "V1.0",label: "Governed system",  labelAr: "نظام محكوم",       context: "MARGINS, LOCKUPS, FOCAL LOGIC",            contextAr: "هوامش، lockups، منطق محوري"          },
+    { value: "V1.0",label: "Governed system",  labelAr: "نظام محكوم",       context: "MARGINS, LOCKUPS, FOCAL LOGIC",            contextAr: "هوامش، تركيبات الشعار، منطق محوري"          },
   ],
 
   retro: [
@@ -80,7 +80,7 @@ export const REFLECTION: CaseStudyRecord = {
     guidingIdea:
       "The Considered Canvas — an airy, museum-quality white foundation punctuated by black precision and a controlled color spectrum. Anchored by the constructed 'R' monogram (circle + triangle).",
     guidingIdeaAr:
-      "القماش المدروس — أرضية بيضاء برحابة المعارض الفنية تتخللها دقة الأسود وطيف لوني محسوب، يرتكز على مونوجرام حرف R الهندسي المكون من دائرة ومثلث.",
+      "القماش المدروس — أرضية بيضاء برحابة المعارض الفنية تتخللها دقة الأسود وطيف لوني محسوب، يرتكز على مونوغرام حرف R الهندسي المكون من دائرة ومثلث.",
     rejectedDirections:
       "1) Dark, moody cyberpunk styling: Rejected because it alienated residential interior buyers seeking warmth and light.\n2) Generic brushstroke typography: Rejected for lacking the architectural rigor needed for a bespoke framing and printing atelier.",
     rejectedDirectionsAr:
@@ -98,7 +98,7 @@ export const REFLECTION: CaseStudyRecord = {
   designProofItems: [
     {
       title: "Monogram Construction & Geometry",
-      titleAr: "بناء المونوجرام وهندسته",
+      titleAr: "بناء المونوغرام وهندسته",
       description: "The constructed R — circle and triangle of equal optical weight stacked to read as initial, icon, and reflection.",
       descriptionAr: "حرف R المبني — دائرة ومثلث بوزن بصري متساوٍ يُكوّنان شكلًا يُقرأ كحرف أول وأيقونة وانعكاس في آن.",
       image: "/images/work/reflection/refl-logo-anatomy.jpg",
@@ -107,7 +107,7 @@ export const REFLECTION: CaseStudyRecord = {
       title: "Airy Color Spectrum on White Canvas",
       titleAr: "طيف الألوان على خلفية بيضاء رحبة",
       description: "Pure white base with black text accents and a refined violet-to-teal spectrum.",
-      descriptionAr: "قاعدة بيضاء نقية مع خطوط سوداء وطيف لوني راقٍ من البنفسجي إلى التركواز يمنح العلامة دفئًا تحريريًا.",
+      descriptionAr: "قاعدة بيضاء نقية مع خطوط سوداء وطيف لوني راقٍ من البنفسجي إلى الفيروزي يمنح العلامة دفئًا تحريريًا.",
       image: "/images/work/reflection/refl-colors.jpg",
     },
     {

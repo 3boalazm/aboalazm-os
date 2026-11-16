@@ -7,6 +7,7 @@ import { bookHref, DEPOSIT_CTA_LABEL, localizePrice, STORE_72H_OFFER } from "@/l
 import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import { PROJECTS } from "@/features/work/projects.data";
 import { SocialProof } from "@/components/shared/social-proof";
+import { Icon } from "@/components/ui/Icon";
 
 export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
   const { lang } = useLang();
@@ -76,13 +77,13 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
             href={bookHref(defaultPlanId)}
             className="w-fit rounded-pill bg-accent px-3.5 py-1.5 font-mono text-label text-obsidian"
           >
-            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]}<Icon name="arrow-right" className="ms-1.5" />
           </Link>
           <Link
             href={contactHref({ service, source })}
             className="w-fit rounded-pill border border-border-default bg-surface-1 px-3.5 py-1.5 font-mono text-label text-text-primary transition-colors hover:border-accent"
           >
-            {ar ? "ناقش مشروعك" : "Discuss your project"} →
+            {ar ? "ناقش مشروعك" : "Discuss your project"}<Icon name="arrow-right" className="ms-1.5" />
           </Link>
         </div>
       </header>
@@ -157,7 +158,7 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
                 ? "الشعار: من 7 إلى 10 أيام؛ الهوية: من 3 إلى 4 أسابيع؛ النظام المتكامل: من 5 إلى 7 أسابيع. تُحدَّد لغة الشعار في الباقات الأصغر، ويشمل النظام المتكامل العربية والإنجليزية. ويُحدَّد الموعد النهائي بعد الاتفاق على النطاق والاعتمادات."
                 : "Logo: 7–10 days; identity: 3–4 weeks; full system: 5–7 weeks. Smaller tiers specify the logo language; the full system includes Arabic and English. Final dates follow scope and approval milestones."
               : ar
-                ? "يعتمد السعر والجدول على الصفحات والأدوار والتكاملات وجاهزية المحتوى. وتُحدَّد رسوم الاستضافة والنطاق (الدومين) والخدمات الخارجية وتكاملات الخلفية كبنود مستقلة في العرض."
+                ? "يعتمد السعر والجدول على الصفحات والأدوار والتكاملات وجاهزية المحتوى. وتُحدَّد رسوم الاستضافة والنطاق والخدمات الخارجية وتكاملات الخلفية كبنود مستقلة في العرض."
                 : "The quote and schedule depend on pages, user roles, integrations and content readiness. Hosting, domain, third-party services and backend integrations are itemised in the proposal."}
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
@@ -165,13 +166,13 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
               href={bookHref(defaultPlanId)}
               className="inline-block text-body-sm font-medium text-accent underline underline-offset-4"
             >
-              {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+              {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]}<Icon name="arrow-right" className="ms-1.5" />
             </Link>
             <Link
               href="/pricing"
               className="inline-block text-body-sm text-text-secondary underline underline-offset-4 hover:text-text-primary"
             >
-              {ar ? "راجع الباقات ونطاقات الأسعار" : "Review packages and price ranges"} →
+              {ar ? "راجع الباقات ونطاقات الأسعار" : "Review packages and price ranges"}<Icon name="arrow-right" className="ms-1.5" />
             </Link>
           </div>
         </div>

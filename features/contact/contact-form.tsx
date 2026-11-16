@@ -299,7 +299,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                           : "border-border-subtle text-text-tertiary hover:border-border-default",
                       ].join(" ")}
                     >
-                      {band}
+                      <bdi dir="ltr">{band}</bdi>
                     </button>
                   ))}
                 </div>

@@ -13,6 +13,7 @@ import {
   CONTACT_EMAIL_HREF,
   RESPONSE_PROMISE,
 } from "@/lib/contact-details";
+import { Icon } from "@/components/ui/Icon";
 
 const CHANNELS = [
   { en: "WhatsApp", ar: "واتساب", label: "+20 109 250 0454", href: "https://wa.me/201092500454" },
@@ -90,7 +91,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
                 href={bookHref(depositPlanId)}
                 className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-border-default px-2 py-1.5 text-body-sm hover:border-accent"
               >
-                <span>{ar ? "اعتمدت النطاق؟ ادفع دفعة البدء" : lang === "ms" ? "Skop dipersetujui? Bayar deposit permulaan" : "Scope agreed? Pay the kickoff deposit"} →</span>
+                <span>{ar ? "اعتمدت النطاق؟ ادفع دفعة البدء" : lang === "ms" ? "Skop dipersetujui? Bayar deposit permulaan" : "Scope agreed? Pay the kickoff deposit"}<Icon name="arrow-right" className="ms-1.5" /></span>
                 <span className="font-mono text-micro text-text-secondary">
                   {ar ? "الخطوة 04" : lang === "ms" ? "LANGKAH 04" : "STEP 04"}
                 </span>
@@ -167,7 +168,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
           href="/agreement"
           className="mt-2 inline-block text-body-sm text-accent underline underline-offset-4"
         >
-          {ar ? "تفاصيل اتفاقية التعاون" : lang === "ms" ? "Baca terma kerjasama" : "Read the collaboration terms"} →
+          {ar ? "تفاصيل اتفاقية التعاون" : lang === "ms" ? "Baca terma kerjasama" : "Read the collaboration terms"}<Icon name="arrow-right" className="ms-1.5" />
         </Link>
       </details>
     </main>

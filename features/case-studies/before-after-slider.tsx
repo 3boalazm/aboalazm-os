@@ -82,7 +82,7 @@ export function BeforeAfterSlider({
             </span>
           </div>
           <span className="rounded-pill border border-border-default bg-surface-2 px-2 py-0.5 font-mono text-micro text-text-secondary">
-            {ar ? "توكنز مقفلة" : "LOCKED TOKENS"}
+            {ar ? "متغيّرات التصميم مقفلة" : "LOCKED TOKENS"}
           </span>
         </div>
 

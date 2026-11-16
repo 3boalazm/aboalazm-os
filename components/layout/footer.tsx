@@ -110,7 +110,7 @@ export function Footer() {
         </p>
 
         <div className="x-foot__bar x-mono">
-          <span>© 2026 Mustafa Aboalazm</span>
+          <bdi dir="ltr">© 2026 Mustafa Aboalazm</bdi>
           <CairoClock label={k === 1 ? "العبور، القاهرة" : "Al Obour, Cairo"} />
           <span>{k === 1 ? "تصميم وبناء الاستوديو" : k === 2 ? "Direka & dibina oleh studio" : "Designed & built by the studio"}</span>
         </div>

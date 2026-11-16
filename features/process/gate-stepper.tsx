@@ -195,7 +195,7 @@ export function GateStepper() {
                     <span className="gate-node__num">{gate.id}</span>
                   )}
                 </span>
-                <span className="gate-node__cmd">{gate.cmd}</span>
+                <span className="gate-node__cmd" dir="ltr">{gate.cmd}</span>
               </button>
             );
           })}
@@ -222,7 +222,7 @@ export function GateStepper() {
             {/* command line */}
             <div className="gate-detail__cmdline">
               <span className="gate-detail__prompt">$</span>
-              <span className="gate-detail__cmd">{g.cmd}</span>
+              <span className="gate-detail__cmd" dir="ltr">{g.cmd}</span>
               <span className="gate-detail__status">
                 <span className="gate-detail__status-dot" aria-hidden />
                 {t.awaiting}

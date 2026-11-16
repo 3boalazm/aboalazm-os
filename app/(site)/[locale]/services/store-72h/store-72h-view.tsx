@@ -22,6 +22,7 @@ import {
   RESPONSE_PROMISE,
   whatsappPrefillHref,
 } from "@/lib/contact-details";
+import { Icon } from "@/components/ui/Icon";
 
 export function Store72hView() {
   const { lang } = useLang();
@@ -67,11 +68,11 @@ export function Store72hView() {
               </Badge>
             </div>
 
-            <h1 className="font-display text-title tracking-tight text-text-primary">
+            <h1 className="x-page-title x-page-title--long">
               {ar ? offer.headline[1] : offer.headline[0]}
             </h1>
 
-            <p className="max-w-[64ch] text-body text-text-secondary">
+            <p className="x-page-lead">
               {ar ? offer.subheadline[1] : offer.subheadline[0]}
             </p>
 
@@ -84,7 +85,7 @@ export function Store72hView() {
                     "inline-flex items-center gap-1.5 px-4 py-2 font-mono text-label tracking-[0.06em]",
                 })}
               >
-                {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+                {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
               </Link>
               <a
                 href={askWhatsappHref}
@@ -121,12 +122,12 @@ export function Store72hView() {
             emphasis="accent"
             className="flex flex-col gap-4 rounded-panel p-4 sm:p-5 lg:col-span-5"
           >
-            <div className="flex items-start justify-between gap-3 border-b border-border-default pb-3">
-              <div className="flex flex-col gap-1">
+            <div className="flex flex-wrap items-start justify-between gap-3 border-b border-border-default pb-3">
+              <div className="flex min-w-0 flex-col gap-1">
                 <span className="font-mono text-micro uppercase tracking-[0.14em] text-accent">
                   {ar ? "الاستثمار وجدول الدفع" : "INVESTMENT & SCHEDULE"}
                 </span>
-                <div className="flex items-baseline gap-2">
+                <div className="flex flex-wrap items-baseline gap-x-2">
                   <span
                     dir="ltr"
                     className="font-display text-title font-semibold text-text-primary"
@@ -193,7 +194,7 @@ export function Store72hView() {
                   "w-full justify-center px-4 py-2 font-mono text-label tracking-[0.06em]",
               })}
             >
-              {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+              {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
             </Link>
           </PanelCard>
         </div>
@@ -399,7 +400,7 @@ export function Store72hView() {
                 "inline-flex items-center gap-1.5 px-4 py-2 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]} →
+            {ar ? DEPOSIT_CTA_LABEL[1] : DEPOSIT_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
           </Link>
           <a
             href={askWhatsappHref}

@@ -28,7 +28,7 @@ export const AHMED_BEDEER: CaseStudyRecord = {
   researchSummary:
     "Healthcare IT consultants cluster into two poles: clinical-technical (white-coat formality) or generic tech (dark-mode-startup aesthetics). Neither commands authority at the strategy table. The gap: a personal brand that signals domain mastery through precision and restraint — not loud, but unmistakably expert.",
   researchSummaryAr:
-    "استشاريو تكنولوجيا المعلومات الصحية يتجمعون في قطبين: سريري-تقني (رسمية المعطف الأبيض) أو تقني عام (جماليات الستارت أب الداكنة). لا أيٌّ منهما يمنح سلطة على طاولة الاستراتيجية. والفجوة: علامة شخصية تُشير إلى إتقان المجال بالدقة والتحفظ، لا صاخبة، لكنها خبيرة بلا لبس.",
+    "استشاريو تكنولوجيا المعلومات الصحية يتجمعون في قطبين: سريري-تقني (رسمية المعطف الأبيض) أو تقني عام (جماليات الشركات الناشئة الداكنة). لا أيٌّ منهما يمنح سلطة على طاولة الاستراتيجية. والفجوة: علامة شخصية تُشير إلى إتقان المجال بالدقة والتحفظ، لا صاخبة، لكنها خبيرة بلا لبس.",
   competitors: [
     { name: "Clinical-corporate A", x: 28, y: 62 },
     { name: "Clinical-corporate B", x: 18, y: 50 },
@@ -58,12 +58,12 @@ export const AHMED_BEDEER: CaseStudyRecord = {
   results: [
     { value: "V1.0", label: "Coherent system shipped",  labelAr: "نظام متماسك تم تسليمه",  context: "LOGO → COLOR → TYPE → APPS",     contextAr: "شعار ← لون ← خط ← تطبيقات"     },
     { value: "1",    label: "Brand guidelines PDF",     labelAr: "ملف دليل الهوية PDF",     context: "GOVERNED, NOT GUESSED",          contextAr: "محكوم لا مرتجل"               },
-    { value: "3",    label: "Palette tokens defined",   labelAr: "توكنز لوحة الألوان",      context: "PRIMARY + EXTENDED + SECONDARY", contextAr: "أساسي + موسّع + ثانوي"        },
+    { value: "3",    label: "Palette tokens defined",   labelAr: "متغيّرات لوحة الألوان",      context: "PRIMARY + EXTENDED + SECONDARY", contextAr: "أساسي + موسّع + ثانوي"        },
   ],
 
   retro: [
-    { verdict: "KEEP",   note: "The 'ab' quotation-mark monogram — initials that signal dialogue and thought leadership simultaneously.",   noteAr: "مونوجرام علامة الاقتباس 'ab' — أحرف أولى تُشير إلى الحوار والريادة الفكرية في آن."        },
+    { verdict: "KEEP",   note: "The 'ab' quotation-mark monogram — initials that signal dialogue and thought leadership simultaneously.",   noteAr: "مونوغرام علامة الاقتباس 'ab' — أحرف أولى تُشير إلى الحوار والريادة الفكرية في آن."        },
     { verdict: "KEEP",   note: "Blue for trust, teal for transformation — never decoration, always doctrine.",                               noteAr: "الأزرق للثقة، والتيل للتحول — ليست ديكورًا أبدًا، دائمًا عقيدة."                       },
-    { verdict: "CHANGE", note: "Lock 'Healthcare' spelling in the lockup before any print run.",                                             noteAr: "اقفل إملاء 'Healthcare' في الـ lockup قبل أي طباعة." },
+    { verdict: "CHANGE", note: "Lock 'Healthcare' spelling in the lockup before any print run.",                                             noteAr: "ثبّت إملاء 'Healthcare' في تركيبة الشعار قبل أي طباعة." },
   ],
 };

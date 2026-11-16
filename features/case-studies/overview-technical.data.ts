@@ -153,7 +153,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "First-class Arabic RTL parity for Gulf & Egypt roles",
           titleAr: "دعم أصيل للعربية RTL لخدمة سوقي مصر والخليج",
           body: "Built natively for bilingual regional teams rather than relying on browser auto-translate.",
-          bodyAr: "بناء النسخة العربية بتايبوجرافيا واتجاه أصيل يناسب الشركات الإقليمية في السعودية والخليج ومصر.",
+          bodyAr: "بناء النسخة العربية بتيبوغرافيا واتجاه أصيل يناسب الشركات الإقليمية في السعودية والخليج ومصر.",
         },
       ],
     },
@@ -334,7 +334,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           title: "System Constellation hero card instead of decorative graphics",
           titleAr: "بطاقة حالة معمارية في الواجهة بدلًا من الزخارف الشكلية",
           body: "Immediately communicates mobile stack, CMS live status, and 10-route RTL/LTR parity in structured engineering language.",
-          bodyAr: "توضّح منذ النظرة الأولى تخصص الموبايل وحالة ربط نظام المحتوى وتطابق اللغتين بأسلوب هندسي منظم.",
+          bodyAr: "توضّح منذ النظرة الأولى تخصص الجوّال وحالة ربط نظام المحتوى وتطابق اللغتين بأسلوب هندسي منظم.",
         },
         {
           n: "D-04",
@@ -485,7 +485,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
           detail:
             "Limited-ink spot-color friendly artwork for camp T-shirts, caps, and stickers so screen printing stays crisp and budget-friendly.",
           detailAr:
-            "تجهيز الرسومات بعدد ألوان مدروس يناسب طباعة السلك سكرين على الملابس والملصقات بجودة عالية وتكلفة منضبطة.",
+            "تجهيز الرسومات بعدد ألوان مدروس يناسب الطباعة الحريرية على الملابس والملصقات بجودة عالية وتكلفة منضبطة.",
         },
       ],
       flow: {
@@ -577,7 +577,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
     heroLeadAr:
       "منظومة هوية تعليمية عربية متكاملة مقترنة بتجهيز استوديو تصوير فعلي من الصفر وحزمة موشن جرافيك لإنتاج دروس تقنية واضحة ومتسقة.",
     badges: [
-      { en: "Arabic Typography", ar: "تايبوجرافيا عربية" },
+      { en: "Arabic Typography", ar: "تيبوغرافيا عربية" },
       { en: "DIY Studio Build", ar: "بناء استوديو تصوير" },
       { en: "Motion Package", ar: "حزمة موشن جرافيك" },
       { en: "2020–2021", ar: "2020–2021" },
@@ -602,7 +602,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       alt: "Learn in Arabic typographic and educational study materials",
       altAr: "مواد وهوية مبادرة تعلّم بالعربي",
       caption: "Clear, modern Arabic typographic sensibility built to make technical learning approachable and structured",
-      captionAr: "معالجة بصرية وتايبوجرافية واضحة تجعل التعلّم التقني باللغة العربية عصريًا ومرتبًا",
+      captionAr: "معالجة بصرية وتيبوغرافية واضحة تجعل التعلّم التقني باللغة العربية عصريًا ومرتبًا",
       tag: "ARABIC-FIRST SYSTEM",
     },
     cta: {
@@ -619,7 +619,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
       ],
       paragraphsAr: [
         "عندما يسجّل المحاضرون دروسًا تقنية في أماكن متفرقة بإضاءة وخلفيات وعروض غير متناسقة، فلن ينجح مجرد وضع شعار في زاوية الشاشة في منح القناة مظهرًا احترافيًا موثوقًا.",
-        "لذلك تعامل المشروع مع الهوية ومكان التصوير وخط المونتاج كنظام واحد: علامة تايبوجرافية عربية واضحة، استوديو تصوير فعلي جُهّز من الصفر بتكلفة اقتصادية ذكية، وحزمة قوالب تحريك جاهزة للحلقات.",
+        "لذلك تعامل المشروع مع الهوية ومكان التصوير وخط المونتاج كنظام واحد: علامة تيبوغرافية عربية واضحة، استوديو تصوير فعلي جُهّز من الصفر بتكلفة اقتصادية ذكية، وحزمة قوالب تحريك جاهزة للحلقات.",
       ],
       callout:
         "Matching physical set lighting and backdrop hues directly to the #60A5FA / #2563EB digital palette eliminated jarring transitions between talking-head shots and motion slides.",
@@ -637,7 +637,7 @@ export const OVERVIEW_TECHNICAL_CASES: Readonly<Record<string, ProductCaseProps>
         {
           no: "01",
           name: "Arabic-First Typographic Mark & Palette",
-          nameAr: "العلامة التايبوجرافية العربية ونظام الألوان",
+          nameAr: "العلامة التيبوغرافية العربية ونظام الألوان",
           tech: "Custom Arabic Lockup · #60A5FA / #2563EB",
           detail:
             "Constructed around clear Arabic letterforms paired with a crisp blue technical palette that reads cleanly on mobile thumbnails.",

@@ -87,7 +87,7 @@ export function CodeCanvasDevCaseStudy() {
         kicker: "Architecture",
         kickerAr: "البنية",
         title: "Four generators, zero runtime.",
-        titleAr: "أربع مولّدات، وصفر runtime.",
+        titleAr: "أربع مولّدات، ولا شيء في وقت التشغيل.",
         aside: "Every script below runs at authoring time. The served site is only HTML, CSS and JS files — nothing executes to assemble a page.",
         asideAr: "كل سكربت من هذه يعمل وقت التأليف. الموقع المقدَّم ملفات HTML وCSS وJS فقط، ولا شيء يعمل لتجميع صفحة عند الطلب.",
         modules: [
@@ -112,7 +112,7 @@ export function CodeCanvasDevCaseStudy() {
             name: "Arabic generation",
             nameAr: "توليد العربية",
             detail: "gen-ar.mjs derives /ar/<route>/index.html from the finished English page, so the twin always matches in structure. A test asserts the markup itself carries the Arabic.",
-            detailAr: "يشتق gen-ar.mjs المسار /ar/<route>/index.html من الصفحة الإنجليزية المكتملة، فتبقى النسخة مطابقة لها في البنية دائمًا. ويتأكد اختبار من أن الماركب نفسه يحمل العربية.",
+            detailAr: "يشتق gen-ar.mjs المسار /ar/<route>/index.html من الصفحة الإنجليزية المكتملة، فتبقى النسخة مطابقة لها في البنية دائمًا. ويتأكد اختبار من أن الترميز نفسه يحمل العربية.",
             tech: "scripts/gen-ar.mjs · scripts/lib/arize.mjs",
           },
           {
@@ -120,7 +120,7 @@ export function CodeCanvasDevCaseStudy() {
             name: "Verification",
             nameAr: "التحقق",
             detail: "check-generated re-runs all three generators in a temp directory and diffs the output against the committed tree — so 'the HTML is final' is a tested claim, not a comment.",
-            detailAr: "يعيد check-generated تشغيل المولّدات الثلاثة في مجلد مؤقت ويقارنها (diff) بالشجرة الملتزم بها، فعبارة «الـHTML نهائي» ادعاء مُختبَر لا تعليق.",
+            detailAr: "يعيد check-generated تشغيل المولّدات الثلاثة في مجلد مؤقت ويقارنها بالشجرة الملتزم بها، فعبارة «الـHTML نهائي» ادعاء مُختبَر لا تعليق.",
             tech: "npm run check · npm run check:generated",
           },
         ],
@@ -172,7 +172,7 @@ export function CodeCanvasDevCaseStudy() {
             title: "Accessibility is a matrix, not a checklist",
             titleAr: "الإتاحة مصفوفة لا قائمة",
             body: "The axe suite runs 16 routes twice — once at 1440px in English, once at 390px in Arabic — scrolling every page to reveal below-fold sections before scanning. 32 real scans, not one homepage pass.",
-            bodyAr: "يشغّل اختبار axe ستة عشر مسارًا مرتين، مرة بعرض 1440px بالإنجليزية ومرة بعرض 390px بالعربية، مع تمرير (scroll) كل صفحة ليكشف الأقسام السفلية قبل الفحص. أي 32 فحصًا حقيقيًا، لا اكتفاءً بالصفحة الرئيسية.",
+            bodyAr: "يشغّل اختبار axe ستة عشر مسارًا مرتين، مرة بعرض 1440px بالإنجليزية ومرة بعرض 390px بالعربية، مع تمرير كل صفحة ليكشف الأقسام السفلية قبل الفحص. أي 32 فحصًا حقيقيًا، لا اكتفاءً بالصفحة الرئيسية.",
           },
           {
             n: "06",

@@ -66,6 +66,10 @@ html[dir="rtl"] .x-display { text-transform: none; letter-spacing: 0; line-heigh
   white-space: nowrap;
 }
 html[dir="rtl"] .x-btn { letter-spacing: 0; font-family: var(--font-arabic), var(--font-mono); font-size: 14px; }
+/* Narrow screens: a long label wraps inside the pill instead of widening the page. */
+@media (max-width: 520px) {
+  .x-btn { height: auto; min-height: 3.25rem; padding-block: 0.65rem; white-space: normal; text-align: center; justify-content: center; line-height: 1.25; }
+}
 .x-btn:hover { transform: translateY(-2px); }
 .x-btn--solid { background: #FF6B47; color: #0B0709; }
 .x-btn--solid:hover { background: #FF8466; }
@@ -623,6 +627,10 @@ html[data-skip] .x-boot { animation: x-boot-skip .28s ease-out forwards; }
     color: var(--color-text-primary);
     max-width: 15ch;
     text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 440px) {
+    .x-page-title { font-size: clamp(2.1rem, 10.5vw, 2.9rem); }
   }
   html[dir="rtl"] .x-page-title {
     text-transform: none; letter-spacing: 0; line-height: 1.2;
@@ -680,6 +688,9 @@ html[data-skip] .x-boot { animation: x-boot-skip .28s ease-out forwards; }
   .x-bt:hover { transform: translateY(-2px); }
   html[dir="rtl"] .x-bt { letter-spacing: 0; font-family: var(--font-arabic), var(--font-mono); }
   html[dir="rtl"] .x-bt svg { transform: scaleX(-1); }
+  @media (max-width: 520px) {
+    .x-bt { white-space: normal; text-align: center; justify-content: center; line-height: 1.25; padding-block: 0.65rem; }
+  }
 
   /* CLOSING GATE — every page ends the way the home page does: dark in both
      themes, a sun on the floor, one question, two buttons. */

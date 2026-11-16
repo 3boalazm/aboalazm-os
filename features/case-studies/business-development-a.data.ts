@@ -704,7 +704,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Covers desk editing, cloud-hosted media links, and spontaneous voice dictation in the same tool.",
-          ar: "يخدم المونتير الذي يرفع ملفات المونتاج، والباحث الذي يملك رابطًا صوتيًا، والكاتب الذي يملي أفكاره مباشرة.",
+          ar: "يخدم محرر الفيديو الذي يرفع ملفات المونتاج، والباحث الذي يملك رابطًا صوتيًا، والكاتب الذي يملي أفكاره مباشرة.",
         },
       },
       {
@@ -772,7 +772,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     headline: {
       en: "Splitting any audio track into isolated vocals, drums, bass, and instruments right inside your browser—with zero upload wait and full file privacy.",
-      ar: "فصل أي مقطع صوتي إلى مسارات مستقلة (الصوت البشري، الإيقاع، البيز، والموسيقى) مباشرة داخل متصفحك بخصوصية تامة ودون رفع الملفات.",
+      ar: "فصل أي مقطع صوتي إلى مسارات مستقلة (الصوت البشري، الإيقاع، الباس، والموسيقى) مباشرة داخل متصفحك بخصوصية تامة ودون رفع الملفات.",
     },
     summary: {
       en: "StemForge is an audio stem separation workspace for musicians, producers, podcast/video editors, and educators. Instead of uploading unreleased songs or large WAV files to a paid cloud queue, StemForge runs neural separation directly on the user's own device in the browser (using WebGPU / WebAssembly), while also offering an optional cloud GPU fast path for heavy workloads—complete with a multi-track mixer and WAV stem export.",
@@ -947,14 +947,14 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Because the user's own hardware runs the model, there is no server GPU meter ticking on every track.",
-          ar: "اعتماد المعالجة على جهاز المستخدم يزيل عبء تكلفة السيرفر عن كل دقيقة صوتية يتم فصلها.",
+          ar: "اعتماد المعالجة على جهاز المستخدم يزيل عبء تكلفة الخادم عن كل دقيقة صوتية يتم فصلها.",
         },
       },
       {
         tag: { en: "4-Stem Precision", ar: "عزل رباعي المسارات" },
         title: {
           en: "Clean split into Vocals, Drums, Bass & Accompaniment",
-          ar: "فصل واضح للصوت البشري والإيقاع والبيز وباقي الآلات",
+          ar: "فصل واضح للصوت البشري والإيقاع والباس وباقي الآلات",
         },
         body: {
           en: "Covers the four essential building blocks needed for remixing, karaoke/backing tracks, dialogue cleanup, and transcription.",
@@ -1070,7 +1070,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Taking orders via Instagram DMs leads to lost messages during drop nights, oversold sizes, and hours asking 'price?' or 'available in L?'.",
-          ar: "استقبال الطلبات عبر الرسائل يسبب ضياع العملاء وقت إطلاق الكوليكشن، وبيع مقاسات نافدة بالخطأ، وإهدار ساعات في الرد على الأسعار والمقاسات.",
+          ar: "استقبال الطلبات عبر الرسائل يسبب ضياع العملاء وقت إطلاق المجموعة، وبيع مقاسات نافدة بالخطأ، وإهدار ساعات في الرد على الأسعار والمقاسات.",
         },
         {
           en: "Generic foreign store templates push USD checkouts or credit-card-only flows that miss Egyptian buyers paying via MEEZA or Vodafone Cash.",
@@ -1125,7 +1125,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     workflowIntro: {
       en: "How a collection drop flows from storefront discovery to order fulfillment:",
-      ar: "رحلة الشراء والتشغيل داخل المتجر من تصفح الكوليكشن وحتى تسليم الطلب:",
+      ar: "رحلة الشراء والتشغيل داخل المتجر من تصفح المجموعة وحتى تسليم الطلب:",
     },
     workflow: [
       {
@@ -1212,7 +1212,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Turns one-time drop buyers into returning members who accumulate status and come back for the next release.",
-          ar: "يحوّل المشتري العابر إلى عميل دائم يعود مع كل كوليكشن جديد للاستفادة من نقاطه ومزايا شريحته.",
+          ar: "يحوّل المشتري العابر إلى عميل دائم يعود مع كل مجموعة جديدة للاستفادة من نقاطه ومزايا شريحته.",
         },
       },
       {

@@ -28,7 +28,7 @@ export const CODE_CANVAS: CaseStudyRecord = {
   researchSummary:
     "Digital agencies split into two camps: pure-tech (all code, zero craft) or pure-creative (all art, no system). Neither owns both worlds. Code & Canvas needed a mark that literally fuses the two — a squircle that reads as icon at small scale, as geometric canvas at large.",
   researchSummaryAr:
-    "الوكالات الرقمية تنقسم معسكرين: تقني بحت (كود فقط، صفر حرفة) أو إبداعي بحت (فن فقط، لا نظام). لا أيٌّ منهما يمتلك العالمين. Code & Canvas تحتاج شعارًا يدمج الاثنين حرفيًا — squircle يُقرأ كأيقونة في الصغر، وكقماش هندسي في الكبير.",
+    "الوكالات الرقمية تنقسم معسكرين: تقني بحت (كود فقط، صفر حرفة) أو إبداعي بحت (فن فقط، لا نظام). لا أيٌّ منهما يمتلك العالمين. Code & Canvas تحتاج شعارًا يدمج الاثنين حرفيًا — squircle يُقرأ كأيقونة في الأحجام الصغيرة، وكقماش هندسي في الأحجام الكبيرة.",
   competitors: [
     { name: "Tech-only agency A",  x: 25, y: 35 },
     { name: "Tech-only agency B",  x: 18, y: 28 },
@@ -62,7 +62,7 @@ export const CODE_CANVAS: CaseStudyRecord = {
   ],
 
   retro: [
-    { verdict: "KEEP",   note: "Purple-to-teal gradient as the expressive layer: constrained by the token system, so every use is on-brand automatically.",   noteAr: "التدرج من البنفسجي للتيل كطبقة تعبيرية: محكوم بنظام التوكنز، فكل استخدام on-brand تلقائيًا."     },
+    { verdict: "KEEP",   note: "Purple-to-teal gradient as the expressive layer: constrained by the token system, so every use is on-brand automatically.",   noteAr: "التدرج من البنفسجي للتيل كطبقة تعبيرية: محكوم بنظام متغيّرات التصميم، فكل استخدام يلتزم بالعلامة تلقائيًا."     },
     { verdict: "KEEP",   note: "Identity shipped as a live product — codeandcanvas.net built end to end: bilingual EN/AR, design system in production.",        noteAr: "الهوية تم تسليمها كمنتج حي — codeandcanvas.net بُني من الألف للياء: ثنائي اللغة، نظام تصميم في الإنتاج." },
     { verdict: "CHANGE", note: "Three typefaces (Signate Grotesk / Raleway / Poppins) is one too many for long-term consistency.",                              noteAr: "ثلاث خطوط كثير على المدى البعيد للاتساق." },
   ],
