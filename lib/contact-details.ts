@@ -15,7 +15,7 @@ export function whatsappPrefillHref(message: string): string {
  */
 export const RESPONSE_PROMISE = {
   en: "Same-day reply on working days (Sun-Thu, Cairo time). WhatsApp is fastest.",
-  ar: "رد في نفس اليوم في أيام العمل (الأحد–الخميس بتوقيت القاهرة). واتساب أسرع وسيلة.",
+  ar: "الرد في اليوم نفسه خلال أيام العمل (الأحد–الخميس بتوقيت القاهرة). واتساب أسرع وسيلة.",
   ms: "Balas pada hari yang sama pada hari bekerja (Ahad–Khamis, waktu Kaherah). WhatsApp paling pantas.",
 } as const;
 
@@ -41,7 +41,7 @@ export const BOOKING_URL = getBookingUrl();
 
 export const BOOKING_CTA_LABEL: readonly [string, string] = [
   "Book a free 30-min call",
-  "احجز مكالمة مجانية 30 دقيقة",
+  "احجز مكالمة مجانية مدتها 30 دقيقة",
 ] as const;
 
 export interface ConfiguredPaymentMethod {
@@ -89,7 +89,7 @@ export function getConfiguredPaymentMethods(envOverride?: Record<string, string 
       isExternalLink: false,
       hint: [
         "Transfer to this wallet number and save the confirmation screenshot.",
-        "حوّل إلى رقم المحفظة الموضح واحتفظ بلقطة شاشة لتأكيد العملية.",
+        "حوّل إلى رقم المحفظة الموضح، واحتفظ بلقطة شاشة تؤكد العملية.",
       ],
     });
   }
@@ -104,7 +104,7 @@ export function getConfiguredPaymentMethods(envOverride?: Record<string, string 
       isExternalLink: false,
       hint: [
         "Send to this InstaPay address, include the booking reference in notes, and screenshot the receipt.",
-        "أرسل إلى عنوان إنستاباي الموضح مع كتابة رقم المرجع في الملاحظات والتقاط صورة للإيصال.",
+        "أرسل إلى عنوان إنستاباي الموضح، واكتب رقم المرجع في الملاحظات، والتقط صورة للإيصال.",
       ],
     });
   }
@@ -134,7 +134,7 @@ export function getConfiguredPaymentMethods(envOverride?: Record<string, string 
       isExternalLink: /^https:\/\//i.test(paymob),
       hint: [
         "Pay via the secure Paymob checkout link and share the transaction ID on WhatsApp.",
-        "ادفع عبر رابط Paymob الآمن وشارك رقم العملية عبر واتساب.",
+        "ادفع عبر رابط Paymob الآمن، وأرسل رقم العملية عبر واتساب.",
       ],
     });
   }

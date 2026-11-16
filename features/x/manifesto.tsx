@@ -10,7 +10,7 @@ import { useX } from "./shared";
 
 const COPY = {
   en: "I don't design *brands.* I build *systems* — an identity, the digital layer it lives in, and the operations behind it — so the business keeps *running* after I leave the room.",
-  ar: "أنا مش بصمم *براندات.* أنا ببني *أنظمة* — هوية، والطبقة الرقمية اللي عايشة فيها، والتشغيل اللي وراها — عشان البيزنس يفضل *شغال* بعد ما أخرج من الأوضة.",
+  ar: "لا أصمّم *علامات *تجارية.* أنا أبني *أنظمة*: الهوية، والطبقة الرقمية التي تعيش فيها، والتشغيل الذي يقف خلفها، ليبقى المشروع *يعمل* بعد أن أغادر الغرفة.",
   ms: "Saya tidak mereka *jenama.* Saya membina *sistem* — identiti, lapisan digital tempat ia hidup, dan operasi di belakangnya — supaya perniagaan terus *berjalan* selepas saya keluar dari bilik.",
 };
 
@@ -40,7 +40,7 @@ export function Manifesto() {
   const words = COPY[lang === "ar" ? "ar" : lang === "ms" ? "ms" : "en"].split(" ");
 
   return (
-    <section ref={ref} className="x-manifesto x-room ground-base" aria-label={t("Manifesto", "المبدأ", "Manifesto")}>
+    <section ref={ref} className="x-manifesto x-room ground-base" aria-label={t("Manifesto", "البيان", "Manifesto")}>
       <div className="x-manifesto__pin">
         <motion.div className="x-wrap grid justify-items-center" style={reduce ? undefined : { y: lift }}>
           <p className="x-manifesto__text">

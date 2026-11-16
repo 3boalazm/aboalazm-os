@@ -105,7 +105,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
             String(data.get("brief") ?? "").trim() ||
             (scopeUnknown
               ? ar
-                ? "لسه بحدد النطاق."
+                ? "ما زلت أحدّد النطاق."
                 : "Still figuring out the scope."
               : ""),
           timeline: String(data.get("timeline") ?? "") || undefined,
@@ -165,23 +165,23 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               className={`font-mono text-micro uppercase tracking-[0.10em] outline-none ${notificationStatus === "sent" ? "text-success" : "text-accent"}`}
             >
               {notificationStatus === "sent"
-                ? ar ? `وصلت. ${RESPONSE_PROMISE.ar}` : `RECEIVED. ${RESPONSE_PROMISE.en}`
+                ? ar ? `تم الاستلام. ${RESPONSE_PROMISE.ar}` : `RECEIVED. ${RESPONSE_PROMISE.en}`
                 : notificationStatus === "unconfigured"
-                  ? ar ? "تم حفظ الطلب، لكن تنبيه الإيميل غير مُعدّ حاليًا." : "SAVED, BUT EMAIL ALERTS ARE NOT CONFIGURED."
-                  : ar ? "تم حفظ الطلب، لكن فشل إرسال تنبيه الإيميل." : "SAVED, BUT THE EMAIL ALERT FAILED."}
+                  ? ar ? "تم حفظ الطلب، لكن تنبيه البريد الإلكتروني غير مُعدّ حاليًا." : "SAVED, BUT EMAIL ALERTS ARE NOT CONFIGURED."
+                  : ar ? "تم حفظ الطلب، لكن تعذّر إرسال تنبيه البريد الإلكتروني." : "SAVED, BUT THE EMAIL ALERT FAILED."}
             </p>
             <p className="font-display text-title tracking-[-0.015em]">
               {notificationStatus === "sent"
-                ? ar ? "هكتب لك من نفس القناة." : "I'll write back on the same email."
-                : ar ? "الطلب اتحفظ، لكن خلّينا نأكد التواصل." : "Your enquiry is saved; let's make sure I see it."}
+                ? ar ? "سأردّ عليك عبر البريد الإلكتروني نفسه." : "I'll write back on the same email."
+                : ar ? "حُفظ طلبك، لكن لنتأكد من وصوله إليّ." : "Your enquiry is saved; let's make sure I see it."}
             </p>
             <p className="text-body-sm text-text-secondary">
               {notificationStatus === "sent"
                 ? ar
-                  ? "لو أسرع، واتساب والإيميل جنب النموذج."
+                  ? "إن احتجت إلى ردّ أسرع، تجد واتساب والبريد الإلكتروني بجانب النموذج."
                   : "Need something faster? Email and WhatsApp are listed beside this form."
                 : ar
-                  ? <>علشان أضمن إني أشوفه، ابعتلي تأكيد على <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>الإيميل</a> أو <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">واتساب</a>.</>
+                  ? <>لأضمن أن يصلني، أرسل لي تأكيدًا عبر <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>البريد الإلكتروني</a> أو <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">واتساب</a>.</>
                   : <>To make sure I see it, please confirm via <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>email</a> or <a className="underline underline-offset-4" href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">WhatsApp</a>.</>}
             </p>
           </motion.div>
@@ -203,7 +203,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
             className="flex flex-col gap-2"
           >
             <label className="flex flex-col gap-0.5">
-              <span className={LABEL}>{ar ? "محتاج مساعدة في إيه؟" : lang === "ms" ? "Apa yang boleh saya bantu?" : "What can I help you with?"}</span>
+              <span className={LABEL}>{ar ? "بماذا أستطيع مساعدتك؟" : lang === "ms" ? "Apa yang boleh saya bantu?" : "What can I help you with?"}</span>
               <select name="service" value={selection.service} onChange={(e) => setSelection((current) => ({ ...current, service: parseContactContext({ service: e.target.value }).service, tier: undefined }))} className={FIELD}>
                 {SERVICES.map((s) => <option key={s.id} value={s.id}>{ar ? s.ar : s.en}</option>)}
               </select>
@@ -212,7 +212,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               <label className="flex flex-col gap-0.5">
                 <span className={LABEL}>{ar ? "الباقة (اختياري)" : "Package (optional)"}</span>
                 <select name="tier" value={selection.tier ?? ""} onChange={(e) => setSelection((current) => ({ ...current, tier: e.target.value || undefined }))} className={FIELD}>
-                  <option value="">{ar ? "نختارها مع بعض" : lang === "ms" ? "Bantu saya pilih" : "Help me choose"}</option>
+                  <option value="">{ar ? "ساعدني في الاختيار" : lang === "ms" ? "Bantu saya pilih" : "Help me choose"}</option>
                   {PACKAGES.map((p) => <option key={p.id} value={p.id}>{ar ? p.ar : p.en}</option>)}
                 </select>
               </label>
@@ -237,7 +237,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                 placeholder={
                   scopeUnknown
                     ? ar
-                      ? "اختياري — نقدر نحدد النطاق مع بعض"
+                      ? "اختياري، ويمكننا تحديد النطاق معًا"
                       : "Optional — we can figure out the scope together"
                     : t.formPlaceholderBrief
                 }
@@ -252,7 +252,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                 className="mt-0.5 accent-[var(--color-accent)]"
               />
               <span className="text-body-sm text-text-secondary">
-                {ar ? "لسه بحدد النطاق — وده كفاية للبداية." : lang === "ms" ? "Saya masih menentukan skop — itu sudah cukup untuk bermula." : "I'm still figuring out the scope — that's enough to start."}
+                {ar ? "ما زلت أحدّد النطاق، وهذا يكفي للبداية." : lang === "ms" ? "Saya masih menentukan skop — itu sudah cukup untuk bermula." : "I'm still figuring out the scope — that's enough to start."}
               </span>
             </label>
 
@@ -268,7 +268,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
                   ? "إخفاء التفاصيل الاختيارية"
                   : "Hide optional details"
                 : ar
-                  ? "إضافة الشركة والميزانية والجدول (اختياري)"
+                  ? "إضافة الشركة والميزانية والجدول الزمني (اختياري)"
                   : "Add company, budget, and timeline (optional)"}
             </button>
 
@@ -323,7 +323,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               >
                 {status === "working"
                   ? (ar ? "جارٍ الإرسال…" : lang === "ms" ? "SEDANG DIHANTAR…" : "WORKING…")
-                  : (ar ? "ابعت استفسارك" : lang === "ms" ? "Hantar pertanyaan anda" : "Send your enquiry")}
+                  : (ar ? "أرسل استفسارك" : lang === "ms" ? "Hantar pertanyaan anda" : "Send your enquiry")}
               </button>
             )}
 
@@ -333,14 +333,14 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               {status === "uncertain" && (
                 <p className="text-body-sm text-accent">
                   {ar
-                    ? <>ماقدرتش أتأكد إن رسالتك وصلت. ممكن تكون اتحفظت بالفعل؛ علشان نتجنب تكرار الطلب، <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>راسلني بالإيميل قبل ما تبعت النموذج مرة تانية</a>.</>
+                    ? <>لم أتمكن من التأكد من وصول رسالتك، وقد تكون حُفظت بالفعل. ولتفادي تكرار الطلب، <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>راسلني عبر البريد الإلكتروني قبل إعادة إرسال النموذج</a>.</>
                     : <>I couldn't confirm receipt. Your enquiry may already be saved; to avoid a duplicate, <a className="underline underline-offset-4" href={CONTACT_EMAIL_HREF}>email me before submitting again</a>.</>}
                 </p>
               )}
               {status === "error" && (
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                   {ar
-                    ? `فشل الإرسال — تواصل عبر ${CONTACT_EMAIL}`
+                    ? `تعذّر الإرسال، تواصل عبر ${CONTACT_EMAIL}`
                     : `TRANSMISSION FAILED — TRY ${CONTACT_EMAIL}`}
                 </p>
               )}
@@ -349,13 +349,13 @@ export function ContactForm({ context }: { context?: ContactContext }) {
               {status === "rateLimited" && (
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
                   {ar
-                    ? `عدد محاولات كبير — استنى شوية أو ابعت على ${CONTACT_EMAIL}`
+                    ? `محاولات كثيرة، انتظر قليلًا أو راسل ${CONTACT_EMAIL}`
                     : `TOO MANY ATTEMPTS — WAIT A BIT OR EMAIL ${CONTACT_EMAIL}`}
                 </p>
               )}
             </div>
             <p className="text-center text-caption text-text-tertiary">
-              {ar ? `${RESPONSE_PROMISE.ar} بياناتك تُستخدم للرد على طلبك فقط.` : lang === "ms" ? `${RESPONSE_PROMISE.ms} Maklumat anda hanya digunakan untuk membalas pertanyaan anda.` : `${RESPONSE_PROMISE.en} Your details are used to respond to your enquiry only.`}
+              {ar ? `${RESPONSE_PROMISE.ar} تُستخدم بياناتك للردّ على طلبك فقط.` : lang === "ms" ? `${RESPONSE_PROMISE.ms} Maklumat anda hanya digunakan untuk membalas pertanyaan anda.` : `${RESPONSE_PROMISE.en} Your details are used to respond to your enquiry only.`}
             </p>
           </motion.form>
         ) : null}

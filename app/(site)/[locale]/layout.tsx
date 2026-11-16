@@ -88,7 +88,7 @@ export function generateStaticParams() { return LOCALES.map((locale) => ({ local
 export async function generateMetadata({ params }: { params: Promise<{ locale: Locale }> }): Promise<Metadata> {
   const { locale } = await params;
   const titles = {
-    ar: { default: "مصطفى أبوالعزم — تصميم هوية ومواقع", template: "%s · مصطفى أبوالعزم" },
+    ar: { default: "مصطفى أبوالعزم — تصميم الهوية البصرية والمواقع", template: "%s · مصطفى أبوالعزم" },
     ms: { default: "Mustafa Aboalazm — Reka Bentuk Identiti Jenama & Web", template: "%s · Mustafa Aboalazm" },
     en: { default: "Mustafa Aboalazm — Brand Identity & Web Design", template: "%s · Mustafa Aboalazm" },
   } as const;

@@ -8,13 +8,13 @@ export const SERVICES = [
   { id: "website", en: "Website or landing page", ar: "موقع أو صفحة هبوط" },
   { id: "digital-product", en: "Digital product or business tool", ar: "منتج رقمي أو أداة تشغيل" },
   { id: "brand-support", en: "Print, packaging or ongoing design", ar: "مطبوعات وتغليف أو تصميم مستمر" },
-  { id: "not-sure", en: "Help me define the scope", ar: "نحدد النطاق مع بعض" },
+  { id: "not-sure", en: "Help me define the scope", ar: "ساعدني في تحديد النطاق" },
 ] as const;
 export type ServiceId = (typeof SERVICES)[number]["id"];
 export const PACKAGES = [
   { id: "logo-design", en: "Logo Design", ar: "تصميم الشعار" },
   { id: "brand-identity", en: "Brand Identity", ar: "الهوية البصرية" },
-  { id: "full-brand-system", en: "Full Brand System", ar: "نظام براند متكامل" },
+  { id: "full-brand-system", en: "Full Brand System", ar: "نظام علامة متكامل" },
 ] as const;
 export type ContactContext = {
   service: ServiceId;

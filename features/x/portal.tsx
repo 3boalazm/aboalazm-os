@@ -62,7 +62,7 @@ export function Portal() {
         <motion.h1 className="x-display x-portal__title" style={{ x: titleX }}>
           <motion.span style={{ x: left, opacity: fade }}>{t("Built", "مبنية", "Dibina")}</motion.span>
           <motion.span style={{ x: right, opacity: fade }}>
-            {t("to run", "لتشتغل", "untuk jalan")}
+            {t("to run", "لتعمل", "untuk jalan")}
             <em>.</em>
           </motion.span>
         </motion.h1>
@@ -71,7 +71,7 @@ export function Portal() {
           <p className="x-mono x-hud-tl">
             Aboalazm OS
             <br />
-            <span className="opacity-70">{t("Founder-led studio · since 2017", "استوديو يقوده مؤسسه · من 2017", "Studio dipimpin pengasas · sejak 2017")}</span>
+            <span className="opacity-70">{t("Founder-led studio · since 2017", "استوديو يقوده مؤسسه · منذ 2017", "Studio dipimpin pengasas · sejak 2017")}</span>
           </p>
           <p className="x-mono x-hud-tr">
             {t("Brand · Digital · Systems", "هوية · رقمي · أنظمة", "Jenama · Digital · Sistem")}
@@ -86,22 +86,22 @@ export function Portal() {
           <p className="x-portal__lead">
             {t(
               "Aboalazm OS builds the brand, the digital layer it lives in, and the systems that keep a business running — in Arabic and English.",
-              "Aboalazm OS بيبني البراند، والطبقة الرقمية اللي بيعيش فيها، والأنظمة اللي بتخلي البيزنس شغال — بالعربي والإنجليزي.",
+              "يبني Aboalazm OS العلامة، والطبقة الرقمية التي تعيش فيها، والأنظمة التي تُشغّل العمل — بالعربية والإنجليزية.",
               "Aboalazm OS membina jenama, lapisan digital tempat ia hidup, dan sistem yang memastikan perniagaan terus berjalan — dalam bahasa Arab dan Inggeris.",
             )}
           </p>
           <div className="x-portal__ctas">
             <Link href="/contact?source=%2F" className="x-btn x-btn--solid">
-              {t("Book a discovery call", "احجز مكالمة استكشاف", "Tempah panggilan penemuan")}
+              {t("Book a discovery call", "احجز مكالمة استكشافية", "Tempah panggilan penemuan")}
               <Arrow />
             </Link>
             <a href="#work" className="x-btn x-btn--line">
-              {t("See the work", "شوف الشغل", "Lihat kerja")}
+              {t("See the work", "شاهد الأعمال", "Lihat kerja")}
             </a>
           </div>
           <p className="x-mono x-portal__scroll" aria-hidden>
             <i />
-            {t("Scroll", "انزل", "Tatal")}
+            {t("Scroll", "مرّر", "Tatal")}
           </p>
         </motion.div>
 

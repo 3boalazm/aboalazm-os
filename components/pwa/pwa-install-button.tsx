@@ -186,25 +186,25 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
           <p className="mt-2 text-body-sm leading-relaxed text-text-secondary">
             {safariDesktop
               ? ar
-                ? "من قائمة File في Safari اختار «Add to Dock»."
+                ? "من قائمة «ملف» (File) في Safari اختر «إضافة إلى Dock» (Add to Dock)."
                 : lang === "ms"
                   ? "Dalam Safari, pilih File → “Add to Dock”."
                   : "In Safari, choose File → “Add to Dock.”"
               : appleMobile
               ? ar
-                ? "افتح قائمة المشاركة في Safari، ثم اختَر «إضافة إلى الشاشة الرئيسية»."
+                ? "افتح قائمة المشاركة في Safari، ثم اختر «إضافة إلى الشاشة الرئيسية»."
                 : lang === "ms"
                   ? "Buka menu Kongsi Safari, kemudian pilih “Tambah ke Skrin Utama”."
                   : "Open Safari’s Share menu, then choose “Add to Home Screen.”"
               : ar
-                ? "من قائمة المتصفح اختَر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»."
+                ? "من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»."
                 : lang === "ms"
                   ? "Buka menu pelayar dan pilih “Pasang aplikasi” atau “Tambah ke skrin utama”."
                   : "Open your browser menu and choose “Install app” or “Add to Home screen.”"}
           </p>
           <p className="mt-3 border-t border-border-subtle pt-3 font-mono text-micro leading-relaxed text-text-tertiary">
             {ar
-              ? "هيفتح كتطبيق مستقل، وتقدر ترجع للصفحات اللي زرتها حتى لو الاتصال فصل."
+              ? "يُفتح كتطبيق مستقل، ويمكنك العودة إلى الصفحات التي زرتها حتى عند انقطاع الاتصال."
               : lang === "ms"
                 ? "Ia terbuka dalam tetingkap aplikasi tersendiri; halaman yang pernah dilawati boleh tersedia di luar talian."
                 : "It opens in its own app window; pages you’ve visited can be available offline."}
@@ -271,8 +271,8 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
             }
           >
             {variant === "inline"
-              ? (ar ? "تجربة كاملة من شاشتك الرئيسية" : lang === "ms" ? "Pengalaman skrin penuh pada peranti anda" : "A full-screen experience on your device")
-              : (ar ? "أضِفه لشاشتك الرئيسية" : lang === "ms" ? "Tambah ke skrin utama" : "Add to your home screen")}
+              ? (ar ? "تجربة بملء الشاشة على جهازك" : lang === "ms" ? "Pengalaman skrin penuh pada peranti anda" : "A full-screen experience on your device")
+              : (ar ? "أضفه إلى الشاشة الرئيسية" : lang === "ms" ? "Tambah ke skrin utama" : "Add to your home screen")}
           </span>
         </span>
       </button>

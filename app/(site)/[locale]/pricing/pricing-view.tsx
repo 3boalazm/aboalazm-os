@@ -37,24 +37,24 @@ const PRICING_MOOD = {
 
 export function buildPricingFaq(fxActive = resolveFxState().active): readonly { q: Bi; a: Bi }[] {
   return [
-    { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم في حدود معقولة — السعر النهائي يعتمد على النطاق والجدول وعدد التطبيقات وطبيعة العلاقة. النطاقات المعروضة نقاط بداية صادقة."] },
-    { q: ["What if my project doesn't fit a tier exactly?", "ماذا لو لم يناسب مشروعي فئة بعينها؟"], a: ["Most don't — tiers are starting templates. After the Discovery Call, you get a custom proposal that adds, removes, or adjusts items to your actual needs.", "أغلب المشاريع كذلك — الفئات قوالب بداية. بعد مكالمة الاكتشاف يصلك عرض مخصص يضيف أو يحذف أو يعدّل البنود حسب احتياجك الفعلي."] },
-    { q: ["Can I upgrade tiers during the project?", "هل يمكن الترقية أثناء المشروع؟"], a: ["Yes — I quote the upgrade delta and adjust the timeline. No re-doing finished work.", "نعم — أسعّر فرق الترقية ونعدّل الجدول، دون إعادة أي عمل منجز."] },
-    { q: ["Is there a discount for full prepayment?", "هل يوجد خصم للدفع الكامل مقدمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم — خصم 10% من إجمالي الفاتورة عند الدفع الكامل مقدمًا عند البدء."] },
+    { q: ["Are prices negotiable?", "هل الأسعار قابلة للتفاوض؟"], a: ["Yes, within reason — final pricing depends on scope, timeline, number of applications, and whether it's a one-off or a longer relationship. The ranges shown are honest starting points.", "نعم، ضمن حدود معقولة. يعتمد السعر النهائي على النطاق والجدول الزمني وعدد التطبيقات، وعلى كون العمل مرة واحدة أو علاقة أطول. والنطاقات المعروضة نقاط بداية صادقة."] },
+    { q: ["What if my project doesn't fit a tier exactly?", "ماذا لو لم يناسب مشروعي فئة بعينها؟"], a: ["Most don't — tiers are starting templates. After the Discovery Call, you get a custom proposal that adds, removes, or adjusts items to your actual needs.", "أغلب المشاريع لا تناسب فئة بعينها، فالفئات قوالب للبداية. بعد المكالمة الاستكشافية يصلك عرض مخصص يضيف البنود أو يحذفها أو يعدّلها بحسب احتياجك الفعلي."] },
+    { q: ["Can I upgrade tiers during the project?", "هل يمكن الانتقال إلى فئة أعلى أثناء المشروع؟"], a: ["Yes — I quote the upgrade delta and adjust the timeline. No re-doing finished work.", "نعم. أحسب فرق السعر وأعدّل الجدول الزمني، دون إعادة أي عمل أُنجز."] },
+    { q: ["Is there a discount for full prepayment?", "هل يوجد خصم على الدفع الكامل مقدّمًا؟"], a: ["Yes — 10% off the total invoice when paid upfront in full at kickoff.", "نعم: خصم 10% من إجمالي الفاتورة عند دفعها كاملةً مقدّمًا عند البدء."] },
     {
-      q: ["Do you work with international clients? What currency?", "العملاء الدوليون؟ وبأي عملة؟"],
+      q: ["Do you work with international clients? What currency?", "هل تعمل مع عملاء دوليين؟ وبأي عملة؟"],
       a: fxActive
         ? [
             "Yes, frequently across Egypt, Saudi Arabia, UAE, Qatar, and worldwide. Quoted in USD with EGP and SAR equivalents shown alongside; paid via InstaPay, Vodafone Cash, Wise, PayPal, or bank transfer.",
-            "نعم باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. التسعير بالدولار مع عرض المعادل بالجنيه المصري (EGP) والريال السعودي (SAR)، والدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي.",
+            "نعم، باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. يكون التسعير بالدولار مع عرض المعادل بالجنيه المصري (EGP) والريال السعودي (SAR)، ويتم الدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي.",
           ]
         : [
             "Yes, frequently across Egypt, Saudi Arabia, UAE, Qatar, and worldwide. Quoted in USD; EGP/SAR prices are confirmed on WhatsApp. Paid via InstaPay, Vodafone Cash, Wise, PayPal, or bank transfer.",
-            "نعم باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. التسعير بالدولار؛ أسعار الجنيه (EGP) والريال (SAR) تُؤكَّد عبر واتساب. الدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي.",
+            "نعم، باستمرار في مصر والسعودية والإمارات وقطر وحول العالم. يكون التسعير بالدولار، وتُؤكَّد أسعار الجنيه (EGP) والريال (SAR) عبر واتساب. ويتم الدفع عبر إنستاباي أو فودافون كاش أو Wise أو PayPal أو تحويل بنكي.",
           ],
     },
-    { q: ["What about revisions beyond the included rounds?", "ماذا عن التعديلات بعد الجولات المشمولة؟"], a: ["Each tier includes 2 structured rounds; additional revisions are billed hourly and logged in writing.", "كل فئة تشمل جولتين منظمتين، وما بعدهما يُحاسب بالساعة ويوثَّق كتابيًا."] },
-    { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "ملفات المصدر النهائية تُسلَّم مع كل فئة بعد سداد الدفعة الأخيرة — وهي لحظة انتقال الملكية."] },
+    { q: ["What about revisions beyond the included rounds?", "ماذا عن التعديلات بعد الجولات المشمولة؟"], a: ["Each tier includes 2 structured rounds; additional revisions are billed hourly and logged in writing.", "تشمل كل فئة جولتَي مراجعة منظّمتين، وما بعدهما يُحاسَب بالساعة ويُوثَّق كتابةً."] },
+    { q: ["Are source files (AI / PSD) included?", "هل ملفات المصدر (AI/PSD) مشمولة؟"], a: ["Final vector source files ship with every tier after the final payment clears — that's the IP transfer moment.", "تُسلَّم ملفات المصدر النهائية مع كل فئة بعد سداد الدفعة الأخيرة، وهذه لحظة انتقال الملكية."] },
   ];
 }
 
@@ -73,7 +73,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
       <PagePlate src="/images/generated/page-pricing.jpg" align="start">
       <header className="flex flex-col gap-3">
         <Heading
-          eyebrow={ar ? "التسعير / التكلفة" : lang === "ms" ? "HARGA / KOS" : "PRICING / WHAT IT COSTS"}
+          eyebrow={ar ? "الأسعار / التكلفة" : lang === "ms" ? "HARGA / KOS" : "PRICING / WHAT IT COSTS"}
           eyebrowMeta={
             <p className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost sm:block">
               {ar ? "بالدولار · شفاف · قابل للتفاوض" : lang === "ms" ? "USD · TELUS · BOLEH DIRUNDING" : "USD · TRANSPARENT · NEGOTIABLE"}
@@ -88,7 +88,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
           subtitleClassName="max-w-[52ch]"
           subtitle={
             ar
-              ? "ثلاث فئات من الشعار إلى النظام الكامل، وخدمات منفردة للأعمال المستقلة. التسعير يتغير مع النطاق — ومُعلن مقدمًا."
+              ? "ثلاث فئات تمتد من الشعار إلى النظام الكامل، إضافة إلى خدمات منفردة للأعمال المستقلة. يتغير السعر مع النطاق، ويُعلَن ذلك مقدّمًا."
               : "Three tiers from logo to full system, plus à la carte services for stand-alone work. Pricing varies with scope — and that's stated upfront."
           }
         />
@@ -114,7 +114,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
             })}
           >
             {ar
-              ? "متجر ثنائي اللغة خلال 72 ساعة (من $197) →"
+              ? "متجر ثنائي اللغة خلال 72 ساعة (من $197) ←"
               : "72-Hour Bilingual Store (From $197) →"}
           </Link>
           {BOOKING_URL ? (
@@ -131,7 +131,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         </div>
 
         <dl className="grid grid-cols-3 gap-2 border-y border-border-subtle py-2">
-          {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["PRODUCTION ITEMS", "بنود إنتاج", "17"]] as const).map(([en, arr, v]) => (
+          {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["PRODUCTION ITEMS", "بنود الإنتاج", "17"]] as const).map(([en, arr, v]) => (
             <div key={en}>
               <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? arr : en}</dt>
               <dd className="font-display text-title text-text-primary">{v}</dd>
@@ -150,7 +150,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         <SectionHead label={["01 / SERVICE TIERS", "01 / فئات الخدمة"]} title={["Pick the", "اختر"]} italic={["scope that fits.", "النطاق المناسب."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar
-            ? "معظم المشاريع تبدأ من الفئة 2. الفئة 1 للقيد الميزاني، والفئة 3 للإطلاق الكامل."
+            ? "تبدأ معظم المشاريع من الفئة 2. والفئة 1 لمن تحكمه الميزانية، والفئة 3 لنظام إطلاق كامل."
             : "Most projects start at Tier 2. Tier 1 is the budget constraint; Tier 3 is a full launch system."}
         </p>
         {/* One view at a time: the same three tiers as full cards or as a
@@ -159,7 +159,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         <div className="work-filter" role="group" aria-label={ar ? "طريقة العرض" : "View as"}>
           {(
             [
-              ["cards", "Cards", "كروت"],
+              ["cards", "Cards", "بطاقات"],
               ["compare", "Compare", "مقارنة"],
             ] as const
           ).map(([value, en, arr]) => (
@@ -176,7 +176,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
         </div>
         {tierView === "compare" ? <TierCompare tiers={tiers} /> : <TierGrid tiers={tiers} />}
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "— كل الفئات قابلة للتخصيص · البنود تُضاف أو تُحذف بعد النقاش · التسعير قابل للتفاوض حسب النطاق والجدول والعلاقة —" : "— All tiers are customizable · Items can be added or removed after discussion · Pricing is negotiable based on scope, timeline, and long-term relationship —"}
+          {ar ? "— كل الفئات قابلة للتخصيص · تُضاف البنود أو تُحذف بعد النقاش · السعر قابل للتفاوض بحسب النطاق والجدول وطبيعة العلاقة —" : "— All tiers are customizable · Items can be added or removed after discussion · Pricing is negotiable based on scope, timeline, and long-term relationship —"}
         </p>
       </section>
 
@@ -185,13 +185,13 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / PRODUCTION MENU", "02 / قائمة الإنتاج"]} title={["Production,", "الإنتاج،"]} italic={["not strategy.", "مش الاستراتيجية."]} />
+        <SectionHead label={["02 / PRODUCTION MENU", "02 / قائمة الإنتاج"]} title={["Production,", "إنتاج،"]} italic={["not strategy.", "لا استراتيجية."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {pick(PRODUCTION_MENU_NOTE, lang)}
         </p>
         <p className="max-w-[60ch] text-body-sm text-text-tertiary">
           {ar
-            ? "الباقات الاستراتيجية (الهوية، والأنظمة) تُحدَّد بنطاق مكتوب بعد المكالمة؛ وباقات الويب والريتينر تُحجز بعربون، وبنود المطبوعات والسوشيال تُطلب عبر واتساب."
+            ? "تُحدَّد الباقات الاستراتيجية (الهوية والأنظمة) بنطاق مكتوب بعد المكالمة. وتُحجز باقات الويب والباقات الشهرية بعربون، وتُطلب بنود المطبوعات ووسائل التواصل عبر واتساب."
             : "Strategic engagements (identity, systems) are scoped in writing after the call. Web packages and retainers are bookable with a deposit; print and social items are ordered on WhatsApp."}
         </p>
         <div className="rounded-card border border-border-subtle bg-surface-1/40 p-3">
@@ -207,17 +207,17 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
       <SocialProof />
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / PRICING FAQ", "04 / أسئلة التسعير"]} title={["Common", "أسئلة"]} italic={["questions.", "متكررة."]} />
+        <SectionHead label={["04 / PRICING FAQ", "04 / أسئلة عن الأسعار"]} title={["Common", "أسئلة"]} italic={["questions.", "شائعة."]} />
         <Faq items={buildPricingFaq()} />
       </section>
 
       <CtaBand
-        kicker={["NOT SURE WHICH TIER?", "مش متأكد من الفئة؟"]}
-        title={["That's what the", "عشان كده"]}
-        italic={["call is for.", "المكالمة موجودة."]}
+        kicker={["NOT SURE WHICH TIER?", "لست متأكدًا من الفئة؟"]}
+        title={["That's what the", "لهذا وُجدت"]}
+        italic={["call is for.", "المكالمة."]}
         primary={DISCOVERY_CTA_LABEL}
         primaryHref="/contact"
-        secondary={["Read Full Agreement", "اقرأ الاتفاقية"]}
+        secondary={["Read Full Agreement", "اقرأ الاتفاقية كاملة"]}
         secondaryHref="/agreement"
       />
     </main>

@@ -23,16 +23,16 @@ const PAGES: [href: string, en: string, ar: string, kw?: string][] = [
   ["/services/websites", "Websites & stores", "المواقع والمتاجر", "web ecommerce"],
   ["/services/systems", "Business systems", "أنظمة التشغيل", "erp dashboard automation"],
   ["/pricing", "Pricing", "الأسعار", "tiers packages cost"],
-  ["/process", "Process — the 38-day method", "المنهج — 38 يوم", "timeline phases"],
+  ["/process", "Process — the 38-day method", "المنهج: 38 يومًا", "timeline phases"],
   ["/reels", "Reels", "ريلز", "video"],
   ["/writing", "Writing", "المقالات", "blog articles"],
   ["/about", "About", "عن الاستوديو"],
-  ["/for-hiring", "For hiring teams", "للتوظيف", "cv resume recruiter"],
-  ["/labs", "Labs", "المعمل", "tools experiments"],
+  ["/for-hiring", "For hiring teams", "لفرق التوظيف", "cv resume recruiter"],
+  ["/labs", "Labs", "المختبر", "tools experiments"],
   ["/resources", "Resources", "الموارد", "downloads"],
   ["/books", "Library", "المكتبة"],
   ["/partnership", "Partnership & support", "الشراكة والدعم"],
-  ["/contact", "Book a discovery call", "احجز مكالمة اكتشاف", "contact start project hire"],
+  ["/contact", "Book a discovery call", "احجز مكالمة استكشافية", "contact start project hire"],
 ];
 
 export function CommandPalette() {
@@ -74,18 +74,18 @@ export function CommandPalette() {
       .filter((l) => l !== lang)
       .map((l) => ({
         id: `lang:${l}`,
-        group: ["Actions", "أوامر"],
+        group: ["Actions", "الأوامر"],
         label: l === "ar" ? ["Switch to Arabic", "العربية"] : l === "ms" ? ["Switch to Bahasa Melayu", "الملايو"] : ["Switch to English", "الإنجليزية"],
         hint: l.toUpperCase(),
         keywords: "language لغة bahasa",
         run: () => setLang(l),
       }));
     const actions: Item[] = [
-      { id: "theme", group: ["Actions", "أوامر"], label: ["Toggle light / dark", "بدّل الوضع الفاتح / الداكن"], hint: "◐", keywords: "theme mode", run: toggle },
+      { id: "theme", group: ["Actions", "الأوامر"], label: ["Toggle light / dark", "تبديل الوضع الفاتح / الداكن"], hint: "◐", keywords: "theme mode", run: toggle },
       {
         id: "terminal",
-        group: ["Actions", "أوامر"],
-        label: ["Open the terminal", "افتح الترمينال"],
+        group: ["Actions", "الأوامر"],
+        label: ["Open the terminal", "افتح الطرفية"],
         hint: "Ctrl `",
         keywords: "console cli",
         run: () => window.dispatchEvent(new KeyboardEvent("keydown", { key: "`", ctrlKey: true, bubbles: true })),
@@ -172,7 +172,7 @@ export function CommandPalette() {
               setQ(e.target.value);
               setCursor(0);
             }}
-            placeholder={ar ? "ابحث عن صفحة، ريل، أو أمر…" : lang === "ms" ? "Cari halaman, reel atau arahan…" : "Search pages, reels, commands…"}
+            placeholder={ar ? "ابحث عن صفحة أو ريل أو أمر…" : lang === "ms" ? "Cari halaman, reel atau arahan…" : "Search pages, reels, commands…"}
             aria-controls="cmdk-list"
             className="w-full bg-transparent py-1 text-body text-text-primary placeholder:text-text-tertiary !outline-none focus:outline-none"
           />
@@ -180,7 +180,7 @@ export function CommandPalette() {
         </div>
         <ul id="cmdk-list" ref={listRef} role="listbox" data-lenis-prevent className="max-h-[52vh] overflow-y-auto p-1">
           {results.length === 0 ? (
-            <li className="px-2 py-3 text-body-sm text-text-tertiary">{ar ? "مفيش نتيجة." : "No match."}</li>
+            <li className="px-2 py-3 text-body-sm text-text-tertiary">{ar ? "لا توجد نتائج." : "No match."}</li>
           ) : (
             results.map((it, i) => {
               const group = it.group[ar ? 1 : 0];

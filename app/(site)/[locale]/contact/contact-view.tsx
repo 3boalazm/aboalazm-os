@@ -16,7 +16,7 @@ import {
 
 const CHANNELS = [
   { en: "WhatsApp", ar: "واتساب", label: "+20 109 250 0454", href: "https://wa.me/201092500454" },
-  { en: "Email", ar: "إيميل", label: CONTACT_EMAIL, href: CONTACT_EMAIL_HREF },
+  { en: "Email", ar: "البريد الإلكتروني", label: CONTACT_EMAIL, href: CONTACT_EMAIL_HREF },
 ] as const;
 const CORAL = { primary: "rgb(255 107 71 / 0.16)", secondary: "rgb(255 168 120 / 0.08)" };
 
@@ -36,11 +36,11 @@ export function ContactView({ context }: { context?: ContactContext }) {
           {ar ? "تواصل / مشروع جديد" : lang === "ms" ? "HUBUNGI / PROJEK BARU ANDA" : "CONTACT / YOUR NEXT PROJECT"}
         </p>
         <h1 className="font-display text-title text-text-primary">
-          {ar ? "احكيلي عن مشروعك." : lang === "ms" ? "Ceritakan tentang projek anda." : "Tell me about your project."}
+          {ar ? "حدّثني عن مشروعك." : lang === "ms" ? "Ceritakan tentang projek anda." : "Tell me about your project."}
         </h1>
         <p className="text-body-sm text-text-secondary">
           {ar
-            ? "اسمك، إيميلك، وفكرة بسيطة كفاية نبدأ. ولو لسه بتحدد المطلوب، نقدر نوضح النطاق مع بعض."
+            ? "يكفي اسمك وبريدك الإلكتروني وفكرة مختصرة لنبدأ. وإن كنت لا تزال تحدّد ما تحتاج إليه، فيمكننا توضيح النطاق معًا."
             : "Your name, email and a short idea are enough to start. If you are still figuring things out, we can define the scope together."}
         </p>
         <div className="flex flex-wrap items-center gap-3 text-body-sm">
@@ -52,10 +52,10 @@ export function ContactView({ context }: { context?: ContactContext }) {
             rel="noopener noreferrer"
             className="rounded-pill bg-accent px-3.5 py-1.5 font-mono text-label text-obsidian"
           >
-            {ar ? "واتساب مباشرة" : lang === "ms" ? "Sembang di WhatsApp" : "Chat on WhatsApp"} ↗
+            {ar ? "تحدّث عبر واتساب" : lang === "ms" ? "Sembang di WhatsApp" : "Chat on WhatsApp"} ↗
           </a>
           <a href={CONTACT_EMAIL_HREF} className="underline underline-offset-4">
-            {ar ? "ابعت إيميل" : lang === "ms" ? "Hantar e-mel" : "Send an email"}
+            {ar ? "أرسل بريدًا إلكترونيًا" : lang === "ms" ? "Hantar e-mel" : "Send an email"}
           </a>
           {BOOKING_URL ? (
             <a
@@ -137,18 +137,18 @@ export function ContactView({ context }: { context?: ContactContext }) {
               </li>
               <li>
                 {ar
-                  ? "لو محتاجين، نرتب مكالمة مناسبة للطرفين."
+                  ? "إن لزم الأمر، نرتّب مكالمة في وقت يناسب الطرفين."
                   : "We arrange a call if it will help clarify the scope."}
               </li>
               <li>
                 {ar
-                  ? "تستلم عرضًا بالمخرجات والمدة والتكلفة قبل أي التزام."
+                  ? "يصلك عرض بالمخرجات والمدة والتكلفة قبل أي التزام."
                   : "You receive deliverables, a timeline and a quote before making a commitment."}
               </li>
             </ol>
           </div>
           <p className="text-caption text-text-tertiary">
-            {ar ? "بتتواصل بخصوص وظيفة؟ " : lang === "ms" ? "Menghubungi berkaitan jawatan? " : "Reaching out about a role? "}
+            {ar ? "هل تتواصل بخصوص وظيفة؟" : lang === "ms" ? "Menghubungi berkaitan jawatan? " : "Reaching out about a role? "}
             <Link href="/for-hiring" className="underline underline-offset-4">
               {ar ? "ملف التوظيف والسيرة الذاتية" : lang === "ms" ? "Profil pengambilan & CV" : "Hiring profile and CV"}
             </Link>

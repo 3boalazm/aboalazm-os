@@ -139,22 +139,22 @@ export function BookView({
 
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.16em] text-accent">
-            {ar ? "الحجز وتأكيد البدء" : "PROJECT KICKOFF & DEPOSIT"}
+            {ar ? "بدء المشروع والعربون" : "PROJECT KICKOFF & DEPOSIT"}
           </p>
           <h1 className="font-display text-title font-semibold tracking-tight text-text-primary">
-            {ar ? "اعتماد النطاق، ودفعة البدء." : "Scope agreed? Start here."}
+            {ar ? "اتفقنا على النطاق؟ ابدأ من هنا." : "Scope agreed? Start here."}
           </h1>
           <p className="max-w-[65ch] text-body text-text-secondary">
             {ar
-              ? "الصفحة دي هي الخطوة الرابعة في طريقة البدء: بتُستخدم بعد اعتماد النطاق والعرض كتابيًا. اختر الباقة والعملة، أرسل دفعة البدء (50%) أو ادفع كامل المبلغ بخصم 10%، ثم أرسل لقطة الشاشة للإيصال عبر واتساب."
+              ? "هذه الصفحة هي الخطوة الرابعة في آلية البدء، وتُستخدم بعد اعتماد النطاق والعرض كتابةً. اختر الباقة والعملة، وأرسل دفعة البدء (50%) أو ادفع المبلغ كاملًا بخصم 10%، ثم أرسل لقطة شاشة الإيصال عبر واتساب."
               : "This page is step 04 of how we start: it is used after the scope and proposal are agreed in writing. Select the plan and currency, send the 50% kickoff deposit (or pay in full with -10%), then send the receipt screenshot on WhatsApp."}
           </p>
           <p className="max-w-[65ch] text-body-sm text-text-tertiary">
-            {ar ? "لسه ما اتفقناش على النطاق؟ " : "Not agreed a scope yet? "}
+            {ar ? "لم نتفق على النطاق بعد؟ " : "Not agreed a scope yet? "}
             <Link href="/contact" className="text-accent underline underline-offset-4">
-              {ar ? "ابدأ بمكالمة استكشاف" : "Start with a discovery call"}
+              {ar ? "ابدأ بمكالمة استكشافية" : "Start with a discovery call"}
             </Link>
-            {ar ? " — أول خطوة، وبدون أي التزام." : " — step 01, with no commitment."}
+            {ar ? " هي الخطوة الأولى، ودون أي التزام." : " — step 01, with no commitment."}
           </p>
         </div>
       </header>
@@ -234,7 +234,7 @@ export function BookView({
                 </strong>
               </span>
               <span>
-                {ar ? "سعر الباقة:" : "Published price:"}{" "}
+                {ar ? "السعر المعلن:" : "Published price:"}{" "}
                 <strong dir="ltr" className="text-text-primary">
                   {localizePrice(plan.priceDisplay, lang)}
                 </strong>
@@ -246,7 +246,7 @@ export function BookView({
                 <div className="flex flex-col gap-0.5">
                   <span className="text-body-sm font-medium text-text-primary">
                     {ar
-                      ? `إضافة اختيارية: تصميم شعار سريع (+${STORE_72H_OFFER.logoAddonPrice})`
+                      ? `إضافة اختيارية: شعار سريع (+${STORE_72H_OFFER.logoAddonPrice})`
                       : `Optional add-on: Quick Logo (+${STORE_72H_OFFER.logoAddonPrice})`}
                   </span>
                   <FxSubline
@@ -272,7 +272,7 @@ export function BookView({
                 >
                   {includeLogoAddon
                     ? ar
-                      ? "مضاف للباقة ✓ (إزالة)"
+                      ? "تمت الإضافة ✓ (إزالة)"
                       : "Added ✓ (Remove)"
                     : ar
                       ? "+ أضف الشعار السريع"
@@ -352,7 +352,7 @@ export function BookView({
                   }`}
                 >
                   <span className="font-mono text-micro font-semibold">
-                    {ar ? "كامل (-10%)" : "Pay in full (-10%)"}
+                    {ar ? "الدفع كاملًا (-10%)" : "Pay in full (-10%)"}
                   </span>
                 </Link>
               </div>
@@ -378,7 +378,7 @@ export function BookView({
             <div className="flex flex-col gap-2 text-body-sm">
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-text-secondary">
-                  {ar ? "إجمالي الباقة (يبدأ من)" : "Total starting price"}
+                  {ar ? "إجمالي السعر المبدئي" : "Total starting price"}
                 </span>
                 <span dir="ltr" className="font-mono font-medium text-text-primary">
                   {quote.totalConverted.formatted}
@@ -387,7 +387,7 @@ export function BookView({
               <div className="flex items-baseline justify-between gap-2">
                 <span className="text-text-secondary">
                   {ar
-                    ? "50% من السعر المبدئي. السعر النهائي يُؤكَّد كتابياً قبل الدفع"
+                    ? "50% من السعر المبدئي. ويُؤكَّد السعر النهائي كتابةً قبل الدفع."
                     : "50% of the starting price. Final price is confirmed in writing before payment"}
                 </span>
                 <span dir="ltr" className="shrink-0 font-mono text-text-primary">
@@ -409,7 +409,7 @@ export function BookView({
             {quote.fxConfirmedOnWhatsApp && requestedCurrency !== "USD" ? (
               <p className="rounded-card border border-border-default bg-surface-2 px-3 py-2 font-mono text-micro text-text-secondary">
                 {ar
-                  ? `أسعار ${requestedCurrency} تُؤكَّد عبر واتساب. المبلغ أدناه موضح بالدولار (USD) كمرجع أساسي.`
+                  ? `سعر صرف ${requestedCurrency} يُؤكَّد عبر واتساب. المبالغ المعروضة أدناه بالدولار (USD) كمرجع أساسي.`
                   : `${requestedCurrency} rate is confirmed on WhatsApp. Amounts are shown in USD below as the base reference.`}
               </p>
             ) : null}
@@ -421,10 +421,10 @@ export function BookView({
                 <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
                   {mode === "full"
                     ? ar
-                      ? "المطلوب دفعه الآن (كامل بخصم 10%)"
+                      ? "المبلغ المستحق الآن (دفع كامل بخصم 10%)"
                       : "AMOUNT DUE NOW (FULL · -10%)"
                     : ar
-                      ? "المطلوب دفعه الآن (عربون 50%)"
+                      ? "المبلغ المستحق الآن (عربون 50%)"
                       : "AMOUNT DUE NOW (50% DEPOSIT)"}
                 </span>
                 <span
@@ -444,7 +444,7 @@ export function BookView({
             <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border-default pt-2.5">
               <div className="flex flex-col">
                 <span className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
-                  {ar ? "رقم المرجع (أضفه في ملاحظة التحويل)" : "BOOKING REFERENCE"}
+                  {ar ? "رقم المرجع (أضفه في ملاحظات التحويل)" : "BOOKING REFERENCE"}
                 </span>
                 <span
                   dir="ltr"
@@ -546,7 +546,7 @@ export function BookView({
               </p>
               <p className="text-body-sm text-text-secondary">
                 {ar
-                  ? "اضغط على الزر بالأسفل لفتح محادثة واتساب جاهزة بملخص الباقة والمبلغ ورقم المرجع، وسأرسل لك بيانات التحويل المباشرة فوراً."
+                  ? "اضغط على الزر أدناه لفتح محادثة واتساب جاهزة بملخص الباقة والمبلغ ورقم المرجع، وسأرسل لك بيانات التحويل فورًا."
                   : "Tap below to open a prefilled WhatsApp chat with your selected plan, amount, and reference — I'll send you the direct transfer details right away."}
               </p>
               <a
@@ -588,7 +588,7 @@ export function BookView({
             </h2>
             <p className="text-body-sm text-text-secondary">
               {ar
-                ? `حوّل مبلغ ${quote.dueNowConverted.formatted} وأضف رقم المرجع (${quote.reference}) في خانة ملاحظات التحويل إن توفرت.`
+                ? `حوّل مبلغ ${quote.dueNowConverted.formatted} وأضف رقم المرجع (${quote.reference}) في حقل ملاحظات التحويل إن كان متاحًا.`
                 : `Send ${quote.dueNowConverted.formatted} and include your reference (${quote.reference}) in the transfer notes if supported.`}
             </p>
 
@@ -609,17 +609,17 @@ export function BookView({
           {configuredMethods.length > 0 ? (
             <div className="rounded-card border border-accent/30 bg-accent/[0.06] px-3 py-2 text-caption text-text-primary">
               <strong className="font-mono uppercase tracking-wider text-accent">
-                {ar ? "تنبيه أمان:" : "Safety note:"}
+                {ar ? "تنبيه أمني:" : "Safety note:"}
               </strong>{" "}
               {ar
-                ? "لا تحوّل لأي بيانات دفع غير الموضحة في هذه الصفحة."
+                ? "لا تحوّل إلى أي بيانات دفع غير الموضحة في هذه الصفحة."
                 : "Only send to the details shown on this page."}
             </div>
           ) : (
             <div className="rounded-card border border-border-default bg-surface-2 px-3 py-2 text-caption text-text-secondary">
               {ar ? (
                 <>
-                  لا تحوّل إلا لبيانات الدفع التي أؤكدها لك عبر واتساب (
+                  لا تحوّل إلا إلى بيانات الدفع التي أؤكدها لك عبر واتساب (
                   <a
                     href={WHATSAPP_HREF}
                     target="_blank"
@@ -663,12 +663,12 @@ export function BookView({
             </div>
             <h2 className="font-display text-subtitle text-text-primary">
               {ar
-                ? "3. أرسل لقطة شاشة للإيصال + رقم العملية على واتساب"
+                ? "3. أرسل لقطة شاشة الإيصال مع رقم العملية عبر واتساب"
                 : "3. Send the receipt screenshot + transaction ID on WhatsApp"}
             </h2>
             <p className="text-body-sm text-text-secondary">
               {ar
-                ? "الرسالة مجهزة تلقائياً باسم الباقة، المبلغ، العملة، ورقم المرجع — أرفق فقط صورة الإيصال ورقم العملية."
+                ? "الرسالة مجهزة تلقائيًا باسم الباقة والمبلغ والعملة ورقم المرجع، وما عليك إلا إرفاق صورة الإيصال ورقم العملية."
                 : "The WhatsApp message is prefilled with your plan, amount, currency, and reference — just attach the receipt screenshot and transaction ID."}
             </p>
           </div>
@@ -681,7 +681,7 @@ export function BookView({
           >
             <span>
               {ar
-                ? "أرسل الإيصال وتأكيد الحجز عبر واتساب ←"
+                ? "أرسل الإيصال وأكّد الحجز عبر واتساب ←"
                 : "Send receipt & confirm on WhatsApp →"}
             </span>
           </a>
@@ -705,7 +705,7 @@ export function BookView({
             </h2>
             <p className="text-body-sm text-text-secondary">
               {ar
-                ? "بمجرد تأكيد وصول الدفعة، تصلك رسالة تأكيد مكتوبة بجدول المراحل وموعد مكالمة أو ملخص البداية."
+                ? "بمجرد وصول الدفعة، تصلك رسالة تأكيد مكتوبة بجدول المراحل وموعد مكالمة البدء أو ملخصها."
                 : "As soon as the deposit lands, you receive written confirmation with your milestone schedule and kickoff brief."}
             </p>
             <p className="font-mono text-micro text-text-tertiary">
