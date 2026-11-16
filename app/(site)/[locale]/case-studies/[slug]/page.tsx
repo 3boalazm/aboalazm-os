@@ -66,6 +66,11 @@ export async function generateStaticParams() {
   return [...new Set([...slugs, ...BUILT_IN_CASE_SLUGS])].map((slug) => ({ slug }));
 }
 
+function overviewDescription(project: Project): string {
+  if (project.outcome.length >= 70) return project.outcome;
+  return `${project.outcome} — ${project.name}, ${project.year}. ${project.stack.join(" · ")}. Case study and business overview.`;
+}
+
 async function originalMetadata({
   params,
 }: {
@@ -83,7 +88,7 @@ async function originalMetadata({
 
   if (slug === "speech-to-text-studio") {
     return {
-      title: "Speech to Text Studio — Transcription Product Case File",
+      title: "Speech to Text Studio — Transcription Case File",
       description:
         "A bilingual transcription workspace with four speech engines, automatic failover, live recording, large-file uploads, credential controls and transcript export.",
     };
@@ -99,7 +104,7 @@ async function originalMetadata({
 
   if (slug === "nile-pharma-storefront") {
     return {
-      title: "Nile Pharma Food Storefront — Commerce Platform Case File",
+      title: "Nile Pharma Food Storefront — Commerce Case File",
       description:
         "A bilingual Next.js storefront connecting Payload CMS content to Vendure live commerce, pricing, checkout, customer accounts and operational safeguards.",
     };
@@ -172,8 +177,10 @@ async function originalMetadata({
   const preview = PROJECTS.find((p) => p.slug === slug);
   if ((PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug) && preview) {
     return {
-      title: `${preview.name} — Case Study & Business Overview`,
-      description: preview.outcome,
+      title: `${preview.name} — Case Study & Overview`,
+      // The card's outcome alone is a 19-31 character label; give the snippet
+      // the project's own year and stack so it reads as a description.
+      description: overviewDescription(preview),
     };
   }
   const record = await getCaseStudy(slug);
@@ -304,5 +311,21 @@ export default async function CaseStudyPage({
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string; locale: Locale }> }): Promise<Metadata> {
   const { locale, slug } = await params;
-  return localizedMetadata(await originalMetadata({ params }), locale, `/case-studies/${slug}`);
+  const base = await originalMetadata({ params });
+  // Arabic snippets come from the record's own Arabic problem statement; the
+  // project card's one-line outcome (28-40 characters) is a label, not a
+  // description. Slugs with a bespoke view or an overview have no record.
+  let arabic: { title: string; description: string } | undefined;
+  const hasRecord = !(slug in CUSTOM_TECHNICAL_VIEWS) && !(PROJECT_OVERVIEW_SLUGS as readonly string[]).includes(slug);
+  if (locale === "ar" && hasRecord) {
+    const record = await getCaseStudy(slug);
+    if (record?.problemAr) {
+      const project = PROJECTS.find((p) => p.slug === slug);
+      arabic = {
+        title: `${project?.nameAr ?? record.nameAr ?? record.name} — تفاصيل المشروع`,
+        description: truncateAtWord(record.problemAr),
+      };
+    }
+  }
+  return localizedMetadata(base, locale, `/case-studies/${slug}`, arabic);
 }

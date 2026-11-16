@@ -11,7 +11,7 @@ const AR: Record<string, [string, string]> = {
   "/services/websites": ["تصميم مواقع ومنتجات رقمية", "مواقع شركات وصفحات هبوط ومتاجر وأدوات تشغيل بالعربية والإنجليزية، من تحديد رحلة المستخدم إلى التسليم والتشغيل."],
   "/services/systems": ["أنظمة التشغيل والأتمتة: لوحات تحكم وERP وأدوات داخلية", "لوحات تشغيل ووحدات ERP وأدوات داخلية بواجهة عربية RTL، وأتمتة تحلّ محل الخطوات اليدوية، بنطاق مكتوب يُحدَّد في مكالمة استكشافية أولًا."],
   "/partnership": ["الشراكة والدعم المستمر بعد التسليم", "30 يومًا من الدعم ضمن كل مشروع، ورعاية للهوية بدءًا من $247 شهريًا، وشراكة رقمية وأنظمة بتسعير شهري، مع إشعار قبل 14 يومًا ودون رسوم خروج."],
-  "/services/store-72h": ["متجر أو كتالوج إلكتروني ثنائي اللغة، جاهز خلال 72 ساعة، يبدأ من $197", "متجر أو كتالوج إلكتروني ثنائي اللغة (عربي RTL وإنجليزي LTR) جاهز خلال 72 ساعة من استلام المحتوى: حتى 30 منتجًا تقريبًا، والطلب عبر واتساب، والدفع عند الاستلام أو عبر إنستاباي، وربط الشحن واسم النطاق."],
+  "/services/store-72h": ["متجر أو كتالوج إلكتروني خلال 72 ساعة — من $197", "متجر أو كتالوج ثنائي اللغة (عربي RTL وإنجليزي LTR) خلال 72 ساعة من استلام المحتوى: حتى نحو 30 منتجًا، طلب عبر واتساب، دفع عند الاستلام أو إنستاباي، وربط الشحن والنطاق."],
   "/contact": ["تواصل وناقش مشروعك", `حدّثنا عن مشروع الهوية أو الموقع أو المنتج الرقمي. ${RESPONSE_PROMISE.ar}`],
   "/pricing": ["أسعار وباقات الهوية البصرية", "قارن بين باقات الشعار والهوية ونظام العلامة المتكامل، وتعرّف على المخرجات والمدد وآلية الدفع، ثم اختر الباقة المناسبة."],
   "/book": ["احجز بعربون لتأكيد بدء المشروع", "اختر الباقة والعملة (EGP أو SAR أو USD)، وأرسل عربونًا بنسبة 50% (أو ادفع المبلغ كاملًا بخصم 10%)، ثم أكّد الحجز عبر واتساب."],
@@ -36,13 +36,13 @@ const AR: Record<string, [string, string]> = {
 /* Malay (ms) titles and descriptions. Separate from AR so a Malay page never
    inherits an Arabic override passed in by a dynamic route. */
 const MS: Record<string, [string, string]> = {
-  "/": ["Aboalazm OS — studio identiti dan digital yang dipimpin Mustafa Aboalazm", "Studio yang dipimpin pengasasnya membina identiti, lapisan digital dwibahasa, dan sistem operasi — dari panggilan penemuan pertama hingga skop bertulis dan penyerahan yang boleh digunakan pasukan anda."],
+  "/": ["Aboalazm OS — studio identiti dan digital pimpinan Mustafa Aboalazm", "Studio pimpinan pengasas untuk identiti, lapisan digital dwibahasa dan sistem operasi — dari panggilan penemuan hingga skop bertulis dan penyerahan siap guna."],
   "/services": ["Perkhidmatan identiti visual dan laman web", "Reka bentuk identiti visual dan aplikasinya, laman dwibahasa, dan produk digital. Skop yang jelas, kerja serupa, dan pakej mengikut keperluan projek."],
-  "/services/brand-identity": ["Reka bentuk identiti jenama dwibahasa Arab & Inggeris", "Logo, warna, fon, aplikasi, dan panduan penggunaan jenama. Lihat contoh sebenar, bandingkan pakej, dan mulakan pertanyaan anda."],
+  "/services/brand-identity": ["Identiti jenama dwibahasa Arab & Inggeris", "Logo, warna, fon, aplikasi, dan panduan penggunaan jenama. Lihat contoh sebenar, bandingkan pakej, dan mulakan pertanyaan anda."],
   "/services/websites": ["Reka bentuk laman web dan produk digital", "Laman korporat, laman pendaratan, kedai dalam talian, dan alat operasi dwibahasa, dari takrifan perjalanan pengguna hingga penyerahan dan operasi."],
-  "/services/systems": ["Sistem operasi dan automasi — papan pemuka, ERP dan alat dalaman", "Papan operasi, modul ERP, dan alat dalaman dwibahasa dengan RTL serta automasi yang menggantikan langkah manual — dengan skop bertulis yang ditentukan dalam panggilan penemuan dahulu."],
-  "/partnership": ["Perkongsian dan sokongan berterusan — selepas penyerahan", "30 hari sokongan termasuk dalam setiap projek, penjagaan identiti dari $247 sebulan, dan perkongsian digital serta sistem dengan harga bulanan — notis 14 hari dan tiada yuran keluar."],
-  "/services/store-72h": ["Kedai atau katalog dalam talian dwibahasa, siap dalam 72 jam — bermula $197", "Kedai atau katalog dalam talian dwibahasa (Arab RTL + Inggeris LTR) siap dalam 72 jam selepas kandungan diterima: sehingga ~30 produk, pesanan melalui WhatsApp, sambungan penghantaran dan domain."],
+  "/services/systems": ["Sistem operasi dan automasi — papan pemuka dan ERP", "Papan operasi, modul ERP dan alat dalaman dwibahasa dengan RTL, serta automasi yang menggantikan langkah manual — skop bertulis ditentukan dalam panggilan penemuan."],
+  "/partnership": ["Perkongsian dan sokongan selepas penyerahan", "30 hari sokongan dalam setiap projek, penjagaan identiti dari $247 sebulan, dan perkongsian digital serta sistem berharga bulanan — notis 14 hari, tiada yuran keluar."],
+  "/services/store-72h": ["Kedai atau katalog dwibahasa, 72 jam — dari $197", "Kedai atau katalog dwibahasa (Arab RTL + Inggeris LTR) siap dalam 72 jam selepas kandungan diterima: sehingga ~30 produk, pesanan WhatsApp, penghantaran dan domain."],
   "/contact": ["Hubungi dan bincangkan projek anda", `Ceritakan tentang projek identiti, laman, atau produk digital anda. ${RESPONSE_PROMISE.ms}`],
   "/pricing": ["Harga dan pakej identiti visual", "Bandingkan pakej logo, identiti, dan sistem jenama lengkap. Ketahui hasil kerja, tempoh, dan pembayaran, dan pilih pakej yang sesuai."],
   "/book": ["Tempah dengan deposit — sahkan permulaan projek", "Pilih pakej dan mata wang (EGP, SAR atau USD), hantar deposit 50% (atau bayar penuh dengan diskaun 10%), dan sahkan tempahan melalui WhatsApp."],
@@ -64,12 +64,21 @@ const MS: Record<string, [string, string]> = {
   "/reels": ["Reel — kaedah studio dalam video", "Reel pendek tentang cara studio berfikir dan membina: penyelidikan berasas sumber, pelan pelaksanaan sebenar, penghantaran dibantu AI dan audit bebas."],
 };
 
+/* The card's one-line outcome ("هوية الفعالية والتواصل البصري", 28-40 characters)
+   is a label, not a snippet. Below a useful length it gets the project's name,
+   year and what the page is, using only fields the record already carries. */
+function projectDescriptionAr(project: (typeof PROJECTS)[number]): string {
+  const outcome = project.outcomeAr ?? project.outcome;
+  if (outcome.length >= 70) return outcome;
+  return `${outcome} — ${project.nameAr ?? project.name}، ${project.year}. دراسة حالة ولمحة عامة عن المشروع.`;
+}
+
 export function localizedMetadata(base: Metadata, locale: Locale, path: string, arabic?: { title: string; description: string }): Metadata {
   const project = path.startsWith("/case-studies/") ? PROJECTS.find((p) => p.slug === path.split("/").pop()) : undefined;
   const translated =
     locale === "ms"
       ? (MS[path] ? { title: MS[path][0], description: MS[path][1] } : undefined)
-      : arabic ?? (AR[path] ? { title: AR[path][0], description: AR[path][1] } : project ? { title: `${project.nameAr ?? project.name} — تفاصيل المشروع`, description: project.outcomeAr ?? project.outcome } : undefined);
+      : arabic ?? (AR[path] ? { title: AR[path][0], description: AR[path][1] } : project ? { title: `${project.nameAr ?? project.name} — تفاصيل المشروع`, description: projectDescriptionAr(project) } : undefined);
   const useTranslated = (locale === "ar" || locale === "ms") && translated;
   const title = useTranslated ? translated.title : base.title;
   const description = useTranslated ? translated.description : base.description;

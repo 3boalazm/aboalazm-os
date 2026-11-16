@@ -7,7 +7,7 @@ import { ProcessView } from "./process-view";
 
 const pageMetadata: Metadata = {
   title: "Process — The 38-Day Method",
-  description: "A four-phase engineering method, refined over 9+ years of design practice: Discover, Define, Architect, Build. Every task, deliverable, and gate drawn from how projects actually run.",
+  description: "A four-phase method refined over 9+ years of design practice: Discover, Define, Architect, Build — every task, deliverable and gate drawn from real projects.",
 };
 
 export default function ProcessPage() {
