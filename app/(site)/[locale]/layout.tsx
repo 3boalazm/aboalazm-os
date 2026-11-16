@@ -22,6 +22,10 @@ import { BOOT_SCRIPT } from "@/lib/boot-script";
 import { PwaRegistration } from "@/components/pwa/pwa-registration";
 import { OsTray } from "@/components/layout/os-tray";
 import "./globals.css";
+import "./theme-grounds.css";
+import "./x.css";
+import { Boot } from "@/features/x/boot";
+import { Cursor } from "@/features/x/cursor";
 
 const baseMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -119,6 +123,8 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
         <JsonLd data={getSiteGraphSchema()} />
       </head>
       <body className="bg-surface-0 text-text-primary antialiased">
+        <Boot />
+        <Cursor />
         <PwaRegistration />
         <AmbientCanvas />
         <ThemeProvider>

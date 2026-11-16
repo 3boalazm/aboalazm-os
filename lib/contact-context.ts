@@ -1,5 +1,8 @@
 import type { Locale } from "@/lib/locale";
 /** Public funnel context. Never carry a visitor's brief or email in a URL/event. */
+/** The one-line brief typed on the home page is parked here (sessionStorage), never in the URL;
+    the contact form reads it once and clears it. */
+export const BRIEF_HANDOFF_KEY = "os:brief-handoff";
 export const SERVICES = [
   { id: "brand-identity", en: "Brand identity", ar: "هوية بصرية" },
   { id: "website", en: "Website or landing page", ar: "موقع أو صفحة هبوط" },

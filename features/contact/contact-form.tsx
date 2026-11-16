@@ -8,7 +8,7 @@
 import { useEffect, useRef, useState } from "react";
 import { trackEvent, readCampaign } from "@/lib/analytics";
 import { motion, useReducedMotion } from "framer-motion";
-import { SERVICES, PACKAGES, parseContactContext, type ContactContext } from "@/lib/contact-context";
+import { BRIEF_HANDOFF_KEY, SERVICES, PACKAGES, parseContactContext, type ContactContext } from "@/lib/contact-context";
 import { physics } from "@/lib/motion";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
@@ -62,15 +62,15 @@ export function ContactForm({ context }: { context?: ContactContext }) {
 
   /* The submit button (focused) leaves the DOM when the form swaps to the
      confirmation, so hand focus to the confirmation instead of dropping it. */
-  /* A one-line brief typed in the home hero is handed over through
+  /* A one-line brief typed on the home page is handed over through
      sessionStorage (never the URL — see lib/contact-context). Read once,
      drop it into the still-empty field, and clear it. */
   const briefRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     try {
-      const handoff = sessionStorage.getItem("os:brief-handoff");
+      const handoff = sessionStorage.getItem(BRIEF_HANDOFF_KEY);
       if (!handoff) return;
-      sessionStorage.removeItem("os:brief-handoff");
+      sessionStorage.removeItem(BRIEF_HANDOFF_KEY);
       if (briefRef.current && !briefRef.current.value) briefRef.current.value = handoff;
     } catch {
       /* storage unavailable */

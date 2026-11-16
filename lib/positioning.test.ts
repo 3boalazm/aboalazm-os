@@ -76,9 +76,9 @@ test("the funnel is discovery-first and the deposit is the last step, not the fi
 
   // Home's primary conversion surfaces point at the conversation, not /book.
   for (const path of [
-    "features/hero/hero.tsx",
+    "features/x/portal.tsx",
+    "features/x/close.tsx",
     "features/home/home-bands.tsx",
-    "features/home/services-snapshot.tsx",
     "features/offers/start-funnel.tsx",
     "components/layout/nav.tsx",
   ]) {
@@ -102,8 +102,11 @@ test("the production menu is explicitly framed as production, not strategy", () 
 test("the founder-led studio model is stated wherever the visitor asks who they are buying", () => {
   const about = read("app/(site)/[locale]/about/about-view.tsx");
   assert.match(about, /StudioModelBand/);
+  /* The new home (2026-11-16) states the model in its PROOF bento, from the
+     same STUDIO_MODEL copy /about renders. */
   const home = read("app/(site)/[locale]/page.tsx");
-  assert.match(home, /StudioModelBand/);
+  assert.match(home, /<Proof \/>/);
+  assert.match(read("features/x/proof.tsx"), /STUDIO_MODEL/);
   const band = read("features/offers/disciplines.tsx");
   assert.match(band, /founder-led studio/i);
   assert.match(band, /when the scope needs more hands/i);
@@ -154,7 +157,7 @@ test("every public project is labelled client / internal / demo / in development
 test("no business outcome is claimed for a project with no measured evidence", () => {
   // The retired Nile Pharma figures may never return without a period + source.
   const banned = /\+40%|\+25%|data-stat-sales|increase in sales/i;
-  for (const path of ["features/work/projects.data.ts", "features/hero/metric-row.tsx", "portfolio/js/data.js"]) {
+  for (const path of ["features/work/projects.data.ts", "features/x/proof.tsx", "portfolio/js/data.js"]) {
     assert.doesNotMatch(read(path), banned, `${path} still claims an unmeasured outcome`);
   }
   // Adding a slug here is the ONLY way to publish a measured figure — and it
@@ -186,7 +189,7 @@ test("the studio is described consistently on the pages and in structured data",
   const schema = read("lib/structured-data.ts");
   assert.match(schema, /ORGANIZATION_ID/);
   assert.match(schema, /Aboalazm OS/);
-  assert.match(read("features/hero/hero.tsx"), /Aboalazm OS/, "the hero names the studio");
+  assert.match(read("features/x/portal.tsx"), /Aboalazm OS/, "the hero names the studio");
   assert.match(read("lib/structured-data.ts"), /founder: \{ "@id": PERSON_ID \}/);
 });
 

@@ -78,9 +78,10 @@ test("every locale in LOCALES is reachable and named where languages are offered
 });
 
 test("the home page states the three languages instead of assuming the header explains them", () => {
+  /* New home (2026-11-16): the three scripts live in the PROOF bento. */
   const home = read("app/(site)/[locale]/page.tsx");
-  assert.match(home, /<LanguageBand\s*\/>/);
-  const band = read("features/home/language-band.tsx");
+  assert.match(home, /<Proof\s*\/>/);
+  const band = read("features/x/proof.tsx");
   for (const locale of LOCALES) {
     assert.ok(band.includes(`locale: "${locale}"`), `band must include ${locale}`);
   }

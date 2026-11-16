@@ -11,8 +11,8 @@
  *
  * Copy lives in lib/offers DISCIPLINES (single source); this file is layout only.
  */
+import type React from "react";
 import Image from "next/image";
-import { BandFrame } from "@/components/ui/band-frame";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
@@ -31,6 +31,15 @@ const SERVICE_FOR: Record<Discipline["id"], "brand-identity" | "website" | "digi
    than project thumbnails: the discipline is the offer, so its picture has to
    read as "a brand kit / an interface / a system", not as one client's work
    standing in for the whole category. */
+/* Each discipline owns a colour — coral leads (brand), lilac is
+   digital, mint is systems. `--disc` paints the card's top rule, bullets and
+   ring; `--disc-text` is its text-safe member on the current ground. */
+const DISCIPLINE_COLOUR: Record<Discipline["id"], { "--disc": string; "--disc-text": string }> = {
+  brand: { "--disc": "var(--color-accent)", "--disc-text": "var(--color-accent-text, var(--color-accent))" },
+  digital: { "--disc": "var(--color-lilac)", "--disc-text": "var(--color-lilac-text)" },
+  systems: { "--disc": "var(--color-mint)", "--disc-text": "var(--color-mint-text)" },
+};
+
 const DISCIPLINE_ART: Record<Discipline["id"], string> = {
   brand: "/images/generated/discipline-brand.jpg",
   digital: "/images/generated/discipline-digital.jpg",
@@ -65,8 +74,9 @@ export function DisciplineCards({
         return (
           <article
             key={d.id}
+            style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties}
             className={joinClasses(
-              "flex flex-col overflow-hidden rounded-panel border bg-surface-1 max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
+              "disc-card flex flex-col overflow-hidden rounded-panel border bg-surface-1 max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
               isHighlight ? "border-accent-border bg-accent/[0.04]" : "border-border-default",
             )}
           >
@@ -115,7 +125,7 @@ export function DisciplineCards({
                       compact && i >= 2 && "max-sm:hidden",
                     )}
                   >
-                    <span aria-hidden className="mt-[0.55em] size-1 shrink-0 rounded-pill bg-accent" />
+                    <span aria-hidden className="disc-dot mt-[0.55em] size-1 shrink-0 rounded-pill" />
                     {ar ? item[1] : item[0]}
                   </li>
                 ))}
@@ -124,7 +134,8 @@ export function DisciplineCards({
               <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
                 <Link
                   href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
-                  className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] text-accent transition-colors hover:text-text-primary"
+                  style={{ color: "var(--disc-text)" }}
+                  className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] transition-opacity hover:opacity-70"
                 >
                   {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
                   <span aria-hidden className="inline-flex">
@@ -168,8 +179,8 @@ export function DisciplineRings({ highlight }: { highlight?: Discipline["id"] })
     <div className="flex flex-col items-center gap-2">
       <div className="discipline-rings" role="list">
         {DISCIPLINES.map((d) => (
-          <Link key={d.id} href={d.href} role="listitem" className="discipline-ring" data-lead={highlight === d.id}>
-            <span className="font-mono text-micro text-accent">{d.n}</span>
+          <Link key={d.id} href={d.href} role="listitem" className="discipline-ring" style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties} data-lead={highlight === d.id}>
+            <span className="font-mono text-micro">{d.n}</span>
             <span className={ar ? "text-subtitle font-semibold text-text-primary" : "font-display text-subtitle tracking-[-0.01em] text-text-primary max-sm:text-body"}>
               {RING_LABEL[d.id][ar ? 1 : lang === "ms" ? 2 : 0]}
             </span>
@@ -292,38 +303,28 @@ export function StudioModelBand({ className }: { className?: string }) {
         </h2>
         <p className="max-w-[62ch] text-body text-text-secondary">{copy.lead}</p>
       </div>
-      {/* Numbered glass cards (the "Built on Principles" idiom): on a phone
-          they swipe one at a time instead of stacking into a text wall — and
-          they sit on a glass sculpture plate, so the section opens on an image
-          instead of on three paragraphs. */}
-      <BandFrame
-        src="/images/generated/creative-chrome-figure.jpg"
-        veil="bottom"
-        shape="bleed"
-        contentClassName="flex flex-col gap-3 max-lg:p-4"
-      >
-        {/* Phones: the shelf must break out of BOTH paddings it sits in — the
-            frame's own p-4 (32px) and the page container's 24px — or it is
-            clipped to a ~296px window and each card collapses to a 144px
-            column of one-word lines. -mx-7 = 56px returns it to the screen
-            edges; px-3 lines the first card up with every other shelf. */}
-        <dl className="grid gap-3 max-md:-mx-7 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
+      {/* Bento: one picture panel carries the eye, four glass
+          panels carry the words — unequal sizes, so the block reads as a
+          composition instead of a list of identical text cards. */}
+      <div className="bento">
+        <figure className="panel panel--image b-5 flex flex-col justify-end md:row-span-2">
+          <Image src="/images/generated/creative-chrome-figure.jpg" alt="" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+          <figcaption className="flex flex-col gap-1 p-4">
+            <span className="font-mono text-micro uppercase tracking-[0.12em] text-alabaster/80">{ar ? "استوديو يقوده مؤسسه" : "Founder-led"}</span>
+            <span className="panel__num">{ar ? "واحد" : "One"}</span>
+            <span className="max-w-[26ch] text-body-sm text-alabaster/85">
+              {ar ? "شخص واحد مسؤول عن مشروعك من أول مكالمة للتسليم." : "person accountable for your project, from first call to handover."}
+            </span>
+          </figcaption>
+        </figure>
         {copy.points.map(([head, body], i) => (
-          <div
-            key={head}
-            className="flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1 p-4 max-md:w-[84%] max-md:shrink-0 max-md:snap-start max-md:p-3"
-          >
-            {/* Number above the title on phones: side by side, a long display
-                word ("MANAGEMENT") ran out of the card. */}
-            <dt className="flex items-baseline gap-3 max-md:flex-col max-md:gap-1">
-              <span className="font-display text-title leading-none text-accent">{`0${i + 1}`}</span>
-              <span className="min-w-0 font-display text-subtitle tracking-[-0.01em] text-text-primary [overflow-wrap:anywhere]">{head}</span>
-            </dt>
-            <dd className="text-body-sm text-text-secondary">{body}</dd>
+          <div key={head} className={joinClasses("panel panel--glass flex flex-col gap-2", i === 0 ? "b-7" : i === 1 ? "b-7" : "b-6")}>
+            <span className="font-mono text-micro tabular-nums" style={{ color: "var(--color-gold-text)" }}>{`0${i + 1}`}</span>
+            <h3 className="min-w-0 font-display text-subtitle tracking-[-0.01em] text-text-primary [overflow-wrap:anywhere]">{head}</h3>
+            <p className="max-w-[52ch] text-body-sm text-text-secondary">{body}</p>
           </div>
         ))}
-        </dl>
-      </BandFrame>
+      </div>
       <p className="max-w-[62ch] border-s-2 border-accent/40 ps-3 font-mono text-micro uppercase tracking-[0.06em] leading-[1.7] text-text-tertiary">
         {copy.note}
       </p>
