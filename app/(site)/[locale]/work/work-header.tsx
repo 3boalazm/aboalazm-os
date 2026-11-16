@@ -4,6 +4,7 @@ import { useLang } from "@/components/providers/lang-provider";
 import { Heading } from "@/components/ui/Heading";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 import { Icon } from "@/components/ui/Icon";
+import { PagePlate } from "@/components/ui/page-plate";
 
 /* Route mood — the index sits on a cool violet/cyan wash so the page reads
    as a gallery rather than a list, while the individual cards keep their
@@ -20,6 +21,7 @@ export function WorkHeader() {
   const ar = lang === "ar";
   useAmbientGlow(WORK_MOOD, 0.4);
   return (
+    <PagePlate src="/images/generated/creative-grid-bloom.jpg" align="start">
     <header className="flex flex-col gap-4">
       <Heading
         eyebrow={ar ? `الفهرس · ${new Date().getFullYear()}` : `Index · ${new Date().getFullYear()}`}
@@ -35,5 +37,6 @@ export function WorkHeader() {
 
       <p className="text-body-sm text-text-tertiary">{ar ? "عندك مشروع مشابه؟ " : "Have something similar in mind? "}<Link href="/contact" className="text-accent underline underline-offset-4">{ar ? "ناقش نطاقه معايا" : "Discuss your scope"} →</Link><span className="mx-2" aria-hidden>·</span><Link href="/for-hiring" className="underline underline-offset-4">{ar ? "ملف التوظيف" : "Hiring profile"}</Link></p>
     </header>
+    </PagePlate>
   );
 }

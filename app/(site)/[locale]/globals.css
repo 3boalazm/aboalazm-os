@@ -3047,6 +3047,8 @@ html[data-theme="light"] .contact-form-panel {
   border: 1px solid var(--color-border-subtle);
   transition: flex-grow 520ms var(--ease-physics), border-radius 520ms var(--ease-physics);
 }
+/* Phones: ten strips leave the open one too narrow — show six. */
+@media (max-width: 639.98px) { .slit-gallery > li:nth-child(n + 7) { display: none; } }
 .slit-gallery > li[data-open="true"] { flex-grow: 9; border-radius: var(--radius-panel); }
 .slit-gallery figcaption { opacity: 0; transition: opacity 240ms var(--ease-physics); }
 .slit-gallery > li[data-open="true"] figcaption { opacity: 1; transition-delay: 220ms; }
