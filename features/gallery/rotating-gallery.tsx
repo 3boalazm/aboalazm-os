@@ -20,7 +20,7 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import gsap from "gsap";
+import gsap from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLang } from "@/components/providers/lang-provider";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";

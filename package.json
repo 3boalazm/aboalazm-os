@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:business-cases && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run test:og-trace && npm run test:positioning && npm run test:discoverability && npm run test:studio && npm run test:schema-audit && npm run test:analytics-events && npm run test:case-ms && npm run typecheck && npm run db:migrate:ci && next build && npm run check:db-ssl && npm run check:db-schema",
+    "build": "npm run test:blob-token && npm run test:work-projects && npm run test:case-claims && npm run test:business-cases && npm run test:cms-text && npm run test:conversion && npm run test:brand-consistency && npm run test:lead-pipeline && npm run test:og-trace && npm run test:positioning && npm run test:discoverability && npm run test:studio && npm run test:schema-audit && npm run test:analytics-events && npm run test:case-ms && npm run test:bundle-guards && npm run typecheck && npm run db:migrate:ci && next build && npm run check:db-ssl && npm run check:db-schema",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:blob-token": "node --import tsx --test lib/blob-token.test.ts",
@@ -17,6 +17,7 @@
     "test:case-claims": "node --import tsx --test features/case-studies/reviewed-claims.test.ts",
     "test:business-cases": "node --import tsx --test features/case-studies/business-cases.test.ts",
     "test:case-ms": "node --import tsx --test features/case-studies/ms/ms.test.ts",
+    "test:bundle-guards": "node --import tsx --test lib/bundle-guards.test.ts",
     "test:cms-text": "node --import tsx --test lib/cms-text.test.ts",
     "test:conversion": "node --import tsx --test lib/conversion.test.ts",
     "test:brand-consistency": "node --import tsx --test lib/contact-brand-consistency.test.ts",
