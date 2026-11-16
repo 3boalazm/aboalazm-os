@@ -19,9 +19,10 @@ import { RESPONSE_PROMISE } from "@/lib/contact-details";
 export { OG_SIZE, OG_CONTENT_TYPE };
 
 export type OgPageId =
-  | "home" | "work" | "work-design" | "work-development" | "work-ui" | "about" | "for-hiring" | "services"
-  | "pricing" | "process" | "why" | "agreement" | "contact"
-  | "capabilities" | "labs" | "resources" | "books" | "writing" | "portfolio";
+  | "home" | "work" | "work-design" | "work-development" | "work-ui" | "about" | "developer" | "for-hiring" | "services"
+  | "services-brand-identity" | "services-websites" | "services-systems" | "services-store-72h"
+  | "pricing" | "process" | "why" | "partnership" | "agreement" | "book" | "contact"
+  | "capabilities" | "labs" | "resources" | "books" | "writing" | "reels" | "portfolio";
 
 interface PageDef {
   idx: string;
@@ -641,6 +642,125 @@ async function vPortfolio() {
   );
 }
 
+/** A numbered list panel: the shape most of the service cards share. Facts come from each page's own copy. */
+function ListStage({ kicker, rows, foot, footColor = C.accent }: { kicker: string; rows: { n: string; name: string; note?: string }[]; foot: string; footColor?: string }) {
+  return (
+    <Stage style={{ padding: 28, justifyContent: "space-between" }}>
+      <Label color={C.accent} size={14}>{kicker}</Label>
+      <div style={col({ gap: 12 })}>
+        {rows.map((r, idx) => (
+          <div
+            key={r.n}
+            style={flex({
+              alignItems: "center", gap: 18, padding: "18px 22px", borderRadius: 16,
+              border: `1px solid ${idx === 0 ? "rgba(255,107,71,0.55)" : C.line}`,
+              background: idx === 0 ? "rgba(255,107,71,0.1)" : "rgba(255,255,255,0.025)",
+            })}
+          >
+            <div style={flex({ fontFamily: F_EN, fontSize: 16, color: idx === 0 ? C.accent : C.text3, width: 30 })}>{r.n}</div>
+            <div style={col({ flex: 1, gap: 5 })}>
+              <div style={flex({ fontFamily: F_EN, fontSize: 20, color: C.text })}>{r.name}</div>
+              {r.note ? <div style={flex({ fontFamily: F_BODY, fontSize: 14, color: C.text3 })}>{r.note}</div> : null}
+            </div>
+            <Arrow color={idx === 0 ? C.accent : C.text3} size={11} />
+          </div>
+        ))}
+      </div>
+      <div style={flex({ gap: 12, alignItems: "center" })}>
+        <Dot color={footColor} size={8} />
+        <Label size={12}>{foot}</Label>
+      </div>
+    </Stage>
+  );
+}
+
+async function vSystems() {
+  return (
+    <ListStage
+      kicker="Operations, on one system"
+      rows={[
+        { n: "01", name: "Dashboards" },
+        { n: "02", name: "ERP modules" },
+        { n: "03", name: "Internal tools", note: "Arabic-first · RTL interfaces" },
+        { n: "04", name: "Automation" },
+      ]}
+      foot="Process map first · fixed scope"
+    />
+  );
+}
+
+async function vStore72() {
+  const items = ["Up to ~30 products", "Order on WhatsApp", "COD + InstaPay instructions", "Shipping link + custom domain"];
+  return (
+    <Stage style={{ padding: 30, justifyContent: "space-between" }}>
+      <div style={flex({ justifyContent: "space-between", alignItems: "center" })}>
+        <Label color={C.accent} size={13}>Once content is received</Label>
+        <Label size={12}>AR + EN</Label>
+      </div>
+      <div style={flex({ alignItems: "flex-end", gap: 14 })}>
+        <div style={flex({ fontFamily: F_EN, fontSize: 168, lineHeight: 0.85, letterSpacing: "-0.04em", color: C.accent })}>72</div>
+        <div style={flex({ fontFamily: F_EN, fontSize: 44, letterSpacing: "-0.02em", paddingBottom: 6 })}>HOURS</div>
+      </div>
+      <div style={col({ gap: 12 })}>
+        {items.map((t) => (
+          <div key={t} style={flex({ alignItems: "center", gap: 14 })}>
+            <Dot color={C.mint} size={10} />
+            <div style={flex({ fontFamily: F_BODY, fontSize: 20, color: C.text })}>{t}</div>
+          </div>
+        ))}
+      </div>
+      <div style={flex({ justifyContent: "space-between", alignItems: "center", paddingTop: 16, borderTop: `1px solid ${C.line}` })}>
+        <Label size={12}>50% deposit</Label>
+        <div style={flex({ fontFamily: F_EN, fontSize: 30, color: C.text })}>From $197</div>
+      </div>
+    </Stage>
+  );
+}
+
+async function vPartnership() {
+  return (
+    <ListStage
+      kicker="After launch"
+      rows={[
+        { n: "01", name: "30 days of support", note: "Included after launch" },
+        { n: "02", name: "Brand stewardship", note: "From $247 / month" },
+        { n: "03", name: "Digital partnership", note: "A written monthly work list" },
+      ]}
+      foot="14 days’ notice · no exit fee"
+      footColor={C.mint}
+    />
+  );
+}
+
+async function vBook() {
+  return (
+    <ListStage
+      kicker="Three steps"
+      rows={[
+        { n: "01", name: "Choose your tier", note: "Tier or web package · EGP, SAR or USD" },
+        { n: "02", name: "Send the kickoff deposit", note: "50% — or pay in full with −10%" },
+        { n: "03", name: "Confirm on WhatsApp" },
+      ]}
+      foot="After the scope is agreed"
+    />
+  );
+}
+
+async function vReels() {
+  return (
+    <ListStage
+      kicker="How the studio thinks and builds"
+      rows={[
+        { n: "01", name: "Grounded research" },
+        { n: "02", name: "Real execution plans" },
+        { n: "03", name: "AI-assisted delivery" },
+        { n: "04", name: "Independent audits" },
+      ]}
+      foot="Short reels"
+    />
+  );
+}
+
 /* ───────────────────────── registry ───────────────────────── */
 
 export const OG_PAGES: Record<OgPageId, PageDef> = {
@@ -680,6 +800,12 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     desc: "Senior Brand Identity Designer and co-founder of Code & Canvas, based in Al Obour, Egypt.",
     alt: "About Mustafa Aboalazm — Senior Brand Identity Designer", visual: vAbout,
   },
+  developer: {
+    idx: "04A", eyebrow: "The maker", tagAr: "مصمم هوية ومنتجات رقمية", route: "/developer",
+    title: ["Design,", "products,", "systems."],
+    desc: "Brand identity designer, product architect and builder at Code & Canvas — selected work, then start a project.",
+    alt: "The Maker — Mustafa Aboalazm: design, products and systems", visual: vWorkUi,
+  },
   "for-hiring": {
     idx: "05", eyebrow: "For hiring teams", tagAr: "لفرق التوظيف", route: "/for-hiring",
     title: ["For hiring", "teams."],
@@ -691,6 +817,30 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     title: ["Strategy,", "identity,", "systems."],
     desc: "Three disciplines, one studio, no handoff gaps.",
     alt: "Services — brand & business identity, digital experience, business systems & automation", visual: vServices,
+  },
+  "services-brand-identity": {
+    idx: "06A", eyebrow: "Brand identity", tagAr: "هوية بصرية ثنائية اللغة", route: "/services/brand-identity",
+    title: ["Identity in", "Arabic +", "English."],
+    desc: "Logos, typography, guidelines and practical applications for a launch or a refresh. Compare packages, then discuss your scope.",
+    alt: "Brand identity design in Arabic and English — three packages from $199", visual: vPricing,
+  },
+  "services-websites": {
+    idx: "06B", eyebrow: "Websites & products", tagAr: "مواقع ومنتجات رقمية", route: "/services/websites",
+    title: ["Websites &", "digital", "products."],
+    desc: "Bilingual company websites, landing pages and business tools — defined by users, workflows, content and scope.",
+    alt: "Website and digital product design — bilingual sites and business tools", visual: vWorkUi,
+  },
+  "services-systems": {
+    idx: "06C", eyebrow: "Business systems", tagAr: "أنظمة تشغيل وأتمتة", route: "/services/systems",
+    title: ["Business", "systems &", "automation."],
+    desc: "Dashboards, ERP modules, Arabic-first internal tools and automation for teams running on spreadsheets and WhatsApp.",
+    alt: "Business systems and automation — dashboards, ERP modules and internal tools", visual: vSystems,
+  },
+  "services-store-72h": {
+    idx: "06D", eyebrow: "72-hour store", tagAr: "متجرك خلال 72 ساعة", route: "/services/store-72h",
+    title: ["Your store", "in 72", "hours."],
+    desc: "A bilingual Arabic (RTL) + English (LTR) online store or catalogue, ready once your content is received. From $197.",
+    alt: "A bilingual online store or catalogue in 72 hours, from $197", visual: vStore72,
   },
   pricing: {
     idx: "07", eyebrow: "Pricing", tagAr: "التسعير", route: "/pricing",
@@ -710,11 +860,23 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     desc: "Strategy before design, one source for every output, bilingual architecture built to scale.",
     alt: "Why — the case for systemic identity", visual: vWhy,
   },
+  partnership: {
+    idx: "10", eyebrow: "Partnership", tagAr: "شراكة ودعم بعد التسليم", route: "/partnership",
+    title: ["After the", "handover."],
+    desc: "What happens after launch: 30 days of support included, brand stewardship from $247/month, and scoped digital partnerships.",
+    alt: "Partnership and ongoing support — what happens after the handover", visual: vPartnership,
+  },
   agreement: {
     idx: "11", eyebrow: "Agreement", tagAr: "اتفاقية العمل", route: "/agreement",
     title: ["Work-flow", "agreement."],
     desc: "Eight phases, transparent terms and tiered payment splits — stated upfront.",
     alt: "Agreement — eight phases, transparent terms, tiered payments", visual: vAgreement,
+  },
+  book: {
+    idx: "11A", eyebrow: "Book", tagAr: "احجز بعربون", route: "/book",
+    title: ["Book with", "a deposit."],
+    desc: "Select your tier or web package, choose EGP, SAR or USD, send the 50% kickoff deposit and confirm on WhatsApp.",
+    alt: "Book with a deposit — confirm the project kickoff", visual: vBook,
   },
   contact: {
     idx: "12", eyebrow: "Contact", tagAr: "تواصل معي", route: "/contact",
@@ -751,6 +913,12 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     title: ["Notes from", "the system."],
     desc: "Working documents on identity, tokens and the craft of bilingual design.",
     alt: "Writing — notes from the system", visual: vWriting,
+  },
+  reels: {
+    idx: "18", eyebrow: "Reels", tagAr: "المنهج بالفيديو", route: "/reels",
+    title: ["The method,", "on video."],
+    desc: "Short reels on how the studio thinks and builds — grounded research, real execution plans, AI-assisted delivery and independent audits.",
+    alt: "Reels — the method behind Aboalazm OS, on video", visual: vReels,
   },
   portfolio: {
     idx: "26", eyebrow: "Portfolio deck 2026", tagAr: "ملف أعمالي", route: "/portfolio",
