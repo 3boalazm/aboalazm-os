@@ -242,7 +242,7 @@ export function ZadCaseStudy() {
           <div>
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-orange-300">01 / {ar ? "نظرة عامة" : "Overview"}</p>
             <h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? "تطبيق واحد يرافقك، مش يشتتك." : "One companion, not a cluster of apps."}
+              {ar ? "تطبيق واحد يرافقك ولا يشتّتك." : "One companion, not a cluster of apps."}
             </h2>
           </div>
           <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">

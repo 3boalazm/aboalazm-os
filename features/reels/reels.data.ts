@@ -50,12 +50,12 @@ export const REELS: Reel[] = [
     slug: "ai-workflow",
     title: {
       en: "AI Workflow — it's a system, not one chat",
-      ar: "AI Workflow — نظام، مش شات واحد",
+      ar: "AI Workflow: نظام لا محادثة واحدة",
       ms: "Aliran Kerja AI — sistem, bukan satu sembang",
     },
     summary: {
       en: "The complete six-stage workflow behind every build: discovery, grounded research, a real execution plan, an execution agent, an independent audit and delivery.",
-      ar: "سير العمل الكامل بست مراحل ورا كل مشروع: استكشاف، بحث موثّق المصادر، خطة تنفيذ حقيقية، وكيل تنفيذ، مراجعة مستقلة، وتسليم.",
+      ar: "سير العمل الكامل بست مراحل خلف كل مشروع: استكشاف، وبحث موثّق المصادر، وخطة تنفيذ حقيقية، ووكيل تنفيذ، ومراجعة مستقلة، وتسليم.",
       ms: "Aliran kerja enam peringkat di sebalik setiap binaan: penemuan, penyelidikan berasas sumber, pelan pelaksanaan sebenar, ejen pelaksana, audit bebas dan penyerahan.",
     },
     video: "/reels/ai-workflow.mp4",

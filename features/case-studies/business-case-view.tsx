@@ -102,7 +102,7 @@ export function BusinessCaseView({
             </Link>
           </div>
           <span className="text-accent">
-            {ar ? "نظرة البيزنس والمنتج" : "Business & Product Overview"}
+            {ar ? "الجانب التجاري والمنتج" : "Business & Product Overview"}
           </span>
         </div>
 
@@ -125,7 +125,7 @@ export function BusinessCaseView({
                 <Badge tone="live" size="sm">
                   {isLocalShowcase
                     ? ar ? "معاينة تفاعلية" : "Interactive showcase"
-                    : ar ? "منتج حي" : "Live product"}
+                    : ar ? "منتج حيّ" : "Live product"}
                 </Badge>
               ) : (
                 <Badge tone="neutral" size="sm">
@@ -182,7 +182,7 @@ export function BusinessCaseView({
                     : "inline-flex items-center gap-2 px-5 py-2.5 font-mono text-label font-semibold tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
                 })}
               >
-                <span>{ar ? "اطلب مشروعاً مشابهاً" : "Build something similar"}</span>
+                <span>{ar ? "اطلب مشروعًا مشابهًا" : "Build something similar"}</span>
                 <Icon name="arrow-right" />
               </Link>
 
@@ -244,7 +244,7 @@ export function BusinessCaseView({
               01 · {ar ? "المشكلة والحل العملي" : "The Business Problem & Solution"}
             </SectionLabel>
             <h2 className="font-display text-title tracking-[-0.02em] text-text-primary">
-              {ar ? "إيه المشكلة اللي المشروع بيحلها على أرض الواقع؟" : "What real-world problem does this solve?"}
+              {ar ? "ما المشكلة الواقعية التي يحلّها هذا المشروع؟" : "What real-world problem does this solve?"}
             </h2>
           </div>
 
@@ -295,7 +295,7 @@ export function BusinessCaseView({
           {/* Who Benefits */}
           <div className="flex flex-col gap-3 pt-1">
             <p className="font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary">
-              {ar ? "المستفيدون المباشرون من المشروع" : "Who uses it & what they gain"}
+              {ar ? "من يستخدمه وماذا يجني منه" : "Who uses it & what they gain"}
             </p>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
               {data.problemAndShift.stakeholders.map((s) => (
@@ -317,10 +317,10 @@ export function BusinessCaseView({
       <Section className="container-wide flex flex-col gap-6">
         <div className="flex flex-col gap-1.5">
           <SectionLabel>
-            02 · {ar ? "طريقة التشغيل والعمل" : "How It Works"}
+            02 · {ar ? "طريقة العمل" : "How It Works"}
           </SectionLabel>
           <h2 className="font-display text-title tracking-[-0.02em] text-text-primary">
-            {ar ? "إزاي المشروع بيشتغل خطوة بخطوة؟" : "How the project works in practice"}
+            {ar ? "كيف يعمل المشروع خطوةً بخطوة؟" : "How the project works in practice"}
           </h2>
           <p className="max-w-[62ch] text-body-sm text-text-secondary">
             {pick(data.workflowIntro, ar)}
@@ -359,7 +359,7 @@ export function BusinessCaseView({
               03 · {ar ? "المميزات والقيمة المضافة" : "Key Features & Advantages"}
             </SectionLabel>
             <h2 className="font-display text-title tracking-[-0.02em] text-text-primary">
-              {ar ? "أهم مميزات المشروع وقيمته للبيزنس والمستخدم" : "Core features and practical advantages"}
+              {ar ? "أهم مزايا المشروع وقيمته التجارية وللمستخدم" : "Core features and practical advantages"}
             </h2>
             <p className="max-w-[62ch] text-body-sm text-text-secondary">
               {pick(data.featuresIntro, ar)}
@@ -432,7 +432,7 @@ export function BusinessCaseView({
               <span>
                 {isLocalShowcase
                   ? ar ? "جرّب المعاينة التفاعلية" : "Try interactive showcase"
-                  : ar ? "زور الموقع المباشر" : "Visit live site"}
+                  : ar ? "زُر الموقع المباشر" : "Visit live site"}
               </span>
               <Icon name="arrow-up-right" />
             </a>

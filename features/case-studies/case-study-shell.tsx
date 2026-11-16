@@ -160,17 +160,17 @@ export function CaseStudyShell({
               )}
             >
               <span className="hidden opacity-90 sm:inline">02</span>
-              <span>{ar ? "نظرة البيزنس والمميزات" : "Business Overview"}</span>
+              <span>{ar ? "الجانب التجاري والمزايا" : "Business Overview"}</span>
             </button>
           </div>
 
           <p className="px-1 text-caption leading-[1.45] text-text-tertiary md:text-end">
             {mode === "technical"
               ? ar
-                ? "البنية التقنية، قواعد النظام، القرارات الهندسية، والأدلة الموثقة."
+                ? "البنية التقنية، وقواعد النظام، والقرارات الهندسية، والأدلة الموثّقة."
                 : "Architecture, system rules, decisions & documented evidence."
               : ar
-                ? "المشروع عبارة عن إيه، إزاي بيشتغل عملياً، وأهم مميزاته للبيزنس."
+                ? "ما هو المشروع، وكيف يعمل في الاستخدام اليومي، وأهم مزاياه التجارية."
                 : "What the project is, how it works day-to-day & its key advantages."}
           </p>
         </div>
@@ -215,10 +215,10 @@ export function CaseStudyShell({
             <p className="text-body-sm font-medium text-text-primary">
               {mode === "technical"
                 ? ar
-                  ? "حابب تقرأ شرح المشروع من منظور البيزنس، خطوات عمله، وأهم مميزاته العملية؟"
+                  ? "هل تريد قراءة شرح المشروع من الجانب التجاري: ما يفعله، وكيف يعمل، وأهم مزاياه العملية؟"
                   : "Want the practical business breakdown—what this project does, how it runs, and its core advantages?"
                 : ar
-                  ? "حابب تراجع البنية التقنية، القرارات الهندسية، وتفاصيل بناء النظام؟"
+                  ? "هل تريد مراجعة البنية التقنية والقرارات الهندسية وتفاصيل بناء النظام؟"
                   : "Want to inspect the system architecture, engineering decisions, and technical specifications?"}
             </p>
           </div>
@@ -229,7 +229,7 @@ export function CaseStudyShell({
           >
             <span>
               {mode === "technical"
-                ? ar ? "افتح نظرة البيزنس والمميزات" : "Open Business Overview"
+                ? ar ? "افتح الجانب التجاري والمزايا" : "Open Business Overview"
                 : ar ? "افتح دراسة الحالة التقنية" : "Open Technical Case Study"}
             </span>
             <Icon name="arrow-right" />

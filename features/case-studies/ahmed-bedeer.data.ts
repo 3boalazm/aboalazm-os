@@ -14,13 +14,13 @@ export const AHMED_BEDEER: CaseStudyRecord = {
   problem:
     "A senior Healthcare IT consultant operating without any personal brand presence — no visual identity, no unified digital positioning, no system connecting his international credentials to his professional narrative. In a sector where trust is the product, invisibility is a liability.",
   problemAr:
-    "استشاري تكنولوجيا معلومات صحية أول يعمل بدون أي حضور براند شخصي — لا هوية بصرية، لا تموضع رقمي موحّد، لا نظام يربط مؤهلاته الدولية بروايته المهنية. في قطاع الثقة هي المنتج، الغياب مسؤولية.",
+    "استشاري تكنولوجيا معلومات صحية أول يعمل دون أي حضور لعلامة شخصية: لا هوية بصرية، ولا تموضع رقمي موحّد، ولا نظام يربط مؤهلاته الدولية بروايته المهنية. وفي قطاع تكون فيه الثقة هي المنتج، يصبح الغياب مسؤولية.",
   teamScale: "1 designer · 1 client · remote collaboration",
   teamScaleAr: "1 مصمم · 1 عميل · تعاون عن بُعد",
   timeline: "October 2025 · V1.0 guidelines delivered",
   timelineAr: "أكتوبر 2025 · تسليم دليل V1.0",
   kpis: [
-    { value: "0",  label: "Brand assets before",  labelAr: "أصول البراند قبل",  context: "STARTED FROM ZERO",         contextAr: "بدأنا من الصفر"           },
+    { value: "0",  label: "Brand assets before",  labelAr: "أصول العلامة قبل",  context: "STARTED FROM ZERO",         contextAr: "بدأنا من الصفر"           },
     { value: "4",  label: "Standards to signal",  labelAr: "معايير للتعبير عنها", context: "HL7 · FHIR · CPHIMS · HIMSS", contextAr: "HL7 · FHIR · CPHIMS · HIMSS" },
     { value: "2",  label: "Markets targeted",     labelAr: "أسواق مستهدفة",      context: "KSA + WIDER MENA",           contextAr: "المملكة + منطقة MENA"     },
   ],
@@ -28,7 +28,7 @@ export const AHMED_BEDEER: CaseStudyRecord = {
   researchSummary:
     "Healthcare IT consultants cluster into two poles: clinical-technical (white-coat formality) or generic tech (dark-mode-startup aesthetics). Neither commands authority at the strategy table. The gap: a personal brand that signals domain mastery through precision and restraint — not loud, but unmistakably expert.",
   researchSummaryAr:
-    "استشاريو تكنولوجيا المعلومات الصحية يتجمعون في قطبين: سريري-تقني (رسمية المعطف الأبيض) أو تقني عام (جماليات الستارت أب الداكنة). لا أيٌّ منهما يمنح سلطة على طاولة الاستراتيجية. الفجوة: براند شخصي يُشير إلى إتقان المجال بالدقة والتحفظ — لا صاخب، لكنه خبير بلا لبس.",
+    "استشاريو تكنولوجيا المعلومات الصحية يتجمعون في قطبين: سريري-تقني (رسمية المعطف الأبيض) أو تقني عام (جماليات الستارت أب الداكنة). لا أيٌّ منهما يمنح سلطة على طاولة الاستراتيجية. والفجوة: علامة شخصية تُشير إلى إتقان المجال بالدقة والتحفظ، لا صاخبة، لكنها خبيرة بلا لبس.",
   competitors: [
     { name: "Clinical-corporate A", x: 28, y: 62 },
     { name: "Clinical-corporate B", x: 18, y: 50 },
@@ -56,14 +56,14 @@ export const AHMED_BEDEER: CaseStudyRecord = {
   ],
 
   results: [
-    { value: "V1.0", label: "Coherent system shipped",  labelAr: "نظام متماسك تم تسليمه",  context: "LOGO → COLOR → TYPE → APPS",     contextAr: "لوجو → لون → خط → تطبيقات"     },
+    { value: "V1.0", label: "Coherent system shipped",  labelAr: "نظام متماسك تم تسليمه",  context: "LOGO → COLOR → TYPE → APPS",     contextAr: "شعار ← لون ← خط ← تطبيقات"     },
     { value: "1",    label: "Brand guidelines PDF",     labelAr: "ملف دليل الهوية PDF",     context: "GOVERNED, NOT GUESSED",          contextAr: "محكوم لا مرتجل"               },
     { value: "3",    label: "Palette tokens defined",   labelAr: "توكنز لوحة الألوان",      context: "PRIMARY + EXTENDED + SECONDARY", contextAr: "أساسي + موسّع + ثانوي"        },
   ],
 
   retro: [
     { verdict: "KEEP",   note: "The 'ab' quotation-mark monogram — initials that signal dialogue and thought leadership simultaneously.",   noteAr: "مونوجرام علامة الاقتباس 'ab' — أحرف أولى تُشير إلى الحوار والريادة الفكرية في آن."        },
-    { verdict: "KEEP",   note: "Blue for trust, teal for transformation — never decoration, always doctrine.",                               noteAr: "الأزرق للثقة، والتيل للتحول — ليست ديكوراً أبداً، دائماً عقيدة."                       },
+    { verdict: "KEEP",   note: "Blue for trust, teal for transformation — never decoration, always doctrine.",                               noteAr: "الأزرق للثقة، والتيل للتحول — ليست ديكورًا أبدًا، دائمًا عقيدة."                       },
     { verdict: "CHANGE", note: "Lock 'Healthcare' spelling in the lockup before any print run.",                                             noteAr: "اقفل إملاء 'Healthcare' في الـ lockup قبل أي طباعة." },
   ],
 };

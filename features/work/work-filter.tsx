@@ -81,7 +81,7 @@ export function WorkFilter({
             {ar ? "استكشف حسب التخصص" : "Browse by discipline"}
           </p>
           {/* Folder tabs: each discipline is a folder; the panel below is its contents. */}
-          <div className="work-filter work-filter--tabs" role="group" aria-label={ar ? "اختار نوع الأعمال" : "Choose a work type"}>
+          <div className="work-filter work-filter--tabs" role="group" aria-label={ar ? "اختر نوع الأعمال" : "Choose a work type"}>
             {OPTIONS.map((option) => (
               <button
                 key={option.value}

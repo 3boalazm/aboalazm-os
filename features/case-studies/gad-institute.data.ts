@@ -17,7 +17,7 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   problem:
     "A specialist cardiac and pulmonary care institute operating under an existing, generic hospital identity — one that never signaled its dual specialization and could not carry its ambition to expand regionally against internationally branded healthcare groups. The brief was a rebrand, built from strategy up: a mark that says what the institute does, one bilingual system for patient-facing communications, and the presence to compete.",
   problemAr:
-    "معهد متخصص في رعاية القلب والرئة يعمل تحت هوية مستشفى عامة قائمة، لم تُشِر يومًا إلى تخصصه المزدوج ولا تحمل طموحه في التوسع إقليميًا أمام مجموعات رعاية صحية ذات هوية دولية. كان المطلوب ريبراند يبدأ من الاستراتيجية: رمز يقول ما يفعله المعهد، ونظام واحد ثنائي اللغة للتواصل مع المرضى، وحضور قادر على المنافسة.",
+    "معهد متخصص في رعاية القلب والرئة يعمل تحت هوية مستشفى عامة قائمة، لم تُشِر يومًا إلى تخصصه المزدوج ولا تحمل طموحه في التوسع إقليميًا أمام مجموعات رعاية صحية ذات هوية دولية. كان المطلوب إعادة بناء للعلامة تبدأ من الاستراتيجية: رمز يقول ما يفعله المعهد، ونظام واحد ثنائي اللغة للتواصل مع المرضى، وحضور قادر على المنافسة.",
   teamScale: "Creative lead (Mustafa) · medical director · marketing manager",
   teamScaleAr: "القائد الإبداعي (مصطفى) · المدير الطبي · مدير التسويق",
   timeline: "Identity project: 2023 · Guidelines shown: V2.0 (2025)",
@@ -31,7 +31,7 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
   researchSummary:
     "A Saudi heart-and-lung care client needed a voice between sterile institution and consumer promotion. GAD chose the trusted specialist: warm in care, precise in expertise, and clear across Arabic and English. The map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "عميل متخصص في القلب والرئة من المملكة العربية السعودية، يحتاج إلى هوية تتجنب برودة الطابع المؤسسي ومبالغة الترويج. لذلك اختارت GAD صوت الأخصائي الموثوق: دفء في الرعاية، ودقة في التخصص، ووضوح بالعربية والإنجليزية. الخريطة توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
+    "عميل متخصص في القلب والرئة من المملكة العربية السعودية، يحتاج إلى هوية تتجنب برودة الطابع المؤسسي ومبالغة الترويج. لذلك اختارت GAD صوت الأخصائي الموثوق: دفء في الرعاية، ودقة في التخصص، ووضوح بالعربية والإنجليزية. الخريطة توضيحية وليست تدقيقًا موثقًا لمنافسين بأسمائهم.",
   competitors: [
     { name: "Public-clinical A",  x: 22, y: 60 },
     { name: "Illustrative clinical B",  x: 15, y: 45 },
@@ -64,11 +64,11 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     problem:
       "A specialized cardiac and pulmonary care institute operating under existing generic, cold hospital branding. The rebrand had to give it a mark that reflects its dual life-saving specialization, one governed visual system across patient communications, and the presence to compete with internationally branded regional health groups.",
     problemAr:
-      "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى تقليدية وباردة. جاء الريبراند ليمنحه رمزًا يعكس تخصصه المزدوج المنقذ للحياة، ونظامًا بصريًا واحدًا محكومًا للتواصل مع المرضى، وحضورًا ينافس به مجموعات صحية إقليمية ذات هوية دولية.",
+      "معهد متخصص في رعاية القلب والرئة كان يعمل تحت هوية مستشفى تقليدية وباردة. جاءت إعادة بناء العلامة لتمنحه رمزًا يعكس تخصصه المزدوج المنقذ للحياة، ونظامًا بصريًا واحدًا محكومًا للتواصل مع المرضى، وحضورًا ينافس به مجموعات صحية إقليمية ذات هوية دولية.",
     audienceContext:
       "High-anxiety cardiac and pulmonary patients, their families seeking trusted reassurance, patients and families in the Eastern Province and regional private health insurers. In healthcare, visual inconsistency translates directly to perceived clinical risk.",
     audienceContextAr:
-      "مرضى القلب والرئة في حالات دقيقة، عائلاتهم الباحثة عن الاطمئنان، المرضى وعائلاتهم في المنطقة الشرقية وهيئات التأمين الصحي الخاص إقليمياً. في الرعاية الصحية، غياب الاتساق البصري يُترجم فوراً إلى انعدام أمان سريري.",
+      "مرضى القلب والرئة في حالات دقيقة، عائلاتهم الباحثة عن الاطمئنان، المرضى وعائلاتهم في المنطقة الشرقية وهيئات التأمين الصحي الخاص إقليميًا. في الرعاية الصحية، غياب الاتساق البصري يُترجم فورًا إلى انعدام أمان سريري.",
     guidingIdea:
       "The Trusted Specialist ('Closer to Every Heart') — fusing anatomical heart and lung geometry into a continuous circular seal. The gesture combines circulatory vitality and pulmonary breath in one precise, human mark.",
     guidingIdeaAr:
@@ -80,11 +80,11 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
     roleAndTeam:
       "Sole Brand Identity Designer & Creative Lead (Mustafa Aboalazm). Designed the full system: brand strategy, bilingual symbol, typography system, Pantone palette, brand book (V2.0), and architectural signage specs. Collaborated with the Medical Director (anatomical accuracy) and Marketing Manager.",
     roleAndTeamAr:
-      "مصمم الهوية البصرية والقائد الإبداعي (مصطفى أبوالعزم) منفرداً في التصميم: الاستراتيجية، الرمز ثنائي اللغة، نظام الخطوط، ألوان البانتون، دليل الهوية (V2.0)، ومواصفات اللافتات المعمارية. بالتعاون مع المدير الطبي (دقة التشريح) ومدير التسويق.",
+      "مصمم الهوية البصرية والقائد الإبداعي (مصطفى أبوالعزم) منفردًا في التصميم: الاستراتيجية، الرمز ثنائي اللغة، نظام الخطوط، ألوان البانتون، دليل الهوية (V2.0)، ومواصفات اللافتات المعمارية. بالتعاون مع المدير الطبي (دقة التشريح) ومدير التسويق.",
     whereUsed:
       "Main hospital facade signage, 3D reception wall seals, internal patient wayfinding, staff uniforms, bilingual diagnosis folders, prescription stationery, digital presence, and healthcare summit exhibition stands (Vision 2030).",
     whereUsedAr:
-      "لافتات الواجهة الرئيسية، ختم جدار الاستقبال ثلاثي الأبعاد، لافتات الإرشاد الداخلي، زي الأطباء والتمريض، ملفات المرضى، الروشتات، المنصات الرقمية، وأجنحة المعارض الطبية (رؤية 2030).",
+      "لافتات الواجهة الرئيسية، ختم جدار الاستقبال ثلاثي الأبعاد، لافتات الإرشاد الداخلي، زي الأطباء والتمريض، ملفات المرضى، الوصفات الطبية، المنصات الرقمية، وأجنحة المعارض الطبية (رؤية 2030).",
   },
 
   designProofItems: [
@@ -99,29 +99,29 @@ export const GAD_INSTITUTE: CaseStudyRecord = {
       title: "Scale & Favicon Legibility Test",
       titleAr: "اختبار الحجم والمقروئية الدقيقة",
       description: "Tested from 16px digital favicon to multi-meter exterior building signage without stroke collapse.",
-      descriptionAr: "تم اختباره من مقاس 16px الرقمي وصولاً إلى لافتات المبنى الخارجية الضخمة دون انهدام للخطوط.",
+      descriptionAr: "تم اختباره من مقاس 16px الرقمي وصولًا إلى لافتات المبنى الخارجية الضخمة دون انهدام للخطوط.",
       image: "/images/work/gad/gad-logo-symbol.png",
     },
     {
       title: "Bilingual Typography Pairing",
       titleAr: "مواءمة الخطين العربي واللاتيني",
       description: "Trap (Bold Display) paired with Alexandria (Arabic Title & Body) for structural optical parity.",
-      descriptionAr: "خط Trap العريض مقترناً مع خط Alexandria العربي لتحقيق توازن بصري متكافئ في كل لافتة.",
+      descriptionAr: "خط Trap العريض مقترنًا مع خط Alexandria العربي لتحقيق توازن بصري متكافئ في كل لافتة.",
       image: "/images/work/gad/gad-typography.png",
     },
     {
       title: "Environmental & Architectural Signage",
       titleAr: "تطبيق لافتات المبنى والبيئة",
       description: "Physical exterior facade signage fabricated with exact Pantone 107-8 U Deep Blue specs.",
-      descriptionAr: "لافتات الواجهة الخارجية المصنعة طبقاً لمواصفات بانتون 107-8 U الأزرق المعتمد.",
+      descriptionAr: "لافتات الواجهة الخارجية المصنعة طبقًا لمواصفات بانتون 107-8 U الأزرق المعتمد.",
       image: "/images/work/gad/gad-signage-environmental.jpg",
     },
   ],
 
   results: [
-    { value: "V2.0", label: "System, end to end",      labelAr: "نظام من الألف للياء",    context: "STRATEGY → IDENTITY → GUIDELINES", contextAr: "استراتيجية → هوية → دليل"       },
+    { value: "V2.0", label: "System, end to end",      labelAr: "نظام من الألف للياء",    context: "STRATEGY → IDENTITY → GUIDELINES", contextAr: "استراتيجية ← هوية ← دليل"       },
     { value: "6+",   label: "Branded applications",    labelAr: "تطبيقات مبرندة",         context: "SIGNAGE · UNIFORM · STATIONERY · STAND", contextAr: "لافتات · يونيفورم · قرطاسية · ستاند" },
-    { value: "1",    label: "Governed brand book",     labelAr: "دليل براند محكوم",        context: "PANTONE-LOCKED, NOT GUESSED",      contextAr: "Pantone مقفول لا مرتجل"         },
+    { value: "1",    label: "Governed brand book",     labelAr: "دليل علامة محكوم",        context: "PANTONE-LOCKED, NOT GUESSED",      contextAr: "Pantone مقفول لا مرتجل"         },
   ],
 
   retro: [

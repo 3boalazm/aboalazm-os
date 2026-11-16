@@ -14,13 +14,13 @@ export const REFLECTION: CaseStudyRecord = {
   problem:
     "A premium art and print studio needing an identity that positioned it apart from mass-market poster shops — something that felt considered, gallery-adjacent, and collectable, while remaining legible and functional across both digital and physical surfaces.",
   problemAr:
-    "استوديو فن ومطبوعات متميز يحتاج هوية تضعه بعيداً عن محلات الملصقات الشعبية — شيء يبدو مدروساً، قريباً من المعارض، وقابلاً للاقتناء، مع الحفاظ على وضوحه ووظيفيته عبر الأسطح الرقمية والمادية.",
+    "استوديو فن ومطبوعات متميز يحتاج هوية تضعه بعيدًا عن محلات الملصقات الشعبية — شيء يبدو مدروسًا، قريبًا من المعارض، وقابلًا للاقتناء، مع الحفاظ على وضوحه ووظيفيته عبر الأسطح الرقمية والمادية.",
   teamScale: "1 designer · founder · remote delivery",
   teamScaleAr: "1 مصمم · المؤسس · تسليم عن بُعد",
   timeline: "Aug 2022 · 18-page brand book delivered",
-  timelineAr: "أغسطس 2022 · تسليم دليل براند 18 صفحة",
+  timelineAr: "أغسطس 2022 · تسليم دليل علامة 18 صفحة",
   kpis: [
-    { value: "5",  label: "Brand principles",  labelAr: "مبادئ البراند",  context: "QUALITY · ADJUST · UNIQUE · DIFFERENT · ACCURATE", contextAr: "جودة · تكيّف · تميّز · اختلاف · دقة" },
+    { value: "5",  label: "Brand principles",  labelAr: "مبادئ العلامة",  context: "QUALITY · ADJUST · UNIQUE · DIFFERENT · ACCURATE", contextAr: "جودة · تكيّف · تميّز · اختلاف · دقة" },
     { value: "2",  label: "Type voices",       labelAr: "أصوات الخط",     context: "NEUE MACHINA + QUICKSAND",                         contextAr: "NEUE MACHINA + QUICKSAND"             },
     { value: "R",  label: "Built from one letter", labelAr: "مبني من حرف واحد", context: "ICON = INITIAL = SYMBOL",                   contextAr: "أيقونة = حرف أول = رمز"              },
   ],
@@ -28,7 +28,7 @@ export const REFLECTION: CaseStudyRecord = {
   researchSummary:
     "Working positioning hypothesis: art-print identities often lean either mass-market and promotional or minimal and gallery-like. Reflection’s chosen direction was premium-accessible — aspirational without alienating, distinctive without being difficult. The accompanying map is illustrative, not a named-competitor audit.",
   researchSummaryAr:
-    "فرضية التموضع التي قادت العمل: قد تميل هويات الفن والطباعة إلى اتجاه شعبي ترويجي أو اتجاه بسيط شبيه بصالات العرض. اختارت Reflection موضعاً يجمع التميز وسهولة الاقتراب — طموحاً دون إبعاد، ومختلفاً دون تعقيد. خريطة التموضع توضيحية وليست تدقيقاً موثقاً لمنافسين بأسمائهم.",
+    "فرضية التموضع التي قادت العمل: قد تميل هويات الفن والطباعة إلى اتجاه شعبي ترويجي أو اتجاه بسيط شبيه بصالات العرض. اختارت Reflection موضعًا يجمع التميز وسهولة الاقتراب — طموحًا دون إبعاد، ومختلفًا دون تعقيد. خريطة التموضع توضيحية وليست تدقيقًا موثقًا لمنافسين بأسمائهم.",
   competitors: [
     { name: "Illustrative mass-market A",   x: 55, y: 20 },
     { name: "Illustrative mass-market B",   x: 65, y: 15 },
@@ -46,7 +46,7 @@ export const REFLECTION: CaseStudyRecord = {
     { token: "spectrum-violet", value: "#9646BC", role: "Secondary · violet end",            roleAr: "ثانوي · نهاية البنفسجي" },
     { token: "spectrum-red",    value: "#E84040", role: "Secondary · red mid",               roleAr: "ثانوي · أحمر وسط"        },
     { token: "spectrum-teal",   value: "#009696", role: "Secondary · turquoise",             roleAr: "ثانوي · تركواز"          },
-    { token: "Neue Machina",    value: "Ultra",   role: "Headlines · brand typeface",        roleAr: "عناوين · خط البراند"     },
+    { token: "Neue Machina",    value: "Ultra",   role: "Headlines · brand typeface",        roleAr: "عناوين · خط العلامة"     },
     { token: "Quicksand",       value: "Regular", role: "Body / subheads",                   roleAr: "متن / عناوين فرعية"      },
   ],
   componentStates: ["DEFAULT", "HOVER", "FOCUS", "DISABLED"],
@@ -57,22 +57,22 @@ export const REFLECTION: CaseStudyRecord = {
   ],
 
   results: [
-    { value: "18p", label: "Brand book",       labelAr: "دليل البراند",     context: "OVERVIEW → LOGO → COLOR → TYPE → LAYOUT", contextAr: "نظرة عامة → لوجو → لون → خط → تخطيط" },
+    { value: "18p", label: "Brand book",       labelAr: "دليل العلامة",     context: "OVERVIEW → LOGO → COLOR → TYPE → LAYOUT", contextAr: "نظرة عامة ← شعار ← لون ← خط ← تخطيط" },
     { value: "3",   label: "Focal-area rules", labelAr: "قواعد المنطقة المحورية", context: "IMAGE · HEADLINE · ICON",          contextAr: "صورة · عنوان · أيقونة"               },
     { value: "V1.0",label: "Governed system",  labelAr: "نظام محكوم",       context: "MARGINS, LOCKUPS, FOCAL LOGIC",            contextAr: "هوامش، lockups، منطق محوري"          },
   ],
 
   retro: [
-    { verdict: "KEEP",   note: "The constructed R — circle and triangle of equal weight stacked into a figure that reads as initial, icon, and reflection simultaneously.", noteAr: "الـ R المبنية — دائرة ومثلث بوزن متساوٍ يُكوّنان شكلاً يُقرأ كحرف أول وأيقونة وانعكاس في آن." },
-    { verdict: "KEEP",   note: "Airy white system with black as accent: the calm that makes the work feel premium, without the coldness of all-white minimalism.",           noteAr: "نظام أبيض خفيف مع الأسود كتمييز: الهدوء الذي يجعل الشغل يبدو متميزاً دون برودة البسيط الأبيض كله." },
-    { verdict: "CHANGE", note: "Focal-area doctrine — every layout resolves to Image, Headline, or Icon — keeps marketing collateral on-system forever.",                   noteAr: "عقيدة المنطقة المحورية — كل تخطيط يُحل إلى صورة أو عنوان أو أيقونة — تبقي المواد التسويقية on-system دائماً." },
+    { verdict: "KEEP",   note: "The constructed R — circle and triangle of equal weight stacked into a figure that reads as initial, icon, and reflection simultaneously.", noteAr: "الـ R المبنية — دائرة ومثلث بوزن متساوٍ يُكوّنان شكلًا يُقرأ كحرف أول وأيقونة وانعكاس في آن." },
+    { verdict: "KEEP",   note: "Airy white system with black as accent: the calm that makes the work feel premium, without the coldness of all-white minimalism.",           noteAr: "نظام أبيض خفيف مع الأسود كتمييز: هدوء يجعل العمل يبدو متميزًا دون برودة البساطة البيضاء الكاملة." },
+    { verdict: "CHANGE", note: "Focal-area doctrine — every layout resolves to Image, Headline, or Icon — keeps marketing collateral on-system forever.",                   noteAr: "عقيدة المنطقة المحورية — كل تخطيط يُحل إلى صورة أو عنوان أو أيقونة — تبقي المواد التسويقية on-system دائمًا." },
   ],
 
   narrativeAnswers: {
     problem:
       "A premium art and print studio needed a distinctive identity to position it apart from cheap mass-market poster shops on one side, and sterile, inaccessible high-end galleries on the other.",
     problemAr:
-      "استوديو فن ومطبوعات متميز احتاج هوية متفردة تضعه بعيداً عن متاجر البوسترات الشعبية الرخيصة من جهة، وصالات الفن المعاصرة الباردة المنعزلة من جهة أخرى.",
+      "استوديو فن ومطبوعات متميز احتاج هوية متفردة تضعه بعيدًا عن متاجر الملصقات الشعبية الرخيصة من جهة، وصالات الفن المعاصرة الباردة المنعزلة من جهة أخرى.",
     audienceContext:
       "Design-conscious homeowners, interior architects, creative professionals, and art collectors seeking curated, high-quality wall art with emotional resonance.",
     audienceContextAr:
@@ -88,7 +88,7 @@ export const REFLECTION: CaseStudyRecord = {
     roleAndTeam:
       "Sole Brand Identity Designer (Mustafa Aboalazm). Defined brand positioning, symbol anatomy, dual typography pairing (Neue Machina + Quicksand), focal-area layout rules, and complete 18-page brand book.",
     roleAndTeamAr:
-      "مصمم الهوية البصرية منفرداً (مصطفى أبوالعزم). صاغ التموضع، تشريح الشعار، مواءمة الخطوط، قواعد المنطقة المحورية، والدليل الإرشادي المكون من 18 صفحة.",
+      "مصمم الهوية البصرية منفردًا (مصطفى أبوالعزم). صاغ التموضع، تشريح الشعار، مواءمة الخطوط، قواعد المنطقة المحورية، والدليل الإرشادي المكون من 18 صفحة.",
     whereUsed:
       "Fine-art framed prints, storefront signage, product authentication tags, packaging tissue and tape, social portfolio, and brand guidelines.",
     whereUsedAr:
@@ -100,14 +100,14 @@ export const REFLECTION: CaseStudyRecord = {
       title: "Monogram Construction & Geometry",
       titleAr: "بناء المونوجرام وهندسته",
       description: "The constructed R — circle and triangle of equal optical weight stacked to read as initial, icon, and reflection.",
-      descriptionAr: "حرف R المبني — دائرة ومثلث بوزن بصري متساوٍ يُكوّنان شكلاً يُقرأ كحرف أول وأيقونة وانعكاس في آن.",
+      descriptionAr: "حرف R المبني — دائرة ومثلث بوزن بصري متساوٍ يُكوّنان شكلًا يُقرأ كحرف أول وأيقونة وانعكاس في آن.",
       image: "/images/work/reflection/refl-logo-anatomy.jpg",
     },
     {
       title: "Airy Color Spectrum on White Canvas",
       titleAr: "طيف الألوان على خلفية بيضاء رحبة",
       description: "Pure white base with black text accents and a refined violet-to-teal spectrum.",
-      descriptionAr: "قاعدة بيضاء نقية مع خطوط سوداء وطيف لوني راقٍ من البنفسجي إلى التركواز يمنح البراند دفئاً تحريرياً.",
+      descriptionAr: "قاعدة بيضاء نقية مع خطوط سوداء وطيف لوني راقٍ من البنفسجي إلى التركواز يمنح العلامة دفئًا تحريريًا.",
       image: "/images/work/reflection/refl-colors.jpg",
     },
     {

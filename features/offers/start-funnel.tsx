@@ -62,7 +62,7 @@ export function StartFunnel({
         </h2>
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {ar
-            ? "مش محتاج تكون عارف إيه اللي طالبه بالضبط. احجز مكالمة، نشرح المشكلة، وتستلم نطاقًا وعرضًا سعر مكتوبًا قبل أي التزام."
+            ? "لا يلزمك أن تعرف بالضبط ما تحتاج إليه. احجز مكالمة واشرح المشكلة، وتصلك وثيقة مكتوبة بنطاق العمل والسعر قبل أي التزام."
             : "You do not need to know exactly what you need. Book the call, describe the problem, and you get a written scope and price before any commitment."}
         </p>
       </BandFrame>

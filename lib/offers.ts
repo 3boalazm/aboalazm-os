@@ -138,7 +138,7 @@ export const TIERS: readonly Tier[] = [
     duration: ["3 – 4 weeks", "3 – 4 أسابيع"],
     payment: "50% / 25% / 25%",
     recommended: true,
-    includesHead: ["Everything in Tier 01, plus", "كل ما في الفئة 01، بالإضافة إلى"],
+    includesHead: ["Everything in Tier 01, plus", "كل ما تتضمنه الفئة 01، إضافةً إلى"],
     includes: [
       ["Brand Audit (if existing)", "مراجعة شاملة للعلامة الحالية"],
       ["Competitor Analysis", "تحليل المنافسين"],
@@ -161,7 +161,7 @@ export const TIERS: readonly Tier[] = [
     bestFor: ["Launches & re-launches at scale", "إطلاق العلامات وإعادة إطلاقها على نطاق واسع"],
     duration: ["5 – 7 weeks", "5 – 7 أسابيع"],
     payment: "50% / 25% / 25%",
-    includesHead: ["Everything in Tier 02, plus", "كل ما في الفئة 02، بالإضافة إلى"],
+    includesHead: ["Everything in Tier 02, plus", "كل ما تتضمنه الفئة 02، إضافةً إلى"],
     includes: [
       ["Extended Discovery & Research", "استكشاف وبحث موسّعان"],
       ["Full Brand Strategy Document", "وثيقة استراتيجية العلامة كاملة"],
@@ -780,7 +780,7 @@ export const AGREEMENT_TERMS: readonly AgreementTerm[] = [
     head: ["Payment Structure", "نظام الدفع"],
     body: [
       "Kickoff is 50% for every tier. Tier 01 (Logo Design) follows a 50% / 50% schedule (50% before work begins, 50% before final files are delivered). Tier 02 (Brand Identity Essentials) and Tier 03 (Full Brand System) follow a 50% / 25% / 25% schedule (50% at kickoff, 25% at strategy sign-off, 25% before final delivery). A 10% discount applies when paid upfront in full at kickoff.",
-      "دفعة البدء 50% لكل الفئات. الفئة 01 (تصميم الشعار) بنظام 50% / 50% (50% قبل بدء العمل، و50% قبل تسليم الملفات النهائية). الفئة 02 (أساسيات الهوية البصرية) والفئة 03 (نظام براند متكامل) بنظام 50% / 25% / 25% (50% عند البدء، و25% عند اعتماد الاستراتيجية، و25% قبل التسليم النهائي). يُطبَّق خصم 10% عند سداد إجمالي الفاتورة كاملًا مقدمًا عند البدء.",
+      "دفعة البدء 50% لكل الفئات. الفئة 01 (تصميم الشعار) بنظام 50% / 50% (50% قبل بدء العمل، و50% قبل تسليم الملفات النهائية). الفئة 02 (أساسيات الهوية البصرية) والفئة 03 (نظام العلامة المتكامل) بنظام 50% / 25% / 25% (50% عند البدء، و25% عند اعتماد الاستراتيجية، و25% قبل التسليم النهائي). يُطبَّق خصم 10% عند سداد إجمالي الفاتورة كاملًا مقدمًا عند البدء.",
     ],
   },
   { n: "06", head: ["Payment Methods", "وسائل الدفع"], body: ["EGP, SAR or USD — cash, bank transfer, electronic wallets, InstaPay, or Vodafone Cash (01092500454). A 1% service fee may apply.", "بالجنيه أو الريال أو الدولار: نقدًا، أو تحويلًا بنكيًا أو إلكترونيًا، أو عبر إنستاباي أو فودافون كاش (01092500454)، مع إضافة رسوم خدمة بنسبة 1% من قيمة المبلغ."] },

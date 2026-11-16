@@ -17,7 +17,7 @@ export function LivePreviewGrid({ projects }: { projects: readonly Project[] }) 
           {ar ? "لا توجد معاينات حية بعد" : "No live previews yet"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "علّم مشروع كـ UI/UX من الداشبورد وضيف رابطه" : "Tag a project as UI/UX in the dashboard and add its live URL"}
+          {ar ? "صنّف مشروعًا بوصفه UI/UX من لوحة التحكم وأضف رابطه الحي." : "Tag a project as UI/UX in the dashboard and add its live URL"}
         </p>
       </div>
     );

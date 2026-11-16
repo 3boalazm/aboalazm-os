@@ -14,7 +14,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Nile Pharma ERP is an enterprise operations platform designed for pharmaceutical and nutraceutical distributors. Instead of running sales on WhatsApp, inventory on Excel, and accounting in a disconnected desktop program, it brings nine business domains—Sales, Inventory, Products, CRM, Rep Incentives, Accounting, Access Control, Organization Structure, and Audit—into one coordinated Arabic RTL workflow.",
-      ar: "تمثل منظومة (نايل فارما ERP) نظام تشغيل متكاملاً لشركات توزيع الأدوية والمكملات الغذائية. بدلاً من تشتت أوامر البيع عبر واتساب، وجرد المخازن على ملفات إكسل، وحساب العمولات يدوياً بشكل منفصل عن التحصيل المالي، يجمع النظام تسع إدارات أساسية في بيئة عمل عربية واحدة مترابطة وموثقة بسجل مراجعة كامل.",
+      ar: "تمثل منظومة (نايل فارما ERP) نظام تشغيل متكاملًا لشركات توزيع الأدوية والمكملات الغذائية. بدلًا من تشتت أوامر البيع عبر واتساب، وجرد المخازن على ملفات إكسل، وحساب العمولات يدويًا بشكل منفصل عن التحصيل المالي، يجمع النظام تسع إدارات أساسية في بيئة عمل عربية واحدة مترابطة وموثقة بسجل مراجعة كامل.",
     },
     snapshot: [
       {
@@ -62,17 +62,17 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Rep commissions calculated on spreadsheets take days every month and cause disputes over returns and uncollected invoices.",
-          ar: "حساب حوافز وعمولات المندوبين يدوياً نهاية كل شهر يستغرق أياماً ويفتح باب الخلاف حول المرتجعات والفواتير غير المحصّلة.",
+          ar: "حساب حوافز وعمولات المندوبين يدويًا نهاية كل شهر يستغرق أيامًا ويفتح باب الخلاف حول المرتجعات والفواتير غير المحصّلة.",
         },
       ],
       afterTitle: {
         en: "How Nile Pharma ERP runs the business",
-        ar: "كيف تضبط المنظومة دورة العمل عملياً",
+        ar: "كيف تضبط المنظومة دورة العمل عمليًا",
       },
       afterPoints: [
         {
           en: "Enforces FEFO (First-Expired, First-Out) batch allocation automatically so nearest-expiry lots move out first.",
-          ar: "تطبيق قاعدة (الأقرب انتهاءً يُصرف أولاً - FEFO) تلقائياً عند حجز وصرف أي طلبية من المخزن.",
+          ar: "تطبيق قاعدة (الأقرب انتهاءً يُصرف أولًا - FEFO) تلقائيًا عند حجز وصرف أي طلبية من المخزن.",
         },
         {
           en: "Connects every pharmacy/distributor profile in CRM directly to credit limits, invoice aging, and collection KPIs.",
@@ -80,7 +80,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Calculates rep incentives transparently from verified sales and collections, while posting financial entries and audit logs automatically.",
-          ar: "احتساب حوافز المندوبين آلياً بناءً على المبيعات والتحصيلات المعتمدة، مع ترحيل القيود المحاسبية وتسجيل كل حركة في سجل الرقابة.",
+          ar: "احتساب حوافز المندوبين آليًا بناءً على المبيعات والتحصيلات المعتمدة، مع ترحيل القيود المحاسبية وتسجيل كل حركة في سجل الرقابة.",
         },
       ],
       stakeholders: [
@@ -129,11 +129,11 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Warehouse (FEFO)", ar: "المخازن وصرف التشغيلات" },
         title: {
           en: "Automatic batch reservation by earliest expiry date",
-          ar: "حجز وصرف التشغيلات تلقائياً حسب الأقرب صلاحية",
+          ar: "حجز وصرف التشغيلات تلقائيًا حسب الأقرب صلاحية",
         },
         detail: {
           en: "Inventory assigns stock from the earliest valid expiry batch first and flags low-stock or near-expiry thresholds early.",
-          ar: "يوجه النظام أمين المخزن لصرف التشغيلة الأقرب تاريخ انتهاء أولاً، مع إطلاق تنبيهات مبكرة للأصناف منخفضة الرصيد.",
+          ar: "يوجه النظام أمين المخزن لصرف التشغيلة الأقرب تاريخ انتهاء أولًا، مع إطلاق تنبيهات مبكرة للأصناف منخفضة الرصيد.",
         },
       },
       {
@@ -157,7 +157,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Collected revenue feeds into rep targets and incentive tiers while every price, stock, or permission action remains traceable in Audit.",
-          ar: "تُحتسب نقاط وعمولات المندوب تلقائياً وفق مستهدفات التحصيل والبيع، مع حفظ سجل رقابي كامل لكل إجراء تم على الطلبية.",
+          ar: "تُحتسب نقاط وعمولات المندوب تلقائيًا وفق مستهدفات التحصيل والبيع، مع حفظ سجل رقابي كامل لكل إجراء تم على الطلبية.",
         },
       },
     ],
@@ -268,7 +268,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Ummah Academy connects non-Arabic-speaking and diaspora Muslim families (children and adults) with vetted, Ijazah-certified teachers for live 1-on-1 instruction in Quran, Tajweed, Arabic language, and Islamic studies. The platform operates across five full languages (English, Arabic, French, German, and Spanish) to guide parents from course discovery and teacher trust to transparent pricing and free trial booking.",
-      ar: "تربط (أكاديمية الأمة - Ummah Academy) الأسر والطلاب من الأطفال والكبار حول العالم بمعلمين ومعلمات معتمدين لتقديم دروس فردية مباشرة (1-on-1) في القرآن الكريم والتجويد واللغة العربية والدراسات الإسلامية. تعمل المنصة بخمس لغات كاملة (العربية، الإنجليزية، الفرنسية، الألمانية، والإسبانية) لتسهيل رحلة ولي الأمر من التعرّف على المناهج وكفاءة المعلمين وحتى الاطلاع على الباقات وحجز حصتين تجريبيتين مجاناً.",
+      ar: "تربط (أكاديمية الأمة - Ummah Academy) الأسر والطلاب من الأطفال والكبار حول العالم بمعلمين ومعلمات معتمدين لتقديم دروس فردية مباشرة (1-on-1) في القرآن الكريم والتجويد واللغة العربية والدراسات الإسلامية. تعمل المنصة بخمس لغات كاملة (العربية، الإنجليزية، الفرنسية، الألمانية، والإسبانية) لتسهيل رحلة ولي الأمر من التعرّف على المناهج وكفاءة المعلمين وحتى الاطلاع على الباقات وحجز حصتين تجريبيتين مجانًا.",
     },
     snapshot: [
       {
@@ -289,7 +289,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         label: { en: "Conversion Offer", ar: "عرض جذب المشتركين" },
         value: {
           en: "2 free trial lessons + published plans & family discounts",
-          ar: "حصتان تجريبيتان مجاناً + باقات معلنة وخصومات للعائلات",
+          ar: "حصتان تجريبيتان مجانًا + باقات معلنة وخصومات للعائلات",
         },
       },
       {
@@ -334,7 +334,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Removes enrollment risk with 2 free 1-on-1 trial lessons (no upfront commitment), clear monthly tier pricing, and multi-child family discounts.",
-          ar: "إزالة تردد الشراء عبر تقديم حصتين تجريبيتين مجاناً بدون التزام مسبق، مع نشر الأسعار بوضوح وتوفير خصومات للأشقاء والعائلات.",
+          ar: "إزالة تردد الشراء عبر تقديم حصتين تجريبيتين مجانًا بدون التزام مسبق، مع نشر الأسعار بوضوح وتوفير خصومات للأشقاء والعائلات.",
         },
       ],
       stakeholders: [
@@ -342,7 +342,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
           role: { en: "Parents Choosing for Their Children", ar: "أولياء الأمور الباحثون عن تعليم آمن لأبنائهم" },
           benefit: {
             en: "Clear curriculum milestones, child-friendly 1-on-1 pacing, female teacher option, and two free trial classes before paying.",
-            ar: "وضوح المنهج التعليمي، مرونة المواعيد الفردية، توفر معلمات، وإمكانية تجربة مستويين مجاناً قبل الاشتراك.",
+            ar: "وضوح المنهج التعليمي، مرونة المواعيد الفردية، توفر معلمات، وإمكانية تجربة مستويين مجانًا قبل الاشتراك.",
           },
         },
         {
@@ -395,11 +395,11 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Risk-Free Trial", ar: "حجز التجربة المجانية" },
         title: {
           en: "Booking 2 free 1-on-1 trial lessons",
-          ar: "طلب حصتين فرديتين مجاناً لتقييم المستوى",
+          ar: "طلب حصتين فرديتين مجانًا لتقييم المستوى",
         },
         detail: {
           en: "The family submits a short trial booking selecting preferred teacher gender, time zone, and student goals.",
-          ar: "يسجّل الطالب أو ولي الأمر طلب التجربة محدداً الأوقات المناسبة لتوقيته الزمني وتفضيل معلم أو معلمة.",
+          ar: "يسجّل الطالب أو ولي الأمر طلب التجربة محددًا الأوقات المناسبة لتوقيته الزمني وتفضيل معلم أو معلمة.",
         },
       },
       {
@@ -446,7 +446,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         tag: { en: "Frictionless Funnel", ar: "إزالة عوائق الاشتراك" },
         title: {
           en: "2 free trial lessons instead of aggressive upfront checkout",
-          ar: "حصتان تجريبيتان مجاناً ترفع معدل الاطمئنان والتحويل",
+          ar: "حصتان تجريبيتان مجانًا ترفع معدل الاطمئنان والتحويل",
         },
         body: {
           en: "Lets children and parents experience the actual teacher and classroom interaction before paying for a monthly package.",
@@ -461,7 +461,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Respects busy parents who want to budget for two or three children immediately without waiting for sales callbacks.",
-          ar: "تساعد ولي الأمر على حساب ميزانية تعليم أبنائه فوراً دون الحاجة للانتظار في محادثات تسعير مطوّلة.",
+          ar: "تساعد ولي الأمر على حساب ميزانية تعليم أبنائه فورًا دون الحاجة للانتظار في محادثات تسعير مطوّلة.",
         },
       },
       {
@@ -472,7 +472,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Static architecture keeps ad and WhatsApp landing pages fast even on modest mobile data connections.",
-          ar: "تضمن البنية الخفيفة فتح صفحات الهبوط فوراً من الإعلانات أو روابط المجموعات دون فقدان الزوار بسبب البطء.",
+          ar: "تضمن البنية الخفيفة فتح صفحات الهبوط فورًا من الإعلانات أو روابط المجموعات دون فقدان الزوار بسبب البطء.",
         },
       },
       {
@@ -483,7 +483,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Addresses a major household requirement clearly across course and trial booking flows.",
-          ar: "يلبي احتياجاً أساسياً للأسر والطالبات بشكل صريح ومباشر أثناء استعراض المسارات وطلب التجربة.",
+          ar: "يلبي احتياجًا أساسيًا للأسر والطالبات بشكل صريح ومباشر أثناء استعراض المسارات وطلب التجربة.",
         },
       },
     ],
@@ -503,7 +503,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Covers 23 localized routes per language + offline-ready PWA shell",
-          ar: "تشمل 23 مساراً لكل لغة مع قابلية التثبيت كتطبيق ويب",
+          ar: "تشمل 23 مسارًا لكل لغة مع قابلية التثبيت كتطبيق ويب",
         },
       ],
     },
@@ -522,7 +522,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Speech to Text Studio is a bilingual Arabic/English transcription workspace built for journalists, researchers, content creators, students, and operations teams. Users can upload large audio/video files (up to 300 MB), paste a media link, or record straight from their microphone; the platform routes the audio across four top speech-to-text engines (Deepgram, Gladia, AssemblyAI, Speechmatics) with automatic failover, then opens an interactive workspace to edit text and export TXT or SRT subtitle files.",
-      ar: "استوديو تحويل الكلام إلى نص هو مساحة عمل ثنائية اللغة للتفريغ الصوتي صُممت للصحفيين والباحثين وصناع المحتوى والطلاب وفرق العمل. يتيح النظام رفع ملفات صوت أو فيديو كبيرة (حتى 300 ميجابايت)، أو إدراج رابط وسائط، أو التسجيل المباشر من الميكروفون؛ ليعالج الصوت عبر 4 محركات عالمية للتعرّف على الكلام مع تبديل تلقائي عند ضغط الطلبات، ثم يفتح محرراً عملياً لمراجعة النص وتصديره بصيغة TXT أو ملفات ترجمة فيديو SRT.",
+      ar: "استوديو تحويل الكلام إلى نص هو مساحة عمل ثنائية اللغة للتفريغ الصوتي صُممت للصحفيين والباحثين وصناع المحتوى والطلاب وفرق العمل. يتيح النظام رفع ملفات صوت أو فيديو كبيرة (حتى 300 ميجابايت)، أو إدراج رابط وسائط، أو التسجيل المباشر من الميكروفون؛ ليعالج الصوت عبر 4 محركات عالمية للتعرّف على الكلام مع تبديل تلقائي عند ضغط الطلبات، ثم يفتح محررًا عمليًا لمراجعة النص وتصديره بصيغة TXT أو ملفات ترجمة فيديو SRT.",
     },
     snapshot: [
       {
@@ -562,7 +562,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       beforePoints: [
         {
           en: "Relying on one speech provider means a sudden rate limit, API outage, or tricky Arabic dialect recording halts deadline work completely.",
-          ar: "الاعتماد على مزود واحد يعني تعطل التسليم بالكامل إذا انتهت الحصة المجانية، أو توقفت الخدمة مؤقتاً، أو ضعفت دقة المحرك مع لهجة عربية معينة.",
+          ar: "الاعتماد على مزود واحد يعني تعطل التسليم بالكامل إذا انتهت الحصة المجانية، أو توقفت الخدمة مؤقتًا، أو ضعفت دقة المحرك مع لهجة عربية معينة.",
         },
         {
           en: "Most browser tools choke on long 1–2 hour lecture or podcast recordings above 25 MB.",
@@ -575,12 +575,12 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       ],
       afterTitle: {
         en: "How Speech to Text Studio makes transcription dependable",
-        ar: "كيف يحل استوديو تحويل الكلام إلى نص هذه المشكلات عملياً",
+        ar: "كيف يحل استوديو تحويل الكلام إلى نص هذه المشكلات عمليًا",
       },
       afterPoints: [
         {
           en: "Combines Deepgram, Gladia, AssemblyAI, and Speechmatics behind one smart router—let it pick automatically with failover, or choose a specific engine.",
-          ar: "دمج 4 من أقوى محركات التفريغ الصوتي خلف موجّه ذكي يختار الأنسب وينتقل تلقائياً لمحرك بديل عند حدوث أي خطأ أو ضغط.",
+          ar: "دمج 4 من أقوى محركات التفريغ الصوتي خلف موجّه ذكي يختار الأنسب وينتقل تلقائيًا لمحرك بديل عند حدوث أي خطأ أو ضغط.",
         },
         {
           en: "Accepts three practical capture paths in one screen: direct file uploads up to 300 MB, remote media URLs, and live in-browser microphone recording.",
@@ -596,7 +596,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
           role: { en: "Video Editors & Content Creators", ar: "مونتيرو الفيديو وصناع المحتوى" },
           benefit: {
             en: "Upload raw episode audio, fix names or terms inside the editor, and download time-coded SRT subtitles ready for Premiere, DaVinci, or CapCut.",
-            ar: "رفع الصوت الخام وتصحيح الأسماء والمصطلحات سريعاً ثم تنزيل ملف ترجمة SRT مضبوط التوقيت لبرامج المونتاج مباشرة.",
+            ar: "رفع الصوت الخام وتصحيح الأسماء والمصطلحات سريعًا ثم تنزيل ملف ترجمة SRT مضبوط التوقيت لبرامج المونتاج مباشرة.",
           },
         },
         {
@@ -641,7 +641,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "In Auto mode, if the primary STT provider times out or hits a quota limit, the studio retries seamlessly on the next healthy engine.",
-          ar: "في الوضع التلقائي، إذا واجه المحرك الأول ضغطاً أو نفاد حصة، يحوّل النظام الطلب فوراً للمحرك التالي دون ضياع الملف.",
+          ar: "في الوضع التلقائي، إذا واجه المحرك الأول ضغطًا أو نفاد حصة، يحوّل النظام الطلب فورًا للمحرك التالي دون ضياع الملف.",
         },
       },
       {
@@ -653,7 +653,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Once transcribed, segments open in a clean RTL/LTR-aware editor where the user can refine wording, punctuation, and speaker phrasing.",
-          ar: "يظهر النص المفرّغ مقسماً بوضوح داخل محرر يدعم العربية والإنجليزية لتصحيح أي مصطلح أو علامة ترقيم بسهولة.",
+          ar: "يظهر النص المفرّغ مقسمًا بوضوح داخل محرر يدعم العربية والإنجليزية لتصحيح أي مصطلح أو علامة ترقيم بسهولة.",
         },
       },
       {
@@ -682,7 +682,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Unites Deepgram, Gladia, AssemblyAI, and Speechmatics so users get both Arabic/English accuracy and automatic backup.",
-          ar: "يجمع Deepgram وGladia وAssemblyAI وSpeechmatics ليضمن دقة عالية بالعربية والإنجليزية مع بديل جاهز دائماً.",
+          ar: "يجمع Deepgram وGladia وAssemblyAI وSpeechmatics ليضمن دقة عالية بالعربية والإنجليزية مع بديل جاهز دائمًا.",
         },
       },
       {
@@ -704,7 +704,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Covers desk editing, cloud-hosted media links, and spontaneous voice dictation in the same tool.",
-          ar: "يخدم المونتير الذي يرفع ملفات المونتاج، والباحث الذي يملك رابطاً صوتياً، والكاتب الذي يملي أفكاره مباشرة.",
+          ar: "يخدم المونتير الذي يرفع ملفات المونتاج، والباحث الذي يملك رابطًا صوتيًا، والكاتب الذي يملي أفكاره مباشرة.",
         },
       },
       {
@@ -715,7 +715,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Turns hours of manual video caption typing into a quick review-and-export step.",
-          ar: "يختصر ساعات من كتابة ومزامنة نصوص الفيديو يدوياً إلى خطوة مراجعة وتصدير سريعة.",
+          ar: "يختصر ساعات من كتابة ومزامنة نصوص الفيديو يدويًا إلى خطوة مراجعة وتصدير سريعة.",
         },
       },
       {
@@ -726,7 +726,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Keys stay inside encrypted HttpOnly cookies—never exposed in browser scripts—letting teams control their own provider spend.",
-          ar: "تُحفظ المفاتيح في جلسات مشفرة على الخادم ولا تظهر في المتصفح، مما يمنح الفرق أماناً وتحكماً كاملاً باستهلاكهم.",
+          ar: "تُحفظ المفاتيح في جلسات مشفرة على الخادم ولا تظهر في المتصفح، مما يمنح الفرق أمانًا وتحكمًا كاملًا باستهلاكهم.",
         },
       },
       {
@@ -776,7 +776,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "StemForge is an audio stem separation workspace for musicians, producers, podcast/video editors, and educators. Instead of uploading unreleased songs or large WAV files to a paid cloud queue, StemForge runs neural separation directly on the user's own device in the browser (using WebGPU / WebAssembly), while also offering an optional cloud GPU fast path for heavy workloads—complete with a multi-track mixer and WAV stem export.",
-      ar: "توفّر أداة (StemForge) مساحة عمل صوتية للموسيقيين ومهندسي الصوت ومونتيري الفيديو والمعلمين لعزل عناصر المقطع الصوتي عن بعضها. بدلاً من رفع أعمالك الخاصة أو ملفات WAV الضخمة إلى مواقع خارجية والانتظار في طوابير مدفوعة، يشغّل النظام نموذج الفصل الذكي مباشرة على جهاز المستخدم داخل المتصفح للحفاظ على الخصوصية وتجنب تكلفة السحابة، مع إتاحة مسار سحابي اختياري سريع، وميكسر للاستماع وتصدير كل مسار بصيغة WAV.",
+      ar: "توفّر أداة (StemForge) مساحة عمل صوتية للموسيقيين ومهندسي الصوت ومونتيري الفيديو والمعلمين لعزل عناصر المقطع الصوتي عن بعضها. بدلًا من رفع أعمالك الخاصة أو ملفات WAV الضخمة إلى مواقع خارجية والانتظار في طوابير مدفوعة، يشغّل النظام نموذج الفصل الذكي مباشرة على جهاز المستخدم داخل المتصفح للحفاظ على الخصوصية وتجنب تكلفة السحابة، مع إتاحة مسار سحابي اختياري سريع، وميكسر للاستماع وتصدير كل مسار بصيغة WAV.",
     },
     snapshot: [
       {
@@ -820,11 +820,11 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Cloud stem splitters charge per-minute credits because GPU servers are expensive—limiting experimentation and practice.",
-          ar: "تفرض المواقع السحابية رسوماً على كل دقيقة صوتية لتغطية تكلفة معالجاتها، مما يقيّد التجربة والاستخدام اليومي.",
+          ar: "تفرض المواقع السحابية رسومًا على كل دقيقة صوتية لتغطية تكلفة معالجاتها، مما يقيّد التجربة والاستخدام اليومي.",
         },
         {
           en: "Uploading a 60–100 MB lossless WAV file on slow upload connections takes longer than the separation itself.",
-          ar: "رفع ملف صوتي غير مضغوط بحجم كبير عبر سرعات رفع متوسطة يستغرق وقتاً أطول من عملية الفصل نفسها.",
+          ar: "رفع ملف صوتي غير مضغوط بحجم كبير عبر سرعات رفع متوسطة يستغرق وقتًا أطول من عملية الفصل نفسها.",
         },
       ],
       afterTitle: {
@@ -834,7 +834,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       afterPoints: [
         {
           en: "Runs 4-stem separation locally inside the browser tab using the user's own GPU/CPU—audio stays on the machine.",
-          ar: "تشغيل نموذج الفصل الرباعي محلياً داخل المتصفح بالاعتماد على معالج جهاز المستخدم نفسه دون مغادرة الملف للجهاز.",
+          ar: "تشغيل نموذج الفصل الرباعي محليًا داخل المتصفح بالاعتماد على معالج جهاز المستخدم نفسه دون مغادرة الملف للجهاز.",
         },
         {
           en: "Clearly explains device capability upfront (WebGPU speed vs WASM fallback) and offers an explicit opt-in cloud GPU option only when requested.",
@@ -861,10 +861,10 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
           },
         },
         {
-          role: { en: "Product Operator (Unit Economics)", ar: "منظور البيزنس وتكلفة التشغيل" },
+          role: { en: "Product Operator (Unit Economics)", ar: "منظور الأعمال وتكلفة التشغيل" },
           benefit: {
             en: "Shifting inference to client WebGPU lets thousands of free users run heavy AI audio tasks without bankrupting server GPU bills.",
-            ar: "نقل المعالجة الثقيلة إلى متصفح المستخدم يتيح خدمة آلاف المستخدمين مجاناً دون تحمّل فواتير خوادم رسومية باهظة.",
+            ar: "نقل المعالجة الثقيلة إلى متصفح المستخدم يتيح خدمة آلاف المستخدمين مجانًا دون تحمّل فواتير خوادم رسومية باهظة.",
           },
         },
       ],
@@ -883,7 +883,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "The file loads instantly into browser memory—zero upload bar—and displays duration and detected hardware acceleration.",
-          ar: "يُقرأ الملف فوراً داخل ذاكرة المتصفح بدون انتظار رفع، مع عرض مدة المقطع وحالة تسريع كرت الشاشة بالجهاز.",
+          ar: "يُقرأ الملف فورًا داخل ذاكرة المتصفح بدون انتظار رفع، مع عرض مدة المقطع وحالة تسريع كرت الشاشة بالجهاز.",
         },
       },
       {
@@ -891,11 +891,11 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Engine Choice", ar: "اختيار نمط المعالجة" },
         title: {
           en: "Run privately on-device (WebGPU/WASM) or opt into fast server GPU",
-          ar: "المعالجة المحلية الخاصة أو تفعيل المسار السحابي السريع اختيارياً",
+          ar: "المعالجة المحلية الخاصة أو تفعيل المسار السحابي السريع اختياريًا",
         },
         detail: {
           en: "Default mode processes chunks in a background Web Worker so the UI stays responsive with live progress updates.",
-          ar: "يعمل الوضع الافتراضي محلياً في الخلفية مع شريط تقدم حي دون تجميد شاشة المتصفح أثناء الفصل.",
+          ar: "يعمل الوضع الافتراضي محليًا في الخلفية مع شريط تقدم حي دون تجميد شاشة المتصفح أثناء الفصل.",
         },
       },
       {
@@ -907,7 +907,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "All four isolated stems play in sample-accurate sync so the user can inspect separation quality immediately.",
-          ar: "تعمل المسارات الأربعة بتزامن لحظي دقيق يتيح كتم أي عنصر أو الاستماع إليه منفرداً للتحقق من نقاء العزل.",
+          ar: "تعمل المسارات الأربعة بتزامن لحظي دقيق يتيح كتم أي عنصر أو الاستماع إليه منفردًا للتحقق من نقاء العزل.",
         },
       },
       {
@@ -929,7 +929,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     features: [
       {
-        tag: { en: "100% Private Default", ar: "خصوصية كاملة افتراضياً" },
+        tag: { en: "100% Private Default", ar: "خصوصية كاملة افتراضيًا" },
         title: {
           en: "Your audio never leaves your computer in browser mode",
           ar: "ملفاتك الصوتية لا تغادر جهازك في وضع المتصفح",
@@ -980,7 +980,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Fast on modern GPUs, still functional on older browsers, and transparently upgradable to cloud GPU when speed matters most.",
-          ar: "يعمل بأقصى سرعة على الأجهزة الحديثة، ويدعم المتصفحات الأقدم، ويوفر مساراً سحابياً اختيارياً للملفات الثقيلة.",
+          ar: "يعمل بأقصى سرعة على الأجهزة الحديثة، ويدعم المتصفحات الأقدم، ويوفر مسارًا سحابيًا اختياريًا للملفات الثقيلة.",
         },
       },
       {
@@ -1002,7 +1002,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Live and publicly accessible via the preview link. Model weights download once and cache locally in the browser for subsequent separations.",
-        ar: "الأداة منشورة ومتاحة للتجربة الفورية عبر رابط المعاينة؛ يُحمّل نموذج الفصل مرة واحدة ويُحفظ محلياً في المتصفح لتسريع المرات التالية.",
+        ar: "الأداة منشورة ومتاحة للتجربة الفورية عبر رابط المعاينة؛ يُحمّل نموذج الفصل مرة واحدة ويُحفظ محليًا في المتصفح لتسريع المرات التالية.",
       },
       highlights: [
         {
@@ -1022,7 +1022,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     slug: "momo-collective",
     sector: {
       en: "Fashion E-Commerce · Egyptian Streetwear & Drop Retail",
-      ar: "التجارة الإلكترونية للأزياء · براند ملابس شبابية وإصدارات محدودة",
+      ar: "التجارة الإلكترونية للأزياء · علامة ملابس شبابية وإصدارات محدودة",
     },
     headline: {
       en: "A full-stack Egyptian streetwear store combining editorial lookbooks, drop launches, local EGP payment methods, customer loyalty tiers, and a live admin dashboard.",
@@ -1044,7 +1044,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         label: { en: "Target Market", ar: "السوق والجمهور" },
         value: {
           en: "Egyptian youth shoppers + brand merchandising operators",
-          ar: "المتسوقون في السوق المصري + فريق إدارة وتشغيل البراند",
+          ar: "المتسوقون في السوق المصري + فريق إدارة وتشغيل العلامة",
         },
       },
       {
@@ -1065,7 +1065,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     problemAndShift: {
       beforeTitle: {
         en: "Why local streetwear brands outgrow Instagram DM selling",
-        ar: "لماذا تخسر براندات الملابس المحلية مبيعاتها عبر رسائل إنستجرام",
+        ar: "لماذا تخسر علامات الملابس المحلية مبيعاتها عبر رسائل إنستغرام",
       },
       beforePoints: [
         {
@@ -1078,7 +1078,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Repeat buyers—the lifeblood of drop-based fashion—get treated like strangers every launch when there is no loyalty or account history.",
-          ar: "غياب حسابات العملاء ونظام النقاط يجعل المشتري المتكرر يعامَل كزائر غريب في كل إصدار جديد بدلاً من مكافأته ورفع ولائه للعلامة.",
+          ar: "غياب حسابات العملاء ونظام النقاط يجعل المشتري المتكرر يعامَل كزائر غريب في كل إصدار جديد بدلًا من مكافأته ورفع ولائه للعلامة.",
         },
       ],
       afterTitle: {
@@ -1088,7 +1088,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       afterPoints: [
         {
           en: "Presents drops like a fashion editorial while showing live size availability, clear EGP pricing, and progress toward the 2,000 LE free-shipping threshold.",
-          ar: "عرض المجموعات بصورة بصرية قوية مع إظهار المقاسات المتاحة لحظياً والأسعار بالجنيه وشريط التقدم للحصول على الشحن المجاني.",
+          ar: "عرض المجموعات بصورة بصرية قوية مع إظهار المقاسات المتاحة لحظيًا والأسعار بالجنيه وشريط التقدم للحصول على الشحن المجاني.",
         },
         {
           en: "Supports Egyptian checkout habits directly—Bank Cards, MEEZA, and Vodafone Cash—reducing cart abandonment at payment.",
@@ -1096,29 +1096,29 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Rewards repeat shoppers through tiered loyalty points and gives brand owners one admin dashboard for products, stock, orders, and revenue.",
-          ar: "مكافأة العملاء الدائمين عبر نظام نقاط وشرائح ولاء، مع منح صاحب البراند لوحة إدارة موحّدة للمنتجات والمقاسات والطلبات والإيرادات.",
+          ar: "مكافأة العملاء الدائمين عبر نظام نقاط وشرائح ولاء، مع منح صاحب العلامة لوحة إدارة موحّدة للمنتجات والمقاسات والطلبات والإيرادات.",
         },
       ],
       stakeholders: [
         {
-          role: { en: "Shoppers & Streetwear Fans", ar: "المتسوقون وجمهور البراند" },
+          role: { en: "Shoppers & Streetwear Fans", ar: "المتسوقون وجمهور العلامة" },
           benefit: {
             en: "Fast mobile browsing, saved wishlists before a drop, local wallet/MEEZA payment, and loyalty points on every order.",
             ar: "تصفح سريع على الهاتف، حفظ القطع في المفضلة، دفع سهل بالمحفظة أو ميزة، وكسب نقاط ولاء مع كل طلب.",
           },
         },
         {
-          role: { en: "Brand Owners & Merchandisers", ar: "أصحاب البراند ومسؤولو المنتجات" },
+          role: { en: "Brand Owners & Merchandisers", ar: "أصحاب العلامة ومسؤولو المنتجات" },
           benefit: {
             en: "Launch collections, update SKU sizes/prices, and monitor top-selling pieces and revenue from one admin view.",
-            ar: "إطلاق المجموعات الجديدة وتحديث أرصدة المقاسات والأسعار ومتابعة القطع الأكثر مبيعاً من شاشة تحكم واحدة.",
+            ar: "إطلاق المجموعات الجديدة وتحديث أرصدة المقاسات والأسعار ومتابعة القطع الأكثر مبيعًا من شاشة تحكم واحدة.",
           },
         },
         {
           role: { en: "Fulfillment & Customer Support", ar: "فريق التجهيز وخدمة العملاء" },
           benefit: {
             en: "Structured orders with exact size, shipping address, payment method, and status progression instead of scattered chat screenshots.",
-            ar: "استلام طلبات منظمة بالمقاس والعنوان وطريقة الدفع وحالة التوصيل بدلاً من الفوضى في محادثات الشات.",
+            ar: "استلام طلبات منظمة بالمقاس والعنوان وطريقة الدفع وحالة التوصيل بدلًا من الفوضى في محادثات الشات.",
           },
         },
       ],
@@ -1161,7 +1161,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Buyers enter Egyptian delivery details, choose their preferred local payment channel, and earn loyalty points tied to their account.",
-          ar: "يدخل المشتري عنوان التوصيل ويختار وسيلة الدفع المناسبة له في مصر، وتُضاف نقاط الولاء تلقائياً إلى حسابه.",
+          ar: "يدخل المشتري عنوان التوصيل ويختار وسيلة الدفع المناسبة له في مصر، وتُضاف نقاط الولاء تلقائيًا إلى حسابه.",
         },
       },
       {
@@ -1190,7 +1190,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Matches how young Egyptian shoppers actually pay online instead of forcing international-only payment rails.",
-          ar: "يتوافق تماماً مع طرق الدفع الأكثر انتشاراً بين الشباب في السوق المصري لرفع نسبة إتمام الطلبات.",
+          ar: "يتوافق تمامًا مع طرق الدفع الأكثر انتشارًا بين الشباب في السوق المصري لرفع نسبة إتمام الطلبات.",
         },
       },
       {
@@ -1223,18 +1223,18 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Price updates, sold-out sizes, and new collection items reflect immediately without syncing plugins.",
-          ar: "أي تعديل في السعر أو نفاد مقاس أو إضافة منتج جديد يظهر فوراً أمام المتسوقين دون تعارض بيانات.",
+          ar: "أي تعديل في السعر أو نفاد مقاس أو إضافة منتج جديد يظهر فورًا أمام المتسوقين دون تعارض بيانات.",
         },
       },
       {
         tag: { en: "Brand Heat + Speed", ar: "جاذبية بصرية وسرعة تصفح" },
         title: {
           en: "Editorial streetwear look without sacrificing checkout clarity",
-          ar: "تصميم يليق ببراند أزياء عصري مع خطوات شراء مباشرة",
+          ar: "تصميم يليق بعلامة أزياء عصرية مع خطوات شراء مباشرة",
         },
         body: {
           en: "Gives the brand strong visual attitude on lookbooks while keeping size charts, cart, and totals crystal clear.",
-          ar: "يمنح البراند حضوراً بصرياً قوياً في عرض الصور دون أي تعقيد يعطّل اختيار المقاس وإتمام الشراء.",
+          ar: "يمنح العلامة حضورًا بصريًا قويًا في عرض الصور دون أي تعقيد يعطّل اختيار المقاس وإتمام الشراء.",
         },
       },
       {
@@ -1265,7 +1265,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Built around real Egyptian D2C fashion unit economics",
-          ar: "مصمم خصيصاً لمتطلبات براندات الملابس المباشرة في السوق المصري",
+          ar: "مصمم خصيصًا لمتطلبات علامات الملابس المباشرة في السوق المصري",
         },
       ],
     },
@@ -1284,7 +1284,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "Bayan (بيان المزرعة / Farm Console) is an Arabic-first livestock operations PWA built for sheep, goat, and cattle farm owners, veterinarians, and barn supervisors. Workers sign in quickly with a farm access code (even on phones in low-signal barns) to log individual ear-tag records, weights, vaccinations, treatments, breeding lineages, feed expenses, and animal sales—giving the owner a clear, real-time picture of herd health and net financial return.",
-      ar: "توفّر منصة (بيان المزرعة - Farm Console) نظام تشغيل عربياً عملياً لأصحاب مزارع الأغنام والماعز والأبقار والأطباء البيطريين ومشرفي العنابر. يدخل العامل أو المشرف برمز وصول سريع من هاتفه — حتى في المناطق ضعيفة الشبكة — لتسجيل أرقام القطيع، الأوزان، جداول التحصين والعلاج، سلاسل النسب والتلقيح، ومصروفات الأعلاف والمبيعات؛ ليحصل صاحب المزرعة على رؤية دقيقة لصحة القطيع وصافي الربح الحقيقي.",
+      ar: "توفّر منصة (بيان المزرعة - Farm Console) نظام تشغيل عربيًا عمليًا لأصحاب مزارع الأغنام والماعز والأبقار والأطباء البيطريين ومشرفي العنابر. يدخل العامل أو المشرف برمز وصول سريع من هاتفه — حتى في المناطق ضعيفة الشبكة — لتسجيل أرقام القطيع، الأوزان، جداول التحصين والعلاج، سلاسل النسب والتلقيح، ومصروفات الأعلاف والمبيعات؛ ليحصل صاحب المزرعة على رؤية دقيقة لصحة القطيع وصافي الربح الحقيقي.",
     },
     snapshot: [
       {
@@ -1332,7 +1332,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Owners spend heavily on feed and medicine all season without knowing their true cost per head or net profit until animals are sold.",
-          ar: "ينفق صاحب المزرعة مبالغ كبيرة على الأعلاف والأدوية طوال الموسم دون معرفة تكلفة الرأس الواحدة أو صافي الربح الحقيقي أولاً بأول.",
+          ar: "ينفق صاحب المزرعة مبالغ كبيرة على الأعلاف والأدوية طوال الموسم دون معرفة تكلفة الرأس الواحدة أو صافي الربح الحقيقي أولًا بأول.",
         },
       ],
       afterTitle: {
@@ -1411,11 +1411,11 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         actor: { en: "Health & Feed Operations", ar: "الرعاية البيطرية والأعلاف" },
         title: {
           en: "Log vaccinations, treatments & feed consumption offline or online",
-          ar: "تدوين التحصينات والعلاجات ومصروفات العلف يومياً",
+          ar: "تدوين التحصينات والعلاجات ومصروفات العلف يوميًا",
         },
         detail: {
           en: "Workers record herd-wide vaccine campaigns or individual illnesses in the barn; entries queue locally offline and sync automatically when signal returns.",
-          ar: "تُدوّن حملات التحصين الجماعية أو الحالات الفردية واستهلاك الأعلاف في الميدان، وتُحفظ محلياً ثم تتزامن تلقائياً فور توفر الإنترنت.",
+          ar: "تُدوّن حملات التحصين الجماعية أو الحالات الفردية واستهلاك الأعلاف في الميدان، وتُحفظ محليًا ثم تتزامن تلقائيًا فور توفر الإنترنت.",
         },
       },
       {
@@ -1427,13 +1427,13 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Animal sales update active herd counts automatically and feed straight into the financial summary alongside feed, labor, and vet costs.",
-          ar: "عند بيع أي رأس يُخصم تلقائياً من القطيع النشط ويُضاف إيراده إلى الملخص المالي مقابل تكاليف العلف والعمالة والعلاج.",
+          ar: "عند بيع أي رأس يُخصم تلقائيًا من القطيع النشط ويُضاف إيراده إلى الملخص المالي مقابل تكاليف العلف والعمالة والعلاج.",
         },
       },
     ],
     featuresIntro: {
       en: "Why Bayan fits real rural farm conditions in Egypt and the Arab world:",
-      ar: "أهم المميزات العملية التي تجعل (بيان المزرعة) مناسباً للواقع الميداني:",
+      ar: "أهم المميزات العملية التي تجعل (بيان المزرعة) مناسبًا للواقع الميداني:",
     },
     features: [
       {
@@ -1444,7 +1444,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Farms rarely have fiber Wi-Fi in the pens—workers keep logging events offline and sync when back in coverage.",
-          ar: "لا يتوقف تسجيل الأوزان أو التطعيمات بسبب انقطاع الشبكة داخل العنابر، بل يُحفظ العمل ويتزامن تلقائياً لاحقاً.",
+          ar: "لا يتوقف تسجيل الأوزان أو التطعيمات بسبب انقطاع الشبكة داخل العنابر، بل يُحفظ العمل ويتزامن تلقائيًا لاحقًا.",
         },
       },
       {
@@ -1488,18 +1488,18 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Shows the owner whether each cycle is actually profitable after feed, vet, and operating expenses.",
-          ar: "يوضّح لصاحب المزرعة بالأرقام الحقيقية هل الدورة رابحة فعلاً بعد خصم تكاليف العلف والأدوية والتشغيل.",
+          ar: "يوضّح لصاحب المزرعة بالأرقام الحقيقية هل الدورة رابحة فعلًا بعد خصم تكاليف العلف والأدوية والتشغيل.",
         },
       },
       {
         tag: { en: "Tested Reliability", ar: "منطق تشغيلي مختبر" },
         title: {
           en: "37 operational screens backed by 672 automated domain tests",
-          ar: "37 شاشة تشغيلية مدعومة بـ 672 اختباراً آلياً لقواعد العمل",
+          ar: "37 شاشة تشغيلية مدعومة بـ 672 اختبارًا آليًا لقواعد العمل",
         },
         body: {
           en: "Financial totals, herd counts, and breeding rules are rigorously verified so farm numbers stay trustworthy.",
-          ar: "تم اختبار قواعد الحسابات وحركة القطيع والتلقيح برمجياً بدقة لضمان سلامة الأرقام التي يعتمد عليها المالك.",
+          ar: "تم اختبار قواعد الحسابات وحركة القطيع والتلقيح برمجيًا بدقة لضمان سلامة الأرقام التي يعتمد عليها المالك.",
         },
       },
     ],
@@ -1510,7 +1510,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Built across 37 Arabic RTL screens with 672 passing automated tests; an interactive browser showcase is linked right on this page so you can explore herd, health, breeding, and finance screens firsthand.",
-        ar: "يضم النظام 37 شاشة عربية متكاملة مدعومة بـ 672 اختباراً آلياً؛ وتتوفر نسخة معاينة تفاعلية مباشرة من هذه الصفحة لاستكشاف سجلات القطيع والصحة والتلقيح والحسابات عملياً.",
+        ar: "يضم النظام 37 شاشة عربية متكاملة مدعومة بـ 672 اختبارًا آليًا؛ وتتوفر نسخة معاينة تفاعلية مباشرة من هذه الصفحة لاستكشاف سجلات القطيع والصحة والتلقيح والحسابات عمليًا.",
       },
       highlights: [
         {
@@ -1538,7 +1538,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
     },
     summary: {
       en: "The Code & Canvas web platform (codeandcanvas.net) is the commercial engine for a two-practice MENA studio. Instead of forcing every prospect onto a discovery call just to learn what is included or what a project roughly costs, it publishes 82 bilingual EN/AR pages detailing 23 fixed-scope services across Technology, Creative, and Healthcare, complete with transparent price bands, milestone payment schedules, and an interactive ERP proposal builder (CanvasOne).",
-      ar: "تمثل المنصة الرقمية لاستوديو (Code & Canvas) المحرك التجاري والتسويقي للاستوديو باللغتين العربية والإنجليزية. بدلاً من إجبار كل عميل محتمل على حجز اجتماعات مطوّلة لمعرفة المخرجات أو حدود التكلفة التقريبية، تنشر المنصة 82 صفحة ثنائية اللغة تفصّل 23 خدمة واضحة النطاق عبر مسارات التكنولوجيا والإبداع والرعاية الصحية، مع إعلان شرائح التسعير وجدولة الدفعات وأداة تفاعلية لتسعير وتكوين أنظمة الـ ERP.",
+      ar: "تمثل المنصة الرقمية لاستوديو (Code & Canvas) المحرك التجاري والتسويقي للاستوديو باللغتين العربية والإنجليزية. بدلًا من إجبار كل عميل محتمل على حجز اجتماعات مطوّلة لمعرفة المخرجات أو حدود التكلفة التقريبية، تنشر المنصة 82 صفحة ثنائية اللغة تفصّل 23 خدمة واضحة النطاق عبر مسارات التكنولوجيا والإبداع والرعاية الصحية، مع إعلان شرائح التسعير وجدولة الدفعات وأداة تفاعلية لتسعير وتكوين أنظمة الـ ERP.",
     },
     snapshot: [
       {
@@ -1586,7 +1586,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Arabic versions of studio websites are often half-translated or missing service detail pages altogether.",
-          ar: "غالباً ما تكون النسخة العربية في مواقع الاستوديوهات ناقصة أو مترجمة آلياً ولا تضم صفحات تفصيلية كاملة للخدمات.",
+          ar: "غالبًا ما تكون النسخة العربية في مواقع الاستوديوهات ناقصة أو مترجمة آليًا ولا تضم صفحات تفصيلية كاملة للخدمات.",
         },
       ],
       afterTitle: {
@@ -1604,7 +1604,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Includes an interactive CanvasOne ERP proposal experience so enterprise prospects can inspect modules, rollout phases, and governance before booking a call.",
-          ar: "تضمين عرض تفاعلي لمنظومة CanvasOne ERP يمكّن مديري الشركات من استعراض الوحدات ومراحل التطبيق عملياً قبل الاجتماع.",
+          ar: "تضمين عرض تفاعلي لمنظومة CanvasOne ERP يمكّن مديري الشركات من استعراض الوحدات ومراحل التطبيق عمليًا قبل الاجتماع.",
         },
       ],
       stakeholders: [
@@ -1626,7 +1626,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
           role: { en: "Studio Partners & Delivery Leads", ar: "إدارة الاستوديو وفرق التنفيذ" },
           benefit: {
             en: "Inbound inquiries arrive pre-aligned on scope, price band, and milestone structure—cutting proposal writing time dramatically.",
-            ar: "وصول طلبات التواصل من عملاء مطلعين مسبقاً على النطاق وشريحة السعر، مما يرفع جودة الفرص ويختصر وقت إعداد العروض.",
+            ar: "وصول طلبات التواصل من عملاء مطلعين مسبقًا على النطاق وشريحة السعر، مما يرفع جودة الفرص ويختصر وقت إعداد العروض.",
           },
         },
       ],
@@ -1645,7 +1645,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         detail: {
           en: "Visitors filter straight to their business need—web/ERP software, brand/packaging systems, or clinic/hospital digital infrastructure.",
-          ar: "يتجه الزائر مباشرة للمسار الذي يخص نشاطه سواء كان تطوير أنظمة ومواقع، بناء هوية وتغليف، أو حلولاً رقمية طبية.",
+          ar: "يتجه الزائر مباشرة للمسار الذي يخص نشاطه سواء كان تطوير أنظمة ومواقع، بناء هوية وتغليف، أو حلولًا رقمية طبية.",
         },
       },
       {
@@ -1742,14 +1742,14 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         body: {
           en: "Pages open instantaneously on mobile or corporate networks and pass 32 automated accessibility scans.",
-          ar: "تفتح الصفحات بسرعة فائقة على الهواتف وشبكات الشركات مع اجتياز 32 فحصاً آلياً لمعايير سهولة الوصول.",
+          ar: "تفتح الصفحات بسرعة فائقة على الهواتف وشبكات الشركات مع اجتياز 32 فحصًا آليًا لمعايير سهولة الوصول.",
         },
       },
       {
         tag: { en: "Interactive ERP Pitch", ar: "أداة عرض مؤسسي تفاعلية" },
         title: {
           en: "Built-in CanvasOne proposal deck right on the web",
-          ar: "تجربة تفاعلية لاستعراض منظومة ERP بدلاً من ملفات PDF الجامدة",
+          ar: "تجربة تفاعلية لاستعراض منظومة ERP بدلًا من ملفات PDF الجامدة",
         },
         body: {
           en: "Lets executive committees explore ERP architecture and phased delivery interactively in their browser.",
@@ -1764,7 +1764,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
       },
       summary: {
         en: "Live in production at codeandcanvas.net across all 82 bilingual EN/AR pages, backed by automated parity, link, and accessibility checks.",
-        ar: "المنصة منشورة وتعمل فعلياً على النطاق الرسمي codeandcanvas.net عبر 82 صفحة ثنائية اللغة مدعومة باختبارات آلية للتطابق وسهولة الوصول.",
+        ar: "المنصة منشورة وتعمل فعليًا على النطاق الرسمي codeandcanvas.net عبر 82 صفحة ثنائية اللغة مدعومة باختبارات آلية للتطابق وسهولة الوصول.",
       },
       highlights: [
         {
@@ -1773,7 +1773,7 @@ export const BUSINESS_DEVELOPMENT_A_CASES: readonly BusinessCaseData[] = [
         },
         {
           en: "Companion brand identity case study also available (Code & Canvas)",
-          ar: "ترتبط أيضاً بدراسة حالة الهوية البصرية التأسيسية للاستوديو",
+          ar: "ترتبط أيضًا بدراسة حالة الهوية البصرية التأسيسية للاستوديو",
         },
       ],
     },

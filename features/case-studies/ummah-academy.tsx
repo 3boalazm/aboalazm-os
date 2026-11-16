@@ -29,7 +29,7 @@ const programmes = [
     meta: "Noor Al-Bayan · Grammar · Conversation",
     metaAr: "نور البيان · القواعد · المحادثة",
     body: "From reading the Mushaf correctly to understanding it — reading foundations, classical grammar and spoken fluency.",
-    bodyAr: "من قراءة المصحف صحيحاً إلى فهمه — أساسيات القراءة، وقواعد النحو، والطلاقة المحكية.",
+    bodyAr: "من قراءة المصحف قراءة صحيحة إلى فهمه: أساسيات القراءة، وقواعد النحو، والطلاقة في الحديث.",
   },
   {
     name: "Ummah Cubs",
@@ -37,7 +37,7 @@ const programmes = [
     meta: "Ages 5–14 · 30-minute sessions",
     metaAr: "من 5 إلى 14 سنة · حصص 30 دقيقة",
     body: "Qur'an, Arabic and Islamic values through games and stories — short lessons children actually look forward to.",
-    bodyAr: "القرآن والعربية والقيم الإسلامية عبر القصص والألعاب — دروس قصيرة ينتظرها الأطفال فعلاً.",
+    bodyAr: "القرآن والعربية والقيم الإسلامية عبر القصص والألعاب — دروس قصيرة ينتظرها الأطفال فعلًا.",
   },
   {
     name: "Islamic Studies",
@@ -62,7 +62,7 @@ const journey = [
     title: "We match your teacher",
     titleAr: "نختار معلمك",
     desc: "The team confirms a matched Al-Azhar teacher and available slots over WhatsApp — replies within minutes, not days.",
-    descAr: "يؤكد الفريق معلماً أزهرياً مناسباً ومواعيد متاحة عبر واتساب — ردود في دقائق لا أيام.",
+    descAr: "يؤكد الفريق معلمًا أزهريًا مناسبًا ومواعيد متاحة عبر واتساب — ردود في دقائق لا أيام.",
   },
   {
     step: "03",
@@ -143,7 +143,7 @@ export function UmmahAcademyCaseStudy() {
                 {ar ? "منصة تعليم مباشر" : "Live learning platform"}
               </span>
               <span className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
-                {ar ? "٥ لغات · RTL · تطبيق ويب قابل للتثبيت" : "5 languages · RTL · Installable PWA"}
+                {ar ? "5 لغات · RTL · تطبيق ويب قابل للتثبيت" : "5 languages · RTL · Installable PWA"}
               </span>
             </div>
             <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-amber-200/80">UMMAH ACADEMY / QURAN &amp; ARABIC</p>
@@ -152,7 +152,7 @@ export function UmmahAcademyCaseStudy() {
             </h1>
             <p className="mt-4 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
               {ar
-                ? "مش مجرد موقع كورسات. أكاديمية تعليم مباشر واحد-لواحد مع معلمين أزهريين، أربعة برامج، وموقع مهندس يبني الثقة بخمس لغات — من أول زيارة حتى حجز الحصة المجانية."
+                ? "ليس مجرد موقع دورات. بل أكاديمية تعليم مباشر فردي مع معلمين أزهريين، وأربعة برامج، وموقع مهندس يبني الثقة بخمس لغات، من أول زيارة حتى حجز الحصة المجانية."
                 : "Not a course marketplace. A live 1-on-1 academy with Al-Azhar teachers, four programmes, and a website engineered to earn trust in five languages — from the first visit to the free trial booking."}
             </p>
           </div>
@@ -236,7 +236,7 @@ export function UmmahAcademyCaseStudy() {
             </p>
             <p>
               {ar
-                ? "الأسرة التي تختار معلماً لطفلها تتعامل مع الموقع كأول درس. لذلك أُعيد بناؤه من الصفر كموقع أصلي: ثابت وسريع، بخمس لغات، يشرح نفسه بالعربية والإنجليزية والألمانية والفرنسية والإيطالية — ويحترم من يقرأه."
+                ? "الأسرة التي تختار معلمًا لطفلها تتعامل مع الموقع كأول درس. لذلك أُعيد بناؤه من الصفر كموقع أصلي: ثابت وسريع، بخمس لغات، يشرح نفسه بالعربية والإنجليزية والألمانية والفرنسية والإيطالية — ويحترم من يقرأه."
                 : "A family choosing a teacher for their child treats the site as the first lesson. So it was rebuilt from zero as a native website: static and fast, in five languages, explaining itself in Arabic, English, German, French and Italian — respecting whoever is reading."}
             </p>
             <div className="rounded-xl border-s-2 border-amber-300 bg-amber-300/[0.04] p-4">
@@ -305,7 +305,7 @@ export function UmmahAcademyCaseStudy() {
             </div>
             <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">
               {ar
-                ? "كل مسار موجود بكل لغة، وكل لغة لها مسارات مقالاتها المحلية. قائمة اللغة لا تُسقطك على صفحة 404 أبداً — تفتح الترجمة الحقيقية أو أقرب قسم منها."
+                ? "كل مسار موجود بكل لغة، وكل لغة لها مسارات مقالاتها المحلية. قائمة اللغة لا تُسقطك على صفحة 404 أبدًا — تفتح الترجمة الحقيقية أو أقرب قسم منها."
                 : "Every route exists in every language, and each language owns its localised article slugs. The language menu can never 404 — it opens the true translation, or the closest section to it."}
             </p>
           </div>
@@ -342,7 +342,7 @@ export function UmmahAcademyCaseStudy() {
             </div>
             <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
               {ar
-                ? "الموقع لا يحوّل الزائر بلغة المتصفح أبداً — يلمّح فقط. والبناء الإنتاجي يفشل على لغة ناقصة، وفاحص لاحق يرصد أي نص إنجليزي تسرب للنسخ المترجمة، مع روابط hreflang متبادلة و sitemap لكل اللغات."
+                ? "الموقع لا يحوّل الزائر بلغة المتصفح أبدًا — يلمّح فقط. والبناء الإنتاجي يفشل على لغة ناقصة، وفاحص لاحق يرصد أي نص إنجليزي تسرب للنسخ المترجمة، مع روابط hreflang متبادلة و sitemap لكل اللغات."
                 : "The site never redirects by browser language — it only hints. Production builds fail on a half-translated locale, a post-build checker flags any English leak on the translated pages, and reciprocal hreflang plus a five-locale sitemap keep search honest."}
             </p>
           </div>
@@ -361,7 +361,7 @@ export function UmmahAcademyCaseStudy() {
           <div className="space-y-3 text-sm leading-[1.65] text-text-secondary">
             <p>
               {ar
-                ? "نظام CSS مكتوب باليد — طبقة زجاجية واحدة تحكم كل المكوّنات، بخطوط مستضافة ذاتياً وأيقونات مدمجة وقت البناء. الوضع الفاتح والداكن من نظام واحد، والخيار يُحفظ لكل متصفح، وعند غيابه يحترم تفضيل النظام."
+                ? "نظام CSS مكتوب باليد — طبقة زجاجية واحدة تحكم كل المكوّنات، بخطوط مستضافة ذاتيًا وأيقونات مدمجة وقت البناء. الوضع الفاتح والداكن من نظام واحد، والخيار يُحفظ لكل متصفح، وعند غيابه يحترم تفضيل النظام."
                 : "A hand-written CSS system — one glass layer governing every component, with self-hosted fonts and icons inlined at build time. Light and dark come from the same tokens; the choice is remembered per browser, and without one the OS preference decides."}
             </p>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -398,7 +398,7 @@ export function UmmahAcademyCaseStudy() {
             <div className="grid gap-3 sm:grid-cols-3">
               {[
                 [ar ? "التثبيت" : "Install", ar ? "بلا متجر تطبيقات وبلا حساب" : "No app store, no account"],
-                [ar ? "دون اتصال" : "Offline", ar ? "آخر الصفحات المزارة تُفتح مجدداً" : "Last pages visited still open"],
+                [ar ? "دون اتصال" : "Offline", ar ? "آخر الصفحات المزارة تُفتح مجددًا" : "Last pages visited still open"],
                 [ar ? "تذكيرات" : "Reminders", ar ? "واتساب قبل الحصة بـ 15 دقيقة" : "WhatsApp 15 minutes before class"],
               ].map(([t, b]) => (
                 <div key={t} className="rounded-xl border border-border-subtle p-4">
@@ -457,7 +457,7 @@ export function UmmahAcademyCaseStudy() {
           </div>
           <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">
             {ar
-              ? "سلسلة الإسناد معروضة للمتعلم بوضوح — لأنه جزء من قيمة الدرس نفسه. ومعها: طريقة الإتقان للحفظ، وتقرير بعد كل حصة، ومعلمات للنساء والبنات، وخطط شهرية شفافة من 40 إلى 128 دولاراً مع حصتين مجانيتين أولاً."
+              ? "سلسلة الإسناد معروضة للمتعلم بوضوح — لأنه جزء من قيمة الدرس نفسه. ومعها: طريقة الإتقان للحفظ، وتقرير بعد كل حصة، ومعلمات للنساء والبنات، وخطط شهرية شفافة من 40 إلى 128 دولارًا مع حصتين مجانيتين أولًا."
               : "The Sanad chain is shown to the learner plainly — it is part of the lesson’s value. Alongside it: thematic Itqan memorisation, a report after every session, female teachers for women and girls, and transparent plans from $40 to $128 a month — two free lessons first."}
           </p>
         </div>
@@ -481,7 +481,7 @@ export function UmmahAcademyCaseStudy() {
           <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
             <p className="text-sm leading-[1.65] text-text-secondary">
               {ar
-                ? "الخصوصية افتراضية لا إضافية: بدون أي سكربتات خارجية أو كوكيز افتراضياً. التحليلات اختيارية — Plausible بلا كوكيز، أو Google Tag Manager خلف موافقة Consent Mode v2 بلغة الزائر. وبوابة العمليات (طلاب، أسر، معلمون، سجل حصص، اشتراكات، صلاحيات مفحوصة على الخادم) عملية Node منفصلة عن الموقع الثابت."
+                ? "الخصوصية افتراضية لا إضافية: بدون أي سكربتات خارجية أو كوكيز افتراضيًا. التحليلات اختيارية — Plausible بلا كوكيز، أو Google Tag Manager خلف موافقة Consent Mode v2 بلغة الزائر. وبوابة العمليات (طلاب، أسر، معلمون، سجل حصص، اشتراكات، صلاحيات مفحوصة على الخادم) عملية Node منفصلة عن الموقع الثابت."
                 : "Privacy is the default, not an add-on: with no analytics variables set, the site ships no third-party scripts and no cookies. Analytics stay optional — cookieless Plausible, or GTM behind Consent Mode v2 in the visitor’s language. The operations portal (students, families, teachers, session ledger, subscriptions, server-checked permissions) runs as a separate Node process beside the static site."}
             </p>
           </div>
