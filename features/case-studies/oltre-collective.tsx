@@ -129,7 +129,7 @@ export function OltreCollectiveCaseStudy() {
         </div>
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
-          <Link href="/work" className="transition-colors hover:text-text-primary">← {ar ? "كل الأعمال" : "All work"}</Link>
+          <Link href="/work" className="transition-colors hover:text-text-primary">{ar ? "→ كل الأعمال" : "← All work"}</Link>
           <span>{ar ? "ملف منتج / 006" : "Product case file / 006"}</span>
         </div>
 
@@ -187,7 +187,7 @@ export function OltreCollectiveCaseStudy() {
           </div>
           <div className="flex flex-wrap gap-3">
             <a href="https://momo-shop.vercel.app/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-amber-400 px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5">
-              {ar ? "افتح المتجر" : "Open the store"} ↗
+              {ar ? "افتح المتجر" : "Open the store"} {ar ? "↖" : "↗"}
             </a>
           </div>
         </div>
@@ -279,12 +279,12 @@ export function OltreCollectiveCaseStudy() {
               <p className="font-mono text-[12px] uppercase text-text-tertiary">React + Vite</p>
               <p className="mt-2 text-sm text-text-primary">{ar ? "واجهة المتجر" : "Storefront"}</p>
             </div>
-            <div className="text-center text-amber-300">→</div>
+            <div className="text-center text-amber-300">{ar ? "←" : "→"}</div>
             <div className="rounded-xl border border-amber-400/40 bg-amber-400/[0.05] p-4">
               <p className="font-mono text-[12px] uppercase text-amber-300">Drizzle ORM</p>
               <p className="mt-2 text-sm text-text-primary">{ar ? "مخطط مكتوب الأنواع" : "Typed schema"}</p>
             </div>
-            <div className="text-center text-amber-300">→</div>
+            <div className="text-center text-amber-300">{ar ? "←" : "→"}</div>
             <div className="rounded-xl border border-border-subtle p-4">
               <p className="font-mono text-[12px] uppercase text-text-tertiary">PostgreSQL</p>
               <p className="mt-2 text-sm text-text-primary">{ar ? "مصدر الحقيقة" : "Source of truth"}</p>
@@ -411,7 +411,7 @@ export function OltreCollectiveCaseStudy() {
               {ar ? "كل الأعمال" : "All work"}
             </Link>
             <a href="https://momo-shop.vercel.app/" target="_blank" rel="noreferrer" className="rounded-full bg-amber-400 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5">
-              {ar ? "زُر المتجر" : "Visit the store"} ↗
+              {ar ? "زُر المتجر" : "Visit the store"} {ar ? "↖" : "↗"}
             </a>
           </div>
         </div>

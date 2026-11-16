@@ -18,6 +18,7 @@ import { evidenceOf, EVIDENCE_COPY } from "@/features/work/project-evidence";
 import { StartFunnel } from "@/features/offers/start-funnel";
 import { Badge } from "@/components/ui/Badge";
 import { Icon } from "@/components/ui/Icon";
+import { yearLabel } from "@/lib/utils";
 
 const SYSTEM_SLUGS = [
   "nile-pharma-erp",
@@ -186,7 +187,7 @@ export function BusinessSystemsView() {
                     <Badge tone={evidence === "client" ? "neutral" : "creative"} size="sm">
                       {ar ? ec.ar : ec.en}
                     </Badge>
-                    <span className="font-mono text-micro text-text-ghost">{p.year}</span>
+                    <span className="font-mono text-micro text-text-ghost">{yearLabel(p.year, ar)}</span>
                   </div>
                   <h3 className="font-display text-subtitle leading-[1.15] text-text-primary group-hover:text-accent">
                     {name}

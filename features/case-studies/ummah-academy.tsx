@@ -132,7 +132,7 @@ export function UmmahAcademyCaseStudy() {
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
           <Link href="/work" className="transition-colors hover:text-text-primary">
-            ← {ar ? "كل الأعمال" : "All work"}
+            {ar ? "→ كل الأعمال" : "← All work"}
           </Link>
           <span>{ar ? "ملف منتج / 005" : "Product case file / 005"}</span>
         </div>
@@ -213,7 +213,7 @@ export function UmmahAcademyCaseStudy() {
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-amber-300 px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5"
             >
-              {ar ? "افتح الموقع" : "Open the site"} ↗
+              {ar ? "افتح الموقع" : "Open the site"} {ar ? "↖" : "↗"}
             </a>
           </div>
         </div>
@@ -536,7 +536,7 @@ export function UmmahAcademyCaseStudy() {
               rel="noreferrer"
               className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-amber-300/60"
             >
-              {ar ? "الكود المصدري" : "Source code"} ↗
+              {ar ? "الكود المصدري" : "Source code"} {ar ? "↖" : "↗"}
             </a>
             <a
               href="https://ummah-academy.vercel.app/"
@@ -544,7 +544,7 @@ export function UmmahAcademyCaseStudy() {
               rel="noreferrer"
               className="rounded-full bg-amber-300 px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5"
             >
-              {ar ? "زيارة Ummah Academy" : "Visit Ummah Academy"} ↗
+              {ar ? "زيارة Ummah Academy" : "Visit Ummah Academy"} {ar ? "↖" : "↗"}
             </a>
           </div>
         </div>

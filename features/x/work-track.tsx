@@ -16,6 +16,7 @@ import { cardArt } from "@/features/work/card-art";
 import { evidenceOf, EVIDENCE_COPY } from "@/features/work/project-evidence";
 import type { Project } from "@/features/work/types";
 import { trackEvent } from "@/lib/analytics";
+import { yearLabel } from "@/lib/utils";
 import { Arrow, useX } from "./shared";
 
 function hrefOf(p: Project): { href: string; external: boolean } {
@@ -108,7 +109,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
                   </div>
                   <div className="x-card__meta">
                     <p className="x-mono opacity-75">
-                      {p.category === "development" ? t("Digital product", "منتج رقمي", "Produk digital") : t("Identity", "هوية", "Identiti")} · {p.year}
+                      {p.category === "development" ? t("Digital product", "منتج رقمي", "Produk digital") : t("Identity", "هوية", "Identiti")} · {yearLabel(p.year, ar)}
                     </p>
                     <h3 className="x-card__name">{name}</h3>
                     <p className="x-card__line">{line}</p>

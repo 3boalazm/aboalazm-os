@@ -21,6 +21,7 @@ import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { yearLabel } from "@/lib/utils";
 
 export type Accent = "amber" | "violet" | "emerald" | "cyan" | "rose";
 
@@ -162,7 +163,7 @@ export function ProductCase(props: ProductCaseProps) {
         </div>
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
-          <Link href="/work" className="transition-colors hover:text-text-primary">← {ar ? "كل الأعمال" : "All work"}</Link>
+          <Link href="/work" className="transition-colors hover:text-text-primary">{ar ? "→ كل الأعمال" : "← All work"}</Link>
           <span>{isDesign ? (ar ? `ملف نظام بصري / ${props.fileNo}` : `System case file / ${props.fileNo}`) : (ar ? `ملف منتج / ${props.fileNo}` : `Product case file / ${props.fileNo}`)}</span>
         </div>
 
@@ -215,12 +216,12 @@ export function ProductCase(props: ProductCaseProps) {
           <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
             <span>{ar ? props.role.ar : props.role.en}</span>
             <span>{ar ? props.domain.ar : props.domain.en}</span>
-            <span>{props.year}</span>
+            <span>{yearLabel(props.year, ar)}</span>
           </div>
           {props.cta ? (
             <div className="flex flex-wrap gap-3">
               <a href={props.cta.href} target={props.cta.href.startsWith("#") ? undefined : "_blank"} rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 ${a.button}`}>
-                {ar ? props.cta.ar : props.cta.en} ↗
+                {ar ? props.cta.ar : props.cta.en} {ar ? "↖" : "↗"}
               </a>
             </div>
           ) : null}
@@ -299,12 +300,12 @@ export function ProductCase(props: ProductCaseProps) {
                 <p className="font-mono text-[12px] uppercase text-text-tertiary">{props.system.flow.a}</p>
                 <p className="mt-2 text-sm text-text-primary">{props.system.flow.aSub}</p>
               </div>
-              <div className={`text-center ${a.text}`}>→</div>
+              <div className={`text-center ${a.text}`}>{ar ? "←" : "→"}</div>
               <div className={`rounded-xl border p-4 ${a.border.replace("border-", "border-")}`}>
                 <p className={`font-mono text-[12px] uppercase ${a.text}`}>{props.system.flow.mid}</p>
                 <p className="mt-2 text-sm text-text-primary">{props.system.flow.midSub}</p>
               </div>
-              <div className={`text-center ${a.text}`}>→</div>
+              <div className={`text-center ${a.text}`}>{ar ? "←" : "→"}</div>
               <div className="rounded-xl border border-border-subtle p-4">
                 <p className="font-mono text-[12px] uppercase text-text-tertiary">{props.system.flow.b}</p>
                 <p className="mt-2 text-sm text-text-primary">{props.system.flow.bSub}</p>
@@ -423,7 +424,7 @@ export function ProductCase(props: ProductCaseProps) {
             </Link>
             {props.cta ? (
               <a href={props.cta.href} target={props.cta.href.startsWith("#") ? undefined : "_blank"} rel="noreferrer" className={`rounded-full px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5 ${a.button}`}>
-                {ar ? props.cta.ar : props.cta.en} ↗
+                {ar ? props.cta.ar : props.cta.en} {ar ? "↖" : "↗"}
               </a>
             ) : null}
           </div>

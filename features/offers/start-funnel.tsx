@@ -106,7 +106,7 @@ export function StartFunnel({
             data-booking-click="true"
             className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary underline underline-offset-4 transition-colors hover:text-text-primary"
           >
-            {ar ? "أو احجز موعدًا في التقويم ↗" : "Or pick a slot in the calendar ↗"}
+            {ar ? "أو احجز موعدًا في التقويم ↖" : "Or pick a slot in the calendar ↗"}
           </a>
         ) : null}
         <Link

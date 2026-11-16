@@ -114,7 +114,7 @@ export function ZadCaseStudy() {
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
           <Link href="/work" className="transition-colors hover:text-text-primary">
-            ← {ar ? "كل الأعمال" : "All work"}
+            {ar ? "→ كل الأعمال" : "← All work"}
           </Link>
           <span>{ar ? "ملف منتج / 004" : "Product case file / 004"}</span>
         </div>
@@ -230,7 +230,7 @@ export function ZadCaseStudy() {
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-orange-400 px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5"
             >
-              {ar ? "افتح زاد" : "Open Zad"} ↗
+              {ar ? "افتح زاد" : "Open Zad"} {ar ? "↖" : "↗"}
             </a>
           </div>
         </div>
@@ -686,14 +686,14 @@ export function ZadCaseStudy() {
                 rel="noreferrer"
                 className="rounded-full bg-orange-400 px-5 py-3 text-sm font-medium text-black transition-transform hover:-translate-y-0.5"
               >
-                {ar ? "افتح المنتج" : "Open live product"} ↗
+                {ar ? "افتح المنتج" : "Open live product"} {ar ? "↖" : "↗"}
               </a>
             </div>
           </div>
         </div>
         <div className="mt-4 flex items-center justify-between border-t border-border-subtle pt-5 font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">
           <Link href="/work" className="hover:text-text-primary">
-            ← {ar ? "العودة إلى الأعمال" : "Back to work"}
+            {ar ? "→ العودة إلى الأعمال" : "← Back to work"}
           </Link>
           <span>Mustafa Aboalazm / 2026</span>
         </div>

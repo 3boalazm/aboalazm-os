@@ -168,7 +168,7 @@ export function TierCard({ tier }: { tier: Tier }) {
               data-booking-click="true"
               className="text-accent underline decoration-accent/40 underline-offset-4 transition-colors hover:decoration-accent"
             >
-              {pick(BOOKING_CTA_LABEL, lang)} ↗
+              {pick(BOOKING_CTA_LABEL, lang)} {lang === "ar" ? "↖" : "↗"}
             </a>
           ) : null}
         </div>
@@ -371,7 +371,7 @@ export function AlaCarteTables({ alaCarte }: { alaCarte: readonly AlaCarteGroup[
                       rel="noopener noreferrer"
                       className="inline-flex min-h-[32px] items-center rounded-pill border border-border-default bg-surface-1 px-2.5 py-1 font-mono text-micro text-text-secondary transition-colors hover:border-accent hover:text-text-primary"
                     >
-                      {pick(WHATSAPP_ORDER_CTA_LABEL, lang)} ↗
+                      {pick(WHATSAPP_ORDER_CTA_LABEL, lang)} {lang === "ar" ? "↖" : "↗"}
                     </a>
                   )}
                 </div>

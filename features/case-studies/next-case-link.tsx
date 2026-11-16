@@ -43,7 +43,7 @@ export function NextCaseLink({
         />
         <div className="relative z-elevated flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
-            {ar ? "الملف التالي ← التالي في الفهرس" : "NEXT CASE ↳ FROM THE FILES"}
+            {ar ? "الدراسة التالية · من الأرشيف" : "NEXT CASE ↳ FROM THE FILES"}
           </p>
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
             <h2 className="min-w-0 [overflow-wrap:anywhere] font-display text-[clamp(1.75rem,4vw,3rem)] font-[800] leading-[1.05] tracking-[-0.02em] text-text-primary">

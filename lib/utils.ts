@@ -7,6 +7,19 @@ export function cn(...inputs: ClassValue[]): string {
 }
 
 /**
+ * A year that runs on ("2024 →") or a span ("2017 → 2026") is drawn with a
+ * rightwards arrow. On an RTL line the number sits on the right and the arrow
+ * lands to its left, still pointing right: back at the year it should lead
+ * away from. Arabic gets the leftwards arrow, which then points the way the
+ * line reads. A year with no arrow, or any other language, comes back as it was.
+ */
+export function yearLabel(year: string, ar: boolean): string;
+export function yearLabel(year: string | undefined, ar: boolean): string | undefined;
+export function yearLabel(year: string | undefined, ar: boolean): string | undefined {
+  return ar && year ? year.replace(/→/g, "←") : year;
+}
+
+/**
  * Plain concatenation — deliberately NOT `cn()`. tailwind-merge's
  * class-group heuristics key off prefixes like `text-` and misread custom
  * v4 theme utilities (`text-display`, `text-lead`, etc.) as conflicting

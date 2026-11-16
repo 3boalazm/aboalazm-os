@@ -4,6 +4,7 @@ import { BUSINESS_DEVELOPMENT_A_CASES } from "./business-development-a.data";
 import { BUSINESS_DEVELOPMENT_B_CASES } from "./business-development-b.data";
 import type { BusinessCaseData } from "./business-case.types";
 import type { CaseStudyRecord } from "./types";
+import { yearLabel } from "@/lib/utils";
 
 const ALL_BUSINESS_CASES: readonly BusinessCaseData[] = [
   ...BUSINESS_DESIGN_CASES,
@@ -62,7 +63,7 @@ export function getBusinessCase(
       },
       {
         label: { en: "Year", ar: "السنة" },
-        value: { en: project?.year ?? record?.timeline ?? "—", ar: project?.year ?? record?.timelineAr ?? "—" },
+        value: { en: project?.year ?? record?.timeline ?? "—", ar: yearLabel(project?.year, true) ?? record?.timelineAr ?? "—" },
       },
       {
         label: { en: "Primary Outcome", ar: "المخرج الأساسي" },

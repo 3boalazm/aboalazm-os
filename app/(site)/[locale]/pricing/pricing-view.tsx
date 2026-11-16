@@ -126,7 +126,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
               data-booking-click="true"
               className="font-mono text-micro text-accent underline underline-offset-4"
             >
-              {ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} ↗
+              {ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
             </a>
           ) : null}
         </div>

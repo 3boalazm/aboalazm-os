@@ -28,8 +28,8 @@ interface PageDef {
   eyebrow: string;
   /**
    * Arabic tag, set in Thmanyah Serif Display. Satori's shaper throws on a few
-   * letter pairs in that face (لا، لأ، را …), and a throw fails the whole deploy,
-   * so keep to wording that lib/og-pages.test.ts renders cleanly.
+   * letter pairs in that face (لا، لأ، را …) unless ogFonts() lists the face last,
+   * and a throw fails the whole deploy; lib/og-arabic.test.ts renders every tag.
    */
   tagAr: string;
   title: string[];

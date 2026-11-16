@@ -36,15 +36,26 @@ async function loadFont(file: string): Promise<ArrayBuffer> {
   return new Uint8Array(buf).buffer;
 }
 
+/**
+ * Satori takes its fonts as an ordered list, and the order matters here.
+ *
+ * When it shapes a glyph that has no code point of its own (the lam-alef ligature and
+ * its kin: لا، لأ، را …) it asks which font to use "for no character at all", is handed
+ * the LAST font in the list, and throws ("Cannot read properties of undefined (reading
+ * 'codePointAt')") unless that is the very face it is shaping. Every Arabic title with
+ * one of those pairs, and the «مقالات» eyebrow of every Arabic article, used to fail
+ * for that reason. So the Arabic face goes last. Reordering this array brings the
+ * failure back; lib/og-arabic.test.ts renders real Arabic titles to catch it.
+ */
 export async function ogFonts() {
   epicproData ??= await loadFont("Gc_Epicpro.otf");
   thmanyahData ??= await loadFont("thmanyahserifdisplay-Bold.otf");
   notoData ??= await loadFont("noto-sans-latin-400.ttf");
   return [
     { name: FONT_EN, data: epicproData, weight: 800 as const, style: "normal" as const },
-    { name: FONT_AR, data: thmanyahData, weight: 700 as const, style: "normal" as const },
     // sentence-case body face — the two display fonts are display-only (GC EPICPRO is all-caps)
     { name: "Noto Sans", data: notoData, weight: 400 as const, style: "normal" as const },
+    { name: FONT_AR, data: thmanyahData, weight: 700 as const, style: "normal" as const },
   ];
 }
 

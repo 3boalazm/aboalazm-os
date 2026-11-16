@@ -149,7 +149,7 @@ export function NilePharmaERPCaseStudy() {
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
           <Link href="/work" className="transition-colors hover:text-text-primary">
-            ← {ar ? "كل الأعمال" : "All work"}
+            {ar ? "→ كل الأعمال" : "← All work"}
           </Link>
           <span>{ar ? "عرض منتج مؤسسي / 001" : "Enterprise showcase / 001"}</span>
         </div>
@@ -214,7 +214,7 @@ export function NilePharmaERPCaseStudy() {
                 aria-hidden="true"
                 className="flex items-center justify-end gap-1 bg-surface-2 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-text-secondary transition-colors group-hover:text-text-primary"
               >
-                {ar ? "افتح بالحجم الكامل" : "Open full size"} ↗
+                {ar ? "افتح بالحجم الكامل" : "Open full size"} {ar ? "↖" : "↗"}
               </span>
               {/* Starts with the visible words so the accessible name contains the visible label (WCAG 2.5.3). */}
               <span className="sr-only">{ar ? " — افتح بالحجم الكامل (يُفتح في تبويب جديد)" : " — Open full size (opens in a new tab)"}</span>
@@ -295,7 +295,7 @@ export function NilePharmaERPCaseStudy() {
                   rel="noopener noreferrer"
                   className="font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary transition-colors hover:text-text-primary"
                 >
-                  {ar ? "افتح بالحجم الكامل" : "Open full size"} ↗
+                  {ar ? "افتح بالحجم الكامل" : "Open full size"} {ar ? "↖" : "↗"}
                 </a>
               </div>
               <Image
@@ -474,7 +474,7 @@ export function NilePharmaERPCaseStudy() {
         </div>
         <div className="mt-6 flex items-center justify-between border-t border-border-subtle pt-4 font-mono text-[12px] uppercase tracking-[0.12em] text-text-ghost">
           <Link href="/work" className="hover:text-text-primary">
-            ← {ar ? "العودة إلى الأعمال" : "Back to work"}
+            {ar ? "→ العودة إلى الأعمال" : "← Back to work"}
           </Link>
           <span>Mustafa Aboalazm / 2026 · Enterprise Ledger</span>
         </div>
