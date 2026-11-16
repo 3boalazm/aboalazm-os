@@ -77,7 +77,11 @@ export function PhotoStrip() {
         </p>
       </div>
       <ul
-        className="-mx-3 flex snap-x snap-mandatory scroll-px-3 gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        /* No negative margin: this list is already full-bleed (it is not
+           inside a container), so -mx-3 pushed 24px of it under the section's
+           overflow-hidden on both sides and the last frame could never be
+           scrolled fully into view. */
+        className="flex snap-x snap-mandatory scroll-px-3 gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         dir={ar ? "rtl" : "ltr"}
       >
         {FRAMES.map((frame, i) => (

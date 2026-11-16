@@ -270,15 +270,22 @@ export function StudioModelBand({ className }: { className?: string }) {
         shape="bleed"
         contentClassName="flex flex-col gap-3 max-lg:p-4"
       >
-        <dl className="grid gap-3 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
+        {/* Phones: the shelf must break out of BOTH paddings it sits in — the
+            frame's own p-4 (32px) and the page container's 24px — or it is
+            clipped to a ~296px window and each card collapses to a 144px
+            column of one-word lines. -mx-7 = 56px returns it to the screen
+            edges; px-3 lines the first card up with every other shelf. */}
+        <dl className="grid gap-3 max-md:-mx-7 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-2">
         {copy.points.map(([head, body], i) => (
           <div
             key={head}
-            className="flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1 p-4 max-md:w-[84%] max-md:shrink-0 max-md:snap-start"
+            className="flex flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1 p-4 max-md:w-[84%] max-md:shrink-0 max-md:snap-start max-md:p-3"
           >
-            <dt className="flex items-baseline gap-3">
+            {/* Number above the title on phones: side by side, a long display
+                word ("MANAGEMENT") ran out of the card. */}
+            <dt className="flex items-baseline gap-3 max-md:flex-col max-md:gap-1">
               <span className="font-display text-title leading-none text-accent">{`0${i + 1}`}</span>
-              <span className="font-display text-subtitle tracking-[-0.01em] text-text-primary">{head}</span>
+              <span className="min-w-0 font-display text-subtitle tracking-[-0.01em] text-text-primary [overflow-wrap:anywhere]">{head}</span>
             </dt>
             <dd className="text-body-sm text-text-secondary">{body}</dd>
           </div>
