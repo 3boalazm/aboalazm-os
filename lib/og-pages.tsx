@@ -831,7 +831,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Website and digital product design — bilingual sites and business tools", visual: vWorkUi,
   },
   "services-systems": {
-    idx: "06C", eyebrow: "Business systems", tagAr: "أنظمة تشغيل وأتمتة", route: "/services/systems",
+    idx: "06C", eyebrow: "Business systems", tagAr: "أنظمة أعمال وأتمتة", route: "/services/systems",
     title: ["Business", "systems &", "automation."],
     desc: "Dashboards, ERP modules, Arabic-first internal tools and automation for teams running on spreadsheets and WhatsApp.",
     alt: "Business systems and automation — dashboards, ERP modules and internal tools", visual: vSystems,
