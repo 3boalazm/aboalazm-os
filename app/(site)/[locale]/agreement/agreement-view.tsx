@@ -98,8 +98,12 @@ export function AgreementView({
         <SectionHead label={["01 / PROCESS", "01 / المنهجية"]} title={["Eight phases.", "ثماني مراحل."]} italic={["No surprises.", "بلا مفاجآت."]} />
         <div className="flex flex-col">
           {PHASES.map((p) => (
-            <div key={p.n} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-2 border-t border-border-subtle py-3 last:border-b md:grid-cols-[2.5rem_7rem_14rem_1fr_auto]">
-              <span className="font-display text-title text-accent">{p.n}</span>
+            <div key={p.n} className="grid grid-cols-[4rem_minmax(0,1fr)] items-baseline gap-x-2 gap-y-1 border-t border-border-subtle py-3 last:border-b md:grid-cols-[4rem_7rem_14rem_1fr_auto]">
+              {/* The number spans two rows on phones so the day label and the phase
+                  name stack beside it. Without that, auto-placement dropped the
+                  name into the 2.5rem number column and it wrapped one word a line.
+                  The column is 4rem because the display-face "02"–"08" run ~57px. */}
+              <span className="row-span-2 self-start font-display text-title text-accent md:row-span-1 md:self-auto">{p.n}</span>
               <span className="font-mono text-label uppercase tracking-[0.08em] text-text-tertiary">{pick(p.days, lang)}</span>
               <span className="text-body text-text-primary">{pick(p.name, lang)}</span>
               <span className="col-span-2 text-body text-text-secondary md:col-span-1">{pick(p.body, lang)}</span>

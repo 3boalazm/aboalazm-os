@@ -351,20 +351,25 @@ export function ForHiringView() {
       </header>
 
       {/* ── 02 · Candidate Highlights & Quick Facts ── */}
-      <dl className="grid grid-cols-2 gap-4 border-b border-border-subtle pb-6 sm:grid-cols-4">
+      {/* Columns follow the list's own width (container query), not the viewport:
+          the cards sit in a padded column, so "PRACTICE EXPERIENCE" and
+          "Gulf / Remote" overflowed their cells at 360px and again at 768px. */}
+      <div className="@container border-b border-border-subtle pb-6">
+      <dl className="grid grid-cols-1 gap-4 @min-[26rem]:grid-cols-2 @min-[52rem]:grid-cols-4">
         {[
           [ar ? "سنوات الممارسة" : lang === "ms" ? "PENGALAMAN KERJA" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
           [ar ? "أنظمة هوية مُسلَّمة" : lang === "ms" ? "SISTEM IDENTITI DISERAHKAN" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "الصحة والدواء والغذاء والتعليم والحكومة" : lang === "ms" ? "Penjagaan kesihatan, farmaseutikal, pendidikan, kerajaan" : "Healthcare, pharma, education, government"],
           [ar ? "إتقان اللغتين" : lang === "ms" ? "KEMAHIRAN DWIBAHASA" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "تكافؤ طباعي أصيل" : lang === "ms" ? "Kesetaraan tipografi asli" : "Native typographic parity"],
           [ar ? "الموقع والجاهزية" : lang === "ms" ? "LOKASI & STATUS" : "LOCATION & STATUS", ar || lang === "ms" ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا أو السعودية أو الإمارات أو قطر) أو للعمل عن بُعد" : lang === "ms" ? "Terbuka untuk berpindah (Malaysia, Arab Saudi, UAE, Qatar) atau jarak jauh" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
         ].map(([label, val, sub]) => (
-          <div key={label} className="flex flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-4">
-            <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost">{label}</dt>
-            <dd className="font-display font-display-sm text-subtitle font-bold text-text-primary">{val}</dd>
-            <dd className="font-mono text-micro text-accent">{sub}</dd>
+          <div key={label} className="flex min-w-0 flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-3 sm:p-4">
+            <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost [overflow-wrap:anywhere]">{label}</dt>
+            <dd className="font-display font-display-sm text-subtitle font-bold text-text-primary [overflow-wrap:anywhere]">{val}</dd>
+            <dd className="font-mono text-micro text-accent [overflow-wrap:anywhere]">{sub}</dd>
           </div>
         ))}
       </dl>
+      </div>
 
       {/* ── 03 · Selected Projects with Exact Role Breakdown ── */}
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">

@@ -137,6 +137,8 @@ export const UI = {
     heroCoords:         "AL OBOUR · CAIRO / GULF / REMOTE · SELECT PROJECTS & SENIOR ROLES",
     /* ── Token Playground ── */
     playgroundTheme:    "Theme mode",
+    playgroundCardTitle: "System Card",
+    playgroundCardBody: "Every value below derives from the tokens you're holding.",
     /* ── Nav ── */
     navPrimary:         "Primary",
     navBrandName:       "Aboalazm OS",
@@ -281,6 +283,8 @@ export const UI = {
     heroCoords:         "العبور · القاهرة / ماليزيا / الخليج / عن بُعد · مشاريع مختارة وأدوار متقدمة",
     /* ── Token Playground ── */
     playgroundTheme:    "وضع المظهر",
+    playgroundCardTitle: "بطاقة النظام",
+    playgroundCardBody: "كل قيمة هنا مشتقّة من المتغيّرات التي بين يديك.",
     /* ── Nav ── */
     navPrimary:         "الرئيسية",
     navBrandName:       "Aboalazm OS",
@@ -426,6 +430,8 @@ export const UI = {
     heroCoords:         "AL OBOUR · KAHERAH / MALAYSIA / TELUK / JARAK JAUH · PROJEK TERPILIH & PERANAN KANAN",
     /* ── Token Playground ── */
     playgroundTheme:    "Mod tema",
+    playgroundCardTitle: "Kad Sistem",
+    playgroundCardBody: "Setiap nilai di bawah diperoleh daripada token yang anda pegang.",
     /* ── Nav ── */
     navPrimary:         "Utama",
     navBrandName:       "Aboalazm OS",

@@ -230,7 +230,11 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
             ? "group inline-flex items-center gap-1 rounded-pill p-0.5 text-text-primary sm:pe-1.5 transition-colors duration-base ease-physics hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent"
             : variant === "floating"
               ? "group inline-flex items-center gap-1.5 rounded-pill border border-accent/45 bg-surface-1/95 px-2 py-1 text-text-primary shadow-card backdrop-blur-xl transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:gap-2 sm:px-2.5 sm:py-1.5"
-              : "group inline-flex w-full items-center justify-between gap-4 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem]"
+              /* flex-wrap: the button sits in a ~196px-wide card on a phone, and an
+                 80px icon plus a 130px label cannot share a row there — the label
+                 was clipped ("GET THE OS AP"). They stack instead; from `sm` up
+                 it is the one-row control it always was. */
+              : "group inline-flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-card border border-accent/45 bg-surface-1 px-4 py-3.5 text-text-primary transition-all duration-200 hover:-translate-y-0.5 hover:border-accent hover:bg-surface-2 focus-visible:outline-2 focus-visible:outline-accent sm:w-auto sm:min-w-[18rem] sm:flex-nowrap"
         }
       >
         <span
@@ -253,10 +257,12 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
           <span className="sr-only sm:hidden">{ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app"}</span>
         ) : null}
         {/* Docked on phones: icon only, so the language chips get the room. */}
-        <span className={docked ? "hidden flex-col items-start gap-0.5 sm:flex" : "flex flex-col items-start gap-0.5"}>
+        <span className={docked ? "hidden flex-col items-start gap-0.5 sm:flex" : "flex min-w-0 flex-col items-start gap-0.5"}>
           <span className={docked
             ? "whitespace-nowrap font-mono text-micro font-semibold uppercase leading-tight tracking-[0.06em]"
-            : "whitespace-nowrap font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro"}>
+            : variant === "inline"
+              ? "font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:whitespace-nowrap sm:text-micro"
+              : "whitespace-nowrap font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro"}>
             {variant === "inline"
               ? (ar ? "ثبّت Aboalazm OS" : lang === "ms" ? "Dapatkan aplikasi OS" : "Get the OS app")
               : (ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app")}

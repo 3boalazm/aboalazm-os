@@ -310,15 +310,18 @@ export function Store72hView() {
               ) : (
                 /* Clean Name + Domain Card (no mock-ups) per Task 3 */
                 <div className="relative flex aspect-[16/10] w-full flex-col justify-between overflow-hidden border-b border-border-default bg-gradient-to-br from-surface-2 via-surface-1 to-surface-2 p-5">
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
                     <span className="rounded-pill border border-border-default bg-surface-1 px-2.5 py-0.5 font-mono text-micro text-accent">
                       {ar ? "موقع منشور" : "LIVE DEPLOYMENT"}
                     </span>
                     <span
                       dir="ltr"
-                      className="font-mono text-micro text-text-tertiary"
+                      className="min-w-0 font-mono text-micro text-text-tertiary [overflow-wrap:anywhere]"
                     >
-                      https://{refItem.domain} ↗
+                      {/* The scheme is dropped on phones: the card is ~230px wide
+                          there and the full URL is 260px. The domain is printed
+                          again under the name, so nothing is lost. */}
+                      <span className="max-lg:hidden">https://</span>{refItem.domain} ↗
                     </span>
                   </div>
                   <div className="flex flex-col gap-1">

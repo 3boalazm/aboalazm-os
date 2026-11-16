@@ -3045,6 +3045,11 @@ html[data-theme="light"] .contact-form-panel {
   border-bottom-color: var(--color-surface-1);
   box-shadow: inset 0 2px 0 var(--color-accent);
 }
+/* 320px phones: "Identity 8" + "Digital Products 17" need ~301px and the content box is 272px. */
+@media (max-width: 359px) {
+  .work-filter--tabs { max-width: 100%; gap: 3px; }
+  .work-filter--tabs .work-filter__btn { padding-inline: 10px; gap: 4px; letter-spacing: 0.02em; }
+}
 .work-folder__body {
   border: 1px solid var(--color-border-default);
   border-radius: var(--radius-panel);

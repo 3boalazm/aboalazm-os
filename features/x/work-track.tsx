@@ -71,7 +71,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
           <div className="x-slide x-slide--intro max-lg:pt-20">
             <div className="grid gap-4">
               <p className="x-mono x-kicker">03 — {t("Selected work", "أعمال مختارة", "Kerja terpilih")}</p>
-              <h2 className="x-display" style={{ fontSize: "clamp(2.8rem, 6vw, 6rem)" }}>
+              <h2 className="x-display" style={{ fontSize: "clamp(2.2rem, 5.6vw, 4.5rem)" }}>
                 {t("Systems", "أنظمة", "Sistem")}
                 <br />
                 <span className="x-accent">{t("in production.", "قيد التشغيل.", "dalam pengeluaran.")}</span>

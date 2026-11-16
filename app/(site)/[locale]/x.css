@@ -274,7 +274,8 @@ html[dir="rtl"] .x-gate__name { text-transform: none; letter-spacing: 0; line-he
 }
 .x-work[data-pinned="false"] .x-work__track::-webkit-scrollbar { display: none; }
 .x-slide { flex: 0 0 auto; scroll-snap-align: start; }
-.x-slide--intro { width: min(86vw, 30rem); display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding-block: 1rem; }
+/* 40rem, not 30: "PRODUCTION." / "PENGELUARAN." in the display face is 530-610px at 72px, and in a 480px slide the first card covered the end of the headline. */
+.x-slide--intro { width: min(86vw, 40rem); display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; padding-block: 1rem; }
 .x-slide--card { width: 86vw; }
 @media (min-width: 768px) and (max-width: 1023px) { .x-slide--card { width: 70vw; } }
 @media (max-width: 767px) { .x-card__name { font-size: 1.7rem; } .x-card__line { font-size: 0.875rem; } .x-card__top .x-chip { font-size: 10px; padding: 0.3rem 0.6rem; } }
@@ -422,6 +423,8 @@ html[dir="rtl"] .x-phone__title { text-transform: none; letter-spacing: 0; line-
 @keyframes x-breathe { 50% { scale: 1.04; } }
 .x-close__title { font-size: clamp(3rem, 10vw, 10.5rem); text-align: center; max-width: 12ch; margin-inline: auto; }
 html[dir="rtl"] .x-close__title { font-size: clamp(2.8rem, 8vw, 8rem); }
+/* Malay: "PERNIAGAAN" is the longest word in any locale and, at the 3rem floor, ran edge to edge (and clipped) on a 360px phone. */
+@media (max-width: 640px) { html[lang="ms"] .x-close__title { font-size: clamp(2.1rem, 9.2vw, 10.5rem); } }
 .x-brief {
   margin: clamp(2rem, 4vw, 3rem) auto 0; max-width: 40rem;
   border-radius: 28px; padding: 0.6rem;

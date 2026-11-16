@@ -359,7 +359,7 @@ export function ProcessView() {
           </div>
 
           <ol
-            className="hero-rise mt-4 grid max-w-[640px] grid-cols-2 gap-2 sm:grid-cols-4"
+            className="hero-rise mt-4 flex max-w-[760px] flex-wrap gap-x-5 gap-y-2"
             style={{ "--i": 4 } as CSSProperties}
           >
             {(ar

@@ -146,6 +146,27 @@ const ORIGIN_LABEL: Record<Evidence["origin"], { en: string; ar: string; cls: st
   declared: { en: "declared scope", ar: "نطاق مُعلن", cls: "text-text-ghost" },
 };
 
+/**
+ * A headline figure that always fits its cell. The display face is very wide
+ * (about 0.8em per character), so a fixed size overflowed the moment a value
+ * was longer than "2020": "#FFC83C" ran 190px inside a 110px cell, and
+ * "CMYK+RGB" did the same in the evidence grid. The cell is a size container
+ * (`@container`), so the type is sized from the cell's own width, capped at
+ * the intended design size and floored at 1rem.
+ */
+function StatValue({ value, maxSize }: { value: string; maxSize: string }) {
+  const chars = Math.max(Array.from(value).length, 1);
+  const fit = (100 / (chars * 0.86)).toFixed(1);
+  return (
+    <p
+      className="font-display leading-[1.1] text-text-primary [overflow-wrap:anywhere]"
+      style={{ fontSize: `clamp(1rem, ${fit}cqw, ${maxSize})` }}
+    >
+      {value}
+    </p>
+  );
+}
+
 export function ProductCase(props: ProductCaseProps) {
   const { lang } = useLang();
   const ar = lang === "ar";
@@ -187,20 +208,23 @@ export function ProductCase(props: ProductCaseProps) {
             </p>
           </div>
 
-          <div className="rounded-2xl border border-border-subtle bg-surface-1/70 p-4 backdrop-blur-xl">
-            <div className="mb-5 flex items-center justify-between font-mono text-[12px] uppercase tracking-[0.14em] text-text-tertiary">
+          <div className="@container rounded-2xl border border-border-subtle bg-surface-1/70 p-4 backdrop-blur-xl">
+            <div className="mb-5 flex items-center justify-between gap-3 font-mono text-[12px] uppercase tracking-[0.14em] text-text-tertiary">
               <span>{ar ? props.snapshotTitle.ar : props.snapshotTitle.en}</span>
               <span className={a.text}>{props.snapshotCode}</span>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            {/* One column until the card itself is wide enough for two stat
+                cells: the card is a narrow right-hand column on desktop and a
+                full-width block on phones, so the viewport is the wrong ruler. */}
+            <div className="grid grid-cols-1 gap-3 @min-[22rem]:grid-cols-2">
               {props.snapshot.map((s) => (
-                <div key={s.label} className="rounded-xl border border-border-subtle p-4">
-                  <p className="font-display text-4xl text-text-primary">{s.value}</p>
+                <div key={s.label} className="@container min-w-0 rounded-xl border border-border-subtle p-3 sm:p-4">
+                  <StatValue value={s.value} maxSize="2.25rem" />
                   <p className="mt-2 text-xs text-text-tertiary">{ar ? s.labelAr : s.label}</p>
                 </div>
               ))}
               {props.system.flow ? (
-                <div className="col-span-2 rounded-xl border border-border-subtle bg-background/60 p-4">
+                <div className="col-span-full rounded-xl border border-border-subtle bg-background/60 p-4">
                   <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار البيانات" : "Data path"}</p>
                   <p className="mt-2 text-sm leading-[1.65] text-text-primary">
                     {props.system.flow.a} <span className={a.text}>→</span> {props.system.flow.mid} <span className={a.text}>→</span> {props.system.flow.b}
@@ -252,7 +276,7 @@ export function ProductCase(props: ProductCaseProps) {
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>01 / {ar ? "التحدي" : "The challenge"}</p>
-            <h2 className="mt-4 max-w-sm font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
+            <h2 className="mt-4 max-w-sm font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? props.challenge.titleAr : props.challenge.title}
             </h2>
           </div>
@@ -272,7 +296,7 @@ export function ProductCase(props: ProductCaseProps) {
         <div className="mb-6 flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>02 / {ar ? props.system.kickerAr : props.system.kicker}</p>
-            <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
+            <h2 className="mt-4 font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? props.system.titleAr : props.system.title}
             </h2>
           </div>
@@ -321,7 +345,7 @@ export function ProductCase(props: ProductCaseProps) {
         <div className="container-wide py-6 md:py-8">
           <div className="mb-6">
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>03 / {isDesign ? (ar ? "قرارات بناء النظام" : "System decisions") : (ar ? "قرارات المنتج" : "Product decisions")}</p>
-            <h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
+            <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? props.decisions.titleAr : props.decisions.title}
             </h2>
           </div>
@@ -344,7 +368,7 @@ export function ProductCase(props: ProductCaseProps) {
       {props.rows ? (
         <section className="container-wide py-6 md:py-8">
           <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>04 / {ar ? props.rows.kickerAr : props.rows.kicker}</p>
-          <h2 className="mt-4 max-w-3xl font-display text-4xl tracking-[-0.04em] text-text-primary md:text-6xl">
+          <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-6xl">
             {ar ? props.rows.titleAr : props.rows.title}
           </h2>
           <div className="mt-6 divide-y divide-border-subtle border-y border-border-subtle">
@@ -363,15 +387,15 @@ export function ProductCase(props: ProductCaseProps) {
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>05 / {ar ? "الأدلة" : "Evidence"}</p>
-            <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary md:text-5xl">
+            <h2 className="mt-4 font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-5xl">
               {ar ? props.evidence.titleAr : props.evidence.title}
             </h2>
           </div>
-          <div className="space-y-4">
-            <div className="grid gap-3 sm:grid-cols-2">
+          <div className="@container min-w-0 space-y-4">
+            <div className="grid grid-cols-1 gap-3 @min-[26rem]:grid-cols-2">
               {props.evidence.items.map((e) => (
-                <div key={e.label} className="rounded-xl border border-border-subtle bg-background/50 p-4">
-                  <p className="font-display text-3xl text-text-primary">{e.value}</p>
+                <div key={e.label} className="@container min-w-0 rounded-xl border border-border-subtle bg-background/50 p-4">
+                  <StatValue value={e.value} maxSize="1.875rem" />
                   <p className="mt-2 text-sm text-text-secondary">{ar ? e.labelAr : e.label}</p>
                   <p className={`mt-2 font-mono text-[11px] uppercase tracking-[0.1em] ${ORIGIN_LABEL[e.origin].cls}`}>
                     {ar ? ORIGIN_LABEL[e.origin].ar : ORIGIN_LABEL[e.origin].en}
@@ -391,7 +415,7 @@ export function ProductCase(props: ProductCaseProps) {
         <div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]">
           <div>
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>06 / {isDesign ? (ar ? "عناصر وأدوات التنفيذ" : "Production & design stack") : (ar ? "التقنيات" : "Technology stack")}</p>
-            <h2 className="mt-4 font-display text-4xl tracking-[-0.04em] text-text-primary">
+            <h2 className="mt-4 font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary">
               {ar ? props.stack.titleAr : props.stack.title}
             </h2>
           </div>
@@ -408,12 +432,12 @@ export function ProductCase(props: ProductCaseProps) {
 
       {/* ═══ HAND-OFF ═══ */}
       <section className="border-t border-border-subtle bg-surface-1/35">
-        <div className="container-wide flex flex-col gap-8 py-6 md:flex-row md:items-end md:justify-between md:py-7">
-          <div>
+        <div className="container-wide flex flex-col gap-8 py-6 md:py-7 lg:flex-row lg:items-end lg:justify-between">
+          <div className="min-w-0">
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>
               HAND-OFF / {props.fileNo}
             </p>
-            <h2 className="mt-4 max-w-3xl font-display text-4xl leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
+            <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
               {ar ? props.handoff.titleAr : props.handoff.title}
             </h2>
             <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? props.handoff.noteAr : props.handoff.note}</p>

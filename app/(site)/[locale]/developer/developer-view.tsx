@@ -62,8 +62,11 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
 
         <aside className="relative">
           <div className="relative overflow-hidden rounded-[1.75rem] border border-border-default bg-surface-1 p-4 sm:p-5">
-            <div className="flex items-start justify-between gap-4">
-              <div>
+            {/* wrap-reverse: on a phone the 96px orb and "Not just a website." cannot
+                share a ~246px row (the title ran ~40px past the card), so the orb
+                wraps above the title; from `sm` up it is the same one-row header. */}
+            <div className="flex flex-wrap-reverse items-start justify-between gap-x-4 gap-y-3">
+              <div className="min-w-0">
                 <p className="font-mono text-micro uppercase tracking-[0.13em] text-accent">ABOALAZM OS / 01</p>
                 <h2 className="mt-2 max-w-[14ch] font-display text-3xl leading-tight tracking-tight text-text-primary sm:text-4xl">
                   {ar ? <>ليس مجرد موقع.<br /><em className="text-accent not-italic">بل نظام يعمل.</em></> : <>Not just a website.<br /><em className="text-accent not-italic">A working system.</em></>}
@@ -163,10 +166,13 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
       <section className="container-wide pb-8 sm:pb-24">
         <div className="relative overflow-hidden rounded-[1.75rem] border border-border-default bg-surface-1 p-4 sm:p-6 lg:p-14">
           <div className="pointer-events-none absolute -end-16 -top-24 size-64 rounded-full bg-accent/10 blur-[90px]" aria-hidden />
-          <div className="relative grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-            <div>
+          <div className="relative grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+            <div className="min-w-0">
               <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{ar ? "04 / خطوتك التالية" : "04 / YOUR NEXT MOVE"}</p>
-              <h2 className="mt-3 max-w-[13ch] font-display text-4xl leading-[0.94] tracking-[-0.05em] text-text-primary sm:text-6xl">
+              {/* "conversation." in the wide display face is ~340px at 36px, and the
+                  panel is ~246px wide on a phone: it pushed the whole grid ~60px
+                  past the panel edge. The size now follows the viewport until `sm`. */}
+              <h2 className="mt-3 max-w-[13ch] font-display text-[clamp(1.4rem,7vw,2.25rem)] leading-[0.94] tracking-[-0.05em] text-text-primary [overflow-wrap:anywhere] sm:text-6xl">
                 {ar ? <>لا يلزمك أن تملك الخطة كاملة.<br /><em className="text-accent not-italic">ابدأ بالحديث.</em></> : <>You don’t need the whole plan.<br /><em className="text-accent not-italic">Start with a conversation.</em></>}
               </h2>
               <p className="mt-4 max-w-[50ch] text-body-sm leading-relaxed text-text-secondary">
