@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 /**
  * INSIGHTS TEASER — the journal surfaces on the home page (overhaul S2,
  * spec §4.3-08). 27 posts were buried in a "MORE" menu; three latest now
@@ -30,6 +32,17 @@ const COVER_COLORS = [
   "var(--color-creative)",
   "var(--color-live)",
   "var(--color-proof)",
+] as const;
+
+/* Each card leads with a plate as well as a gradient, so the writing band is a
+   shelf of pictures with covers — not three gradient rectangles. Rotating
+   through the authored set keeps the studio's material language while the
+   colour field underneath still varies per post. */
+const COVER_ART = [
+  "/images/generated/creative-mirror-shard.jpg",
+  "/images/generated/creative-paper-arc.jpg",
+  "/images/generated/creative-glass-ribbon.jpg",
+  "/images/generated/creative-smoke-type.jpg",
 ] as const;
 
 export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
@@ -93,18 +106,28 @@ export function InsightsTeaser({ posts }: { posts: TeaserPost[] }) {
             onClick={() => trackEvent("insight_open", { slug: p.slug, surface: "home_teaser" })}
             className="group flex flex-col overflow-hidden rounded-panel border border-border-subtle bg-surface-1/40 transition-colors duration-base ease-physics hover:border-border-default max-md:w-[84%] max-md:shrink-0 max-md:snap-start"
           >
-            {/* Typographic cover — the teaser data carries no image, so the
-                cover is a gradient field with the post number at poster
-                scale (the Finova idiom). Rotates through the expressive
-                roles so the three cards never match. */}
+            {/* Cover — an authored plate over a colour field, with the post
+                number set at poster scale on top. The gradient still rotates
+                through the expressive roles so the three cards never match,
+                but the picture is what carries the shelf. */}
             <div
-              aria-hidden
               className="relative flex aspect-[16/9] shrink-0 items-end overflow-hidden"
               style={{
                 background: `radial-gradient(110% 130% at 18% 0%, color-mix(in srgb, ${COVER_COLORS[i % COVER_COLORS.length]} 62%, transparent), transparent 62%), radial-gradient(120% 120% at 92% 100%, color-mix(in srgb, ${COVER_COLORS[(i + 2) % COVER_COLORS.length]} 40%, transparent), transparent 65%), var(--color-surface-2)`,
               }}
             >
-              <span className="p-3 font-display text-title leading-none tracking-[-0.02em] text-alabaster md:p-4">
+              <Image
+                src={COVER_ART[i % COVER_ART.length]!}
+                alt=""
+                fill
+                sizes="(min-width: 768px) 30vw, 84vw"
+                className="object-cover opacity-70 mix-blend-luminosity"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/80 via-obsidian/25 to-transparent"
+              />
+              <span className="relative z-elevated p-3 font-display text-title leading-none tracking-[-0.02em] text-alabaster md:p-4">
                 {p.index}
               </span>
             </div>

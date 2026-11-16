@@ -1,5 +1,6 @@
 "use client";
 
+import { PagePlate } from "@/components/ui/page-plate";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import {
@@ -67,6 +68,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
   useAmbientGlow(PRICING_MOOD, 0.3);
   return (
     <main className="container-content flex flex-col gap-8 pb-6">
+      <PagePlate src="/images/generated/page-pricing.jpg" align="start">
       <header className="flex flex-col gap-3">
         <Heading
           eyebrow={ar ? "التسعير / التكلفة" : lang === "ms" ? "HARGA / KOS" : "PRICING / WHAT IT COSTS"}
@@ -140,6 +142,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
           ))}
         </dl>
       </header>
+      </PagePlate>
 
       <section className="flex flex-col gap-3">
         <SectionHead label={["01 / SERVICE TIERS", "01 / فئات الخدمة"]} title={["Pick the", "اختر"]} italic={["scope that fits.", "النطاق المناسب."]} />

@@ -4,6 +4,7 @@ import { SystemConstellation } from "@/features/hero";
 import { useLang } from "@/components/providers/lang-provider";
 import { useT } from "@/hooks/use-t";
 import { Icon } from "@/components/ui/Icon";
+import { PagePlate } from "@/components/ui/page-plate";
 import { Heading } from "@/components/ui/Heading";
 import { StudioModelBand } from "@/features/offers/disciplines";
 
@@ -75,7 +76,8 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
 
   return (
     <main className="container-content flex flex-col gap-8 pb-6">
-      <header className="flex flex-col gap-4">
+      <PagePlate src="/images/generated/page-about.jpg" align="start">
+        <header className="flex flex-col gap-4">
         <Heading
           eyebrow={ar ? t.aboutSection : t.aboutSection}
           title={
@@ -117,8 +119,9 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
           >
             <>{ar ? "ملف المرشح للشركات والتوظيف" : lang === "ms" ? "Dosier untuk Pasukan Pengambilan" : "For Hiring Teams Dossier"} <Icon name="arrow-right" /></>
           </Link>
-        </div>
-      </header>
+          </div>
+        </header>
+      </PagePlate>
 
       <section aria-label={t.aboutAriaDoctrine} className="flex flex-col">
         <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">

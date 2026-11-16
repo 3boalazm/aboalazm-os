@@ -20,11 +20,13 @@ import {
   TIERS,
 } from "@/lib/offers";
 
-/* One real deliverable per tier, cropped for the card frame. */
+/* One authored plate per tier. These used to be project thumbnails, which made
+   a published price look like it buys that one client's artefact; the tiers are
+   now pictured as what they are — a mark, an identity kit, a full system. */
 const TIER_ART: Record<string, string> = {
-  "logo-design": "/images/work/ahmed-bedeer-card.jpg",
-  "brand-identity": "/images/work/gad/gad-card.jpg",
-  "full-brand-system": "/images/work/cc-logo-hero.jpg",
+  "logo-design": "/images/generated/creative-orb.jpg",
+  "brand-identity": "/images/generated/creative-paper-arc.jpg",
+  "full-brand-system": "/images/generated/creative-type-texture.jpg",
 };
 
 export function ServicesSnapshot() {
@@ -93,7 +95,7 @@ export function ServicesSnapshot() {
               {/* The tier's own deliverable, with its tag painted on it. */}
               <div className="relative aspect-[16/8] overflow-hidden rounded-card">
                 <Image
-                  src={TIER_ART[tier.id] ?? "/images/work/cc-logo-hero.jpg"}
+                  src={TIER_ART[tier.id] ?? "/images/generated/creative-type-texture.jpg"}
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 30vw, 84vw"
