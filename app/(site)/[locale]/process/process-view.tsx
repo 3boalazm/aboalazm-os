@@ -389,6 +389,60 @@ export function ProcessView() {
         </div>
       </section>
 
+      {/* ── 38 DAYS AT A GLANCE (zigzag timeline) ──
+          The accordion below holds every task; this is the picture of it:
+          four cards alternating across a spine, each with its day range and
+          what you receive. A card opens its phase in the accordion. */}
+      <section id="timeline" aria-label={ar ? "الـ 38 يوم في نظرة" : "38 days at a glance"} className="chapter-a px-6 pb-2 pt-6 lg:px-16">
+        <div className="mx-auto max-w-[900px]">
+          <p className="hook-line mb-4">{ar ? "الـ 38 يوم في نظرة واحدة." : lang === "ms" ? "38 hari sepintas lalu." : "38 days at a glance."}</p>
+          <ol className="relative flex flex-col gap-3 md:gap-0">
+            <span aria-hidden className="absolute bottom-3 top-3 w-px bg-border-default max-md:start-[calc(var(--spacing)*2.5)] md:left-1/2" />
+            {phases.map((phase, i) => {
+              const right = i % 2 === 1;
+              return (
+                <li key={phase.n} className="relative grid grid-cols-[minmax(0,1fr)] items-center md:grid-cols-2 md:py-2 md:[&:not(:first-child)]:-mt-10">
+                  <span
+                    aria-hidden
+                    className="absolute top-1/2 z-elevated grid size-5 -translate-y-1/2 place-items-center rounded-full border border-border-default bg-surface-0 font-mono text-micro text-text-primary max-md:start-0 md:left-1/2 md:-translate-x-1/2"
+                  >
+                    {i + 1}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpen(phase.n);
+                      document.getElementById("phases")?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+                    }}
+                    className={[
+                      "group relative flex min-w-0 flex-col gap-2 rounded-panel border border-border-subtle bg-surface-1 p-3 text-start transition-colors duration-base ease-physics hover:border-accent max-md:ms-7",
+                      right ? "md:col-start-2 md:ms-6" : "md:col-start-1 md:me-6",
+                      i === phases.length - 1 ? "border-accent-border bg-accent/[0.07]" : "",
+                    ].join(" ")}
+                  >
+                    <span className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1">
+                      <span className="font-display font-display-sm text-body-lg tracking-[-0.015em] text-text-primary">{phase.name}</span>
+                      <span className="shrink-0 rounded-pill border border-border-default px-1.5 py-0.5 font-mono text-micro text-text-secondary">{phase.days}</span>
+                    </span>
+                    <span className="flex flex-col gap-1">
+                      {phase.deliverables.slice(0, 3).map((d) => (
+                        <span key={d} className="flex items-start gap-1.5 text-body-sm text-text-secondary">
+                          <span aria-hidden className="mt-[0.2em] inline-flex text-accent"><Icon name="check" size="0.95em" /></span>
+                          {d}
+                        </span>
+                      ))}
+                    </span>
+                    <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost transition-colors group-hover:text-accent">
+                      {ar ? "افتح المرحلة ↓" : lang === "ms" ? "Buka fasa ↓" : "Open the phase ↓"}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+      </section>
+
       {/* ── APPROVAL GATES (interactive terminal stepper) ── */}
       <section id="gates" className="chapter-b px-6 pb-6 pt-4 lg:px-16">
         <div className="mx-auto max-w-[900px]">

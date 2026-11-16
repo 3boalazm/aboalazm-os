@@ -14,6 +14,7 @@ import { LangProvider } from "@/components/providers/lang-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { PersonaProvider } from "@/components/providers/persona-provider";
 import { TerminalOverlay } from "@/features/terminal/terminal-overlay";
+import { CommandPalette } from "@/components/command/command-palette";
 import { getSiteGraphSchema } from "@/lib/structured-data";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE_URL } from "@/lib/site";
@@ -133,6 +134,8 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
                     SmoothScroll so it shares the page's scroll context, and
                     below the nav in z-order. */}
                 <OsTray />
+                {/* Ctrl/⌘ + K launcher — needs the lang + theme providers. */}
+                <CommandPalette />
               </SmoothScroll>
             </PersonaProvider>
           </LangProvider>

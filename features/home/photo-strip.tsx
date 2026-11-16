@@ -15,6 +15,7 @@
  * showcases, the hero wall and a duotone statement, so another row of the same
  * pictures would only repeat itself.
  */
+import { useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/providers/lang-provider";
 
@@ -62,61 +63,64 @@ const FRAMES: readonly Frame[] = [
 export function PhotoStrip() {
   const { lang } = useLang();
   const ar = lang === "ar";
+  /* Slit gallery: every frame is a narrow strip; one is open at a time.
+     Tap (or hover on a pointer device) opens a strip — six pictures in the
+     height of one, instead of a swipe shelf that hid five of them. */
+  const [open, setOpen] = useState(1);
 
   return (
     <section
       aria-label={ar ? "من داخل الملفات" : "Inside the files"}
-      className="overflow-hidden border-y border-border-subtle bg-surface-0 py-4 lg:hidden"
+      className="overflow-hidden border-y border-border-subtle bg-surface-0 py-4"
     >
       <div className="container-wide flex items-end justify-between gap-3 pb-3">
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "من داخل الملفات" : "INSIDE THE FILES"}
         </p>
-        <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-          {ar ? "اسحب →" : "SWIPE →"}
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent tabular-nums">
+          {String(open + 1).padStart(2, "0")} / {String(FRAMES.length).padStart(2, "0")}
         </p>
       </div>
-      <ul
-        /* No negative margin: this list is already full-bleed (it is not
-           inside a container), so -mx-3 pushed 24px of it under the section's
-           overflow-hidden on both sides and the last frame could never be
-           scrolled fully into view. */
-        className="flex snap-x snap-mandatory scroll-px-3 gap-2 overflow-x-auto px-3 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        dir={ar ? "rtl" : "ltr"}
-      >
-        {FRAMES.map((frame, i) => (
-          <li
-            key={frame.src}
-            className={
-              i % 2 === 0
-                ? "w-[68%] shrink-0 snap-start"
-                : "w-[68%] shrink-0 snap-start translate-y-3"
-            }
-          >
-            <figure className="relative aspect-[4/3] overflow-hidden rounded-card border border-border-subtle bg-surface-1">
-              <Image
-                src={frame.src}
-                alt={`${ar ? frame.name[1] : frame.name[0]} — ${ar ? frame.kind[1] : frame.kind[0]}`}
-                fill
-                sizes="68vw"
-                loading="lazy"
-                className="object-cover"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-obsidian/85 via-obsidian/35 to-transparent"
-              />
-              <figcaption className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 p-3">
-                <span className="font-display text-body font-medium leading-tight text-alabaster">
-                  {ar ? frame.name[1] : frame.name[0]}
-                </span>
-                <span className="font-mono text-micro uppercase tracking-[0.08em] text-alabaster/80">
-                  {ar ? frame.kind[1] : frame.kind[0]}
-                </span>
-              </figcaption>
-            </figure>
-          </li>
-        ))}
+      <ul className="slit-gallery container-wide" dir="ltr">
+        {FRAMES.map((frame, i) => {
+          const isOpen = i === open;
+          const name = ar ? frame.name[1] : frame.name[0];
+          const kind = ar ? frame.kind[1] : frame.kind[0];
+          return (
+            <li key={frame.src} data-open={isOpen}>
+              <button
+                type="button"
+                onClick={() => setOpen(i)}
+                onMouseEnter={() => {
+                  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) setOpen(i);
+                }}
+                onFocus={() => setOpen(i)}
+                aria-expanded={isOpen}
+                aria-label={`${name} — ${kind}`}
+                className="absolute inset-0 block size-full cursor-pointer"
+              >
+                <figure className="absolute inset-0">
+                  <Image
+                    src={frame.src}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 60vw, 80vw"
+                    loading="lazy"
+                    className="object-cover"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-obsidian/85 via-obsidian/30 to-transparent"
+                  />
+                  <figcaption dir={ar ? "rtl" : "ltr"} className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 p-3 text-start">
+                    <span className="whitespace-nowrap font-display text-body font-medium leading-tight text-alabaster">{name}</span>
+                    <span className="whitespace-nowrap font-mono text-micro uppercase tracking-[0.08em] text-alabaster/80">{kind}</span>
+                  </figcaption>
+                </figure>
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );

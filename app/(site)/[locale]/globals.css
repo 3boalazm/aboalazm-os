@@ -2927,3 +2927,178 @@ html[data-theme="light"] .contact-form-panel {
   --color-text-tertiary: rgb(8 7 16 / 0.68);
   --color-text-ghost: rgb(8 7 16 / 0.60);
 }
+
+/* ═══════════════ INSP-12 (2026-11) ═══════════════
+   Twelve patterns lifted from the reference board (see project doc
+   23_OS_INSPIRATION_IDEAS). Everything here is progressive: without
+   scroll-driven animation support, or under reduced motion, each surface
+   falls back to the plain layout it had before. */
+
+/* ── 02 · Coverflow shelves — CSS scroll-driven, no script ── */
+@keyframes shelf-coverflow {
+  0%        { transform: perspective(900px) rotateY(calc(var(--cf, 1) * -26deg)) scale(0.88); opacity: 0.55; }
+  42%, 58%  { transform: none; opacity: 1; }
+  100%      { transform: perspective(900px) rotateY(calc(var(--cf, 1) * 26deg)) scale(0.88); opacity: 0.55; }
+}
+/* ── 06 · Focus shelf — the centred card is sharp, neighbours recede ── */
+@keyframes shelf-focus {
+  0%, 100%  { transform: scale(0.86); filter: blur(3px); opacity: 0.6; }
+  40%, 60%  { transform: none; filter: none; opacity: 1; }
+}
+[dir="rtl"] .shelf-coverflow { --cf: -1; }
+@media (prefers-reduced-motion: no-preference) and (max-width: 767.98px) {
+  @supports (animation-timeline: view()) {
+    .shelf-coverflow > * {
+      animation: shelf-coverflow linear both;
+      animation-timeline: view(inline);
+      transform-origin: center;
+      will-change: transform;
+    }
+    .shelf-focus > * {
+      animation: shelf-focus linear both;
+      animation-timeline: view(inline);
+      will-change: transform, filter;
+    }
+  }
+}
+
+/* ── 01 · Footer wordmark — the name, cropped by the page edge ── */
+.footer-wordmark {
+  direction: ltr;
+  overflow: hidden;
+  height: 0.6em;
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 11.4vw, 12.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--color-text-primary);
+  user-select: none;
+}
+.footer-wordmark em { font-style: normal; color: var(--color-accent); }
+
+/* ── 03 · Hero ghost word — outline type behind the composition ── */
+.hero-ghost-word {
+  position: absolute;
+  inset-inline-start: -0.05em;
+  bottom: -0.1em;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  font-family: var(--font-display);
+  font-size: clamp(9rem, 23vw, 26rem);
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--color-text-primary) 13%, transparent);
+  mask-image: linear-gradient(to bottom, #000 30%, transparent 92%);
+}
+
+/* ── 09 · Work as folders — tabs attached to the panel they open ── */
+.work-filter--tabs {
+  align-items: flex-end;
+  gap: 4px;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -1px;
+}
+.work-filter--tabs .work-filter__btn {
+  padding: 9px 18px 10px;
+  border: 1px solid var(--color-border-subtle);
+  border-bottom-color: transparent;
+  border-radius: 14px 14px 0 0;
+  background: color-mix(in srgb, var(--color-surface-1) 55%, transparent);
+}
+.work-filter--tabs .work-filter__btn--active {
+  padding-top: 12px;
+  background: var(--color-surface-1);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-default);
+  border-bottom-color: var(--color-surface-1);
+  box-shadow: inset 0 2px 0 var(--color-accent);
+}
+.work-folder__body {
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-panel);
+  border-start-start-radius: 0;
+  background: var(--color-surface-1);
+  padding: clamp(16px, 2.4vw, 32px);
+}
+.work-folder__body--plain { border-start-start-radius: var(--radius-panel); }
+
+/* ── 10 · Slit gallery — narrow strips, one opens ── */
+.slit-gallery {
+  display: flex;
+  gap: 6px;
+  height: clamp(240px, 38vw, 460px);
+}
+.slit-gallery > li {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  transition: flex-grow 520ms var(--ease-physics), border-radius 520ms var(--ease-physics);
+}
+.slit-gallery > li[data-open="true"] { flex-grow: 9; border-radius: var(--radius-panel); }
+.slit-gallery figcaption { opacity: 0; transition: opacity 240ms var(--ease-physics); }
+.slit-gallery > li[data-open="true"] figcaption { opacity: 1; transition-delay: 220ms; }
+@media (prefers-reduced-motion: reduce) {
+  .slit-gallery > li, .slit-gallery figcaption { transition: none; }
+}
+
+/* ── Light mode, in the spirit of the board: airy wash, white glass, soft lift ── */
+html[data-theme="light"] body {
+  background-image:
+    radial-gradient(64rem 40rem at 88% -8%, rgb(255 107 71 / 0.11), transparent 62%),
+    radial-gradient(56rem 44rem at -8% 22%, rgb(96 150 255 / 0.10), transparent 62%),
+    radial-gradient(60rem 40rem at 60% 110%, rgb(196 140 255 / 0.08), transparent 60%);
+  background-attachment: fixed;
+}
+html[data-theme="light"] .glass {
+  background: rgb(255 255 255 / 0.66);
+  border-color: rgb(255 255 255 / 0.85);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 0 0 1px rgb(8 7 16 / 0.06),
+    0 18px 40px -22px rgb(8 7 16 / 0.28);
+}
+html[data-theme="light"] :is(.rounded-panel, .rounded-card).border:not(.glass) {
+  box-shadow: 0 1px 2px rgb(8 7 16 / 0.04), 0 18px 44px -28px rgb(8 7 16 / 0.2);
+}
+html[data-theme="light"] .hero-ghost-word {
+  -webkit-text-stroke-color: rgb(8 7 16 / 0.14);
+}
+html[data-theme="light"] .work-folder__body,
+html[data-theme="light"] .work-filter--tabs .work-filter__btn--active { background: #fff; }
+html[data-theme="light"] .work-filter--tabs .work-filter__btn--active { border-bottom-color: #fff; }
+
+/* ── 08 · Three overlapping rings — the disciplines as one system ── */
+.discipline-rings { display: flex; justify-content: center; direction: ltr; }
+.discipline-ring {
+  position: relative;
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  width: clamp(6.75rem, 29vw, 15rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-default);
+  text-align: center;
+  transition: border-color 220ms var(--ease-physics), background 220ms var(--ease-physics), transform 220ms var(--ease-physics);
+}
+.discipline-ring + .discipline-ring { margin-inline-start: clamp(-2.75rem, -5.5vw, -1.25rem); }
+.discipline-ring:hover, .discipline-ring:focus-visible {
+  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 8%, transparent);
+  transform: translateY(-3px);
+  z-index: 1;
+}
+.discipline-ring[data-lead="true"] { border-color: var(--color-accent-border, var(--color-accent)); }

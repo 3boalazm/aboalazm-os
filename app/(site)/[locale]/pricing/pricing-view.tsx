@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import {
@@ -64,6 +65,7 @@ interface PricingData {
 export function PricingView({ tiers, alaCarte }: PricingData) {
   const { lang } = useLang();
   const ar = lang === "ar";
+  const [tierView, setTierView] = useState<"cards" | "compare">("cards");
   useAmbientGlow(PRICING_MOOD, 0.3);
   return (
     <main className="container-content flex flex-col gap-8 pb-6">
@@ -148,8 +150,28 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
             ? "معظم المشاريع تبدأ من الفئة 2. الفئة 1 للقيد الميزاني، والفئة 3 للإطلاق الكامل."
             : "Most projects start at Tier 2. Tier 1 is the budget constraint; Tier 3 is a full launch system."}
         </p>
-        <TierCompare tiers={tiers} />
-        <TierGrid tiers={tiers} />
+        {/* One view at a time: the same three tiers as full cards or as a
+            side-by-side comparison. Both stacked made the section two
+            screens of the same information. */}
+        <div className="work-filter" role="group" aria-label={ar ? "طريقة العرض" : "View as"}>
+          {(
+            [
+              ["cards", "Cards", "كروت"],
+              ["compare", "Compare", "مقارنة"],
+            ] as const
+          ).map(([value, en, arr]) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => setTierView(value)}
+              aria-pressed={tierView === value}
+              className={["work-filter__btn", tierView === value ? "work-filter__btn--active" : ""].join(" ")}
+            >
+              {ar ? arr : en}
+            </button>
+          ))}
+        </div>
+        {tierView === "compare" ? <TierCompare tiers={tiers} /> : <TierGrid tiers={tiers} />}
         <p className="text-center font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "— كل الفئات قابلة للتخصيص · البنود تُضاف أو تُحذف بعد النقاش · التسعير قابل للتفاوض حسب النطاق والجدول والعلاقة —" : "— All tiers are customizable · Items can be added or removed after discussion · Pricing is negotiable based on scope, timeline, and long-term relationship —"}
         </p>

@@ -74,13 +74,14 @@ export function WorkFilter({
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-end justify-between gap-4">
+    <div className="flex flex-col">
+      <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-2">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.1em] text-text-ghost">
             {ar ? "استكشف حسب التخصص" : "Browse by discipline"}
           </p>
-          <div className="work-filter" role="group" aria-label={ar ? "اختار نوع الأعمال" : "Choose a work type"}>
+          {/* Folder tabs: each discipline is a folder; the panel below is its contents. */}
+          <div className="work-filter work-filter--tabs" role="group" aria-label={ar ? "اختار نوع الأعمال" : "Choose a work type"}>
             {OPTIONS.map((option) => (
               <button
                 key={option.value}
@@ -101,6 +102,10 @@ export function WorkFilter({
           </div>
         </div>
 
+      </div>
+
+      <div className="work-folder__body flex flex-col gap-6">
+        <div className="flex justify-end">
         {filter === "design" ? (
           <div className="work-filter" role="group" aria-label={ar ? "طريقة العرض" : "View as"}>
             {VIEWS.map((item) => (
@@ -122,8 +127,7 @@ export function WorkFilter({
               : "Each product pairs a visual preview with a direct link to its production version."}
           </p>
         )}
-      </div>
-
+        </div>
       {view === "wall" ? (
         <GalleryView projects={galleryProjects} images={galleryImages} embedded />
       ) : (
@@ -148,6 +152,7 @@ export function WorkFilter({
           ) : null}
         </>
       )}
+      </div>
     </div>
   );
 }

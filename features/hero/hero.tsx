@@ -38,6 +38,7 @@ import { StatusNode } from "./status-node";
 import { MetricRow } from "./metric-row";
 import { SystemConstellation } from "./system-constellation";
 import { HeroWall } from "./hero-wall";
+import { HeroBrief } from "./hero-brief";
 import type { HeroWallTile } from "./hero-wall-data";
 import "./hero.css";
 
@@ -104,8 +105,12 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
 
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
       <div className="container-wide relative z-elevated grid flex-1 items-center gap-8 pb-8 pt-0 lg:grid-cols-[1.15fr_0.85fr] lg:pt-6">
+        {/* Outline word along the foot of the composition (desktop, Latin
+            only — the display face has no Arabic). Pure decoration. */}
+        <span aria-hidden className="hero-ghost-word max-lg:hidden rtl:hidden">BRAND</span>
+
         {/* Left — typographic architecture */}
-        <div className="flex flex-col gap-2 lg:gap-3">
+        <div className="relative flex flex-col gap-2 lg:gap-3">
           {/* Live status row — in-flow micro-frame */}
           <div
             className="hero-rise flex flex-wrap items-center gap-2"
@@ -192,6 +197,12 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
               <a href="#selected-work" className="inline-flex min-h-6 items-center gap-2 rounded-pill border border-border-default px-3 py-1.5 font-mono text-label text-text-primary">
                 {t.heroExplore} <Icon name="arrow-down" />
               </a>
+            </div>
+
+            {/* Describe-it-in-a-line: a lower-friction door into the same
+                enquiry form the primary button opens. */}
+            <div className="hero-rise max-sm:hidden" style={{ "--i": 2 } as CSSProperties}>
+              <HeroBrief />
             </div>
 
             <div

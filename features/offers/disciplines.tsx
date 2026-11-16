@@ -154,6 +154,35 @@ export function DisciplineCards({
  * chrome: an English-only heading on the Arabic home page would be the exact
  * bilingual failure this studio sells against.
  */
+const RING_LABEL: Record<Discipline["id"], [string, string, string]> = {
+  brand: ["Brand", "الهوية", "Jenama"],
+  digital: ["Digital", "الرقمي", "Digital"],
+  systems: ["Systems", "الأنظمة", "Sistem"],
+};
+
+/** Three overlapping rings: the disciplines are one system, and each ring is a door. */
+export function DisciplineRings({ highlight }: { highlight?: Discipline["id"] }) {
+  const { lang } = useLang();
+  const ar = lang === "ar";
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="discipline-rings" role="list">
+        {DISCIPLINES.map((d) => (
+          <Link key={d.id} href={d.href} role="listitem" className="discipline-ring" data-lead={highlight === d.id}>
+            <span className="font-mono text-micro text-accent">{d.n}</span>
+            <span className={ar ? "text-subtitle font-semibold text-text-primary" : "font-display text-subtitle tracking-[-0.01em] text-text-primary max-sm:text-body"}>
+              {RING_LABEL[d.id][ar ? 1 : lang === "ms" ? 2 : 0]}
+            </span>
+          </Link>
+        ))}
+      </div>
+      <p className="font-mono text-micro uppercase tracking-[0.12em] text-text-ghost">
+        {ar ? "حيث يتقاطعوا: بيزنس مبني عشان يشتغل" : lang === "ms" ? "Di mana ia bertemu: dibina untuk berfungsi" : "Where they overlap: built to run"}
+      </p>
+    </div>
+  );
+}
+
 export function DisciplinesBand({
   highlight,
   compact = false,
@@ -167,6 +196,7 @@ export function DisciplinesBand({
   const ar = lang === "ar";
   return (
     <div className={joinClasses("flex flex-col gap-4", className)}>
+      <div className="grid items-center gap-4 lg:grid-cols-[1.1fr_0.9fr]">
       <div className="flex max-w-[62ch] flex-col gap-1">
         <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
           {ar ? (
@@ -184,6 +214,8 @@ export function DisciplinesBand({
             ? "أغلب الاستوديوهات بتبيع مهام. الشغل هنا متجمّع حسب النتيجة اللي بينتجها — براند يثق فيه السوق، وطبقة رقمية بتشتغل، وأنظمة بتخلي التشغيل واضح. تقدر تبدأ بواحدة وتضيف الباقي بعدين؛ الاتنين مصممين يوصلوا لبعض."
             : "Most studios sell tasks. The work here is grouped by the outcome it produces — a brand the market trusts, a digital layer that performs, and systems that make the operation visible. Start with one and add the others later; they are designed to connect."}
         </p>
+      </div>
+      <DisciplineRings highlight={highlight} />
       </div>
       <DisciplineCards compact={compact} highlight={highlight} />
     </div>

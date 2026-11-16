@@ -56,9 +56,9 @@ export function ReelsShortcuts() {
         </Link>
       </div>
 
-      <ul className="-mx-3 flex snap-x snap-mandatory scroll-px-3 gap-2 overflow-x-auto px-3 pb-1 md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:w-[min(100%,840px)] lg:shrink-0">
+      <ul className="shelf-focus -mx-3 flex snap-x snap-mandatory gap-2 overflow-x-auto px-[19%] pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:grid-cols-3 md:gap-4 md:overflow-visible md:px-0 md:pb-0 lg:w-[min(100%,840px)] lg:shrink-0">
         {shortcuts.map((s, i) => (
-          <li key={s.key} className="w-[62%] shrink-0 snap-start sm:w-[40%] md:w-auto">
+          <li key={s.key} className="w-full shrink-0 snap-center sm:w-[60%] md:w-auto">
             <ReelCard
               reel={s.reel}
               at={s.at}

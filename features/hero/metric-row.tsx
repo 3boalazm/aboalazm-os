@@ -67,9 +67,10 @@ function MetricCard({ metric }: { metric: Metric }) {
     <motion.div
       variants={reveal.item}
       whileHover="hover"
-      className="group relative flex-1 cursor-default px-3 py-3 first:pl-0 max-sm:basis-[72%] max-sm:shrink-0 max-sm:snap-start max-sm:rounded-card max-sm:border max-sm:border-border-subtle max-sm:bg-surface-1 max-sm:pl-3 sm:py-4"
+      /* sm+: a bento — bordered cards of unequal width (the last, the
+         widest claim, takes two columns and the accent wash). */
+      className="group relative flex-1 cursor-default overflow-hidden rounded-panel border border-border-subtle bg-surface-1 px-3 py-3 last:border-accent-border last:bg-accent/[0.07] max-sm:basis-[72%] max-sm:shrink-0 max-sm:snap-start sm:py-4"
     >
-      <span className="absolute inset-x-0 top-0 h-px bg-border-subtle" />
       <motion.span
         aria-hidden
         className="absolute inset-x-0 top-0 h-px origin-left bg-accent"
@@ -80,7 +81,7 @@ function MetricCard({ metric }: { metric: Metric }) {
       <motion.p
         variants={{ hover: { y: -4 } }}
         transition={physics}
-        className="font-display text-display leading-[1.02] tracking-[-0.025em] text-text-primary max-sm:text-[2.25rem]"
+        className="font-display text-display leading-[1.02] tracking-[-0.025em] text-text-primary max-sm:text-[2.25rem] sm:text-[clamp(1.9rem,3.6vw,3.4rem)]"
       >
         {metric.prefix && <span className="text-text-tertiary">{metric.prefix}</span>}
         {metric.value}
@@ -119,7 +120,7 @@ export function MetricRow() {
         variants={reveal.container}
         initial={reduceMotion ? false : "hidden"}
         animate="visible"
-        className="flex flex-col gap-2 max-sm:-mx-3 max-sm:snap-x max-sm:snap-mandatory max-sm:scroll-px-3 max-sm:flex-row max-sm:overflow-x-auto max-sm:px-3 max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden sm:flex-row sm:gap-4"
+        className="flex flex-col gap-2 max-sm:-mx-3 max-sm:snap-x max-sm:snap-mandatory max-sm:scroll-px-3 max-sm:flex-row max-sm:overflow-x-auto max-sm:px-3 max-sm:pb-1 max-sm:[scrollbar-width:none] max-sm:[&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-[1fr_1.3fr_1.5fr] sm:gap-2"
       >
         {metrics.map((m) => (
           <MetricCard key={m.label} metric={m} />

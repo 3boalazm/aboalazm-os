@@ -1,4 +1,5 @@
 "use client";
+import { CairoClock } from "./cairo-clock";
 import { useT } from "@/hooks/use-t";
 
 /**
@@ -168,6 +169,12 @@ export function Footer() {
         </div>
       </div>
 
+      {/* The name at page width, cropped by its own box — the sign-off.
+          Decorative: the brand is already named in the block above. */}
+      <p aria-hidden className="footer-wordmark container-wide">
+        ABOAL<em>A</em>ZM
+      </p>
+
       {/* pb clears the fixed OS tray: it retracts while you scroll down but
           returns the moment you scroll up, and the last line of a page is
           exactly where people scroll up to check something. */}
@@ -176,7 +183,10 @@ export function Footer() {
           © 2026 MUSTAFA ABOALAZM — {ar ? "جميع الحقوق محفوظة" : lang === "ms" ? "HAK CIPTA TERPELIHARA" : "ALL RIGHTS RESERVED"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "Ctrl + ` يفتح الترمينال" : lang === "ms" ? "TEKAN CTRL + ` UNTUK TERMINAL" : "PRESS CTRL + ` FOR THE TERMINAL"}
+          <CairoClock label={ar ? "العبور، القاهرة" : "AL OBOUR, CAIRO"} />
+        </p>
+        <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost max-sm:hidden">
+          {ar ? "Ctrl + K بحث · Ctrl + ` ترمينال" : lang === "ms" ? "CTRL + K CARI · CTRL + ` TERMINAL" : "CTRL + K SEARCH · CTRL + ` TERMINAL"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "صُمم وبُني داخل الاستوديو" : lang === "ms" ? "DIREKA & DIBINA OLEH STUDIO" : "DESIGNED & BUILT BY THE STUDIO"}

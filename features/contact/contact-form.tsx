@@ -62,6 +62,21 @@ export function ContactForm({ context }: { context?: ContactContext }) {
 
   /* The submit button (focused) leaves the DOM when the form swaps to the
      confirmation, so hand focus to the confirmation instead of dropping it. */
+  /* A one-line brief typed in the home hero is handed over through
+     sessionStorage (never the URL — see lib/contact-context). Read once,
+     drop it into the still-empty field, and clear it. */
+  const briefRef = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    try {
+      const handoff = sessionStorage.getItem("os:brief-handoff");
+      if (!handoff) return;
+      sessionStorage.removeItem("os:brief-handoff");
+      if (briefRef.current && !briefRef.current.value) briefRef.current.value = handoff;
+    } catch {
+      /* storage unavailable */
+    }
+  }, []);
+
   const sentRef = useRef<HTMLParagraphElement>(null);
   useEffect(() => {
     if (status === "sent") sentRef.current?.focus();
@@ -213,6 +228,7 @@ export function ContactForm({ context }: { context?: ContactContext }) {
             <label className="flex flex-col gap-0.5">
               <span className={LABEL}>{t.formBuilding}</span>
               <textarea
+                ref={briefRef}
                 required={!scopeUnknown}
                 name="brief"
                 rows={4}

@@ -356,7 +356,7 @@ export function FeaturedCases({
         className={joinClasses(
           "grid gap-6 md:grid-cols-2 lg:grid-cols-3",
           heading === "home" &&
-            "max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden",
+            "shelf-coverflow max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden",
         )}
       >
         {featured.map((project, i) => (
