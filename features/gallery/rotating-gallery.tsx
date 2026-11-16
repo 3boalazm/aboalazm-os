@@ -264,7 +264,7 @@ export function RotatingGallery({
 
   /* Active project accent for marquee + borders */
   const project = projects.find((p) => p.slug === activeSlug);
-  const accent  = project?.accent ?? "#FF6B47";
+  const accent  = project?.accent ?? "#FF754F";
   const marqLabel = ar
     ? (project?.labelAr ?? "الأعمال")
     : (project?.label  ?? "Selected Work");

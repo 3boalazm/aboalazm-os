@@ -73,11 +73,8 @@ const baseMetadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#080710" },
-    { media: "(prefers-color-scheme: light)", color: "#FBF9F6" },
-  ],
-  colorScheme: "dark light",
+  themeColor: "#0A0D11",
+  colorScheme: "dark",
 };
 
 export function generateStaticParams() { return LOCALES.map((locale) => ({ locale })); }
@@ -105,7 +102,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
   // (data-theme, lang, dir) before/around hydration — React #418
   // false-positive otherwise. Applies to this element's attributes only.
   return (
-    <html lang={locale} dir={localeDir(locale)} className={fontVariables} suppressHydrationWarning>
+    <html lang={locale} dir={localeDir(locale)} data-theme="dark" className={fontVariables} suppressHydrationWarning>
       <head>
         {/* Anti-flash: set data-theme and lang/dir from localStorage before
             first paint, so a returning light-mode or Arabic visitor doesn't

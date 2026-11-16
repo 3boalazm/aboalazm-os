@@ -529,7 +529,7 @@ function CtaBandEditorial({
               className={buttonVariants({
                 variant: "ghost",
                 className:
-                  "inline-flex items-center gap-1.5 bg-alabaster px-3 py-1.5 font-mono text-label tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5",
+                  "inline-flex items-center gap-1.5 bg-accent px-3 py-1.5 font-mono text-label tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5",
               })}
             >
               {pick(primary, lang)}

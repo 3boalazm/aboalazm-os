@@ -47,44 +47,44 @@ export const DURATION = {
 
 /* ── 4 · COLOR ────────────────────────────────────────────────── */
 export const COLOR = {
-  obsidian: "#080710",
+  obsidian: "#0A0D11",
   alabaster: "#FBF9F6",
   surface: {
-    0: "#080710",
-    1: "#0D0C18",
-    2: "#121120",
-    3: "#181729",
+    0: "#0A0D11",
+    1: "#11171D",
+    2: "#182129",
+    3: "#202A33",
   },
   border: {
     subtle: "rgb(255 255 255 / 0.08)",
     default: "rgb(255 255 255 / 0.12)",
     strong: "rgb(255 255 255 / 0.20)",
   },
-  accent: "#FF6B47",
+  accent: "#FF754F",
   /**
    * The sanctioned accent alpha ramp (mirrors --color-accent-* in
    * globals.css @theme). 12 steps so any historical one-off opacity
    * snaps within Δ ≤ 0.05. Never invent an in-between in JS either.
    */
   accentAlpha: {
-    4: "rgb(255 107 71 / 0.04)",
-    8: "rgb(255 107 71 / 0.08)",
-    14: "rgb(255 107 71 / 0.14)",
-    20: "rgb(255 107 71 / 0.20)",
-    24: "rgb(255 107 71 / 0.24)",
-    32: "rgb(255 107 71 / 0.32)",
-    40: "rgb(255 107 71 / 0.40)",
-    48: "rgb(255 107 71 / 0.48)",
-    64: "rgb(255 107 71 / 0.64)",
-    72: "rgb(255 107 71 / 0.72)",
-    80: "rgb(255 107 71 / 0.80)",
-    88: "rgb(255 107 71 / 0.88)",
+    4: "rgb(255 117 79 / 0.04)",
+    8: "rgb(255 117 79 / 0.08)",
+    14: "rgb(255 117 79 / 0.14)",
+    20: "rgb(255 117 79 / 0.20)",
+    24: "rgb(255 117 79 / 0.24)",
+    32: "rgb(255 117 79 / 0.32)",
+    40: "rgb(255 117 79 / 0.40)",
+    48: "rgb(255 117 79 / 0.48)",
+    64: "rgb(255 117 79 / 0.64)",
+    72: "rgb(255 117 79 / 0.72)",
+    80: "rgb(255 117 79 / 0.80)",
+    88: "rgb(255 117 79 / 0.88)",
   },
   /** Expressive supporting roles — meaning carriers, never decoration. */
   roles: {
-    creative: "#8B5CF6", // violet — creative intelligence / experimental
-    live: "#22D3EE", // cyan    — live system / digital surface
-    proof: "#A3E635", // lime    — shipped result / forward energy
+    creative: "#D0B7FF", // violet — creative intelligence / experimental
+    live: "#78E0D5", // teal — live system / digital surface / interaction
+    proof: "#D6E995", // citron — shipped result / forward energy
   },
   /**
    * Full role ramps (mirrors --color-cyan-* / --color-lime-* in
@@ -96,7 +96,7 @@ export const COLOR = {
     100: "#CFFAFE",
     200: "#A5F3FC",
     300: "#67E8F9", // dark-mode text tint
-    400: "#22D3EE", // role base
+    400: "#78E0D5", // contrast-safe dark-mode role
     500: "#06B6D4", // hover / interactive
     600: "#0891B2", // pressed / emphasis
     700: "#0E7490", // light-mode text
@@ -106,7 +106,7 @@ export const COLOR = {
     100: "#ECFCCB",
     200: "#D9F99D",
     300: "#BEF264", // dark-mode text tint
-    400: "#A3E635", // role base
+    400: "#D6E995", // contrast-safe dark-mode role
     500: "#84CC16", // hover / interactive
     600: "#65A30D", // pressed / emphasis
     700: "#4D7C0F", // light-mode text
@@ -118,10 +118,10 @@ export const COLOR = {
    * custom property instead of these constants.
    */
   status: {
-    success: "#34D399",
-    warning: "#FBBF24",
-    danger: "#F87171",
-    info: "#60A5FA",
+    success: "#79E3AA",
+    warning: "#FFD27A",
+    danger: "#FF9A9A",
+    info: "#9CCBFF",
   },
 } as const;
 
@@ -138,7 +138,7 @@ export const CONTROL = {
  * CSS custom properties --glow-1 / --glow-2.
  */
 export interface ProjectAccent {
-  /** Primary glow, e.g. "rgb(255 107 71 / 0.22)" */
+  /** Primary glow, e.g. "rgb(255 117 79 / 0.22)" */
   primary: string;
   /** Secondary glow — usually a cooler complement at lower alpha */
   secondary: string;

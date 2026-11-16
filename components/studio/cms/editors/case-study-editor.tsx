@@ -122,7 +122,7 @@ export function CaseStudyEditor({
   const [name, setName] = useState(String(doc.name ?? ""));
   const [nameAr, setNameAr] = useState(String(doc.nameAr ?? ""));
   const [discipline, setDiscipline] = useState(String(doc.discipline ?? ""));
-  const [primaryGlow, setPrimaryGlow] = useState(String(accent.primary ?? "rgba(255, 107, 71, 0.18)"));
+  const [primaryGlow, setPrimaryGlow] = useState(String(accent.primary ?? "rgba(255, 117, 79, 0.18)"));
   const [secondaryGlow, setSecondaryGlow] = useState(String(accent.secondary ?? "rgba(96, 165, 250, 0.14)"));
 
   const [problem, setProblem] = useState(String(doc.problem ?? ""));

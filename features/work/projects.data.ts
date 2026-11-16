@@ -149,7 +149,7 @@ export const PROJECTS: readonly Project[] = [
     hasCaseStudy: true,
     accent: {
       primary: "rgb(255 200 60 / 0.18)",
-      secondary: "rgb(255 107 71 / 0.10)",
+      secondary: "rgb(255 117 79 / 0.10)",
     },
   },
   {

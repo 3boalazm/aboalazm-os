@@ -1,0 +1,110 @@
+.home-index {
+  position: relative;
+  z-index: 2;
+  margin-block: clamp(1.25rem, 3vw, 2rem) clamp(2rem, 5vw, 4rem);
+  padding-block: 1rem 0;
+  border-top: 1px solid var(--color-border-default);
+}
+
+.home-index__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+  color: var(--color-text-tertiary);
+  font: 600 0.7rem/1.3 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.home-index__rule {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--color-border-default);
+}
+
+.home-index__hint {
+  color: var(--color-text-ghost);
+}
+
+.home-index__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-index__link {
+  display: grid;
+  min-height: 3.6rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.6rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-physics), background-color var(--duration-fast) var(--ease-physics);
+}
+
+.home-index__link:hover,
+.home-index__link:focus-visible {
+  color: var(--color-text-primary);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--chapter-accent) 9%, transparent), transparent 82%);
+}
+
+.home-index__link:focus-visible {
+  outline: 2px solid var(--chapter-accent);
+  outline-offset: 3px;
+}
+
+.home-index__number {
+  color: var(--chapter-accent);
+  font: 500 0.72rem/1 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.home-index__name {
+  min-width: 0;
+  font: 600 0.94rem/1.25 var(--font-sans);
+  letter-spacing: -0.02em;
+}
+
+.home-index__arrow {
+  color: var(--chapter-accent);
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast) var(--ease-physics);
+}
+
+.home-index__link:hover .home-index__arrow,
+.home-index__link:focus-visible .home-index__arrow {
+  transform: rotate(-45deg) translateY(2px);
+}
+
+[dir="rtl"] .home-index__link:hover,
+[dir="rtl"] .home-index__link:focus-visible {
+  background: linear-gradient(270deg, color-mix(in srgb, var(--chapter-accent) 9%, transparent), transparent 82%);
+}
+
+[dir="rtl"] .home-index__eyebrow {
+  letter-spacing: 0;
+}
+
+@media (min-width: 768px) {
+  .home-index__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 1.25rem;
+  }
+
+  .home-index__link {
+    min-height: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-index__link,
+  .home-index__arrow {
+    transition: none;
+  }
+}

@@ -198,7 +198,7 @@ async function vAbout() {
   const stats: [string, string][] = [["09", "YEARS"], ["20+", "CLIENTS"], ["AR·EN", "BILINGUAL"]];
   return (
     <Stage style={{ padding: 28, alignItems: "center", justifyContent: "space-between" }}>
-      <div style={flex({ marginTop: 6, width: 226, height: 226, borderRadius: 999, border: `4px solid ${C.accent}`, overflow: "hidden", boxShadow: "0 0 80px rgba(255,107,71,0.35)" })}>
+      <div style={flex({ marginTop: 6, width: 226, height: 226, borderRadius: 999, border: `4px solid ${C.accent}`, overflow: "hidden", boxShadow: "0 0 80px rgba(255,117,79,0.35)" })}>
         {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
         {i.icon ? <img src={i.icon} width="100%" height="100%" style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : null}
       </div>
@@ -274,8 +274,8 @@ async function vServices() {
             key={n}
             style={flex({
               alignItems: "center", gap: 18, padding: "20px 22px", borderRadius: 16,
-              border: `1px solid ${idx === 0 ? "rgba(255,107,71,0.55)" : C.line}`,
-              background: idx === 0 ? "rgba(255,107,71,0.1)" : "rgba(255,255,255,0.025)",
+              border: `1px solid ${idx === 0 ? "rgba(255,117,79,0.55)" : C.line}`,
+              background: idx === 0 ? "rgba(255,117,79,0.1)" : "rgba(255,255,255,0.025)",
             })}
           >
             <div style={flex({ fontFamily: F_EN, fontSize: 16, color: idx === 0 ? C.accent : C.text3, width: 30 })}>{n}</div>
@@ -310,9 +310,9 @@ async function vPricing() {
             style={flex({
               alignItems: "center", justifyContent: "space-between", padding: t.hot ? "22px 22px" : "18px 22px",
               borderRadius: 18, position: "relative",
-              border: `1px solid ${t.hot ? "rgba(255,107,71,0.7)" : C.line}`,
-              background: t.hot ? "rgba(255,107,71,0.1)" : "rgba(255,255,255,0.03)",
-              boxShadow: t.hot ? "0 0 50px rgba(255,107,71,0.18)" : "none",
+              border: `1px solid ${t.hot ? "rgba(255,117,79,0.7)" : C.line}`,
+              background: t.hot ? "rgba(255,117,79,0.1)" : "rgba(255,255,255,0.03)",
+              boxShadow: t.hot ? "0 0 50px rgba(255,117,79,0.18)" : "none",
             })}
           >
             <div style={col({ gap: 6, maxWidth: 210 })}>
@@ -386,7 +386,7 @@ async function vWhy() {
     <Stage style={{ padding: 28, alignItems: "center", justifyContent: "space-between" }}>
       <Label color={C.accent} size={14}>One source · every output</Label>
       <div style={col({ alignItems: "center", width: "100%" })}>
-        <div style={flex({ padding: "20px 34px", borderRadius: 20, background: C.accent, color: C.bg, fontFamily: F_EN, fontSize: 28, letterSpacing: "-0.01em", boxShadow: "0 0 60px rgba(255,107,71,0.4)" })}>
+        <div style={flex({ padding: "20px 34px", borderRadius: 20, background: C.accent, color: C.bg, fontFamily: F_EN, fontSize: 28, letterSpacing: "-0.01em", boxShadow: "0 0 60px rgba(255,117,79,0.4)" })}>
           THE SYSTEM
         </div>
         <div style={flex({ width: 2, height: 36, background: C.line })} />
@@ -536,7 +536,7 @@ async function vResources() {
     <Stage style={{ padding: 24 }}>
       <div style={flex({ flexWrap: "wrap", gap: 12, flex: 1 })}>
         {t.map((n, i) => (
-          <div key={n} style={col({ width: 200, height: 110, justifyContent: "space-between", padding: "14px 16px", borderRadius: 16, border: `1px solid ${i === 0 ? "rgba(255,107,71,0.6)" : C.line}`, background: i === 0 ? "rgba(255,107,71,0.1)" : "rgba(255,255,255,0.03)" })}>
+          <div key={n} style={col({ width: 200, height: 110, justifyContent: "space-between", padding: "14px 16px", borderRadius: 16, border: `1px solid ${i === 0 ? "rgba(255,117,79,0.6)" : C.line}`, background: i === 0 ? "rgba(255,117,79,0.1)" : "rgba(255,255,255,0.03)" })}>
             <div style={flex({ justifyContent: "space-between", alignItems: "center" })}>
               <div style={flex({ fontFamily: F_EN, fontSize: 14, color: colors[i] })}>{String(i + 1).padStart(2, "0")}</div>
               <Dot color={colors[i]!} size={8} />

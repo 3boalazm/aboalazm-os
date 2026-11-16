@@ -63,7 +63,7 @@ export function DockSlider({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="h-1 w-full cursor-ew-resize appearance-none rounded-pill bg-border-default accent-[#FF6B47] outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-accent"
+        className="h-1 w-full cursor-ew-resize appearance-none rounded-pill bg-border-default accent-[#FF754F] outline-none focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-accent"
         aria-label={`${label}: ${value}${unit}`}
       />
     </label>

@@ -24,7 +24,7 @@ export const C = {
   bg: "#080710",
   panel: "#100E1B",
   panel2: "#16132A",
-  accent: "#FF6B47",
+  accent: "#FF754F",
   cyan: "#48CCCC",
   mint: "#06D6A0",
   violet: "#7850C8",
@@ -113,7 +113,7 @@ export function Pic({
 export function Chip({ children, tone = "ghost" }: { children: ReactNode; tone?: "ghost" | "accent" | "solid" }) {
   const t =
     tone === "accent"
-      ? { color: C.accent, border: `1px solid rgba(255,107,71,0.5)`, background: "rgba(255,107,71,0.1)" }
+      ? { color: C.accent, border: `1px solid rgba(255,117,79,0.5)`, background: "rgba(255,117,79,0.1)" }
       : tone === "solid"
         ? { color: C.bg, border: `1px solid ${C.text}`, background: C.text }
         : { color: C.text2, border: `1px solid ${C.line}`, background: "rgba(255,255,255,0.04)" };
@@ -194,7 +194,7 @@ export function Shell({ idx, eyebrow, tagAr, title, hot = true, desc, route, chi
       <div
         style={{
           position: "absolute", right: -160, top: -200, width: 760, height: 760, display: "flex",
-          backgroundImage: "radial-gradient(closest-side, rgba(255,107,71,0.20), rgba(255,107,71,0) 70%)",
+          backgroundImage: "radial-gradient(closest-side, rgba(255,117,79,0.20), rgba(255,117,79,0) 70%)",
         }}
       />
       <div

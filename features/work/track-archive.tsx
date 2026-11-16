@@ -22,7 +22,7 @@ import type { Project, ProjectCategory } from "./types";
 type SubFilter = "all" | "case-studies" | "wall";
 
 const DESIGN_MOOD = {
-  primary: "rgb(255 107 71 / 0.12)",
+  primary: "rgb(255 117 79 / 0.12)",
   secondary: "rgb(139 92 246 / 0.08)",
 } as const;
 

@@ -26,7 +26,7 @@ const RotatingGallery = dynamic(
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const ALL_ACCENT = "#FF6B47";
+const ALL_ACCENT = "#FF754F";
 
 interface GalleryData {
   projects: readonly GalleryProject[];

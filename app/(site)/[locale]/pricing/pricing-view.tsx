@@ -31,7 +31,7 @@ import { SocialProof } from "@/components/shared/social-proof";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
 
 const PRICING_MOOD = {
-  primary: "rgb(255 107 71 / 0.10)",
+  primary: "rgb(255 117 79 / 0.10)",
   secondary: "rgb(163 230 53 / 0.05)",
 } as const;
 

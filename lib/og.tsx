@@ -20,7 +20,7 @@ export const OG_SIZE = { width: 1200, height: 630 };
 export const OG_CONTENT_TYPE = "image/png";
 
 const OBSIDIAN = "#080710";
-const ACCENT = "#FF6B47";
+const ACCENT = "#FF754F";
 const TEXT_SECONDARY = "rgba(255,255,255,0.72)";
 const TEXT_GHOST = "rgba(255,255,255,0.4)";
 
@@ -72,7 +72,7 @@ export function OgCard({
         justifyContent: "space-between",
         padding: "72px 80px",
         background: OBSIDIAN,
-        backgroundImage: `radial-gradient(closest-side, rgba(255,107,71,0.16), transparent 70%)`,
+        backgroundImage: `radial-gradient(closest-side, rgba(255,117,79,0.16), transparent 70%)`,
         backgroundPosition: "top right",
         backgroundSize: "900px 900px",
         backgroundRepeat: "no-repeat",

@@ -62,7 +62,7 @@ const UI = {
     pass: "Pass",
     fail: "Fail",
     sample: "The quick brown fox",
-    invalid: "Enter a valid hex color (e.g. #FF6B47)",
+    invalid: "Enter a valid hex color (e.g. #FF754F)",
   },
   ar: {
     title: "فاحص التباين",
@@ -77,7 +77,7 @@ const UI = {
     pass: "ناجح",
     fail: "راسب",
     sample: "نص تجريبي للقراءة",
-    invalid: "أدخل لون hex صالح (مثل #FF6B47)",
+    invalid: "أدخل لون hex صالح (مثل #FF754F)",
   },
 } as const;
 

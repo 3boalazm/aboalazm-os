@@ -18,7 +18,7 @@ const CHANNELS = [
   { en: "WhatsApp", ar: "واتساب", label: "+20 109 250 0454", href: "https://wa.me/201092500454" },
   { en: "Email", ar: "إيميل", label: CONTACT_EMAIL, href: CONTACT_EMAIL_HREF },
 ] as const;
-const CORAL = { primary: "rgb(255 107 71 / 0.16)", secondary: "rgb(255 168 120 / 0.08)" };
+const CORAL = { primary: "rgb(255 117 79 / 0.16)", secondary: "rgb(255 168 120 / 0.08)" };
 
 export function ContactView({ context }: { context?: ContactContext }) {
   const { lang } = useLang();

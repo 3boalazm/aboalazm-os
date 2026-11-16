@@ -2,13 +2,12 @@
 
 /**
  * COMMAND PALETTE — Ctrl/⌘ + K. The OS already has a terminal (Ctrl + `);
- * this is its quick-launcher: jump to any page or reel, switch language or
- * theme, without touching the nav. Static index — no network on open.
+ * this is its quick-launcher: jump to any page or reel, or switch language,
+ * without touching the nav. Static index — no network on open.
  */
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useLang } from "@/components/providers/lang-provider";
-import { useTheme } from "@/components/providers/theme-provider";
 import { Icon } from "@/components/ui/Icon";
 import { localeHref, type Locale } from "@/lib/locale";
 import { REELS } from "@/features/reels/reels.data";
@@ -37,7 +36,6 @@ const PAGES: [href: string, en: string, ar: string, kw?: string][] = [
 
 export function CommandPalette() {
   const { lang, setLang } = useLang();
-  const { toggle } = useTheme();
   const router = useRouter();
   const ar = lang === "ar";
   const [open, setOpen] = React.useState(false);
@@ -81,7 +79,6 @@ export function CommandPalette() {
         run: () => setLang(l),
       }));
     const actions: Item[] = [
-      { id: "theme", group: ["Actions", "أوامر"], label: ["Toggle light / dark", "بدّل الوضع الفاتح / الداكن"], hint: "◐", keywords: "theme mode", run: toggle },
       {
         id: "terminal",
         group: ["Actions", "أوامر"],
@@ -93,7 +90,7 @@ export function CommandPalette() {
       ...langs,
     ];
     return [...pages, ...reels, ...actions];
-  }, [lang, router, setLang, toggle]);
+  }, [lang, router, setLang]);
 
   const results = React.useMemo(() => {
     const needle = q.trim().toLowerCase();

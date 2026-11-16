@@ -19,6 +19,7 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { SocialProof } from "@/components/shared/social-proof";
 import { DisciplinesBand, StudioModelBand } from "@/features/offers/disciplines";
 import { StartFunnel } from "@/features/offers/start-funnel";
+import { HomeIndex } from "@/features/home/home-index";
 
 
 export const revalidate = 60;
@@ -61,6 +62,7 @@ export default async function Home() {
 
       {/* 00 · Who you are buying, and what the studio does */}
       <Hero wall={pickHeroWall(projects)} />
+      <HomeIndex />
 
       {/* 01 · The three disciplines — read before the proof */}
       <section className="narrative-section narrative-section--cta narrative-raise">
@@ -147,7 +149,7 @@ export default async function Home() {
       <PhotoStrip />
 
       {/* 07 · Process & Methodology */}
-      <section className="narrative-section narrative-section--process narrative-raise">
+      <section id="home-process" className="narrative-section narrative-section--process narrative-raise">
         <div className="container-wide">
           <SectionMarker index="07" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
         </div>
@@ -193,7 +195,7 @@ export default async function Home() {
       </section>
 
       {/* 11 · The thinking — journal teaser inside the funnel */}
-      <section className="narrative-section narrative-section--proof narrative-raise">
+      <section id="home-writing" className="narrative-section narrative-section--proof narrative-raise">
         <div className="container-wide">
           <SectionMarker index="11" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
         </div>

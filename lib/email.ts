@@ -93,7 +93,7 @@ export async function sendContactNotification(d: ContactEmailPayload): Promise<b
   const html = `
   <div style="background:#080710;padding:32px 24px;font-family:system-ui,sans-serif">
     <div style="max-width:560px;margin:0 auto">
-      <p style="margin:0 0 4px;font-family:monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#FF6B47">New commission brief</p>
+      <p style="margin:0 0 4px;font-family:monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#FF754F">New commission brief</p>
       <h1 style="margin:0 0 20px;font-size:20px;color:#f8f8fa">${esc(d.name)}</h1>
       <table style="border-collapse:collapse;background:#0d0c18;border:1px solid rgba(255,255,255,0.10);border-radius:12px;padding:16px;width:100%">
         ${row("Email", d.email)}

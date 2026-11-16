@@ -42,7 +42,7 @@ export function ProjectEditor({
   const [outcome, setOutcome] = useState(String(doc.outcome ?? ""));
   const [outcomeAr, setOutcomeAr] = useState(String(doc.outcomeAr ?? ""));
   const [thumbnail, setThumbnail] = useState<MediaRef | null>(() => normalizeMediaRef(doc.thumbnail));
-  const [primaryGlow, setPrimaryGlow] = useState(String(accent.primary ?? "rgba(255, 107, 71, 0.18)"));
+  const [primaryGlow, setPrimaryGlow] = useState(String(accent.primary ?? "rgba(255, 117, 79, 0.18)"));
   const [secondaryGlow, setSecondaryGlow] = useState(String(accent.secondary ?? "rgba(96, 165, 250, 0.14)"));
   const [externalUrl, setExternalUrl] = useState(String(doc.externalUrl ?? ""));
   const [liveUrl, setLiveUrl] = useState(String(doc.liveUrl ?? ""));
