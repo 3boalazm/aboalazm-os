@@ -17,7 +17,6 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { physics } from "@/lib/motion";
 import { useLang, type Lang } from "@/components/providers/lang-provider";
 import { localeHref, type Locale } from "@/lib/locale";
-import { useTheme } from "@/components/providers/theme-provider";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SkipLink } from "./skip-link";
@@ -100,7 +99,6 @@ export function Nav() {
   const t = useT();
   const pathname = usePathname().replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
   const { lang, setLang } = useLang();
-  const { theme, toggle: toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [langMenu, setLangMenu] = useState(false);
@@ -340,21 +338,6 @@ export function Nav() {
           </AnimatePresence>
         </div>
 
-        {/* Theme flip — Obsidian (dark) / Alabaster (light) */}
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label={
-            lang === "ar"
-              ? theme === "dark" ? "الوضع الفاتح" : "الوضع الداكن"
-              : lang === "ms"
-                ? theme === "dark" ? "Tukar ke mod cerah" : "Tukar ke mod gelap"
-                : theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
-          }
-          className={`${NAV_CONTROL} max-[359px]:hidden`}
-        >
-          <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
-        </button>
 
         <Link
           href="/contact"
