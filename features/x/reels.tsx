@@ -20,7 +20,7 @@ export function Reels() {
   if (shortcuts.length === 0) return null;
 
   return (
-    <section id="watch" className="x-room ground-ink">
+    <section id="watch" className="x-room x-iris ground-ink">
       <Chapter
         n="04"
         kicker={t("Watch it run", "شوفه بيشتغل", "Lihat ia berjalan")}
@@ -48,6 +48,7 @@ export function Reels() {
               key={s.key}
               type="button"
               className="x-phone"
+              data-cursor={t("Play", "شغّل", "Main")}
               onClick={() => {
                 trackEvent("reel_open", { slug: s.reel.slug, surface: "x_reels" });
                 setOpen(s);

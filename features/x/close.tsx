@@ -55,7 +55,7 @@ export function Close() {
   };
 
   return (
-    <section id="start" className="x-close">
+    <section id="start" className="x-close x-iris">
       <div aria-hidden className="x-close__sun" />
       <div className="x-wrap">
         <div className="mb-6 text-center">

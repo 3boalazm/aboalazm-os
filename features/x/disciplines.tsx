@@ -24,7 +24,7 @@ export function Disciplines() {
   const i = ar ? 1 : 0;
 
   return (
-    <section id="offer" className="x-room ground-ember">
+    <section id="offer" className="x-room x-iris ground-ember">
       <Chapter
         n="02"
         kicker={t("What the studio builds", "اللي الاستوديو بيبنيه", "Apa yang studio bina")}

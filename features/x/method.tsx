@@ -17,7 +17,7 @@ export function Method() {
   const { scrollYProgress } = useScroll({ target: rail, offset: ["start 0.85", "end 0.6"] });
 
   return (
-    <section id="method" className="x-room ground-ember">
+    <section id="method" className="x-room x-iris ground-ember">
       <Chapter
         n="06"
         kicker={t("How it starts", "إزاي بنبدأ", "Bagaimana ia bermula")}

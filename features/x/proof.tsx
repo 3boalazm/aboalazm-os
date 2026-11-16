@@ -30,7 +30,7 @@ export function Proof() {
   const k = lang === "ar" ? 1 : lang === "ms" ? 2 : 0;
 
   return (
-    <section id="studio" className="x-room ground-base">
+    <section id="studio" className="x-room x-iris ground-base">
       <Chapter
         n="05"
         kicker={t("Proof & studio", "الدليل والاستوديو", "Bukti & studio")}

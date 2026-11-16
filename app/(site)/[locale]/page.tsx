@@ -10,6 +10,7 @@ import { Reels } from "@/features/x/reels";
 import { Proof } from "@/features/x/proof";
 import { Method } from "@/features/x/method";
 import { Close } from "@/features/x/close";
+import { Tape } from "@/features/x/tape";
 
 export const revalidate = 60;
 
@@ -48,6 +49,10 @@ export default async function Home() {
       <Portal />
       <Manifesto />
       <Disciplines />
+      <Tape
+        a={["Brand identity", "Digital experience", "Business systems"]}
+        b={["English", "العربية", "Bahasa Melayu", "Built to run"]}
+      />
       <WorkTrack identity={identity} digital={digital} />
       <Reels />
       <Proof />

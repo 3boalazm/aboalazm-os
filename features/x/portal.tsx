@@ -12,7 +12,7 @@
  */
 import Image from "next/image";
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import Link from "@/components/ui/localized-link";
 import { CairoClock } from "@/components/layout/cairo-clock";
 import { Arrow, useX } from "./shared";
@@ -27,24 +27,45 @@ export function Portal() {
   const left = useTransform(scrollYProgress, [0, 0.6], ["0vw", reduce ? "0vw" : ar ? "18vw" : "-18vw"]);
   const right = useTransform(scrollYProgress, [0, 0.6], ["0vw", reduce ? "0vw" : ar ? "-18vw" : "18vw"]);
   const fade = useTransform(scrollYProgress, [0, 0.45], [1, reduce ? 1 : 0]);
+  /* Pointer parallax: sun, ring and claim drift on different depths. */
+  const mx = useSpring(useMotionValue(0), { stiffness: 60, damping: 18 });
+  const sunX = useTransform(mx, (v) => v * -36);
+  const ringX = useTransform(mx, (v) => v * -80);
+  const titleX = useTransform(mx, (v) => v * 46);
   const veil = useTransform(scrollYProgress, [0.55, 0.95], [0, reduce ? 0 : 1]);
 
   return (
-    <section ref={ref} className="x-portal ground-base" aria-label={t("Aboalazm OS — studio", "Aboalazm OS — الاستوديو", "Aboalazm OS — studio")}>
+    <section
+      ref={ref}
+      onPointerMove={(e) => !reduce && e.pointerType === "mouse" && mx.set(e.clientX / window.innerWidth - 0.5)}
+      className="x-portal ground-base" aria-label={t("Aboalazm OS — studio", "Aboalazm OS — الاستوديو", "Aboalazm OS — studio")}>
       <div className="x-portal__pin">
         <div aria-hidden className="x-portal__halo" />
-        <motion.div aria-hidden className="x-portal__sun" style={{ scale: sunScale, y: sunY }}>
+        <motion.div aria-hidden className="x-portal__sun" style={{ scale: sunScale, y: sunY, x: sunX }}>
           <Image src="/images/generated/hero-poster.jpg" alt="" fill priority sizes="(min-width: 768px) 70vh, 150vw" />
         </motion.div>
 
+        <motion.div aria-hidden className="x-portal__orbit" style={{ scale: sunScale, opacity: fade, x: ringX }}>
+          <svg viewBox="0 0 1000 1000">
+            <defs>
+              <path id="x-orbit" d="M500,500 m-470,0 a470,470 0 1,1 940,0 a470,470 0 1,1 -940,0" />
+            </defs>
+            <text>
+              <textPath href="#x-orbit" textLength="2940">
+                Aboalazm OS ✺ Built to run ✺ Brand identity ✺ Digital experience ✺ Business systems ✺ Arabic · English · Bahasa Melayu ✺
+              </textPath>
+            </text>
+          </svg>
+        </motion.div>
+
         {/* The claim, split around the sun. */}
-        <h1 className="x-display x-portal__title">
+        <motion.h1 className="x-display x-portal__title" style={{ x: titleX }}>
           <motion.span style={{ x: left, opacity: fade }}>{t("Built", "مبنية", "Dibina")}</motion.span>
           <motion.span style={{ x: right, opacity: fade }}>
             {t("to run", "لتشتغل", "untuk jalan")}
             <em>.</em>
           </motion.span>
-        </h1>
+        </motion.h1>
 
         <motion.div className="x-portal__hud" style={{ opacity: fade }}>
           <p className="x-mono x-hud-tl">

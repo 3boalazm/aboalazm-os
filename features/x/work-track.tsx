@@ -9,7 +9,7 @@
  */
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
 import Link from "@/components/ui/localized-link";
 import { pickFeatured } from "@/features/work/featured-cases";
 import { cardArt } from "@/features/work/card-art";
@@ -53,6 +53,8 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
 
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0, 1], [0, ar ? distance : -distance]);
+  /* The reel leans into the scroll: faster scroll, more lean. */
+  const lean = useSpring(useTransform(useVelocity(scrollYProgress), [-0.5, 0.5], [7, -7], { clamp: true }), { stiffness: 180, damping: 28 });
 
   return (
     <section
@@ -64,7 +66,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
       aria-label={t("Selected work", "أعمال مختارة", "Kerja terpilih")}
     >
       <div className="x-work__pin">
-        <motion.div ref={track} className="x-work__track" style={pinned ? { x } : undefined}>
+        <motion.div ref={track} className="x-work__track" style={pinned ? { x, skewX: lean } : undefined}>
           <div className="x-slide x-slide--intro max-lg:pt-20">
             <div className="grid gap-4">
               <p className="x-mono x-kicker">03 — {t("Selected work", "أعمال مختارة", "Kerja terpilih")}</p>
@@ -93,6 +95,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
                 <Link
                   href={href}
                   className="x-card"
+                  data-cursor={t("Open", "افتح", "Buka")}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   onClick={() => p.hasCaseStudy && trackEvent("case_study_open", { slug: p.slug, surface: "x_work" })}
                 >

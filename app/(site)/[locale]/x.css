@@ -504,3 +504,73 @@ html[dir="rtl"] .x-menu__link:hover span:last-child { translate: -0.5rem 0; }
   .x-rise { animation: none; }
   .x-close__sun { animation: none; }
 }
+
+/* ==========================================================================
+   X · BOLD PASS (2026-11-16) — boot, iris rooms, tape, orbit ring, cursor.
+   ========================================================================== */
+
+/* BOOT — once per session; opens through a growing circle. */
+@property --x-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --x-n { syntax: "<integer>"; inherits: false; initial-value: 0; }
+.x-boot {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  background: #050407; color: rgb(248 248 250);
+  display: grid; place-items: center;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--x-r), #000 calc(var(--x-r) + 2px));
+          mask-image: radial-gradient(circle at 50% 50%, transparent var(--x-r), #000 calc(var(--x-r) + 2px));
+  animation: x-boot-open 1s 1.3s cubic-bezier(.7,0,.2,1) forwards;
+}
+html[data-booted] .x-boot { display: none; }
+@keyframes x-boot-open { 0% { --x-r: 0px; opacity: 1; } 96% { --x-r: 120vmax; opacity: 1; } 100% { --x-r: 120vmax; opacity: 0; visibility: hidden; } }
+.x-boot__n { font-family: var(--font-display); font-size: clamp(6rem, 24vw, 19rem); line-height: 0.8; letter-spacing: -0.05em; counter-reset: n var(--x-n); animation: x-boot-count 1.2s cubic-bezier(.3,0,.2,1) forwards; }
+.x-boot__n::after { content: counter(n); }
+@keyframes x-boot-count { to { --x-n: 100; } }
+.x-boot__top, .x-boot__bot { position: absolute; inset-inline: 0; text-align: center; color: rgb(248 248 250 / 0.6); }
+.x-boot__top { top: 2rem; } .x-boot__bot { bottom: 2rem; }
+.x-boot__bar { position: absolute; inset-inline: 0; bottom: 0; height: 4px; }
+.x-boot__bar i { display: block; height: 100%; background: #FF6B47; transform-origin: left; animation: x-boot-bar 1.2s cubic-bezier(.3,0,.2,1) forwards; }
+@keyframes x-boot-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* IRIS — each room rises through a dome, the portal motif at page scale. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .x-iris { animation: x-iris linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+    @keyframes x-iris {
+      0% { clip-path: circle(5vmax at 50% 0); }
+      45% { clip-path: circle(34vmax at 50% 0); }
+      85% { clip-path: circle(72vmax at 50% 0); }
+      100% { clip-path: circle(900vmax at 50% 0); }
+    }
+  }
+}
+
+/* TAPE — crossed ribbons. */
+.x-tape { position: relative; overflow: clip; background: var(--color-surface-0); padding-block: clamp(4.5rem, 11vw, 9rem); }
+.x-tape__band { width: 150vw; margin-inline-start: -25vw; }
+.x-tape__band--hot { rotate: -4deg; background: #FF6B47; color: #0B0709; box-shadow: 0 30px 80px rgb(255 107 71 / 0.25); position: relative; }
+.x-tape__band--line { rotate: 3.5deg; position: absolute; top: 50%; translate: 0 -50%; background: var(--color-surface-1); border-block: 1px solid var(--color-border-default); color: transparent; -webkit-text-stroke: 1px var(--color-text-secondary); }
+.x-tape__row { display: flex; gap: 1.5rem; width: max-content; white-space: nowrap; padding-block: 0.7rem; font-family: var(--font-display); font-size: clamp(1.8rem, 5vw, 4.6rem); line-height: 1; text-transform: uppercase; letter-spacing: -0.03em; }
+.x-tape__row span { display: inline-flex; gap: 1.5rem; align-items: center; }
+.x-tape__row b { font-weight: 400; font-size: 0.7em; }
+
+/* ORBIT — a ring of type turning around the sun. */
+.x-portal__orbit { -webkit-mask-image: linear-gradient(#000 58%, transparent 80%); mask-image: linear-gradient(#000 58%, transparent 80%); position: absolute; left: 50%; top: 45%; width: min(90svh, 128vw); aspect-ratio: 1; translate: -50% -50%; z-index: 0; pointer-events: none; }
+.x-portal__orbit svg { width: 100%; height: 100%; animation: x-spin 60s linear infinite; overflow: visible; }
+.x-portal__orbit text { font-family: var(--font-mono); font-size: 19px; letter-spacing: 0.3em; fill: rgb(248 248 250 / 0.5); text-transform: uppercase; }
+@keyframes x-spin { to { rotate: 360deg; } }
+@media (max-width: 767px) { .x-portal__orbit { width: 132vw; top: 48%; } .x-portal__orbit text { font-size: 24px; } }
+
+/* CURSOR */
+.x-cursor { position: fixed; left: 0; top: 0; z-index: 150; pointer-events: none; width: 0; height: 0; }
+.x-cursor span {
+  position: absolute; translate: -50% -50%;
+  width: 12px; height: 12px; border-radius: 999px;
+  background: #FF6B47; color: #0B0709; border: 1px solid #FF6B47;
+  display: grid; place-items: center; overflow: hidden;
+  font-family: var(--font-mono); font-size: 0; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: width .35s cubic-bezier(.2,.8,.2,1), height .35s cubic-bezier(.2,.8,.2,1), background .25s, font-size .2s;
+}
+.x-cursor[data-hot="true"] span { width: 54px; height: 54px; background: rgb(255 107 71 / 0.12); }
+.x-cursor[data-label="true"] span { width: 96px; height: 96px; font-size: 11px; box-shadow: 0 0 50px rgb(255 107 71 / 0.5); }
+
+@media (prefers-reduced-motion: reduce) { .x-boot { display: none; } .x-portal__orbit svg { animation: none; } }
