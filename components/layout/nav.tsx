@@ -457,20 +457,6 @@ export function Nav() {
                 })}
               </div>
             </li>
-            {/* The bar hides its theme toggle below 360px (no room), so the
-                panel carries it there. */}
-            <li className="hidden border-t border-border-subtle pt-1 max-[359px]:block">
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="flex w-full items-center gap-1.5 rounded-card px-2 py-2 font-display font-display-sm text-micro uppercase tracking-[0.08em] text-text-secondary transition-colors duration-base ease-physics hover:bg-surface-2 hover:text-text-primary"
-              >
-                <Icon name={theme === "dark" ? "sun" : "moon"} size={14} />
-                {theme === "dark"
-                  ? lang === "ar" ? "الوضع الفاتح" : "LIGHT MODE"
-                  : lang === "ar" ? "الوضع الداكن" : "DARK MODE"}
-              </button>
-            </li>
           </motion.ul>
         )}
       </AnimatePresence>
