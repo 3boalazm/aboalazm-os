@@ -177,16 +177,20 @@ export function DisciplineRings({ highlight }: { highlight?: Discipline["id"] })
   const ar = lang === "ar";
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="discipline-rings" role="list">
+      {/* A real list: the ring is a link, and a link cannot carry
+          role="listitem" (aria-allowed-role) — the <li> owns the item role. */}
+      <ul className="discipline-rings">
         {DISCIPLINES.map((d) => (
-          <Link key={d.id} href={d.href} role="listitem" className="discipline-ring" style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties} data-lead={highlight === d.id}>
-            <span className="font-mono text-micro">{d.n}</span>
-            <span className={ar ? "text-subtitle font-semibold text-text-primary" : "font-display text-subtitle tracking-[-0.01em] text-text-primary max-sm:text-body"}>
-              {RING_LABEL[d.id][ar ? 1 : lang === "ms" ? 2 : 0]}
-            </span>
-          </Link>
+          <li key={d.id}>
+            <Link href={d.href} className="discipline-ring" style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties} data-lead={highlight === d.id}>
+              <span className="font-mono text-micro">{d.n}</span>
+              <span className={ar ? "text-subtitle font-semibold text-text-primary" : "font-display text-subtitle tracking-[-0.01em] text-text-primary max-sm:text-body"}>
+                {RING_LABEL[d.id][ar ? 1 : lang === "ms" ? 2 : 0]}
+              </span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
       <p className="font-mono text-micro uppercase tracking-[0.12em] text-text-ghost">
         {ar ? "حيث تتقاطع الثلاثة: مبنيّ ليعمل" : lang === "ms" ? "Di mana ia bertemu: dibina untuk berfungsi" : "Where they overlap: built to run"}
       </p>

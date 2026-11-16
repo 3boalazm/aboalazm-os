@@ -8,7 +8,7 @@ import { DeveloperView } from "./developer-view";
 export const revalidate = 60;
 
 const pageMetadata: Metadata = {
-  title: "The Maker — Mustafa Aboalazm | Design, Products & Systems",
+  title: "The Maker — Design, Products & Systems",
   description:
     "Meet Mustafa Aboalazm: brand identity designer, product architect, and builder at Code & Canvas. Explore selected work and start a project.",
   alternates: { canonical: "/developer" },

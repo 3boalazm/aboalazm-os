@@ -104,6 +104,11 @@ export function OsTray() {
   return (
     <div
       id="os-tray"
+      /* A named landmark: the tray is fixed to the viewport edge, outside
+         <main>, and unlabelled content outside a landmark is skipped by
+         screen-reader region navigation. */
+      role="region"
+      aria-label={ar ? "اللغة وتثبيت التطبيق" : lang === "ms" ? "Bahasa dan pemasangan apl" : "Language and app install"}
       data-hidden={hidden || terminalOpen ? "true" : "false"}
       /* z-index lives in .os-tray (globals.css): it has to rise above the
          article's z-40 back-to-top button when the help card is open, and no
@@ -138,7 +143,8 @@ export function OsTray() {
                 lang={locale}
                 dir={locale === "ar" ? "rtl" : "ltr"}
                 aria-current={current ? "true" : undefined}
-                aria-label={language.name}
+                /* Name = native name + the visible chip (WCAG 2.5.3, label in name). */
+                aria-label={`${language.name}, ${language.short}`}
                 title={language.name}
                 className={joinClasses(
                   "inline-flex h-6 min-w-6 items-center justify-center rounded-pill px-1 font-mono text-[13px] leading-none transition-colors duration-base ease-physics",

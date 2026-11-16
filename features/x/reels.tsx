@@ -53,7 +53,9 @@ export function Reels() {
                 trackEvent("reel_open", { slug: s.reel.slug, surface: "x_reels" });
                 setOpen(s);
               }}
-              aria-label={`${pickText(s.title, lang)} — ${formatTime(s.at)}`}
+              /* Verb + the visible text in reading order ("01 · 0:00", then the
+                 title): the name has to contain what the phone shows (WCAG 2.5.3). */
+              aria-label={`${t("Play", "شغّل", "Main")} ${String(i + 1).padStart(2, "0")} · ${formatTime(s.at)} ${pickText(s.title, lang)}`}
             >
               {/* Plain img: /reels/* sits outside images.localPatterns (media is served as-is). */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -68,6 +70,9 @@ export function Reels() {
                 <span className="x-mono opacity-80">
                   {String(i + 1).padStart(2, "0")} · {formatTime(s.at)}
                 </span>
+                {/* Grid items: this space paints nothing, but it keeps the two
+                    runs apart when a checker reads the button's text. */}
+                {" "}
                 <span className="x-phone__title">{pickText(s.title, lang)}</span>
               </span>
             </button>

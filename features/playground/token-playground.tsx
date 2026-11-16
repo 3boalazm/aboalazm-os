@@ -56,7 +56,7 @@ const THEMES: Record<ThemeMode, Record<string, string>> = {
     "--pg-surface-2": "#121120",
     "--pg-ink": "rgb(248 248 250 / 1)",
     "--pg-ink-2": "rgb(248 248 250 / 0.62)",
-    "--pg-ink-3": "rgb(248 248 250 / 0.38)",
+    "--pg-ink-3": "rgb(248 248 250 / 0.5)", /* 4.5:1 needs >= .47 on these surfaces (was .38 = 3.4:1) */
     "--pg-line": "rgb(255 255 255 / 0.08)",
   },
   alabaster: {
@@ -64,8 +64,8 @@ const THEMES: Record<ThemeMode, Record<string, string>> = {
     "--pg-surface": "#FFFFFF",
     "--pg-surface-2": "#F3F0EA",
     "--pg-ink": "rgb(8 7 16 / 0.96)",
-    "--pg-ink-2": "rgb(8 7 16 / 0.64)",
-    "--pg-ink-3": "rgb(8 7 16 / 0.40)",
+    "--pg-ink-2": "rgb(8 7 16 / 0.76)", /* stays a visible step above ink-3 (.6) */
+    "--pg-ink-3": "rgb(8 7 16 / 0.6)", /* 4.5:1 needs >= .57 on these surfaces (was .40 = 2.7:1) */
     "--pg-line": "rgb(8 7 16 / 0.10)",
   },
 };

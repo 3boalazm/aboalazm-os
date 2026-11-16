@@ -41,7 +41,15 @@ function writeUnlocked() {
 export function SpineRail() {
   const { lang } = useLang();
   return (
-    <div className="-mx-3 overflow-x-auto px-3 pb-1">
+    /* A horizontally scrolling region with nothing focusable inside is
+       unreachable without a mouse — it takes a tab stop, a role and a name so
+       a keyboard user can arrow through the seven stages. */
+    <div
+      role="region"
+      tabIndex={0}
+      aria-label={lang === "ar" ? "مراحل العمود الفقري التشغيلي" : lang === "ms" ? "Peringkat tulang belakang operasi" : "The operating spine, stage by stage"}
+      className="-mx-3 overflow-x-auto px-3 pb-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    >
       <ol className="flex min-w-max items-stretch gap-1.5">
         {SPINE.map((s, i) => (
           <li key={s.ref} className="flex items-center gap-1.5">

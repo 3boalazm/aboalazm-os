@@ -6,7 +6,7 @@ import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { BusinessSystemsView } from "./systems-view";
 
 const pageMetadata: Metadata = {
-  title: "Business Systems & Automation — Dashboards, ERP, Internal Tools",
+  title: "Business Systems & Automation — ERP & Dashboards",
   description:
     "Dashboards, ERP modules, Arabic-first internal tools and automation for companies running operations on spreadsheets and WhatsApp. Process map first, fixed-scope build second.",
   alternates: { canonical: "/services/systems" },

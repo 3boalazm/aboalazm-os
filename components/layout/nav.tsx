@@ -65,6 +65,7 @@ export function Nav() {
   const langRef = useRef<HTMLDivElement>(null);
   const menuBtn = useRef<HTMLButtonElement>(null);
   const t = (en: string, ar: string, ms?: string) => (lang === "ar" ? ar : lang === "ms" ? (ms ?? en) : en);
+  const langCode = lang === "ar" ? "AR" : lang === "ms" ? "MS" : "EN";
 
   useEffect(() => {
     let last = window.scrollY;
@@ -150,12 +151,16 @@ export function Nav() {
             <button
               type="button"
               className="x-ctl x-mono"
-              aria-label={t("Change language", "تغيير اللغة", "Tukar bahasa")}
+              /* The accessible name must contain the visible label (WCAG 2.5.3):
+                 a voice-control user says what they read on the button. Not in
+                 parentheses — checkers (and some AT) drop parenthetical text
+                 when matching a name to its label. */
+              aria-label={`${t("Change language", "تغيير اللغة", "Tukar bahasa")}: ${langCode}`}
               aria-expanded={langMenu}
               aria-controls={langMenu ? "x-lang" : undefined}
               onClick={() => setLangMenu((v) => !v)}
             >
-              {lang === "ar" ? "AR" : lang === "ms" ? "MS" : "EN"}
+              {langCode}
             </button>
             <AnimatePresence>
               {langMenu ? (

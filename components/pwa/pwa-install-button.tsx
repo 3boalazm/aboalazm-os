@@ -221,11 +221,6 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
         ref={buttonRef}
         type="button"
         onClick={handleInstall}
-        aria-label={
-          variant === "inline"
-            ? (ar ? "ثبّت Aboalazm OS كتطبيق" : lang === "ms" ? "Pasang Aboalazm OS sebagai aplikasi" : "Install Aboalazm OS as an app")
-            : (ar ? "ثبّت الموقع كتطبيق" : lang === "ms" ? "Pasang laman ini sebagai aplikasi" : "Install this site as an app")
-        }
         aria-expanded={helpOpen}
         aria-controls={helpOpen ? "pwa-install-help" : undefined}
         className={
@@ -249,13 +244,21 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
         >
           <Icon name="download" size={variant === "inline" ? 20 : 14} />
         </span>
+        {/* Docked on a phone the text below is display:none, which leaves the
+            button without a name. This is that name — and it is the same text
+            the control shows from `sm` up, so the accessible name always
+            equals the visible label (WCAG 2.5.3). Visible text is the name:
+            no aria-label to drift away from it. */}
+        {docked ? (
+          <span className="sr-only sm:hidden">{ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app"}</span>
+        ) : null}
         {/* Docked on phones: icon only, so the language chips get the room. */}
         <span className={docked ? "hidden flex-col items-start gap-0.5 sm:flex" : "flex flex-col items-start gap-0.5"}>
           <span className={docked
             ? "whitespace-nowrap font-mono text-micro font-semibold uppercase leading-tight tracking-[0.06em]"
             : "whitespace-nowrap font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro"}>
             {variant === "inline"
-              ? (ar ? "ثبّت Aboalazm OS" : lang === "ms" ? "DAPATKAN APLIKASI OS" : "GET THE OS APP")
+              ? (ar ? "ثبّت Aboalazm OS" : lang === "ms" ? "Dapatkan aplikasi OS" : "Get the OS app")
               : (ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app")}
           </span>
           {/* Phones get the one actionable line only — the sub-label is what

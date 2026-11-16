@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { LOCALE_CYCLE, localeDir, localeHref, type Locale } from "@/lib/locale";
+import { LOCALE_CYCLE, counterpartPath, localeDir, localeHref, type Locale } from "@/lib/locale";
 export type Lang = Locale;
 type LangValue = { lang: Lang; toggle: () => void; setLang: (locale: Lang) => void };
 const LangContext = createContext<LangValue>({ lang: "en", toggle: () => {}, setLang: () => {} });
@@ -22,7 +22,14 @@ export function LangProvider({ children, initialLang = "en" }: { children: React
   }, [lang]);
   function setLang(target: Lang) {
     if (target === lang) return;
-    router.push(localeHref(window.location.pathname, target) + window.location.search + window.location.hash);
+    /* The page knows its own counterparts (hreflang alternates): a translated
+       article sits at another slug, so the plain prefix swap would bounce back. */
+    const alternates = Array.from(document.querySelectorAll<HTMLLinkElement>('link[rel="alternate"][hreflang]')).map((link) => ({
+      hreflang: link.getAttribute("hreflang") ?? "",
+      href: link.href,
+    }));
+    const path = counterpartPath(alternates, target) ?? localeHref(window.location.pathname, target);
+    router.push(path + window.location.search + window.location.hash);
   }
   // The header switch steps through every locale in LOCALE_CYCLE.
   function toggle() {

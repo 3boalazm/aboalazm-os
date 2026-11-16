@@ -8,9 +8,9 @@ import { Store72hView } from "./store-72h-view";
 export const revalidate = 60;
 
 const originalMetadata: Metadata = {
-  title: "Bilingual Online Store or Catalogue in 72 Hours — From $197",
+  title: "Bilingual Store or Catalogue in 72 Hours — From $197",
   description:
-    "Bilingual Arabic (RTL) + English (LTR) online store or catalogue ready in 72 hours once content is received. Up to ~30 products, Order on WhatsApp, COD + InstaPay instructions, shipping link, and custom domain — from $197 (50% deposit).",
+    "Bilingual Arabic (RTL) + English store or catalogue ready 72 hours after content: up to ~30 products, WhatsApp ordering, COD + InstaPay, shipping and domain — from $197.",
 };
 
 export async function generateMetadata({

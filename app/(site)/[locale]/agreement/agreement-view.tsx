@@ -103,7 +103,7 @@ export function AgreementView({
               <span className="font-mono text-label uppercase tracking-[0.08em] text-text-tertiary">{pick(p.days, lang)}</span>
               <span className="text-body text-text-primary">{pick(p.name, lang)}</span>
               <span className="col-span-2 text-body text-text-secondary md:col-span-1">{pick(p.body, lang)}</span>
-              <span className="hidden font-mono text-label uppercase tracking-[0.08em] text-accent/70 md:block">{pick(p.out, lang)}</span>
+              <span className="hidden font-mono text-label uppercase tracking-[0.08em] text-accent-text md:block">{pick(p.out, lang)}</span>
             </div>
           ))}
         </div>

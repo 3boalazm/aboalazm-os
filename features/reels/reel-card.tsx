@@ -53,6 +53,13 @@ export function ReelCard({ reel, at = 0, title, poster, index, onOpen, startBadg
   }, [previewing, at]);
 
   const label = pickText(title ?? reel.title, lang);
+  const timeText = startBadge || at > 0 ? formatTime(at) : formatTime(reel.duration);
+  /* Accessible name = a verb + the visible text, in reading order (WCAG 2.5.3:
+     what a voice-control user sees on the card — the time badge, the index,
+     the title — has to be inside the name they can say). */
+  const accessibleName = [ar ? "شغّل" : lang === "ms" ? "Main" : "Play", timeText, index, label]
+    .filter((part) => part !== undefined && part !== null && part !== "")
+    .join(" ");
 
   return (
     <button
@@ -62,7 +69,7 @@ export function ReelCard({ reel, at = 0, title, poster, index, onOpen, startBadg
       onMouseLeave={stopPreview}
       onFocus={startPreview}
       onBlur={stopPreview}
-      aria-label={`${ar ? "شغّل" : lang === "ms" ? "Main" : "Play"}: ${label}`}
+      aria-label={accessibleName}
       className={`group relative block aspect-[9/16] w-full overflow-hidden rounded-panel border border-border-subtle bg-surface-1 text-start transition-colors duration-base ease-physics hover:border-border-default focus-visible:border-accent ${className}`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -90,8 +97,12 @@ export function ReelCard({ reel, at = 0, title, poster, index, onOpen, startBadg
 
       <span className="absolute start-1 top-1 flex items-center gap-0.5 rounded-pill md:start-2 md:top-2 md:gap-1 bg-black/55 px-1.5 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-white/85 backdrop-blur-sm">
         <Icon name="play" size="0.9em" />
-        {startBadge || at > 0 ? formatTime(at) : formatTime(reel.duration)}
+        {timeText}
       </span>
+      {/* Whitespace between the card's text runs: invisible (absolutely
+          positioned siblings), but it keeps "0:00" and "01" apart when a
+          checker reads the button's visible text. */}
+      {" "}
 
       <span
         aria-hidden
@@ -102,6 +113,7 @@ export function ReelCard({ reel, at = 0, title, poster, index, onOpen, startBadg
 
       <span dir={ar ? "rtl" : "ltr"} className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 p-1.5 text-white md:gap-1 md:p-3">
         {index ? <span className="font-mono text-micro uppercase tracking-[0.10em] text-white/60">{index}</span> : null}
+        {" "}
         <span className="font-display text-body-sm leading-[1.25] tracking-[-0.01em] md:text-subtitle md:leading-[1.2]">{label}</span>
       </span>
     </button>
