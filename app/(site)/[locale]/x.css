@@ -709,6 +709,16 @@ html[data-skip] .x-boot { animation: x-boot-skip .28s ease-out forwards; }
     --color-border-default: rgb(255 255 255 / 0.18);
     --color-border-subtle: rgb(255 255 255 / 0.1);
     --color-accent-text: #FF6B47;
+    /* The kicker wears the page's role colour (--x-role), which .site-stage
+       resolves against the PAGE theme and hands down as a finished value. On
+       the light theme this always-dark panel therefore received the light
+       type colours (#A83206 / #14604E on #050407: 2.7-3.0:1). Pin the dark
+       values of the role tokens here and re-resolve --x-role against them
+       (rules below), so the panel reads the same in both themes. */
+    --color-lilac-text: #D0B7FF;
+    --color-mint-text: #78E0D5;
+    --color-gold-text: #D6E995;
+    --x-role: var(--color-accent-text);
     position: relative; overflow: hidden; isolation: isolate;
     display: grid; justify-items: center; gap: 1.5rem; text-align: center;
     border-radius: clamp(28px, 4vw, 44px);
@@ -725,6 +735,9 @@ html[data-skip] .x-boot { animation: x-boot-skip .28s ease-out forwards; }
     background: radial-gradient(circle at 50% 50%, #FF6B47 0 44%, rgb(255 107 71 / 0.55) 49%, rgb(255 107 71 / 0.12) 60%, transparent 70%);
     filter: blur(2px); animation: x-breathe 7s ease-in-out infinite;
   }
+  .site-stage[data-x-role="citron"] .x-cta { --x-role: var(--color-gold-text); }
+  .site-stage[data-x-role="teal"] .x-cta { --x-role: var(--color-mint-text); }
+  .site-stage[data-x-role="violet"] .x-cta { --x-role: var(--color-lilac-text); }
   .x-cta__title { font-size: clamp(2.5rem, 7.2vw, 7rem); max-width: 14ch; }
   html[dir="rtl"] .x-cta__title { font-size: clamp(2.3rem, 6vw, 5.6rem); }
   .x-cta__row { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
