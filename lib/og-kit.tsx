@@ -2,6 +2,8 @@ import { readFile } from "fs/promises";
 import path from "path";
 import type { ReactNode, CSSProperties } from "react";
 import { ogFonts } from "@/lib/og";
+import { arabicSpaceWidth, arabicWordWidth } from "@/lib/og-arabic-metrics";
+import { RtlText } from "@/lib/og-rtl";
 import { SITE_HOST } from "@/lib/site";
 
 /**
@@ -39,11 +41,6 @@ export const C = {
 export const F_EN = "GC EPICPRO";
 export const F_AR = "Thmanyah Serif Display";
 export const F_BODY = "Noto Sans";
-
-/** Satori lays Arabic words out left-to-right (glyphs inside a word are shaped
- *  correctly, but the word order is not bidi-reordered). Reversing the words
- *  makes a single-line Arabic phrase read right-to-left as intended. */
-export const rtlWords = (s: string) => s.split(" ").reverse().join(" ");
 
 /* ── tiny style helpers ───────────────────────────────────────────────── */
 export const flex = (s: CSSProperties = {}): CSSProperties => ({ display: "flex", ...s });
@@ -226,7 +223,15 @@ export function Shell({ idx, eyebrow, tagAr, title, hot = true, desc, route, chi
                 <div key={i} style={flex({ whiteSpace: "nowrap", color: hot && i === title.length - 1 ? C.accent : C.text })}>{l}</div>
               ))}
             </div>
-            <div style={flex({ fontFamily: F_AR, fontSize: 30, color: C.text2 })}>{rtlWords(tagAr)}</div>
+            <div style={flex({ fontFamily: F_AR, fontSize: 30, color: C.text2 })}>
+              {/* Satori has no bidi: RtlText orders the words right to left (lib/og-rtl.tsx) */}
+              <RtlText
+                text={tagAr}
+                width="auto"
+                wordGap={Math.round(arabicSpaceWidth(30) ?? 8)}
+                measure={(word) => arabicWordWidth(word, 30)}
+              />
+            </div>
             <div style={flex({ fontFamily: F_BODY, fontSize: 22, lineHeight: 1.45, color: C.text2, maxWidth: 530 })}>{desc}</div>
           </div>
 

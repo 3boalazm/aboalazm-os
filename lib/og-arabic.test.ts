@@ -52,23 +52,22 @@ test("every Arabic share-card tag renders in the OG display face", async () => {
   }
 });
 
-/** Titles of the Arabic articles on the site, chosen to cover the letter pairs that used to throw. */
-const ARABIC_TITLES: readonly string[] = [
-  "اللوجو بـ٥٠ دولاراً: الفاتورة الخفية المتراكمة.", //          لا + را
-  "أنظمة التصميم بنية تحتية، لا مكتبات واجهات.", //             لا
-  "نظام تشغيل الأعمال: أدر الشركة كبرمجية.", //                 لأ
-  "دليل استراتيجية تجربة المستخدم: هندسة المعنى والنمو.", //    را
-  "التوسع المرتكز على المنتج: تجربة المستخدم متغير إيرادات.", // را
-  "البراند المنفصم: ليه شركتك بتتكلم بشخصيتين من غير ما حد يدّيها بالها",
-  "نظام تشغيل العلامة التجارية: من الأصول الساكنة إلى البنية الديناميكية.",
-  "الموقع ليس واجهة. بل هو الهوية وهي تعمل.",
+/** Titles that are not in the seed list but stress the layout: Latin runs, digits, a very long headline. */
+const EXTRA_TITLES: readonly string[] = [
+  "كيف تبني Design Systems تخدم ٣٨ يوماً من العمل مع Figma و ERP",
+  "لماذا تفشل معظم مواقع الشركات رغم جودة تصميمها، وكيف تتحول الواجهة إلى أصل تجاري عندما تُبنى من داخل الهوية لا فوقها؟",
 ];
 
-test("the share card of an Arabic article renders, whatever letters its title holds", async () => {
+test("the share card of every Arabic article renders, whatever letters its title holds", async () => {
   useReact();
   const { OgCard, OG_SIZE } = await import("@/lib/og");
+  const { WRITING_POSTS } = await import("../scripts/writing-posts-list");
 
-  for (const title of ARABIC_TITLES) {
+  // The seed list is the single source of the articles, so a new Arabic post is covered the day it is added.
+  const titles = [...WRITING_POSTS.filter((p) => p.lang === "ar").map((p) => p.title), ...EXTRA_TITLES];
+  assert.ok(titles.length >= 10, "expected the Arabic articles of the seed list");
+
+  for (const title of titles) {
     try {
       const bytes = await render(React.createElement(OgCard, { eyebrow: "مقالات", title, lang: "ar" }), OG_SIZE);
       assert.ok(bytes > 10_000, `«${title}» rendered an empty card`);
