@@ -36,11 +36,11 @@ const AR: Record<string, [string, string]> = {
 /* Malay (ms) titles and descriptions. Separate from AR so a Malay page never
    inherits an Arabic override passed in by a dynamic route. */
 const MS: Record<string, [string, string]> = {
-  "/": ["Aboalazm OS — studio identiti dan digital pimpinan Mustafa Aboalazm", "Studio pimpinan pengasas untuk identiti, lapisan digital dwibahasa dan sistem operasi — dari panggilan penemuan hingga skop bertulis dan penyerahan siap guna."],
+  "/": ["Aboalazm OS — studio identiti dan digital pimpinan Mustafa Aboalazm", "Studio pimpinan pengasas untuk identiti, lapisan digital dwibahasa dan sistem perniagaan — dari panggilan penemuan hingga skop bertulis dan penyerahan siap guna."],
   "/services": ["Perkhidmatan identiti visual dan laman web", "Reka bentuk identiti visual dan aplikasinya, laman dwibahasa, dan produk digital. Skop yang jelas, kerja serupa, dan pakej mengikut keperluan projek."],
   "/services/brand-identity": ["Identiti jenama dwibahasa Arab & Inggeris", "Logo, warna, fon, aplikasi, dan panduan penggunaan jenama. Lihat contoh sebenar, bandingkan pakej, dan mulakan pertanyaan anda."],
   "/services/websites": ["Reka bentuk laman web dan produk digital", "Laman korporat, laman pendaratan, kedai dalam talian, dan alat operasi dwibahasa, dari takrifan perjalanan pengguna hingga penyerahan dan operasi."],
-  "/services/systems": ["Sistem operasi dan automasi — papan pemuka dan ERP", "Papan operasi, modul ERP dan alat dalaman dwibahasa dengan RTL, serta automasi yang menggantikan langkah manual — skop bertulis ditentukan dalam panggilan penemuan."],
+  "/services/systems": ["Sistem perniagaan dan automasi — papan pemuka dan ERP", "Papan operasi, modul ERP dan alat dalaman dwibahasa dengan RTL, serta automasi yang menggantikan langkah manual — skop bertulis ditentukan dalam panggilan penemuan."],
   "/partnership": ["Perkongsian dan sokongan selepas penyerahan", "30 hari sokongan dalam setiap projek, penjagaan identiti dari $247 sebulan, dan perkongsian digital serta sistem berharga bulanan — notis 14 hari, tiada yuran keluar."],
   "/services/store-72h": ["Kedai atau katalog dwibahasa, 72 jam — dari $197", "Kedai atau katalog dwibahasa (Arab RTL + Inggeris LTR) siap dalam 72 jam selepas kandungan diterima: sehingga ~30 produk, pesanan WhatsApp, penghantaran dan domain."],
   "/contact": ["Hubungi dan bincangkan projek anda", `Ceritakan tentang projek identiti, laman, atau produk digital anda. ${RESPONSE_PROMISE.ms}`],

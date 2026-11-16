@@ -20,7 +20,7 @@ import { Arrow, useX } from "./shared";
 const CHIPS: { id: ServiceId; en: string; ar: string; ms: string }[] = [
   { id: "brand-identity", en: "Brand identity", ar: "هوية العلامة", ms: "Identiti jenama" },
   { id: "website", en: "Website / store", ar: "موقع / متجر", ms: "Laman / kedai" },
-  { id: "digital-product", en: "Business system", ar: "نظام تشغيل", ms: "Sistem perniagaan" },
+  { id: "digital-product", en: "Business system", ar: "نظام أعمال", ms: "Sistem perniagaan" },
   { id: "not-sure", en: "Not sure yet", ar: "لم أحدّد بعد", ms: "Belum pasti" },
 ];
 
