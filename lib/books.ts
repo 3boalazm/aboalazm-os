@@ -35,7 +35,7 @@ export const BOOKS: readonly Book[] = [
     title: "أساسيات التصميم الجرافيكي",
     titleEn: "Basics of Graphic Design",
     edition: "3rd Edition · 2026 · v3.0",
-    blurb: "دليل عربي شامل في أساسيات التصميم — من المنهجية والتفكير، مرورًا بالحرفة وعناصرها، وصولًا إلى المهنة وبناء المسيرة.",
+    blurb: "دليل عربي شامل في أساسيات التصميم: من المنهجية والتفكير، مرورًا بالحرفة وعناصرها، وصولًا إلى المهنة وبناء المسيرة.",
     blurbEn:
       "A comprehensive Arabic guide to design fundamentals — from methodology and thinking, through the craft and its elements, to the profession and building a career.",
     chapterCount: 17,
@@ -56,12 +56,12 @@ export const BOOKS: readonly Book[] = [
         en: "Craft",
         chapters: [
           { id: "ch01", title: "عناصر التصميم" },
-          { id: "ch02", title: "إزّاي عينك بتجمّع العناصر؟" },
+          { id: "ch02", title: "كيف تجمّع عينك العناصر؟" },
           { id: "ch03", title: "نقطة الارتكاز والتوجيه" },
           { id: "ch04", title: "التكوين" },
           { id: "ch05", title: "أنظمة الشبكة" },
           { id: "ch06", title: "الألوان" },
-          { id: "ch07", title: "التايبوجرافي" },
+          { id: "ch07", title: "التيبوغرافيا" },
           { id: "ch08", title: "الصور والملفات" },
           { id: "ch09", title: "الإنتاج الطباعي وتسليم الملفات" },
         ],
@@ -83,7 +83,7 @@ export const BOOKS: readonly Book[] = [
     title: "أساسيات الهوية البصرية",
     titleEn: "Basics of Visual Identity",
     edition: "1st Edition · 2026 · v1.0",
-    blurb: "من الاستراتيجية إلى الحرفة البصرية إلى المهنة — كيف تُبنى هويات البراند: الشعار، الألوان، التايبوجرافي، اللغة البصرية، ودليل الهوية وتقديمها.",
+    blurb: "من الاستراتيجية إلى الحرفة البصرية ثم المهنة: كيف تُبنى هويات العلامات (الشعار، والألوان، والتيبوغرافيا، واللغة البصرية)، ودليل الهوية وكيفية تقديمها.",
     blurbEn:
       "From strategy through visual craft to the profession — how brand identities are built: logo, colour, typography, visual language, and the identity guide and its presentation.",
     chapterCount: 16,
@@ -93,10 +93,10 @@ export const BOOKS: readonly Book[] = [
         ar: "الاستراتيجية",
         en: "Strategy",
         chapters: [
-          { id: "chA", title: "إيه هي الهوية البصرية؟" },
-          { id: "chB", title: "ليه الناس بتشتري البراندات؟" },
-          { id: "chC", title: "استراتيجية البراند" },
-          { id: "chD", title: "شخصية وصوت البراند" },
+          { id: "chA", title: "ما الهوية البصرية؟" },
+          { id: "chB", title: "لماذا يشتري الناس العلامات التجارية؟" },
+          { id: "chC", title: "استراتيجية العلامة" },
+          { id: "chD", title: "شخصية العلامة وصوتها" },
         ],
       },
       {
@@ -107,7 +107,7 @@ export const BOOKS: readonly Book[] = [
           { id: "ch02", title: "الاتجاه الإبداعي" },
           { id: "ch03", title: "تصميم الشعار" },
           { id: "ch04", title: "أنظمة الألوان" },
-          { id: "ch05", title: "التايبوجرافي في الهوية" },
+          { id: "ch05", title: "التيبوغرافيا في الهوية" },
           { id: "ch06", title: "اللغة البصرية" },
           { id: "ch07", title: "اتجاه التصوير" },
         ],
@@ -131,7 +131,7 @@ export const BOOKS: readonly Book[] = [
     titleEn: "Marketing Fundamentals",
     edition: "1st Edition · 2026 · v1.0",
     blurb:
-      "دليل عربي شامل في التسويق الحديث — من فهم العميل والاستراتيجية والعلامة، مرورًا بالمحتوى والإعلان والنمو، وصولًا إلى البيانات والتقنية والصورة الكاملة.",
+      "دليل عربي شامل في التسويق الحديث: من فهم العميل والاستراتيجية والعلامة، مرورًا بالمحتوى والإعلان والنمو، وصولًا إلى البيانات والتقنية والصورة الكاملة.",
     blurbEn:
       "A complete modern marketing guide — from customers, strategy, and brand, through content, advertising, and growth, to data, tech, and the integrated plan.",
     chapterCount: 59,
@@ -170,10 +170,10 @@ export const BOOKS: readonly Book[] = [
         ar: "العلامة التجارية",
         en: "Branding",
         chapters: [
-          { id: "ch12", title: "أسس البراند" },
-          { id: "ch13", title: "هوية البراند" },
+          { id: "ch12", title: "أسس العلامة" },
+          { id: "ch13", title: "هوية العلامة" },
           { id: "ch14", title: "الصوت والرسائل" },
-          { id: "ch15", title: "قيمة البراند" },
+          { id: "ch15", title: "قيمة العلامة" },
         ],
       },
       {
@@ -182,7 +182,7 @@ export const BOOKS: readonly Book[] = [
         chapters: [
           { id: "ch16", title: "استراتيجية المحتوى" },
           { id: "ch17", title: "الأشكال والقنوات" },
-          { id: "ch18", title: "فن الحكي" },
+          { id: "ch18", title: "فن السرد" },
           { id: "ch19", title: "التوزيع" },
         ],
       },
@@ -217,7 +217,7 @@ export const BOOKS: readonly Book[] = [
         ],
       },
       {
-        ar: "السوشيال ميديا",
+        ar: "وسائل التواصل الاجتماعي",
         en: "Social Media",
         chapters: [
           { id: "ch32", title: "المشهد الاجتماعي" },

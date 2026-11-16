@@ -36,10 +36,10 @@ window.DATA = {
   cover: {
     lineA: "MUSTAFA",
     lineB: "ABOALAZM",
-    kicker: "PORTFOLIO · بورتفوليو ٢٠٢٦",
+    kicker: "PORTFOLIO · ملف أعمال 2026",
     serif: "Senior Brand Identity Designer",
     lede: "Brand identity systems & visual governance — engineered in two languages under one doctrine.",
-    ledeAr: "هوية بصرية، أنظمة تصميم، وبنية رقمية — بتتبني بلغتين تحت مبدأ واحد.",
+    ledeAr: "هوية بصرية، وأنظمة تصميم، وبنية رقمية تُبنى بلغتين تحت مبدأ واحد.",
     metrics: [
       { n: "9+",  suf: "YRS", l: "Professional practice", c: "SINCE 2017" },
       { n: "20",  suf: "+",  l: "Clients & organizations", c: "PHARMA · FOOD · EDU · GOV · MORE" },
@@ -52,7 +52,7 @@ window.DATA = {
   manifesto: {
     quiet: "I don't design brands.",
     loud:  "I BUILD SYSTEMS.",
-    quietAr: "لا أصمّم براندات —",
+    quietAr: "لا أصمّم علامات تجارية.",
     loudAr:  "أبني أنظمة.",
     lead: "Most designers deliver logos. I help organizations build identity systems that scale across teams, products, campaigns, and digital experiences — work at the intersection of strategy, identity architecture, and operational thinking.",
     chain: ["BRAND", "TOKENS", "COMPONENTS", "PAGES", "EXPERIENCE"],
@@ -78,9 +78,9 @@ window.DATA = {
     spectrum: ["#118AB2", "#7850C8", "#D4AF37", "#3DDC84", "#48CCCC"],
     type: [
       { aa: "Aa",  cls: "",          name: "GC EPICPRO — 900",            use: "EN display voice · headlines, covers, numerals" },
-      { aa: "أبج", cls: "spec-aa--ar", name: "THMANYAH SERIF DISPLAY",   use: "AR display voice · عناوين عربي" },
+      { aa: "أبج", cls: "spec-aa--ar", name: "THMANYAH SERIF DISPLAY",   use: "AR display voice · عناوين عربية" },
       { aa: "Aa",  cls: "",          name: "MONTSERRAT · 400–700",        use: "EN body · leads, UI, tables" },
-      { aa: "ص",   cls: "",          name: "IBM PLEX SANS ARABIC",        use: "AR body · متون عربي" },
+      { aa: "ص",   cls: "",          name: "IBM PLEX SANS ARABIC",        use: "AR body · متون عربية" },
       { aa: "Aa",  cls: "",          name: "JETBRAINS MONO · 500",        use: "Ledger labels · coordinates · captions" },
     ],
     facts: [
@@ -106,7 +106,7 @@ window.DATA = {
       stack: ["TOKENS", "GOVERNANCE", "RTL/LTR"],
     },
     {
-      no: "03", en: "Web & Digital", ar: "ويب وديجيتال",
+      no: "03", en: "Web & Digital", ar: "ويب وتجارب رقمية",
       items: ["Bilingual marketing sites", "Next.js / WordPress builds", "SEO & performance foundations", "CMS handover (Payload)"],
       stack: ["NEXT.JS", "WORDPRESS", "SEO"],
     },
@@ -128,7 +128,7 @@ window.DATA = {
     support: [
       { pre: "+", n: "40", suf: "%", l: "Online visibility — Nile Pharma", c: "REBRAND · 2020–25", ar: "ظهور رقمي" },
       { pre: "+", n: "25", suf: "%", l: "Engagement — social systems",     c: "CAMPAIGN GOVERNANCE", ar: "تفاعل" },
-      { pre: "",  n: "20", suf: "+", l: "Clients & organizations", c: "2017 → TODAY", ar: "عميل ومؤسسة" },
+      { pre: "",  n: "20", suf: "+", l: "Clients & organizations", c: "2017 → TODAY", ar: "عملاء ومؤسسات" },
       { pre: "",  n: "2",  suf: "",  l: "Seasons as Best Head of Media",  c: "YOUTH SCOPE", ar: "موسمان" },
     ],
   },
@@ -149,12 +149,12 @@ window.DATA = {
     {
       slug: "code-canvas-dev", idx: "P.01",
       name: "Code & Canvas — Platform",
-      nameAr: "كود آند كانفاس — المنصة",
+      nameAr: "كود آند كانفاس: المنصة",
       category: "DEVELOPMENT", discipline: "Product Architecture",
       year: "2026", img: "ccdev-thumb",
       stack: ["Bilingual EN/AR", "Service Catalog", "Two-Track Studio Platform"],
       outcome: "Two minds, one ecosystem — live platform",
-      outcomeAr: "عقلان، نظام واحد — منصة حية",
+      outcomeAr: "عقلان، نظام واحد: منصة حيّة",
       brief: "The studio's own digital flagship: a two-track platform where Code and Canvas operate as one governed ecosystem — bilingual by design, catalog-driven, and token-aligned with the studio identity.",
       glow: "#7850C8", live: "codeandcanvas.net",
     },
@@ -166,7 +166,7 @@ window.DATA = {
       year: "2023 · V2.0 — 2025", img: "gad-thumb", hasDetail: true,
       stack: ["Brand Strategy", "Bilingual Identity", "Guidelines"],
       outcome: "Strategy → Identity → Governed system",
-      outcomeAr: "استراتيجية → هوية → نظام محكوم",
+      outcomeAr: "استراتيجية ← هوية ← نظام محكوم",
       brief: "A specialist cardiac & pulmonary institute competing against internationally branded healthcare groups — repositioned as the trusted specialist: warmer than a hospital, more precise than a clinic.",
       kpis: [
         { n: "0",  l: "Brand system before",   c: "STARTED FROM STRATEGY" },
@@ -195,7 +195,7 @@ window.DATA = {
       year: "2025", img: "bedeer-thumb", hasDetail: true,
       stack: ["Personal Brand", "Monogram", "Brand Guidelines"],
       outcome: "Healthcare IT personal brand — MENA-ready",
-      outcomeAr: "براند شخصي · تكنولوجيا معلومات صحية",
+      outcomeAr: "علامة شخصية · تكنولوجيا المعلومات الصحية",
       brief: "A personal brand for a healthcare-IT expert built to signal four standards at once — HL7, FHIR, CPHIMS, HIMSS — with an ab quotation-mark monogram engineered for two markets: KSA and wider MENA.",
       kpis: [
         { n: "0",  l: "Brand assets before",  c: "STARTED FROM ZERO" },
@@ -281,7 +281,7 @@ window.DATA = {
       year: "2022 · V1.0", img: "refl-thumb", hasDetail: true,
       stack: ["Identity", "Art & Print", "Guidelines"],
       outcome: "Premium art brand — V1.0 system",
-      outcomeAr: "براند فن متميز · نظام V1.0",
+      outcomeAr: "علامة فنية متميزة · نظام V1.0",
       brief: "An art & print brand built from one letter: R as icon, initial, and symbol. Five brand principles — quality, adjust, unique, different, accurate — govern every composition recipe in the book.",
       kpis: [
         { n: "5", l: "Brand principles",  c: "QUALITY · ADJUST · UNIQUE · DIFFERENT · ACCURATE" },
@@ -318,7 +318,7 @@ window.DATA = {
     {
       slug: "learn-in-arabic", idx: "P.08",
       name: "Learn in Arabic",
-      nameAr: "تعلّم بالعربي",
+      nameAr: "تعلّم بالعربية",
       category: "STUDIO & IDENTITY", discipline: "Studio & Identity",
       year: "2020–21", kind: "plate",
       plateWords: ["Learn", "in Arabic"],
@@ -351,7 +351,7 @@ window.DATA = {
       year: "2025–26", img: "erp-thumb",
       stack: ["NestJS", "Prisma", "Postgres", "Kafka", "Turborepo"],
       outcome: "9-service pharma distribution ERP",
-      outcomeAr: "منظومة ERP لتوزيع الأدوية — ٩ خدمات",
+      outcomeAr: "منظومة ERP لتوزيع الأدوية: 9 خدمات",
       brief: "Sales, inventory, CRM, and incentives unified in a 9-service architecture — the operational spine of a pharma distributor, designed like a brand system: governed services, one truth.",
       glow: "#14B8A6",
     },
@@ -365,7 +365,7 @@ window.DATA = {
       plateSub: "URBAN STREETWEAR · FULL-STACK",
       stack: ["React + Vite", "Drizzle + Postgres", "Payments", "Loyalty"],
       outcome: "Streetwear store — cart, wishlist, loyalty, admin",
-      outcomeAr: "متجر ستريت وير متكامل",
+      outcomeAr: "متجر ملابس شارع متكامل",
       brief: "A full-stack urban streetwear store: cart, wishlist, loyalty program, and an admin analytics dashboard — commerce engineered with brand heat.",
       glow: "#EA580C", accentWord: "#EA580C",
     },
@@ -377,7 +377,7 @@ window.DATA = {
       year: "2025–26", img: "zad-thumb",
       stack: ["PWA", "Firebase", "Service Worker", "Push"],
       outcome: "Prayers · Quran · Ramadan planner · kids' learning",
-      outcomeAr: "رفيق حياة إسلامي — مواقيت، قرآن، مخطط رمضان",
+      outcomeAr: "رفيق إسلامي يومي: مواقيت وقرآن ومخطط رمضان",
       brief: "An offline-first Islamic lifestyle companion — prayers, Quran, a Ramadan planner, and kids' learning — shipped as an installable PWA with push notifications.",
       glow: "#D4AF37",
     },
@@ -389,7 +389,7 @@ window.DATA = {
       year: "2025–26", img: "farm-thumb",
       stack: ["PWA", "Firebase", "Realtime DB", "Chart.js"],
       outcome: "Livestock management — herd, health, breeding, finance",
-      outcomeAr: "نظام إدارة مزرعة — قطيع، صحة، تلقيح، حسابات",
+      outcomeAr: "نظام لإدارة المزرعة: قطيع، وصحة، وتلقيح، وحسابات",
       brief: "A livestock management console tracking herd, health, breeding, and finance in realtime — agritech with an operator-grade interface.",
       glow: "#22C55E",
     },
@@ -399,7 +399,7 @@ window.DATA = {
   process: [
     { n: "01", en: "Discovery & Research", ar: "الاكتشاف والبحث",  days: "DAYS 1–6",
       body: "Brand audit, competitor analysis, color-gap mapping, audience persona, cultural research. The foundation no logo can replace." },
-    { n: "02", en: "Brand Strategy", ar: "استراتيجية البراند",     days: "DAYS 5–9",
+    { n: "02", en: "Brand Strategy", ar: "استراتيجية العلامة",     days: "DAYS 5–9",
       body: "Purpose, positioning, archetype, voice & tone, value proposition. Approved on paper before a single shape is drawn." },
     { n: "03", en: "Concept & Design", ar: "المفهوم والتصميم",     days: "DAYS 9–27",
       body: "Sketches in dozens, narrowed to 2–3 directions. Logo system, color, typography, brand elements, key applications." },
@@ -410,7 +410,7 @@ window.DATA = {
     t1: "TIER 1 — 50% AT KICKOFF / 50% BEFORE DELIVERY",
     t23: "TIERS 2–3 — 50% KICKOFF · 25% STRATEGY SIGN-OFF · 25% DELIVERY",
     methods: "Bank transfer (local/international) · PayPal & Wise · local wallets · cash in person",
-    methodsAr: "تحويل بنكي · PayPal وWise · محافظ إلكترونية · كاش",
+    methodsAr: "تحويل بنكي · PayPal وWise · محافظ إلكترونية · نقدًا",
   },
 
   /* ── OFFERS ────────────────────────────────────────────────────────── */
@@ -463,9 +463,9 @@ window.DATA = {
   closing: {
     quiet: "Let's build the system",
     loud: "YOUR BRAND DESERVES.",
-    quietAr: "يلا نبني النظام اللي",
-    loudAr: "براندك يستاهله.",
+    quietAr: "لنبنِ النظام الذي",
+    loudAr: "تستحقه علامتك.",
     lead: "One call to map it: where the brand stands, what the system needs, and what it takes to ship it.",
-    leadAr: "مكالمة واحدة نرسم فيها الخريطة: براندك واقف فين، النظام محتاج إيه، واللي هيتشحن لحد ما يوصل.",
+    leadAr: "مكالمة واحدة نرسم فيها الخريطة: أين تقف علامتك، وماذا يحتاج النظام، وما الذي يلزم لإطلاقه.",
   },
 };

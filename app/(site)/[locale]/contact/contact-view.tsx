@@ -31,14 +31,14 @@ export function ContactView({ context }: { context?: ContactContext }) {
 
   return (
     <main className="container-content flex flex-col gap-5 pb-8">
-      <header className="flex max-w-[65ch] flex-col gap-2">
-        <p className="font-mono text-micro uppercase tracking-[0.1em] text-accent">
+      <header className="flex flex-col gap-3">
+        <p className="x-mono x-kicker">
           {ar ? "تواصل / مشروع جديد" : lang === "ms" ? "HUBUNGI / PROJEK BARU ANDA" : "CONTACT / YOUR NEXT PROJECT"}
         </p>
-        <h1 className="font-display text-title text-text-primary">
+        <h1 className="x-page-title">
           {ar ? "حدّثني عن مشروعك." : lang === "ms" ? "Ceritakan tentang projek anda." : "Tell me about your project."}
         </h1>
-        <p className="text-body-sm text-text-secondary">
+        <p className="x-page-lead">
           {ar
             ? "يكفي اسمك وبريدك الإلكتروني وفكرة مختصرة لنبدأ. وإن كنت لا تزال تحدّد ما تحتاج إليه، فيمكننا توضيح النطاق معًا."
             : "Your name, email and a short idea are enough to start. If you are still figuring things out, we can define the scope together."}
@@ -50,7 +50,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
             href="https://wa.me/201092500454"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-pill bg-accent px-3.5 py-1.5 font-mono text-label text-obsidian"
+            className="x-btn x-btn--solid"
           >
             {ar ? "تحدّث عبر واتساب" : lang === "ms" ? "Sembang di WhatsApp" : "Chat on WhatsApp"} ↗
           </a>

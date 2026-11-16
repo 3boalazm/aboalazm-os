@@ -18,9 +18,9 @@ import { BandFrame } from "@/components/ui/band-frame";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
 const SKILLS = ["Brand Identity", "Brand Strategy", "Visual Systems", "Art Direction", "Web Development"];
-const SKILLS_AR = ["هوية بصرية", "استراتيجية براند", "أنظمة بصرية", "إدارة فنية", "تطوير ويب"];
+const SKILLS_AR = ["هوية بصرية", "استراتيجية العلامة", "أنظمة بصرية", "إدارة فنية", "تطوير ويب"];
 const APPLIED_SKILLS = ["AI Workflow Design", "Business Tools & Dashboards", "Product & Market Research"];
-const APPLIED_SKILLS_AR = ["تصميم تدفقات عمل بالذكاء الاصطناعي", "أدوات أعمال ولوحات تحكم", "بحث المنتجات والأسواق"];
+const APPLIED_SKILLS_AR = ["تدفقات عمل بالذكاء الاصطناعي", "أدوات أعمال ولوحات تحكم", "بحث المنتجات والأسواق"];
 
 export function SkillsMarquee() {
   const { lang } = useLang();
@@ -61,7 +61,7 @@ export function AboutTeaser() {
             className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/75 via-obsidian/25 to-transparent"
           />
           <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
-            {ar ? "Code & Canvas — شريك مؤسس ومدير إبداعي" : "Code & Canvas — Co-Founder & Creative Lead"}
+            {ar ? "Code & Canvas: شريك مؤسس ومدير إبداعي" : "Code & Canvas — Co-Founder & Creative Lead"}
           </span>
         </div>
         <BandFrame
@@ -75,18 +75,18 @@ export function AboutTeaser() {
           {ar ? "01 / نبذة" : lang === "ms" ? "01 / TENTANG" : "01 / ABOUT"}
         </p>
         <h2 className="font-display text-title tracking-[-0.015em]">
-          {ar ? "حِرفة بُنيت عبر " : lang === "ms" ? "Kraf yang dibina merentasi " : "A craft built across "}
-          <em className="text-accent">{ar ? "الدوا، الغذاء، التعليم،" : lang === "ms" ? "farmaseutikal, makanan, pendidikan," : "pharma, food, education,"}</em>
+          {ar ? "صنعة بُنيت عبر " : lang === "ms" ? "Kraf yang dibina merentasi " : "A craft built across "}
+          <em className="text-accent">{ar ? "الدواء والغذاء والتعليم" : lang === "ms" ? "farmaseutikal, makanan, pendidikan," : "pharma, food, education,"}</em>
           {ar ? " والحكومة." : lang === "ms" ? " dan kerajaan." : " and government."}
         </h2>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "الهوية البصرية هي تخصصي الأساسي. وبربطها بالطبقة الرقمية — مواقع، واجهات منتجات وأنظمة تصميم — وبستخدم البحث وتدفقات الذكاء الاصطناعي وأدوات الأعمال المخصصة لما تحل مشكلة واضحة فعلًا."
+            ? "الهوية البصرية هي تخصصي الأساسي، وأربطها بالطبقة الرقمية: مواقع وواجهات منتجات وأنظمة تصميم. وأستخدم البحث وتدفقات الذكاء الاصطناعي وأدوات الأعمال المخصصة حين تحل مشكلة واضحة فعلًا."
             : "Brand identity is my core. I build the connected digital layer too — websites, product interfaces and design systems — then apply research, AI workflows and custom business tools when they solve a clear problem."}
         </p>
         <p className="max-w-[56ch] text-body text-text-secondary">
           {ar
-            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. أستقبل حاليًا مشروعات مختارة في الهوية البصرية والمنتجات الرقمية في ماليزيا والخليج وعن بُعد."
+            ? "شريك مؤسس ومدير إبداعي في Code & Canvas، وقائد المنتج والمنصة الرقمية في Nile Pharma Food & Food Supplements. أستقبل حاليًا مشاريع مختارة في الهوية البصرية والمنتجات الرقمية في ماليزيا والخليج وعن بُعد."
             : "Co-Founder & Creative Lead at Code & Canvas, and Digital Product & Platform Lead at Nile Pharma Food & Food Supplements. Taking on select brand identity and digital product projects across Malaysia, the Gulf and remotely."}
         </p>
         <Link href="/about" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary">
@@ -109,9 +109,9 @@ export function AboutTeaser() {
             ))}
           </ul>
           <p className="mb-2 mt-3 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost max-sm:hidden">
-            {ar ? "قدرات مكملة — حسب احتياج المشروع" : lang === "ms" ? "KEUPAYAAN TAMBAHAN · MENGIKUT KEPERLUAN" : "ADJACENT CAPABILITIES · WHEN USEFUL"}
+            {ar ? "قدرات مساندة بحسب احتياج المشروع" : lang === "ms" ? "KEUPAYAAN TAMBAHAN · MENGIKUT KEPERLUAN" : "ADJACENT CAPABILITIES · WHEN USEFUL"}
           </p>
-          <ul aria-label={ar ? "قدرات مكملة" : lang === "ms" ? "Keupayaan tambahan" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5 max-sm:hidden">
+          <ul aria-label={ar ? "قدرات مساندة" : lang === "ms" ? "Keupayaan tambahan" : "Adjacent capabilities"} className="flex flex-wrap gap-1.5 max-sm:hidden">
             {(ar ? APPLIED_SKILLS_AR : APPLIED_SKILLS).map((s) => (
               <li key={s} className="rounded-pill border border-border-subtle px-2 py-0.5 font-mono text-micro text-text-tertiary">
                 {s}
@@ -124,9 +124,9 @@ export function AboutTeaser() {
         {([
           ["SPECIALTY", "التخصص", "Brand Identity & Visual Systems", "هوية بصرية وأنظمة تصميم"],
           ["CURRENT ROLE", "العمل الحالي", "Creative Lead, Code & Canvas", "مدير إبداعي، Code & Canvas"],
-          ["AVAILABILITY", "الوضع الحالي", "Taking on select projects · Malaysia / Gulf / Remote", "أستقبل مشروعات مختارة · ماليزيا / الخليج / عن بُعد"],
+          ["AVAILABILITY", "الوضع الحالي", "Taking on select projects · Malaysia / Gulf / Remote", "أستقبل مشاريع مختارة · ماليزيا / الخليج / عن بُعد"],
           ["LANGUAGES", "اللغات", "Arabic (Native) · English (Professional)", "العربية (الأم) · الإنجليزية (احترافية)"],
-          ["BASED", "المقر", "Al Obour, Egypt — open to Malaysia, the Gulf & remote", "العبور، مصر — متاح لماليزيا والخليج وعن بُعد"],
+          ["BASED", "المقر", "Al Obour, Egypt — open to Malaysia, the Gulf & remote", "العبور، مصر · منفتح على ماليزيا والخليج وعن بُعد"],
         ] as const).map(([ken, kar, ven, var_]) => (
           // phones keep availability + languages; the rest is on /about
           <div key={ken} className={`border-b border-border-subtle py-2 first:border-t ${["SPECIALTY", "CURRENT ROLE", "BASED"].includes(ken) ? "max-sm:hidden" : ""}`}>
@@ -148,13 +148,13 @@ export function StatsBand() {
   // [value, suffix, EN label, AR label, EN sub, AR sub, bar 0–1]
   const stats = [
     ["9",   "+", "Years of design practice", "سنوات ممارسة التصميم",        "Since July 2017",   "منذ يوليو 2017",  0.7],
-    ["20",  "+", "Brands shaped",       "براند تم بناؤه",  "Local & regional",  "محلي وإقليمي",  0.85],
+    ["20",  "+", "Brands shaped",       "علامة تجارية بُنيت",  "Local & regional",  "محلية وإقليمية",  0.85],
     ["15",  "+", "Identity systems",    "نظام هوية",        "Full brand systems","أنظمة متكاملة", 0.6],
     ["6",   "",  "Industry sectors",    "قطاعات",        "Pharma → gov",       "دواء ← حكومة",  0.5],
-    ["500", "+", "Design assets",       "أصل تصميم",       "Print & digital",   "مطبوع وديجيتال", 0.9],
+    ["500", "+", "Design assets",       "أصل تصميمي",       "Print & digital",   "مطبوع ورقمي", 0.9],
     ["10",  "+", "Digital experiences", "تجربة رقمية",     "Web & platforms",   "ويب ومنصات",   0.55],
-    ["38",  "",  "Day method",          "يوم منهجية",      "Kickoff → launch",   "بدء ← إطلاق",     0.75],
-    ["3",   "×", "Award-winning",   "جوائز قيادية",     "Leadership seasons","مواسم قيادة",  0.45],
+    ["38",  "",  "Day method",          "يومًا من المنهج",      "Kickoff → launch",   "بدء ← إطلاق",     0.75],
+    ["3",   "×", "Award-winning",   "جائزة أفضل رئيس لجنة",     "Leadership seasons","في موسمين متتاليين",  0.45],
   ] as const;
 
   return (
@@ -237,10 +237,10 @@ export function ClientJourneyBand() {
 
   const steps = ar
     ? [
-        { n: "01", name: "اكتشاف وبحث", short: "نفهم البراند والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
-        { n: "02", name: "استراتيجية البراند", short: "نثبت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
-        { n: "03", name: "مفهوم وتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
-        { n: "04", name: "مراجعة وتسليم", short: "نراجع، نعتمد، ونسلّم نظامًا يقدر فريقك يستخدمه.", proof: "Guidelines + files + handover" },
+        { n: "01", name: "الاكتشاف والبحث", short: "نفهم العلامة والسوق والجمهور قبل أي قرار بصري.", proof: "Brief + audit + research" },
+        { n: "02", name: "استراتيجية العلامة", short: "نثبّت التموضع والشخصية ونبرة الصوت قبل التصميم.", proof: "Positioning + voice + direction" },
+        { n: "03", name: "المفهوم والتصميم", short: "نحوّل الاستراتيجية إلى نظام هوية كامل قابل للتطبيق.", proof: "Logo + type + colour + applications" },
+        { n: "04", name: "المراجعة والتسليم", short: "نراجع ونعتمد ونسلّم نظامًا يستطيع فريقك استخدامه.", proof: "Guidelines + files + handover" },
       ]
     : [
         { n: "01", name: "Discovery & Research", short: "Understand the brand, market, and audience before any visual decision.", proof: "Brief + audit + research" },
@@ -257,11 +257,11 @@ export function ClientJourneyBand() {
             {ar ? "HOW WE WORK" : lang === "ms" ? "CARA KAMI BEKERJA" : "HOW WE WORK"}
           </p>
           <h2 className="mt-3 max-w-[14ch] font-display text-[clamp(2.3rem,5vw,4.5rem)] leading-[0.95] tracking-[-0.035em] text-text-primary">
-            {ar ? <>من أول تواصل <em className="text-accent">لحد الإطلاق.</em></> : lang === "ms" ? <>Dari hubungan pertama <em className="text-accent">ke pelancaran.</em></> : <>From first contact <em className="text-accent">to launch.</em></>}
+            {ar ? <>من أول تواصل <em className="text-accent">حتى الإطلاق.</em></> : lang === "ms" ? <>Dari hubungan pertama <em className="text-accent">ke pelancaran.</em></> : <>From first contact <em className="text-accent">to launch.</em></>}
           </h2>
           <p className="mt-5 max-w-[40ch] text-body-sm leading-[1.75] text-text-secondary">
             {ar
-              ? "4 مراحل واضحة. كل مرحلة لها مخرج واعتماد. وإنت شايف مكان المشروع طول الطريق."
+              ? "أربع مراحل واضحة. لكل مرحلة مخرج واعتماد، وتعرف دائمًا أين وصل مشروعك."
               : "Four visible stages. Every stage has an output and a sign-off. You always know where the project stands."}
           </p>
           <div className="mt-4 flex gap-2" aria-hidden>
@@ -279,7 +279,7 @@ export function ClientJourneyBand() {
             ))}
           </div>
           <Link href="/process" className="mt-4 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors hover:text-text-primary focus-visible:text-text-primary">
-            {ar ? "شوف المنهجية كاملة" : lang === "ms" ? "Lihat metodologi penuh" : "See the full method"}
+            {ar ? "استعرض المنهج كاملًا" : lang === "ms" ? "Lihat metodologi penuh" : "See the full method"}
             <span aria-hidden className="ms-1">→</span>
           </Link>
         </div>
@@ -339,9 +339,9 @@ export function WhyValueBand() {
   const ar = lang === "ar";
   const items = ar
     ? [
-        ["01", "الاستراتيجية قبل الشكل", "كل قرار بصري يبدأ من الهدف والسوق والجمهور — مش من الشكل فقط."],
-        ["02", "أنظمة مش ملفات", "النتيجة نظام يقدر الفريق يستخدمه ويتوسع به ويحافظ عليه بعد التسليم."],
-        ["03", "عربي + إنجليزي من البداية", "الهوية تُبنى للغتين في نفس المعمارية، مش ترجمة تُضاف في آخر المشروع."],
+        ["01", "الاستراتيجية قبل الشكل", "يبدأ كل قرار بصري من الهدف والسوق والجمهور، لا من الشكل وحده."],
+        ["02", "أنظمة لا ملفات", "النتيجة نظام يستطيع الفريق استخدامه وتوسيعه والحفاظ عليه بعد التسليم."],
+        ["03", "عربي وإنجليزي من البداية", "تُبنى الهوية للغتين ضمن هيكل واحد، لا كترجمة تُضاف في آخر المشروع."],
       ]
     : [
         ["01", "Strategy before aesthetics", "Visual decisions start from the business, audience, and market — not decoration alone."],
@@ -355,13 +355,13 @@ export function WhyValueBand() {
         <div className="flex flex-col gap-3">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">{ar ? "لماذا هذا الأسلوب" : lang === "ms" ? "MENGAPA PENDEKATAN INI" : "WHY THIS APPROACH"}</p>
           <h2 className="max-w-[18ch] font-display text-title tracking-[-0.02em]">
-            {ar ? <>مش مجرد هوية. <em className="text-accent">نظام يشتغل.</em></> : lang === "ms" ? <>Bukan sekadar identiti. <em className="text-accent">Sistem yang berfungsi.</em></> : <>Not just an identity. <em className="text-accent">A system that works.</em></>}
+            {ar ? <>ليست مجرد هوية. <em className="text-accent">بل نظام يعمل.</em></> : lang === "ms" ? <>Bukan sekadar identiti. <em className="text-accent">Sistem yang berfungsi.</em></> : <>Not just an identity. <em className="text-accent">A system that works.</em></>}
           </h2>
           <p className="max-w-[46ch] text-body-sm text-text-secondary">
-            {ar ? "ثلاثة مبادئ بسيطة تلخّص طريقة الشغل قبل ما ندخل في التفاصيل." : lang === "ms" ? "Tiga prinsip ringkas yang menerangkan cara kerja sebelum kita masuk ke proses." : "Three principles that explain the work before we get into the process."}
+            {ar ? "ثلاثة مبادئ بسيطة تلخّص طريقة العمل قبل أن ندخل في التفاصيل." : lang === "ms" ? "Tiga prinsip ringkas yang menerangkan cara kerja sebelum kita masuk ke proses." : "Three principles that explain the work before we get into the process."}
           </p>
           <Link href="/why" className="group w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary focus-visible:text-text-primary">
-            {ar ? "ليه مصطفى؟" : lang === "ms" ? "Kenapa Mustafa?" : "Why Mustafa"}
+            {ar ? "لماذا مصطفى؟" : lang === "ms" ? "Kenapa Mustafa?" : "Why Mustafa"}
             <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
           </Link>
         </div>
@@ -396,13 +396,13 @@ export function HomeFaq() {
   const dur = (i: number) => TIERS[i]?.duration[ar ? 1 : 0] ?? "";
   const items = ar
     ? [
-        ["هل لازم أكون عارف أنا عايز إيه؟", "لا. أول مرحلة معمولة أصلًا عشان نفهم المشكلة ونحدد الاتجاه قبل التصميم."],
-        ["هل الهوية بتكون عربي وإنجليزي؟", "متاح. الباقة المتكاملة تشمل الشعار باللغتين؛ في الباقات الأصغر نؤكد اللغة المطلوبة وتكلفة النسخة الإضافية قبل البدء."],
-        ["كام مدة المشروع؟", `الشعار ${dur(0)}، الهوية ${dur(1)}، والنظام المتكامل ${dur(2)}، والمتجر الإلكتروني ثنائي اللغة خلال 72 ساعة من استلام المحتوى.`],
-        ["إيه اللي هستلمه في النهاية؟", "نظام هوية متكامل، الملفات النهائية، دليل الاستخدام، والتسليم المنظم حسب نطاق المشروع."],
-        ["إزاي نبدأ؟", "بمكالمة استكشاف مجانية 30 دقيقة. بعدها تستلم نطاقًا وعرضًا سعر مكتوبًا، وبعد اعتماده توقّع الاتفاقية وتدفع دفعة البدء 50%. صفحة الحجز بعربون مخصصة لهذه الخطوة الأخيرة."],
-        ["مين اللي هينفّذ المشروع؟", "مصطفى يقود المشروع بنفسه من أول مكالمة للتسليم. ولو النطاق احتاج تطويرًا أو تصويرًا أو إنتاجًا طباعيًا، بينضم متخصصون محددون بإدارة ومراجعة من الاستوديو، ونطاق مكتوب واحد. لو العمل أكبر من قدرة الاستوديو على تحمّله، بنقولها في مرحلة العرض."],
-        ["هل بتشتغلوا بره الهوية؟", "نعم. الاستوديو بيشتغل على ثلاث جبهات مترابطة: الهوية والتموضع، والتجربة الرقمية (مواقع ومتاجر)، وأنظمة التشغيل والأتمتة (Dashboards وERP). تقدر تبدأ بواحدة."],
+        ["هل يلزم أن أعرف ما أريد بالضبط؟", "لا. المرحلة الأولى وُجدت أصلًا لنفهم المشكلة ونحدد الاتجاه قبل التصميم."],
+        ["هل تكون الهوية بالعربية والإنجليزية؟", "نعم. تشمل الباقة المتكاملة الشعار باللغتين، وفي الباقات الأصغر نؤكد اللغة المطلوبة وتكلفة النسخة الإضافية قبل البدء."],
+        ["كم مدة المشروع؟", `الشعار ${dur(0)}، والهوية ${dur(1)}، ونظام العلامة المتكامل ${dur(2)}، والمتجر الإلكتروني ثنائي اللغة خلال 72 ساعة من استلام المحتوى.`],
+        ["ماذا أتسلّم في النهاية؟", "نظام هوية متكامل، والملفات النهائية، ودليل الاستخدام، وتسليم منظّم بحسب نطاق المشروع."],
+        ["كيف نبدأ؟", "بمكالمة استكشافية مجانية مدتها 30 دقيقة. بعدها تستلم نطاقًا وعرض سعر مكتوبين، وبعد اعتمادهما توقّع الاتفاقية وتدفع دفعة البدء (50%). وصفحة الحجز بعربون مخصصة لهذه الخطوة الأخيرة."],
+        ["من الذي سينفّذ المشروع؟", "يقود مصطفى المشروع بنفسه من أول مكالمة حتى التسليم. وإذا احتاج النطاق إلى تطوير أو تصوير أو إنتاج طباعي، ينضم متخصصون بعينهم بإدارة ومراجعة من الاستوديو، وبنطاق مكتوب واحد. وإذا كان العمل أكبر مما يحتمله الاستوديو، نقول ذلك في مرحلة العرض."],
+        ["هل تعملون خارج نطاق الهوية؟", "نعم. يعمل الاستوديو في ثلاثة مسارات مترابطة: الهوية والتموضع، والتجربة الرقمية (مواقع ومتاجر)، وأنظمة التشغيل والأتمتة (لوحات التحكم وERP). ويمكنك أن تبدأ بمسار واحد."],
       ]
     : [
         ["Do I need to know exactly what I want?", "No. The first phase exists to understand the problem and establish the right direction before design."],
@@ -418,8 +418,8 @@ export function HomeFaq() {
     <section className="container-content py-7 md:py-10">
       <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : lang === "ms" ? "SOALAN LAZIM" : "FAQ"}</p>
-          <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
+          <p className="x-mono x-kicker">{ar ? "أسئلة سريعة" : lang === "ms" ? "SOALAN LAZIM" : "FAQ"}</p>
+          <h2 className="x-sec__title mt-3">{ar ? <>قبل أن <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
           {/* A closed <details> is a row of type: seven of them read as a table.
               The header carries the studio's own work instead, so the last
               band before the closing CTA is not the only text-only screen
@@ -439,17 +439,18 @@ export function HomeFaq() {
               className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/80 via-obsidian/30 to-transparent"
             />
             <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
-              {ar ? "نظام تصميم — تكوين محكوم" : "Design system — governed composition"}
+              {ar ? "نظام تصميم: تكوين محكوم" : "Design system — governed composition"}
             </span>
           </div>
         </div>
-        <div className="border-t border-border-subtle">
+        <div className="x-faq">
           {items.map(([q, a]) => (
-            <details key={q} className="group border-b border-border-subtle py-5">
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display font-display-sm text-subtitle tracking-[-0.01em] [&::-webkit-details-marker]:hidden">
-                <span>{q}</span><span className="font-mono text-label text-accent transition-transform duration-300 group-open:rotate-45">+</span>
+            <details key={q} className="x-faq__item x-rise">
+              <summary className="x-faq__q">
+                <span>{q}</span>
+                <span aria-hidden className="x-faq__plus">+</span>
               </summary>
-              <p className="max-w-[60ch] pt-4 text-body-sm leading-[1.75] text-text-secondary">{a}</p>
+              <p className="x-faq__a">{a}</p>
             </details>
           ))}
         </div>
@@ -463,14 +464,14 @@ export function HomeCta() {
   return (
     <CtaBand
       variant="editorial"
-      kicker={["LET'S START WITH THE PROBLEM", "خلّينا نبدأ بالمشكلة"]}
-      title={["A business to", "عندك بيزنس"]}
-      italic={["move forward?", "عايز يتحرك؟"]}
+      kicker={["LET'S START WITH THE PROBLEM", "لنبدأ من المشكلة"]}
+      title={["A business to", "هل لديك نشاط تجاري"]}
+      italic={["move forward?", "يريد أن يتقدّم؟"]}
       /* Discovery first, deposit last: the primary step is the call; the
          deposit page is step 04 of the funnel and only follows a signed scope. */
-      primary={["Book a discovery call", "احجز مكالمة استكشاف"]}
+      primary={["Book a discovery call", "احجز مكالمة استكشافية"]}
       primaryHref="/contact"
-      secondary={["See how starting works", "اعرف طريقة البدء"]}
+      secondary={["See how starting works", "تعرّف على آلية البدء"]}
       secondaryHref="/process"
     />
   );

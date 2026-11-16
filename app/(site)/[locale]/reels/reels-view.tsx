@@ -58,13 +58,13 @@ export function ReelsView() {
           eyebrow={ar ? "ريلز / المنهج بالفيديو" : lang === "ms" ? "REEL / KAEDAH DALAM VIDEO" : "REELS / THE METHOD ON VIDEO"}
           title={
             <>
-              {ar ? "الأنظمة اللي ورا الشغل، " : lang === "ms" ? "Sistem di sebalik kerja, " : "The systems behind the work, "}
-              <em className="text-accent">{ar ? "في دقايق." : lang === "ms" ? "dalam beberapa minit." : "in minutes."}</em>
+              {ar ? "الأنظمة التي تقف وراء العمل، " : lang === "ms" ? "Sistem di sebalik kerja, " : "The systems behind the work, "}
+              <em className="text-accent">{ar ? "في دقائق." : lang === "ms" ? "dalam beberapa minit." : "in minutes."}</em>
             </>
           }
           subtitle={
             ar
-              ? "ريلز قصيرة بتشرح إزاي بنفكر ونبني: البحث، التخطيط، التنفيذ والمراجعة — نفس المنهج اللي بيتطبق على مشروعك."
+              ? "ريلز قصيرة تشرح كيف نفكّر ونبني: البحث والتخطيط والتنفيذ والمراجعة، وهو المنهج نفسه الذي يُطبَّق على مشروعك."
               : lang === "ms"
                 ? "Reel pendek tentang cara kami berfikir dan membina: penyelidikan, perancangan, pelaksanaan dan audit — kaedah yang sama untuk projek anda."
                 : "Short reels on how we think and build: research, planning, execution and audit — the same method applied to your project."
@@ -155,9 +155,9 @@ export function ReelsView() {
       ) : null}
 
       <CtaBand
-        kicker={["THE SAME METHOD, ON YOUR PROJECT", "نفس المنهج، على مشروعك"]}
-        title={["Seen how it runs?", "شفت بيشتغل إزاي؟"]}
-        italic={["Let's scope yours.", "يلا نحدد نطاق مشروعك."]}
+        kicker={["THE SAME METHOD, ON YOUR PROJECT", "المنهج نفسه، على مشروعك"]}
+        title={["Seen how it runs?", "هل رأيت كيف يعمل؟"]}
+        italic={["Let's scope yours.", "لنحدد نطاق مشروعك."]}
         primary={["Start a project", "ابدأ مشروعك"]}
         primaryHref="/contact"
         secondary={["Read the writing", "اقرأ المقالات"]}

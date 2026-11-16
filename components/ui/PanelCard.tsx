@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
  * one-off (e.g. `border-accent/40`, `border-accent/20`, `bg-surface-1/50`)
  * stays a per-site className override rather than a new enum value.
  */
-const BASE = "border";
+const BASE = "x-rise border";
 
 const EMPHASIS = {
   /** border-border-subtle + bg-surface-1 (full) — the most common resting state. */

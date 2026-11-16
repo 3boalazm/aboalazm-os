@@ -68,12 +68,12 @@ export const IDENTITY = {
 } as const;
 
 export const COVER = {
-  kicker: "PORTFOLIO — بورتفوليو",
+  kicker: "PORTFOLIO — ملف الأعمال",
   titleA: "Selected",
   titleB: "Works",
   year: "2026",
   lede: "Brand identity systems, engineered in two languages under one doctrine.",
-  ledeAr: "أنظمة هوية بصرية — بتتبني بلغتين تحت مبدأ واحد.",
+  ledeAr: "أنظمة هوية بصرية تُبنى بلغتين تحت مبدأ واحد.",
   meta: ["05 CHAPTERS", "2017 → 2026", "AL OBOUR · WORKS WORLDWIDE"],
   /** tall photographic frame on the cover */
   photo: "/images/work/nile-pharma/npf-business-card-box.jpg",
@@ -83,7 +83,7 @@ export const COVER = {
 export const PROFILE = {
   statement: "I don't design brands.",
   statementHot: "I build systems.",
-  statementAr: "لا أصمّم براندات — أبني أنظمة.",
+  statementAr: "لا أصمّم علامات تجارية. أبني أنظمة.",
   paragraph:
     "9+ years in design, 4+ focused on brand identity, turning identity into infrastructure: strategy first, then a governed system — logo, color, type, applications — that keeps the brand itself across every team, product, and campaign.",
   stats: [
@@ -107,7 +107,7 @@ export const PROJECTS: Project[] = [
     scope: ["Studio Identity", "Brand System", "Guidelines V1.0"],
     hero: { img: "/images/work/cc-logo-hero.jpg", cap: "THE MARK · CODE + CANVAS, FUSED" },
     outcome: "A studio running on its own governed system",
-    outcomeAr: "استوديو شغال على نظامه الخاص",
+    outcomeAr: "استوديو يعمل على نظامه الخاص",
     brief:
       "Two disciplines — code and creative — fused into one squircle mark and one system: guidelines from day one, a gradient library, and samples that run the studio itself.",
     frames: [
@@ -128,12 +128,12 @@ export const PROJECTS: Project[] = [
     name: "Ahmed Bedeer",
     nameAr: "أحمد بدير",
     category: "PERSONAL BRAND",
-    categoryAr: "براند شخصي",
+    categoryAr: "علامة شخصية",
     year: "2025",
     scope: ["Personal Brand", "Monogram", "Guidelines"],
     hero: { img: "/images/work/ahmed-bedeer-cover.jpg", cap: "COVER · THE ab MONOGRAM", fit: "contain", bg: "#34343f" },
     outcome: "Healthcare-IT authority — MENA-ready",
-    outcomeAr: "براند شخصي · تكنولوجيا معلومات صحية",
+    outcomeAr: "علامة شخصية · تكنولوجيا المعلومات الصحية",
     brief:
       "A personal brand for a healthcare-IT leader: an ab quotation-mark monogram engineered to signal HL7 · FHIR · CPHIMS · HIMSS across KSA and wider MENA.",
     frames: [
@@ -154,12 +154,12 @@ export const PROJECTS: Project[] = [
     name: "Reflection",
     nameAr: "ريفلكشن",
     category: "ART BRAND",
-    categoryAr: "براند فن",
+    categoryAr: "علامة فنية",
     year: "2022",
     scope: ["Identity", "Art Direction", "Guidelines V1.0"],
     hero: { img: "/images/work/reflection/refl-cover.png", cap: "BRAND IDENTITY · V1.0 COVER", fit: "contain", bg: "#000000" },
     outcome: "Premium art brand — built from one letter",
-    outcomeAr: "براند فن متميز · مبني من حرف واحد",
+    outcomeAr: "علامة فنية متميزة · مبنية من حرف واحد",
     brief:
       "An art & print brand built from a single letter: R as icon, initial, and symbol — five principles governing every composition recipe in the book.",
     frames: [
@@ -185,7 +185,7 @@ export const PROJECTS: Project[] = [
     scope: ["Brand Strategy", "Bilingual Identity", "Guidelines V2.0"],
     hero: { img: "/images/work/gad/gad-cover.png", cap: "BRAND IDENTITY · V2.0 COVER", fit: "contain", bg: "#ffffff" },
     outcome: "The trusted specialist — strategy to signage",
-    outcomeAr: "استراتيجية → هوية → نظام محكوم",
+    outcomeAr: "استراتيجية ← هوية ← نظام محكوم",
     brief:
       "A heart & lungs institute as the trusted specialist — from strategy to bilingual signage.",
     frames: [
@@ -232,7 +232,7 @@ export const CONTACT = {
   kicker: "START A PROJECT — ابدأ مشروعك",
   titleA: "Let's build",
   titleB: "your system.",
-  titleAr: "يلا نبني النظام اللي براندك يستاهله.",
+  titleAr: "لنبنِ النظام الذي تستحقه علامتك.",
   note: "One call to map it: where the brand stands, what the system needs, and what it takes to ship it.",
 } as const;
 

@@ -400,7 +400,7 @@ export function PortfolioView() {
         <span className="tb-sep" aria-hidden />
         <button className="tb-btn tb-print" onClick={() => window.print()}>PRINT · طباعة</button>
         <button className="tb-btn tb-btn--acc" onClick={start} disabled={state === "working" || state === "saving"}>
-          {state === "working" || state === "saving" ? "RENDERING…" : "↓ PDF · تحميل"}
+          {state === "working" || state === "saving" ? "RENDERING…" : "↓ PDF · تنزيل"}
         </button>
       </nav>
 
@@ -413,7 +413,7 @@ export function PortfolioView() {
             </p>
             <div className="fp-track"><div id="fp-bar" style={{ width: `${progress}%` }} /></div>
             <p className="fp-meta">
-              {label} — {state === "working" ? "keep this tab focused · سيب التاب مفتوح" : state === "error" ? "try PRINT instead · Ctrl+P" : "downloaded"}
+              {label} — {state === "working" ? "keep this tab focused · أبقِ علامة التبويب مفتوحة" : state === "error" ? "try PRINT instead · Ctrl+P" : "downloaded"}
             </p>
             {state === "working" && (
               <button className="fp-cancel" onClick={cancel}>CANCEL · إلغاء</button>

@@ -34,7 +34,7 @@ export function Store72hView() {
   });
   const askWhatsappHref = whatsappPrefillHref(
     ar
-      ? "أهلاً مصطفى، أود الاستفسار عن باقة المتجر أو الكتالوج الإلكتروني ثنائي اللغة (جاهز خلال 72 ساعة — يبدأ من 197$)."
+      ? "أهلًا مصطفى، أودّ الاستفسار عن باقة المتجر أو الكتالوج الإلكتروني ثنائي اللغة (جاهز خلال 72 ساعة، يبدأ من 197 دولارًا)."
       : "Hi Mustafa, I have a question about the 72-Hour Bilingual Online Store / Catalogue (From $197).",
   );
 
@@ -124,7 +124,7 @@ export function Store72hView() {
             <div className="flex items-start justify-between gap-3 border-b border-border-default pb-3">
               <div className="flex flex-col gap-1">
                 <span className="font-mono text-micro uppercase tracking-[0.14em] text-accent">
-                  {ar ? "الاستثمار ونظام الدفع" : "INVESTMENT & SCHEDULE"}
+                  {ar ? "الاستثمار وجدول الدفع" : "INVESTMENT & SCHEDULE"}
                 </span>
                 <div className="flex items-baseline gap-2">
                   <span
@@ -141,7 +141,7 @@ export function Store72hView() {
               </div>
 
               <span className="rounded-pill border border-accent/40 bg-accent/15 px-3 py-1 font-mono text-micro font-semibold text-accent">
-                {ar ? "عربون 50%" : "50% Deposit"}
+                {ar ? "دفعة بدء 50%" : "50% Deposit"}
               </span>
             </div>
 
@@ -180,7 +180,7 @@ export function Store72hView() {
                 className="mt-0.5 inline-flex w-fit items-center font-mono text-micro text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent"
               >
                 {ar
-                  ? "احجز المتجر + الشعار السريع بعربون ←"
+                  ? "احجز المتجر + الشعار السريع بدفعة بدء ←"
                   : "Book Store + Quick Logo with a deposit →"}
               </Link>
             </div>
@@ -202,8 +202,8 @@ export function Store72hView() {
       {/* ─── WHY THIS BEATS CHEAP GIGS ──────────────────────────────────── */}
       <section className="flex flex-col gap-4">
         <SectionHead
-          label={["01 / WHY THIS FORMAT", "01 / القيمة الفعلية"]}
-          title={["What cheap template gigs", "ما لا تقدمه القوالب الجاهزة"]}
+          label={["01 / WHY THIS FORMAT", "01 / لماذا هذه الصيغة"]}
+          title={["What cheap template gigs", "ما تُغفله القوالب"]}
           italic={["leave out.", "الرخيصة."]}
         />
 
@@ -228,14 +228,14 @@ export function Store72hView() {
       <section className="flex flex-col gap-4">
         <SectionHead
           label={["02 / EXACT SCOPE", "02 / النطاق والمخرجات"]}
-          title={["What is included —", "ما يشمله العرض بوضوح —"]}
-          italic={["and what is not.", "وما لا يشمله."]}
+          title={["What is included —", "ما هو مشمول،"]}
+          italic={["and what is not.", "وما ليس مشمولًا."]}
         />
 
         <div className="grid gap-4 lg:grid-cols-12">
           <PanelCard className="flex flex-col gap-3 rounded-panel p-4 sm:p-5 lg:col-span-7">
             <p className="font-mono text-micro uppercase tracking-[0.14em] text-accent">
-              {ar ? "المشمول في الباقة" : "INCLUDED IN THE 72-HOUR BUILD"}
+              {ar ? "المشمول في باقة الـ 72 ساعة" : "INCLUDED IN THE 72-HOUR BUILD"}
             </p>
             <ul className="flex flex-col gap-2.5">
               {offer.included.map((line, i) => (
@@ -253,7 +253,7 @@ export function Store72hView() {
           <PanelCard className="flex flex-col justify-between gap-4 rounded-panel p-4 sm:p-5 lg:col-span-5">
             <div className="flex flex-col gap-3">
               <p className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
-                {ar ? "غير مشمول في هذه الباقة" : "NOT INCLUDED"}
+                {ar ? "غير مشمول" : "NOT INCLUDED"}
               </p>
               <ul className="flex flex-col gap-2.5">
                 {offer.notIncluded.map((line, i) => (
@@ -272,7 +272,7 @@ export function Store72hView() {
 
             <div className="rounded-card border border-border-default bg-surface-2 p-3 text-caption text-text-secondary">
               {ar
-                ? "هل تحتاج أكثر من 30 منتجاً، أو ربط بوابة دفع إلكتروني ومخزون متكامل؟ راجع باقة المنصات المخصصة على صفحة الأسعار."
+                ? "هل تحتاج إلى أكثر من 30 منتجًا، أو ربط بوابة دفع إلكتروني ومخزون متكامل؟ راجع باقة المنصات المخصصة في صفحة الأسعار."
                 : "Need more than ~30 products, automated payment-gateway onboarding, or ERP inventory sync? See the Custom Web Platform package on /pricing."}
             </div>
           </PanelCard>
@@ -282,9 +282,9 @@ export function Store72hView() {
       {/* ─── LIVE PROOF: 4 SHIPPED REFERENCES ───────────────────────────── */}
       <section className="flex flex-col gap-4">
         <SectionHead
-          label={["03 / LIVE SHIPPED PROOF", "03 / أعمال حية ومنشورة"]}
+          label={["03 / LIVE SHIPPED PROOF", "03 / أعمال منشورة وحيّة"]}
           title={["Four live stores and catalogues", "أربعة متاجر وكتالوجات منشورة"]}
-          italic={["you can inspect right now.", "يمكنك تصفحها الآن."]}
+          italic={["you can inspect right now.", "يمكنك استعراضها الآن."]}
         />
 
         <div className="grid gap-4 md:grid-cols-2">
@@ -311,7 +311,7 @@ export function Store72hView() {
                 <div className="relative flex aspect-[16/10] w-full flex-col justify-between overflow-hidden border-b border-border-default bg-gradient-to-br from-surface-2 via-surface-1 to-surface-2 p-5">
                   <div className="flex items-center justify-between gap-2">
                     <span className="rounded-pill border border-border-default bg-surface-1 px-2.5 py-0.5 font-mono text-micro text-accent">
-                      {ar ? "موقع مباشر" : "LIVE DEPLOYMENT"}
+                      {ar ? "موقع منشور" : "LIVE DEPLOYMENT"}
                     </span>
                     <span
                       dir="ltr"
@@ -378,11 +378,11 @@ export function Store72hView() {
       >
         <div className="flex flex-col gap-1">
           <p className="font-mono text-micro uppercase tracking-[0.14em] text-accent">
-            {ar ? "ابدأ الآن · عربون 50%" : "START TODAY · 50% DEPOSIT"}
+            {ar ? "ابدأ الآن · دفعة بدء 50%" : "START TODAY · 50% DEPOSIT"}
           </p>
           <h2 className="font-display text-subtitle text-text-primary">
             {ar
-              ? "جاهز لإطلاق متجرك أو كتالوجك خلال 72 ساعة؟"
+              ? "هل أنت مستعد لإطلاق متجرك أو كتالوجك خلال 72 ساعة؟"
               : "Ready to launch your bilingual store or catalogue in 72 hours?"}
           </h2>
           <p className="max-w-[58ch] text-body-sm text-text-secondary">

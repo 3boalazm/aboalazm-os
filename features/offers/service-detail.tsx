@@ -23,25 +23,25 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
     .filter(Boolean);
   const title = identity
     ? ar
-      ? "هوية بالعربي والإنجليزي، جاهزة للاستخدام."
+      ? "هويات بالعربية والإنجليزية، جاهزة للاستخدام."
       : "Arabic & English identities, ready to use."
     : ar
-      ? "موقع واضح. تجربة مفهومة. أداة تخدم شغلك."
+      ? "موقع واضح. وتجربة مفهومة. وأداة تخدم عملك."
       : "A clear website. A usable product. A tool for your team.";
   const intro = identity
     ? ar
-      ? "لو بتطلق براند أو بتجدد صورته، نبدأ بالجمهور والاستخدامات، ونحوّل الاتجاه لشعار وألوان وخطوط وتطبيقات يقدر فريقك يشتغل بيها."
+      ? "إن كنت تطلق علامة أو تجدّد صورتها، نبدأ بالجمهور وحالات الاستخدام، ثم نحوّل الاتجاه إلى شعار وألوان وخطوط وتطبيقات يستطيع فريقك العمل بها."
       : "Launching a brand or refreshing its identity? We start with the audience and use cases, then develop the logo, colour, typography and practical applications your team needs."
     : ar
-      ? "من صفحة هبوط لموقع شركة أو أداة تشغيل: نحدد المستخدم والمهمة، ونبني واجهة متجاوبة مرتبطة بهويتك. التقنية تتحدد حسب المحتوى والتكاملات والصيانة."
+      ? "من صفحة هبوط إلى موقع شركة أو أداة تشغيل: نحدد المستخدم والمهمة، ثم نبني واجهة متجاوبة مرتبطة بهويتك. وتُحدَّد التقنية بحسب المحتوى والتكاملات والصيانة."
       : "From a landing page to a company site or business tool: we define the user and task, then build a responsive experience aligned with your brand. Content, integrations and maintenance guide the technology choice.";
   const deliverables = identity
     ? ar
       ? [
-          "بحث واتجاه بصري حسب الباقة.",
+          "بحث واتجاه بصري يناسبان الباقة.",
           "شعار ونسخ استخدام، وألوان وخطوط محددة.",
           "التطبيقات المتفق عليها: مطبوعات أو تغليف أو قوالب رقمية.",
-          "ملفات مصدر وتصدير، وإرشادات حسب نطاق الباقة.",
+          "ملفات مصدر وتصدير، وإرشادات بحسب نطاق الباقة.",
         ]
       : [
           "Discovery and visual direction matched to the package.",
@@ -51,10 +51,10 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
         ]
     : ar
       ? [
-          "نطاق ورحلة مستخدم وهيكل محتوى واضح.",
-          "تصميم متجاوب للعربية/الإنجليزية حسب الاتفاق.",
-          "تنفيذ Next.js أو ووردبريس، وإدارة محتوى عند الحاجة.",
-          "أساس SEO واختبار المسارات والتسليم والتشغيل المتفق عليه.",
+          "نطاق محدد ورحلة مستخدم وهيكل محتوى.",
+          "تصميم متجاوب للعربية والإنجليزية بحسب الاتفاق.",
+          "تنفيذ بـ Next.js أو ووردبريس، وإدارة محتوى عند الحاجة.",
+          "أساس لتحسين محركات البحث (SEO)، واختبار المسارات، والتسليم والتشغيل وفق الاتفاق.",
         ]
       : [
           "A defined scope, user journey and content structure.",
@@ -89,7 +89,7 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
 
       <section>
         <h2 className="mb-3 font-display text-subtitle">
-          {ar ? "أمثلة من الشغل" : "Relevant work"}
+          {ar ? "أعمال ذات صلة" : "Relevant work"}
         </h2>
         <div className="grid gap-3 md:grid-cols-3">
           {examples.map((p) => (
@@ -122,7 +122,7 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
       <section className="grid gap-4 md:grid-cols-2">
         <div>
           <h2 className="font-display text-subtitle">
-            {ar ? "النطاق الممكن" : "What we can scope"}
+            {ar ? "نطاقات العمل الممكنة" : "What we can scope"}
           </h2>
           <ul className="mt-2 list-disc space-y-1 ps-3 text-body-sm text-text-secondary">
             {deliverables.map((d) => (
@@ -140,7 +140,7 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
                   className="text-accent underline underline-offset-4"
                 >
                   {ar
-                    ? `متجر أو كتالوج ثنائي اللغة جاهز خلال 72 ساعة (${localizePrice(STORE_72H_OFFER.price, "ar")}) →`
+                    ? `متجر أو كتالوج ثنائي اللغة جاهز خلال 72 ساعة (${localizePrice(STORE_72H_OFFER.price, "ar")}) ←`
                     : `Bilingual online store or catalogue, ready in 72 hours (${STORE_72H_OFFER.price}) →`}
                 </Link>
               </li>
@@ -154,10 +154,10 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
           <p className="mt-2 text-body-sm text-text-secondary">
             {identity
               ? ar
-                ? "الشعار 7–10 أيام؛ الهوية 3–4 أسابيع؛ النظام المتكامل 5–7 أسابيع. الباقات الأصغر تُحدد فيها لغة الشعار؛ النظام المتكامل يشمل العربي والإنجليزي. الموعد النهائي بعد الاتفاق على النطاق والاعتمادات."
+                ? "الشعار: من 7 إلى 10 أيام؛ الهوية: من 3 إلى 4 أسابيع؛ النظام المتكامل: من 5 إلى 7 أسابيع. تُحدَّد لغة الشعار في الباقات الأصغر، ويشمل النظام المتكامل العربية والإنجليزية. ويُحدَّد الموعد النهائي بعد الاتفاق على النطاق والاعتمادات."
                 : "Logo: 7–10 days; identity: 3–4 weeks; full system: 5–7 weeks. Smaller tiers specify the logo language; the full system includes Arabic and English. Final dates follow scope and approval milestones."
               : ar
-                ? "السعر والجدول حسب الصفحات والأدوار والتكاملات وحالة المحتوى. رسوم الاستضافة والدومين والخدمات الخارجية وتكاملات الخلفية تُحدد كبنود مستقلة في العرض."
+                ? "يعتمد السعر والجدول على الصفحات والأدوار والتكاملات وجاهزية المحتوى. وتُحدَّد رسوم الاستضافة والنطاق (الدومين) والخدمات الخارجية وتكاملات الخلفية كبنود مستقلة في العرض."
                 : "The quote and schedule depend on pages, user roles, integrations and content readiness. Hosting, domain, third-party services and backend integrations are itemised in the proposal."}
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
@@ -179,11 +179,11 @@ export function ServiceDetail({ kind }: { kind: "identity" | "web" }) {
 
       <section className="text-body-sm text-text-secondary">
         <h2 className="font-display text-subtitle text-text-primary">
-          {ar ? "إيه اللي محتاجه منك في البداية؟" : "What do I need from you?"}
+          {ar ? "ما الذي أحتاجه منك في البداية؟" : "What do I need from you?"}
         </h2>
         <p className="mt-2">
           {ar
-            ? "فكرة المشروع، الجمهور، وأهم استخدام أو مهمة. شارك أي أمثلة أو موعد مستهدف لو متاحين؛ لو النطاق لسه مش واضح، نحدده مع بعض قبل عرض السعر."
+            ? "فكرة عن المشروع وجمهوره وأهم استخدام أو مهمة. شارك أي أمثلة أو موعدًا مستهدفًا إن وُجد؛ وإن لم يتضح النطاق بعد، نحدده معًا قبل عرض السعر."
             : "An idea of the project, its audience and the main use case. Share references or a target date if available; if the scope is unclear, we define it together before quoting."}
         </p>
       </section>

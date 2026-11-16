@@ -27,7 +27,7 @@ export function BooksView() {
           }
           subtitle={
             ar
-              ? "كتب ومراجع في التصميم والبراندينج — معاد بناؤها كتجربة قراءة تفاعلية على مراحل، بدل صفحات ثابتة."
+              ? "كتب ومراجع في التصميم وبناء العلامات، أُعيد بناؤها كتجربة قراءة تفاعلية على مراحل بدل الصفحات الثابتة."
               : "Books and references on design and branding — rebuilt as a staged, interactive reading experience instead of static pages."
           }
           subtitleClassName="max-w-[54ch]"

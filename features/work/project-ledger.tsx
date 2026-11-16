@@ -94,7 +94,7 @@ export function ProjectLedger({
           {ar ? "لا توجد ملفات هنا بعد" : "Nothing filed here yet"}
         </p>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-          {ar ? "المشاريع بتتضاف أول بأول" : "Projects are added as they ship"}
+          {ar ? "تُضاف المشاريع فور إطلاقها" : "Projects are added as they ship"}
         </p>
       </div>
     );
@@ -178,16 +178,16 @@ function LedgerRow({
   const destination = project.hasCaseStudy
     ? project.overviewOnly ? (ar ? "عرض المشروع" : "Project overview") : (ar ? "دراسة حالة" : "Case Study")
     : project.isDemo
-      ? ar ? "Demo · عرض تجريبي" : "Demo"
+      ? ar ? "عرض تجريبي" : "Demo"
       : project.liveUrl
-        ? ar ? "منتج حي" : "Live Product"
+        ? ar ? "منتج منشور" : "Live Product"
         : project.externalUrl === BEHANCE
-          ? ar ? "بورتفوليو خارجي" : "External Portfolio"
+          ? ar ? "ملف أعمال خارجي" : "External Portfolio"
           : project.externalUrl && project.category === "development"
-            ? ar ? "منتج حي" : "Live Product"
+            ? ar ? "منتج منشور" : "Live Product"
             : project.externalUrl
               ? ar ? "رابط خارجي" : "External Link"
-              : ar ? "بورتفوليو خارجي" : "External Portfolio";
+              : ar ? "ملف أعمال خارجي" : "External Portfolio";
 
   return (
     <motion.li variants={reveal.item}>
@@ -232,7 +232,7 @@ function LedgerRow({
               <Badge tone="creative" size="sm">{ar ? "قيد التنفيذ" : "In progress"}</Badge>
             ) : null}
             {project.isDemo ? (
-              <Badge tone="creative" size="sm">{ar ? "Demo · عرض تجريبي" : "Demo"}</Badge>
+              <Badge tone="creative" size="sm">{ar ? "عرض تجريبي" : "Demo"}</Badge>
             ) : null}
           </span>
           {/* Mobile-only: discipline shown inline since the desktop column is hidden below md */}

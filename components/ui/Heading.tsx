@@ -1,8 +1,10 @@
-import type { ReactNode } from "react";
+import { isValidElement, type ReactNode } from "react";
 import { joinClasses } from "@/lib/utils";
 
 /**
  * Page-hero section header: eyebrow + title (+ optional subtitle/meta).
+ * Wears the X page head (.x-page-title / .x-kicker / .x-page-lead in x.css);
+ * call-site utilities still override because those rules live in `components`.
  * Extracted from 15 near-identical call sites — renders no wrapper of its
  * own so each page keeps its existing <header>/<div> layout (gap-2/3/4,
  * pb-*, etc. all vary per page and are intentionally left with the caller).
@@ -19,6 +21,16 @@ export interface HeadingProps {
   subtitleClassName?: string;
 }
 
+
+/** Characters of visible text in a node — statement headlines (about, hiring) are set smaller than poster ones. */
+function textLength(node: ReactNode): number {
+  if (node == null || typeof node === "boolean") return 0;
+  if (typeof node === "string" || typeof node === "number") return String(node).length;
+  if (Array.isArray(node)) return node.reduce<number>((n, child) => n + textLength(child), 0);
+  if (isValidElement(node)) return textLength((node.props as { children?: ReactNode }).children);
+  return 0;
+}
+
 export function Heading({
   eyebrow,
   eyebrowMeta,
@@ -28,7 +40,7 @@ export function Heading({
   subtitleClassName,
 }: HeadingProps) {
   const eyebrowEl = (
-    <p className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
+    <p className="x-mono x-kicker">
       {eyebrow}
     </p>
   );
@@ -43,11 +55,11 @@ export function Heading({
       ) : (
         eyebrowEl
       )}
-      <h1 className={joinClasses("font-display text-display tracking-[-0.025em]", titleClassName)}>
+      <h1 className={joinClasses("x-page-title", textLength(title) > 34 && "x-page-title--long", titleClassName)}>
         {title}
       </h1>
       {subtitle ? (
-        <p className={joinClasses("text-lead text-text-secondary", subtitleClassName)}>{subtitle}</p>
+        <p className={joinClasses("x-page-lead", subtitleClassName)}>{subtitle}</p>
       ) : null}
     </>
   );

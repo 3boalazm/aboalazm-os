@@ -104,13 +104,13 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
       </h2>
       <p className="mt-1 max-w-[46ch] text-body-sm text-text-secondary">
         {ar
-          ? "بريد إلكتروني واحد يفتح الوثائق. بياناتك لتنظيم الوصول، ومش هتُضاف لقائمة تسويق تلقائيًا."
+          ? "بريد إلكتروني واحد يفتح الوثائق. تُستخدم بياناتك لتنظيم الوصول فقط، ولن تُضاف تلقائيًا إلى قائمة تسويقية."
           : "One email unlocks the documents. Your details organise access; this does not automatically subscribe you to marketing emails."}
       </p>
 
       <div className="mt-3 grid gap-2 sm:grid-cols-2">
-        <label className="flex flex-col gap-1 text-body-sm"><span>{ar ? "أول مورد مهتم بيه (اختياري)" : "First resource of interest (optional)"}</span><select className="rounded-card border border-border-default bg-surface-2 p-1.5" value={resource} onChange={(e) => setResource(e.target.value)}><option value="">{ar ? "المكتبة كلها" : "The whole library"}</option>{RESOURCES.map((r) => <option key={r.id} value={r.id}>{pick(r.title, lang)}</option>)}</select></label>
-        <label className="flex flex-col gap-1 text-body-sm"><span>{ar ? "هتستخدمه في إيه؟ (اختياري)" : "What will you use it for? (optional)"}</span><select className="rounded-card border border-border-default bg-surface-2 p-1.5" value={intent} onChange={(e) => setIntent(e.target.value)}><option value="unspecified">{ar ? "تخطي الاختيار" : "Prefer not to say"}</option><option value="learning">{ar ? "التعلم والتجربة" : "Learning and practice"}</option><option value="project">{ar ? "مشروع لبراند أو شركة" : "A brand or company project"}</option><option value="team">{ar ? "تنظيم شغل الفريق" : "Organising team workflows"}</option></select></label>
+        <label className="flex flex-col gap-1 text-body-sm"><span>{ar ? "أول مورد يهمّك (اختياري)" : "First resource of interest (optional)"}</span><select className="rounded-card border border-border-default bg-surface-2 p-1.5" value={resource} onChange={(e) => setResource(e.target.value)}><option value="">{ar ? "المكتبة كلها" : "The whole library"}</option>{RESOURCES.map((r) => <option key={r.id} value={r.id}>{pick(r.title, lang)}</option>)}</select></label>
+        <label className="flex flex-col gap-1 text-body-sm"><span>{ar ? "ما الغرض من استخدامها؟ (اختياري)" : "What will you use it for? (optional)"}</span><select className="rounded-card border border-border-default bg-surface-2 p-1.5" value={intent} onChange={(e) => setIntent(e.target.value)}><option value="unspecified">{ar ? "أفضّل عدم الإفصاح" : "Prefer not to say"}</option><option value="learning">{ar ? "التعلّم والتجربة" : "Learning and practice"}</option><option value="project">{ar ? "مشروع لعلامة أو شركة" : "A brand or company project"}</option><option value="team">{ar ? "تنظيم سير عمل الفريق" : "Organising team workflows"}</option></select></label>
       </div>
       <div className="mt-3 flex flex-col gap-2 sm:flex-row">
         <input
@@ -147,14 +147,14 @@ export function EmailGate({ onUnlock }: { onUnlock: () => void }) {
       {state === "error" && (
         <p className="mt-2 text-body-sm text-accent">
           {ar
-            ? "تأكد من صحة البريد وحاول مرة أخرى."
+            ? "تأكد من صحة البريد الإلكتروني وحاول مرة أخرى."
             : "Please check the email and try again."}
         </p>
       )}
       {state === "rateLimited" && (
         <p className="mt-2 text-body-sm text-accent">
           {ar
-            ? "محاولات كتير في وقت قصير — استنى شوية وحاول تاني."
+            ? "محاولات كثيرة في وقت قصير. انتظر قليلًا ثم حاول مجددًا."
             : "Too many attempts — please wait a bit and try again."}
         </p>
       )}
@@ -212,7 +212,7 @@ export function ResourceCard({
             download
             className="group inline-flex items-center gap-1.5 font-mono text-micro uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:text-accent"
           >
-            {ar ? "تحميل PDF" : "DOWNLOAD PDF"}
+            {ar ? "تنزيل PDF" : "DOWNLOAD PDF"}
             <span aria-hidden className="inline-flex transition-transform duration-base ease-physics group-hover:translate-y-0.5">
               <Icon name="arrow-down" />
             </span>

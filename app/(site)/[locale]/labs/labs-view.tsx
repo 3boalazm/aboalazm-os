@@ -20,7 +20,7 @@ const WHY: readonly [string, string][] = [
   ["Reduce uncertainty", "تقليل عدم اليقين"],
   ["Improve decision quality", "تحسين جودة القرار"],
   ["Build repeatable systems", "بناء أنظمة قابلة للتكرار"],
-  ["Create scalable operations", "خلق عمليات قابلة للتوسّع"],
+  ["Create scalable operations", "بناء عمليات قابلة للتوسّع"],
   ["Connect strategy with execution", "ربط الاستراتيجية بالتنفيذ"],
 ];
 
@@ -39,16 +39,16 @@ export function LabsView() {
       {/* Header */}
       <header className="flex flex-col gap-3">
         <Heading
-          eyebrow={ar ? "المعمل / البحث والتطوير" : "LABS / R&D"}
+          eyebrow={ar ? "المختبر / البحث والتطوير" : "LABS / R&D"}
           title={
             <>
               {ar ? "حيث تُختبر الأنظمة " : "Where systems are tested "}
-              <em className="text-accent">{ar ? "قبل أن تصبح أطرًا." : "before they become frameworks."}</em>
+              <em className="text-accent">{ar ? "قبل أن تتحول إلى أطر عمل." : "before they become frameworks."}</em>
             </>
           }
           subtitle={
             ar
-              ? "Aboalazm Labs هو طبقة البحث والتجريب خلف Aboalazm OS — قسم الـ R&D للبراندينج وأنظمة الهوية وعمليات التصميم والتدفقات المدعومة بالذكاء الاصطناعي."
+              ? "Aboalazm Labs هو طبقة البحث والتجريب خلف Aboalazm OS: قسم البحث والتطوير في العلامات وأنظمة الهوية وعمليات التصميم وسير العمل الإبداعي المدعوم بالذكاء الاصطناعي."
               : "Aboalazm Labs is the research and experimentation layer behind Aboalazm OS — the R&D department for branding, identity systems, design operations, and AI-powered creative workflows."
           }
           titleClassName="heading-fit-long"
@@ -56,7 +56,7 @@ export function LabsView() {
         />
         <p className="max-w-[58ch] text-body text-text-secondary">
           {ar
-            ? "ليست كل تجربة تنجح. كل تجربة تُعلّم. والأطر التي تُنشر علنًا وُلدت هنا أولًا."
+            ? "لا تنجح كل تجربة، لكن كل تجربة تُعلّم. وكل إطار عمل منشور وُلد هنا أولًا."
             : "Not every experiment succeeds. Every experiment teaches. Every public framework was born here first."}
         </p>
       </header>
@@ -85,7 +85,7 @@ export function LabsView() {
       <section className="flex flex-col gap-3">
         <SectionHead
           label={["02 / RESEARCH AREAS", "02 / مجالات البحث"]}
-          title={["Five lines of", "خمسة خطوط"]}
+          title={["Five lines of", "خمسة مسارات"]}
           italic={["open inquiry.", "بحث مفتوحة."]}
         />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -115,7 +115,7 @@ export function LabsView() {
               </ul>
               <p className="mt-4 border-t border-border-subtle pt-3 text-body-sm italic text-text-secondary">
                 <span className="font-mono text-micro uppercase not-italic tracking-[0.10em] text-accent">
-                  {ar ? "السؤال الحالي — " : "Current question — "}
+                  {ar ? "السؤال الحالي: " : "Current question — "}
                 </span>
                 {pick(area.question, lang)}
               </p>
@@ -128,12 +128,12 @@ export function LabsView() {
       <section className="flex flex-col gap-3">
         <SectionHead
           label={["03 / TRY THEM LIVE", "03 / جرّبها الآن"]}
-          title={["Working tools,", "أدوات تشتغل،"]}
+          title={["Working tools,", "أدوات تعمل،"]}
           italic={["not just ideas.", "لا مجرد أفكار."]}
         />
         <p className="max-w-[62ch] text-body-sm text-text-secondary">
           {ar
-            ? "مش كل حاجة هنا نظرية. الأدوات دي شغالة فعليًا وبتستخدم نفس منطق الأنظمة اللي بتُبنى بيها هويات العملاء."
+            ? "ليس كل ما هنا نظريًا. هذه الأدوات تعمل فعلًا، وتستخدم منطق الأنظمة نفسه الذي تُبنى به هويات العملاء."
             : "Not everything here is theoretical. These tools actually work, running on the same systemic logic used to build client identities."}
         </p>
         {/* .labtool-grid has no column template below 900px, so its implicit auto
@@ -152,7 +152,7 @@ export function LabsView() {
           href="/capabilities"
           className="group mt-1 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
         >
-          {ar ? "جرّب Token Playground الكامل" : "Try the full Token Playground"}
+          {ar ? "جرّب Token Playground كاملًا" : "Try the full Token Playground"}
           <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1"><Icon name="arrow-right" /></span>
         </Link>
       </section>
@@ -200,9 +200,9 @@ export function LabsView() {
       {/* Lab notes */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["05 / LAB NOTES", "05 / ملاحظات المعمل"]}
-          title={["Findings from", "ملاحظات من"]}
-          italic={["inside the work.", "داخل التجارب."]}
+          label={["05 / LAB NOTES", "05 / ملاحظات المختبر"]}
+          title={["Findings from", "خلاصات من"]}
+          italic={["inside the work.", "داخل العمل."]}
         />
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {NOTES.map((note, i) => (
@@ -239,7 +239,7 @@ export function LabsView() {
             ))}
           </ol>
           <p className="mt-4 text-body-sm text-text-tertiary">
-            {ar ? "الأنظمة المُتحقَّق منها فقط تصبح جزءًا من Aboalazm OS." : "Only validated systems become part of Aboalazm OS."}
+            {ar ? "لا تصبح جزءًا من Aboalazm OS إلا الأنظمة التي ثبتت صحتها." : "Only validated systems become part of Aboalazm OS."}
           </p>
         </div>
       </section>
@@ -247,7 +247,7 @@ export function LabsView() {
       {/* Open frameworks → resources */}
       <section className="flex flex-col gap-3">
         <SectionHead
-          label={["07 / OPEN FRAMEWORKS", "07 / أطر منشورة"]}
+          label={["07 / OPEN FRAMEWORKS", "07 / أطر عمل مفتوحة"]}
           title={["Experiments that graduated to", "تجارب تخرّجت إلى"]}
           italic={["the public library.", "المكتبة العامة."]}
         />
@@ -265,7 +265,7 @@ export function LabsView() {
           href="/resources"
           className="group mt-1 w-fit font-mono text-label uppercase tracking-[0.06em] text-text-tertiary transition-colors duration-base ease-physics hover:text-text-primary"
         >
-          {ar ? "زُر مكتبة المصادر" : "Visit the Resources library"}
+          {ar ? "زُر مكتبة الموارد" : "Visit the Resources library"}
           <span aria-hidden className="ms-1 inline-flex transition-transform duration-base ease-physics group-hover:translate-x-1 rtl:group-hover:-translate-x-1">
             <Icon name="arrow-right" />
           </span>
@@ -278,11 +278,11 @@ export function LabsView() {
       <div className="contents max-[480px]:[&_p.text-display]:text-[1.875rem]">
         <CtaBand
           kicker={["WHAT HAPPENS HERE REACHES CLIENT WORK", "ما يحدث هنا يصل إلى عمل العملاء"]}
-          title={["The future isn't more deliverables.", "المستقبل ليس مخرجات أكثر."]}
-          italic={["It's better operating systems.", "بل أنظمة تشغيل أفضل."]}
+          title={["The future isn't more deliverables.", "المستقبل ليس في مزيد من المخرجات."]}
+          italic={["It's better operating systems.", "بل في أنظمة تشغيل أفضل."]}
           primary={["Start a project", "ابدأ مشروعًا"]}
           primaryHref="/contact"
-          secondary={["Explore the OS", "استكشف الـ OS"]}
+          secondary={["Explore the OS", "استكشف النظام"]}
           secondaryHref="/resources"
         />
       </div>

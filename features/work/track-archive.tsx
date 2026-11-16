@@ -130,10 +130,10 @@ export function TrackArchive({
             subtitle={
               isDev
                 ? ar
-                  ? "الأرشيف الكامل للمنصات والأنظمة والأدوات الرقمية المنشورة — كل مشروع مرفق بلقطة حية من الواجهة، دراسة حالة معمارية، أو رابط معاينة مباشر."
+                  ? "الأرشيف الكامل للمنصات والأنظمة والأدوات الرقمية المنشورة: لكل مشروع لقطة حيّة من الواجهة، أو دراسة حالة معمارية، أو رابط معاينة مباشر."
                   : "The complete archive of shipped platforms, tools, and bilingual web applications — each paired with an interface preview, architectural case study, and live destination."
                 : ar
-                  ? "الأرشيف الكامل لأنظمة الهوية البصرية، معمارية التغليف، اللافتات الإرشادية، وأدلة الحوكمة المصممة للعمل في الواقع."
+                  ? "الأرشيف الكامل لأنظمة الهوية البصرية وأنظمة التغليف واللافتات الإرشادية وأدلة الحوكمة المصممة للعمل في الواقع."
                   : "The complete archive of brand identity systems, packaging architecture, environmental signage, and governance guidelines built to hold up in production."
             }
             subtitleClassName="max-w-[58ch]"
@@ -288,7 +288,7 @@ export function TrackArchive({
                 ? `تصفّح جميع مشاريع الهوية البصرية والتغليف والحوكمة (${siblingCount} مشاريع).`
                 : `Browse all ${siblingCount} brand identity, packaging, and governance systems.`
               : ar
-                ? `تصفّح جميع المنصات والأنظمة والأدوات الرقمية المنشورة (${siblingCount} مشروعاً).`
+                ? `تصفّح جميع المنصات والأنظمة والأدوات الرقمية المنشورة (${siblingCount} مشروعًا).`
                 : `Browse all ${siblingCount} shipped platforms, web applications, and tools.`}
           </p>
         </div>

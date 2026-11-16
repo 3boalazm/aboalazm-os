@@ -21,6 +21,7 @@ import { SITE_URL } from "@/lib/site";
 import { BOOT_SCRIPT } from "@/lib/boot-script";
 import { PwaRegistration } from "@/components/pwa/pwa-registration";
 import { OsTray } from "@/components/layout/os-tray";
+import { RoleScope } from "@/components/layout/role-scope";
 import "./globals.css";
 import "./theme-grounds.css";
 import "./x.css";
@@ -134,7 +135,7 @@ export default async function RootLayout({ children, params }: Readonly<{ childr
             <PersonaProvider>
               <SmoothScroll>
                 <Nav />
-                <div className="site-stage">{children}</div>
+                <RoleScope>{children}</RoleScope>
                 <Footer />
                 {/* Persistent install + language dock. Sits inside
                     SmoothScroll so it shares the page's scroll context, and

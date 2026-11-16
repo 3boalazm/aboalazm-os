@@ -39,8 +39,8 @@
   --spacing: 8px;
 
   /* ══════════════ 2 · BORDER RADIUS ══════════════ */
-  --radius-card:  12px;   /* cards, inputs, media frames        */
-  --radius-panel: 24px;   /* bento tiles, modals, hero surfaces */
+  --radius-card:  20px;   /* cards, inputs, media frames (X)    */
+  --radius-panel: 28px;   /* bento tiles, modals, hero surfaces */
   --radius-pill:  999px;  /* nav, buttons, tags, badges         */
 
   /* ══════════════ 3 · MOTION — PHYSICS LANGUAGE ══════════════
@@ -276,7 +276,7 @@
     0 0 160px var(--glow-2);
 
   /* ══════════════ 7 · LAYOUT ══════════════ */
-  --container-content: 76rem;   /* 1216px — editorial column     */
+  --container-content: 84rem;   /* 1344px — editorial column (X) */
   --container-wide:    90rem;   /* 1440px — bento / work grids   */
 
   /* Z-index contract */

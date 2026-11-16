@@ -10,6 +10,7 @@ import { contactHref, tierId } from "@/lib/contact-context";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { Arrow } from "@/features/x/shared";
 import { useLang } from "@/components/providers/lang-provider";
 import {
   alacarteWhatsappHref,
@@ -38,7 +39,9 @@ function resolveTierPlanId(tier: Tier): PlanId {
   return tierId(tier.tag[0]) as PlanId;
 }
 
-/* ── Section header: mono label + serif statement ── */
+/* ── Section head — the X chapter head: outlined numeral, kicker, display title ──
+   The label arrives as "01 / WHAT WE DO"; the number becomes the numeral,
+   the rest the kicker. A label without a number just gets the kicker. */
 export function SectionHead({
   label,
   title,
@@ -49,16 +52,23 @@ export function SectionHead({
   italic?: Bi;
 }) {
   const { lang } = useLang();
+  const text = pick(label, lang);
+  const m = /^\s*(\d{1,2})\s*\/\s*(.+)$/.exec(text);
+  const num = m?.[1];
+  const kicker = m ? m[2] : text;
   return (
-    <div className="flex flex-col gap-1">
-      <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-        {pick(label, lang)}
-      </p>
-      <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
+    <header className="x-sec x-rise">
+      {num ? (
+        <span aria-hidden className="x-sec__num">
+          {num}
+        </span>
+      ) : null}
+      <p className="x-mono x-kicker relative">{num ? `${num} — ${kicker}` : kicker}</p>
+      <h2 className="x-sec__title">
         {pick(title, lang)}{" "}
-        {italic && <em className="text-accent">{pick(italic, lang)}</em>}
+        {italic && <em>{pick(italic, lang)}</em>}
       </h2>
-    </div>
+    </header>
   );
 }
 
@@ -407,14 +417,16 @@ export function PaymentBlock() {
 export function Faq({ items }: { items: readonly { q: Bi; a: Bi }[] }) {
   const { lang } = useLang();
   return (
-    <div className="flex flex-col">
+    <div className="x-faq">
       {items.map((f) => (
-        <details key={f.q[0]} className="group border-b border-border-subtle py-2">
-          <summary className="flex cursor-pointer list-none items-baseline justify-between gap-2 text-body text-text-primary transition-colors duration-base ease-physics hover:text-accent">
+        <details key={f.q[0]} className="x-faq__item x-rise">
+          <summary className="x-faq__q">
             {pick(f.q, lang)}
-            <span aria-hidden className="font-mono text-label text-accent transition-transform duration-base ease-physics group-open:rotate-45">+</span>
+            <span aria-hidden className="x-faq__plus">
+              +
+            </span>
           </summary>
-          <p className="mt-1 max-w-[70ch] text-body-sm text-text-secondary">{pick(f.a, lang)}</p>
+          <p className="x-faq__a">{pick(f.a, lang)}</p>
         </details>
       ))}
     </div>
@@ -443,24 +455,22 @@ export function CtaBand({
     );
   }
   return (
-    <section className="ground ground-glow flex flex-col items-center gap-3 rounded-panel border border-border-default px-3 pt-8 text-center">
-      <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-        — {pick(kicker, lang)} —
+    <section className="x-cta x-iris">
+      <div aria-hidden className="x-cta__sun" />
+      <p className="x-mono x-kicker">{pick(kicker, lang)}</p>
+      <p className="x-display x-cta__title">
+        {pick(title, lang)} <span className="x-accent">{pick(italic, lang)}</span>
       </p>
-      <p className="font-display text-display tracking-[-0.025em]">
-        {pick(title, lang)} <em className="text-accent">{pick(italic, lang)}</em>
-      </p>
-      <div className="flex flex-wrap items-center justify-center gap-2">
-        <Link href={primaryHref} className={buttonVariants({ className: "inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5" })}>
+      <div className="x-cta__row">
+        <Link href={primaryHref} className="x-btn x-btn--solid">
           {pick(primary, lang)}
-          <Icon name="sparkle" size="0.9em" />
+          <Arrow />
         </Link>
-        <Link href={secondaryHref} className={buttonVariants({ variant: "ghost", className: "glass inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-label tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:text-text-primary" })}>
+        <Link href={secondaryHref} className="x-btn x-btn--line">
           {pick(secondary, lang)}
-          <Icon name="arrow-right" />
         </Link>
       </div>
-      <p className="font-mono text-micro text-text-tertiary">
+      <p className="x-mono x-cta__promise">
         {lang === "ar" ? RESPONSE_PROMISE.ar : RESPONSE_PROMISE.en}
       </p>
     </section>

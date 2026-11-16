@@ -23,13 +23,13 @@ import { PanelCard } from "@/components/ui/PanelCard";
 
 const PHASES: readonly { n: string; days: Bi; name: Bi; body: Bi; out: Bi }[] = [
   { n: "01", days: ["Day 1", "اليوم 1"], name: ["Contact & Initial Understanding", "التواصل والفهم المبدئي"], body: ["A focused conversation to hear the idea, the business goal, and the timeline before any commitment.", "محادثة مركّزة لسماع الفكرة والهدف التجاري والجدول الزمني قبل أي التزام."], out: ["Initial Fit", "توافق مبدئي"] },
-  { n: "02", days: ["Days 1–2", "اليوم 1–2"], name: ["Discovery Questions", "أسئلة الاكتشاف"], body: ["Initial questions to align on vision, audience, and competitors — followed by a detailed questionnaire after signing.", "أسئلة مبدئية لتوحيد الرؤية والجمهور والمنافسين — يليها استبيان تفصيلي بعد التعاقد."], out: ["Signed Brief", "بريف معتمد"] },
-  { n: "03", days: ["Days 2–3", "اليوم 2–3"], name: ["Proposal & Kickoff Deposit", "العرض الفني ودفعة البدء"], body: ["Written scope, deliverables, and fixed quote. Kickoff begins once the 50% deposit lands.", "نطاق مكتوب، مخرجات محددة، وعرض سعر ثابت. يبدأ العمل فور وصول دفعة الـ 50%."] , out: ["50% Kickoff", "دفعة 50%"] },
-  { n: "04", days: ["Days 3–9", "الأيام 3–9"], name: ["Research & Strategy", "البحث والاستراتيجية"], body: ["Competitor audit, positioning, audience persona, and visual direction approved on paper before sketching.", "مراجعة المنافسين، التموضع، بيرسونا الجمهور، والاتجاه البصري — تُعتمد كتابيًا قبل الرسم."], out: ["Strategy Sign-off", "اعتماد الاستراتيجية"] },
-  { n: "05", days: ["Days 9–20", "الأيام 9–20"], name: ["Concept Presentation", "عرض المفاهيم"], body: ["2–3 strategic directions presented in real-world context with clear rationale.", "عرض 2–3 اتجاهات استراتيجية في سياق الاستخدام الفعلي مع شرح المنطق البصري."], out: ["Concept Selection", "اختيار المفهوم"] },
-  { n: "06", days: ["Days 20–27", "الأيام 20–27"], name: ["Refinement & Revisions", "التطوير والمراجعات"], body: ["Two structured revision rounds on the selected direction until every detail is locked in.", "جولتا مراجعة منظمتان على الاتجاه المختار حتى تثبيت كل التفاصيل."], out: ["Final Approval", "الاعتماد النهائي"] },
-  { n: "07", days: ["Days 27–35", "الأيام 27–35"], name: ["Applications & Guidelines", "التطبيقات ودليل الهوية"], body: ["Building out color, typography, stationery/social applications, and the Brand Guidelines PDF.", "استكمال الألوان والخطوط والتطبيقات وإعداد دليل الهوية PDF."], out: ["System Ready", "جهوزية النظام"] },
-  { n: "08", days: ["Days 35–38", "الأيام 35–38"], name: ["Final Payment & Handover", "الدفعة النهائية والتسليم"], body: ["After the final balance clears, all open source files and full IP rights transfer in writing.", "بعد سداد الدفعة النهائية، تُسلَّم كل الملفات المفتوحة وتنتقل الملكية الفكرية كتابيًا."], out: ["IP Transfer", "نقل الملكية"] },
+  { n: "02", days: ["Days 1–2", "اليومان 1–2"], name: ["Discovery Questions", "أسئلة الاكتشاف"], body: ["Initial questions to align on vision, audience, and competitors — followed by a detailed questionnaire after signing.", "أسئلة مبدئية لتوحيد الرؤية والجمهور والمنافسين، يليها استبيان تفصيلي بعد التعاقد."], out: ["Signed Brief", "موجز معتمد"] },
+  { n: "03", days: ["Days 2–3", "اليومان 2–3"], name: ["Proposal & Kickoff Deposit", "العرض الفني ودفعة البدء"], body: ["Written scope, deliverables, and fixed quote. Kickoff begins once the 50% deposit lands.", "نطاق مكتوب ومخرجات محددة وعرض سعر ثابت. يبدأ العمل فور وصول دفعة البدء (50%)."] , out: ["50% Kickoff", "دفعة 50%"] },
+  { n: "04", days: ["Days 3–9", "الأيام 3–9"], name: ["Research & Strategy", "البحث والاستراتيجية"], body: ["Competitor audit, positioning, audience persona, and visual direction approved on paper before sketching.", "مراجعة المنافسين، والتموضع، وشخصية الجمهور المستهدف، والاتجاه البصري، وتُعتمد كلها كتابيًا قبل الرسم."], out: ["Strategy Sign-off", "اعتماد الاستراتيجية"] },
+  { n: "05", days: ["Days 9–20", "الأيام 9–20"], name: ["Concept Presentation", "عرض المفاهيم"], body: ["2–3 strategic directions presented in real-world context with clear rationale.", "عرض اتجاهين أو ثلاثة اتجاهات استراتيجية في سياق الاستخدام الفعلي، مع شرح منطقها البصري."], out: ["Concept Selection", "اختيار المفهوم"] },
+  { n: "06", days: ["Days 20–27", "الأيام 20–27"], name: ["Refinement & Revisions", "التطوير والمراجعات"], body: ["Two structured revision rounds on the selected direction until every detail is locked in.", "جولتا مراجعة منظَّمتان للاتجاه المختار حتى تُثبَّت كل التفاصيل."], out: ["Final Approval", "الاعتماد النهائي"] },
+  { n: "07", days: ["Days 27–35", "الأيام 27–35"], name: ["Applications & Guidelines", "التطبيقات ودليل الهوية"], body: ["Building out color, typography, stationery/social applications, and the Brand Guidelines PDF.", "استكمال الألوان والخطوط والتطبيقات (المطبوعات ووسائل التواصل)، وإعداد دليل الهوية بصيغة PDF."], out: ["System Ready", "جهوزية النظام"] },
+  { n: "08", days: ["Days 35–38", "الأيام 35–38"], name: ["Final Payment & Handover", "الدفعة النهائية والتسليم"], body: ["After the final balance clears, all open source files and full IP rights transfer in writing.", "بعد سداد الدفعة النهائية تُسلَّم كل الملفات المفتوحة، وتنتقل الملكية الفكرية كتابيًا."], out: ["IP Transfer", "نقل الملكية"] },
 ];
 
 const QUESTIONS: readonly { head: Bi; items: readonly Bi[] }[] = [
@@ -44,22 +44,22 @@ const QUESTIONS: readonly { head: Bi; items: readonly Bi[] }[] = [
   {
     head: ["02 · Audience & Market", "02 · الجمهور والسوق"],
     items: [
-      ["Who is your ideal customer (age, location, mindset)?", "من هو العميل المثالي (العمر، المكان، طريقة التفكير)؟"],
-      ["Who are the top 3 local or international competitors?", "من أبرز 3 منافسين محليًا أو دوليًا؟"],
-      ["Is the brand Arabic-first, English-first, or equally bilingual?", "هل البراند عربي بالأساس أم إنجليزي أم ثنائي اللغة بالتساوي؟"],
+      ["Who is your ideal customer (age, location, mindset)?", "من هو عميلك المثالي (العمر، والمكان، وطريقة التفكير)؟"],
+      ["Who are the top 3 local or international competitors?", "من أبرز ثلاثة منافسين محليًا أو دوليًا؟"],
+      ["Is the brand Arabic-first, English-first, or equally bilingual?", "هل العلامة عربية بالأساس، أم إنجليزية، أم ثنائية اللغة بالتساوي؟"],
     ],
   },
   {
     head: ["03 · Visual Direction", "03 · الاتجاه البصري"],
     items: [
-      ["Which 3 adjectives should describe the brand's personality?", "ما الـ 3 صفات التي يجب أن تصف شخصية البراند؟"],
+      ["Which 3 adjectives should describe the brand's personality?", "ما الصفات الثلاث التي يجب أن تصف شخصية العلامة؟"],
       ["Are there colors, symbols, or styles to keep or strictly avoid?", "هل هناك ألوان أو رموز أو أساليب يجب الحفاظ عليها أو تجنبها تمامًا؟"],
     ],
   },
   {
     head: ["04 · Touchpoints & Timeline", "04 · نقاط التواصل والجدول"],
     items: [
-      ["Where will the identity appear first (packaging, web, social, signage)?", "أين ستظهر الهوية أولًا (تغليف، موقع، سوشيال، لافتات)؟"],
+      ["Where will the identity appear first (packaging, web, social, signage)?", "أين ستظهر الهوية أولًا (التغليف، الموقع، وسائل التواصل، اللافتات)؟"],
       ["What is the target launch date and preferred tier?", "ما موعد الإطلاق المستهدف والفئة المفضلة؟"],
     ],
   },
@@ -87,7 +87,7 @@ export function AgreementView({
           }
           subtitle={
             ar
-              ? "المنهجية والتسعير والنطاق والبنود — موضوعة بوضوح لنبدأ بثقة. هذا هو العرض الكامل: اقرأه مرة، ولا مفاجآت بعدها."
+              ? "المنهجية والتسعير والنطاق والبنود، موضوعة بوضوح لنبدأ بثقة. هذا هو العرض الكامل: اقرأه مرة واحدة، ولا مفاجآت بعدها."
               : "Process, pricing, scope, and terms — clearly laid out so we can build with confidence. This is the full proposal: read it once, no surprises later."
           }
           subtitleClassName="max-w-[52ch]"
@@ -110,9 +110,9 @@ export function AgreementView({
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["02 / DISCOVERY QUESTIONS", "02 / أسئلة الاكتشاف"]} title={["Before we", "قبل ما"]} italic={["start.", "نبدأ."]} />
+        <SectionHead label={["02 / DISCOVERY QUESTIONS", "02 / أسئلة الاكتشاف"]} title={["Before we", "قبل أن"]} italic={["start.", "نبدأ."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
-          {ar ? "ليعبّر البراند عن نشاطك بدقة، نحتاج إجابات متوافقة على هذه الأسئلة — ويلي ذلك استبيان تفصيلي بعد توقيع العقد." : "For the brand to express your business accurately, we need aligned answers to these. A detailed questionnaire follows after contract signing."}
+          {ar ? "لتعبّر العلامة عن نشاطك بدقة، نحتاج إلى إجابات واضحة عن هذه الأسئلة، يليها استبيان تفصيلي بعد توقيع العقد." : "For the brand to express your business accurately, we need aligned answers to these. A detailed questionnaire follows after contract signing."}
         </p>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {QUESTIONS.map((g) => (
@@ -134,7 +134,7 @@ export function AgreementView({
       </section>
 
       <section className="flex flex-col gap-3">
-        <SectionHead label={["04 / PRODUCTION MENU", "04 / قائمة الإنتاج"]} title={["Production,", "الإنتاج،"]} italic={["not strategy.", "مش الاستراتيجية."]} />
+        <SectionHead label={["04 / PRODUCTION MENU", "04 / قائمة الإنتاج"]} title={["Production,", "الإنتاج،"]} italic={["not strategy.", "لا الاستراتيجية."]} />
         <p className="max-w-[60ch] text-body-sm text-text-secondary">
           {pick(PRODUCTION_MENU_NOTE, lang)}
         </p>
@@ -166,18 +166,18 @@ export function AgreementView({
         </div>
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar
-            ? `— البنود 01–12 سارية ونافذة على كل اتفاق موقّع · آخر مراجعة ${AGREEMENT_REVISED} —`
+            ? `— البنود 01–12 سارية على كل اتفاق موقّع · آخر مراجعة ${AGREEMENT_REVISED} —`
             : `— CLAUSES 01–12 ARE IN FORCE ON EVERY SIGNED AGREEMENT · LAST REVISED ${AGREEMENT_REVISED} —`}
         </p>
       </section>
 
       <CtaBand
-        kicker={["READ THE TERMS, THEN START", "اقرأ البنود، وبعدين ابدأ"]}
-        title={["Questions about the", "عندك سؤال في"]}
-        italic={["contract?", "الاتفاقية؟"]}
+        kicker={["READ THE TERMS, THEN START", "اقرأ البنود، ثم ابدأ"]}
+        title={["Questions about the", "هل لديك سؤال"]}
+        italic={["contract?", "عن الاتفاقية؟"]}
         primary={DISCOVERY_CTA_LABEL}
         primaryHref="/contact"
-        secondary={["View Pricing", "شاهد التسعير"]}
+        secondary={["View Pricing", "اطّلع على الأسعار"]}
         secondaryHref="/pricing"
       />
     </main>

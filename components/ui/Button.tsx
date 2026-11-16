@@ -14,7 +14,7 @@ import { joinClasses } from "@/lib/utils";
  * site supplies its own layout/transition/hover className in full — see
  * sprint-button-primitive.md for the measured per-family values.
  */
-const BASE = "rounded-pill uppercase disabled:opacity-60";
+const BASE = "x-bt rounded-pill uppercase disabled:opacity-60";
 
 /**
  * variant="primary": bg-accent/text-obsidian — the one skin shared,

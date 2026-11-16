@@ -56,49 +56,49 @@ export const STORIES: Record<string, { challenge: string; challengeAr: string }>
     challenge:
       "A specialized cardiac and pulmonary institute needed an authoritative yet warm bilingual identity to govern architectural signage and patient care.",
     challengeAr:
-      "معهد رعاية قلب ورئة تخصصي احتاج هوية ثنائية اللغة تجمع بين الثقة الطبية والدفء الإنساني لتطبيقها عبر اللافتات والمنصات الرقمية.",
+      "معهد متخصص في رعاية القلب والرئة احتاج إلى هوية ثنائية اللغة تجمع بين الثقة الطبية والدفء الإنساني، لتُطبَّق على اللافتات والمنصات الرقمية.",
   },
   reflection: {
     challenge:
       "An art and print studio needed a warm, airy editorial identity distinct from cheap poster shops and sterile art galleries.",
     challengeAr:
-      "استوديو فنون ومطبوعات احتاج هوية تحريرية دافئة تميزه عن متاجر البوسترات الشعبية وصالات العرض الباردة المنعزلة.",
+      "استوديو للفنون والمطبوعات احتاج إلى هوية تحريرية دافئة تميّزه عن متاجر الملصقات الشعبية وصالات العرض الباردة المنعزلة.",
   },
   "nile-pharma": {
     challenge:
       "A pharma-food brand operating without visual governance needed consumer packaging authority and cohesive bilingual shelf presence.",
     challengeAr:
-      "شركة مكملات غذائية وأدوية كانت تعمل دون حوكمة بصرية، فاحتاجت معمارية تغليف موحدة وحضوراً قوياً على أرفف الصيدليات.",
+      "شركة مكملات غذائية وأدوية كانت تعمل دون حوكمة بصرية، فاحتاجت إلى بنية تغليف موحدة وحضور قوي على أرفف الصيدليات.",
   },
   "ahmed-bedeer": {
     challenge:
       "A healthcare IT leader needed a personal brand with executive gravitas, geometric monogram precision, and zero corporate stiffness.",
     challengeAr:
-      "قائد في تكنولوجيا المعلومات الصحية احتاج هوية شخصية بوقار تنفيذي ومونوجرام هندسي دقيق بعيداً عن الجمود المؤسسي.",
+      "قائد في تكنولوجيا المعلومات الصحية احتاج إلى هوية شخصية بوقار تنفيذي ومونوغرام هندسي دقيق، بعيدًا عن الجمود المؤسسي.",
   },
   "code-canvas": {
     challenge:
       "A two-track brand and engineering studio needed a unified visual system capable of governing strategy decks, guidelines, and digital products.",
     challengeAr:
-      "استوديو يجمع بين الهوية والهندسة البرمجية احتاج نظاماً بصرياً موحداً يحكم العروض الاستراتيجية والأدلة والمنتجات الرقمية.",
+      "استوديو يجمع بين الهوية والهندسة البرمجية احتاج إلى نظام بصري موحد يحكم العروض الاستراتيجية والأدلة والمنتجات الرقمية.",
   },
   esfc: {
     challenge:
       "An annual geoscience field camp needed an energetic student-led identity that unifies apparel, field guides, badges, and event media.",
     challengeAr:
-      "معسكر ميداني طلابي لعلوم الأرض احتاج هوية حيوية توحّد المطبوعات الميدانية والملابس والشارات والتغطية الرقمية.",
+      "معسكر ميداني طلابي لعلوم الأرض احتاج إلى هوية حيوية توحّد المطبوعات الميدانية والملابس والشارات والتغطية الرقمية.",
   },
   "learn-in-arabic": {
     challenge:
       "An educational initiative needed a bold typographic mark and content system that makes technical learning in Arabic feel modern and clear.",
     challengeAr:
-      "مبادرة تعليمية احتاجت علامة تايبوجرافية ونظام محتوى يجعل التعلّم التقني باللغة العربية عصرياً وواضحاً.",
+      "مبادرة تعليمية احتاجت إلى علامة قائمة على الحروف ونظام محتوى يجعلان تعلّم التقنية بالعربية عصريًا وواضحًا.",
   },
   "youth-scope": {
     challenge:
       "A youth community program needed a modular visual identity built for fast volunteer publishing across workshops, stages, and social channels.",
     challengeAr:
-      "مبادرة شبابية احتاجت هوية بصرية مرنة تمكّن فرق المتطوعين من النشر المتسق عبر الورش والفعاليات والمنصات الاجتماعية.",
+      "مبادرة شبابية احتاجت إلى هوية بصرية مرنة تمكّن فرق المتطوعين من النشر المتسق عبر الورش والفعاليات ومنصات التواصل.",
   },
 
   // Development & Digital Products Track (17 curated projects — see projects.data CURATED_DEVELOPMENT_SLUGS)
@@ -106,43 +106,43 @@ export const STORIES: Record<string, { challenge: string; challengeAr: string }>
     challenge:
       "Built an Arabic RTL operations and commercial ERP console uniting sales orders, collection KPIs, inventory alerts, and rep leaderboards.",
     challengeAr:
-      "تطوير لوحة عمليات ومبيعات عربية RTL توحّد أوامر البيع ونسب التحصيل وتنبيهات المخزون ولوحة صدارة المندوبين.",
+      "تطوير لوحة عمليات ومبيعات عربية RTL توحّد أوامر البيع ونسب التحصيل وتنبيهات المخزون ولوحة ترتيب المندوبين.",
   },
   "ummah-academy": {
     challenge:
       "Engineered a multilingual Astro learning platform spanning 5 languages, native RTL typography, 23 routes, and offline-ready PWA delivery.",
     challengeAr:
-      "بناء منصة تعليمية متعددة اللغات بـ Astro تدعم 5 لغات وتايبوجرافيا RTL أصيلة و23 مساراً وتطبيق ويب قابل للتثبيت.",
+      "بناء منصة تعليمية متعددة اللغات بـ Astro، تدعم 5 لغات وكتابة RTL أصيلة، وتضم 23 مسارًا وتطبيق ويب قابلًا للتثبيت.",
   },
   "speech-to-text-studio": {
     challenge:
       "Designed a resilient transcription studio routing uploads and mic recordings across four STT engines with automatic server-side failover.",
     challengeAr:
-      "تصميم استوديو تفريغ صوتي يوجّه التسجيلات عبر أربعة محركات تعرّف على الكلام مع تبديل تلقائي على الخادم عند ضغط الطلبات.",
+      "تصميم استوديو للتفريغ الصوتي يوجّه التسجيلات عبر أربعة محركات للتعرّف على الكلام، مع تبديل تلقائي على الخادم عند ازدحام الطلبات.",
   },
   stemforge: {
     challenge:
       "Created a zero-upload browser audio workspace using ONNX Runtime Web and Web Workers to isolate vocals, drums, and bass locally.",
     challengeAr:
-      "بناء مساحة عزل مسارات موسيقية تعمل بالكامل داخل المتصفح عبر ONNX Runtime وWeb Workers دون رفع الملفات لأي خادم.",
+      "بناء مساحة لعزل المسارات الموسيقية تعمل بالكامل داخل المتصفح عبر ONNX Runtime وWeb Workers، دون رفع الملفات إلى أي خادم.",
   },
   "momo-collective": {
     challenge:
       "Architected a bilingual urban streetwear storefront and admin dashboard pairing editorial lookbooks with cart, wishlist, loyalty, and order flows.",
     challengeAr:
-      "هندسة متجر أزياء عصرية ثنائي اللغة ولوحة إدارة تجمع العرض التحريري مع السلة والمفضلة ونقاط الولاء وإدارة الطلبات.",
+      "هندسة متجر أزياء عصري ثنائي اللغة مع لوحة إدارة تجمع العرض التحريري والسلة والمفضلة ونقاط الولاء وإدارة الطلبات.",
   },
   "farm-console": {
     challenge:
       "Shipped an offline-capable Arabic RTL livestock platform tracking herd records, breeding lineages, veterinary schedules, feed costs, and net profit.",
     challengeAr:
-      "تطوير منصة عربية لإدارة المزارع الثروة الحيوانية تتابع سجلات القطيع والأنساب والتطعيمات ومصروفات الأعلاف وصافي الربح.",
+      "تطوير منصة عربية لإدارة مزارع الثروة الحيوانية تتابع سجلات القطيع والأنساب والتطعيمات ومصروفات الأعلاف وصافي الربح.",
   },
   "code-canvas-dev": {
     challenge:
       "Engineered a zero-dependency static studio platform generating 82 bilingual EN/AR pages for 23 fixed-scope services and transparent fee bands.",
     challengeAr:
-      "بناء منصة استوديو ثابتة بدون اعتماديات تشغيلية تولّد 82 صفحة ثنائية اللغة لـ 23 خدمة محددة النطاق والتكلفة.",
+      "بناء منصة استوديو ثابتة دون اعتماديات تشغيلية، تولّد 82 صفحة ثنائية اللغة لـ 23 خدمة محددة النطاق والتكلفة.",
   },
   "nile-pharma-storefront": {
     challenge:
@@ -154,55 +154,55 @@ export const STORIES: Record<string, { challenge: string; challengeAr: string }>
     challenge:
       "Built an ad-free, offline-first Islamic worship companion covering 64 screens across prayer times, Quran completion plans, adhkar, and a kids mode.",
     challengeAr:
-      "تطوير رفيق عبادة يومي يعمل بدون إنترنت وبدون إعلانات عبر 64 شاشة تشمل المواقيت والورد اليومي والأذكار وواحة الطفل.",
+      "تطوير رفيق عبادة يومي يعمل دون إنترنت ودون إعلانات، عبر 64 شاشة تشمل المواقيت والورد اليومي والأذكار وواحة الطفل.",
   },
   "mini-exam": {
     challenge:
       "Built a bilingual teacher-to-student assessment studio generating validated AI questions, grading submissions on the server, and formatting WhatsApp reports.",
     challengeAr:
-      "بناء نظام اختبارات يولّد أسئلة محكومة بالمدققات ويصحح الإجابات على الخادم تلقائياً مع تجهيز تقارير النتيجة عبر واتساب.",
+      "بناء نظام اختبارات يولّد أسئلة محكومة بالمدققات، ويصحّح الإجابات تلقائيًا على الخادم، ويجهّز تقارير النتائج عبر واتساب.",
   },
   "ahmed-kamar": {
     challenge:
       "Crafted a bilingual executive portfolio framing restaurant and delivery-platform analytics case studies with SQL-first clarity and clean hierarchy.",
     challengeAr:
-      "تصميم وتطوير بورتفوليو ثنائي اللغة يعرض دراسات حالة تحليل بيانات المطاعم ومنصات التوصيل بوضوح بصري وهيكلي.",
+      "تصميم وتطوير ملف أعمال ثنائي اللغة يعرض دراسات حالة في تحليل بيانات المطاعم ومنصات التوصيل بوضوح بصري وهيكلي.",
   },
   continuum: {
     challenge:
       "Designed a local-first personal memory operating system across 21 views to reconstruct session context, track decisions, and sync cleanly with Firebase.",
     challengeAr:
-      "تصميم نظام ذاكرة شخصي محلي أولاً عبر 21 شاشة لاستعادة سياق العمل وتوثيق القرارات المعمارية والمزامنة السحابية الاختيارية.",
+      "تصميم نظام ذاكرة شخصي محلي أولًا عبر 21 شاشة لاستعادة سياق العمل وتوثيق القرارات المعمارية، مع مزامنة سحابية اختيارية.",
   },
   "pharmacy-web": {
     challenge:
       "Designed a token-driven Arabic RTL pharmacy frontend structured around 15 bounded-context modules, strict import boundaries, and precision money handling.",
     challengeAr:
-      "تصميم معمارية واجهة أمامية عربية RTL لصيدلية مبنية على توكنز و15 وحدة سياق مغلق وقواعد حدود برمجية صارمة.",
+      "تصميم بنية واجهة أمامية عربية RTL لصيدلية، قائمة على متغيّرات التصميم و15 وحدة سياق مغلقة وقواعد صارمة لحدود الشيفرة.",
   },
   "youssef-guba": {
     challenge:
       "Built a bilingual personal operating system for a mobile product engineer uniting case studies, courses, technical writing, and Sanity CMS publishing.",
     challengeAr:
-      "تطوير نظام بورتفوليو شخصي ثنائي اللغة لمهندس تطبيقات يجمع دراسات الحالة والدورات والمدونة التقنية مع Sanity CMS.",
+      "تطوير نظام ملف أعمال شخصي ثنائي اللغة لمهندس تطبيقات يجمع دراسات الحالة والدورات والمدونة التقنية مع Sanity CMS.",
   },
   "nile-bed": {
     challenge:
       "Built a bilingual B2B industrial catalogue for a mattress spring manufacturer and supply wholesaler, organizing 69 items across 8 product groups with direct WhatsApp inquiry flows.",
     challengeAr:
-      "بناء كتالوج صناعي ثنائي اللغة لمصنع سوست وتوريد خامات مراتب ينظم 69 صنفاً في 8 مجموعات منتجات مع مسارات طلب عروض أسعار عبر واتساب.",
+      "بناء كتالوج صناعي ثنائي اللغة لمصنع نوابض وموردي خامات المراتب، ينظّم 69 صنفًا في 8 مجموعات منتجات، مع مسارات لطلب عروض الأسعار عبر واتساب.",
   },
   "craft-egypt": {
     challenge:
       "Built an Arabic RTL storefront and regional craft atlas showcasing authentic Egyptian handmade copperware, textiles, pottery, and decor with a made-to-order inquiry flow.",
     challengeAr:
-      "تطوير متجر وواجهة عربية RTL وأطلس ثقافي للحرف اليدوية والتراثية المصرية يجمع أقسام المنتجات وقصص الورش ودليل الطلب المخصص.",
+      "تطوير متجر وواجهة عربية RTL وأطلس ثقافي للحرف اليدوية والتراثية المصرية، يجمع أقسام المنتجات وقصص الورش ودليل الطلب المخصص.",
   },
   "clinic-appointment-system": {
     challenge:
       "Built the Arabic RTL patient booking interface, installable PWA layer, and operational setup on top of the open-source Easy!Appointments (GPL-3.0) scheduling platform.",
     challengeAr:
-      "تطوير طبقة واجهة حجز مرضى عربية RTL وتطبيق ويب تقدمي (PWA) وإعداد تشغيلي مبني فوق منصة الجدولة مفتوحة المصدر Easy!Appointments (برخصة GPL-3.0).",
+      "تطوير طبقة واجهة لحجز المرضى بالعربية RTL، وتطبيق ويب تقدمي (PWA)، وإعدادًا تشغيليًا فوق منصة الجدولة مفتوحة المصدر Easy!Appointments (برخصة GPL-3.0).",
   },
 };
 
@@ -300,7 +300,7 @@ export function FeaturedCases({
                 )
               ) : ar ? (
                 <>
-                  قصص تقدر تقيس عليها <em className="text-accent">مشروعك.</em>
+                  حالات يمكنك أن تقيس عليها <em className="text-accent">مشروعك.</em>
                 </>
               ) : (
                 <>
@@ -311,10 +311,10 @@ export function FeaturedCases({
             <p className="text-body-sm text-text-secondary">
               {variant === "digital"
                 ? ar
-                  ? "منصات وأدوات وتجارب رقمية — استكشف التفاصيل والعرض المرئي، وجرّب المعاينة العامة لما تكون متاحة."
+                  ? "منصات وأدوات وتجارب رقمية: استكشف التفاصيل والعرض المرئي، وجرّب المعاينة العامة حيثما تتوفر."
                   : "Platforms, tools and digital experiences — explore the details, visual overview and available public previews."
                 : ar
-                  ? "التحدي، ما تم تصميمه، والنتيجة — عبر الرعاية الصحية، الفنون والمطبوعات، والمنتجات الاستهلاكية."
+                  ? "التحدي، وما صُمّم، والنتيجة، عبر الرعاية الصحية والفنون والمطبوعات والمنتجات الاستهلاكية."
                   : "The challenge, what was designed, and the outcome — across healthcare, editorial art & print, and consumer goods."}
             </p>
           </div>
@@ -372,7 +372,7 @@ export function FeaturedCases({
       {rnd.length > 0 ? (
         <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">
           <span className="text-text-ghost">
-            {ar ? "بحث وتطوير تقني —" : "AI & technical R&D —"}
+            {ar ? "بحث وتطوير تقني:" : "AI & technical R&D —"}
           </span>
           {rnd.map((project, i) => {
             const name = ar ? (project.nameAr ?? project.name) : project.name;
@@ -396,10 +396,10 @@ export function FeaturedCases({
           <p className="font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary">
             {variant === "digital"
               ? ar
-                ? `عرض ${featured.length} من أصل ${projects.length} مشروع في مسار التطوير`
+                ? `المشاريع المعروضة: ${featured.length} من ${projects.length} في مسار التطوير`
                 : `Showing ${featured.length} of ${projects.length} projects in Development`
               : ar
-                ? `عرض ${featured.length} من أصل ${projects.length} مشروع في مسار التصميم`
+                ? `المشاريع المعروضة: ${featured.length} من ${projects.length} في مسار التصميم`
                 : `Showing ${featured.length} of ${projects.length} projects in Design`}
           </p>
           <Link
@@ -440,9 +440,9 @@ function destinationOf(project: Project): Destination {
 
 const DESTINATION_COPY: Record<Destination, { en: string; ar: string }> = {
   case: { en: "Read the case study", ar: "اقرأ دراسة الحالة" },
-  live: { en: "Visit the live site", ar: "زور الموقع المباشر" },
-  demo: { en: "Demo · Request walkthrough", ar: "عرض تجريبي · اطلب معاينة" },
-  external: { en: "Open external portfolio", ar: "افتح البورتفوليو الخارجي" },
+  live: { en: "Visit the live site", ar: "زُر الموقع المباشر" },
+  demo: { en: "Demo · Request walkthrough", ar: "عرض تجريبي · اطلب عرضًا توضيحيًا" },
+  external: { en: "Open external portfolio", ar: "افتح ملف الأعمال الخارجي" },
 };
 
 export interface FeaturedCardProps {
@@ -491,10 +491,10 @@ export function FeaturedCard({
     destination === "case"
       ? { label: kind, tone: "outline" as const }
       : destination === "demo"
-        ? { label: ar ? "Demo · عرض تجريبي" : "Demo", tone: "creative" as const }
+        ? { label: ar ? "عرض تجريبي" : "Demo", tone: "creative" as const }
         : destination === "live"
-          ? { label: ar ? "منتج حي" : "Live product", tone: "live" as const }
-          : { label: ar ? "بورتفوليو خارجي" : "External portfolio", tone: "neutral" as const };
+          ? { label: ar ? "منتج منشور" : "Live product", tone: "live" as const }
+          : { label: ar ? "ملف أعمال خارجي" : "External portfolio", tone: "neutral" as const };
 
   const domainLabel = project.liveUrl
     ? project.liveUrl.replace(/^https?:\/\//i, "").replace(/\/+$/, "")
@@ -558,10 +558,10 @@ export function FeaturedCard({
               <span className="w-fit whitespace-nowrap rounded-pill border border-border-default bg-surface-1/80 px-2.5 py-0.5 font-mono text-[11px] uppercase tracking-[0.12em] text-accent">
                 {project.isDemo
                   ? ar
-                    ? "DEMO · عرض تجريبي"
+                    ? "عرض تجريبي"
                     : "DEMO · RTL + PWA LAYER"
                   : ar
-                    ? "موقع مباشر"
+                    ? "موقع منشور"
                     : "LIVE DEPLOYMENT"}
               </span>
               <div className="flex flex-col gap-1">
