@@ -527,28 +527,47 @@ html[dir="rtl"] .x-menu__link:hover span:last-child { translate: -0.5rem 0; }
   display: grid; place-items: center;
   -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--x-r), #000 calc(var(--x-r) + 2px));
           mask-image: radial-gradient(circle at 50% 50%, transparent var(--x-r), #000 calc(var(--x-r) + 2px));
-  animation: x-boot-open 1s 1.3s cubic-bezier(.7,0,.2,1) forwards;
+  animation: x-boot-open .9s .95s cubic-bezier(.7,0,.2,1) forwards;
 }
 html[data-booted] .x-boot { display: none; }
+/* Any wheel / touch / key / click skips the wait — the intro never holds the page back. */
+html[data-skip] .x-boot { animation: x-boot-skip .28s ease-out forwards; }
+@keyframes x-boot-skip { to { opacity: 0; visibility: hidden; } }
 @keyframes x-boot-open { 0% { --x-r: 0px; opacity: 1; } 96% { --x-r: 120vmax; opacity: 1; } 100% { --x-r: 120vmax; opacity: 0; visibility: hidden; } }
-.x-boot__n { font-family: var(--font-display); font-size: clamp(6rem, 24vw, 19rem); line-height: 0.8; letter-spacing: -0.05em; counter-reset: n var(--x-n); animation: x-boot-count 1.2s cubic-bezier(.3,0,.2,1) forwards; }
+.x-boot__n { font-family: var(--font-display); font-size: clamp(6rem, 24vw, 19rem); line-height: 0.8; letter-spacing: -0.05em; counter-reset: n var(--x-n); animation: x-boot-count .9s cubic-bezier(.3,0,.2,1) forwards; }
 .x-boot__n::after { content: counter(n); }
 @keyframes x-boot-count { to { --x-n: 100; } }
 .x-boot__top, .x-boot__bot { position: absolute; inset-inline: 0; text-align: center; color: rgb(248 248 250 / 0.6); }
 .x-boot__top { top: 2rem; } .x-boot__bot { bottom: 2rem; }
 .x-boot__bar { position: absolute; inset-inline: 0; bottom: 0; height: 4px; }
-.x-boot__bar i { display: block; height: 100%; background: #FF6B47; transform-origin: left; animation: x-boot-bar 1.2s cubic-bezier(.3,0,.2,1) forwards; }
+.x-boot__bar i { display: block; height: 100%; background: #FF6B47; transform-origin: left; animation: x-boot-bar .9s cubic-bezier(.3,0,.2,1) forwards; }
 @keyframes x-boot-bar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
-/* IRIS — each room rises through a dome, the portal motif at page scale. */
+/* IRIS — each room rises through a dome, the portal motif at page scale.
+   The range is unchanged (the whole entry); only the IN is front-loaded: the dome is
+   already wide a quarter of the way in, so the room is readable after ~half a screen
+   of scrolling instead of ~one. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .x-iris { animation: x-iris linear both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
     @keyframes x-iris {
-      0% { clip-path: circle(5vmax at 50% 0); }
-      45% { clip-path: circle(34vmax at 50% 0); }
-      85% { clip-path: circle(72vmax at 50% 0); }
+      0% { clip-path: circle(6vmax at 50% 0); }
+      22% { clip-path: circle(32vmax at 50% 0); }
+      45% { clip-path: circle(62vmax at 50% 0); }
+      65% { clip-path: circle(100vmax at 50% 0); }
       100% { clip-path: circle(900vmax at 50% 0); }
+    }
+    /* Phones: the dome is sized to the width, so it stays a visible dome for about as
+       long as on a desktop instead of snapping open. */
+    @media (max-width: 767px) {
+      .x-iris { animation-name: x-iris-narrow; }
+      @keyframes x-iris-narrow {
+        0% { clip-path: circle(12vw at 50% 0); }
+        20% { clip-path: circle(48vw at 50% 0); }
+        45% { clip-path: circle(104vw at 50% 0); }
+        70% { clip-path: circle(180vw at 50% 0); }
+        100% { clip-path: circle(900vmax at 50% 0); }
+      }
     }
   }
 }
