@@ -468,8 +468,9 @@ export function CtaBand({
 }
 
 /* ── Editorial variant — the duotone picture panel ──
-   Styled by .cta-editorial in globals.css; the picture is baked by
-   scripts/bake-duotone.mjs. The primary pill flips to alabaster here because
+   Styled by .cta-editorial in globals.css; the plate is the studio's own
+   liquid-chrome render (public/images/generated/statement-bg.jpg), the same
+   family the statement band uses. The primary pill flips to alabaster here because
    the accent would vanish against its own duotone (`ghost` carries no colour
    defaults, so this surface supplies its own). It brings its own container —
    do not nest it inside another one. */
@@ -509,7 +510,7 @@ function CtaBandEditorial({
     <div className="container-wide">
       <section ref={ref} data-seen={seen} className="cta-editorial">
         <Image
-          src="/images/cta/closing-duotone-npf.jpg"
+          src="/images/generated/statement-bg.jpg"
           alt=""
           fill
           sizes="(min-width: 1440px) 1392px, calc(100vw - 48px)"

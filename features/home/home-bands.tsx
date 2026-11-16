@@ -4,6 +4,7 @@
  * HOME BANDS — the sections the old home had, in the new system's
  * voice: skills marquee, about teaser, stats band, CTA band.
  */
+import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import * as React from "react";
 import { Icon } from "@/components/ui/Icon";
@@ -13,6 +14,7 @@ import { usePersona, pickFor } from "@/components/providers/persona-provider";
 import { CtaBand } from "@/features/offers/offer-blocks";
 import { buttonVariants } from "@/components/ui/Button";
 import { TIERS } from "@/lib/offers";
+import { BandFrame } from "@/components/ui/band-frame";
 
 /* ── Skills marquee (✦-separated, slow drift) ── */
 const SKILLS = ["Brand Identity", "Brand Strategy", "Visual Systems", "Art Direction", "Web Development"];
@@ -44,6 +46,31 @@ export function AboutTeaser() {
   return (
     <section className="container-content grid gap-8 py-6 lg:grid-cols-[7fr_5fr]">
       <div className="flex flex-col gap-3">
+        {/* Mobile visual anchor — the section was pure type. Code & Canvas
+            is named in the copy below, so its closing frame carries it. */}
+        <div className="relative aspect-[16/10] overflow-hidden rounded-panel border border-border-subtle lg:hidden">
+          <Image
+            src="/images/work/cc-closing.jpg"
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/75 via-obsidian/25 to-transparent"
+          />
+          <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
+            {ar ? "Code & Canvas — شريك مؤسس ومدير إبداعي" : "Code & Canvas — Co-Founder & Creative Lead"}
+          </span>
+        </div>
+        <BandFrame
+          src="/images/generated/band-practice.jpg"
+          veil="start"
+          shape="bleed"
+          className="lg:hidden"
+          contentClassName="flex flex-col gap-3 max-lg:p-4"
+        >
         <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
           {ar ? "01 / نبذة" : lang === "ms" ? "01 / TENTANG" : "01 / ABOUT"}
         </p>
@@ -69,6 +96,7 @@ export function AboutTeaser() {
         {/* The skills that used to live in the scrolling marquee — static
             chips now (overhaul S2: the marquee was motion for its own sake
             and repeated the same 8 words twice per row). */}
+        </BandFrame>
         <div className="mt-1 border-t border-border-subtle pt-3">
           <p className="mb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
             {ar ? "التخصص الأساسي" : lang === "ms" ? "BIDANG UTAMA" : "CORE DISCIPLINES"}
@@ -175,6 +203,19 @@ export function ClientJourneyBand() {
   const stepRefs = React.useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = React.useState(0);
 
+  /* Below md the stages are a swipe shelf, not the scroll story: the viewer
+     swipes one card at a time to read it, so ghosting the ones beside it would
+     grey out cards they are about to read. Dimming only applies to the
+     desktop scroll story, where all four are on screen at once. */
+  const [desktop, setDesktop] = React.useState(false);
+  React.useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   /* The active stage is whichever card sits in a thin band at the middle of
      the viewport. (Mapping total section progress ÷ 4 drifted out of sync
      with the cards: a card scrolled off-screen while still "active" and the
@@ -243,7 +284,9 @@ export function ClientJourneyBand() {
           </Link>
         </div>
 
-        <div className="relative">
+        {/* On a phone the four stages swipe as cards instead of scrolling
+            as a four-screen text wall; the sticky scroll story stays on lg. */}
+        <div className="relative max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:gap-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden">
           {steps.map((step, i) => {
             const isActive = i === active;
             return (
@@ -251,13 +294,17 @@ export function ClientJourneyBand() {
                 key={step.n}
                 ref={(el) => { stepRefs.current[i] = el; }}
                 data-step={i}
-                className="py-3 sm:min-h-[36vh] sm:py-4 lg:min-h-[48vh] lg:py-5"
+                className="py-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start max-md:py-0 sm:min-h-[36vh] sm:py-4 lg:min-h-[48vh] lg:py-5"
               >
                 <motion.div
                   initial={false}
-                  animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }}
+                  animate={
+                    reduceMotion || !desktop
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: isActive ? 1 : 0.38, y: isActive ? 0 : 18 }
+                  }
                   transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-                  className="border-t border-border-subtle pt-4"
+                  className="border-t border-border-subtle pt-4 max-md:rounded-panel max-md:border max-md:border-border-subtle max-md:bg-surface-1 max-md:p-4"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <span className={`font-mono text-label ${[
@@ -373,6 +420,28 @@ export function HomeFaq() {
         <div>
           <p className="font-mono text-caption uppercase tracking-[0.14em] text-accent">{ar ? "أسئلة سريعة" : lang === "ms" ? "SOALAN LAZIM" : "FAQ"}</p>
           <h2 className="mt-3 max-w-[13ch] font-display text-title leading-[1.02] tracking-[-0.025em]">{ar ? <>قبل ما <em className="text-accent">نبدأ.</em></> : lang === "ms" ? <>Sebelum kita <em className="text-accent">mula.</em></> : <>Before we <em className="text-accent">start.</em></>}</h2>
+          {/* A closed <details> is a row of type: seven of them read as a table.
+              The header carries the studio's own work instead, so the last
+              band before the closing CTA is not the only text-only screen
+              left on the page. */}
+          <div className="relative mt-4 hidden overflow-hidden rounded-panel border border-border-subtle max-lg:block">
+            <Image
+              src="/images/generated/band-faq.jpg"
+              alt=""
+              width={1600}
+              height={1200}
+              sizes="100vw"
+              loading="lazy"
+              className="aspect-[16/10] w-full object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/80 via-obsidian/30 to-transparent"
+            />
+            <span className="absolute bottom-3 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
+              {ar ? "نظام تصميم — تكوين محكوم" : "Design system — governed composition"}
+            </span>
+          </div>
         </div>
         <div className="border-t border-border-subtle">
           {items.map(([q, a]) => (

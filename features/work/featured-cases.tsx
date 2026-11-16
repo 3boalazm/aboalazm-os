@@ -515,7 +515,19 @@ export function FeaturedCard({
         {...(internal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
         className="block rounded-[inherit] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
       >
-        <MediaCard className="group relative aspect-[16/10] overflow-hidden bg-surface-1">
+        {/* On a phone the card is a poster: 4:3 — the sources are 1600×1000,
+            so a taller crop would cut the identity work — with the title,
+            outcome and CTA painted on the picture (the reference boards'
+            idiom). The text block below collapses to the badges row only.
+            Desktop keeps the 16:10 frame with the story under it. The
+            no-thumbnail fallback stays 16:10 on both — a tall empty text
+            card would be worse than a short one. */}
+        <MediaCard
+          className={joinClasses(
+            "group relative overflow-hidden bg-surface-1",
+            project.thumbnail ? "aspect-[4/3] md:aspect-[16/10]" : "aspect-[16/10]",
+          )}
+        >
           <div
             aria-hidden
             className="absolute inset-0"
@@ -530,7 +542,7 @@ export function FeaturedCard({
               src={cardArt(project.thumbnail)}
               alt={name}
               fill
-              sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
+              sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 84vw"
               priority={priority}
               className="object-cover transition-transform duration-700 ease-physics group-hover:scale-[1.025]"
               onError={(e) => {
@@ -567,12 +579,33 @@ export function FeaturedCard({
           )}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-obsidian/92 via-obsidian/55 to-transparent"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-obsidian/92 via-obsidian/55 to-transparent max-md:h-64"
           />
           {/* bottom offset, not padding: with pb-2.5 the clamp's third line still painted inside the padding on a phone */}
-          <p className="absolute inset-x-0 bottom-2.5 z-elevated line-clamp-2 px-3.5 font-mono text-micro uppercase tracking-[0.08em] text-alabaster/90">
+          <p className="absolute inset-x-0 bottom-2.5 z-elevated line-clamp-2 px-3.5 font-mono text-micro uppercase tracking-[0.08em] text-alabaster/90 max-md:hidden">
             {outcome}
           </p>
+          {/* Mobile poster overlay — the whole card is already the link, so
+              the CTA is a span, never a nested link. */}
+          {project.thumbnail ? (
+            <span className="absolute inset-x-0 bottom-0 z-elevated flex flex-col gap-2 p-4 md:hidden">
+              <span className="w-fit rounded-pill bg-alabaster/15 px-2.5 py-0.5 font-mono text-micro uppercase tracking-[0.10em] text-alabaster backdrop-blur-sm">
+                {badge.label}
+              </span>
+              <span className="font-display text-subtitle leading-[1.15] tracking-[-0.015em] text-alabaster">
+                {name}
+              </span>
+              <span className="line-clamp-2 font-mono text-micro uppercase tracking-[0.08em] text-alabaster/85">
+                {outcome}
+              </span>
+              <span className="mt-1 inline-flex w-fit items-center gap-1.5 rounded-pill bg-accent px-3 py-1.5 font-mono text-label tracking-[0.06em] text-obsidian">
+                {ar ? cta.ar : cta.en}
+                <span aria-hidden className="inline-flex">
+                  <Icon name="arrow-up-right" />
+                </span>
+              </span>
+            </span>
+          ) : null}
         </MediaCard>
       </Link>
 
@@ -584,7 +617,8 @@ export function FeaturedCard({
                 {ar ? "قيد التنفيذ" : "In progress"}
               </Badge>
             ) : null}
-            <Badge tone={badge.tone} size="sm">
+            {/* On a phone the kind label already sits on the poster overlay. */}
+            <Badge tone={badge.tone} size="sm" className="max-md:hidden">
               {badge.label}
             </Badge>
             <Badge
@@ -600,7 +634,7 @@ export function FeaturedCard({
           </span>
         </div>
 
-        <h3 className="font-display font-display-sm text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary">
+        <h3 className="font-display font-display-sm text-subtitle leading-[1.15] tracking-[-0.015em] text-text-primary max-md:hidden">
           <Link
             href={href}
             onClick={
@@ -615,10 +649,10 @@ export function FeaturedCard({
           </Link>
         </h3>
 
-        <p className="text-body-sm text-text-secondary">{challenge}</p>
+        <p className="text-body-sm text-text-secondary max-md:hidden">{challenge}</p>
 
         {showStack && project.stack.length > 0 ? (
-          <div className="mt-1 flex flex-wrap gap-1.5">
+          <div className="mt-1 flex flex-wrap gap-1.5 max-md:hidden">
             {project.stack.slice(0, 4).map((tag) => (
               <span
                 key={tag}
@@ -630,7 +664,7 @@ export function FeaturedCard({
           </div>
         ) : null}
 
-        <div className="mt-auto flex flex-wrap items-center gap-3 pt-1">
+        <div className="mt-auto flex flex-wrap items-center gap-3 pt-1 max-md:hidden">
           <Link
             href={href}
             onClick={

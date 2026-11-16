@@ -9,6 +9,7 @@
  * place in the production menu — it is a starting offer inside digital, not a
  * fourth discipline.
  */
+import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { contactHref } from "@/lib/contact-context";
@@ -19,6 +20,13 @@ const SERVICE_FOR = {
   digital: "website",
   systems: "digital-product",
 } as const;
+
+/* Same plates as the discipline cards (features/offers/disciplines.tsx). */
+const PATH_ART: Record<string, string> = {
+  brand: "/images/generated/discipline-brand.jpg",
+  digital: "/images/generated/discipline-digital.jpg",
+  systems: "/images/generated/discipline-systems.jpg",
+};
 
 export function ServicePaths() {
   const { lang } = useLang();
@@ -31,20 +39,38 @@ export function ServicePaths() {
       {DISCIPLINES.map((d) => (
         <article
           key={d.id}
-          className="flex flex-col gap-2 rounded-panel border border-border-default bg-surface-1 p-3 max-md:w-[84%] max-md:shrink-0 max-md:snap-start md:p-4"
+          className="flex flex-col overflow-hidden rounded-panel border border-border-default bg-surface-1 max-md:w-[84%] max-md:shrink-0 max-md:snap-start"
         >
-          <h2 className="font-display text-subtitle">{ar ? d.name[1] : d.name[0]}</h2>
-          <p className="text-body-sm text-text-secondary">{ar ? d.forWhom[1] : d.forWhom[0]}</p>
-          <div className="mt-auto flex flex-wrap items-center gap-3 pt-2 text-body-sm">
-            <Link href={d.href} className="text-accent underline underline-offset-4">
-              {ar ? "النطاق والتفاصيل" : "Scope & details"} →
-            </Link>
-            <Link
-              href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
-              className="underline underline-offset-4"
-            >
-              {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
-            </Link>
+          <div className="relative aspect-[16/9] shrink-0 overflow-hidden">
+            <Image
+              src={PATH_ART[d.id] ?? "/images/work/cc-logo-hero.jpg"}
+              alt=""
+              fill
+              sizes="(min-width: 768px) 30vw, 84vw"
+              className="object-cover"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-obsidian/70 via-obsidian/20 to-transparent"
+            />
+            <span className="absolute bottom-2.5 start-3 font-mono text-micro uppercase tracking-[0.08em] text-alabaster">
+              {d.n}
+            </span>
+          </div>
+          <div className="flex flex-1 flex-col gap-2 p-3 md:p-4">
+            <h2 className="font-display text-subtitle">{ar ? d.name[1] : d.name[0]}</h2>
+            <p className="text-body-sm text-text-secondary max-md:line-clamp-3">{ar ? d.forWhom[1] : d.forWhom[0]}</p>
+            <div className="mt-auto flex flex-wrap items-center gap-3 pt-2 text-body-sm">
+              <Link href={d.href} className="text-accent underline underline-offset-4">
+                {ar ? "النطاق والتفاصيل" : "Scope & details"} →
+              </Link>
+              <Link
+                href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
+                className="underline underline-offset-4"
+              >
+                {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
+              </Link>
+            </div>
           </div>
         </article>
       ))}

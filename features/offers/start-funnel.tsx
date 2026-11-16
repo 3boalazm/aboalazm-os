@@ -10,6 +10,7 @@
  */
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { BandFrame } from "@/components/ui/band-frame";
 import { Icon } from "@/components/ui/Icon";
 import { buttonVariants } from "@/components/ui/Button";
 import { joinClasses } from "@/lib/utils";
@@ -36,7 +37,15 @@ export function StartFunnel({
       aria-label={ar ? "كيف تبدأ" : "How to start"}
       className={joinClasses("flex flex-col gap-4", className)}
     >
-      <div className="flex flex-col gap-1">
+      {/* A discovery call is a conversation, not a document — the band sits
+          on the studio's own dashboard work so the first step looks like the
+          place the work happens, not like another paragraph. */}
+      <BandFrame
+        src="/images/generated/band-method.jpg"
+        veil="start"
+        priority={false}
+        contentClassName="flex flex-col gap-1 max-lg:p-4"
+      >
         <p className="font-mono text-micro uppercase tracking-[0.12em] text-accent">
           {ar ? "طريقة البدء" : "How to start"}
         </p>
@@ -56,14 +65,17 @@ export function StartFunnel({
             ? "مش محتاج تكون عارف إيه اللي طالبه بالضبط. احجز مكالمة، نشرح المشكلة، وتستلم نطاقًا وعرضًا سعر مكتوبًا قبل أي التزام."
             : "You do not need to know exactly what you need. Book the call, describe the problem, and you get a written scope and price before any commitment."}
         </p>
-      </div>
+      </BandFrame>
 
       {showSteps ? (
-        <ol className="grid gap-x-5 md:grid-cols-4">
+        <ol className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {FUNNEL_STEPS.map((step) => (
-            <li key={step.n} className="flex flex-col gap-1 border-t border-border-subtle py-3">
-              <span className="font-mono text-micro uppercase tracking-[0.12em] text-accent">{step.n}</span>
-              <span className="font-display text-subtitle tracking-[-0.01em] text-text-primary">
+            <li
+              key={step.n}
+              className="flex flex-col gap-1 rounded-panel border border-border-subtle bg-surface-1 p-3 md:p-4"
+            >
+              <span className="font-display text-title leading-none text-accent">{step.n}</span>
+              <span className="mt-1 font-display text-subtitle tracking-[-0.01em] text-text-primary">
                 {ar ? step.title[1] : step.title[0]}
               </span>
               <span className="text-body-sm text-text-secondary">{ar ? step.body[1] : step.body[0]}</span>

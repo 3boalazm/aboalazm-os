@@ -23,6 +23,7 @@ import { useLang } from "@/components/providers/lang-provider";
  * HTML instead of waiting on hydration.
  */
 import Link from "@/components/ui/localized-link";
+import Image from "next/image";
 import { preload } from "react-dom";
 import { Icon } from "@/components/ui/Icon";
 import type { CSSProperties } from "react";
@@ -77,6 +78,28 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
           } as CSSProperties
         }
       />
+      {/* ── The hook, in a picture ──
+          The first screen was atmosphere plus type. It is now also a
+          photograph: the poster figure crossing the coral disc, held back
+          behind the copy at low alpha on phones, where the type column needs
+          the full width and the wall sits below it. From lg the hero keeps
+          its typographic composition — the wall carries the work there and a
+          full-height figure behind the headline would fight the grid.
+
+          priority: this is the LCP-adjacent paint on a phone, so it is
+          fetched at the same priority as the wall's first tile. */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 lg:hidden">
+        <Image
+          src="/images/generated/hero-poster.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover object-[62%_28%] opacity-[0.42]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-obsidian/85 via-obsidian/55 to-obsidian/95" />
+      </div>
+
       <div aria-hidden className="grain-layer" />
 
       {/* ── 2 + 4 · Split hierarchy (status row in-flow, clear of nav) ── */}
@@ -189,12 +212,14 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
         {/* Right — proof, not decoration.
             The column used to hold the system constellation: an animated
             diagram of the idea and not one pixel of the work. It now holds
-            the work (desktop only; see HeroWall). If fewer than two curated
-            cases are available it falls back to the constellation, so the
-            column is never empty. A definite `w-full` still matters: without
-            it the frame resolved against an auto-width parent and collapsed. */}
+            the work. On a phone the wall becomes a swipeable poster strip
+            under the CTAs (see HeroWall) — the first screen shows real work
+            instead of pure type. If fewer than two curated cases are
+            available it falls back to the constellation, so the column is
+            never empty. A definite `w-full` still matters: without it the
+            frame resolved against an auto-width parent and collapsed. */}
         {wall.length >= 2 ? (
-          <div className="hero-settle hidden w-full lg:block">
+          <div className="hero-settle w-full">
             <HeroWall tiles={wall} />
           </div>
         ) : (

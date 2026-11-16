@@ -11,6 +11,7 @@
  * Styles: .statement-editorial in globals.css — the closing CTA's language
  * without the picture.
  */
+import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
@@ -20,8 +21,24 @@ export function StatementBand() {
   const { lang } = useLang();
   const ar = lang === "ar";
   return (
-    <section aria-label={ar ? "بيان المنهج" : lang === "ms" ? "Kenyataan studio" : "Studio statement"} className="statement-editorial">
-      <div className="container-wide statement-editorial__inner">
+    <section aria-label={ar ? "بيان المنهج" : lang === "ms" ? "Kenyataan studio" : "Studio statement"} className="statement-editorial relative overflow-hidden">
+      {/* The manifesto sits inside a picture, not on a dot grid. The plate is
+          a liquid-chrome sculpture lit by the accent — the same material the
+          loud reference boards are built from — held under a veil heavy enough
+          that the display type keeps its contrast. Full strength on a phone,
+          where the band is the one full-bleed break in a column of cards. */}
+      <Image
+        src="/images/generated/statement-bg.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover max-md:opacity-70 md:opacity-40"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-gradient-to-b from-obsidian/85 via-obsidian/60 to-obsidian/90"
+      />
+      <div className="container-wide statement-editorial__inner relative z-10">
         <p className="statement-editorial__kicker">{ar ? "الموقف" : lang === "ms" ? "KEDUDUKAN" : "THE POSITION"}</p>
         <h2 className="editorial-display statement-editorial__title">
           {ar ? (

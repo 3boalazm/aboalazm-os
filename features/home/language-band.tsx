@@ -29,6 +29,7 @@
  */
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
+import { BandFrame } from "@/components/ui/band-frame";
 import { Icon } from "@/components/ui/Icon";
 import { UI } from "@/lib/i18n";
 import { LOCALES, localeHref, type Locale } from "@/lib/locale";
@@ -124,9 +125,16 @@ export function LanguageBand() {
   return (
     <section
       aria-label={ar ? "لغات النظام" : lang === "ms" ? "Bahasa sistem" : "System languages"}
-      className="container-content flex flex-col gap-5 py-4"
+      className="relative container-content py-4"
     >
-      <div className="flex flex-col gap-2">
+      {/* Three scripts, one system — so the header sits on the bilingual site
+          that is the proof of it. The cards below stay on the page canvas:
+          a swipe shelf inside a photo panel would fight itself. */}
+      <BandFrame
+        src="/images/generated/creative-type-texture.jpg"
+        veil="full"
+        contentClassName="flex flex-col gap-2 max-lg:p-4"
+      >
         <p className="flex items-center gap-2 font-mono text-caption uppercase tracking-[0.14em] text-accent">
           <span aria-hidden className="size-1.5 rounded-pill bg-accent" />
           {heading.kicker}
@@ -135,9 +143,9 @@ export function LanguageBand() {
           {heading.title[0]} <em className="text-accent">{heading.title[1]}</em>
         </h2>
         <p className="max-w-[62ch] text-body-sm leading-relaxed text-text-secondary">{heading.lead}</p>
-      </div>
+      </BandFrame>
 
-      <ul className="grid gap-2 md:grid-cols-3">
+      <ul className="grid gap-2 max-md:-mx-3 max-md:flex max-md:snap-x max-md:snap-mandatory max-md:scroll-px-3 max-md:overflow-x-auto max-md:px-3 max-md:pb-2 max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden md:grid-cols-3">
         {MODULES.map((module) => {
           const current = module.locale === lang;
           const isArabicColumn = module.locale === "ar";
@@ -147,7 +155,7 @@ export function LanguageBand() {
               key={module.locale}
               data-active={current ? "true" : "false"}
               className={joinClasses(
-                "group relative flex min-w-0 flex-col overflow-hidden rounded-panel border p-4 transition-colors duration-base ease-physics",
+                "group relative flex min-w-0 flex-col overflow-hidden rounded-panel border p-4 transition-colors duration-base ease-physics max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
                 current
                   ? "border-accent/45 bg-surface-2"
                   : "border-border-subtle bg-surface-1 hover:border-border-strong",
