@@ -73,11 +73,8 @@ const baseMetadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#080710" },
-    { media: "(prefers-color-scheme: light)", color: "#FBF9F6" },
-  ],
-  colorScheme: "dark light",
+  themeColor: "#090C12",
+  colorScheme: "dark",
 };
 
 export function generateStaticParams() { return LOCALES.map((locale) => ({ locale })); }
