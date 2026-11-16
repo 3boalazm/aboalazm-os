@@ -33,13 +33,23 @@ const FRAMES: readonly Frame[] = [
     kind: ["Identity plate", "لوحة هوية"],
   },
   {
+    src: "/images/generated/creative-glass-ribbon.jpg",
+    name: ["Glass study", "دراسة زجاج"],
+    kind: ["Art direction", "إدارة فنية"],
+  },
+  {
     src: "/images/generated/discipline-brand.jpg",
     name: ["Print system", "نظام مطبوعات"],
     kind: ["Deboss & foil", "دِبوس ومعدن"],
   },
   {
+    src: "/images/generated/creative-mirror-shard.jpg",
+    name: ["Chrome shards", "شظايا كروم"],
+    kind: ["Form study", "دراسة شكل"],
+  },
+  {
     src: "/images/generated/creative-chrome-figure.jpg",
-    name: ["Form study", "دراسة شكل"],
+    name: ["Figure", "شكل"],
     kind: ["Art direction", "إدارة فنية"],
   },
   {
@@ -48,9 +58,19 @@ const FRAMES: readonly Frame[] = [
     kind: ["Digital product", "منتج رقمي"],
   },
   {
+    src: "/images/generated/creative-smoke-type.jpg",
+    name: ["Smoke column", "عمود دخان"],
+    kind: ["Texture", "ملمس"],
+  },
+  {
     src: "/images/generated/discipline-systems.jpg",
     name: ["System map", "خريطة نظام"],
     kind: ["Operations", "تشغيل"],
+  },
+  {
+    src: "/images/generated/creative-paper-arc.jpg",
+    name: ["Paper arc", "قوس ورق"],
+    kind: ["Print & material", "مطبوع ومادة"],
   },
   {
     src: "/images/generated/band-faq.jpg",

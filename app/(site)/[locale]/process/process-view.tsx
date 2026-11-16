@@ -14,6 +14,7 @@
  */
 
 import { useState, type CSSProperties } from "react";
+import { PagePlate } from "@/components/ui/page-plate";
 import Link from "@/components/ui/localized-link";
 import { Icon } from "@/components/ui/Icon";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -332,6 +333,7 @@ export function ProcessView() {
       <AnchorNav sections={sections} />
 
       {/* ── HERO ── */}
+      <PagePlate src="/images/generated/page-process.jpg" align="start">
       <section className="relative overflow-hidden bg-surface-0 px-6 py-8 lg:px-16">
         <div className="pointer-events-none absolute inset-0 process-grid-bg" aria-hidden />
         <div className="relative z-10 flex max-w-[760px] flex-col gap-5">
@@ -388,6 +390,7 @@ export function ProcessView() {
           </ol>
         </div>
       </section>
+      </PagePlate>
 
       {/* ── APPROVAL GATES (interactive terminal stepper) ── */}
       <section id="gates" className="chapter-b px-6 pb-6 pt-4 lg:px-16">
