@@ -21,7 +21,7 @@ const PAGES: [href: string, en: string, ar: string, kw?: string][] = [
   ["/services", "Services", "الخدمات"],
   ["/services/brand-identity", "Brand identity", "الهوية البصرية", "logo branding"],
   ["/services/websites", "Websites & stores", "المواقع والمتاجر", "web ecommerce"],
-  ["/services/systems", "Business systems", "أنظمة التشغيل", "erp dashboard automation"],
+  ["/services/systems", "Business systems", "أنظمة الأعمال", "erp dashboard automation"],
   ["/pricing", "Pricing", "الأسعار", "tiers packages cost"],
   ["/process", "Process — the 38-day method", "المنهج: 38 يومًا", "timeline phases"],
   ["/reels", "Reels", "ريلز", "video"],

@@ -41,7 +41,7 @@ export function ServicesView({ tiers }: { tiers: import("@/lib/offers").Tier[] }
           }
           subtitle={
             ar
-              ? "الهوية والتجربة الرقمية وأنظمة التشغيل: ثلاثة مسارات في استوديو واحد، دون فجوات في التسليم بينها."
+              ? "الهوية والتجربة الرقمية وأنظمة الأعمال: ثلاثة مسارات في استوديو واحد، دون فجوات في التسليم بينها."
               : "Brand, digital experience and business systems — three tracks in one studio, with no handoff gaps between them."
           }
           subtitleClassName="max-w-[52ch]"
