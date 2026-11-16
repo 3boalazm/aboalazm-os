@@ -208,7 +208,7 @@ export function Store72hView() {
           italic={["leave out.", "الرخيصة."]}
         />
 
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-3 lg:grid-cols-3">
           {offer.whyDifferent.map((item, idx) => (
             <PanelCard key={idx} className="flex flex-col gap-2 rounded-card p-4">
               <span className="font-mono text-micro text-accent">
