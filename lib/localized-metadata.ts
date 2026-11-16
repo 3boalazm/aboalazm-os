@@ -73,11 +73,11 @@ function projectDescriptionAr(project: (typeof PROJECTS)[number]): string {
   return `${outcome} — ${project.nameAr ?? project.name}، ${project.year}. دراسة حالة ولمحة عامة عن المشروع.`;
 }
 
-export function localizedMetadata(base: Metadata, locale: Locale, path: string, arabic?: { title: string; description: string }): Metadata {
+export function localizedMetadata(base: Metadata, locale: Locale, path: string, arabic?: { title: string; description: string }, malay?: { title: string; description: string }): Metadata {
   const project = path.startsWith("/case-studies/") ? PROJECTS.find((p) => p.slug === path.split("/").pop()) : undefined;
   const translated =
     locale === "ms"
-      ? (MS[path] ? { title: MS[path][0], description: MS[path][1] } : undefined)
+      ? (MS[path] ? { title: MS[path][0], description: MS[path][1] } : malay)
       : arabic ?? (AR[path] ? { title: AR[path][0], description: AR[path][1] } : project ? { title: `${project.nameAr ?? project.name} — تفاصيل المشروع`, description: projectDescriptionAr(project) } : undefined);
   const useTranslated = (locale === "ar" || locale === "ms") && translated;
   const title = useTranslated ? translated.title : base.title;
