@@ -12,12 +12,27 @@
  */
 
 import { useState } from "react";
+import { useLang } from "@/components/providers/lang-provider";
 
 const UI = {
-  toggle_ltr: "Show English (LTR)",
-  toggle_rtl: "Show Arabic (RTL)",
-  label: "Bilingual grid demo",
-  sub: "Same grid, same rules — direction flips, balance holds.",
+  en: {
+    toggle_ltr: "Show English (LTR)",
+    toggle_rtl: "Show Arabic (RTL)",
+    label: "Bilingual grid demo",
+    sub: "Same grid, same rules — direction flips, balance holds.",
+  },
+  ar: {
+    toggle_ltr: "اعرض بالإنجليزية (LTR)",
+    toggle_rtl: "اعرض بالعربية (RTL)",
+    label: "شبكة ثنائية اللغة",
+    sub: "الشبكة نفسها والقواعد نفسها — الاتجاه ينعكس والتوازن يبقى.",
+  },
+  ms: {
+    toggle_ltr: "Papar Inggeris (LTR)",
+    toggle_rtl: "Papar Arab (RTL)",
+    label: "Demo grid dwibahasa",
+    sub: "Grid yang sama, peraturan yang sama — arah bertukar, keseimbangan kekal.",
+  },
 } as const;
 
 const CARD = {
@@ -36,19 +51,21 @@ const CARD = {
 } as const;
 
 export function BilingualToggleTool() {
+  const { lang } = useLang();
+  const ui = lang === "ar" ? UI.ar : lang === "ms" ? UI.ms : UI.en;
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
   const c = dir === "ltr" ? CARD.en : CARD.ar;
 
   return (
     <div className="labtool-card">
-      <p className="labtool-card__title">{UI.label}</p>
-      <p className="labtool-card__sub">{UI.sub}</p>
+      <p className="labtool-card__title">{ui.label}</p>
+      <p className="labtool-card__sub">{ui.sub}</p>
 
       <button
         onClick={() => setDir((d) => (d === "ltr" ? "rtl" : "ltr"))}
         className="labtool-toggle-btn"
       >
-        {dir === "ltr" ? UI.toggle_rtl : UI.toggle_ltr}
+        {dir === "ltr" ? ui.toggle_rtl : ui.toggle_ltr}
       </button>
 
       <div className="labtool-bilingual-frame" dir={dir}>

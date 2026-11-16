@@ -131,7 +131,10 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
           ) : null}
         </div>
 
-        <dl className="grid grid-cols-3 gap-2 border-y border-border-subtle py-2">
+        {/* One column until the header is wide enough for three: "PRODUCTION ITEMS"
+            needs ~115px a cell and the header is only ~310px on a phone. */}
+        <div className="@container border-y border-border-subtle py-2">
+        <dl className="grid grid-cols-1 gap-2 @min-[30rem]:grid-cols-3">
           {([["STARTS AT", "يبدأ من", "$199"], ["TIERS", "الفئات", "3"], ["PRODUCTION ITEMS", "بنود الإنتاج", "17"]] as const).map(([en, arr, v]) => (
             <div key={en}>
               <dt className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">{ar ? arr : en}</dt>
@@ -144,6 +147,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
             </div>
           ))}
         </dl>
+        </div>
       </header>
       </PagePlate>
 

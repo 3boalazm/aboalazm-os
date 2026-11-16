@@ -68,20 +68,25 @@ export function StartFunnel({
       </BandFrame>
 
       {showSteps ? (
-        <ol className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {FUNNEL_STEPS.map((step) => (
-            <li
-              key={step.n}
-              className="flex flex-col gap-1 rounded-panel border border-border-subtle bg-surface-1 p-3 md:p-4"
-            >
-              <span className="font-display text-title leading-none text-accent">{step.n}</span>
-              <span className="mt-1 font-display text-subtitle tracking-[-0.01em] text-text-primary">
-                {ar ? step.title[1] : step.title[0]}
-              </span>
-              <span className="text-body-sm text-text-secondary">{ar ? step.body[1] : step.body[0]}</span>
-            </li>
-          ))}
-        </ol>
+        <div className="@container">
+          {/* Columns follow the list's own width, not the viewport: the display
+              face is wide enough that "Agreement" needs ~155px, so a card has to
+              be ~215px before two fit side by side and ~230px before four do. */}
+          <ol className="grid grid-cols-1 gap-3 @min-[27rem]:grid-cols-2 @min-[60rem]:grid-cols-4">
+            {FUNNEL_STEPS.map((step) => (
+              <li
+                key={step.n}
+                className="flex min-w-0 flex-col gap-1 rounded-panel border border-border-subtle bg-surface-1 p-3 md:p-4"
+              >
+                <span className="font-display text-title leading-none text-accent">{step.n}</span>
+                <span className="mt-1 font-display text-subtitle tracking-[-0.01em] text-text-primary [overflow-wrap:anywhere]">
+                  {ar ? step.title[1] : step.title[0]}
+                </span>
+                <span className="text-body-sm text-text-secondary [overflow-wrap:anywhere]">{ar ? step.body[1] : step.body[0]}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
       ) : null}
 
       <div className="flex flex-wrap items-center gap-3">

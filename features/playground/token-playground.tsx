@@ -201,13 +201,13 @@ export function TokenPlayground() {
                 className="font-display text-title tracking-[-0.015em]"
                 style={{ color: "var(--pg-ink)", transition: SYNC }}
               >
-                System Card
+                {ui.playgroundCardTitle}
               </p>
               <p
                 className="text-body-sm"
                 style={{ color: "var(--pg-ink-2)", transition: SYNC }}
               >
-                Every value below derives from the tokens you're holding.
+                {ui.playgroundCardBody}
               </p>
             </div>
             <div

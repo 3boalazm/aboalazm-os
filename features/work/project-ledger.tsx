@@ -274,7 +274,7 @@ function LedgerRow({
 
         {/* Strategic outcome — below sm the column header is hidden, so the
             line carries its own (already translated) "Outcome" label. */}
-        <span className="col-start-2 flex items-baseline gap-1.5 font-mono text-label text-text-secondary sm:col-auto">
+        <span className="col-start-2 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 font-mono text-label text-text-secondary sm:col-auto">
           <span className="shrink-0 font-mono text-micro uppercase tracking-[0.10em] sm:hidden">
             {t.workOutcome}
           </span>

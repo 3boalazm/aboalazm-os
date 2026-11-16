@@ -74,10 +74,10 @@ export function ReelsView() {
       </header>
 
       {featured ? (
-        <section aria-labelledby="reel-featured" className="grid items-start gap-4 md:grid-cols-[minmax(0,340px)_1fr] md:gap-8">
+        <section aria-labelledby="reel-featured" className="grid grid-cols-[minmax(0,1fr)] items-start gap-4 md:grid-cols-[minmax(0,340px)_1fr] md:gap-8">
           <ReelCard reel={featured} className="max-md:mx-auto max-md:max-w-[300px]" onOpen={() => openReel(featured)} index={ar ? "الأحدث" : lang === "ms" ? "TERKINI" : "LATEST"} />
 
-          <div className="flex flex-col gap-3">
+          <div className="flex min-w-0 flex-col gap-3">
             <div className="flex flex-wrap items-center gap-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
               <time dateTime={featured.publishedAt}>{fmt.format(new Date(featured.publishedAt))}</time>
               <span aria-hidden>·</span>
@@ -85,7 +85,7 @@ export function ReelsView() {
               <span aria-hidden>·</span>
               <span>{featured.topics.join(" + ")}</span>
             </div>
-            <h2 id="reel-featured" className="font-display text-title tracking-[-0.015em] text-text-primary">
+            <h2 id="reel-featured" className="font-display text-title tracking-[-0.015em] text-text-primary [overflow-wrap:anywhere]">
               {pickText(featured.title, lang)}
             </h2>
             <p className="max-w-[56ch] text-body text-text-secondary">{pickText(featured.summary, lang)}</p>
