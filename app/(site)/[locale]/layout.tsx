@@ -23,6 +23,7 @@ import { PwaRegistration } from "@/components/pwa/pwa-registration";
 import { OsTray } from "@/components/layout/os-tray";
 import "./globals.css";
 import "./theme-grounds.css";
+import "./x.css";
 
 const baseMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),

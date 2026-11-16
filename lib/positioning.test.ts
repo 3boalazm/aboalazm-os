@@ -77,6 +77,8 @@ test("the funnel is discovery-first and the deposit is the last step, not the fi
   // Home's primary conversion surfaces point at the conversation, not /book.
   for (const path of [
     "features/hero/hero.tsx",
+    "features/x/portal.tsx",
+    "features/x/close.tsx",
     "features/home/home-bands.tsx",
     "features/home/services-snapshot.tsx",
     "features/offers/start-funnel.tsx",
@@ -102,8 +104,11 @@ test("the production menu is explicitly framed as production, not strategy", () 
 test("the founder-led studio model is stated wherever the visitor asks who they are buying", () => {
   const about = read("app/(site)/[locale]/about/about-view.tsx");
   assert.match(about, /StudioModelBand/);
+  /* The new home (2026-11-16) states the model in its PROOF bento, from the
+     same STUDIO_MODEL copy /about renders. */
   const home = read("app/(site)/[locale]/page.tsx");
-  assert.match(home, /StudioModelBand/);
+  assert.match(home, /<Proof \/>/);
+  assert.match(read("features/x/proof.tsx"), /STUDIO_MODEL/);
   const band = read("features/offers/disciplines.tsx");
   assert.match(band, /founder-led studio/i);
   assert.match(band, /when the scope needs more hands/i);
@@ -186,7 +191,7 @@ test("the studio is described consistently on the pages and in structured data",
   const schema = read("lib/structured-data.ts");
   assert.match(schema, /ORGANIZATION_ID/);
   assert.match(schema, /Aboalazm OS/);
-  assert.match(read("features/hero/hero.tsx"), /Aboalazm OS/, "the hero names the studio");
+  assert.match(read("features/x/portal.tsx"), /Aboalazm OS/, "the hero names the studio");
   assert.match(read("lib/structured-data.ts"), /founder: \{ "@id": PERSON_ID \}/);
 });
 
