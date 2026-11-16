@@ -76,11 +76,9 @@ test("the funnel is discovery-first and the deposit is the last step, not the fi
 
   // Home's primary conversion surfaces point at the conversation, not /book.
   for (const path of [
-    "features/hero/hero.tsx",
     "features/x/portal.tsx",
     "features/x/close.tsx",
     "features/home/home-bands.tsx",
-    "features/home/services-snapshot.tsx",
     "features/offers/start-funnel.tsx",
     "components/layout/nav.tsx",
   ]) {
@@ -159,7 +157,7 @@ test("every public project is labelled client / internal / demo / in development
 test("no business outcome is claimed for a project with no measured evidence", () => {
   // The retired Nile Pharma figures may never return without a period + source.
   const banned = /\+40%|\+25%|data-stat-sales|increase in sales/i;
-  for (const path of ["features/work/projects.data.ts", "features/hero/metric-row.tsx", "portfolio/js/data.js"]) {
+  for (const path of ["features/work/projects.data.ts", "features/x/proof.tsx", "portfolio/js/data.js"]) {
     assert.doesNotMatch(read(path), banned, `${path} still claims an unmeasured outcome`);
   }
   // Adding a slug here is the ONLY way to publish a measured figure — and it

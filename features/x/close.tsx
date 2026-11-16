@@ -12,8 +12,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import Link from "@/components/ui/localized-link";
-import { BRIEF_HANDOFF_KEY } from "@/features/hero/hero-brief";
-import { contactHref, type ServiceId } from "@/lib/contact-context";
+import { BRIEF_HANDOFF_KEY, contactHref, type ServiceId } from "@/lib/contact-context";
 import { localeHref } from "@/lib/locale";
 import { trackEvent } from "@/lib/analytics";
 import { Arrow, useX } from "./shared";

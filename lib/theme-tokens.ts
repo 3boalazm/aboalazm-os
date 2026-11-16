@@ -1,5 +1,5 @@
 /**
- * THEME TOKENS — the single source of truth for grounds (redesign v3).
+ * THEME TOKENS — the single source of truth for grounds.
  *
  * Rule from the owner: in dark mode EVERY ground is dark (three dark steps,
  * never a light band); in light mode every ground is light. A "ground" is the

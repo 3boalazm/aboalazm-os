@@ -31,7 +31,7 @@ const SERVICE_FOR: Record<Discipline["id"], "brand-identity" | "website" | "digi
    than project thumbnails: the discipline is the offer, so its picture has to
    read as "a brand kit / an interface / a system", not as one client's work
    standing in for the whole category. */
-/* Redesign v2: each discipline owns a colour — coral leads (brand), lilac is
+/* Each discipline owns a colour — coral leads (brand), lilac is
    digital, mint is systems. `--disc` paints the card's top rule, bullets and
    ring; `--disc-text` is its text-safe member on the current ground. */
 const DISCIPLINE_COLOUR: Record<Discipline["id"], { "--disc": string; "--disc-text": string }> = {
@@ -303,7 +303,7 @@ export function StudioModelBand({ className }: { className?: string }) {
         </h2>
         <p className="max-w-[62ch] text-body text-text-secondary">{copy.lead}</p>
       </div>
-      {/* Bento (redesign v3): one picture panel carries the eye, four glass
+      {/* Bento: one picture panel carries the eye, four glass
           panels carry the words — unequal sizes, so the block reads as a
           composition instead of a list of identical text cards. */}
       <div className="bento">

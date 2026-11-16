@@ -19,7 +19,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     <>
       <JsonLd data={getBreadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
       <ContactView context={context} />
-      {/* The FAQ moved here from the home page (redesign v2): it answers
+      {/* The FAQ moved here from the home page: it answers
           the questions people have right before they write. */}
       <section id="faq" className="scroll-mt-20 py-8">
         <HomeFaq />
