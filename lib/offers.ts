@@ -256,7 +256,7 @@ export const DISCIPLINES: readonly Discipline[] = [
   {
     id: "systems",
     n: "03",
-    name: ["Business Systems & Automation", "أنظمة التشغيل والأتمتة"],
+    name: ["Business Systems & Automation", "أنظمة الأعمال والأتمتة"],
     forWhom: [
       "A business losing hours to spreadsheets, WhatsApp orders and disconnected tools — or one that needs its operations visible in one place.",
       "شركة تخسر ساعات بين الجداول وطلبات واتساب وأدوات متفرقة، أو تحتاج إلى رؤية تشغيلها في مكان واحد.",

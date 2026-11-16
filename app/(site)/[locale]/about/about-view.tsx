@@ -90,7 +90,7 @@ export function AboutView({ cvUrl }: { cvUrl: string | null }) {
           titleClassName="heading-fit-long max-w-[18ch] text-balance-pretty"
           subtitle={
             ar
-              ? "Aboalazm OS استوديو يقوده مؤسسه مصطفى أبوالعزم، مصمم هوية بصرية أول وشريك مؤسس في Code & Canvas. يعمل من العبور في مصر على مشاريع في المنطقة وخارجها: استراتيجية العلامة، وأنظمة الهوية، والطبقة الرقمية التي تعيش فيها، وأنظمة التشغيل التي تقوم عليها، بلغتين وتحت مبدأ واحد."
+              ? "Aboalazm OS استوديو يقوده مؤسسه مصطفى أبوالعزم، مصمم هوية بصرية أول وشريك مؤسس في Code & Canvas. يعمل من العبور في مصر على مشاريع في المنطقة وخارجها: استراتيجية العلامة، وأنظمة الهوية، والطبقة الرقمية التي تعيش فيها، وأنظمة الأعمال التي تقوم عليها، بلغتين وتحت مبدأ واحد."
               : "Aboalazm OS is the founder-led studio of Mustafa Aboalazm — senior brand identity designer and co-founder of Code & Canvas. Based in Al Obour, Egypt, working across the region and worldwide: brand strategy, identity systems, the digital layer they live in, and the operating systems underneath, in two languages, under one doctrine."
           }
           subtitleClassName="max-w-[52ch]"
