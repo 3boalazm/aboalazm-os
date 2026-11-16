@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
 import { BUILT_IN_CASE_SLUGS } from "@/lib/case-registry";
@@ -176,4 +176,15 @@ test("Ummah Academy reflects the multilingual PWA and in-progress status documen
   assert.deepEqual(ummah.stack, ["Astro", "5 languages · RTL", "PWA · Offline"]);
   assert.match(ummah.outcome, /in progress — 5 languages, 23 routes, installable PWA/);
   assert.equal(ummah.status, "in-progress");
+});
+
+test("client components in features/work never import the project ledger (it would ship to every /work visitor)", () => {
+  // Importing even one constant from projects.data pulls the whole PROJECTS array into the client chunk.
+  // Shared constants such as BEHANCE live in ./links for that reason.
+  const dir = join(process.cwd(), "features", "work");
+  const offenders = readdirSync(dir)
+    .filter((name) => name.endsWith(".tsx"))
+    .filter((name) => /^\s*["']use client["']/.test(readFileSync(join(dir, name), "utf8")))
+    .filter((name) => /from\s+["']\.\/projects\.data["']/.test(readFileSync(join(dir, name), "utf8")));
+  assert.deepEqual(offenders, []);
 });

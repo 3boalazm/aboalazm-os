@@ -32,7 +32,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { reveal } from "@/lib/motion";
 import { useAmbientGlowControls } from "@/hooks/use-ambient-glow";
 import { FloatingPreview } from "./floating-preview";
-import { BEHANCE } from "./projects.data";
+import { BEHANCE } from "./links";
 import type { Project } from "./types";
 
 /* Shared column template — header & rows must never drift apart.

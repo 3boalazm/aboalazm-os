@@ -16,7 +16,7 @@ import { MediaCard } from "@/components/ui/MediaCard";
 import { Section, SectionLabel } from "@/components/ui/Section";
 import { buttonVariants } from "@/components/ui/Button";
 import { joinClasses, yearLabel } from "@/lib/utils";
-import { BEHANCE } from "./projects.data";
+import { BEHANCE } from "./links";
 import { cardArt } from "./card-art";
 import { evidenceOf, EVIDENCE_COPY } from "./project-evidence";
 import type { Project } from "./types";

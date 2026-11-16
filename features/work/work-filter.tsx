@@ -10,7 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLang } from "@/components/providers/lang-provider";
 import { FeaturedCases, pickFeatured } from "./featured-cases";
 import { ProjectLedger } from "./project-ledger";
-import { GalleryView } from "@/features/gallery";
+import { LazyGalleryView, preloadGalleryView } from "@/features/gallery/lazy-gallery-view";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";
 import type { Project, ProjectCategory } from "./types";
 
@@ -113,6 +113,8 @@ export function WorkFilter({
                 key={item.value}
                 type="button"
                 onClick={() => setView(item.value)}
+                onPointerEnter={item.value === "wall" ? preloadGalleryView : undefined}
+                onFocus={item.value === "wall" ? preloadGalleryView : undefined}
                 aria-pressed={view === item.value}
                 className={["work-filter__btn", view === item.value ? "work-filter__btn--active" : ""].join(" ")}
               >
@@ -129,7 +131,7 @@ export function WorkFilter({
         )}
         </div>
       {view === "wall" ? (
-        <GalleryView projects={galleryProjects} images={galleryImages} embedded />
+        <LazyGalleryView projects={galleryProjects} images={galleryImages} embedded />
       ) : (
         <>
           <FeaturedCases

@@ -13,7 +13,7 @@ import { buttonVariants } from "@/components/ui/Button";
 import { Heading } from "@/components/ui/Heading";
 import { Icon } from "@/components/ui/Icon";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";
-import { GalleryView } from "@/features/gallery";
+import { LazyGalleryView, preloadGalleryView } from "@/features/gallery/lazy-gallery-view";
 import type { GalleryImage, GalleryProject } from "@/lib/gallery";
 import { joinClasses } from "@/lib/utils";
 import { FeaturedCard } from "./featured-cases";
@@ -229,6 +229,8 @@ export function TrackArchive({
               <button
                 type="button"
                 onClick={() => setSubFilter("wall")}
+                onPointerEnter={preloadGalleryView}
+                onFocus={preloadGalleryView}
                 aria-pressed={subFilter === "wall"}
                 className={joinClasses(
                   "cursor-pointer rounded-pill px-3.5 py-1.5 font-mono text-micro uppercase tracking-[0.08em] transition-colors duration-base ease-physics",
@@ -253,7 +255,7 @@ export function TrackArchive({
 
       {/* Full Track Cards Grid or Brand Wall */}
       {subFilter === "wall" && hasBrandWall ? (
-        <GalleryView projects={galleryProjects} images={galleryImages} embedded />
+        <LazyGalleryView projects={galleryProjects} images={galleryImages} embedded />
       ) : (
         <div className="grid gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project, index) => (
