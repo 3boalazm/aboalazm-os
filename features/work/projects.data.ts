@@ -5,8 +5,9 @@
  */
 import type { Project } from "./types";
 import { GAD_NAME_AR } from "../../lib/client-names";
+import { BEHANCE } from "./links";
 
-export const BEHANCE = "https://www.behance.net/aboalazm";
+export { BEHANCE };
 
 /** Development records reviewed from GitHub and intentionally source-managed. */
 export const CURATED_DEVELOPMENT_SLUGS = [
