@@ -5,12 +5,12 @@
    Values come from lib/theme-tokens.ts and are contrast-tested
    (lib/theme-contrast.test.ts) before they reach this file.
 
-   Palette: coral #FF6B47 leads · lilac #B9A5F2 = digital · mint #7FD8BE =
-   systems · gold #F2C14E = proof · peach #FFC9B0 = tint. */
+   Palette: coral #FF6B47 leads · violet #D0B7FF = creative · teal #78E0D5 =
+   live / interaction · citron #D6E995 = proof · peach #FFC9B0 = tint. */
 :root {
-  --color-lilac: #B9A5F2;
-  --color-mint: #7FD8BE;
-  --color-gold: #F2C14E;
+  --color-lilac: #D0B7FF;
+  --color-mint: #78E0D5;
+  --color-gold: #D6E995;
   --color-peach: #FFC9B0;
 }
 
@@ -21,9 +21,9 @@
   --color-text-tertiary: rgb(248 248 250 / 0.56);
   --color-text-ghost: rgb(248 248 250 / 0.56);
   --color-accent-text: #FF6B47;
-  --color-lilac-text: #B9A5F2;
-  --color-mint-text: #7FD8BE;
-  --color-gold-text: #F2C14E;
+  --color-lilac-text: #D0B7FF;
+  --color-mint-text: #78E0D5;
+  --color-gold-text: #D6E995;
 }
 .ground-base { --color-surface-0: #080710; --color-surface-1: #0D0C18; --color-surface-2: #121120; --color-surface-3: #181729; }
 .ground-ink { --color-surface-0: #0E0A1A; --color-surface-1: #151026; --color-surface-2: #1C1631; --color-surface-3: #241D3D; }
@@ -37,7 +37,7 @@ html[data-theme="light"] {
   --color-accent-text: #A83206;
   --color-lilac-text: #4B33A8;
   --color-mint-text: #14604E;
-  --color-gold-text: #6E4D00;
+  --color-gold-text: #4A5A12;
 }
 html[data-theme="light"] .ground-base { --color-surface-0: #FBF9F6; --color-surface-1: #F3F0EA; --color-surface-2: #EBE7DE; --color-surface-3: #E2DDD1; }
 html[data-theme="light"] .ground-ink { --color-surface-0: #F4F1FA; --color-surface-1: #EBE6F5; --color-surface-2: #E1DBEF; --color-surface-3: #D6CEE8; }

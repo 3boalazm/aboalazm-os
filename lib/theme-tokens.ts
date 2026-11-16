@@ -28,7 +28,7 @@ export const THEMES: Record<"dark" | "light", ThemeTokens> = {
       glow: ["#0B0709", "#140C0D", "#1C1112", "#251718"], // near-black under the coral orb — start
     },
     text: { primary: [248, 248, 250, 1], secondary: [248, 248, 250, 0.72], tertiary: [248, 248, 250, 0.56] },
-    type: { accent: "#FF6B47", lilac: "#B9A5F2", mint: "#7FD8BE", gold: "#F2C14E" },
+    type: { accent: "#FF6B47", lilac: "#D0B7FF", mint: "#78E0D5", gold: "#D6E995" },
   },
   light: {
     grounds: {
@@ -38,7 +38,7 @@ export const THEMES: Record<"dark" | "light", ThemeTokens> = {
       glow: ["#FFF3EC", "#FBE7DC", "#F5DACC", "#EECDBC"], // peach paper
     },
     text: { primary: [8, 7, 16, 0.9], secondary: [8, 7, 16, 0.76], tertiary: [8, 7, 16, 0.64] },
-    type: { accent: "#A83206", lilac: "#4B33A8", mint: "#14604E", gold: "#6E4D00" },
+    type: { accent: "#A83206", lilac: "#4B33A8", mint: "#14604E", gold: "#4A5A12" },
   },
 };
 

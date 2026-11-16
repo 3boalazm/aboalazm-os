@@ -14,8 +14,8 @@ import { Arrow, Chapter, useX } from "./shared";
 
 const ART: Record<DisciplineId, { src: string; disc: string }> = {
   brand: { src: "/images/generated/discipline-brand.jpg", disc: "#FF6B47" },
-  digital: { src: "/images/generated/discipline-digital.jpg", disc: "#B9A5F2" },
-  systems: { src: "/images/generated/discipline-systems.jpg", disc: "#7FD8BE" },
+  digital: { src: "/images/generated/discipline-digital.jpg", disc: "#D0B7FF" },
+  systems: { src: "/images/generated/discipline-systems.jpg", disc: "#78E0D5" },
 };
 
 export function Disciplines() {
