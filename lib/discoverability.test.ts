@@ -77,20 +77,6 @@ test("every locale in LOCALES is reachable and named where languages are offered
   assert.doesNotMatch(nav, /LOCALE_CYCLE\[/, "the language control must not cycle blindly again");
 });
 
-test("the home page states the three languages instead of assuming the header explains them", () => {
-  const home = read("app/(site)/[locale]/page.tsx");
-  assert.match(home, /<LanguageBand\s*\/>/);
-  const band = read("features/home/language-band.tsx");
-  for (const locale of LOCALES) {
-    assert.ok(band.includes(`locale: "${locale}"`), `band must include ${locale}`);
-  }
-  /* Each column is set in its OWN face. The page-level --font-display token
-     is Thmanyah on any RTL page, so the specimen must be pinned, not tokenised. */
-  assert.match(band, /"GC EPICPRO"/);
-  assert.match(band, /"Thmanyah Serif Display"/);
-  assert.match(band, /"Montserrat"/);
-});
-
 test("the footer offers the same three locales on every page", () => {
   const footer = read("components/layout/footer.tsx");
   assert.match(footer, /\["en", "ar", "ms"\]/);
@@ -103,4 +89,13 @@ test("the tray clears the article chrome it shares the bottom edge with", () => 
   assert.match(css, /\.os-tray \{[\s\S]*?pointer-events: none;/, "the tray must not swallow page taps");
   const article = read("app/(site)/[locale]/writing/writing-detail-view.tsx");
   assert.match(article, /bottom-\[calc\(var\(--os-tray-offset\)/, "back-to-top must sit above the tray");
+});
+
+test("home keeps a concise route to services, selected work and contact", () => {
+  const home = read("app/(site)/[locale]/page.tsx");
+  assert.match(home, /<DisciplinesBand\b/);
+  assert.match(home, /sectionId="selected-work"/);
+  assert.match(home, /sectionId="home-digital-products"/);
+  assert.match(home, /<HomeCta\s*\/>/);
+  assert.doesNotMatch(home, /<(?:StudioModelBand|ServicesSnapshot|ClientJourneyBand|LanguageBand|StartFunnel|InsightsTeaser|HomeFaq)\b/);
 });

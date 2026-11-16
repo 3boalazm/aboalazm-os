@@ -234,7 +234,7 @@ export function Hero({ wall = [] }: { wall?: readonly HeroWallTile[] }) {
           `container-wide` (margin-inline:auto, max-width, no width) shrank
           to fit its content, so the band's top rule only spanned ~785px of
           a 1440px viewport instead of the container. */}
-      <div className="container-wide relative z-elevated w-full border-t border-border-subtle py-4">
+      <div className="container-wide relative z-elevated hidden w-full border-t border-border-subtle py-4 md:block">
         <MetricRow />
       </div>
     </section>
