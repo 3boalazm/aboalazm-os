@@ -21,7 +21,6 @@
  */
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE_PHYSICS, DURATION } from "@/lib/tokens";
 import type { Project } from "./types";
@@ -70,12 +69,19 @@ function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
   useEffect(() => {
     const el = frameRef.current;
     if (!el) return;
-    trail.current = {
-      xTo: gsap.quickTo(el, "x", { duration: 0.55, ease: "power3" }),
-      yTo: gsap.quickTo(el, "y", { duration: 0.7, ease: "power3" }),
-      rTo: gsap.quickTo(el, "rotation", { duration: 0.8, ease: "power2" }),
-    };
+    /* gsap loads here, on the desktop-only layer, rather than with the page:
+       the follow loop below already waits for `trail.current`. */
+    let cancelled = false;
+    void import("@/lib/gsap").then(({ default: gsap }) => {
+      if (cancelled) return;
+      trail.current = {
+        xTo: gsap.quickTo(el, "x", { duration: 0.55, ease: "power3" }),
+        yTo: gsap.quickTo(el, "y", { duration: 0.7, ease: "power3" }),
+        rTo: gsap.quickTo(el, "rotation", { duration: 0.8, ease: "power2" }),
+      };
+    });
     return () => {
+      cancelled = true;
       trail.current = null;
     };
   }, []);
@@ -95,7 +101,7 @@ function PreviewLayer({ active, pointer }: FloatingPreviewProps) {
         t.yTo(p.y + OFFSET.y);
         // Horizontal velocity → lean
         const vx = p.x - lastX.current;
-        t.rTo(gsap.utils.clamp(-MAX_LEAN, MAX_LEAN, vx * 0.35));
+        t.rTo(Math.max(-MAX_LEAN, Math.min(MAX_LEAN, vx * 0.35)));
         lastX.current = p.x;
       }
       raf = requestAnimationFrame(loop);

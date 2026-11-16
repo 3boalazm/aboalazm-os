@@ -11,7 +11,7 @@
  * each panel rises 24px and unblurs on the house physics curve.
  */
 import { useRef } from "react";
-import gsap from "gsap";
+import gsap from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { useAmbientGlow } from "@/hooks/use-ambient-glow";

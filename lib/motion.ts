@@ -102,10 +102,10 @@ export const hoverLift = {
 
 /* ── GSAP defaults ─────────────────────────────────────────────── */
 /**
- * Applied once at module scope in the SmoothScroll provider:
+ * Applied once at module scope in lib/gsap.ts — import gsap from there
+ * (never from "gsap" directly) so the defaults are always in place:
  *
- *   import gsap from "gsap";
- *   gsap.defaults(GSAP_DEFAULTS);
+ *   import gsap from "@/lib/gsap";
  *
  * CustomEase is avoided deliberately — "expo.out" is the closest
  * core-library match to cubic-bezier(0.16, 1, 0.3, 1), keeping the
