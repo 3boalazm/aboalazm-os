@@ -34,3 +34,17 @@ test("the face's word space is a sensible gap", async () => {
   const gap = arabicSpaceWidth(60);
   assert.ok(gap !== null && gap > 6 && gap < 36, `unexpected space ${gap}`);
 });
+
+test("the ESM build that Next bundles for the server has named exports only", async () => {
+  // The tests above load opentype.js through its CommonJS build, where a default import works.
+  // Next bundles dist/opentype.mjs for the server, which has no default export: a default import
+  // is undefined there and the measure silently falls back to Satori's wide boxes (it did, once).
+  const entry = "opentype.js/dist/opentype.mjs";
+  const esm = (await import(entry)) as { parse?: unknown; default?: unknown };
+  assert.equal(typeof esm.parse, "function");
+  assert.equal(esm.default, undefined);
+
+  const { readFileSync } = await import("node:fs");
+  const source = readFileSync("lib/og-arabic-metrics.ts", "utf8");
+  assert.doesNotMatch(source, /^import\s+\w+\s+from\s+"opentype\.js"/m, "a default import is undefined in the server bundle");
+});

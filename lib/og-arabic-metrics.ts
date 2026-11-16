@@ -1,4 +1,9 @@
-import opentype from "opentype.js";
+// opentype.js ships two builds and they disagree about exports. The ESM build Next bundles for the
+// server (dist/opentype.mjs) has named exports only, so `import opentype from "opentype.js"` is
+// undefined there: that is how the first version of this file failed in production while the tests,
+// which load the CommonJS build (everything under `default`), passed. Take whichever shape arrives.
+import * as opentypeModule from "opentype.js";
+import type { Font } from "opentype.js";
 import { readFileSync } from "fs";
 import path from "path";
 
@@ -17,9 +22,12 @@ import path from "path";
 
 const ARABIC_FACE = "public/fonts/thmanyahserifdisplay-Bold.otf";
 
-let face: opentype.Font | null | undefined;
+const opentype = ((opentypeModule as unknown as { default?: typeof opentypeModule }).default ??
+  opentypeModule) as typeof opentypeModule;
 
-function arabicFace(): opentype.Font | null {
+let face: Font | null | undefined;
+
+function arabicFace(): Font | null {
   if (face !== undefined) return face;
   try {
     const raw = readFileSync(path.join(process.cwd(), ARABIC_FACE));
