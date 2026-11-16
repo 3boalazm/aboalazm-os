@@ -103,7 +103,8 @@ test("the founder-led studio model is stated wherever the visitor asks who they 
   const about = read("app/(site)/[locale]/about/about-view.tsx");
   assert.match(about, /StudioModelBand/);
   const home = read("app/(site)/[locale]/page.tsx");
-  assert.match(home, /StudioModelBand/);
+  assert.match(home, /<Hero\b/);
+  assert.match(read("features/hero/hero.tsx"), /founder-led brand & digital studio/i);
   const band = read("features/offers/disciplines.tsx");
   assert.match(band, /founder-led studio/i);
   assert.match(band, /when the scope needs more hands/i);
