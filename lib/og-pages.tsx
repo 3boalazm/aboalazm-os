@@ -26,6 +26,11 @@ export type OgPageId =
 interface PageDef {
   idx: string;
   eyebrow: string;
+  /**
+   * Arabic tag, set in Thmanyah Serif Display. Satori's shaper throws on a few
+   * letter pairs in that face (لا، لأ، را …), and a throw fails the whole deploy,
+   * so keep to wording that lib/og-pages.test.ts renders cleanly.
+   */
   tagAr: string;
   title: string[];
   desc: string;
@@ -646,7 +651,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Mustafa Aboalazm — Senior Brand Identity Designer & Visual Systems Specialist", visual: vHome,
   },
   work: {
-    idx: "01", eyebrow: "Selected work", tagAr: "الأعمال", route: "/work",
+    idx: "01", eyebrow: "Selected work", tagAr: "أعمال مختارة", route: "/work",
     title: ["Selected", "cases."],
     desc: "Identity systems and digital products — the problem, what shipped, and the outcome.",
     alt: "Work — selected brand identity and product cases", visual: vWork,
@@ -688,7 +693,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Services — brand & business identity, digital experience, business systems & automation", visual: vServices,
   },
   pricing: {
-    idx: "07", eyebrow: "Pricing", tagAr: "الأسعار", route: "/pricing",
+    idx: "07", eyebrow: "Pricing", tagAr: "التسعير", route: "/pricing",
     title: ["No hidden", "fees."],
     desc: "Three transparent tiers, from a $199 logo to a full brand system. Stated upfront.",
     alt: "Pricing — three tiers from $199, stated upfront", visual: vPricing,
@@ -718,7 +723,7 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Contact — start the conversation", visual: vContact,
   },
   capabilities: {
-    idx: "13", eyebrow: "Capabilities", tagAr: "قدراتي", route: "/capabilities",
+    idx: "13", eyebrow: "Capabilities", tagAr: "إمكاناتي", route: "/capabilities",
     title: ["Live token", "playground."],
     desc: "Drag the studio's real design tokens and watch a real layout recalculate. Zero design drift.",
     alt: "Capabilities — live design token playground", visual: vCapabilities,
@@ -742,13 +747,13 @@ export const OG_PAGES: Record<OgPageId, PageDef> = {
     alt: "Library — interactive design books", visual: vBooks,
   },
   writing: {
-    idx: "17", eyebrow: "Writing", tagAr: "مقالات", route: "/writing",
+    idx: "17", eyebrow: "Writing", tagAr: "كتابات", route: "/writing",
     title: ["Notes from", "the system."],
     desc: "Working documents on identity, tokens and the craft of bilingual design.",
     alt: "Writing — notes from the system", visual: vWriting,
   },
   portfolio: {
-    idx: "26", eyebrow: "Portfolio deck 2026", tagAr: "ملف الأعمال", route: "/portfolio",
+    idx: "26", eyebrow: "Portfolio deck 2026", tagAr: "ملف أعمالي", route: "/portfolio",
     title: ["Selected", "Works ’26."],
     desc: "A 14-slide, 16:9 deck — five brand chapters in Arabic + English. View, print or download as PDF.",
     alt: "Portfolio 2026 — Selected Works, a 14-slide 16:9 presentation deck", visual: vPortfolio,
