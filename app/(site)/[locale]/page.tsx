@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProjects } from "@/lib/content";
 import { HomeRedesignPreview } from "@/features/home/home-redesign-preview";
 
-// The editorial overview intentionally replaces the former StudioModelBand stack with a tighter founder-led studio narrative.
+// The editorial overview replaces the former StudioModelBand stack with a tighter founder-led narrative. The former <LanguageBand /> is reduced to the inline language cue in the new hero.
 export const revalidate = 60;
 
 const pageMetadata: Metadata = {

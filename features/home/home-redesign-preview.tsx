@@ -160,6 +160,7 @@ export function HomeRedesignPreview({ locale, projects }: { locale: Locale; proj
                 <Link className="hr-secondary-link" href="#selected-work">{t.secondary}<span aria-hidden="true">↘</span></Link>
               </div>
               <p className="hr-signature">{t.signature}</p>
+              <p className="hr-languages" dir="ltr"><span>ENGLISH</span><i /> <span lang="ar">العربية</span><i /> <span>BAHASA MELAYU</span></p>
             </div>
             <div className="hr-hero-art">
               <div className="hr-art-orbit hr-orbit-a" aria-hidden="true" />

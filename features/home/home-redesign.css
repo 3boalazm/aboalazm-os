@@ -49,6 +49,9 @@ body:has(.home-redesign) { background: #090C12; color: #F4F1EA; color-scheme: da
 .hr-secondary-link:hover { color:var(--white); }
 .hr-secondary-link span { color:var(--mint); font-size:1.1rem; }
 .hr-signature { margin:3rem 0 0; color:var(--muted); font:500 .65rem/1.6 var(--font-mono); letter-spacing:.1em; text-transform:uppercase; }
+.hr-languages { display:flex; align-items:center; flex-wrap:wrap; gap:.65rem; margin:1rem 0 0; color:var(--copy); font:500 .58rem/1.4 var(--font-mono); letter-spacing:.12em; }
+.hr-languages i { width:.23rem; height:.23rem; border-radius:50%; background:var(--orange); }
+.hr-languages [lang="ar"] { font:500 .8rem/1.3 var(--font-arabic); letter-spacing:0; }
 [dir="rtl"] .home-redesign .hr-signature { font-family:var(--font-arabic); letter-spacing:0; font-size:.82rem; }
 .hr-hero-art { position:relative; min-height:32rem; display:flex; align-items:center; justify-content:center; }
 .hr-art-frame { position:relative; z-index:1; width:min(100%,32rem); aspect-ratio:.88; overflow:hidden; border:1px solid rgb(220 231 235 / .18); background:var(--panel); box-shadow:0 28px 90px rgb(0 0 0 / .4); }
@@ -173,7 +176,7 @@ body:has(.home-redesign) { background: #090C12; color: #F4F1EA; color-scheme: da
   .hr-hero { min-height:auto; padding-top:.8rem; }.hr-meta { align-items:flex-start; flex-direction:column; justify-content:center; gap:.55rem; padding:.6rem 0 .9rem; }
   .hr-coordinate { font-size:.55rem; }.hr-hero-layout { grid-template-columns:1fr; gap:2rem; padding:3.3rem 0 1.3rem; }
   .hr-title { max-width:9ch; font-size:clamp(4rem,15vw,6.5rem); }[dir="rtl"] .home-redesign .hr-title { max-width:11ch; font-size:clamp(3.3rem,12vw,5.3rem); }
-  .hr-lead { max-width:38rem; margin-top:1.4rem; font-size:.98rem; }.hr-actions { gap:1.1rem; margin-top:1.5rem; }.hr-signature { margin-top:1.8rem; }
+  .hr-lead { max-width:38rem; margin-top:1.4rem; font-size:.98rem; }.hr-actions { gap:1.1rem; margin-top:1.5rem; }.hr-signature { margin-top:1.8rem; }.hr-languages { margin-top:.75rem; }
   .hr-hero-art { min-height:25rem; }.hr-art-frame { width:min(82%,25rem); aspect-ratio:.92; }.hr-orbit-a { width:28rem; height:28rem; }.hr-orbit-b { width:34rem; height:34rem; }
   .hr-art-side { inset-inline-end:0; }.hr-metrics { grid-template-columns:1fr; margin-top:1rem; }
   .hr-metric { min-height:3.7rem; padding:.85rem 0; }.hr-metric+.hr-metric { border-inline-start:0; border-top:1px solid var(--line); padding-inline-start:0; }
