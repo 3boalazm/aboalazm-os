@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { RESPONSE_PROMISE } from "@/lib/contact-details";
 import { getBreadcrumbSchema } from "@/lib/structured-data";
 import { ContactView } from "./contact-view";
+import { HomeFaq } from "@/features/home/home-bands";
 
 const pageMetadata: Metadata = {
   title: "Contact — Start the Conversation",
@@ -18,6 +19,11 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     <>
       <JsonLd data={getBreadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
       <ContactView context={context} />
+      {/* The FAQ moved here from the home page (redesign v2): it answers
+          the questions people have right before they write. */}
+      <section id="faq" className="scroll-mt-20 py-8">
+        <HomeFaq />
+      </section>
     </>
   );
 }

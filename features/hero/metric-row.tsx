@@ -90,7 +90,7 @@ function MetricCard({ metric }: { metric: Metric }) {
         </span>
       </motion.p>
       <p className="mt-1 text-body font-medium text-text-primary">{metric.label}</p>
-      <p className="mt-0.5 font-mono text-micro uppercase tracking-[0.08em] text-accent">
+      <p className="mt-0.5 font-mono text-micro uppercase tracking-[0.08em]" style={{ color: "var(--color-gold-text)" }}>
         {metric.context}
       </p>
       <p className="mt-1 text-body-sm text-text-tertiary max-sm:hidden">

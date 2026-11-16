@@ -11,6 +11,7 @@
  *
  * Copy lives in lib/offers DISCIPLINES (single source); this file is layout only.
  */
+import type React from "react";
 import Image from "next/image";
 import { BandFrame } from "@/components/ui/band-frame";
 import Link from "@/components/ui/localized-link";
@@ -31,6 +32,15 @@ const SERVICE_FOR: Record<Discipline["id"], "brand-identity" | "website" | "digi
    than project thumbnails: the discipline is the offer, so its picture has to
    read as "a brand kit / an interface / a system", not as one client's work
    standing in for the whole category. */
+/* Redesign v2: each discipline owns a colour — coral leads (brand), lilac is
+   digital, mint is systems. `--disc` paints the card's top rule, bullets and
+   ring; `--disc-text` is its text-safe member on the current ground. */
+const DISCIPLINE_COLOUR: Record<Discipline["id"], { "--disc": string; "--disc-text": string }> = {
+  brand: { "--disc": "var(--color-accent)", "--disc-text": "var(--color-accent-text, var(--color-accent))" },
+  digital: { "--disc": "var(--color-lilac)", "--disc-text": "var(--color-lilac-text)" },
+  systems: { "--disc": "var(--color-mint)", "--disc-text": "var(--color-mint-text)" },
+};
+
 const DISCIPLINE_ART: Record<Discipline["id"], string> = {
   brand: "/images/generated/discipline-brand.jpg",
   digital: "/images/generated/discipline-digital.jpg",
@@ -65,8 +75,9 @@ export function DisciplineCards({
         return (
           <article
             key={d.id}
+            style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties}
             className={joinClasses(
-              "flex flex-col overflow-hidden rounded-panel border bg-surface-1 max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
+              "disc-card flex flex-col overflow-hidden rounded-panel border bg-surface-1 max-md:w-[84%] max-md:shrink-0 max-md:snap-start",
               isHighlight ? "border-accent-border bg-accent/[0.04]" : "border-border-default",
             )}
           >
@@ -115,7 +126,7 @@ export function DisciplineCards({
                       compact && i >= 2 && "max-sm:hidden",
                     )}
                   >
-                    <span aria-hidden className="mt-[0.55em] size-1 shrink-0 rounded-pill bg-accent" />
+                    <span aria-hidden className="disc-dot mt-[0.55em] size-1 shrink-0 rounded-pill" />
                     {ar ? item[1] : item[0]}
                   </li>
                 ))}
@@ -124,7 +135,8 @@ export function DisciplineCards({
               <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
                 <Link
                   href={contactHref({ service: SERVICE_FOR[d.id], source: "/services" })}
-                  className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] text-accent transition-colors hover:text-text-primary"
+                  style={{ color: "var(--disc-text)" }}
+                  className="inline-flex items-center gap-1.5 font-mono text-label uppercase tracking-[0.06em] transition-opacity hover:opacity-70"
                 >
                   {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}
                   <span aria-hidden className="inline-flex">
@@ -168,8 +180,8 @@ export function DisciplineRings({ highlight }: { highlight?: Discipline["id"] })
     <div className="flex flex-col items-center gap-2">
       <div className="discipline-rings" role="list">
         {DISCIPLINES.map((d) => (
-          <Link key={d.id} href={d.href} role="listitem" className="discipline-ring" data-lead={highlight === d.id}>
-            <span className="font-mono text-micro text-accent">{d.n}</span>
+          <Link key={d.id} href={d.href} role="listitem" className="discipline-ring" style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties} data-lead={highlight === d.id}>
+            <span className="font-mono text-micro">{d.n}</span>
             <span className={ar ? "text-subtitle font-semibold text-text-primary" : "font-display text-subtitle tracking-[-0.01em] text-text-primary max-sm:text-body"}>
               {RING_LABEL[d.id][ar ? 1 : lang === "ms" ? 2 : 0]}
             </span>

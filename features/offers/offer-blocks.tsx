@@ -443,7 +443,7 @@ export function CtaBand({
     );
   }
   return (
-    <section className="flex flex-col items-center gap-3 border-t border-border-subtle py-6 text-center">
+    <section className="ground ground-coral flex flex-col items-center gap-3 rounded-panel px-3 pt-8 text-center">
       <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
         — {pick(kicker, lang)} —
       </p>

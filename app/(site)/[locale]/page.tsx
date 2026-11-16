@@ -3,20 +3,18 @@ import type { Locale } from "@/lib/locale";
 import type { Metadata } from "next";
 import { Hero } from "@/features/hero";
 import { pickHeroWall } from "@/features/hero/hero-wall-data";
-import { getProjects, getPosts } from "@/lib/content";
-import { AboutTeaser, HomeCta, ClientJourneyBand, HomeFaq } from "@/features/home/home-bands";
-import { StatementBand } from "@/features/home/statement-band";
+import { getProjects } from "@/lib/content";
+import { ClientJourneyBand } from "@/features/home/home-bands";
 import { LanguageBand } from "@/features/home/language-band";
-import { ServicesSnapshot } from "@/features/home/services-snapshot";
-import { InsightsTeaser } from "@/features/home/insights-teaser";
 import { PhotoStrip } from "@/features/home/photo-strip";
 import "@/features/home/home-rhythm.css";
 import { ReelsShortcuts } from "@/features/reels/reels-shortcuts";
+import { BootRail } from "@/features/home/boot-rail";
+import { HomeStart, ModuleIndex } from "@/features/home/module-index";
 import { FeaturedCases } from "@/features/work/featured-cases";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 import { SectionMarker } from "@/components/ui/section-marker";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { SocialProof } from "@/components/shared/social-proof";
 import { DisciplinesBand, StudioModelBand } from "@/features/offers/disciplines";
 import { StartFunnel } from "@/features/offers/start-funnel";
 
@@ -35,11 +33,16 @@ const pageMetadata: Metadata = {
  * HOME — repositioned 2026-11: a studio that sells business outcomes, in the
  * order a decision-maker asks for them.
  *
- *   Hero (who you're buying) → 01 What we do (three disciplines) →
- *   02 Proof — brand → 03 Reels (3 shortcuts) → 04 Proof — digital →
- *   Statement → 05 How the studio runs → 06 The offer → 07 Method →
- *   08 Practice → 09 Languages (the three authored scripts) → 10 How to
- *   start → 11 Thinking → 12 FAQ → 13 Next
+ *   REDESIGN V2 (2026-11): seven modules on four grounds, down from thirteen
+ *   sections on one.
+ *
+ *   00 BOOT (obsidian · hero) → 01 OFFER (bone) → 02 WORK (obsidian) →
+ *   03 WATCH (plum) → 04 METHOD (bone) → 05 STUDIO (obsidian) →
+ *   06 START (coral, with the index of what moved off the page)
+ *
+ *   Moved, not deleted: the services snapshot and social proof live on
+ *   /services and /pricing; practice/background on /about; writing on
+ *   /writing; the FAQ on /contact. The START module links to each.
  *
  * Two changes from the previous order matter commercially:
  *   · "What we do" now precedes the work, so the work is read as evidence of a
@@ -51,7 +54,7 @@ const pageMetadata: Metadata = {
  * edge — but it is no longer the whole story the home page tells.
  */
 export default async function Home() {
-  const [projects, posts] = await Promise.all([getProjects(), getPosts()]);
+  const projects = await getProjects();
   const identityProjects = projects.filter((project) => project.category === "design");
   const developmentProjects = projects.filter((project) => project.category === "development");
 
@@ -59,23 +62,28 @@ export default async function Home() {
     <main>
       <ScrollProgress />
 
-      {/* 00 · Who you are buying, and what the studio does */}
-      <Hero wall={pickHeroWall(projects)} />
+      {/* 00 · BOOT — who you are buying, and what the studio does */}
+      <div id="boot">
+        <Hero wall={pickHeroWall(projects)} />
+      </div>
 
-      {/* 01 · The three disciplines — read before the proof */}
-      <section className="narrative-section narrative-section--cta narrative-raise">
+      {/* The boot rail: the page read as an OS loading module by module. */}
+      <BootRail />
+
+      {/* 01 · OFFER — bone ground. The three disciplines, colour-coded. */}
+      <section id="offer" className="narrative-section narrative-section--proof ground ground-bone ground-sheet">
         <div className="container-wide">
-          <SectionMarker index="01" label="WHAT WE DO" labelAr="اللي بنعمله" />
+          <SectionMarker index="01" label="OFFER / WHAT WE DO" labelAr="العرض / اللي بنعمله" />
         </div>
         <div className="container-wide">
           <DisciplinesBand highlight="brand" />
         </div>
       </section>
 
-      {/* 02 · Identity work */}
-      <section className="narrative-section narrative-section--proof">
+      {/* 02 · WORK — obsidian. Identity, the files, then digital: one module. */}
+      <section id="work" className="narrative-section narrative-section--proof ground">
         <div className="container-wide">
-          <SectionMarker index="02" label="BRAND IDENTITY / SELECTED WORK" labelAr="الهوية / أعمال مختارة" />
+          <SectionMarker index="02" label="WORK / PROOF" labelAr="الأعمال / الدليل" />
         </div>
         <ScrollReveal>
           <FeaturedCases
@@ -85,141 +93,74 @@ export default async function Home() {
             sectionId="selected-work"
           />
         </ScrollReveal>
+        <div className="mt-8">
+          <PhotoStrip />
+        </div>
+        <ScrollReveal>
+          <div className="mt-8">
+            <FeaturedCases
+              projects={developmentProjects}
+              heading="home"
+              variant="digital"
+              sectionId="home-digital-products"
+            />
+          </div>
+        </ScrollReveal>
       </section>
 
-      {/* 03 · Reels — directly under the selected work: exactly three video
-          shortcuts into the method (see
-          features/reels/reels.data.ts → pickHomeShortcuts); the full set
-          lives on /reels. */}
-      <section className="narrative-section narrative-section--proof">
+      {/* 03 · WATCH — plum ground. Exactly three reel shortcuts. */}
+      <section id="watch" className="narrative-section narrative-section--proof ground ground-plum ground-sheet">
         <div className="container-wide">
-          <SectionMarker index="03" label="REELS / SHORTCUTS" labelAr="ريلز / اختصارات" />
+          <SectionMarker index="03" label="WATCH / REELS" labelAr="شاهد / ريلز" />
         </div>
         <div className="container-wide">
           <ReelsShortcuts />
         </div>
       </section>
 
-      {/* 04 · Development work has its own showcase and production links */}
-      <section className="narrative-section narrative-section--proof">
+      {/* 04 · METHOD — bone ground. How a project runs, then how it starts. */}
+      <section id="method" className="narrative-section narrative-section--process ground ground-bone ground-sheet">
         <div className="container-wide">
-          <SectionMarker index="04" label="DIGITAL PRODUCTS & SYSTEMS" labelAr="المنتجات الرقمية والأنظمة" />
-        </div>
-        <ScrollReveal>
-          <FeaturedCases
-            projects={developmentProjects}
-            heading="home"
-            variant="digital"
-            sectionId="home-digital-products"
-          />
-        </ScrollReveal>
-      </section>
-
-      {/* Manifesto beat — breaks the rhythm deliberately, no marker */}
-      <StatementBand />
-
-      {/* 05 · How the studio actually runs — the operating-model answer */}
-      <section className="narrative-section narrative-section--about narrative-raise">
-        <div className="container-wide">
-          <SectionMarker index="05" label="THE STUDIO MODEL" labelAr="نموذج الاستوديو" />
-        </div>
-        <div className="container-wide">
-          <ScrollReveal>
-            <StudioModelBand />
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* 06 · The offer */}
-      <section className="narrative-section narrative-section--cta">
-        <div className="container-wide">
-          <SectionMarker index="06" label="SERVICES / OFFER" labelAr="الخدمات / العرض" />
-        </div>
-        <div className="container-wide">
-          <ServicesSnapshot />
-        </div>
-        <SocialProof />
-      </section>
-
-      {/* Mobile visual breath — the six type-only bands from 06 to 11 leave a
-          phone with nothing to look at. The strip swipes real files; it is
-          `lg:hidden`, where the two showcases already carry the pictures. */}
-      <PhotoStrip />
-
-      {/* 07 · Process & Methodology */}
-      <section className="narrative-section narrative-section--process narrative-raise">
-        <div className="container-wide">
-          <SectionMarker index="07" label="METHOD / PROCESS" labelAr="المنهج / العملية" />
+          <SectionMarker index="04" label="METHOD / HOW IT RUNS" labelAr="المنهج / إزاي بيمشي" />
         </div>
         <ScrollReveal>
           <ClientJourneyBand />
         </ScrollReveal>
-      </section>
-
-      {/* 08 · Background & Practice */}
-      <section className="narrative-section narrative-section--about">
-        <div className="container-wide">
-          <SectionMarker index="08" label="PRACTICE / BACKGROUND" labelAr="الممارسة / الخلفية" />
-        </div>
-        <ScrollReveal>
-          <AboutTeaser />
-        </ScrollReveal>
-      </section>
-
-      {/* 09 · The three languages this OS is authored in.
-          Placed right after Practice: the visitor has just read who the studio
-          is, and "it exists in Arabic and Malay too" is part of who it is. It
-          also repairs a real discoverability bug — the header used to cycle
-          languages behind one button, so /ms was unreachable for anyone who
-          did not guess twice. Its marker takes the slot the funnel steps down
-          from, so the narrative stays one continuous count. */}
-      <section className="narrative-section narrative-section--about narrative-raise">
-        <div className="container-wide">
-          <SectionMarker index="09" label="LANGUAGES / THREE SCRIPTS" labelAr="اللغات / ثلاث كتابات" />
-        </div>
-        <LanguageBand />
-      </section>
-
-      {/* 10 · How to start — one funnel, stated before the FAQ */}
-      <section className="narrative-section narrative-section--cta">
-        <div className="container-wide">
-          <SectionMarker index="10" label="NEXT / HOW TO START" labelAr="التالي / كيف تبدأ" />
-        </div>
-        <div className="container-wide">
+        <div className="container-wide mt-8">
           <ScrollReveal>
             <StartFunnel />
           </ScrollReveal>
         </div>
       </section>
 
-      {/* 11 · The thinking — journal teaser inside the funnel */}
-      <section className="narrative-section narrative-section--proof narrative-raise">
+      {/* 05 · STUDIO — obsidian. Who you are buying, and the three scripts.
+          The language band stays on the home page on purpose: it is what makes
+          the third locale believable (lib/discoverability.test.ts). */}
+      <section id="studio" className="narrative-section narrative-section--about ground ground-sheet">
         <div className="container-wide">
-          <SectionMarker index="11" label="WRITING / THINKING" labelAr="مقالات / التفكير" />
+          <SectionMarker index="05" label="STUDIO / WHO YOU WORK WITH" labelAr="الاستوديو / مين هتشتغل معاه" />
         </div>
         <div className="container-wide">
-          <InsightsTeaser posts={posts} />
+          <ScrollReveal>
+            <StudioModelBand />
+          </ScrollReveal>
+        </div>
+        <div className="mt-8">
+          <LanguageBand />
         </div>
       </section>
 
-      {/* 12 · FAQ / objection handling */}
-      <section className="narrative-section narrative-section--about">
+      {/* 06 · START — coral ground. One next step, then the index of
+          everything that left the home page (pricing, writing, FAQ, about):
+          six sections became six lines. */}
+      <section id="start" className="narrative-section narrative-section--cta ground ground-coral ground-sheet">
         <div className="container-wide">
-          <SectionMarker index="12" label="FAQ / BEFORE START" labelAr="أسئلة / قبل البدء" />
+          <SectionMarker index="06" label="START / NEXT STEP" labelAr="ابدأ / الخطوة الجاية" />
         </div>
-        <ScrollReveal>
-          <HomeFaq />
-        </ScrollReveal>
-      </section>
-
-      {/* 13 · One canonical next step */}
-      <section className="narrative-section narrative-section--cta">
-        <div className="container-wide">
-          <SectionMarker index="13" label="NEXT / START" labelAr="التالي / ابدأ" />
+        <div className="container-wide flex flex-col gap-8">
+          <HomeStart />
+          <ModuleIndex />
         </div>
-        <ScrollReveal>
-          <HomeCta />
-        </ScrollReveal>
       </section>
     </main>
   );
