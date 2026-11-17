@@ -94,6 +94,17 @@ const nextConfig: NextConfig = {
     ];
   },
   // The brand book used to live at its own URL; it is now a panel of the case study.
+  async rewrites() {
+    return [
+      {
+        // Google Play's Trusted Web Activity verification requires this exact
+        // root URL. The API route serves the configured signing fingerprints
+        // as application/json and returns 503 until real certificates exist.
+        source: "/.well-known/assetlinks.json",
+        destination: "/api/android/assetlinks",
+      },
+    ];
+  },
   async redirects() {
     const redirects = [
       {

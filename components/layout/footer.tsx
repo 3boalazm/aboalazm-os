@@ -22,6 +22,7 @@ const COLUMNS: { head: [string, string, string]; links: [string, string, string,
       ["Partnership & support", "الشراكة والدعم", "Perkongsian & sokongan", "/partnership"],
       ["Agreement", "الاتفاقية", "Perjanjian", "/agreement"],
       ["Book with a deposit", "احجز بعربون", "Tempah dengan deposit", "/book"],
+      ["Privacy policy", "سياسة الخصوصية", "Dasar privasi", "/privacy"],
     ],
   },
   {
