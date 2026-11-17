@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   description:
     "Portfolio deck of Mustafa Aboalazm, senior brand identity designer — 14 slides, 5 bilingual identity chapters. View online, print, or download as a 16:9 PDF.",
   alternates: { canonical: "/portfolio" },
-  icons: { icon: "/images/work/icon.png" },
+  icons: { icon: "/images/work/portrait-256.png" },
   robots: { index: true, follow: true },
   openGraph: { type: "website", siteName: "Mustafa Aboalazm" },
   twitter: { card: "summary_large_image" },

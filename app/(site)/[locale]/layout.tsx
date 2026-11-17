@@ -55,10 +55,10 @@ const baseMetadata: Metadata = {
   manifest: "/manifest.webmanifest",
   icons: {
     icon: [
-      { url: "/images/work/icon.png", sizes: "256x256", type: "image/png" },
+      { url: "/images/work/portrait-256.png", sizes: "256x256", type: "image/png" },
       { url: "/icons/app-192.png", sizes: "192x192", type: "image/png" },
     ],
-    shortcut: "/images/work/icon.png",
+    shortcut: "/images/work/portrait-256.png",
     apple: [{ url: "/icons/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   appleWebApp: {

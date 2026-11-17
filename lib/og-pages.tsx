@@ -122,7 +122,7 @@ async function vHome() {
     b: ["/images/work/nile-pharma/npf-card.jpg", 460],
     c: ["/images/work/reflection/refl-card.jpg", 460],
     d: ["/images/work/gad/gad-card.jpg", 460],
-    icon: ["/images/work/icon.png", 160],
+    icon: ["/images/work/portrait-256.png", 160, 90],
   });
   return (
     <Stage style={{ padding: PAD }}>
@@ -200,7 +200,7 @@ async function vWorkUi() {
 }
 
 async function vAbout() {
-  const i = await ogImgs({ icon: ["/images/work/icon.png", 420] });
+  const i = await ogImgs({ icon: ["/images/work/portrait-512.png", 420, 90] });
   const stats: [string, string][] = [["09", "YEARS"], ["20+", "CLIENTS"], ["AR·EN", "BILINGUAL"]];
   return (
     <Stage style={{ padding: 28, alignItems: "center", justifyContent: "space-between" }}>
@@ -230,7 +230,7 @@ async function vAbout() {
 }
 
 async function vHiring() {
-  const i = await ogImgs({ icon: ["/images/work/icon.png", 200] });
+  const i = await ogImgs({ icon: ["/images/work/portrait-256.png", 200, 90] });
   return (
     <Stage style={{ padding: 28, justifyContent: "space-between" }}>
       <div style={flex({ justifyContent: "space-between", alignItems: "center" })}>

@@ -64,14 +64,15 @@ const nextConfig: NextConfig = {
   // tracer never sees them and the deployed function shipped without them. Every
   // picture tile was empty on the live site (home, /work, /work-ui, ...). List
   // each picture here; lib/og-trace.test.ts fails if lib/og-pages.tsx uses one
-  // that is missing from this list. Only these exact files (about 2.6 MB), not
+  // that is missing from this list. Only these exact files (about 3.1 MB), not
   // public/images, so each function stays small.
   outputFileTracingIncludes: {
     "/**/opengraph-image*": [
       "./public/fonts/Gc_Epicpro.otf",
       "./public/fonts/thmanyahserifdisplay-Bold.otf",
       "./public/fonts/noto-sans-latin-400.ttf",
-      "./public/images/work/icon.png",
+      "./public/images/work/portrait-256.png",
+      "./public/images/work/portrait-512.png",
       "./public/images/work/cc-logo-hero.jpg",
       "./public/images/work/gad/gad-card.jpg",
       "./public/images/work/reflection/refl-card.jpg",

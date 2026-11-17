@@ -139,7 +139,7 @@ export function Nav() {
         <Link href="/" className="x-brand" aria-label={t("Aboalazm OS — home", "Aboalazm OS — الرئيسية", "Aboalazm OS — utama")}>
           <span className="x-brand__orb">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/work/icon.png" alt="" width={40} height={40} className="h-full w-full object-cover" />
+            <img src="/images/work/portrait-128.webp" alt="" width={40} height={40} className="h-full w-full object-cover" />
           </span>
           <span className="x-brand__word max-[380px]:hidden" aria-hidden>
             ABOAL<span style={{ color: "#FF6B47" }}>A</span>ZM

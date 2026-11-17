@@ -54,7 +54,7 @@ export default buildConfig({
     user: "users",
     meta: {
       titleSuffix: " — Aboalazm OS Studio",
-      icons: [{ url: "/images/work/icon.png", rel: "icon" }],
+      icons: [{ url: "/images/work/portrait-256.png", rel: "icon" }],
     },
   },
   collections: [

@@ -45,7 +45,7 @@ function organizationNode() {
     name: STUDIO_NAME,
     alternateName: ["Aboalazm OS Studio", "Aboalazm"],
     url: SITE_URL,
-    logo: `${SITE_URL}/images/work/icon.png`,
+    logo: `${SITE_URL}/images/work/portrait-512.png`,
     description:
       "A founder-led studio building brand identity, bilingual digital experiences (sites, stores, products) and business systems (dashboards, ERP, automation) for growing companies.",
     email: CONTACT_EMAIL_HREF,
@@ -86,7 +86,7 @@ function personNode() {
     alternateName: ["مصطفى أبوالعزم", "Mostafa Abo Alazm", "3boalazm"],
     url: SITE_URL,
     mainEntityOfPage: `${SITE_URL}/about`,
-    image: `${SITE_URL}/images/work/icon.png`,
+    image: `${SITE_URL}/images/work/portrait-512.png`,
     jobTitle: "Senior Brand Identity Designer",
     description:
       "Senior Brand Identity Designer and Co-founder of Code & Canvas, working across brand strategy, bilingual (Arabic / English) visual identity systems, and design governance.",
