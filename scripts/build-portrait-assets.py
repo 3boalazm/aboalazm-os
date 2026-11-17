@@ -18,16 +18,24 @@ Needs Pillow (pip install pillow). Output is deterministic.
   public/icons/app-512.png              512  manifest icon (also precached by sw.js)
   public/icons/app-512-maskable.png     512  manifest maskable icon (same file, full-bleed as before)
   public/icons/apple-touch-icon.png     180  iOS home screen
+  app/favicon.ico                       16/32/48 tab icon (Next serves it at /favicon.ico); head-focused crop
 
 New file names (not in-place overwrites) are deliberate: /images is cached for a day and the service
 worker serves images stale-while-revalidate, so a changed file behind an old URL keeps showing the old
 picture for returning visitors.
 """
+import io
+import struct
 from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "media" / "mustafa-aboalazm.png"
+
+# The tab icon keeps the tighter, head-focused framing the previous favicon.ico used (about 74 % of the
+# width, a little above the centre): at 16 px the full frame turns the head into a few dark pixels.
+FAVICON_BOX = (92, 54, 660, 622)  # a 568 px square inside the 768 px original
+FAVICON_SIZES = (16, 32, 48)
 
 
 def load() -> Image.Image:
@@ -45,6 +53,21 @@ def png(im: Image.Image, size: int, dest: Path) -> None:
     scaled(im, size).save(dest, "PNG", optimize=True, compress_level=9)
 
 
+def ico(im: Image.Image, sizes: tuple, dest: Path) -> None:
+    """PNG-compressed .ico: one entry per size, each scaled straight from the same crop of the original."""
+    blobs = []
+    for s in sizes:
+        buf = io.BytesIO()
+        scaled(im, s).convert("RGBA").save(buf, "PNG", optimize=True, compress_level=9)
+        blobs.append(buf.getvalue())
+    offset = 6 + 16 * len(sizes)
+    directory = b""
+    for s, blob in zip(sizes, blobs):
+        directory += struct.pack("<BBBBHHII", s % 256, s % 256, 0, 0, 1, 32, len(blob), offset)
+        offset += len(blob)
+    dest.write_bytes(struct.pack("<HHH", 0, 1, len(sizes)) + directory + b"".join(blobs))
+
+
 def main() -> None:
     im = load()
     work = ROOT / "public" / "images" / "work"
@@ -60,8 +83,12 @@ def main() -> None:
     png(im, 512, icons / "app-512-maskable.png")
     png(im, 180, icons / "apple-touch-icon.png")
 
+    favicon = ROOT / "app" / "favicon.ico"
+    ico(im.crop(FAVICON_BOX), FAVICON_SIZES, favicon)
+
     for p in sorted([*work.glob("portrait-*"), work / "icon.png", *icons.glob("*.png")]):
         print(f"{p.relative_to(ROOT)}  {Image.open(p).size}  {p.stat().st_size / 1024:.1f} kB")
+    print(f"{favicon.relative_to(ROOT)}  {list(FAVICON_SIZES)}  {favicon.stat().st_size / 1024:.1f} kB")
 
 
 if __name__ == "__main__":
