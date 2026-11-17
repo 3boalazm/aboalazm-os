@@ -82,7 +82,7 @@ function Frame({ img, cap, no, pos, fit, bg, className, style }: {
 function Avatar({ size }: { size: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img className="fol-avatar" src="/images/work/icon.png" alt="" width={size} height={size} style={{ width: size, height: size }} />
+    <img className="fol-avatar" src="/images/work/portrait-256.png" alt="" width={size} height={size} style={{ width: size, height: size }} />
   );
 }
 

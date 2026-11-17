@@ -74,7 +74,7 @@ export function DeveloperView({ projects }: { projects: Project[] }) {
               </div>
               <span className="brand-orb size-12 shrink-0 sm:size-14">
                 <span className="brand-orb__glow" aria-hidden />
-                <Image src="/images/work/icon.png" alt="Aboalazm OS" width={56} height={56} className="brand-orb__img size-12 sm:size-14" />
+                <Image src="/images/work/portrait-512.png" alt="Aboalazm OS" width={112} height={112} sizes="(min-width: 640px) 112px, 96px" className="brand-orb__img size-12 sm:size-14" />
               </span>
             </div>
             <p className="mt-4 max-w-[42ch] text-body-sm leading-relaxed text-text-secondary">

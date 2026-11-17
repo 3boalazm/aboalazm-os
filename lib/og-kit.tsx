@@ -51,7 +51,7 @@ export const col = (s: CSSProperties = {}): CSSProperties => ({ display: "flex",
 const imgCache = new Map<string, string>();
 
 export async function ogImg(rel: string, width = 640, quality = 72): Promise<string> {
-  const key = `${rel}@${width}`;
+  const key = `${rel}@${width}@${quality}`;
   const hit = imgCache.get(key);
   if (hit) return hit;
   const abs = path.join(process.cwd(), "public", rel);
@@ -81,9 +81,9 @@ export async function ogImg(rel: string, width = 640, quality = 72): Promise<str
   return out;
 }
 
-export async function ogImgs<T extends string>(map: Record<T, [rel: string, width?: number]>): Promise<Record<T, string>> {
+export async function ogImgs<T extends string>(map: Record<T, [rel: string, width?: number, quality?: number]>): Promise<Record<T, string>> {
   const entries = await Promise.all(
-    (Object.entries(map) as [T, [string, number?]][]).map(async ([k, [rel, w]]) => [k, await ogImg(rel, w ?? 640)] as const),
+    (Object.entries(map) as [T, [string, number?, number?]][]).map(async ([k, [rel, w, q]]) => [k, await ogImg(rel, w ?? 640, q)] as const),
   );
   return Object.fromEntries(entries) as Record<T, string>;
 }
