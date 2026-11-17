@@ -1,7 +1,10 @@
 // Service Worker for Aboalazm OS PWA
 // Cache policy:
 //   - HTML navigations (/ , /work, /work/design, /work/development, etc.): network-first so published updates appear immediately.
-//     A controlled top-level navigation gets the branded fallback for HTTP 404/5xx; this does not change the server response seen by crawlers or non-controlled clients.
+//     Chrome treats an HTTP 404/5xx (or a failed offline load) inside a Trusted Web Activity as an app crash, so a controlled
+//     top-level navigation never receives one as-is: a 404 keeps the site's own designed 404 page but is delivered with status 200;
+//     a 5xx serves the last cached copy of that page, or the branded fallback; offline works the same way. The server's real status
+//     is unchanged for crawlers and for clients that are not controlled by this worker.
 //   - Built assets (/_next/static/*, /fonts/*): cache-first (content-hashed or immutable).
 //   - Images (/images/*, /_next/image*): stale-while-revalidate so offline works without pinning stale thumbnails.
 //   - Studio, Admin & API (/studio*, /admin*, /api*): network-only, never cached.
@@ -125,12 +128,11 @@ async function networkFirst(request, isTopLevelNavigation = false) {
   const cache = await caches.open(RUNTIME_CACHE);
   try {
     const response = await fetch(request);
-    if (
-      isTopLevelNavigation &&
-      response &&
-      (response.status === 404 || response.status >= 500)
-    ) {
-      return navigationFallback();
+    if (isTopLevelNavigation && response) {
+      // Keep the site's own designed 404 page, but hand it over with status 200 (never cached).
+      if (response.status === 404) return withOkStatus(response);
+      // A server error is not worth showing: prefer the last good copy of this page, then the branded fallback.
+      if (response.status >= 500) return (await cache.match(request)) || navigationFallback();
     }
     if (response && response.ok) {
       cache.put(request, response.clone());
@@ -144,6 +146,14 @@ async function networkFirst(request, isTopLevelNavigation = false) {
     if (shell) return shell;
     throw err;
   }
+}
+
+function withOkStatus(response) {
+  const headers = new Headers(response.headers);
+  // The service worker receives the body already decoded, so the original framing headers no longer describe it.
+  headers.delete("content-encoding");
+  headers.delete("content-length");
+  return new Response(response.body, { status: 200, statusText: "OK", headers });
 }
 
 async function navigationFallback() {

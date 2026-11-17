@@ -66,7 +66,7 @@ The package ID in the Digital Asset Links statement is fixed in `lib/android-ass
 
 Only after the §2 asset-links check passes, install the signed APK on a real Android phone. A visible browser bar means origin verification failed: check the exact host, package ID, certificate fingerprint on that APK, and the currently deployed JSON response.
 
-Exercise the website from the app, including contact enquiries, resource downloads, back navigation, language changes, and the offline/unavailable-page fallback. Confirm the privacy page loads and the app returns to the expected Vercel origin. Test a Play-installed build again after adding the Play App Signing fingerprint. Testers should actually use the content during a closed test rather than only install and open the app once.
+Exercise the website from the app, including contact enquiries, resource downloads, back navigation, language changes, the offline/unavailable-page fallback, and one mistyped URL (the site's own designed 404 page should appear; the service worker delivers it with status 200 so Chrome does not count it as an app crash). Confirm the privacy page loads and the app returns to the expected Vercel origin. Test a Play-installed build again after adding the Play App Signing fingerprint. Testers should actually use the content during a closed test rather than only install and open the app once.
 
 ## 4. Play Console submission
 
