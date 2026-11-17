@@ -7,7 +7,9 @@
 //     is unchanged for crawlers and for clients that are not controlled by this worker.
 //   - Built assets (/_next/static/*, /fonts/*): cache-first (content-hashed or immutable).
 //   - Images (/images/*, /_next/image*): stale-while-revalidate so offline works without pinning stale thumbnails.
-//   - Studio, Admin & API (/studio*, /admin*, /api*): network-only, never cached.
+//   - Studio, Admin, API & machine-read files (/studio*, /admin*, /api*, /.well-known/*): network-only, never cached.
+//     /.well-known/assetlinks.json is verified by Chrome and by the owner: an unset or invalid fingerprint list must show the
+//     server's real 503 JSON, and updated fingerprints must show up at once, not a fallback page or a stale cached copy.
 //   - Video / audio and any Range request (/reels/*.mp4 …): network-only. Media is
 //     streamed with 206 partial responses, which the Cache API cannot store, and a
 //     cached full 200 breaks seeking/playback (notably iOS Safari).
@@ -84,7 +86,12 @@ self.addEventListener("fetch", (event) => {
 
   const { pathname } = url;
 
-  if (pathname.startsWith("/studio") || pathname.startsWith("/admin") || pathname.startsWith("/api")) {
+  if (
+    pathname.startsWith("/studio") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/.well-known/")
+  ) {
     return;
   }
 

@@ -205,10 +205,10 @@ test("non-navigation HTML fetches keep the server's real 404 and 5xx statuses", 
   }
 });
 
-test("studio, admin and API requests are never handled by the worker", () => {
+test("studio, admin, API and /.well-known requests are never handled by the worker", () => {
   const harness = createHarness({ networkStatus: 404 });
 
-  for (const path of ["/studio/leads", "/admin", "/api/track"]) {
+  for (const path of ["/studio/leads", "/admin", "/api/track", "/.well-known/assetlinks.json"]) {
     assert.equal(harness.dispatch(makeRequest({ path })), null, path);
   }
 });
