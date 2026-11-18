@@ -47,6 +47,98 @@ export interface Reel {
 
 export const REELS: Reel[] = [
   {
+    slug: "claude-code-model-effort",
+    title: {
+      en: "Claude Code: choose Model and Effort by task",
+      ar: "Claude Code: اختار الموديل والـ Effort على قد المهمة",
+      ms: "Claude Code: pilih Model dan Effort ikut tugas",
+    },
+    summary: {
+      en: "A practical Egyptian Arabic guide to Haiku, Sonnet and Opus; effort levels and commands; planning, context hygiene, subagents, and choosing the right lever when Claude misses.",
+      ar: "دليل عملي لاختيار Haiku وSonnet وOpus، وضبط الـ Effort والأوامر، وإدارة السياق والـ subagents، ومعرفة إمتى تغيّر الجهد أو الموديل.",
+      ms: "Panduan praktikal memilih Haiku, Sonnet dan Opus; tahap effort dan arahan; perancangan, konteks, subagen dan cara memilih pelarasan yang tepat.",
+    },
+    video: "/reels/claude-code-model-effort.mp4",
+    poster: "/reels/claude-code-model-effort-01.webp",
+    duration: 131,
+    publishedAt: "2026-11-18",
+    topics: ["Claude Code", "Models", "Effort"],
+    chapters: [
+      {
+        at: 0,
+        poster: "/reels/claude-code-model-effort-01.webp",
+        title: {
+          en: "Model or Effort?",
+          ar: "الموديل ولا الـ Effort؟",
+          ms: "Model atau Effort?",
+        },
+      },
+      {
+        at: 11,
+        poster: "/reels/claude-code-model-effort-02.webp",
+        title: {
+          en: "Choosing a model",
+          ar: "اختيار الموديل",
+          ms: "Memilih model",
+        },
+      },
+      {
+        at: 29,
+        poster: "/reels/claude-code-model-effort-03.webp",
+        title: {
+          en: "Effort levels",
+          ar: "مستويات الـ Effort",
+          ms: "Tahap Effort",
+        },
+      },
+      {
+        at: 48,
+        poster: "/reels/claude-code-model-effort-04.webp",
+        title: {
+          en: "Commands",
+          ar: "أوامر التحكم",
+          ms: "Arahan kawalan",
+        },
+      },
+      {
+        at: 60,
+        poster: "/reels/claude-code-model-effort-05.webp",
+        title: {
+          en: "A project workflow",
+          ar: "Workflow للمشاريع الكبيرة",
+          ms: "Aliran kerja projek besar",
+        },
+      },
+      {
+        at: 78,
+        poster: "/reels/claude-code-model-effort-06.webp",
+        title: {
+          en: "Context and session hygiene",
+          ar: "السياق وتنظيم الجلسة",
+          ms: "Konteks dan sesi",
+        },
+      },
+      {
+        at: 91,
+        poster: "/reels/claude-code-model-effort-07.webp",
+        title: {
+          en: "Subagents and thinking prompts",
+          ar: "Subagents وكلمات التفكير",
+          ms: "Subagen dan petunjuk pemikiran",
+        },
+      },
+      {
+        at: 112,
+        poster: "/reels/claude-code-model-effort-08.webp",
+        title: {
+          en: "Pick the right adjustment",
+          ar: "غيّر الحاجة الصح",
+          ms: "Pilih pelarasan yang tepat",
+        },
+      },
+    ],
+  },
+  {
     slug: "ai-workflow",
     title: {
       en: "AI Workflow — it's a system, not one chat",
