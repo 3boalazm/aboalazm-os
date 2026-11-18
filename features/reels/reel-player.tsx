@@ -105,7 +105,7 @@ export function ReelPlayer({ reel, startAt = 0, onClose }: { reel: Reel; startAt
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-white/50">
             {ar ? "ريلز" : "REEL"} · {formatTime(reel.duration)}
           </p>
-          <h2 className="font-display text-subtitle leading-[1.2] tracking-[-0.01em]">{pickText(reel.title, lang)}</h2>
+          <h2 className="font-sans text-lg font-semibold leading-[1.35] tracking-normal text-white md:text-xl">{pickText(reel.title, lang)}</h2>
           <p className="text-body-sm leading-[1.6] text-white/70 max-md:hidden">{pickText(reel.summary, lang)}</p>
           {chapters.length > 0 ? (
             <ol className="mt-1 flex flex-col gap-1 max-md:flex-row max-md:overflow-x-auto">
