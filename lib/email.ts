@@ -117,3 +117,48 @@ export async function sendContactNotification(d: ContactEmailPayload): Promise<b
   });
   return true;
 }
+
+/**
+ * Session registration alert.
+ *
+ * Same failure policy as the commission brief above: the row is already in
+ * Postgres before this runs, so a missing SMTP configuration or a bounced
+ * send must never be reported to the attendee as a failed sign-up. The Studio
+ * console (/studio/sessions) is the source of truth; this email is only so the
+ * host sees the room filling up without refreshing a dashboard mid-talk.
+ *
+ * `answers` is pre-labelled by the caller: this module stays a transport and
+ * knows nothing about what "year-3" means.
+ */
+export interface SessionRegistrationEmail {
+  name: string;
+  email: string;
+  subjectLine: string;
+  answers: Record<string, string>;
+  /** True when the attendee re-submitted: the row was updated, not added. */
+  updated?: boolean;
+}
+
+export async function sendSessionRegistrationNotification(d: SessionRegistrationEmail): Promise<boolean> {
+  const transport = buildTransport();
+  if (!transport) {
+    console.info("[email] SMTP not configured — registration stored, email skipped.");
+    return false;
+  }
+
+  const from = process.env.SMTP_FROM || process.env.SMTP_USER!;
+  const lines = Object.entries(d.answers)
+    .filter(([, value]) => value && value.trim())
+    .map(([label, value]) => `${label.padEnd(22)} ${value}`);
+
+  await transport.sendMail({
+    from,
+    to: NOTIFY_INBOX,
+    replyTo: d.email,
+    subject: `${d.updated ? "Updated" : "New"} registration — ${d.name} (${d.subjectLine})`,
+    text: [`Name:  ${d.name}`, `Email: ${d.email}`, "", ...lines, "", "— aboalazm-os session registration"]
+      .filter((l): l is string => l !== null)
+      .join("\n"),
+  });
+  return true;
+}

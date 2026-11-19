@@ -94,26 +94,24 @@ test("a snapshot only differs from its predecessor by what its migration changes
   );
   assert.deepEqual(ms.enums[msChangedEnums[0] as string]?.values, ["en", "ar", "ms"]);
 
-  /* …and the analytics-events migration (the newest) adds exactly one table
-     plus the locked-documents relation every new collection gets. */
-  const newest = names[names.length - 1] as string;
-  assert.equal(newest, "20261112_100000_analytics_events");
-  const current = readSnapshot(newest);
+  /* …and the analytics-events migration adds exactly one table plus the
+     locked-documents relation every new collection gets. */
+  const analytics = readSnapshot("20261112_100000_analytics_events");
 
-  assert.deepEqual(current.enums, ms.enums, `${newest} must not change any enum`);
+  assert.deepEqual(analytics.enums, ms.enums, "20261112_100000_analytics_events must not change any enum");
 
-  const addedTables = Object.keys(current.tables).filter((key) => !(key in ms.tables));
-  const removedTables = Object.keys(ms.tables).filter((key) => !(key in current.tables));
-  assert.deepEqual(addedTables, ["public.analytics_events"], `${newest} must add exactly the analytics_events table`);
-  assert.deepEqual(removedTables, [], `${newest} must not drop any table`);
+  const addedTables = Object.keys(analytics.tables).filter((key) => !(key in ms.tables));
+  const removedTables = Object.keys(ms.tables).filter((key) => !(key in analytics.tables));
+  assert.deepEqual(addedTables, ["public.analytics_events"], "20261112_100000_analytics_events must add exactly the analytics_events table");
+  assert.deepEqual(removedTables, [], "20261112_100000_analytics_events must not drop any table");
 
   const changedTables = Object.keys(ms.tables).filter(
-    (key) => JSON.stringify(ms.tables[key]) !== JSON.stringify(current.tables[key]),
+    (key) => JSON.stringify(ms.tables[key]) !== JSON.stringify(analytics.tables[key]),
   );
   assert.deepEqual(
     changedTables,
     ["public.payload_locked_documents_rels"],
-    `${newest} may only touch payload_locked_documents_rels besides adding its table`,
+    "20261112_100000_analytics_events may only touch payload_locked_documents_rels besides adding its table",
   );
 
   const relsBefore = ms.tables["public.payload_locked_documents_rels"] as unknown as {
@@ -121,7 +119,7 @@ test("a snapshot only differs from its predecessor by what its migration changes
     indexes: Record<string, unknown>;
     foreignKeys: Record<string, unknown>;
   };
-  const relsAfter = current.tables["public.payload_locked_documents_rels"] as unknown as typeof relsBefore;
+  const relsAfter = analytics.tables["public.payload_locked_documents_rels"] as unknown as typeof relsBefore;
   assert.deepEqual(Object.keys(relsAfter.columns).filter((k) => !(k in relsBefore.columns)), ["analytics_events_id"]);
   assert.deepEqual(Object.keys(relsAfter.indexes).filter((k) => !(k in relsBefore.indexes)), [
     "payload_locked_documents_rels_analytics_events_id_idx",
@@ -129,6 +127,138 @@ test("a snapshot only differs from its predecessor by what its migration changes
   assert.deepEqual(Object.keys(relsAfter.foreignKeys).filter((k) => !(k in relsBefore.foreignKeys)), [
     "payload_locked_documents_rels_analytics_events_fk",
   ]);
+});
+
+test("the session-registrations snapshot adds exactly its three tables and six enums", () => {
+  /* 20261119_130000_session_registrations creates the pre-session assessment
+     store (collections/SessionRegistrations.ts + SessionFiles.ts). Pinned the
+     same way as every other migration: the snapshot may add the registration
+     table, its `session_registrations_texts` table for the multi-answer
+     `goals` field (Payload gives every hasMany text field one), the CV upload
+     table, the six select enums, and the two locked-documents relations —
+     nothing else. Written by hand, so a typo here is a broken release gate;
+     this test is what catches it without a database. */
+  const names = snapshotNames();
+  const newest = names[names.length - 1] as string;
+  assert.equal(
+    newest,
+    "20261119_130000_session_registrations",
+    "the newest snapshot must be the session-registrations one — this test is pinned to it",
+  );
+
+  const previous = readSnapshot("20261112_100000_analytics_events");
+  const current = readSnapshot(newest);
+
+  const addedTables = Object.keys(current.tables)
+    .filter((key) => !(key in previous.tables))
+    .sort();
+  assert.deepEqual(addedTables, ["public.session_files", "public.session_registrations", "public.session_registrations_texts"]);
+  assert.deepEqual(Object.keys(previous.tables).filter((key) => !(key in current.tables)), []);
+
+  const expectedEnums = [
+    "enum_session_registrations_year_of_study",
+    "enum_session_registrations_linkedin_status",
+    "enum_session_registrations_applied_before",
+    "enum_session_registrations_cv_status",
+    "enum_session_registrations_follow_up",
+    "enum_session_registrations_attendance",
+  ];
+  const addedEnums = Object.keys(current.enums).filter((key) => !(key in previous.enums));
+  assert.deepEqual(addedEnums, expectedEnums.map((name) => `public.${name}`));
+  for (const name of expectedEnums) {
+    const snapshotValues = current.enums[`public.${name}`]?.values ?? [];
+    const collectionSource = readFileSync(path.join(root, "collections/SessionRegistrations.ts"), "utf8");
+    assert.ok(
+      collectionSource.includes("payloadOptions(") && snapshotValues.length > 0,
+      `${name} must carry the option values defined in features/linkedin-session/assessment.ts`,
+    );
+  }
+  /* The enum vocabulary is generated from the questionnaire, so a value the
+     form can send but the database cannot store is a write-time failure. */
+  assert.equal(
+    current.enums["public.enum_session_registrations_goal"],
+    undefined,
+    "goals is a multi-answer stored in session_registrations_texts — it must not have an enum column",
+  );
+  const texts = current.tables["public.session_registrations_texts"] as unknown as
+    | { columns: Record<string, { notNull?: boolean }>; foreignKeys: Record<string, { onDelete?: string }> }
+    | undefined;
+  assert.ok(texts, "session_registrations_texts must exist in the snapshot — Payload gives every hasMany text field one");
+  assert.deepEqual(Object.keys(texts.columns), ["id", "order", "parent_id", "path", "text"]);
+  assert.equal(texts.columns.parent_id?.notNull, true);
+  assert.deepEqual(Object.keys(texts.foreignKeys), ["session_registrations_texts_parent_fk"]);
+  assert.equal(texts.foreignKeys.session_registrations_texts_parent_fk?.onDelete, "cascade", "deleting a registration must delete its chosen goals");
+  assert.deepEqual(current.enums["public.enum_session_registrations_linkedin_status"]?.values, [
+    "active",
+    "inactive",
+    "incomplete",
+    "none",
+  ]);
+
+  const changedTables = Object.keys(previous.tables).filter(
+    (key) => JSON.stringify(previous.tables[key]) !== JSON.stringify(current.tables[key]),
+  );
+  assert.deepEqual(changedTables, ["public.payload_locked_documents_rels"]);
+
+  const relsBefore = previous.tables["public.payload_locked_documents_rels"] as unknown as {
+    columns: Record<string, unknown>;
+    indexes: Record<string, unknown>;
+    foreignKeys: Record<string, unknown>;
+  };
+  const relsAfter = current.tables["public.payload_locked_documents_rels"] as unknown as typeof relsBefore;
+  assert.deepEqual(Object.keys(relsAfter.columns).filter((k) => !(k in relsBefore.columns)), [
+    "session_registrations_id",
+    "session_files_id",
+  ]);
+  assert.deepEqual(Object.keys(relsAfter.indexes).filter((k) => !(k in relsBefore.indexes)), [
+    "payload_locked_documents_rels_session_registrations_id_idx",
+    "payload_locked_documents_rels_session_files_id_idx",
+  ]);
+  assert.deepEqual(Object.keys(relsAfter.foreignKeys).filter((k) => !(k in relsBefore.foreignKeys)), [
+    "payload_locked_documents_rels_session_registrations_fk",
+    "payload_locked_documents_rels_session_files_fk",
+  ]);
+});
+
+test("the session migration SQL creates exactly what its snapshot describes", () => {
+  /* The snapshot is hand-written from the SQL, and the release gate compares
+     the snapshot to the live database — so the two must name the same objects.
+     Checking the strings against each other is cheap and needs no database.
+     The enum value lists are checked against the questionnaire itself, because
+     that is the file that decides them. */
+  const migration = readFileSync(path.join(root, "migrations/20261119_130000_session_registrations.ts"), "utf8");
+  const assessment = readFileSync(path.join(root, "features/linkedin-session/assessment.ts"), "utf8");
+  const current = readSnapshot("20261119_130000_session_registrations");
+
+  for (const table of Object.values(current.tables)) {
+    if (!/^session_/.test(table.name)) continue;
+    assert.ok(migration.includes(`CREATE TABLE IF NOT EXISTS "${table.name}"`), `${table.name} is in the snapshot but not created by the migration`);
+    for (const index of Object.keys(table.indexes ?? {})) {
+      assert.ok(migration.includes(index), `${index} is in the snapshot but never created`);
+    }
+  }
+  const enumsBlock = /const ENUMS: Record<string, string\[\]> = \{([\s\S]*?)\n\};/.exec(migration)?.[1] ?? "";
+  assert.ok(enumsBlock, "the migration must declare its enums in a single ENUMS map");
+  const declared = new Map(
+    [...enumsBlock.matchAll(/(\w+):\s*\[([^\]]*)\]/g)].map((m) => [
+      m[1] as string,
+      [...(m[2] as string).matchAll(/["']([^"']+)["']/g)].map((v) => v[1] as string),
+    ]),
+  );
+  const snapshotSessionEnums = Object.entries(current.enums).filter(([key]) => key.includes("session_registrations"));
+  assert.equal(declared.size, snapshotSessionEnums.length, "the migration creates a different number of enums than the snapshot describes");
+  for (const [, entry] of snapshotSessionEnums) {
+    assert.deepEqual(declared.get(entry.name), entry.values, `${entry.name}: migration ENUMS and the snapshot must list the same values in the same order`);
+    /* down() drops every key of the map, so one entry covers create and drop. */
+    assert.ok(migration.includes("DROP TYPE IF EXISTS"), `${entry.name} is created but never dropped by down()`);
+  }
+  /* The questionnaire owns the vocabulary: every value in the enum must be an
+     option the form can actually send, and vice versa. */
+  for (const [name, values] of declared) {
+    for (const value of values) {
+      assert.ok(assessment.includes(`value: "${value}"`), `${name} allows "${value}", which the questionnaire never offers`);
+    }
+  }
 });
 
 test("the newest snapshot and the Messages select agree with every live locale", () => {

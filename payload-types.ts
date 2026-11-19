@@ -77,6 +77,8 @@ export interface Config {
     'team-members': TeamMember;
     messages: Message;
     'analytics-events': AnalyticsEvent;
+    'session-registrations': SessionRegistration;
+    'session-files': SessionFile;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -94,6 +96,8 @@ export interface Config {
     'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
     messages: MessagesSelect<false> | MessagesSelect<true>;
     'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
+    'session-registrations': SessionRegistrationsSelect<false> | SessionRegistrationsSelect<true>;
+    'session-files': SessionFilesSelect<false> | SessionFilesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -551,6 +555,88 @@ export interface AnalyticsEvent {
   createdAt: string;
 }
 /**
+ * Pre-session assessment answers. Filter by session, then use the follow-up and attendance fields to work the list before and after the room.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-registrations".
+ */
+export interface SessionRegistration {
+  id: number;
+  fullName: string;
+  email: string;
+  college: string;
+  university?: string | null;
+  yearOfStudy: 'year-1' | 'year-2' | 'year-3' | 'year-4' | 'year-5' | 'postgraduate' | 'fresh-grad' | 'other';
+  interestArea?: string | null;
+  linkedinStatus: 'active' | 'inactive' | 'incomplete' | 'none';
+  /**
+   * Normalised to https://www.linkedin.com/in/<handle> with the query string dropped.
+   */
+  linkedinUrl?: string | null;
+  goals: string[];
+  appliedBefore?: ('often' | 'tried' | 'never') | null;
+  cvStatus?: ('ready' | 'needs-work' | 'not-started') | null;
+  /**
+   * Optional upload. Private: served through the admin-only session-files collection.
+   */
+  cvFile?: (number | null) | SessionFile;
+  /**
+   * Read, not counted — the dashboard lists these verbatim.
+   */
+  biggestChallenge?: string | null;
+  questionForSession?: string | null;
+  /**
+   * Where the studio got to with this person. Set by hand — a registration is not a reply.
+   */
+  followUp?: ('new' | 'reviewed' | 'replied' | 'closed') | null;
+  /**
+   * Mark no-shows only after checking the room list.
+   */
+  attendance?: ('registered' | 'attended' | 'no-show') | null;
+  /**
+   * Which cohort this row belongs to. /studio/sessions filters on it.
+   */
+  sessionKey: string;
+  /**
+   * How the sign-up reached us: form, qr, whatsapp…
+   */
+  source?: string | null;
+  /**
+   * Internal only — never shown to the registrant.
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Résumés attached to session registrations. Admin-only reads — never exposed through the public site.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-files".
+ */
+export interface SessionFile {
+  id: number;
+  /**
+   * Registrant email, copied here so an orphaned file can still be traced to a person.
+   */
+  owner?: string | null;
+  /**
+   * Cohort this file was uploaded for, e.g. linkedin-2026.
+   */
+  sessionKey?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -613,6 +699,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'analytics-events';
         value: number | AnalyticsEvent;
+      } | null)
+    | ({
+        relationTo: 'session-registrations';
+        value: number | SessionRegistration;
+      } | null)
+    | ({
+        relationTo: 'session-files';
+        value: number | SessionFile;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -926,6 +1020,52 @@ export interface AnalyticsEventsSelect<T extends boolean = true> {
   props?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-registrations_select".
+ */
+export interface SessionRegistrationsSelect<T extends boolean = true> {
+  fullName?: T;
+  email?: T;
+  college?: T;
+  university?: T;
+  yearOfStudy?: T;
+  interestArea?: T;
+  linkedinStatus?: T;
+  linkedinUrl?: T;
+  goals?: T;
+  appliedBefore?: T;
+  cvStatus?: T;
+  cvFile?: T;
+  biggestChallenge?: T;
+  questionForSession?: T;
+  followUp?: T;
+  attendance?: T;
+  sessionKey?: T;
+  source?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-files_select".
+ */
+export interface SessionFilesSelect<T extends boolean = true> {
+  owner?: T;
+  sessionKey?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
