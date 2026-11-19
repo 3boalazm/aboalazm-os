@@ -17,6 +17,8 @@ import { ResourceLeads } from "./collections/ResourceLeads";
 import { TeamMembers } from "./collections/TeamMembers";
 import { Messages } from "./collections/Messages";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents";
+import { SessionRegistrations } from "./collections/SessionRegistrations";
+import { SessionFiles } from "./collections/SessionFiles";
 import { Offers } from "./globals/Offers";
 import { Settings } from "./globals/Settings";
 
@@ -68,6 +70,8 @@ export default buildConfig({
     TeamMembers,
     Messages,
     AnalyticsEvents,
+    SessionRegistrations,
+    SessionFiles,
   ],
   globals: [Offers, Settings],
   /**
@@ -153,7 +157,15 @@ export default buildConfig({
   }),
   plugins: [
     vercelBlobStorage({
-      collections: { media: true },
+      /**
+       * `session-files` is listed alongside `media` on purpose: CVs uploaded
+       * from the session form need durable storage too, and the serverless
+       * filesystem is not durable. Access control stays on (the plugin's
+       * `disablePayloadAccessControl` default is false), so a CV is served
+       * through Payload's file route — which requires the admin session the
+       * `session-files` collection demands — instead of a bare public blob URL.
+       */
+      collections: { media: true, "session-files": true },
       // lib/blob-token.ts: a malformed token must not crash the whole CMS
       token: resolveBlobToken(),
     }),

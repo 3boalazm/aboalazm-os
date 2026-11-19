@@ -52,6 +52,13 @@ export const EVENT_NAMES = [
   "deposit_click",
   "whatsapp_click",
   "booking_click",
+  /* Pre-session assessment (features/linkedin-session) — same shape as the
+     contact trio, named separately so a workshop form never counts as a
+     commission enquiry in the funnel. */
+  "assessment_form_start",
+  "assessment_form_submit_attempt",
+  "assessment_form_error",
+  "assessment_submit",
 ] as const;
 
 export type AnalyticsEventName = (typeof EVENT_NAMES)[number];

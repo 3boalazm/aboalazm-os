@@ -1,0 +1,105 @@
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import test from "node:test";
+
+import { ALL_FIELDS, CV_MAX_BYTES, FIELD_GROUPS, SESSIONS, optionValuesOf, payloadOptions } from "./assessment";
+
+/**
+ * The questionnaire is the contract between four files: the form, the
+ * validator, the Payload collection and the console. Each of them derives from
+ * ./assessment.ts, so the tests here are not about behaviour — they pin the
+ * invariants that make deriving safe. Every one of them is a defect that has
+ * already happened somewhere in this repo's history (an option the database
+ * enum lacked, a required question that was not required, a form and a column
+ * disagreeing about length).
+ */
+
+const root = process.cwd();
+const collectionSource = readFileSync(path.join(root, "collections/SessionRegistrations.ts"), "utf8");
+const formSource = readFileSync(path.join(root, "features/linkedin-session/registration-form.tsx"), "utf8");
+
+test("field names are unique and grouped in the order the brief dictates", () => {
+  const names = ALL_FIELDS.map((f) => f.name);
+  assert.equal(new Set(names).size, names.length, "a repeated field name would overwrite its own answer");
+  assert.deepEqual(
+    FIELD_GROUPS.map((g) => g.id),
+    ["identity", "level", "goals", "prep"],
+  );
+});
+
+test("the questions the session cannot be planned without are the required ones", () => {
+  /* من ملاحظة التنفيذ: الاسم والبريد والتخصص والسنة الدراسية ومستوى LinkedIn
+     والهدف المهني أساسية، ورابط LinkedIn ورفع الـ CV اختياريان. */
+  assert.deepEqual(
+    ALL_FIELDS.filter((f) => f.required).map((f) => f.name),
+    ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goal"],
+  );
+  for (const optional of ["linkedinUrl", "cvFile", "university", "appliedBefore", "cvStatus", "interestArea", "biggestChallenge", "questionForSession"]) {
+    const field = ALL_FIELDS.find((f) => f.name === optional);
+    assert.ok(field, `${optional} must exist`);
+    assert.equal(field.required, false, `${optional} was agreed to be optional`);
+  }
+});
+
+test("every select and radio field offers at least two coded answers, and values are unique", () => {
+  for (const field of ALL_FIELDS) {
+    if (field.type !== "select" && field.type !== "radio") continue;
+    const values = optionValuesOf(field.name);
+    assert.ok(values.length >= 2, `${field.name} must offer real choices`);
+    assert.equal(new Set(values).size, values.length, `${field.name} repeats an option value`);
+    for (const value of values) assert.match(value, /^[a-z0-9-]+$/, `${field.name}: "${value}" must be enum-safe (lowercase, digits, hyphen)`);
+  }
+});
+
+test("the collection declares the same fields, options and caps as the questionnaire", () => {
+  for (const field of ALL_FIELDS) {
+    assert.ok(collectionSource.includes(`name: "${field.name}"`), `collections/SessionRegistrations.ts has no field "${field.name}"`);
+  }
+  for (const field of ALL_FIELDS) {
+    if (field.type !== "select" && field.type !== "radio") continue;
+    const declared = payloadOptions(field.name);
+    assert.ok(declared.length > 0, `${field.name} has no options to give Payload`);
+    assert.ok(
+      collectionSource.includes(`payloadOptions("${field.name}")`),
+      `${field.name} must take its options from payloadOptions() rather than a second literal list`,
+    );
+  }
+  for (const cap of ["FULL_NAME_MAX", "COLLEGE_MAX", "UNIVERSITY_MAX", "LINKEDIN_URL_MAX", "INTEREST_MAX", "ANSWER_MAX"]) {
+    assert.ok(collectionSource.includes(cap), `the collection must import ${cap} so input and column agree`);
+    assert.ok(collectionSource.includes(`maxLength: ${cap}`), `${cap} must be applied as maxLength on the column`);
+  }
+  /* Required in the form means required in the database: an optional column is
+     how a half-filled row becomes invisible to the dashboard. */
+  for (const field of ALL_FIELDS.filter((f) => f.required && f.type !== "file")) {
+    const at = collectionSource.indexOf(`name: "${field.name}"`);
+    assert.ok(at > -1);
+    const window = collectionSource.slice(at, at + 240);
+    assert.match(window, /required:\s*true/, `${field.name} is required in the form but not in the collection`);
+  }
+});
+
+test("required fields use HTML attributes the browser can enforce, not only the server", () => {
+  /* The form renders from the same list, so the only thing to pin is that it
+     actually reads `required` instead of hard-coding which questions matter. */
+  assert.match(formSource, /required=\{field\.required\}/);
+  assert.match(formSource, /maxLength=\{field\.maxLength\}/);
+  assert.match(formSource, /name=\{field\.name\}/);
+});
+
+test("the CV rule the form advertises is the rule the server applies", () => {
+  const fileField = ALL_FIELDS.find((f) => f.name === "cvFile");
+  assert.ok(fileField?.accept?.includes("pdf"), "the CV picker must accept PDF");
+  assert.equal(fileField?.maxBytes, CV_MAX_BYTES);
+  assert.match(formSource, /accept="\.pdf,application\/pdf"/, "the input's accept must match the field definition");
+});
+
+test("session keys are unique, and the default is one of them", () => {
+  const keys = SESSIONS.map((s) => s.key);
+  assert.equal(new Set(keys).size, keys.length, "duplicate session keys would mix two cohorts into one board");
+  assert.ok(keys.includes("linkedin-2026"), "the LinkedIn session must be registered");
+  for (const session of SESSIONS) {
+    assert.match(session.route, /^\//, `${session.key}: route must be a local path`);
+    for (const lang of ["ar", "en"] as const) assert.ok(session.title[lang].length > 0, `${session.key}: title missing in ${lang}`);
+  }
+});
