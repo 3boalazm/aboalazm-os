@@ -60,7 +60,7 @@ export const REELS: Reel[] = [
     },
     video: "/reels/claude-code-model-effort.mp4",
     poster: "/reels/claude-code-model-effort-01.webp",
-    duration: 131,
+    duration: 129,
     publishedAt: "2026-11-18",
     topics: ["Claude Code", "Models", "Effort"],
     chapters: [
@@ -69,12 +69,12 @@ export const REELS: Reel[] = [
         poster: "/reels/claude-code-model-effort-01.webp",
         title: {
           en: "Model / Effort",
-          ar: "النموذج والجهد",
+          ar: "قرارين منفصلين",
           ms: "Model / Effort",
         },
       },
       {
-        at: 11,
+        at: 12,
         poster: "/reels/claude-code-model-effort-02.webp",
         title: {
           en: "Models",
@@ -83,34 +83,34 @@ export const REELS: Reel[] = [
         },
       },
       {
-        at: 29,
+        at: 31,
         poster: "/reels/claude-code-model-effort-03.webp",
         title: {
           en: "Effort",
-          ar: "مستويات الجهد",
-          ms: "Tahap Effort",
+          ar: "الجهد",
+          ms: "Effort",
         },
       },
       {
-        at: 48,
+        at: 45,
         poster: "/reels/claude-code-model-effort-04.webp",
         title: {
           en: "Commands",
-          ar: "أوامر التحكم",
-          ms: "Arahan kawalan",
+          ar: "الأوامر",
+          ms: "Arahan",
         },
       },
       {
-        at: 60,
+        at: 61,
         poster: "/reels/claude-code-model-effort-05.webp",
         title: {
           en: "Workflow",
-          ar: "خطوات المشروع",
+          ar: "سير العمل",
           ms: "Aliran kerja",
         },
       },
       {
-        at: 78,
+        at: 79,
         poster: "/reels/claude-code-model-effort-06.webp",
         title: {
           en: "Context",
@@ -119,20 +119,20 @@ export const REELS: Reel[] = [
         },
       },
       {
-        at: 91,
+        at: 93,
         poster: "/reels/claude-code-model-effort-07.webp",
         title: {
-          en: "Agents",
+          en: "Subagents",
           ar: "الوكلاء",
-          ms: "Ejen",
+          ms: "Subagen",
         },
       },
       {
-        at: 112,
+        at: 110,
         poster: "/reels/claude-code-model-effort-08.webp",
         title: {
           en: "Quick rule",
-          ar: "قاعدة سريعة",
+          ar: "القاعدة السريعة",
           ms: "Petua ringkas",
         },
       },
