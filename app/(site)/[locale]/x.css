@@ -363,7 +363,7 @@ html[dir="rtl"] .x-phone__title { text-transform: none; letter-spacing: 0; line-
 .x-tile__label { font-size: 1rem; font-weight: 600; color: var(--color-text-primary); }
 .x-tile__text { color: var(--color-text-secondary); font-size: 0.95rem; line-height: 1.6; }
 .x-scripts { display: grid; gap: 0.5rem; }
-@media (min-width: 640px) { .x-scripts { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 640px) { .x-scripts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .x-script { display: grid; gap: 0.5rem; border-radius: 20px; border: 1px solid var(--color-border-subtle); padding: 1rem; transition: border-color .3s, background .3s; }
 .x-script:hover, .x-script[aria-current="true"] { border-color: color-mix(in srgb, var(--x-role, var(--color-accent-text)) 55%, transparent); background: var(--color-surface-2); }
 .x-script__word { font-size: clamp(1.6rem, 2.6vw, 2.3rem); line-height: 1.1; color: var(--color-text-primary); }
@@ -423,8 +423,6 @@ html[dir="rtl"] .x-phone__title { text-transform: none; letter-spacing: 0; line-
 @keyframes x-breathe { 50% { scale: 1.04; } }
 .x-close__title { font-size: clamp(3rem, 10vw, 10.5rem); text-align: center; max-width: 12ch; margin-inline: auto; }
 html[dir="rtl"] .x-close__title { font-size: clamp(2.8rem, 8vw, 8rem); }
-/* Malay: "PERNIAGAAN" is the longest word in any locale and, at the 3rem floor, ran edge to edge (and clipped) on a 360px phone. */
-@media (max-width: 640px) { html[lang="ms"] .x-close__title { font-size: clamp(2.1rem, 9.2vw, 10.5rem); } }
 .x-brief {
   margin: clamp(2rem, 4vw, 3rem) auto 0; max-width: 40rem;
   border-radius: 28px; padding: 0.6rem;

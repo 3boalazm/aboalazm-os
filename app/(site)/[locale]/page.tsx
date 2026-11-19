@@ -32,7 +32,7 @@ const pageMetadata: Metadata = {
  *   03 WORK       pinned horizontal reel, provenance on every card
  *   04 REELS      three phones — directly under the work (owner's rule)
  *   05 PROOF      one bento: documented numbers, the founder-led studio
- *                 model (STUDIO_MODEL), the three authored languages
+ *                 model (STUDIO_MODEL), the two authored languages
  *   06 METHOD     talk first, pay last — four gates + the three tiers
  *   07 CLOSE      the sun rises again; a one-line brief; the page index
  *
@@ -51,7 +51,7 @@ export default async function Home() {
       <Disciplines />
       <Tape
         a={["Brand identity", "Digital experience", "Business systems"]}
-        b={["English", "العربية", "Bahasa Melayu", "Built to run"]}
+        b={["English", "العربية", "Built to run"]}
       />
       <WorkTrack identity={identity} digital={digital} />
       <Reels />

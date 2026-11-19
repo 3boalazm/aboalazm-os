@@ -123,7 +123,6 @@ test("locale prefixes fold so one page ranks once", () => {
   assert.equal(normalizePath("/en/writing/design-systems"), "/writing/design-systems");
   assert.equal(normalizePath("/ar/case-studies/npf"), "/case-studies/npf");
   assert.equal(normalizePath("/work"), "/work");
-  assert.equal(normalizePath("/ms"), "/");
 });
 
 /* ── the SEO audit ──────────────────────────────────────────────────────── */

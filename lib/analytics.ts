@@ -74,7 +74,7 @@ function sessionId(): string | null {
 
 function localeFromPath(path: string): string | undefined {
   const first = path.split("/").filter(Boolean)[0];
-  return first === "en" || first === "ar" || first === "ms" ? first : undefined;
+  return first === "en" || first === "ar" ? first : undefined;
 }
 
 function sendFirstParty(name: string, props?: EventProps) {

@@ -276,10 +276,10 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="live" size="md">
             <span className="size-2 rounded-pill bg-success animate-pulse" />
-            {ar ? "متاح للتوظيف | ماليزيا أو الخليج أو عن بُعد" : lang === "ms" ? "TERSEDIA | MALAYSIA, TELUK ATAU JARAK JAUH" : "AVAILABLE | GULF OR REMOTE"}
+            {ar ? "متاح للتوظيف | ماليزيا أو الخليج أو عن بُعد" : "AVAILABLE | GULF OR REMOTE"}
           </Badge>
           <span className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-            {ar ? "ملف المرشح لفرق التوظيف" : lang === "ms" ? "DOSIER CALON // UNTUK PASUKAN PENGAMBILAN" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
+            {ar ? "ملف المرشح لفرق التوظيف" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
           </span>
         </div>
 
@@ -307,21 +307,21 @@ export function ForHiringView() {
             download="Mustafa_Taha_Brand_Identity_CV.docx"
             className="group inline-flex items-center gap-2 rounded-pill bg-accent px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-obsidian transition-transform duration-base ease-physics hover:-translate-y-0.5"
           >
-            <span>{ar ? "تحميل أحدث نسخة من السيرة الذاتية" : lang === "ms" ? "Muat Turun CV Terkini" : "Download Updated CV"}</span>
+            <span>{ar ? "تحميل أحدث نسخة من السيرة الذاتية" : "Download Updated CV"}</span>
             <Icon name="arrow-down" />
           </a>
           <a
             href="/portfolio"
             className="inline-flex items-center gap-2 rounded-pill border border-border-default bg-surface-1 px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-primary transition-colors duration-base ease-physics hover:border-accent hover:text-accent"
           >
-            <span>{ar ? "عرض شرائح ملف الأعمال (16:9)" : lang === "ms" ? "Lihat Dek Portfolio (16:9)" : "View Portfolio Deck (16:9)"}</span>
+            <span>{ar ? "عرض شرائح ملف الأعمال (16:9)" : "View Portfolio Deck (16:9)"}</span>
             <Icon name="arrow-up-right" />
           </a>
           <a
             href="mailto:m1aboalazm@gmail.com"
             className="inline-flex items-center gap-2 rounded-pill border border-border-subtle px-4 py-2.5 font-mono text-label uppercase tracking-[0.06em] text-text-secondary transition-colors duration-base ease-physics hover:border-text-primary hover:text-text-primary"
           >
-            <span>{ar ? "راسلني مباشرةً عبر البريد الإلكتروني" : lang === "ms" ? "Hubungi Terus melalui E-mel" : "Email Directly"}</span>
+            <span>{ar ? "راسلني مباشرةً عبر البريد الإلكتروني" : "Email Directly"}</span>
             <Icon name="arrow-right" />
           </a>
         </div>
@@ -332,14 +332,14 @@ export function ForHiringView() {
             <div className="flex items-center gap-2">
               <span className="size-2 rounded-pill bg-accent" />
               <p className="font-mono text-micro uppercase tracking-wider text-text-primary">
-                {ar ? "ملاحظة لمديري التوظيف والعملاء" : lang === "ms" ? "NOTA UNTUK PENGURUS PENGAMBILAN & KLIEN" : "NOTE FOR HIRING MANAGERS & CLIENTS"}
+                {ar ? "ملاحظة لمديري التوظيف والعملاء" : "NOTE FOR HIRING MANAGERS & CLIENTS"}
               </p>
             </div>
             <Link
               href="/pricing"
               className="font-mono text-micro font-medium text-text-tertiary underline decoration-border-default underline-offset-4 transition-colors hover:text-accent"
             >
-              {ar ? "تبحث عن خدمات الاستوديو والأسعار؟ اضغط هنا ←" : lang === "ms" ? "Mencari Perkhidmatan & Harga Studio? Klik di sini →" : "Looking for Studio Services & Pricing? Click here →"}
+              {ar ? "تبحث عن خدمات الاستوديو والأسعار؟ اضغط هنا ←" : "Looking for Studio Services & Pricing? Click here →"}
             </Link>
           </div>
           <p className="mt-2 text-body-sm text-text-secondary">
@@ -357,10 +357,10 @@ export function ForHiringView() {
       <div className="@container border-b border-border-subtle pb-6">
       <dl className="grid grid-cols-1 gap-4 @min-[26rem]:grid-cols-2 @min-[52rem]:grid-cols-4">
         {[
-          [ar ? "سنوات الممارسة" : lang === "ms" ? "PENGALAMAN KERJA" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
-          [ar ? "أنظمة هوية مُسلَّمة" : lang === "ms" ? "SISTEM IDENTITI DISERAHKAN" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "الصحة والدواء والغذاء والتعليم والحكومة" : lang === "ms" ? "Penjagaan kesihatan, farmaseutikal, pendidikan, kerajaan" : "Healthcare, pharma, education, government"],
-          [ar ? "إتقان اللغتين" : lang === "ms" ? "KEMAHIRAN DWIBAHASA" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "تكافؤ طباعي أصيل" : lang === "ms" ? "Kesetaraan tipografi asli" : "Native typographic parity"],
-          [ar ? "الموقع والجاهزية" : lang === "ms" ? "LOKASI & STATUS" : "LOCATION & STATUS", ar || lang === "ms" ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا أو السعودية أو الإمارات أو قطر) أو للعمل عن بُعد" : lang === "ms" ? "Terbuka untuk berpindah (Malaysia, Arab Saudi, UAE, Qatar) atau jarak jauh" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
+          [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
+          [ar ? "أنظمة هوية مُسلَّمة" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "الصحة والدواء والغذاء والتعليم والحكومة" : "Healthcare, pharma, education, government"],
+          [ar ? "إتقان اللغتين" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "تكافؤ طباعي أصيل" : "Native typographic parity"],
+          [ar ? "الموقع والجاهزية" : "LOCATION & STATUS", ar ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا أو السعودية أو الإمارات أو قطر) أو للعمل عن بُعد" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
         ].map(([label, val, sub]) => (
           <div key={label} className="flex min-w-0 flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-3 sm:p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost [overflow-wrap:anywhere]">{label}</dt>
@@ -375,10 +375,10 @@ export function ForHiringView() {
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            {ar ? "أعمال مختارة وتفاصيل الدور" : lang === "ms" ? "KERJA TERPILIH & PECAHAN PERANAN" : "SELECTED WORK & ROLE BREAKDOWN"}
+            {ar ? "أعمال مختارة وتفاصيل الدور" : "SELECTED WORK & ROLE BREAKDOWN"}
           </p>
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-            {ar ? "ماذا صمّمت، وكيف عملت مع الفريق؟" : lang === "ms" ? "Apa yang saya reka & bagaimana saya bekerjasama dengan pasukan" : "What I Designed & How I Collaborated"}
+            {ar ? "ماذا صمّمت، وكيف عملت مع الفريق؟" : "What I Designed & How I Collaborated"}
           </h2>
           <p className="max-w-[62ch] text-body text-text-secondary">
             {ar
@@ -396,7 +396,7 @@ export function ForHiringView() {
             const roleBlock = (
               <div className="flex flex-col gap-1">
                 <p className="font-mono text-micro uppercase tracking-wider text-accent">
-                  {ar ? "دوري والفريق" : lang === "ms" ? "PERANAN & PASUKAN SAYA" : "MY ROLE & TEAM"}
+                  {ar ? "دوري والفريق" : "MY ROLE & TEAM"}
                 </p>
                 <p className="text-body-sm font-medium text-text-primary">
                   {ar ? project.roleAr : project.role}
@@ -444,7 +444,7 @@ export function ForHiringView() {
                       href={`/case-studies/${project.slug}`}
                       className="inline-flex items-center gap-1.5 rounded-pill border border-border-default px-3 py-1 font-mono text-micro uppercase tracking-wider text-text-primary transition-colors hover:border-accent hover:text-accent"
                     >
-                      <span>{ar ? "قراءة دراسة الحالة كاملة" : lang === "ms" ? "Baca Kajian Kes Penuh" : "Read Full Case Study"}</span>
+                      <span>{ar ? "قراءة دراسة الحالة كاملة" : "Read Full Case Study"}</span>
                       <Icon name="arrow-right" size="0.9em" />
                     </Link>
                   </div>
@@ -452,7 +452,7 @@ export function ForHiringView() {
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1">
                     <div className="flex flex-col gap-1">
                       <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                        {ar ? "التحدي" : lang === "ms" ? "CABARAN" : "THE CHALLENGE"}
+                        {ar ? "التحدي" : "THE CHALLENGE"}
                       </p>
                       <p className="text-body-sm text-text-secondary">
                         {ar ? project.challengeAr : project.challenge}
@@ -464,7 +464,7 @@ export function ForHiringView() {
                   <div className="grid grid-cols-1 gap-4 border-t border-border-subtle pt-3 md:grid-cols-2">
                     <div className="flex flex-col gap-1.5">
                       <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                        {ar ? "ما صُمِّم وسُلِّم" : lang === "ms" ? "HASIL KERJA DISERAHKAN" : "DELIVERABLES SHIPPED"}
+                        {ar ? "ما صُمِّم وسُلِّم" : "DELIVERABLES SHIPPED"}
                       </p>
                       <ul className="flex flex-col gap-1">
                         {(ar ? project.whatShippedAr : project.whatShipped).map((item, idx) => (
@@ -478,7 +478,7 @@ export function ForHiringView() {
 
                     <div className="flex flex-col gap-1.5">
                       <p className="font-mono text-micro uppercase tracking-wider text-text-ghost">
-                        {ar ? "الاستخدام الفعلي" : lang === "ms" ? "PENGGUNAAN DALAM PENGELUARAN" : "DEPLOYMENT IN PRODUCTION"}
+                        {ar ? "الاستخدام الفعلي" : "DEPLOYMENT IN PRODUCTION"}
                       </p>
                       <p className="text-body-sm text-text-secondary">
                         {ar ? project.deploymentAr : project.deployment}
@@ -496,10 +496,10 @@ export function ForHiringView() {
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            {ar ? "مصفوفة المهارات والقدرات" : lang === "ms" ? "MATRIKS KEMAHIRAN & KEUPAYAAN" : "SKILLS & COMPETENCY MATRIX"}
+            {ar ? "مصفوفة المهارات والقدرات" : "SKILLS & COMPETENCY MATRIX"}
           </p>
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-            {ar ? "ما أقدّمه لفريق التصميم لديكم" : lang === "ms" ? "Apa yang saya bawa kepada pasukan reka bentuk anda" : "What I Bring to Your Design Team"}
+            {ar ? "ما أقدّمه لفريق التصميم لديكم" : "What I Bring to Your Design Team"}
           </h2>
         </div>
 
@@ -529,10 +529,10 @@ export function ForHiringView() {
       <section className="flex flex-col gap-8 border-b border-border-subtle pb-8">
         <div className="flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.10em] text-accent">
-            {ar ? "المسار المهني" : lang === "ms" ? "JADUAL KERJAYA" : "CAREER TIMELINE"}
+            {ar ? "المسار المهني" : "CAREER TIMELINE"}
           </p>
           <h2 className="font-display text-title tracking-[-0.015em] text-text-primary">
-            {ar ? "سجل عمل موثَّق ومطابق للسيرة الذاتية ولـLinkedIn" : lang === "ms" ? "Sejarah Kerja Disahkan (Selari dengan CV & LinkedIn)" : "Verified Work History (CV & LinkedIn Aligned)"}
+            {ar ? "سجل عمل موثَّق ومطابق للسيرة الذاتية ولـLinkedIn" : "Verified Work History (CV & LinkedIn Aligned)"}
           </h2>
         </div>
 
@@ -565,14 +565,12 @@ export function ForHiringView() {
       <section className="flex flex-col items-center justify-between gap-6 rounded-panel border border-border-strong bg-surface-1 p-5 text-center sm:flex-row sm:text-left rtl:sm:text-right">
         <div className="flex flex-col gap-2 max-w-[50ch]">
           <h2 className="font-display font-display-sm text-subtitle font-bold text-text-primary">
-            {ar ? "هل ترغبون في مناقشة وظيفة شاغرة؟" : lang === "ms" ? "Berminat membincangkan jawatan kosong?" : "Interested in discussing an open role?"}
+            {ar ? "هل ترغبون في مناقشة وظيفة شاغرة؟" : "Interested in discussing an open role?"}
           </h2>
           <p className="text-body-sm text-text-secondary">
             {ar
               ? "متاح لمقابلة أولية ولمراجعة ملف الأعمال لوظيفة مصمم هوية بصرية أول (في ماليزيا أو الخليج أو عن بُعد). الرد خلال يومَي عمل."
-              : lang === "ms"
-                ? "Tersedia untuk temu duga awal dan semakan portfolio bagi jawatan Senior Brand Identity Designer di Malaysia, Teluk atau jarak jauh. Biasanya membalas dalam dua hari bekerja."
-                : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions across Malaysia, the Gulf or remote. Typically replies within two working days."}
+              : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions across Malaysia, the Gulf or remote. Typically replies within two working days."}
           </p>
         </div>
 
@@ -583,7 +581,7 @@ export function ForHiringView() {
               className: "px-5 py-2.5 font-mono text-label uppercase tracking-wider",
             })}
           >
-            <span>{ar ? "راسل مصطفى" : lang === "ms" ? "Hubungi Mustafa" : "Contact Mustafa"}</span>
+            <span>{ar ? "راسل مصطفى" : "Contact Mustafa"}</span>
             <Icon name="arrow-right" />
           </a>
           <a

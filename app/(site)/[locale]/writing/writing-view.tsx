@@ -20,7 +20,6 @@ interface WritingEntry {
 const WEEKDAYS: Record<Locale, readonly string[]> = {
   en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
   ar: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
-  ms: ["Ahad", "Isnin", "Selasa", "Rabu", "Khamis", "Jumaat", "Sabtu"],
 };
 
 /** "Wednesday 15/7/2026" / "الأربعاء 15/7/2026" — full weekday name, no leading zeros. */

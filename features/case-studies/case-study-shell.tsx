@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { useLang } from "@/components/providers/lang-provider";
-import { useCaseT } from "./ms/context";
 import { Icon } from "@/components/ui/Icon";
 import { PanelCard } from "@/components/ui/PanelCard";
 import { joinClasses } from "@/lib/utils";
@@ -35,7 +34,6 @@ export function CaseStudyShell({
 }: CaseStudyShellProps) {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const t = useCaseT();
   const [mode, setMode] = useState<CaseViewMode>("technical");
   const evidence = project ? evidenceOf(project) : "client";
   const topBarRef = useRef<HTMLDivElement>(null);
@@ -113,15 +111,15 @@ export function CaseStudyShell({
             record, never hand-written per case. */}
         {project ? (
           <p className="pb-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-            <span className="text-accent">{ar ? EVIDENCE_COPY[evidence].ar : t(EVIDENCE_COPY[evidence].en)}</span>
+            <span className="text-accent">{ar ? EVIDENCE_COPY[evidence].ar : EVIDENCE_COPY[evidence].en}</span>
             <span aria-hidden className="mx-2 text-text-ghost">/</span>
-            {ar ? EVIDENCE_COPY[evidence].note.ar : t(EVIDENCE_COPY[evidence].note.en)}
+            {ar ? EVIDENCE_COPY[evidence].note.ar : EVIDENCE_COPY[evidence].note.en}
           </p>
         ) : null}
         <div className="flex flex-col gap-2.5 rounded-card border border-border-default bg-surface-1/90 p-2.5 backdrop-blur-md md:flex-row md:items-center md:justify-between md:px-4 md:py-2.5">
           <div
             role="tablist"
-            aria-label={ar ? "طريقة عرض المشروع" : t("Project view mode")}
+            aria-label={ar ? "طريقة عرض المشروع" : "Project view mode"}
             onKeyDown={onTabKeyDown}
             className="grid w-full grid-cols-2 gap-1 rounded-pill border border-border-subtle bg-surface-2/80 p-1 sm:inline-flex sm:w-fit"
           >
@@ -142,7 +140,7 @@ export function CaseStudyShell({
               )}
             >
               <span className="hidden opacity-90 sm:inline">01</span>
-              <span>{ar ? "دراسة الحالة التقنية" : t("Technical Case Study")}</span>
+              <span>{ar ? "دراسة الحالة التقنية" : "Technical Case Study"}</span>
             </button>
 
             <button
@@ -162,7 +160,7 @@ export function CaseStudyShell({
               )}
             >
               <span className="hidden opacity-90 sm:inline">02</span>
-              <span>{ar ? "الجانب التجاري والمزايا" : t("Business Overview")}</span>
+              <span>{ar ? "الجانب التجاري والمزايا" : "Business Overview"}</span>
             </button>
           </div>
 
@@ -170,10 +168,10 @@ export function CaseStudyShell({
             {mode === "technical"
               ? ar
                 ? "البنية التقنية، وقواعد النظام، والقرارات الهندسية، والأدلة الموثّقة."
-                : t("Architecture, system rules, decisions & documented evidence.")
+                : "Architecture, system rules, decisions & documented evidence."
               : ar
                 ? "ما هو المشروع، وكيف يعمل في الاستخدام اليومي، وأهم مزاياه التجارية."
-                : t("What the project is, how it works day-to-day & its key advantages.")}
+                : "What the project is, how it works day-to-day & its key advantages."}
           </p>
         </div>
       </div>
@@ -211,17 +209,17 @@ export function CaseStudyShell({
           <div className="flex flex-col gap-1">
             <span className="font-mono text-micro uppercase tracking-[0.1em] text-accent">
               {mode === "technical"
-                ? ar ? "زاوية القراءة الثانية · 02" : t("Switch Reading Lens · 02")
-                : ar ? "زاوية القراءة الأولى · 01" : t("Switch Reading Lens · 01")}
+                ? ar ? "زاوية القراءة الثانية · 02" : "Switch Reading Lens · 02"
+                : ar ? "زاوية القراءة الأولى · 01" : "Switch Reading Lens · 01"}
             </span>
             <p className="text-body-sm font-medium text-text-primary">
               {mode === "technical"
                 ? ar
                   ? "هل تريد قراءة شرح المشروع من الجانب التجاري: ما يفعله، وكيف يعمل، وأهم مزاياه العملية؟"
-                  : t("Want the practical business breakdown—what this project does, how it runs, and its core advantages?")
+                  : "Want the practical business breakdown—what this project does, how it runs, and its core advantages?"
                 : ar
                   ? "هل تريد مراجعة البنية التقنية والقرارات الهندسية وتفاصيل بناء النظام؟"
-                  : t("Want to inspect the system architecture, engineering decisions, and technical specifications?")}
+                  : "Want to inspect the system architecture, engineering decisions, and technical specifications?"}
             </p>
           </div>
           <button
@@ -231,8 +229,8 @@ export function CaseStudyShell({
           >
             <span>
               {mode === "technical"
-                ? ar ? "افتح الجانب التجاري والمزايا" : t("Open Business Overview")
-                : ar ? "افتح دراسة الحالة التقنية" : t("Open Technical Case Study")}
+                ? ar ? "افتح الجانب التجاري والمزايا" : "Open Business Overview"
+                : ar ? "افتح دراسة الحالة التقنية" : "Open Technical Case Study"}
             </span>
             <Icon name="arrow-right" />
           </button>

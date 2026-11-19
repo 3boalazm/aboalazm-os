@@ -57,7 +57,7 @@ Review the product name and claims against the shipped website. Localized listin
 > • Articles, learning resources, and media
 > • Professional background and public links
 >
-> Browse in English, Arabic, or Malay. General browsing does not require an account. Some resource downloads and contact forms ask for your email; those details are used to deliver requested resources or respond to enquiries, as described in the privacy policy.
+> Browse in English or Arabic. General browsing does not require an account. Some resource downloads and contact forms ask for your email; those details are used to deliver requested resources or respond to enquiries, as described in the privacy policy.
 >
 > The app opens content from the Aboalazm OS website. An internet connection is needed for current pages and downloads. Previously visited pages may remain available offline. Optional links to external services follow those services’ own terms and privacy policies.
 

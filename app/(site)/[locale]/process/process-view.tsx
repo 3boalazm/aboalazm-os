@@ -397,7 +397,7 @@ export function ProcessView() {
           what you receive. A card opens its phase in the accordion. */}
       <section id="timeline" aria-label={ar ? "38 يومًا في لمحة" : "38 days at a glance"} className="chapter-a px-6 pb-2 pt-6 lg:px-16">
         <div className="mx-auto max-w-[900px]">
-          <p className="hook-line mb-4">{ar ? "38 يومًا في لمحة واحدة." : lang === "ms" ? "38 hari sepintas lalu." : "38 days at a glance."}</p>
+          <p className="hook-line mb-4">{ar ? "38 يومًا في لمحة واحدة." : "38 days at a glance."}</p>
           <ol className="relative flex flex-col gap-3 md:gap-0">
             <span aria-hidden className="absolute bottom-3 top-3 w-px bg-border-default max-md:start-[calc(var(--spacing)*2.5)] md:left-1/2" />
             {phases.map((phase, i) => {
@@ -435,7 +435,7 @@ export function ProcessView() {
                       ))}
                     </span>
                     <span className="font-mono text-micro uppercase tracking-[0.08em] text-text-ghost transition-colors group-hover:text-accent">
-                      {ar ? "افتح المرحلة ↓" : lang === "ms" ? "Buka fasa ↓" : "Open the phase ↓"}
+                      {ar ? "افتح المرحلة ↓" : "Open the phase ↓"}
                     </span>
                   </button>
                 </li>
@@ -449,7 +449,7 @@ export function ProcessView() {
       <section id="gates" className="chapter-b px-6 pb-6 pt-4 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
-            {ar ? "أربع موافقات كتابية، بلا مفاجآت." : lang === "ms" ? "Empat kelulusan bertulis. Tiada kejutan." : "Four written approvals. No surprises."}
+            {ar ? "أربع موافقات كتابية، بلا مفاجآت." : "Four written approvals. No surprises."}
           </p>
           <p className="hook-sub mb-6">
             {ar
@@ -464,10 +464,10 @@ export function ProcessView() {
       <section id="phases" className="chapter-a px-6 pb-8 pt-8 lg:px-16">
         <div className="mx-auto max-w-[900px]">
           <p className="hook-line mb-1">
-            {ar ? "أربع مراحل واضحة. افتح أيّها شئت." : lang === "ms" ? "Empat fasa yang jelas. Buka mana-mana satu." : "Four clear phases. Open any one."}
+            {ar ? "أربع مراحل واضحة. افتح أيّها شئت." : "Four clear phases. Open any one."}
           </p>
           <p className="hook-sub mb-6">
-            {ar ? "التفاصيل مطوية عمدًا. اضغط على أي مرحلة لترى المهام والمخرجات بداخلها." : lang === "ms" ? "Butiran sengaja dilipat — klik mana-mana fasa untuk melihat tugas dan hasil kerja di dalamnya." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
+            {ar ? "التفاصيل مطوية عمدًا. اضغط على أي مرحلة لترى المهام والمخرجات بداخلها." : "Details are collapsed on purpose — click any phase to see the actual tasks and deliverables inside it."}
           </p>
           <div className="relative flex flex-col">
             {/* connecting spine — centred on the nodes (half of their 11-unit width, minus half its own 1px) */}

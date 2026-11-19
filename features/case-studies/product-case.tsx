@@ -21,7 +21,6 @@ import { ProjectEnquiry } from "@/features/contact/project-enquiry";
 import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
-import { useCaseT } from "./ms/context";
 import { yearLabel } from "@/lib/utils";
 
 export type Accent = "amber" | "violet" | "emerald" | "cyan" | "rose";
@@ -171,7 +170,6 @@ function StatValue({ value, maxSize }: { value: string; maxSize: string }) {
 export function ProductCase(props: ProductCaseProps) {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const t = useCaseT();
   const isDesign = props.track === "design";
   const a = ACCENT[props.accent];
 
@@ -186,8 +184,8 @@ export function ProductCase(props: ProductCaseProps) {
         </div>
 
         <div className="flex items-center justify-between gap-4 font-mono text-[12px] uppercase tracking-[0.18em] text-text-tertiary sm:text-xs">
-          <Link href="/work" className="transition-colors hover:text-text-primary">{ar ? "→ كل الأعمال" : t("← All work")}</Link>
-          <span>{isDesign ? (ar ? `ملف نظام بصري / ${props.fileNo}` : `${t("System case file")} / ${props.fileNo}`) : (ar ? `ملف منتج / ${props.fileNo}` : `${t("Product case file")} / ${props.fileNo}`)}</span>
+          <Link href="/work" className="transition-colors hover:text-text-primary">{ar ? "→ كل الأعمال" : "← All work"}</Link>
+          <span>{isDesign ? (ar ? `ملف نظام بصري / ${props.fileNo}` : `${"System case file"} / ${props.fileNo}`) : (ar ? `ملف منتج / ${props.fileNo}` : `${"Product case file"} / ${props.fileNo}`)}</span>
         </div>
 
         <div className="grid items-end gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]">
@@ -195,25 +193,25 @@ export function ProductCase(props: ProductCaseProps) {
             <div className="mb-6 flex flex-wrap gap-2">
               {props.badges.map((b) => (
                 <span key={b.en} className="rounded-full border border-border-subtle px-3 py-1 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
-                  {ar ? b.ar : t(b.en)}
+                  {ar ? b.ar : b.en}
                 </span>
               ))}
             </div>
-            <p className={`mb-4 font-mono text-xs uppercase tracking-[0.2em] ${a.text}/80`}>{t(props.eyebrow)}</p>
+            <p className={`mb-4 font-mono text-xs uppercase tracking-[0.2em] ${a.text}/80`}>{props.eyebrow}</p>
             <h1 className="max-w-5xl font-display text-[clamp(3.3rem,9vw,8.3rem)] leading-[0.86] tracking-[-0.06em] text-text-primary">
               {props.wordmark}
               <span className={a.text}>.</span>
               {props.wordmarkTail ? <span className="text-text-tertiary"> {props.wordmarkTail}</span> : null}
             </h1>
             <p className="mt-4 max-w-2xl text-xl leading-relaxed text-text-secondary md:text-2xl">
-              {ar ? props.heroLeadAr : t(props.heroLead)}
+              {ar ? props.heroLeadAr : props.heroLead}
             </p>
           </div>
 
           <div className="@container rounded-2xl border border-border-subtle bg-surface-1/70 p-4 backdrop-blur-xl">
             <div className="mb-5 flex items-center justify-between gap-3 font-mono text-[12px] uppercase tracking-[0.14em] text-text-tertiary">
-              <span>{ar ? props.snapshotTitle.ar : t(props.snapshotTitle.en)}</span>
-              <span className={a.text}>{t(props.snapshotCode)}</span>
+              <span>{ar ? props.snapshotTitle.ar : props.snapshotTitle.en}</span>
+              <span className={a.text}>{props.snapshotCode}</span>
             </div>
             {/* One column until the card itself is wide enough for two stat
                 cells: the card is a narrow right-hand column on desktop and a
@@ -221,33 +219,33 @@ export function ProductCase(props: ProductCaseProps) {
             <div className="grid grid-cols-1 gap-3 @min-[22rem]:grid-cols-2">
               {props.snapshot.map((s) => (
                 <div key={s.label} className="@container min-w-0 rounded-xl border border-border-subtle p-3 sm:p-4">
-                  <StatValue value={t(s.value)} maxSize="2.25rem" />
-                  <p className="mt-2 text-xs text-text-tertiary">{ar ? s.labelAr : t(s.label)}</p>
+                  <StatValue value={s.value} maxSize="2.25rem" />
+                  <p className="mt-2 text-xs text-text-tertiary">{ar ? s.labelAr : s.label}</p>
                 </div>
               ))}
               {props.system.flow ? (
                 <div className="col-span-full rounded-xl border border-border-subtle bg-background/60 p-4">
-                  <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار البيانات" : t("Data path")}</p>
+                  <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">{ar ? "مسار البيانات" : "Data path"}</p>
                   <p className="mt-2 text-sm leading-[1.65] text-text-primary">
-                    {t(props.system.flow.a)} <span className={a.text}>→</span> {t(props.system.flow.mid)} <span className={a.text}>→</span> {t(props.system.flow.b)}
+                    {props.system.flow.a} <span className={a.text}>→</span> {props.system.flow.mid} <span className={a.text}>→</span> {props.system.flow.b}
                   </p>
                 </div>
               ) : null}
             </div>
-            <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">{ar ? props.snapshotNoteAr : t(props.snapshotNote)}</p>
+            <p className="mt-4 text-[13px] leading-relaxed text-text-tertiary">{ar ? props.snapshotNoteAr : props.snapshotNote}</p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-4 border-t border-border-subtle pt-5">
           <div className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-tertiary">
-            <span>{ar ? props.role.ar : t(props.role.en)}</span>
-            <span>{ar ? props.domain.ar : t(props.domain.en)}</span>
+            <span>{ar ? props.role.ar : props.role.en}</span>
+            <span>{ar ? props.domain.ar : props.domain.en}</span>
             <span>{yearLabel(props.year, ar)}</span>
           </div>
           {props.cta ? (
             <div className="flex flex-wrap gap-3">
               <a href={props.cta.href} target={props.cta.href.startsWith("#") ? undefined : "_blank"} rel="noreferrer" className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-black transition-transform hover:-translate-y-0.5 ${a.button}`}>
-                {ar ? props.cta.ar : t(props.cta.en)} {ar ? "↖" : "↗"}
+                {ar ? props.cta.ar : props.cta.en} {ar ? "↖" : "↗"}
               </a>
             </div>
           ) : null}
@@ -260,15 +258,15 @@ export function ProductCase(props: ProductCaseProps) {
         <figure className="overflow-hidden rounded-2xl border border-border-subtle bg-surface-1/40">
           <Image
             src={props.cover.src}
-            alt={ar ? props.cover.altAr : t(props.cover.alt)}
+            alt={ar ? props.cover.altAr : props.cover.alt}
             width={1600}
             height={900}
             priority
             className="h-auto w-full object-cover"
           />
           <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle px-4 py-3 font-mono text-[12px] uppercase tracking-[0.1em] text-text-tertiary">
-            <span>{ar ? props.cover.captionAr : t(props.cover.caption)}</span>
-            <span className={a.text}>{t(props.cover.tag)}</span>
+            <span>{ar ? props.cover.captionAr : props.cover.caption}</span>
+            <span className={a.text}>{props.cover.tag}</span>
           </figcaption>
         </figure>
       </section>
@@ -277,17 +275,17 @@ export function ProductCase(props: ProductCaseProps) {
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>01 / {ar ? "التحدي" : t("The challenge")}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>01 / {ar ? "التحدي" : "The challenge"}</p>
             <h2 className="mt-4 max-w-sm font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] leading-tight tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? props.challenge.titleAr : t(props.challenge.title)}
+              {ar ? props.challenge.titleAr : props.challenge.title}
             </h2>
           </div>
           <div className="max-w-3xl space-y-3 text-base leading-[1.65] text-text-secondary">
             {(ar ? props.challenge.paragraphsAr : props.challenge.paragraphs).map((p, i) => (
-              <p key={i}>{t(p)}</p>
+              <p key={i}>{p}</p>
             ))}
             <div className={`rounded-xl border-s-2 p-4 ${a.border.replace("border-", "border-s-2 border-")}`}>
-              <p className="text-sm leading-[1.65] text-text-primary">{ar ? props.challenge.calloutAr : t(props.challenge.callout)}</p>
+              <p className="text-sm leading-[1.65] text-text-primary">{ar ? props.challenge.calloutAr : props.challenge.callout}</p>
             </div>
           </div>
         </div>
@@ -297,12 +295,12 @@ export function ProductCase(props: ProductCaseProps) {
       <section className="container-wide py-6 md:py-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>02 / {ar ? props.system.kickerAr : t(props.system.kicker)}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>02 / {ar ? props.system.kickerAr : props.system.kicker}</p>
             <h2 className="mt-4 font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-6xl">
-              {ar ? props.system.titleAr : t(props.system.title)}
+              {ar ? props.system.titleAr : props.system.title}
             </h2>
           </div>
-          <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">{ar ? props.system.asideAr : t(props.system.aside)}</p>
+          <p className="max-w-md text-sm leading-[1.65] text-text-tertiary">{ar ? props.system.asideAr : props.system.aside}</p>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">
@@ -312,9 +310,9 @@ export function ProductCase(props: ProductCaseProps) {
                 <span className="font-mono text-xs text-text-ghost">{m.no}</span>
                 <span className={`h-2 w-2 rounded-full ${a.dot}`} />
               </div>
-              <h3 className="font-display text-2xl text-text-primary">{ar ? m.nameAr : t(m.name)}</h3>
-              {m.tech ? <p className={`mt-2 font-mono text-xs ${a.text}`}>{t(m.tech)}</p> : null}
-              <p className="mt-4 text-sm leading-[1.65] text-text-secondary">{ar ? m.detailAr : t(m.detail)}</p>
+              <h3 className="font-display text-2xl text-text-primary">{ar ? m.nameAr : m.name}</h3>
+              {m.tech ? <p className={`mt-2 font-mono text-xs ${a.text}`}>{m.tech}</p> : null}
+              <p className="mt-4 text-sm leading-[1.65] text-text-secondary">{ar ? m.detailAr : m.detail}</p>
             </article>
           ))}
         </div>
@@ -323,21 +321,21 @@ export function ProductCase(props: ProductCaseProps) {
           <div className="mt-5 rounded-2xl border border-border-subtle bg-background/50 p-4 md:p-5">
             <div className="grid gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr] sm:items-center">
               <div className="rounded-xl border border-border-subtle p-4">
-                <p className="font-mono text-[12px] uppercase text-text-tertiary">{t(props.system.flow.a)}</p>
-                <p className="mt-2 text-sm text-text-primary">{t(props.system.flow.aSub)}</p>
+                <p className="font-mono text-[12px] uppercase text-text-tertiary">{props.system.flow.a}</p>
+                <p className="mt-2 text-sm text-text-primary">{props.system.flow.aSub}</p>
               </div>
               <div className={`text-center ${a.text}`}>{ar ? "←" : "→"}</div>
               <div className={`rounded-xl border p-4 ${a.border.replace("border-", "border-")}`}>
-                <p className={`font-mono text-[12px] uppercase ${a.text}`}>{t(props.system.flow.mid)}</p>
-                <p className="mt-2 text-sm text-text-primary">{t(props.system.flow.midSub)}</p>
+                <p className={`font-mono text-[12px] uppercase ${a.text}`}>{props.system.flow.mid}</p>
+                <p className="mt-2 text-sm text-text-primary">{props.system.flow.midSub}</p>
               </div>
               <div className={`text-center ${a.text}`}>{ar ? "←" : "→"}</div>
               <div className="rounded-xl border border-border-subtle p-4">
-                <p className="font-mono text-[12px] uppercase text-text-tertiary">{t(props.system.flow.b)}</p>
-                <p className="mt-2 text-sm text-text-primary">{t(props.system.flow.bSub)}</p>
+                <p className="font-mono text-[12px] uppercase text-text-tertiary">{props.system.flow.b}</p>
+                <p className="mt-2 text-sm text-text-primary">{props.system.flow.bSub}</p>
               </div>
             </div>
-            <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">{ar ? props.system.flow.noteAr : t(props.system.flow.note)}</p>
+            <p className="mt-4 text-xs leading-[1.65] text-text-tertiary">{ar ? props.system.flow.noteAr : props.system.flow.note}</p>
           </div>
         ) : null}
       </section>
@@ -346,9 +344,9 @@ export function ProductCase(props: ProductCaseProps) {
       <section className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide py-6 md:py-8">
           <div className="mb-6">
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>03 / {isDesign ? (ar ? "قرارات بناء النظام" : t("System decisions")) : (ar ? "قرارات المنتج" : t("Product decisions"))}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>03 / {isDesign ? (ar ? "قرارات بناء النظام" : "System decisions") : (ar ? "قرارات المنتج" : "Product decisions")}</p>
             <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-6xl">
-              {ar ? props.decisions.titleAr : t(props.decisions.title)}
+              {ar ? props.decisions.titleAr : props.decisions.title}
             </h2>
           </div>
           <div className="grid gap-3 md:grid-cols-2">
@@ -358,8 +356,8 @@ export function ProductCase(props: ProductCaseProps) {
                   <span className="font-mono text-xs text-text-ghost">{d.n}</span>
                   <span className={a.text}>↗</span>
                 </div>
-                <h3 className="font-display text-xl text-text-primary">{ar ? d.titleAr : t(d.title)}</h3>
-                <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? d.bodyAr : t(d.body)}</p>
+                <h3 className="font-display text-xl text-text-primary">{ar ? d.titleAr : d.title}</h3>
+                <p className="mt-3 text-sm leading-[1.65] text-text-secondary">{ar ? d.bodyAr : d.body}</p>
               </article>
             ))}
           </div>
@@ -369,15 +367,15 @@ export function ProductCase(props: ProductCaseProps) {
       {/* ═══ 04 · ROWS (optional journey / module table) ═══ */}
       {props.rows ? (
         <section className="container-wide py-6 md:py-8">
-          <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>04 / {ar ? props.rows.kickerAr : t(props.rows.kicker)}</p>
+          <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>04 / {ar ? props.rows.kickerAr : props.rows.kicker}</p>
           <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-6xl">
-            {ar ? props.rows.titleAr : t(props.rows.title)}
+            {ar ? props.rows.titleAr : props.rows.title}
           </h2>
           <div className="mt-6 divide-y divide-border-subtle border-y border-border-subtle">
             {props.rows.items.map((r) => (
               <div key={r.name} className="grid gap-2 py-5 sm:grid-cols-[190px_1fr] sm:gap-6">
-                <h3 className="text-sm font-medium text-text-primary">{ar ? r.nameAr : t(r.name)}</h3>
-                <p className="text-sm leading-[1.65] text-text-secondary">{ar ? r.bodyAr : t(r.body)}</p>
+                <h3 className="text-sm font-medium text-text-primary">{ar ? r.nameAr : r.name}</h3>
+                <p className="text-sm leading-[1.65] text-text-secondary">{ar ? r.bodyAr : r.body}</p>
               </div>
             ))}
           </div>
@@ -388,25 +386,25 @@ export function ProductCase(props: ProductCaseProps) {
       <section id="evidence" className="border-y border-border-subtle bg-surface-1/35">
         <div className="container-wide grid gap-5 py-6 md:grid-cols-[0.55fr_1fr] md:py-8">
           <div>
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>05 / {ar ? "الأدلة" : t("Evidence")}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>05 / {ar ? "الأدلة" : "Evidence"}</p>
             <h2 className="mt-4 font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary md:text-5xl">
-              {ar ? props.evidence.titleAr : t(props.evidence.title)}
+              {ar ? props.evidence.titleAr : props.evidence.title}
             </h2>
           </div>
           <div className="@container min-w-0 space-y-4">
             <div className="grid grid-cols-1 gap-3 @min-[26rem]:grid-cols-2">
               {props.evidence.items.map((e) => (
                 <div key={e.label} className="@container min-w-0 rounded-xl border border-border-subtle bg-background/50 p-4">
-                  <StatValue value={t(e.value)} maxSize="1.875rem" />
-                  <p className="mt-2 text-sm text-text-secondary">{ar ? e.labelAr : t(e.label)}</p>
+                  <StatValue value={e.value} maxSize="1.875rem" />
+                  <p className="mt-2 text-sm text-text-secondary">{ar ? e.labelAr : e.label}</p>
                   <p className={`mt-2 font-mono text-[11px] uppercase tracking-[0.1em] ${ORIGIN_LABEL[e.origin].cls}`}>
-                    {ar ? ORIGIN_LABEL[e.origin].ar : t(ORIGIN_LABEL[e.origin].en)}
+                    {ar ? ORIGIN_LABEL[e.origin].ar : ORIGIN_LABEL[e.origin].en}
                   </p>
                 </div>
               ))}
             </div>
             {(ar ? props.evidence.notesAr : props.evidence.notes).map((n, i) => (
-              <p key={i} className="text-xs leading-[1.65] text-text-tertiary">{t(n)}</p>
+              <p key={i} className="text-xs leading-[1.65] text-text-tertiary">{n}</p>
             ))}
           </div>
         </div>
@@ -416,18 +414,18 @@ export function ProductCase(props: ProductCaseProps) {
       <section className="container-wide py-6 md:py-8">
         <div className="grid gap-5 lg:grid-cols-[0.55fr_1fr]">
           <div>
-            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>06 / {isDesign ? (ar ? "عناصر وأدوات التنفيذ" : t("Production & design stack")) : (ar ? "التقنيات" : t("Technology stack"))}</p>
+            <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>06 / {isDesign ? (ar ? "عناصر وأدوات التنفيذ" : "Production & design stack") : (ar ? "التقنيات" : "Technology stack")}</p>
             <h2 className="mt-4 font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] tracking-[-0.04em] text-text-primary">
-              {ar ? props.stack.titleAr : t(props.stack.title)}
+              {ar ? props.stack.titleAr : props.stack.title}
             </h2>
           </div>
           <div>
             <div className="flex flex-wrap gap-2">
               {props.stack.items.map((s) => (
-                <span key={s} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{t(s)}</span>
+                <span key={s} className="rounded-full border border-border-subtle bg-background/60 px-3 py-2 font-mono text-xs text-text-secondary">{s}</span>
               ))}
             </div>
-            <p className="mt-6 text-sm leading-[1.65] text-text-secondary">{ar ? props.stack.noteAr : t(props.stack.note)}</p>
+            <p className="mt-6 text-sm leading-[1.65] text-text-secondary">{ar ? props.stack.noteAr : props.stack.note}</p>
           </div>
         </div>
       </section>
@@ -437,20 +435,20 @@ export function ProductCase(props: ProductCaseProps) {
         <div className="container-wide flex flex-col gap-8 py-6 md:py-7 lg:flex-row lg:items-end lg:justify-between">
           <div className="min-w-0">
             <p className={`font-mono text-xs uppercase tracking-[0.16em] ${a.text}`}>
-              {t("HAND-OFF")} / {props.fileNo}
+              {"HAND-OFF"} / {props.fileNo}
             </p>
             <h2 className="mt-4 max-w-3xl font-display text-[clamp(1.75rem,8.5vw,2.25rem)] [overflow-wrap:anywhere] leading-tight tracking-[-0.04em] text-text-primary md:text-6xl">
-              {ar ? props.handoff.titleAr : t(props.handoff.title)}
+              {ar ? props.handoff.titleAr : props.handoff.title}
             </h2>
-            <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? props.handoff.noteAr : t(props.handoff.note)}</p>
+            <p className="mt-5 max-w-2xl text-sm leading-[1.65] text-text-secondary">{ar ? props.handoff.noteAr : props.handoff.note}</p>
           </div>
           <div className="flex shrink-0 flex-wrap gap-3">
             <Link href="/work" className="rounded-full border border-border-default px-5 py-3 text-sm text-text-primary hover:border-border-strong">
-              {ar ? "كل الأعمال" : t("All work")}
+              {ar ? "كل الأعمال" : "All work"}
             </Link>
             {props.cta ? (
               <a href={props.cta.href} target={props.cta.href.startsWith("#") ? undefined : "_blank"} rel="noreferrer" className={`rounded-full px-5 py-3 text-sm font-medium text-black hover:-translate-y-0.5 ${a.button}`}>
-                {ar ? props.cta.ar : t(props.cta.en)} {ar ? "↖" : "↗"}
+                {ar ? props.cta.ar : props.cta.en} {ar ? "↖" : "↗"}
               </a>
             ) : null}
           </div>

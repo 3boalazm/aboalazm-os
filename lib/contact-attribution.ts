@@ -10,15 +10,9 @@ const PACKAGE_TIER_IDS = ["logo-design", "brand-identity", "full-brand-system"] 
 
 /**
  * The messages.locale column stores every live locale.
- *
- * Malay used to be coerced to "en" because enum_messages_locale only knew
- * en/ar: the enquiry saved, but a Malaysian lead was filed as English and its
- * language was unrecoverable from the structured columns. Migration
- * 20261111_120000_messages_locale_ms widens the enum, so the visitor's real
- * locale is now what gets stored.
  */
 export function storedLocale(locale: Locale | undefined): Locale {
-  return locale === "ar" || locale === "ms" ? locale : "en";
+  return locale === "ar" ? locale : "en";
 }
 
 export function buildContactAttribution(raw: Record<string, unknown>) {

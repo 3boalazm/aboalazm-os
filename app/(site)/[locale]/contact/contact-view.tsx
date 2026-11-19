@@ -34,10 +34,10 @@ export function ContactView({ context }: { context?: ContactContext }) {
     <main className="container-content flex flex-col gap-5 pb-8">
       <header className="flex flex-col gap-3">
         <p className="x-mono x-kicker">
-          {ar ? "تواصل / مشروع جديد" : lang === "ms" ? "HUBUNGI / PROJEK BARU ANDA" : "CONTACT / YOUR NEXT PROJECT"}
+          {ar ? "تواصل / مشروع جديد" : "CONTACT / YOUR NEXT PROJECT"}
         </p>
         <h1 className="x-page-title">
-          {ar ? "حدّثني عن مشروعك." : lang === "ms" ? "Ceritakan tentang projek anda." : "Tell me about your project."}
+          {ar ? "حدّثني عن مشروعك." : "Tell me about your project."}
         </h1>
         <p className="x-page-lead">
           {ar
@@ -53,10 +53,10 @@ export function ContactView({ context }: { context?: ContactContext }) {
             rel="noopener noreferrer"
             className="x-btn x-btn--solid"
           >
-            {ar ? "تحدّث عبر واتساب" : lang === "ms" ? "Sembang di WhatsApp" : "Chat on WhatsApp"} {ar ? "↖" : "↗"}
+            {ar ? "تحدّث عبر واتساب" : "Chat on WhatsApp"} {ar ? "↖" : "↗"}
           </a>
           <a href={CONTACT_EMAIL_HREF} className="underline underline-offset-4">
-            {ar ? "أرسل بريدًا إلكترونيًا" : lang === "ms" ? "Hantar e-mel" : "Send an email"}
+            {ar ? "أرسل بريدًا إلكترونيًا" : "Send an email"}
           </a>
           {BOOKING_URL ? (
             <a
@@ -66,7 +66,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
               data-booking-click="true"
               className="text-accent underline underline-offset-4"
             >
-              {ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
+              {ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
             </a>
           ) : null}
         </div>
@@ -80,7 +80,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
         <aside className="flex flex-col gap-4">
           <div className="rounded-card border border-border-default bg-surface-1 p-3">
             <h2 className="font-display font-display-sm text-subtitle">
-              {ar ? "نبدأ بمحادثة؟" : lang === "ms" ? "Lebih suka berbual?" : "Prefer a conversation?"}
+              {ar ? "نبدأ بمحادثة؟" : "Prefer a conversation?"}
             </h2>
             <p className="mt-1 text-body-sm text-text-secondary">
               {ar ? RESPONSE_PROMISE.ar : RESPONSE_PROMISE.en}
@@ -91,9 +91,9 @@ export function ContactView({ context }: { context?: ContactContext }) {
                 href={bookHref(depositPlanId)}
                 className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-border-default px-2 py-1.5 text-body-sm hover:border-accent"
               >
-                <span>{ar ? "اعتمدت النطاق؟ ادفع دفعة البدء" : lang === "ms" ? "Skop dipersetujui? Bayar deposit permulaan" : "Scope agreed? Pay the kickoff deposit"}<Icon name="arrow-right" className="ms-1.5" /></span>
+                <span>{ar ? "اعتمدت النطاق؟ ادفع دفعة البدء" : "Scope agreed? Pay the kickoff deposit"}<Icon name="arrow-right" className="ms-1.5" /></span>
                 <span className="font-mono text-micro text-text-secondary">
-                  {ar ? "الخطوة 04" : lang === "ms" ? "LANGKAH 04" : "STEP 04"}
+                  {ar ? "الخطوة 04" : "STEP 04"}
                 </span>
               </Link>
               {BOOKING_URL ? (
@@ -104,7 +104,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
                   data-booking-click="true"
                   className="flex min-h-6 flex-wrap items-center justify-between gap-1 rounded-card border border-border-default px-2 py-1.5 text-body-sm hover:border-accent"
                 >
-                  <span>{ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}</span>
+                  <span>{ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}</span>
                   <span className="font-mono text-micro text-text-secondary">30 min</span>
                 </a>
               ) : null}
@@ -128,7 +128,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
 
           <div className="flex flex-col gap-2 text-body-sm text-text-secondary">
             <h2 className="font-display font-display-sm text-subtitle text-text-primary">
-              {ar ? "بعد رسالتك" : lang === "ms" ? "Apa yang berlaku seterusnya" : "What happens next"}
+              {ar ? "بعد رسالتك" : "What happens next"}
             </h2>
             <ol className="list-decimal space-y-1 ps-3">
               <li>
@@ -149,9 +149,9 @@ export function ContactView({ context }: { context?: ContactContext }) {
             </ol>
           </div>
           <p className="text-caption text-text-tertiary">
-            {ar ? "هل تتواصل بخصوص وظيفة؟" : lang === "ms" ? "Menghubungi berkaitan jawatan? " : "Reaching out about a role? "}
+            {ar ? "هل تتواصل بخصوص وظيفة؟" : "Reaching out about a role? "}
             <Link href="/for-hiring" className="underline underline-offset-4">
-              {ar ? "ملف التوظيف والسيرة الذاتية" : lang === "ms" ? "Profil pengambilan & CV" : "Hiring profile and CV"}
+              {ar ? "ملف التوظيف والسيرة الذاتية" : "Hiring profile and CV"}
             </Link>
           </p>
         </aside>
@@ -159,7 +159,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
 
       <details className="rounded-card border border-border-subtle p-3">
         <summary className="cursor-pointer font-display font-display-sm text-body">
-          {ar ? "نطاق التعاون والدفع" : lang === "ms" ? "Skop kerjasama & pembayaran" : "Scope and payment"}
+          {ar ? "نطاق التعاون والدفع" : "Scope and payment"}
         </summary>
         <p className="mt-2 max-w-[75ch] text-body-sm text-text-secondary">
           {TERMS_LINE[ar ? 1 : 0]}
@@ -168,7 +168,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
           href="/agreement"
           className="mt-2 inline-block text-body-sm text-accent underline underline-offset-4"
         >
-          {ar ? "تفاصيل اتفاقية التعاون" : lang === "ms" ? "Baca terma kerjasama" : "Read the collaboration terms"}<Icon name="arrow-right" className="ms-1.5" />
+          {ar ? "تفاصيل اتفاقية التعاون" : "Read the collaboration terms"}<Icon name="arrow-right" className="ms-1.5" />
         </Link>
       </details>
     </main>

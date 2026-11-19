@@ -159,7 +159,7 @@ export function AnalyticsView({ report }: { report: AnalyticsReport }) {
               aside={<Chip tone="neutral">دمج بادئات اللغة</Chip>}
               provenance={
                 <>
-                  مسارات <code>pageview</code> مع دمج <code>/en</code> و<code>/ar</code> و<code>/ms</code> معًا
+                  مسارات <code>pageview</code> مع دمج <code>/en</code> و<code>/ar</code> معًا
                 </>
               }
             >

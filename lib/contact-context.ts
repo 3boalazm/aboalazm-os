@@ -30,7 +30,7 @@ export function parseContactContext(raw: Record<string, unknown>): ContactContex
   const tier = service === "brand-identity" ? PACKAGES.find((p) => p.id === raw.tier)?.id : undefined;
   const source = typeof raw.source === "string" && /^\/(?:[a-z0-9-]+\/?)*$/.test(raw.source) && raw.source.length <= 160 ? raw.source : undefined;
   const campaign = parseCampaign(raw);
-  const locale: Locale = raw.locale === "ar" ? "ar" : raw.locale === "ms" ? "ms" : "en";
+  const locale: Locale = raw.locale === "ar" ? "ar" : "en";
   return { service, tier, source, locale, ...campaign };
 }
 export function parseCampaign(raw: Record<string, unknown>): Record<string, string> {
@@ -58,7 +58,7 @@ export function contextSummary(context: ContactContext): string {
     `Service: ${SERVICES.find((s) => s.id === context.service)?.en ?? "Help me define the scope"}`,
     context.tier ? `Package: ${PACKAGES.find((p) => p.id === context.tier)?.en ?? context.tier}` : null,
     context.source ? `Source page: ${context.source}` : null,
-    `Language: ${context.locale === "ms" ? "ms (Bahasa Melayu)" : context.locale ?? "en"}`,
+    `Language: ${context.locale ?? "en"}`,
     ...Object.entries(parseCampaign(context)).map(([key, value]) => `${key}: ${value}`),
   ].filter(Boolean).join("\n");
 }

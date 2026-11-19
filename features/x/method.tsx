@@ -20,20 +20,19 @@ export function Method() {
     <section id="method" className="x-room x-iris ground-ember">
       <Chapter
         n="06"
-        kicker={t("How it starts", "كيف نبدأ", "Bagaimana ia bermula")}
+        kicker={t("How it starts", "كيف نبدأ")}
         title={
           <>
-            {t("Talk first.", "الحوار أولًا.", "Bincang dulu.")} <span className="x-accent">{t("Pay last.", "والدفع أخيرًا.", "Bayar kemudian.")}</span>
+            {t("Talk first.", "الحوار أولًا.")} <span className="x-accent">{t("Pay last.", "والدفع أخيرًا.")}</span>
           </>
         }
         lead={t(
           "Four gates, in this order. You see the scope and the price in writing before any payment.",
           "أربع بوابات بهذا الترتيب. يصلك النطاق والسعر كتابةً قبل أي دفعة.",
-          "Empat pintu, mengikut urutan ini. Anda lihat skop dan harga secara bertulis sebelum sebarang bayaran.",
         )}
       >
         <Link href="/process" className="x-btn x-btn--line w-fit">
-          {t("The full method", "المنهج كاملًا", "Kaedah penuh")}
+          {t("The full method", "المنهج كاملًا")}
           <Arrow />
         </Link>
       </Chapter>
@@ -59,7 +58,7 @@ export function Method() {
             <Link key={tier.id} href="/pricing" className="x-tier" data-rec={tier.recommended ? "true" : "false"}>
               <span className="x-mono text-[var(--color-text-tertiary)]">
                 {tier.tag[i]}
-                {tier.recommended ? ` · ${t("Recommended", "موصى بها", "Disyorkan")}` : ""}
+                {tier.recommended ? ` · ${t("Recommended", "موصى بها")}` : ""}
               </span>
               <span className="text-[1.05rem] font-semibold text-[var(--color-text-primary)]">{tier.name[i]}</span>
               <span className="x-tier__price" dir="ltr">
@@ -72,7 +71,7 @@ export function Method() {
           ))}
           <Link href="/pricing" className="x-tier__more">
             <span className="grid justify-items-center gap-2">
-              <span className="x-mono">{t("All pricing", "كل الأسعار", "Semua harga")}</span>
+              <span className="x-mono">{t("All pricing", "كل الأسعار")}</span>
               <Arrow size={20} />
             </span>
           </Link>

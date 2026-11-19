@@ -80,7 +80,7 @@ export function ReelPlayer({ reel, startAt = 0, onClose }: { reel: Reel; startAt
         ref={closeRef}
         type="button"
         onClick={onClose}
-        aria-label={ar ? "إغلاق" : lang === "ms" ? "Tutup" : "Close"}
+        aria-label={ar ? "إغلاق" : "Close"}
         className="absolute end-2 top-2 grid size-6 place-items-center rounded-full border border-white/20 text-white/80 transition-colors duration-base ease-physics hover:border-white/50 hover:text-white sm:end-4 sm:top-4"
       >
         <Icon name="x" />

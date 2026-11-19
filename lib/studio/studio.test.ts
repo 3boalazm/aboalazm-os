@@ -246,8 +246,6 @@ test("the console does not ship the marketing site's providers", () => {
 /* ──────────────────────────────────────────────────────────── 5 · language drift guard */
 
 test("Messages.locale covers every live LOCALES entry", () => {
-  // Finding #2 in docs/studio/03_SCHEMA_FINDINGS.md: Malay went live while the
-  // select still offered only en/ar, so a Malay enquiry could not be saved.
   const messages = read("collections", "Messages.ts");
   const localeField = messages.slice(messages.indexOf('name: "locale"'), messages.indexOf('name: "locale"') + 400);
   for (const locale of LOCALES) {

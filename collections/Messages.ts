@@ -65,18 +65,15 @@ export const Messages: CollectionConfig = {
     },
     { type: "row", fields: [
       { name: "sourcePage", type: "text", maxLength: 160, index: true, admin: { width: "60%", description: "Sanitized local page path, e.g. /services/brand-identity." } },
-      /* One option per live locale. This column is a Postgres enum, so a value
-         listed here that the database enum lacks fails at write time, not in
-         the editor. Adding "ms" is safe only alongside migration
-         20261111_120000_messages_locale_ms; lib/payload-schema-audit.test.ts
-         fails if this list, the newest schema snapshot and LOCALES disagree. */
+      /* One option per live locale. This column is a Postgres enum; the
+         database enum may hold legacy values that are no longer offered here.
+         lib/payload-schema-audit.test.ts fails if this list and LOCALES disagree. */
       {
         name: "locale",
         type: "select",
         options: [
           { label: "English", value: "en" },
           { label: "Arabic", value: "ar" },
-          { label: "Malay", value: "ms" },
         ],
         admin: { width: "40%" },
       },

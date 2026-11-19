@@ -102,7 +102,7 @@ async function main() {
         console.error(
           `[schema-diagnostic] Release blocked: ${missing.join(", ")} has not been applied to this database. ` +
             "Run `npx payload migrate` against it, then rebuild. The code in this branch writes values " +
-            "(messages.locale = 'ms') that the current enum does not accept, so it must not ship first.",
+            "that the current enum does not accept, so it must not ship first.",
         );
       } else if (hasDevPushMarker) {
         console.error(

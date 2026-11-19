@@ -99,7 +99,7 @@ function personNode() {
       "Bilingual Arabic / English design",
       "Design systems",
     ],
-    knowsLanguage: ["ar", "en", "ms"],
+    knowsLanguage: ["ar", "en"],
     email: CONTACT_EMAIL_HREF,
     address: {
       "@type": "PostalAddress",
@@ -126,7 +126,7 @@ function webSiteNode() {
     name: SITE_NAME,
     alternateName: ["Aboalazm OS", "مصطفى أبوالعزم"],
     url: SITE_URL,
-    inLanguage: ["en", "ar", "ms"],
+    inLanguage: ["en", "ar"],
     publisher: { "@id": ORGANIZATION_ID },
   };
 }

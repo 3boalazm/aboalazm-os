@@ -13,8 +13,6 @@ export function middleware(request: NextRequest) {
   // Let it resolve directly: redirecting it back creates a rewrite/redirect loop.
   // Every English page declares its original, unprefixed canonical address.
   if (path === "/en" || path.startsWith("/en/")) return NextResponse.next();
-  // Malay is a real prefixed locale (/ms), like Arabic — serve it as-is.
-  if (path === "/ms" || path.startsWith("/ms/")) return NextResponse.next();
   // Existing Arabic article links migrate without losing their content.
   if (/^\/writing\/.+-ar$/.test(path)) {
     url.pathname = `/ar${path}`;
