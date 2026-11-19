@@ -37,7 +37,7 @@ import {
   CodeCanvasDevCaseStudy,
 } from "@/features/case-studies/lazy-views";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 // Shared by generateMetadata and the page so a lookup costs one DB hit.
 const getCaseStudy = cache(fetchCaseStudy);

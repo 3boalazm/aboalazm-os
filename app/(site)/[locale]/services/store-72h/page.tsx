@@ -5,7 +5,7 @@ import { Store72hView } from "./store-72h-view";
 
 // Same window as /pricing and /services. Without it this page was cached for a
 // year, so an expired EGP/SAR rate would have kept showing until the next deploy.
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 const originalMetadata: Metadata = {
   title: "Bilingual Store or Catalogue in 72 Hours — From $197",

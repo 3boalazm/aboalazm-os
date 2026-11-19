@@ -7,7 +7,7 @@ import { WorkFilter } from "@/features/work";
 import { getProjects, getGalleryData } from "@/lib/content";
 import { WorkHeader } from "./work-header";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 
 const pageMetadata: Metadata = {

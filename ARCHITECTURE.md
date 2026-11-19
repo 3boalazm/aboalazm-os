@@ -81,7 +81,8 @@ aboalazm-os/
 4. **The ambient glow is a contract:** any route or hover can write `--glow-1` / `--glow-2`; only `ambient-canvas.tsx` reads them.
 5. **Server Components by default.** `"use client"` only on leaves that need pointer/scroll physics.
 6. **Content flows through `lib/content.ts` only.** Pages never call Payload's Local API directly — they call the adapter, which returns the exact shapes the UI components already expect. This is the one place that would need to change if the CMS were ever swapped again.
-7. **Every Collection/Global that feeds a statically-generated route needs a `revalidatePath` hook** (`lib/revalidate.ts`). Without it, dashboard edits won't appear on the live site until the next deploy.
+7. **Every Collection/Global that feeds a statically-generated route needs a revalidation hook** (`lib/revalidate.ts`). Without it, dashboard edits won't appear on the live site until the page's daily TTL runs out. Hooks mark the whole public site stale (`revalidatePath("/", "layout")`), which is lazy: only pages that are actually visited re-render.
+8. **Never give a CMS-backed page a short `revalidate`.** Pages declare `revalidate = 86400` (a daily safety net). The old `60` re-rendered ~110 page variants on almost every visit, prefetch and crawler hit and exhausted Vercel Hobby's Fluid Active CPU (team paused, HTTP 402, 19 Nov 2026). `lib/revalidate.test.ts` fails the build if any route drops below one hour, or if a visitor-written collection (leads, analytics, session registrations) starts invalidating the site.
 
 ---
 
