@@ -160,10 +160,10 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="font-mono text-micro uppercase tracking-[0.1em] text-accent">
-                {ar ? "تطبيق ويب قابل للتثبيت" : lang === "ms" ? "APLIKASI WEB BOLEH PASANG" : "INSTALLABLE WEB APP"}
+                {ar ? "تطبيق ويب قابل للتثبيت" : "INSTALLABLE WEB APP"}
               </p>
               <h2 id="pwa-install-title" className="mt-1 font-display text-subtitle text-text-primary">
-                {ar ? "ثبّت الموقع كتطبيق" : lang === "ms" ? "Pasang laman ini sebagai aplikasi" : "Install the site as an app"}
+                {ar ? "ثبّت الموقع كتطبيق" : "Install the site as an app"}
               </h2>
             </div>
             <button
@@ -173,7 +173,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
                 setHelpOpen(false);
                 buttonRef.current?.focus();
               }}
-              aria-label={ar ? "إغلاق التعليمات" : lang === "ms" ? "Tutup arahan" : "Close instructions"}
+              aria-label={ar ? "إغلاق التعليمات" : "Close instructions"}
               /* Explicit 32px, not `size-8`: --spacing in this system is 8px,
                  so the Tailwind size scale doubles (size-8 = 64px) and the
                  close target rendered as a 64px ring around a faint glyph. */
@@ -187,27 +187,19 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
             {safariDesktop
               ? ar
                 ? "من قائمة «ملف» (File) في Safari اختر «إضافة إلى Dock» (Add to Dock)."
-                : lang === "ms"
-                  ? "Dalam Safari, pilih File → “Add to Dock”."
-                  : "In Safari, choose File → “Add to Dock.”"
+                : "In Safari, choose File → “Add to Dock.”"
               : appleMobile
               ? ar
                 ? "افتح قائمة المشاركة في Safari، ثم اختر «إضافة إلى الشاشة الرئيسية»."
-                : lang === "ms"
-                  ? "Buka menu Kongsi Safari, kemudian pilih “Tambah ke Skrin Utama”."
-                  : "Open Safari’s Share menu, then choose “Add to Home Screen.”"
+                : "Open Safari’s Share menu, then choose “Add to Home Screen.”"
               : ar
                 ? "من قائمة المتصفح اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»."
-                : lang === "ms"
-                  ? "Buka menu pelayar dan pilih “Pasang aplikasi” atau “Tambah ke skrin utama”."
-                  : "Open your browser menu and choose “Install app” or “Add to Home screen.”"}
+                : "Open your browser menu and choose “Install app” or “Add to Home screen.”"}
           </p>
           <p className="mt-3 border-t border-border-subtle pt-3 font-mono text-micro leading-relaxed text-text-tertiary">
             {ar
               ? "يُفتح كتطبيق مستقل، ويمكنك العودة إلى الصفحات التي زرتها حتى عند انقطاع الاتصال."
-              : lang === "ms"
-                ? "Ia terbuka dalam tetingkap aplikasi tersendiri; halaman yang pernah dilawati boleh tersedia di luar talian."
-                : "It opens in its own app window; pages you’ve visited can be available offline."}
+              : "It opens in its own app window; pages you’ve visited can be available offline."}
           </p>
         </section>
       ) : null}
@@ -254,7 +246,7 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
             equals the visible label (WCAG 2.5.3). Visible text is the name:
             no aria-label to drift away from it. */}
         {docked ? (
-          <span className="sr-only sm:hidden">{ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app"}</span>
+          <span className="sr-only sm:hidden">{ar ? "ثبّت التطبيق" : "Install app"}</span>
         ) : null}
         {/* Docked on phones: icon only, so the language chips get the room. */}
         <span className={docked ? "hidden flex-col items-start gap-0.5 sm:flex" : "flex min-w-0 flex-col items-start gap-0.5"}>
@@ -264,8 +256,8 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
               ? "font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:whitespace-nowrap sm:text-micro"
               : "whitespace-nowrap font-mono text-[13px] font-semibold uppercase leading-tight tracking-[0.06em] sm:text-micro"}>
             {variant === "inline"
-              ? (ar ? "ثبّت Aboalazm OS" : lang === "ms" ? "Dapatkan aplikasi OS" : "Get the OS app")
-              : (ar ? "ثبّت التطبيق" : lang === "ms" ? "Pasang aplikasi" : "Install app")}
+              ? (ar ? "ثبّت Aboalazm OS" : "Get the OS app")
+              : (ar ? "ثبّت التطبيق" : "Install app")}
           </span>
           {/* Phones get the one actionable line only — the sub-label is what
               made the floating control a 104px-tall card over the hero.
@@ -280,8 +272,8 @@ export function PwaInstallButton({ variant = "floating" }: { variant?: PwaInstal
             }
           >
             {variant === "inline"
-              ? (ar ? "تجربة بملء الشاشة على جهازك" : lang === "ms" ? "Pengalaman skrin penuh pada peranti anda" : "A full-screen experience on your device")
-              : (ar ? "أضفه إلى الشاشة الرئيسية" : lang === "ms" ? "Tambah ke skrin utama" : "Add to your home screen")}
+              ? (ar ? "تجربة بملء الشاشة على جهازك" : "A full-screen experience on your device")
+              : (ar ? "أضفه إلى الشاشة الرئيسية" : "Add to your home screen")}
           </span>
         </span>
       </button>

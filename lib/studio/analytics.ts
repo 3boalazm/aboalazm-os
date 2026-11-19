@@ -127,7 +127,7 @@ export function countBy(events: RawEvent[], pick: (e: RawEvent) => string | null
 
 export function normalizePath(path: string): string {
   const parts = path.split("/").filter(Boolean);
-  if (parts[0] === "en" || parts[0] === "ar" || parts[0] === "ms") {
+  if (parts[0] === "en" || parts[0] === "ar") {
     return `/${parts.slice(1).join("/")}`;
   }
   return path;

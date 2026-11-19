@@ -12,7 +12,7 @@ import { Method } from "@/features/x/method";
 import { Close } from "@/features/x/close";
 import { Tape } from "@/features/x/tape";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 const pageMetadata: Metadata = {
   // The studio leads; the founder's name follows because it is also a search query.
@@ -32,7 +32,7 @@ const pageMetadata: Metadata = {
  *   03 WORK       pinned horizontal reel, provenance on every card
  *   04 REELS      three phones — directly under the work (owner's rule)
  *   05 PROOF      one bento: documented numbers, the founder-led studio
- *                 model (STUDIO_MODEL), the three authored languages
+ *                 model (STUDIO_MODEL), the two authored languages
  *   06 METHOD     talk first, pay last — four gates + the three tiers
  *   07 CLOSE      the sun rises again; a one-line brief; the page index
  *
@@ -51,7 +51,7 @@ export default async function Home() {
       <Disciplines />
       <Tape
         a={["Brand identity", "Digital experience", "Business systems"]}
-        b={["English", "العربية", "Bahasa Melayu", "Built to run"]}
+        b={["English", "العربية", "Built to run"]}
       />
       <WorkTrack identity={identity} digital={digital} />
       <Reels />

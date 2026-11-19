@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateSiteAfterChange, revalidateSiteAfterDelete } from "@/lib/revalidate";
 
 /**
  * MEDIA — every uploaded image/file in the system routes through here
@@ -15,6 +16,11 @@ export const Media: CollectionConfig = {
   },
   access: {
     read: () => true, // public site needs to render these images
+  },
+  hooks: {
+    // Pages keep a 24 h render TTL; a replaced image or edited alt text must show at once.
+    afterChange: [revalidateSiteAfterChange],
+    afterDelete: [revalidateSiteAfterDelete],
   },
   fields: [
     {

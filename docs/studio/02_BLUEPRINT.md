@@ -54,10 +54,13 @@ exactly one thing: a surface that answers
 
 Seven sections were proposed. Five exist; two were rejected for P1 with
 reasons, because a nav item that leads to nothing is worse than no nav item.
+The sixth screen, `Sessions`, was not in the original seven: it exists because a
+cohort form needs a board before the room fills up.
 
 ```
 Overview          /studio           9 bento tiles, the three questions
 Leads & pipeline  /studio/leads     4 KPIs · 4-column board · all-enquiries table
+Sessions          /studio/sessions  cohort board · distributions · open answers
 Content           /studio/content   live/draft counts · editorial health · recent edits
 System            /studio/system    live probes · what is *not* verified
 Manage (leaves the console → /admin/*)   projects · case studies · writing ·
@@ -105,6 +108,44 @@ Every tile, the exact query behind it, and what it deliberately does not claim.
 | Board | 4 columns by commitment | `leadStage` |
 | Untouched 3+ days | stage `new` and `createdAt` older than 3 days | derived |
 | Closed without work | Lost + Not-a-fit, grouped by `closedReason` | `messages` |
+
+### Sessions (`/studio/sessions`)
+
+The pre-session board for `session-registrations` — the rows the LinkedIn
+assessment form writes. It is a *preparation* screen, so the order on the page
+is the order of the decision: four counts, then who is in the room
+(distributions), then what they wrote (open answers), then the list.
+
+| Tile | Definition | Source |
+| --- | --- | --- |
+| Registered | rows in the cohort | `session-registrations`, `sessionKey` filter |
+| Need an account | `linkedinStatus` is `none` or `incomplete` | `buildSessionReport` over the same rows |
+| CVs | uploads that actually arrived, plus what people said about theirs | `cvFile` (relationship) vs `cvStatus` |
+| Open answers | rows with at least one free-text answer | `biggestChallenge` / `questionForSession` |
+| What to cover | open answers grouped by typed text, with names | `answerLines()` — **not** a sentiment model |
+| Distributions | one bar per option of a coded field, blanks under «لم يُجب» | `distribution()` over `GROUPED_SELECTS` |
+| Goals | one bar per *chosen* goal — a person may hold several, so the bars sum past the cohort while each `pct` stays a share of it | `distribution()` over `GROUPED_MULTI` (`session_registrations_texts`) |
+| Faculties / interests | free text, top 8 plus a folded remainder | `GROUPED_TEXTS`, `limit = 8` |
+| The list | every row, newest first, searchable | `session-registrations` |
+
+`goals` is a multi-answer (`type: "text", hasMany: true`), not a single
+required choice: a third-year who wants an internship *and* a stronger network
+is not choosing between them, and forcing it would draw a chart that lies about
+the room. The vocabulary still comes from `features/linkedin-session/assessment.ts`
+— `validate.ts` refuses any value outside the list, and it is the only write
+path — so the set is coded even though the column is text.
+
+What it does not claim: it never scores a person, never infers a level from
+prose, and never counts an answer that was not given — a blank is drawn as
+"unanswered" so every chart adds up to the cohort. Attendance and follow-up
+stage are the operator's words, written back through
+`app/studio/sessions/actions.ts` with `overrideAccess: false`; the values come
+from the same option lists `features/linkedin-session/assessment.ts` uses to
+build the Postgres enums, so a stage the form does not know cannot be typed in.
+
+The CSV export (`/studio/sessions/export`) is the same rows, formula-guarded,
+with a BOM for Excel. It is `private, no-store`: it carries names, emails and
+résumé answers.
 
 ### System (`/studio/system`)
 

@@ -35,6 +35,7 @@ const SNAPSHOTS = [
   "20261024_145000_lead_pipeline",
   "20261111_120000_messages_locale_ms",
   "20261112_100000_analytics_events",
+  "20261119_130000_session_registrations",
 ] as const;
 
 const snapshots = SNAPSHOTS.map((name) => ({
@@ -101,7 +102,7 @@ async function main() {
         console.error(
           `[schema-diagnostic] Release blocked: ${missing.join(", ")} has not been applied to this database. ` +
             "Run `npx payload migrate` against it, then rebuild. The code in this branch writes values " +
-            "(messages.locale = 'ms') that the current enum does not accept, so it must not ship first.",
+            "that the current enum does not accept, so it must not ship first.",
         );
       } else if (hasDevPushMarker) {
         console.error(

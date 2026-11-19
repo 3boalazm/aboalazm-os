@@ -82,7 +82,7 @@ export function OgCard({
   const displayFont = ar ? FONT_AR : FONT_EN;
   // Satori has no bidi and ignores `dir`, so the Arabic card is mirrored by hand: rows run
   // right to left, the text block hugs the right edge and every Arabic line goes through
-  // RtlText (see lib/og-rtl.tsx). The English and Malay cards are untouched.
+  // RtlText (see lib/og-rtl.tsx). The English card is untouched.
   const row = ar ? "row-reverse" : "row";
   const titleSize = ar ? arTitleSize(title) : 60;
   // The gap between words is the face's own word space; 0.25em if the face cannot be read.

@@ -8,7 +8,6 @@ const LangContext = createContext<LangValue>({ lang: "en", toggle: () => {}, set
 
 function localeFromPath(pathname: string | null, fallback: Lang): Lang {
   if (pathname === "/ar" || pathname?.startsWith("/ar/")) return "ar";
-  if (pathname === "/ms" || pathname?.startsWith("/ms/")) return "ms";
   return fallback;
 }
 
@@ -39,8 +38,8 @@ export function LangProvider({ children, initialLang = "en" }: { children: React
   return <LangContext.Provider value={{ lang, toggle, setLang }}>{children}</LangContext.Provider>;
 }
 export function useLang() { return useContext(LangContext); }
-/** Pick a string for the current locale. Malay falls back to English when no Malay string is given. */
+/** Pick a string for the current locale. */
 export function useT() {
   const { lang } = useLang();
-  return (en: string, ar: string, ms?: string) => (lang === "ar" ? ar : lang === "ms" ? (ms ?? en) : en);
+  return (en: string, ar: string) => (lang === "ar" ? ar : en);
 }

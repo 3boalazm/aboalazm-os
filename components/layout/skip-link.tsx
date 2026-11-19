@@ -30,7 +30,6 @@ import { useLang, type Lang } from "@/components/providers/lang-provider";
 const LABELS: Record<Lang, string | null> = {
   en: "Skip to content",
   ar: null,
-  ms: "Langkau ke kandungan",
 };
 
 /* The first <main> landmark; `focusable` also makes it a valid focus target. */

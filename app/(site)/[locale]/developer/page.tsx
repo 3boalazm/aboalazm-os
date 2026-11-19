@@ -5,7 +5,7 @@ import { getProjects } from "@/lib/content";
 import type { Project } from "@/features/work/types";
 import { DeveloperView } from "./developer-view";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 const pageMetadata: Metadata = {
   title: "The Maker — Design, Products & Systems",

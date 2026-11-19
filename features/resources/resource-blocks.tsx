@@ -47,7 +47,7 @@ export function SpineRail() {
     <div
       role="region"
       tabIndex={0}
-      aria-label={lang === "ar" ? "مراحل العمود الفقري التشغيلي" : lang === "ms" ? "Peringkat tulang belakang operasi" : "The operating spine, stage by stage"}
+      aria-label={lang === "ar" ? "مراحل العمود الفقري التشغيلي" : "The operating spine, stage by stage"}
       className="-mx-3 overflow-x-auto px-3 pb-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       <ol className="flex min-w-max items-stretch gap-1.5">

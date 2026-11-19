@@ -14,12 +14,12 @@
  * `pickHomeShortcuts`). The /reels page lists every reel.
  */
 
-export type Trilingual = { en: string; ar: string; ms: string };
+export type Bilingual = { en: string; ar: string; };
 
 export interface ReelChapter {
   /** Start time in seconds. */
   at: number;
-  title: Trilingual;
+  title: Bilingual;
   /** Poster frame for this chapter (public path). */
   poster: string;
 }
@@ -31,8 +31,8 @@ export interface ReelLink {
 
 export interface Reel {
   slug: string;
-  title: Trilingual;
-  summary: Trilingual;
+  title: Bilingual;
+  summary: Bilingual;
   /** Public path to the MP4. */
   video: string;
   poster: string;
@@ -51,12 +51,10 @@ export const REELS: Reel[] = [
     title: {
       en: "Claude Code: Models & Effort",
       ar: "Claude Code: اختيار النموذج والجهد",
-      ms: "Claude Code: Model dan Effort",
     },
     summary: {
       en: "A practical Egyptian Arabic guide to Haiku, Sonnet and Opus; effort levels and commands; planning, context hygiene, subagents, and choosing the right lever when Claude misses.",
       ar: "دليل عملي لاختيار Haiku وSonnet وOpus، وضبط الـ Effort والأوامر، وإدارة السياق والـ subagents، ومعرفة إمتى تغيّر الجهد أو الموديل.",
-      ms: "Panduan praktikal memilih Haiku, Sonnet dan Opus; tahap effort dan arahan; perancangan, konteks, subagen dan cara memilih pelarasan yang tepat.",
     },
     video: "/reels/claude-code-model-effort.mp4",
     poster: "/reels/claude-code-model-effort-01.webp",
@@ -70,7 +68,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Model / Effort",
           ar: "قرارين منفصلين",
-          ms: "Model / Effort",
         },
       },
       {
@@ -79,7 +76,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Models",
           ar: "النماذج",
-          ms: "Model",
         },
       },
       {
@@ -88,7 +84,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Effort",
           ar: "الجهد",
-          ms: "Effort",
         },
       },
       {
@@ -97,7 +92,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Commands",
           ar: "الأوامر",
-          ms: "Arahan",
         },
       },
       {
@@ -106,7 +100,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Workflow",
           ar: "سير العمل",
-          ms: "Aliran kerja",
         },
       },
       {
@@ -115,7 +108,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Context",
           ar: "السياق",
-          ms: "Konteks",
         },
       },
       {
@@ -124,7 +116,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Subagents",
           ar: "الوكلاء",
-          ms: "Subagen",
         },
       },
       {
@@ -133,7 +124,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Quick rule",
           ar: "القاعدة السريعة",
-          ms: "Petua ringkas",
         },
       },
     ],
@@ -143,12 +133,10 @@ export const REELS: Reel[] = [
     title: {
       en: "AI Workflow — it's a system, not one chat",
       ar: "سير العمل بالذكاء الاصطناعي: نظام لا محادثة واحدة",
-      ms: "Aliran Kerja AI — sistem, bukan satu sembang",
     },
     summary: {
       en: "The complete six-stage workflow behind every build: discovery, grounded research, a real execution plan, an execution agent, an independent audit and delivery.",
       ar: "سير العمل الكامل بست مراحل خلف كل مشروع: استكشاف، وبحث موثّق المصادر، وخطة تنفيذ حقيقية، ووكيل تنفيذ، ومراجعة مستقلة، وتسليم.",
-      ms: "Aliran kerja enam peringkat di sebalik setiap binaan: penemuan, penyelidikan berasas sumber, pelan pelaksanaan sebenar, ejen pelaksana, audit bebas dan penyerahan.",
     },
     video: "/reels/ai-workflow.mp4",
     poster: "/reels/ai-workflow-01.webp",
@@ -162,7 +150,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Discovery & research",
           ar: "الاستكشاف والبحث",
-          ms: "Penemuan & penyelidikan",
         },
       },
       {
@@ -171,7 +158,6 @@ export const REELS: Reel[] = [
         title: {
           en: "A real execution plan",
           ar: "خطة تنفيذ حقيقية",
-          ms: "Pelan pelaksanaan sebenar",
         },
       },
       {
@@ -180,7 +166,6 @@ export const REELS: Reel[] = [
         title: {
           en: "Handoff & audit",
           ar: "التسليم والمراجعة",
-          ms: "Serahan & audit",
         },
       },
     ],
@@ -192,7 +177,7 @@ export interface ReelShortcut {
   reel: Reel;
   /** Start time in seconds (0 for a whole reel). */
   at: number;
-  title: Trilingual;
+  title: Bilingual;
   poster: string;
   /** Chapter number inside the reel, when the shortcut is a chapter. */
   chapter?: number;
@@ -244,6 +229,6 @@ export function formatTime(seconds: number): string {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-export function pickText(t: Trilingual, lang: string): string {
-  return lang === "ar" ? t.ar : lang === "ms" ? t.ms : t.en;
+export function pickText(t: Bilingual, lang: string): string {
+  return lang === "ar" ? t.ar : t.en;
 }

@@ -2,7 +2,7 @@
 
 /**
  * CAIRO CLOCK — the studio's local time, live, in the footer. Clients in the
- * Gulf and Malaysia read it as "is he awake right now". Renders nothing on
+ * Gulf read it as "is he awake right now". Renders nothing on
  * the server (a clock in SSR HTML is wrong by the time it paints).
  */
 import { useEffect, useState } from "react";

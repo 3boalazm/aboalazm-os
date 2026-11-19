@@ -69,6 +69,12 @@ export function StudioShell({
           count: counts.unreadLeads,
           countLabel: "غير مقروء",
         },
+        {
+          key: "sessions",
+          href: "/studio/sessions",
+          label: "تحضير السيشن",
+          icon: "check",
+        },
       ],
     },
     {

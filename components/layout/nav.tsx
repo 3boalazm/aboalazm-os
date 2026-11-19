@@ -23,37 +23,36 @@ import { localeHref, type Locale } from "@/lib/locale";
 import { CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 import { SkipLink } from "./skip-link";
 
-const LINKS: { href: string; en: string; ar: string; ms: string }[] = [
-  { href: "/work", en: "Work", ar: "الأعمال", ms: "Kerja" },
-  { href: "/services", en: "Services", ar: "الخدمات", ms: "Perkhidmatan" },
-  { href: "/pricing", en: "Pricing", ar: "الأسعار", ms: "Harga" },
-  { href: "/process", en: "Process", ar: "المنهج", ms: "Proses" },
-  { href: "/writing", en: "Writing", ar: "مقالات", ms: "Penulisan" },
-  { href: "/about", en: "About", ar: "عن الاستوديو", ms: "Tentang" },
+const LINKS: { href: string; en: string; ar: string; }[] = [
+  { href: "/work", en: "Work", ar: "الأعمال" },
+  { href: "/services", en: "Services", ar: "الخدمات" },
+  { href: "/pricing", en: "Pricing", ar: "الأسعار" },
+  { href: "/process", en: "Process", ar: "المنهج" },
+  { href: "/writing", en: "Writing", ar: "مقالات" },
+  { href: "/about", en: "About", ar: "عن الاستوديو" },
 ];
 
-const MORE: { href: string; en: string; ar: string; ms: string }[] = [
-  { href: "/reels", en: "Reels", ar: "ريلز", ms: "Reel" },
-  { href: "/developer", en: "Maker", ar: "المطوّر", ms: "Pembangun" },
-  { href: "/for-hiring", en: "For hiring", ar: "للتوظيف", ms: "Untuk pengambilan" },
-  { href: "/labs", en: "Labs", ar: "المختبر", ms: "Makmal" },
-  { href: "/books", en: "Library", ar: "المكتبة", ms: "Perpustakaan" },
-  { href: "/portfolio", en: "Portfolio PDF", ar: "ملف الأعمال PDF", ms: "Portfolio PDF" },
+const MORE: { href: string; en: string; ar: string; }[] = [
+  { href: "/reels", en: "Reels", ar: "ريلز" },
+  { href: "/developer", en: "Maker", ar: "المطوّر" },
+  { href: "/for-hiring", en: "For hiring", ar: "للتوظيف" },
+  { href: "/labs", en: "Labs", ar: "المختبر" },
+  { href: "/books", en: "Library", ar: "المكتبة" },
+  { href: "/portfolio", en: "Portfolio PDF", ar: "ملف الأعمال PDF" },
 ];
 
 /* Each language named in its own script, so a visitor recognises theirs. */
 const NAV_LANGUAGES: readonly { locale: Locale; name: string; latin: string }[] = [
   { locale: "en", name: "English", latin: "EN" },
   { locale: "ar", name: "العربية", latin: "AR" },
-  { locale: "ms", name: "Bahasa Melayu", latin: "MS" },
 ];
 
-const label = (l: { en: string; ar: string; ms: string }, lang: Lang) => (lang === "ar" ? l.ar : lang === "ms" ? l.ms : l.en);
+const label = (l: { en: string; ar: string; }, lang: Lang) => (lang === "ar" ? l.ar : l.en);
 const isActive = (pathname: string, href: string) => pathname === href || pathname.startsWith(href + "/");
 
 export function Nav() {
   const rawPath = usePathname() ?? "/";
-  const pathname = rawPath.replace(/^\/(?:ar|en|ms)(?=\/|$)/, "") || "/";
+  const pathname = rawPath.replace(/^\/(?:ar|en)(?=\/|$)/, "") || "/";
   const { lang, setLang } = useLang();
   const { theme, toggle } = useTheme();
   const reduce = useReducedMotion();
@@ -64,8 +63,8 @@ export function Nav() {
   const [overPortal, setOverPortal] = useState(pathname === "/");
   const langRef = useRef<HTMLDivElement>(null);
   const menuBtn = useRef<HTMLButtonElement>(null);
-  const t = (en: string, ar: string, ms?: string) => (lang === "ar" ? ar : lang === "ms" ? (ms ?? en) : en);
-  const langCode = lang === "ar" ? "AR" : lang === "ms" ? "MS" : "EN";
+  const t = (en: string, ar: string) => (lang === "ar" ? ar : en);
+  const langCode = lang === "ar" ? "AR" : "EN";
 
   useEffect(() => {
     let last = window.scrollY;
@@ -136,7 +135,7 @@ export function Nav() {
         data-hidden={hidden && !open && !langMenu}
         data-over={open || overPortal ? "dark" : "page"}
       >
-        <Link href="/" className="x-brand" aria-label={t("Aboalazm OS — home", "Aboalazm OS — الرئيسية", "Aboalazm OS — utama")}>
+        <Link href="/" className="x-brand" aria-label={t("Aboalazm OS — home", "Aboalazm OS — الرئيسية")}>
           <span className="x-brand__orb">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/images/work/portrait-128.webp" alt="" width={40} height={40} className="h-full w-full object-cover" />
@@ -155,7 +154,7 @@ export function Nav() {
                  a voice-control user says what they read on the button. Not in
                  parentheses — checkers (and some AT) drop parenthetical text
                  when matching a name to its label. */
-              aria-label={`${t("Change language", "تغيير اللغة", "Tukar bahasa")}: ${langCode}`}
+              aria-label={`${t("Change language", "تغيير اللغة")}: ${langCode}`}
               aria-expanded={langMenu}
               aria-controls={langMenu ? "x-lang" : undefined}
               onClick={() => setLangMenu((v) => !v)}
@@ -167,7 +166,7 @@ export function Nav() {
                 <motion.div
                   id="x-lang"
                   role="group"
-                  aria-label={t("System languages", "لغات النظام", "Bahasa sistem")}
+                  aria-label={t("System languages", "لغات النظام")}
                   className="x-langmenu"
                   initial={reduce ? false : { opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -195,7 +194,7 @@ export function Nav() {
             type="button"
             className="x-ctl x-head__theme"
             onClick={toggle}
-            aria-label={theme === "dark" ? t("Switch to light mode", "التبديل إلى الوضع الفاتح", "Tukar ke mod cerah") : t("Switch to dark mode", "التبديل إلى الوضع الداكن", "Tukar ke mod gelap")}
+            aria-label={theme === "dark" ? t("Switch to light mode", "التبديل إلى الوضع الفاتح") : t("Switch to dark mode", "التبديل إلى الوضع الداكن")}
           >
             {theme === "dark" ? (
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
@@ -210,7 +209,7 @@ export function Nav() {
           </button>
 
           <Link href="/contact" className="x-btn x-btn--solid x-head__cta" style={{ height: "2.75rem" }}>
-            {t("Book a call", "احجز مكالمة", "Tempah panggilan")}
+            {t("Book a call", "احجز مكالمة")}
           </Link>
 
           <button
@@ -225,7 +224,7 @@ export function Nav() {
               <i />
               <i />
             </span>
-            <span>{open ? t("Close", "إغلاق", "Tutup") : t("Menu", "القائمة", "Menu")}</span>
+            <span>{open ? t("Close", "إغلاق") : t("Menu", "القائمة")}</span>
           </button>
         </div>
       </header>
@@ -234,7 +233,7 @@ export function Nav() {
         {open ? (
           <motion.nav
             id="x-menu"
-            aria-label={t("Site menu", "قائمة الموقع", "Menu laman")}
+            aria-label={t("Site menu", "قائمة الموقع")}
             className="x-menu"
             initial={reduce ? false : { clipPath: "circle(0% at 100% 0%)" }}
             animate={{ clipPath: "circle(150% at 100% 0%)" }}
@@ -260,7 +259,7 @@ export function Nav() {
 
             <div className="x-menu__side">
               <div className="grid gap-3">
-                <p className="x-mono x-kicker">{t("More", "المزيد", "Lagi")}</p>
+                <p className="x-mono x-kicker">{t("More", "المزيد")}</p>
                 <div className="x-menu__more">
                   {MORE.map((l) => (
                     <Link key={l.href} href={l.href} onClick={() => setOpen(false)}>
@@ -271,7 +270,7 @@ export function Nav() {
               </div>
 
               <div className="grid gap-3">
-                <p className="x-mono x-kicker">{t("System languages", "لغات النظام", "Bahasa sistem")}</p>
+                <p className="x-mono x-kicker">{t("System languages", "لغات النظام")}</p>
                 <div className="x-menu__more">
                   {NAV_LANGUAGES.map((l) => (
                     <Link
@@ -290,7 +289,7 @@ export function Nav() {
               </div>
 
               <div className="grid gap-3">
-                <p className="x-mono x-kicker">{t("Reach", "تواصل", "Hubungi")}</p>
+                <p className="x-mono x-kicker">{t("Reach", "تواصل")}</p>
                 <div className="x-menu__more">
                   <a href={CONTACT_EMAIL_HREF}>Email</a>
                   <a href="https://wa.me/201092500454" target="_blank" rel="noopener noreferrer">WhatsApp</a>
@@ -300,7 +299,7 @@ export function Nav() {
               </div>
 
               <Link href="/contact" className="x-btn x-btn--solid w-fit" onClick={() => setOpen(false)}>
-                {t("Book a discovery call", "احجز مكالمة استكشافية", "Tempah panggilan penemuan")}
+                {t("Book a discovery call", "احجز مكالمة استكشافية")}
               </Link>
             </div>
           </motion.nav>

@@ -38,7 +38,7 @@ export function Portal() {
     <section
       ref={ref}
       onPointerMove={(e) => !reduce && e.pointerType === "mouse" && mx.set(e.clientX / window.innerWidth - 0.5)}
-      className="x-portal ground-base" aria-label={t("Aboalazm OS — studio", "Aboalazm OS — الاستوديو", "Aboalazm OS — studio")}>
+      className="x-portal ground-base" aria-label={t("Aboalazm OS — studio", "Aboalazm OS — الاستوديو")}>
       <div className="x-portal__pin">
         <div aria-hidden className="x-portal__halo" />
         <motion.div aria-hidden className="x-portal__sun" style={{ scale: sunScale, y: sunY, x: sunX }}>
@@ -52,7 +52,7 @@ export function Portal() {
             </defs>
             <text>
               <textPath href="#x-orbit" textLength="2940">
-                Aboalazm OS ✺ Built to run ✺ Brand identity ✺ Digital experience ✺ Business systems ✺ Arabic · English · Bahasa Melayu ✺
+                Aboalazm OS ✺ Built to run ✺ Brand identity ✺ Digital experience ✺ Business systems ✺ Arabic · English ✺
               </textPath>
             </text>
           </svg>
@@ -60,9 +60,9 @@ export function Portal() {
 
         {/* The claim, split around the sun. */}
         <motion.h1 className="x-display x-portal__title" style={{ x: titleX }}>
-          <motion.span style={{ x: left, opacity: fade }}>{t("Built", "مبنية", "Dibina")}</motion.span>
+          <motion.span style={{ x: left, opacity: fade }}>{t("Built", "مبنية")}</motion.span>
           <motion.span style={{ x: right, opacity: fade }}>
-            {t("to run", "لتعمل", "untuk jalan")}
+            {t("to run", "لتعمل")}
             <em>.</em>
           </motion.span>
         </motion.h1>
@@ -71,13 +71,13 @@ export function Portal() {
           <p className="x-mono x-hud-tl">
             Aboalazm OS
             <br />
-            <span className="opacity-70">{t("Founder-led studio · since 2017", "استوديو يقوده مؤسسه · منذ 2017", "Studio dipimpin pengasas · sejak 2017")}</span>
+            <span className="opacity-70">{t("Founder-led studio · since 2017", "استوديو يقوده مؤسسه · منذ 2017")}</span>
           </p>
           <p className="x-mono x-hud-tr">
-            {t("Brand · Digital · Systems", "هوية · رقمي · أنظمة", "Jenama · Digital · Sistem")}
+            {t("Brand · Digital · Systems", "هوية · رقمي · أنظمة")}
             <br />
             <span className="opacity-70">
-              <CairoClock label={t("Al Obour, Cairo", "العبور، القاهرة", "Al Obour, Kaherah")} />
+              <CairoClock label={t("Al Obour, Cairo", "العبور، القاهرة")} />
             </span>
           </p>
         </motion.div>
@@ -87,21 +87,20 @@ export function Portal() {
             {t(
               "Aboalazm OS builds the brand, the digital layer it lives in, and the systems that keep a business running — in Arabic and English.",
               "يبني Aboalazm OS العلامة، والطبقة الرقمية التي تعيش فيها، والأنظمة التي تُشغّل العمل — بالعربية والإنجليزية.",
-              "Aboalazm OS membina jenama, lapisan digital tempat ia hidup, dan sistem yang memastikan perniagaan terus berjalan — dalam bahasa Arab dan Inggeris.",
             )}
           </p>
           <div className="x-portal__ctas">
             <Link href="/contact?source=%2F" className="x-btn x-btn--solid">
-              {t("Book a discovery call", "احجز مكالمة استكشافية", "Tempah panggilan penemuan")}
+              {t("Book a discovery call", "احجز مكالمة استكشافية")}
               <Arrow />
             </Link>
             <a href="#work" className="x-btn x-btn--line">
-              {t("See the work", "شاهد الأعمال", "Lihat kerja")}
+              {t("See the work", "شاهد الأعمال")}
             </a>
           </div>
           <p className="x-mono x-portal__scroll" aria-hidden>
             <i />
-            {t("Scroll", "مرّر", "Tatal")}
+            {t("Scroll", "مرّر")}
           </p>
         </motion.div>
 

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateSiteAfterChange, revalidateSiteAfterDelete } from "@/lib/revalidate";
 
 /**
  * TEAM MEMBERS — new collection, doesn't map to an existing type file.
@@ -16,6 +17,10 @@ export const TeamMembers: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateSiteAfterChange],
+    afterDelete: [revalidateSiteAfterDelete],
   },
   fields: [
     {

@@ -2,7 +2,7 @@
 
 /**
  * FOOTER — new site language (2026-11-16), written from zero.
- * Three link columns, the three locales as real links to THIS page, the
+ * Three link columns, the two locales as real links to THIS page, the
  * Cairo clock, and the name at page width as an outlined sign-off.
  */
 import { usePathname } from "next/navigation";
@@ -12,39 +12,39 @@ import { localeHref } from "@/lib/locale";
 import { CONTACT_EMAIL_HREF } from "@/lib/contact-details";
 import { CairoClock } from "./cairo-clock";
 
-const COLUMNS: { head: [string, string, string]; links: [string, string, string, string][] }[] = [
+const COLUMNS: { head: [string, string]; links: [string, string, string][] }[] = [
   {
-    head: ["Engage", "التعاون", "Kerjasama"],
+    head: ["Engage", "التعاون"],
     links: [
-      ["Book a discovery call", "احجز مكالمة استكشافية", "Tempah panggilan penemuan", "/contact"],
-      ["Services", "الخدمات", "Perkhidmatan", "/services"],
-      ["Pricing", "الأسعار", "Harga", "/pricing"],
-      ["Partnership & support", "الشراكة والدعم", "Perkongsian & sokongan", "/partnership"],
-      ["Agreement", "الاتفاقية", "Perjanjian", "/agreement"],
-      ["Book with a deposit", "احجز بعربون", "Tempah dengan deposit", "/book"],
-      ["Privacy policy", "سياسة الخصوصية", "Dasar privasi", "/privacy"],
+      ["Book a discovery call", "احجز مكالمة استكشافية", "/contact"],
+      ["Services", "الخدمات", "/services"],
+      ["Pricing", "الأسعار", "/pricing"],
+      ["Partnership & support", "الشراكة والدعم", "/partnership"],
+      ["Agreement", "الاتفاقية", "/agreement"],
+      ["Book with a deposit", "احجز بعربون", "/book"],
+      ["Privacy policy", "سياسة الخصوصية", "/privacy"],
     ],
   },
   {
-    head: ["Studio", "الاستوديو", "Studio"],
+    head: ["Studio", "الاستوديو"],
     links: [
-      ["Work", "الأعمال", "Kerja", "/work"],
-      ["Process", "المنهج", "Proses", "/process"],
-      ["About", "عن الاستوديو", "Tentang", "/about"],
-      ["Writing", "مقالات", "Penulisan", "/writing"],
-      ["Reels", "ريلز", "Reel", "/reels"],
-      ["Labs", "المختبر", "Makmal", "/labs"],
+      ["Work", "الأعمال", "/work"],
+      ["Process", "المنهج", "/process"],
+      ["About", "عن الاستوديو", "/about"],
+      ["Writing", "مقالات", "/writing"],
+      ["Reels", "ريلز", "/reels"],
+      ["Labs", "المختبر", "/labs"],
     ],
   },
   {
-    head: ["Reach", "تواصل", "Hubungi"],
+    head: ["Reach", "تواصل"],
     links: [
-      ["Email", "البريد الإلكتروني", "E-mel", CONTACT_EMAIL_HREF],
-      ["WhatsApp", "واتساب", "WhatsApp", "https://wa.me/201092500454"],
-      ["LinkedIn", "LinkedIn", "LinkedIn", "https://www.linkedin.com/in/aboalazm"],
-      ["Behance", "Behance", "Behance", "https://www.behance.net/aboalazm"],
-      ["GitHub", "GitHub", "GitHub", "https://github.com/3boalazm"],
-      ["Download CV", "تحميل السيرة الذاتية", "Muat turun CV", "/cv"],
+      ["Email", "البريد الإلكتروني", CONTACT_EMAIL_HREF],
+      ["WhatsApp", "واتساب", "https://wa.me/201092500454"],
+      ["LinkedIn", "LinkedIn", "https://www.linkedin.com/in/aboalazm"],
+      ["Behance", "Behance", "https://www.behance.net/aboalazm"],
+      ["GitHub", "GitHub", "https://github.com/3boalazm"],
+      ["Download CV", "تحميل السيرة الذاتية", "/cv"],
     ],
   },
 ];
@@ -52,7 +52,7 @@ const COLUMNS: { head: [string, string, string]; links: [string, string, string,
 export function Footer() {
   const { lang } = useLang();
   const pathname = usePathname();
-  const k = lang === "ar" ? 1 : lang === "ms" ? 2 : 0;
+  const k = lang === "ar" ? 1 : 0;
 
   return (
     <footer className="x-foot ground-base">
@@ -60,17 +60,15 @@ export function Footer() {
         <div className="x-foot__grid">
           <div className="grid content-start gap-4">
             <p className="x-display" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)", lineHeight: lang === "ar" ? 1.3 : 0.95 }}>
-              {k === 1 ? "مبنية لتعمل." : k === 2 ? "Dibina untuk jalan." : "Built to run."}
+              {k === 1 ? "مبنية لتعمل." : "Built to run."}
             </p>
             <p className="max-w-[34ch] text-[15px] leading-relaxed text-[var(--color-text-secondary)]">
               {k === 1
                 ? "Aboalazm OS — استوديو للهوية والتجربة الرقمية والأنظمة، يقوده مصطفى أبوالعزم."
-                : k === 2
-                  ? "Aboalazm OS — studio jenama, digital dan sistem yang dipimpin oleh Mustafa Aboalazm."
-                  : "Aboalazm OS — a brand, digital and systems studio led by Mustafa Aboalazm."}
+                : "Aboalazm OS — a brand, digital and systems studio led by Mustafa Aboalazm."}
             </p>
             <div className="flex flex-wrap gap-2">
-              {(["en", "ar", "ms"] as const).map((locale) => (
+              {(["en", "ar"] as const).map((locale) => (
                 <Link
                   key={locale}
                   href={localeHref(pathname ?? "/", locale)}
@@ -84,7 +82,7 @@ export function Footer() {
                     fontFamily: locale === "ar" ? "var(--font-arabic)" : undefined,
                   }}
                 >
-                  {locale === "ar" ? "العربية" : locale === "ms" ? "Bahasa Melayu" : "English"}
+                  {locale === "ar" ? "العربية" : "English"}
                 </Link>
               ))}
             </div>
@@ -94,7 +92,7 @@ export function Footer() {
             <nav key={col.head[0]} aria-label={col.head[k]} className="x-foot__col">
               <p className="x-mono x-kicker mb-1">{col.head[k]}</p>
               {col.links.map((l) => {
-                const href = l[3];
+                const href = l[2];
                 const external = href.startsWith("http") || href.startsWith("mailto");
                 return (
                   <Link key={href} href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>
@@ -113,7 +111,7 @@ export function Footer() {
         <div className="x-foot__bar x-mono">
           <bdi dir="ltr">© 2026 Mustafa Aboalazm</bdi>
           <CairoClock label={k === 1 ? "العبور، القاهرة" : "Al Obour, Cairo"} />
-          <span>{k === 1 ? "تصميم وبناء الاستوديو" : k === 2 ? "Direka & dibina oleh studio" : "Designed & built by the studio"}</span>
+          <span>{k === 1 ? "تصميم وبناء الاستوديو" : "Designed & built by the studio"}</span>
         </div>
       </div>
     </footer>

@@ -2881,7 +2881,7 @@ html {
 
 /* ═══════════════ OS TRAY — the persistent control dock (bottom-end) ═══════════════
    Carries the install control (see components/pwa/pwa-install-button.tsx) and
-   the three languages side by side. Fixed, so anything else that docks to the
+   the two languages side by side. Fixed, so anything else that docks to the
    bottom edge has to clear it by --os-tray-offset rather than guessing a
    number — today that is the article back-to-top button. */
 :root {

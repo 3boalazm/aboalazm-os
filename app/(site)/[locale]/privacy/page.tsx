@@ -171,82 +171,6 @@ const POLICY: Record<Locale, PolicyCopy> = {
     contactHeading: "10. التواصل",
     contactText: "للاستفسارات المتعلقة بالخصوصية أو طلبات الاطلاع أو الحذف، تواصل مع مصطفى أبوالعزم عبر",
   },
-  ms: {
-    eyebrow: "Aboalazm OS · Undang-undang",
-    title: "Dasar Privasi",
-    intro:
-      "Dasar ini menerangkan cara maklumat dikendalikan apabila anda melawati aboalazm-os.vercel.app atau menggunakan aplikasi Android Aboalazm OS. Aplikasi Android membuka laman web yang sama sebagai Trusted Web Activity, jadi amalan yang sama terpakai.",
-    updated: "Kemas kini terakhir: 17 November 2026",
-    sections: [
-      {
-        heading: "1. Pihak yang bertanggungjawab",
-        paragraphs: [
-          "Laman dan aplikasi ini dikendalikan oleh Mustafa Aboalazm dengan nama Aboalazm OS, yang berpangkalan di Al Obour, Mesir. Untuk pertanyaan atau permintaan privasi, gunakan maklumat hubungan di hujung dasar ini.",
-          "Laman awam tidak memerlukan akaun. Aplikasi Android ialah pembungkus web untuk laman ini; ia tidak menambah profil, sistem pembayaran atau pangkalan data akaun yang berasingan.",
-        ],
-      },
-      {
-        heading: "2. Maklumat yang kami kendalikan",
-        paragraphs: ["Bergantung pada cara anda menggunakan laman, kami mungkin mengendalikan maklumat berikut:"],
-        items: [
-          "Pertanyaan projek: nama dan alamat e-mel anda serta maklumat pilihan tentang syarikat, ringkasan projek, garis masa, bajet, perkhidmatan atau pakej yang anda hantar. Bahasa halaman, laluan halaman rujukan dan label kempen terhad mungkin disertakan supaya kami dapat membalas dengan konteks.",
-          "Permintaan sumber: alamat e-mel anda dan, jika diberikan, sumber yang dipilih serta sebab umum permintaan (contohnya pembelajaran atau kerja projek).",
-          "Analitik penggunaan: laluan halaman, jenis peristiwa (seperti paparan halaman atau interaksi butang/borang), bahasa, kategori peranti umum, hos laman perujuk, label kempen terhad dan pengecam rawak untuk sesi tab pelayar semasa. Analitik pihak pertama tidak menyertakan URL penuh, rentetan pertanyaan, teks borang hubungan atau URL perujuk penuh.",
-          "Data keselamatan dan penghantaran: penyedia pengehosan dan rangkaian kami memproses maklumat teknikal permintaan, yang boleh merangkumi alamat IP dan pengepala pelayar. Aplikasi menggunakan alamat IP buat sementara untuk mengehadkan penyalahgunaan; alamat IP mentah dan rentetan ejen pengguna tidak disimpan dalam rekod analitik pihak pertama kami.",
-        ],
-      },
-      {
-        heading: "3. Cara kami menggunakan maklumat",
-        paragraphs: [
-          "Kami menggunakan maklumat untuk membalas pertanyaan projek, menyediakan sumber yang diminta, mengendalikan dan melindungi laman, memahami penggunaan secara umum, menambah baik perkhidmatan serta menyimpan rekod perniagaan atau undang-undang. Analitik bertujuan menerangkan interaksi laman, bukan mengenal pasti pelawat dengan nama.",
-        ],
-      },
-      {
-        heading: "4. Storan pelayar dan penggunaan luar talian",
-        paragraphs: [
-          "Laman mungkin menggunakan storan setempat dan storan sesi untuk mengingati pilihan paparan, pilihan khalayak yang tidak wajib, akses sumber, konteks kempen terhad, pengecam analitik sementara dan teks yang anda pilih untuk dibawa daripada ruang pertanyaan di halaman utama ke borang hubungan. Teks draf itu kekal dalam pelayar sehingga borang membacanya atau anda memadam data sesi; ciri itu tidak meletakkannya dalam URL halaman.",
-          "Aplikasi web progresif turut menggunakan service worker untuk menyimpan rangka aplikasi, fail statik serta halaman atau imej yang pernah anda buka supaya laman lebih boleh dipercayai dan sesetengah kandungan yang telah dilawati mungkin tersedia di luar talian. Anda boleh memadam data ini melalui tetapan pelayar atau storan aplikasi Android. Pilihan tertentu mungkin ditetapkan semula atau kandungan perlu dimuatkan semula.",
-        ],
-      },
-      {
-        heading: "5. Penyedia perkhidmatan dan pautan luar",
-        paragraphs: [
-          "Kami menggunakan penyedia untuk menjalankan perkhidmatan: Vercel untuk pengehosan dan Vercel Analytics, pangkalan data PostgreSQL terurus (kini Neon) untuk pertanyaan dan analitik pihak pertama, Vercel Blob untuk media laman, serta penyedia SMTP/e-mel yang dikonfigurasikan untuk pemberitahuan pertanyaan. Penyedia ini memproses maklumat bagi pihak kami untuk memberikan perkhidmatan mereka dan mungkin memproses data teknikal menurut terma mereka sendiri.",
-          "Sesetengah halaman memaut ke perkhidmatan seperti WhatsApp, rangkaian sosial, perkhidmatan tempahan atau penyedia pembayaran luar. Jika anda membuka pautan tersebut, dasar privasi dan terma penyedia berkenaan terpakai. Kami tidak menerima butiran kad pembayaran melalui borang hubungan atau permintaan sumber laman ini.",
-          "Kami tidak menjual maklumat peribadi atau menggunakan maklumat borang hubungan untuk menyasarkan iklan. Kami mungkin mendedahkan maklumat jika diwajibkan undang-undang atau untuk melindungi perkhidmatan, penggunanya atau hak kami.",
-        ],
-      },
-      {
-        heading: "6. Tempoh penyimpanan maklumat",
-        paragraphs: [
-          "Pertanyaan, rekod permintaan sumber dan analitik disimpan dalam pangkalan data laman untuk operasi perkhidmatan, susulan dan penyimpanan rekod. E-mel pemberitahuan pertanyaan juga mungkin kekal dalam peti masuk yang dikonfigurasikan dan sistem penyedia e-mel. Aplikasi pada masa ini tidak mempunyai tempoh pemadaman automatik untuk rekod ini. Kami menyimpan maklumat hanya selama munasabah diperlukan bagi tujuan tersebut atau kewajipan undang-undang, dan akan menyemak permintaan pemadaman seperti diterangkan di bawah.",
-        ],
-      },
-      {
-        heading: "7. Pemprosesan antarabangsa dan keselamatan",
-        paragraphs: [
-          "Pengendali berpangkalan di Mesir, manakala penyedia pengehosan, analitik, e-mel dan pangkalan data mungkin memproses atau menyimpan maklumat di negara lain. Pemprosesan mereka tertakluk pada perlindungan dan terma yang berkenaan.",
-          "Kami menggunakan kawalan akses, pengesahan input, had kadar permintaan dan langkah meminimumkan data yang sesuai untuk perkhidmatan kecil ini. Tiada laman web atau kaedah penghantaran boleh dijamin selamat sepenuhnya.",
-        ],
-      },
-      {
-        heading: "8. Pilihan dan permintaan privasi anda",
-        paragraphs: [
-          "Anda boleh memilih untuk tidak menghantar pertanyaan hubungan atau permintaan sumber. Anda boleh memadam storan pelayar dan data cache laman melalui tetapan pelayar atau Android; sesetengah pilihan dan ciri luar talian mungkin ditetapkan semula. Menyahpasang aplikasi Android tidak dengan sendirinya memadam rekod yang telah dihantar ke laman.",
-          "Anda boleh meminta akses kepada, pembetulan atau pemadaman maklumat yang anda hantar. Kami akan mengesahkan permintaan dan memberikan maklum balas, serta memadam maklumat apabila sesuai melainkan terdapat sebab undang-undang atau operasi yang sah untuk menyimpannya. Hak privasi berbeza mengikut lokasi.",
-        ],
-      },
-      {
-        heading: "9. Kanak-kanak dan perubahan dasar",
-        paragraphs: [
-          "Laman dan aplikasi ini tidak ditujukan kepada kanak-kanak bawah 13 tahun dan kami tidak sengaja meminta maklumat peribadi daripada mereka. Jika anda percaya kanak-kanak telah menghantar maklumat kepada kami, hubungi kami supaya kami boleh menyemak dan memadamnya apabila sesuai.",
-          "Kami mungkin mengemas kini dasar ini apabila perkhidmatan atau amalan datanya berubah. Versi terkini dan tarikh kuat kuasanya akan diterbitkan pada halaman ini.",
-        ],
-      },
-    ],
-    contactHeading: "10. Hubungi kami",
-    contactText: "Untuk pertanyaan privasi atau permintaan akses dan pemadaman, hubungi Mustafa Aboalazm di",
-  },
 };
 
 const PAGE_METADATA: Metadata = {
@@ -311,9 +235,5 @@ export async function generateMetadata({
     title: "سياسة الخصوصية — Aboalazm OS",
     description: "كيفية تعامل Aboalazm OS مع بيانات التواصل والتحليلات وتخزين المتصفح وطلبات الخصوصية على الموقع وتطبيق أندرويد.",
   };
-  const malay = {
-    title: "Dasar Privasi — Aboalazm OS",
-    description: "Cara Aboalazm OS mengendalikan maklumat hubungan, analitik penggunaan, storan pelayar dan permintaan data di laman web serta aplikasi Android.",
-  };
-  return localizedMetadata(PAGE_METADATA, locale, "/privacy", arabic, malay);
+  return localizedMetadata(PAGE_METADATA, locale, "/privacy", arabic);
 }

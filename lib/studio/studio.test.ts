@@ -38,6 +38,7 @@ const OVERVIEW = read("components/studio", "overview-view.tsx");
 const LEADS = read("components/studio", "leads-view.tsx");
 const CONTENT = read("components/studio", "content-view.tsx");
 const SYSTEM = read("components/studio", "system-view.tsx");
+const SESSIONS = read("components/studio", "sessions-view.tsx");
 const CSS = read("app/studio", "studio.css");
 const MIDDLEWARE = read("middleware.ts");
 const PAGES = [
@@ -51,7 +52,19 @@ const PAGES = [
   "manage/[collection]/[id]/page.tsx",
   "manage/globals/[slug]/page.tsx",
   "system/page.tsx",
+  "sessions/page.tsx",
 ].map((p) => read("app/studio", p));
+
+/* أي ملف تحت /app/studio يقرأ بيانات يجب أن يكون خلف الجلسة نفسها — القوائم
+   والأزرار قد تُنسى، فالحكم على الشجرة كلها لا على قائمة أسماء. */
+function studioDataFiles(dir: string, found: string[] = []): string[] {
+  for (const entry of readdirSync(path.join(root, dir))) {
+    const full = path.join(dir, entry);
+    if (statSync(path.join(root, full)).isDirectory()) studioDataFiles(full, found);
+    else if (/\.(ts|tsx)$/.test(entry)) found.push(path.join(root, full));
+  }
+  return found;
+}
 
 /* ───────────────────────────────────────────────────────────── 1 · no fake numbers */
 
@@ -68,7 +81,7 @@ test("metrics module never hardcodes a metric value", () => {
 });
 
 test("every numeric tile carries a provenance line", () => {
-  for (const [name, source] of Object.entries({ OVERVIEW, LEADS, CONTENT, SYSTEM })) {
+  for (const [name, source] of Object.entries({ OVERVIEW, LEADS, CONTENT, SYSTEM, SESSIONS })) {
     // Count tiles that open, and provenance props supplied to them.
     const tiles = source.match(/<Tile\b/g) ?? [];
     const withProvenance = source.match(/<Tile\b[\s\S]*?provenance=/g) ?? [];
@@ -118,7 +131,7 @@ test("studio auth reuses the Payload session and has no second store", () => {
   assert.match(AUTH, /payload\.auth\(\{\s*headers/i, "must authenticate through Payload's own auth()");
   assert.match(AUTH, /redirect\(`\/studio\/login\?redirect=/);
 
-  const all = Object.values({ AUTH, SHELL, OVERVIEW, LEADS, CONTENT, SYSTEM, ...PAGES }).join("\n");
+  const all = Object.values({ AUTH, SHELL, OVERVIEW, LEADS, CONTENT, SYSTEM, SESSIONS, ...PAGES }).join("\n");
   // No console-local password handling, no bcrypt, no own user table.
   assert.equal(/bcrypt|argon2|scrypt|new Map<string, .*password/i.test(all), false, "no second credential store");
   assert.equal(/process\.env\.STUDIO_PASSWORD|STUDIO_SECRET/i.test(all), false, "no console-only secret");
@@ -138,6 +151,32 @@ test("every studio page requires a user before reading data", () => {
   }
 });
 
+test("every studio file that reads Payload sits behind the session", () => {
+  let checked = 0;
+  for (const file of studioDataFiles("app/studio")) {
+    const source = readFileSync(file, "utf8");
+    if (!/await getPayload\(\)/.test(source)) continue;
+    checked += 1;
+    const rel = path.relative(root, file).split(path.sep).join("/");
+    assert.match(source, /requireStudioUser\(|getStudioUser\(\)/, `${rel}: reads Payload without resolving the operator`);
+    const guard = Math.max(source.indexOf("requireStudioUser("), source.indexOf("await getStudioUser()"));
+    assert.ok(guard > -1 && guard < source.indexOf("await getPayload()"), `${rel}: the auth guard runs after the payload instance`);
+  }
+  assert.ok(checked >= PAGES.length, `expected to audit every studio data file, checked ${checked}`);
+});
+
+test("studio writes go through Payload access control, never around it", () => {
+  /* اللوحة تكتب attendance/followUp/notes؛ التجاوز كان سيمنح أي طلب وصولًا
+     أوسع من صاحب الجلسة. */
+  const actions = read("app/studio/sessions", "actions.ts");
+  const writes = [...actions.matchAll(/payload\.(create|update|delete)\(/g)];
+  assert.ok(writes.length > 0, "expected the board to write");
+  assert.match(actions, /overrideAccess:\s*false/, "every write must enforce access control");
+  assert.equal(/overrideAccess:\s*true/.test(actions), false, "no bypass on the write path");
+  assert.match(actions, /getStudioUser\(\)/, "a write requires an operator");
+  assert.match(actions, /optionValuesOf|FOLLOWUP_OPTIONS|ATTENDANCE_OPTIONS/, "written values must come from the same option lists as the form");
+});
+
 test("studio routes are excluded from locale rewriting", () => {
   // Without this, /studio → /en/studio → 404. It was a real bug.
   assert.match(MIDDLEWARE, /path === "\/studio" \|\| path\.startsWith\("\/studio\/"\)/);
@@ -150,11 +189,14 @@ test("studio routes are excluded from locale rewriting", () => {
 
 test("empty states are real and explain themselves", () => {
   // The brief requires a genuine empty and error state per screen.
-  for (const [name, source] of Object.entries({ OVERVIEW, LEADS, SYSTEM })) {
+  for (const [name, source] of Object.entries({ OVERVIEW, LEADS, SYSTEM, SESSIONS })) {
     assert.match(source, /EmptyState/, `${name} has no empty state`);
   }
+  /* لوحة السيشن تُقرأ قبل الصعود إلى المنصة: لو لم تُعرض الأرقام بلا صفوف،
+     فصفحة فارغة ستبدو كسيشن بلا الحضور. */
+  assert.match(SESSIONS, /لا توجد تسجيلات بعد/);
   // No placeholder copy from a mock-up.
-  const all = Object.values({ OVERVIEW, LEADS, CONTENT, SYSTEM }).join("\n");
+  const all = Object.values({ OVERVIEW, LEADS, CONTENT, SYSTEM, SESSIONS }).join("\n");
   for (const junk of ["Lorem ipsum", "1234 visitors", "coming soon", "TODO"]) {
     assert.equal(all.toLowerCase().includes(junk.toLowerCase()), false, `placeholder copy found: ${junk}`);
   }
@@ -204,8 +246,6 @@ test("the console does not ship the marketing site's providers", () => {
 /* ──────────────────────────────────────────────────────────── 5 · language drift guard */
 
 test("Messages.locale covers every live LOCALES entry", () => {
-  // Finding #2 in docs/studio/03_SCHEMA_FINDINGS.md: Malay went live while the
-  // select still offered only en/ar, so a Malay enquiry could not be saved.
   const messages = read("collections", "Messages.ts");
   const localeField = messages.slice(messages.indexOf('name: "locale"'), messages.indexOf('name: "locale"') + 400);
   for (const locale of LOCALES) {

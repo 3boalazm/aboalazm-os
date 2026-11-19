@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { WritingView } from "./writing-view";
 import { getPosts } from "@/lib/content";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 
 const pageMetadata: Metadata = {

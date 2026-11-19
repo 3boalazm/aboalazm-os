@@ -9,11 +9,9 @@
  * installable app shipped and then had no visible door. /developer kept the
  * inline card, which nobody visits to install an app.
  *
- * The tray is also where the system's LANGUAGES live. The header switch is a
- * blind EN → AR → MS cycle: two of the three languages are only discoverable
- * by pressing it repeatedly, so Malay — the newest locale, and the one this
- * studio's Malaysia positioning is written for — was effectively invisible.
- * Here all three are named, in their own script, always.
+ * The tray is also where the system's LANGUAGES live. The header switch
+ * cycles through them blindly, so both are named here, in their own script,
+ * always.
  *
  * Two behaviours keep it from becoming page furniture:
  *   · it hides while you read downward and returns the moment you scroll up
@@ -39,7 +37,7 @@ import { LOCALES, localeHref, type Locale } from "@/lib/locale";
 import { PwaInstallButton } from "@/components/pwa/pwa-install-button";
 import { joinClasses } from "@/lib/utils";
 
-/* The three languages. `short` is the visible chip and stays Latin on
+/* The two languages. `short` is the visible chip and stays Latin on
    purpose: a حرف in a Latin stack would make every English page download the
    42 KB Arabic subset just for the tray, and the same trap already forced the
    header switch to draw its ع as a path. `name` is the native name used for
@@ -48,7 +46,6 @@ import { joinClasses } from "@/lib/utils";
 const LANGUAGES: Record<Locale, { name: string; short: string }> = {
   en: { name: "English", short: "EN" },
   ar: { name: "العربية", short: "AR" },
-  ms: { name: "Bahasa Melayu", short: "MS" },
 };
 
 export function OsTray() {
@@ -108,7 +105,7 @@ export function OsTray() {
          <main>, and unlabelled content outside a landmark is skipped by
          screen-reader region navigation. */
       role="region"
-      aria-label={ar ? "اللغة وتثبيت التطبيق" : lang === "ms" ? "Bahasa dan pemasangan apl" : "Language and app install"}
+      aria-label={ar ? "اللغة وتثبيت التطبيق" : "Language and app install"}
       data-hidden={hidden || terminalOpen ? "true" : "false"}
       /* z-index lives in .os-tray (globals.css): it has to rise above the
          article's z-40 back-to-top button when the help card is open, and no
@@ -124,11 +121,11 @@ export function OsTray() {
         <PwaInstallButton variant="docked" />
 
         {/* Language — a real segmented control, so the system reads as
-            trilingual at a glance instead of hiding two thirds of itself
+            bilingual at a glance instead of hiding two thirds of itself
             behind one cycle button in the header. */}
         <div
           role="group"
-          aria-label={ar ? "اختر اللغة" : lang === "ms" ? "Pilih bahasa" : "Choose language"}
+          aria-label={ar ? "اختر اللغة" : "Choose language"}
           className="flex items-center"
         >
           {LOCALES.map((locale) => {

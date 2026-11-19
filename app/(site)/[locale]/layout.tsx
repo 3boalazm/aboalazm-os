@@ -38,7 +38,7 @@ const baseMetadata: Metadata = {
     template: "%s · Mustafa Aboalazm",
   },
   description:
-    "Mustafa Aboalazm — senior brand identity designer in Egypt, open to roles in Malaysia and the Gulf. Bilingual Arabic / English identity systems, brand guidelines and strategy for MENA and Southeast Asian brands.",
+    "Mustafa Aboalazm — senior brand identity designer in Egypt, open to roles in the Gulf. Bilingual Arabic / English identity systems, brand guidelines and strategy for MENA brands.",
   applicationName: "Mustafa Aboalazm",
   authors: [{ name: "Mustafa Aboalazm", url: SITE_URL }],
   creator: "Mustafa Aboalazm",
@@ -90,7 +90,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const titles = {
     ar: { default: "مصطفى أبوالعزم — تصميم الهوية البصرية والمواقع", template: "%s · مصطفى أبوالعزم" },
-    ms: { default: "Mustafa Aboalazm — Reka Bentuk Identiti Jenama & Web", template: "%s · Mustafa Aboalazm" },
     en: { default: "Mustafa Aboalazm — Brand Identity & Web Design", template: "%s · Mustafa Aboalazm" },
   } as const;
   return { ...baseMetadata, title: titles[locale] };

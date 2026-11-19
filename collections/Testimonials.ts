@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateSiteAfterChange, revalidateSiteAfterDelete } from "@/lib/revalidate";
 
 export const Testimonials: CollectionConfig = {
   slug: "testimonials",
@@ -11,6 +12,10 @@ export const Testimonials: CollectionConfig = {
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    afterChange: [revalidateSiteAfterChange],
+    afterDelete: [revalidateSiteAfterDelete],
   },
   fields: [
     {

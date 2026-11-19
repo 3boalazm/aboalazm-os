@@ -6,7 +6,7 @@
  * Numbers (only the documented ones: practice since 2017, 20+ clients and
  * organizations, five years of identity stewardship at Nile Pharma Food),
  * the founder-led studio model (STUDIO_MODEL, shared with /about), and the
- * three authored languages, each set in its own face.
+ * two authored languages, each set in its own face.
  */
 import Image from "next/image";
 import type { CSSProperties } from "react";
@@ -16,10 +16,9 @@ import { LOCALES, localeHref, type Locale } from "@/lib/locale";
 import { Chapter, useX } from "./shared";
 
 /* Each specimen is pinned to its own face, independent of page direction. */
-const SCRIPTS: { locale: Locale; native: string; font: string; reach: [string, string, string] }[] = [
-  { locale: "en", native: "English", font: '"GC EPICPRO", Georgia, serif', reach: ["International clients & hiring teams", "العملاء الدوليون وفرق التوظيف", "Klien antarabangsa & pasukan pengambilan"] },
-  { locale: "ar", native: "العربية", font: '"Thmanyah Serif Display", "IBM Plex Sans Arabic", sans-serif', reach: ["Egypt, the Gulf, Arabic-first brands", "مصر والخليج، وعلامات تبدأ من العربية", "Mesir, Teluk, jenama Arab"] },
-  { locale: "ms", native: "Bahasa Melayu", font: '"Montserrat", system-ui, sans-serif', reach: ["Malaysia — where the studio is heading", "ماليزيا — وجهة الاستوديو القادمة", "Malaysia — hala tuju studio"] },
+const SCRIPTS: { locale: Locale; native: string; font: string; reach: [string, string] }[] = [
+  { locale: "en", native: "English", font: '"GC EPICPRO", Georgia, serif', reach: ["International clients & hiring teams", "العملاء الدوليون وفرق التوظيف"] },
+  { locale: "ar", native: "العربية", font: '"Thmanyah Serif Display", "IBM Plex Sans Arabic", sans-serif', reach: ["Egypt, the Gulf, Arabic-first brands", "مصر والخليج، وعلامات تبدأ من العربية"] },
 ];
 
 const span = (n: number) => ({ "--span": n }) as CSSProperties;
@@ -27,16 +26,16 @@ const span = (n: number) => ({ "--span": n }) as CSSProperties;
 export function Proof() {
   const { lang, ar, t } = useX();
   const model = ar ? STUDIO_MODEL.ar : STUDIO_MODEL.en;
-  const k = lang === "ar" ? 1 : lang === "ms" ? 2 : 0;
+  const k = lang === "ar" ? 1 : 0;
 
   return (
     <section id="studio" className="x-room x-iris ground-base">
       <Chapter
         n="05"
-        kicker={t("Proof & studio", "الخبرة والاستوديو", "Bukti & studio")}
+        kicker={t("Proof & studio", "الخبرة والاستوديو")}
         title={
           <>
-            {t("Who you are", "مع من", "Siapa yang")} <span className="x-accent">{t("buying.", "تتعاقد.", "anda pilih.")}</span>
+            {t("Who you are", "مع من")} <span className="x-accent">{t("buying.", "تتعاقد.")}</span>
           </>
         }
         lead={model.lead}
@@ -45,11 +44,11 @@ export function Proof() {
       <div className="x-wrap">
         <div className="x-bento">
           <div className="x-tile x-tile--orange x-tile--half x-rise max-lg:order-[-2]" style={span(4)}>
-            <p className="x-mono">{t("Practice", "الممارسة", "Amalan")}</p>
+            <p className="x-mono">{t("Practice", "الممارسة")}</p>
             <div>
               <p className="x-big">9<sup>+</sup></p>
-              <p className="x-tile__label">{t("years of professional practice", "سنوات من الممارسة المهنية", "tahun amalan profesional")}</p>
-              <p className="x-tile__text">{t("Since July 2017.", "منذ يوليو 2017.", "Sejak Julai 2017.")}</p>
+              <p className="x-tile__label">{t("years of professional practice", "سنوات من الممارسة المهنية")}</p>
+              <p className="x-tile__text">{t("Since July 2017.", "منذ يوليو 2017.")}</p>
             </div>
           </div>
 
@@ -69,11 +68,11 @@ export function Proof() {
 
           {/* Phone: pulled up beside the orange tile so the two halves pair. */}
           <div className="x-tile x-tile--half x-rise max-lg:order-[-1]" style={span(4)}>
-            <p className="x-mono x-kicker">{t("Clients", "العملاء", "Klien")}</p>
+            <p className="x-mono x-kicker">{t("Clients", "العملاء")}</p>
             <div>
               <p className="x-big">20<sup>+</sup></p>
-              <p className="x-tile__label">{t("clients & organizations", "عميل ومؤسسة", "klien & organisasi")}</p>
-              <p className="x-tile__text">{t("Pharma, food, education, government and more.", "الدواء والغذاء والتعليم والقطاع الحكومي وغيرها.", "Farmasi, makanan, pendidikan, kerajaan dan lain-lain.")}</p>
+              <p className="x-tile__label">{t("clients & organizations", "عميل ومؤسسة")}</p>
+              <p className="x-tile__text">{t("Pharma, food, education, government and more.", "الدواء والغذاء والتعليم والقطاع الحكومي وغيرها.")}</p>
             </div>
           </div>
 
@@ -81,10 +80,10 @@ export function Proof() {
             <p className="x-mono x-kicker">Nile Pharma Food · 2020–25</p>
             <div>
               <p className="x-big" style={{ fontSize: "clamp(3rem, 6vw, 6rem)" }}>
-                5{t("Y", " سنوات", "T")}
+                5{t("Y", " سنوات")}
               </p>
-              <p className="x-tile__label">{t("of identity stewardship", "من رعاية الهوية", "pengurusan identiti")}</p>
-              <p className="x-tile__text">{t("Rebrand, packaging and campaign systems, kept consistent for five years.", "إعادة هيكلة الهوية والتغليف وأنظمة الحملات، مع الحفاظ على اتساقها خمس سنوات.", "Penjenamaan semula, pembungkusan dan sistem kempen, konsisten selama lima tahun.")}</p>
+              <p className="x-tile__label">{t("of identity stewardship", "من رعاية الهوية")}</p>
+              <p className="x-tile__text">{t("Rebrand, packaging and campaign systems, kept consistent for five years.", "إعادة هيكلة الهوية والتغليف وأنظمة الحملات، مع الحفاظ على اتساقها خمس سنوات.")}</p>
             </div>
           </div>
 
@@ -94,11 +93,11 @@ export function Proof() {
             <p className="x-mono text-[var(--color-text-tertiary)]">{model.points[2][0]}</p>
           </div>
 
-          {/* Three scripts, one system — each a real link to that locale. */}
+          {/* Two scripts, one system — each a real link to that locale. */}
           <div className="x-tile x-rise" style={span(8)}>
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <p className="x-mono x-kicker">{t(`System languages · ${LOCALES.length} installed`, `لغات النظام (${LOCALES.length})`, `Bahasa sistem · ${LOCALES.length} dipasang`)}</p>
-              <p className="x-mono text-[var(--color-text-tertiary)]">{t("Same page, same URL", "الصفحة نفسها والرابط نفسه", "Halaman sama, URL sama")}</p>
+              <p className="x-mono x-kicker">{t(`System languages · ${LOCALES.length} installed`, `لغات النظام (${LOCALES.length})`)}</p>
+              <p className="x-mono text-[var(--color-text-tertiary)]">{t("Same page, same URL", "الصفحة نفسها والرابط نفسه")}</p>
             </div>
             <div className="x-scripts">
               {SCRIPTS.map((s) => (

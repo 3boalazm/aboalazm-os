@@ -8,7 +8,7 @@ test("Arabic gets the leftwards arrow, which points the way an RTL line reads", 
   assert.equal(yearLabel("2017 → 2026", true), "2017 ← 2026");
 });
 
-test("English and Malay keep the rightwards arrow", () => {
+test("English keeps the rightwards arrow", () => {
   assert.equal(yearLabel("2024 →", false), "2024 →");
   assert.equal(yearLabel("2017 → 2026", false), "2017 → 2026");
 });
