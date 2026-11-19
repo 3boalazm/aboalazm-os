@@ -36,7 +36,7 @@ export interface FieldOption {
   hint?: Bi;
 }
 
-export type FieldType = "text" | "email" | "url" | "select" | "radio" | "textarea" | "file";
+export type FieldType = "text" | "email" | "url" | "select" | "radio" | "multi" | "textarea" | "file";
 
 export interface FieldDef {
   /** The Payload field name — this string is the form input name, the FormData key, the DB column's source name. */
@@ -50,7 +50,7 @@ export interface FieldDef {
   maxLength?: number;
   autoComplete?: string;
   options?: FieldOption[];
-  /** radio: "stack" reads as a ladder (levels), "grid" as a choice board (goals). */
+  /** radio/multi: "stack" reads as a ladder (levels), "grid" as a choice board (goals). */
   layout?: "stack" | "grid";
   /** file inputs only: accepted mime types, shown in the help line. */
   accept?: string;
@@ -257,12 +257,16 @@ export const FIELD_GROUPS: readonly FieldGroup[] = [
     id: "goals",
     index: "03",
     title: { ar: "أهدافك المهنية", en: "What you want out of it" },
-    note: { ar: "اختار هدف واحد: السيشن بيتبنى على الهدف الأكتر تكرارًا في المجموعة.", en: "Pick one: the session is shaped around the goal this cohort repeats most." },
+    note: { ar: "اختار كل هدف ينطبق عليك: السيشن بيتبنى على أكتر هدف متكرر في المجموعة.", en: "Choose every goal that fits you — the session is built around what this cohort repeats most." },
     fields: [
       {
-        name: "goal",
-        type: "radio",
-        label: { ar: "إيه أهم هدف عايز تحققه من استخدام LinkedIn؟", en: "What is the most important goal you want to reach with LinkedIn?" },
+        /* Multiple, not single: a third-year who wants an internship AND a
+           stronger network is not choosing between them, and forcing it makes
+           the chart lie about the room. The stored answer is the set. */
+        name: "goals",
+        type: "multi",
+        label: { ar: "إيه الأهداف اللي عايز تحققها من استخدام LinkedIn؟", en: "Which goals do you want to reach with LinkedIn?" },
+        help: { ar: "تقدر تختار أكتر من هدف.", en: "Choose every one that fits you." },
         required: true,
         options: GOALS,
         layout: "grid",

@@ -19,7 +19,7 @@ const valid = {
   college: "حاسبات ومعلومات — نظم معلومات",
   yearOfStudy: "year-3",
   linkedinStatus: "inactive",
-  goal: "internship",
+  goals: ["internship"],
 };
 
 function ok(input: Record<string, unknown>) {
@@ -37,14 +37,14 @@ test("a minimal valid submission is accepted, trimmed and lower-cased where it m
   assert.equal(data.college, "حاسبات ومعلومات — نظم معلومات");
   assert.equal(data.yearOfStudy, "year-3");
   assert.equal(data.linkedinStatus, "inactive");
-  assert.equal(data.goal, "internship");
+  assert.deepEqual(data.goals, ["internship"]);
   for (const optional of ["university", "linkedinUrl", "appliedBefore", "cvStatus", "interestArea", "biggestChallenge", "questionForSession"]) {
     assert.equal(data[optional as keyof typeof data], undefined, `${optional} must stay absent, not become an empty string`);
   }
 });
 
 test("each missing required question is reported on that question", () => {
-  for (const name of ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goal"]) {
+  for (const name of ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goals"]) {
     const input = { ...valid };
     delete (input as Record<string, unknown>)[name];
     const res = validateRegistration(input);
@@ -73,7 +73,7 @@ test("a select only accepts a value its enum contains", () => {
   for (const [field, bad] of [
     ["yearOfStudy", "year-99"],
     ["linkedinStatus", "expert"],
-    ["goal", "world-peace"],
+    ["goals", "world-peace"],
   ] as const) {
     const res = validateRegistration({ ...valid, [field]: bad });
     assert.equal(res.ok, false, `${field}: "${bad}" would break the Postgres enum`);
@@ -82,6 +82,31 @@ test("a select only accepts a value its enum contains", () => {
   }
   /* Optional selects may be skipped, never invented. */
   assert.equal(validateRegistration({ ...valid, cvStatus: "great" }).ok, false);
+});
+
+test("the goals question accepts a set: de-duplicated, in the questionnaire's order", () => {
+  /* FormData repeats the key once per checked box; a hand-built request may
+     also send one value or a JSON-ish mess. */
+  assert.deepEqual(ok({ ...valid, goals: ["networking", "internship"] }).goals, ["internship", "networking"]);
+  assert.deepEqual(ok({ ...valid, goals: ["explore", "explore", " freelance " ] }).goals, ["freelance", "explore"]);
+  assert.deepEqual(ok({ ...valid, goals: "freelance" }).goals, ["freelance"], "a single value is still one answer");
+
+  const unknown = validateRegistration({ ...valid, goals: ["internship", "crypto-wealth"] });
+  assert.equal(unknown.ok, false);
+  if (!unknown.ok) assert.equal(unknown.fields.goals, "invalid_option");
+
+  for (const skipped of [undefined, "", [], ["  "]]) {
+    const res = validateRegistration({ ...valid, goals: skipped });
+    assert.equal(res.ok, false, `${JSON.stringify(skipped)} is not an answer to a required question`);
+    if (!res.ok) assert.equal(res.fields.goals, "required");
+  }
+  /* Padding inside the set is noise, not a second answer — a browser never
+     sends it, and refusing a real submission over one empty entry is worse
+     than ignoring it. */
+  assert.deepEqual(ok({ ...valid, goals: ["internship", ""] }).goals, ["internship"]);
+  for (const junk of [[{}], 42, ["internship", 7]]) {
+    assert.equal(validateRegistration({ ...valid, goals: junk }).ok, false, `${JSON.stringify(junk)} must be refused`);
+  }
 });
 
 test("email must be an address, not merely a string with @", () => {

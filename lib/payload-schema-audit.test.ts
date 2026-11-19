@@ -129,13 +129,15 @@ test("a snapshot only differs from its predecessor by what its migration changes
   ]);
 });
 
-test("the session-registrations snapshot adds exactly its two tables and seven enums", () => {
+test("the session-registrations snapshot adds exactly its three tables and six enums", () => {
   /* 20261119_130000_session_registrations creates the pre-session assessment
      store (collections/SessionRegistrations.ts + SessionFiles.ts). Pinned the
-     same way as every other migration: the snapshot may add the two tables,
-     the seven select enums the collection declares, and the two
-     locked-documents relations — nothing else. Written by hand, so a typo here
-     is a broken release gate; this test is what catches it without a database. */
+     same way as every other migration: the snapshot may add the registration
+     table, its `session_registrations_texts` table for the multi-answer
+     `goals` field (Payload gives every hasMany text field one), the CV upload
+     table, the six select enums, and the two locked-documents relations —
+     nothing else. Written by hand, so a typo here is a broken release gate;
+     this test is what catches it without a database. */
   const names = snapshotNames();
   const newest = names[names.length - 1] as string;
   assert.equal(
@@ -147,14 +149,15 @@ test("the session-registrations snapshot adds exactly its two tables and seven e
   const previous = readSnapshot("20261112_100000_analytics_events");
   const current = readSnapshot(newest);
 
-  const addedTables = Object.keys(current.tables).filter((key) => !(key in previous.tables));
-  assert.deepEqual(addedTables, ["public.session_files", "public.session_registrations"]);
+  const addedTables = Object.keys(current.tables)
+    .filter((key) => !(key in previous.tables))
+    .sort();
+  assert.deepEqual(addedTables, ["public.session_files", "public.session_registrations", "public.session_registrations_texts"]);
   assert.deepEqual(Object.keys(previous.tables).filter((key) => !(key in current.tables)), []);
 
   const expectedEnums = [
     "enum_session_registrations_year_of_study",
     "enum_session_registrations_linkedin_status",
-    "enum_session_registrations_goal",
     "enum_session_registrations_applied_before",
     "enum_session_registrations_cv_status",
     "enum_session_registrations_follow_up",
@@ -172,14 +175,19 @@ test("the session-registrations snapshot adds exactly its two tables and seven e
   }
   /* The enum vocabulary is generated from the questionnaire, so a value the
      form can send but the database cannot store is a write-time failure. */
-  assert.deepEqual(current.enums["public.enum_session_registrations_goal"]?.values, [
-    "internship",
-    "job-ready",
-    "networking",
-    "personal-brand",
-    "freelance",
-    "explore",
-  ]);
+  assert.equal(
+    current.enums["public.enum_session_registrations_goal"],
+    undefined,
+    "goals is a multi-answer stored in session_registrations_texts — it must not have an enum column",
+  );
+  const texts = current.tables["public.session_registrations_texts"] as unknown as
+    | { columns: Record<string, { notNull?: boolean }>; foreignKeys: Record<string, { onDelete?: string }> }
+    | undefined;
+  assert.ok(texts, "session_registrations_texts must exist in the snapshot — Payload gives every hasMany text field one");
+  assert.deepEqual(Object.keys(texts.columns), ["id", "order", "parent_id", "path", "text"]);
+  assert.equal(texts.columns.parent_id?.notNull, true);
+  assert.deepEqual(Object.keys(texts.foreignKeys), ["session_registrations_texts_parent_fk"]);
+  assert.equal(texts.foreignKeys.session_registrations_texts_parent_fk?.onDelete, "cascade", "deleting a registration must delete its chosen goals");
   assert.deepEqual(current.enums["public.enum_session_registrations_linkedin_status"]?.values, [
     "active",
     "inactive",

@@ -124,8 +124,16 @@ is the order of the decision: four counts, then who is in the room
 | Open answers | rows with at least one free-text answer | `biggestChallenge` / `questionForSession` |
 | What to cover | open answers grouped by typed text, with names | `answerLines()` — **not** a sentiment model |
 | Distributions | one bar per option of a coded field, blanks under «لم يُجب» | `distribution()` over `GROUPED_SELECTS` |
+| Goals | one bar per *chosen* goal — a person may hold several, so the bars sum past the cohort while each `pct` stays a share of it | `distribution()` over `GROUPED_MULTI` (`session_registrations_texts`) |
 | Faculties / interests | free text, top 8 plus a folded remainder | `GROUPED_TEXTS`, `limit = 8` |
 | The list | every row, newest first, searchable | `session-registrations` |
+
+`goals` is a multi-answer (`type: "text", hasMany: true`), not a single
+required choice: a third-year who wants an internship *and* a stronger network
+is not choosing between them, and forcing it would draw a chart that lies about
+the room. The vocabulary still comes from `features/linkedin-session/assessment.ts`
+— `validate.ts` refuses any value outside the list, and it is the only write
+path — so the set is coded even though the column is text.
 
 What it does not claim: it never scores a person, never infers a level from
 prose, and never counts an answer that was not given — a blank is drawn as

@@ -28,7 +28,8 @@ export interface SessionRegistrationRow {
   interestArea?: string | null;
   linkedinStatus?: string | null;
   linkedinUrl?: string | null;
-  goal?: string | null;
+  /** A set: one person may hold several goals, so charts count choices. */
+  goals?: string[] | null;
   appliedBefore?: string | null;
   cvStatus?: string | null;
   cvFile?: number | string | { id: number; url?: string | null; filename?: string | null } | null;
@@ -44,7 +45,9 @@ export interface SessionRegistrationRow {
 }
 
 /** الحقول التي تملك قائمة خيارات في assessment.ts فتُجمع بأسمائها العربية. */
-export const GROUPED_SELECTS = ["yearOfStudy", "linkedinStatus", "goal", "cvStatus", "appliedBefore", "attendance", "followUp"] as const;
+export const GROUPED_SELECTS = ["yearOfStudy", "linkedinStatus", "cvStatus", "appliedBefore", "attendance", "followUp"] as const;
+/** حقول hasMany: إجابة واحدة لصفوف متعددة، والصف قد يختار أكثر من قيمة. */
+export const GROUPED_MULTI = ["goals"] as const;
 /** حقلان نصيان حُرّان يحتاجان تجميعًا بالنص نفسه. */
 export const GROUPED_TEXTS = ["college", "interestArea"] as const;
 
@@ -110,14 +113,27 @@ function labelFor(field: string, key: string): string {
   return key;
 }
 
+/**
+ * One bar per value. For a multi-answer field a row contributes to every bar
+ * it chose, so `pct` reads as "share of the cohort that picked this" and the
+ * bars may sum past 100 — that is the honest shape of "اختر كل ما ينطبق"،
+ * وأفضل من توزيع قسري لهدف واحد على إنسان عنده هدفان.
+ */
 function distribution(rows: SessionRegistrationRow[], field: keyof SessionRegistrationRow, limit?: number): Dist[] {
   const total = Math.max(1, rows.length);
+  const multi = (GROUPED_MULTI as readonly string[]).includes(String(field));
   const counts = new Map<string, number>();
   for (const row of rows) {
     const raw = row[field];
     /* الأرقام والفراغ counted as "لم يُجب": a chart must add up to the cohort. */
-    const key = typeof raw === "string" ? raw.trim() : "";
-    counts.set(key, (counts.get(key) ?? 0) + 1);
+    const keys = multi
+      ? Array.isArray(raw)
+        ? raw.filter((v): v is string => typeof v === "string" && v.trim() !== "").map((v) => v.trim())
+        : []
+      : [typeof raw === "string" ? raw.trim() : ""];
+    for (const key of keys.length ? keys : [""]) {
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
   }
   const list = [...counts.entries()]
     .map(([key, value]) => ({ key, label: labelFor(String(field), key), value, pct: Math.round((value / total) * 100) }))
@@ -186,6 +202,7 @@ export function buildSessionReport(rows: SessionRegistrationRow[]): SessionRepor
 
   const dists: Record<string, Dist[]> = {};
   for (const field of GROUPED_SELECTS) dists[field] = distribution(rows, field);
+  for (const field of GROUPED_MULTI) dists[field] = distribution(rows, field);
   for (const field of GROUPED_TEXTS) dists[field] = distribution(rows, field, 8);
 
   return {
@@ -216,7 +233,7 @@ export const CSV_COLUMNS = [
   "yearOfStudy",
   "linkedinStatus",
   "linkedinUrl",
-  "goal",
+  "goals",
   "appliedBefore",
   "cvStatus",
   "hasCvFile",
@@ -244,6 +261,8 @@ export function registrationCsv(rows: SessionRegistrationRow[]): string {
     CSV_COLUMNS.map((column) => {
       if (column === "hasCvFile") return csvCell(row.cvFile != null && row.cvFile !== "" ? "yes" : "no");
       const value = row[column as keyof SessionRegistrationRow];
+      /* A set becomes one cell with "; " — a spreadsheet cell is not a list. */
+      if (Array.isArray(value)) return csvCell(value.join("; "));
       return csvCell(typeof value === "object" ? null : value);
     }).join(","),
   );

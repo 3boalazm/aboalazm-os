@@ -36,10 +36,10 @@ const COPY = {
       "If half the room has no account, the first 20 minutes are building a profile properly. If everyone is active, we talk about network and value instead. Without asking, we would be guessing.",
     ],
     [
-      "هدف واحد كفاية",
-      "One goal is enough",
-      "تدريب، وظيفة، فري لانس، أو اسم معروف — كل هدف ليه مسار مختلف على المنصة. بنركّز على الهدف الأكثر تكرارًا عندكم.",
-      "Internship, a job, freelance, or a name people recognise — each needs a different route on the platform. We go deep on the goal this cohort repeats most.",
+      "كل أهدافك مهملة",
+      "Every goal you have counts",
+      "تدريب، وظيفة، فري لانس، أو اسم معروف — كل هدف ليه مسار مختلف على المنصة. اختار كل اللي ينطبق عليك، وإحنا بنركّز على الأكتر تكرارًا عندكم ومش بنخلي الباقي من غير إجابة.",
+      "Internship, a job, freelance, or a name people recognise — each needs a different route on the platform. Pick all that fit you: we go deep on what this cohort repeats most and still answer the rest.",
     ],
     [
       "أسئلتك هي الأجندة",

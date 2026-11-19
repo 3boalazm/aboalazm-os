@@ -41,7 +41,8 @@ export interface RegistrationData {
   yearOfStudy: string;
   linkedinStatus: string;
   linkedinUrl?: string;
-  goal: string;
+  /** Coded values from GOALS, de-duplicated and in the questionnaire's order. */
+  goals: string[];
   appliedBefore?: string;
   cvStatus?: string;
   interestArea?: string;
@@ -101,6 +102,27 @@ function isBlank(value: unknown): boolean {
  * "إجابة غير صالحة", and a value outside the list is what breaks a Postgres
  * enum at write time.
  */
+/**
+ * A multi-answer arrives as one value or many — FormData repeats the key per
+ * checked box, and a hand-built request can send either. Every entry must be a
+ * known option; the stored set is de-duplicated and put back in the order the
+ * questionnaire lists them, so a person re-submitting the same choices twice
+ * writes the same array (otherwise "which goals" diffs look like edits).
+ */
+function multiSelect(value: unknown, name: string): string[] | null {
+  const entries = Array.isArray(value) ? value : value === undefined || value === null ? [] : [value];
+  const allowed = optionValuesOf(name);
+  const chosen = new Set<string>();
+  for (const entry of entries) {
+    if (typeof entry !== "string") return null;
+    const v = entry.trim();
+    if (!v) continue;
+    if (!allowed.includes(v)) return null;
+    chosen.add(v);
+  }
+  return [...allowed.filter((v) => chosen.has(v))];
+}
+
 function select(value: unknown, name: string, required: boolean): string | undefined | null {
   if (value === undefined || value === null) return required ? null : undefined;
   if (typeof value !== "string") return null;
@@ -184,8 +206,9 @@ export function validateRegistration(input: unknown, cv?: CvFileInfo | null): Re
   const linkedinStatus = select(raw.linkedinStatus, "linkedinStatus", true);
   if (linkedinStatus === null) fields.linkedinStatus = isBlank(raw.linkedinStatus) ? "required" : "invalid_option";
 
-  const goal = select(raw.goal, "goal", true);
-  if (goal === null) fields.goal = isBlank(raw.goal) ? "required" : "invalid_option";
+  const goals = multiSelect(raw.goals, "goals");
+  if (goals === null) fields.goals = "invalid_option";
+  else if (goals.length === 0) fields.goals = "required";
 
   const university = optionalLine(raw.university, UNIVERSITY_MAX);
   if (university === null) fields.university = "too_long";
@@ -233,7 +256,7 @@ export function validateRegistration(input: unknown, cv?: CvFileInfo | null): Re
       yearOfStudy: yearOfStudy!,
       linkedinStatus: linkedinStatus!,
       linkedinUrl,
-      goal: goal!,
+      goals: goals!,
       appliedBefore: appliedBefore ?? undefined,
       cvStatus: cvStatus ?? undefined,
       interestArea: interestArea ?? undefined,

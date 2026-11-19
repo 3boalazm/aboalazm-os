@@ -573,7 +573,7 @@ export interface SessionRegistration {
    * Normalised to https://www.linkedin.com/in/<handle> with the query string dropped.
    */
   linkedinUrl?: string | null;
-  goal: 'internship' | 'job-ready' | 'networking' | 'personal-brand' | 'freelance' | 'explore';
+  goals: string[];
   appliedBefore?: ('often' | 'tried' | 'never') | null;
   cvStatus?: ('ready' | 'needs-work' | 'not-started') | null;
   /**
@@ -1034,7 +1034,7 @@ export interface SessionRegistrationsSelect<T extends boolean = true> {
   interestArea?: T;
   linkedinStatus?: T;
   linkedinUrl?: T;
-  goal?: T;
+  goals?: T;
   appliedBefore?: T;
   cvStatus?: T;
   cvFile?: T;

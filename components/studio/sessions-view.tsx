@@ -24,7 +24,7 @@ import { saveRegistrationDetails, setAttendance } from "@/app/studio/sessions/ac
 const FIELD_TITLES: Record<string, string> = {
   yearOfStudy: "السنة الدراسية",
   linkedinStatus: "مستوى LinkedIn",
-  goal: "الهدف المهني",
+  goals: "الأهداف المهنية",
   cvStatus: "حالة الـ CV",
   appliedBefore: "خبرة التقديم",
   attendance: "الحضور",
@@ -65,7 +65,7 @@ export function SessionsView({
   }, [rows, query]);
 
   const selected = rows.find((r) => String(r.id) === String(selectedId)) ?? null;
-  const goalDist = report.dists.goal ?? [];
+  const goalDist = report.dists.goals ?? [];
   const levelDist = report.dists.linkedinStatus ?? [];
   const topGoal = goalDist.find((d) => d.key !== "") ?? null;
   const biggestFriction = report.challenges[0]?.text ?? null;
@@ -228,13 +228,13 @@ export function SessionsView({
             span="w4"
             title={<b>خلاصة الغرفة</b>}
             variant="invert"
-            provenance={<>أعلى قيمة في <code>dists.goal</code> وأول سطر في <code>challenges</code></>}
+            provenance={<>أعلى قيمة في <code>dists.goals</code> وأول سطر في <code>challenges</code></>}
           >
             <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
               <p className="studio-sub" style={{ margin: 0 }}>
                 الهدف الأكثر تكرارًا:{" "}
                 <strong style={{ color: "var(--s-ink)" }}>{topGoal ? topGoal.label : "غير محسوم"}</strong>
-                {topGoal ? ` (${num(topGoal.pct)}٪)` : ""}
+                {topGoal ? ` — ${num(topGoal.value)} من ${num(report.total)} المسجلين` : ""}
               </p>
               <p className="studio-sub" style={{ margin: 0 }}>
                 أكثر مستوى: <strong style={{ color: "var(--s-ink)" }}>{levelDist[0]?.label ?? "—"}</strong>
@@ -245,15 +245,29 @@ export function SessionsView({
             </div>
           </Tile>
 
-          {(["college", "yearOfStudy", "linkedinStatus", "goal", "cvStatus", "appliedBefore"] as const).map((field) => (
+          {(["college", "yearOfStudy", "linkedinStatus", "goals", "cvStatus", "appliedBefore"] as const).map((field) => (
             <Tile
               key={field}
               span={field === "college" ? "w8" : "w4"}
               title={<b>{FIELD_TITLES[field]}</b>}
-              aside={<span className="studio-tiny">{num((report.dists[field] ?? []).length)} قيمة</span>}
+              aside={
+                <span className="studio-tiny">
+                  {field === "goals" ? "شخص قد يختار أكثر من هدف" : `${num((report.dists[field] ?? []).length)} قيمة`}
+                </span>
+              }
               provenance={
                 <>
-                  تجميع على عمود <code>{snake(field)}</code>{/college|interest/.test(field) ? " (نص حر، بلا قائمة)" : " (enum مشتق من assessment.ts)"} · {shortTime(report.asOf)}
+                  {field === "goals" ? (
+                    <>
+                      تجميع على <code>session_registrations_texts</code> حيث <code>path = 'goals'</code> — كل شريط عدد من اختاروه، والنسبة لكل شريط من كل المسجلين، فمجموع الأشرطة ممكن يزيد على ١٠٠٪
+                    </>
+                  ) : (
+                    <>
+                      تجميع على عمود <code>{snake(field)}</code>
+                      {/college|interest/.test(field) ? " (نص حر، بلا قائمة)" : " (enum مشتق من assessment.ts)"}
+                    </>
+                  )}{" "}
+                  · {shortTime(report.asOf)}
                 </>
               }
             >
@@ -331,7 +345,17 @@ export function SessionsView({
                         <td>
                           <Chip tone={levelTone(row.linkedinStatus)}>{optionLabel("linkedinStatus", row.linkedinStatus)}</Chip>
                         </td>
-                        <td style={{ fontSize: 13 }}>{optionLabel("goal", row.goal)}</td>
+                        <td style={{ fontSize: 13 }}>
+                          {row.goals && row.goals.length > 0 ? (
+                            <span style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                              {row.goals.map((goal) => (
+                                <Chip key={goal}>{optionLabel("goals", goal)}</Chip>
+                              ))}
+                            </span>
+                          ) : (
+                            "—"
+                          )}
+                        </td>
                         <td>
                           {row.cvFile ? (
                             <Chip tone="ok" icon="check">
@@ -459,7 +483,7 @@ function RegistrationDetail({
     ["الجامعة", row.university || "—"],
     ["مستوى LinkedIn", optionLabel("linkedinStatus", row.linkedinStatus)],
     ["رابط البروفايل", row.linkedinUrl || "—"],
-    ["الهدف", optionLabel("goal", row.goal)],
+    ["الأهداف", row.goals && row.goals.length > 0 ? row.goals.map((goal) => optionLabel("goals", goal)).join(" · ") : "—"],
     ["تقديم سابق", optionLabel("appliedBefore", row.appliedBefore)],
     ["حالة الـ CV", optionLabel("cvStatus", row.cvStatus)],
     ["المجال المطلوب", row.interestArea || "—"],

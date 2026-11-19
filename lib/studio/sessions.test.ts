@@ -42,9 +42,9 @@ test("an empty cohort reports zeros, not NaN and not a crash", () => {
 
 test("every registrant is counted exactly once in every chart", () => {
   const rows = [
-    row({ yearOfStudy: "year-3", linkedinStatus: "active", goal: "internship", cvStatus: "ready", appliedBefore: "never", attendance: "registered", followUp: "new", college: "الحاسبات" }),
-    row({ yearOfStudy: "year-1", linkedinStatus: "none", goal: "job-ready", cvStatus: "not-started", attendance: "registered", followUp: "reviewed", college: "التجارة" }),
-    row({ fullName: "منى", linkedinStatus: "incomplete", goal: "networking", college: "الآداب", followUp: "replied" }),
+    row({ yearOfStudy: "year-3", linkedinStatus: "active", goals: ["internship", "networking"], cvStatus: "ready", appliedBefore: "never", attendance: "registered", followUp: "new", college: "الحاسبات" }),
+    row({ yearOfStudy: "year-1", linkedinStatus: "none", goals: ["job-ready"], cvStatus: "not-started", attendance: "registered", followUp: "reviewed", college: "التجارة" }),
+    row({ fullName: "منى", linkedinStatus: "incomplete", goals: ["networking", "personal-brand", "freelance"], college: "الآداب", followUp: "replied" }),
     /* لم يُجب عن كل شيء اختياري — يجب أن يظهر تحت "لم يُجب" لا أن يسقط. */
     row({ fullName: "مهملة", college: undefined, interestArea: "  " }),
   ];
@@ -56,6 +56,15 @@ test("every registrant is counted exactly once in every chart", () => {
     const sum = list.reduce((n, d) => n + d.value, 0);
     assert.equal(sum, rows.length, `${field}: a chart that does not add up to the cohort hides people`);
   }
+  /* goals is a set: a bar counts the people who chose it, so the bars add up to
+     the number of choices, not to the cohort — and nobody disappears. */
+  const goalBars = report.dists.goals ?? [];
+  const answers = goalBars.filter((d) => d.key !== "");
+  assert.equal(answers.reduce((n, d) => n + d.value, 0), 6, "each of the six chosen goals must be counted once");
+  assert.equal(goalBars.find((d) => d.key === "")?.value, 1, "the row that chose nothing is still on the chart");
+  assert.equal(goalBars.find((d) => d.key === "networking")?.value, 2);
+  assert.equal(goalBars.find((d) => d.key === "networking")?.pct, 50, "the percentage is of the whole cohort — two of four, not two of three");
+  assert.deepEqual((report.dists.goals ?? []).map((d) => d.key).sort(), ["", "freelance", "internship", "job-ready", "networking", "personal-brand"], "every chosen value plus the unanswered row");
 
   const statuses = report.dists.linkedinStatus ?? [];
   const blank = statuses.find((d) => d.key === "");
@@ -69,8 +78,8 @@ test("every registrant is counted exactly once in every chart", () => {
 });
 
 test("percentages are of the whole cohort, so two charts can be read together", () => {
-  const rows = Array.from({ length: 4 }, (_, i) => row({ goal: i < 3 ? "internship" : "freelance" }));
-  const dist = buildSessionReport(rows).dists.goal ?? [];
+  const rows = Array.from({ length: 4 }, (_, i) => row({ goals: i < 3 ? ["internship"] : ["freelance"] }));
+  const dist = buildSessionReport(rows).dists.goals ?? [];
   assert.equal(dist.find((d) => d.key === "internship")?.pct, 75);
   assert.equal(dist.find((d) => d.key === "freelance")?.pct, 25);
   assert.equal(dist.reduce((n, d) => n + d.pct, 0), 100);
@@ -119,11 +128,20 @@ test("the CV figure counts the stored file, not the answer about it", () => {
   assert.equal(report.unreviewed, 3, "a missing followUp stage means nobody has looked at it yet");
 });
 
-test("the CSV escapes what Excel would eat and guards what it would run", () => {
+test("a row that chose nothing still shows up in the goals chart, as unanswered", () => {
+  const report = buildSessionReport([row({ goals: ["internship"] }), row({ goals: [] }), row({})]);
+  const bars = report.dists.goals ?? [];
+  assert.equal(bars.find((d) => d.key === "")?.value, 2, "both the empty array and the absent value are unanswered");
+  assert.equal(bars.find((d) => d.key === "")?.label, UNANSWERED.ar);
+  assert.equal(bars.reduce((n, d) => n + d.value, 0), 3, "the chart still accounts for every row");
+});
+
+test("the CSV flattens a set into one cell and guards what it would run", () => {
   const rows = [
     row({
       fullName: 'أحمد, "الصف الأول"\nمكرر',
       email: "a@b.co",
+      goals: ["internship", "explore"],
       college: "=HYPERLINK(\"http://evil.test\")",
       biggestChallenge: "+15 سببًا كررتها كل كلية",
       cvFile: { id: 9, url: "/cv.pdf", filename: "cv.pdf" },
@@ -136,6 +154,7 @@ test("the CSV escapes what Excel would eat and guards what it would run", () => 
   assert.ok(line.includes('"أحمد, ""الصف الأول"" مكرر"'), `newlines and quotes must be quoted and doubled: ${line}`);
   assert.ok(line.includes("'=HYPERLINK"), "a leading = must not become a formula");
   assert.ok(line.includes("'+15"), "a leading + must not become a formula");
+  assert.ok(line.includes("internship; explore"), `a set becomes one cell: ${line}`);
   assert.ok(line.includes(",yes,"), "the file column reports presence, never a raw object");
   assert.equal(line.includes("[object Object]"), false);
   assert.equal(registrationCsv([]).split("\r\n").length, 1, "an empty cohort still exports a header row");

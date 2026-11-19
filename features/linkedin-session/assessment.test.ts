@@ -33,7 +33,7 @@ test("the questions the session cannot be planned without are the required ones"
      والهدف المهني أساسية، ورابط LinkedIn ورفع الـ CV اختياريان. */
   assert.deepEqual(
     ALL_FIELDS.filter((f) => f.required).map((f) => f.name),
-    ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goal"],
+    ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goals"],
   );
   for (const optional of ["linkedinUrl", "cvFile", "university", "appliedBefore", "cvStatus", "interestArea", "biggestChallenge", "questionForSession"]) {
     const field = ALL_FIELDS.find((f) => f.name === optional);
@@ -42,9 +42,9 @@ test("the questions the session cannot be planned without are the required ones"
   }
 });
 
-test("every select and radio field offers at least two coded answers, and values are unique", () => {
+test("every select, radio and multi field offers at least two coded answers, and values are unique", () => {
   for (const field of ALL_FIELDS) {
-    if (field.type !== "select" && field.type !== "radio") continue;
+    if (field.type !== "select" && field.type !== "radio" && field.type !== "multi") continue;
     const values = optionValuesOf(field.name);
     assert.ok(values.length >= 2, `${field.name} must offer real choices`);
     assert.equal(new Set(values).size, values.length, `${field.name} repeats an option value`);
@@ -92,6 +92,23 @@ test("the CV rule the form advertises is the rule the server applies", () => {
   assert.ok(fileField?.accept?.includes("pdf"), "the CV picker must accept PDF");
   assert.equal(fileField?.maxBytes, CV_MAX_BYTES);
   assert.match(formSource, /accept="\.pdf,application\/pdf"/, "the input's accept must match the field definition");
+});
+
+test("a multi-answer is stored as a set, not squeezed into one enum value", () => {
+  const collectionSource = readFileSync(path.join(root, "collections/SessionRegistrations.ts"), "utf8");
+  for (const field of ALL_FIELDS.filter((f) => f.type === "multi")) {
+    const at = collectionSource.indexOf(`name: "${field.name}"`);
+    assert.ok(at > -1, `${field.name} must exist in the collection`);
+    const window = collectionSource.slice(at, at + 200);
+    assert.match(window, /type: "text"/, `${field.name} must be text hasMany, not a single select`);
+    assert.match(window, /hasMany: true/, `${field.name} must be hasMany`);
+    assert.equal(window.includes(`payloadOptions("${field.name}")`), false, `${field.name} has no enum column — the vocabulary is enforced in validate.ts`);
+    /* Every option the form can send must be accepted by the validator, which
+       reads the same list; a stale allowlist here would drop a real answer. */
+    for (const option of field.options ?? []) {
+      assert.ok(optionValuesOf(field.name).includes(option.value), `${field.name}.${option.value} is unreachable for validation`);
+    }
+  }
 });
 
 test("session keys are unique, and the default is one of them", () => {

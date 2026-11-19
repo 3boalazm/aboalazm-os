@@ -66,7 +66,15 @@ function readForm(formData: FormData): { raw: Record<string, unknown>; file: Fil
   const raw: Record<string, unknown> = {};
   for (const [key, value] of formData.entries()) {
     if (key === "cvFile") continue;
-    raw[key] = typeof value === "string" ? value : "";
+    const next = typeof value === "string" ? value : "";
+    /* A checkbox group sends the same key once per answer: keep every one, as
+       an array. Single-value fields never repeat a key, so they stay strings. */
+    if (key in raw) {
+      const seen = raw[key];
+      raw[key] = Array.isArray(seen) ? [...seen, next] : [seen, next];
+    } else {
+      raw[key] = next;
+    }
   }
   const chosen = formData.get("cvFile");
   return { raw, file: chosen instanceof File && chosen.size > 0 ? chosen : null };
@@ -98,7 +106,7 @@ function notifyAnswers(data: RegistrationData, hasCv: boolean, sessionKey: strin
     "Year of study": optionLabel("yearOfStudy", data.yearOfStudy, "en"),
     "LinkedIn level": optionLabel("linkedinStatus", data.linkedinStatus, "en"),
     Profile: data.linkedinUrl ?? "",
-    Goal: optionLabel("goal", data.goal, "en"),
+    Goals: data.goals.map((g) => optionLabel("goals", g, "en")).join(", "),
     "Applied before": optionLabel("appliedBefore", data.appliedBefore, "en"),
     CV: hasCv ? "attached" : optionLabel("cvStatus", data.cvStatus, "en"),
     Interest: data.interestArea ?? "",

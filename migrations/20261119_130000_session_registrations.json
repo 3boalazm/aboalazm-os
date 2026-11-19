@@ -6530,13 +6530,6 @@
           "primaryKey": false,
           "notNull": false
         },
-        "goal": {
-          "name": "goal",
-          "type": "enum_session_registrations_goal",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true
-        },
         "applied_before": {
           "name": "applied_before",
           "type": "enum_session_registrations_applied_before",
@@ -6666,21 +6659,6 @@
           "method": "btree",
           "with": {}
         },
-        "session_registrations_goal_idx": {
-          "name": "session_registrations_goal_idx",
-          "columns": [
-            {
-              "expression": "goal",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        },
         "session_registrations_cv_status_idx": {
           "name": "session_registrations_cv_status_idx",
           "columns": [
@@ -6799,6 +6777,85 @@
             "id"
           ],
           "onDelete": "set null",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.session_registrations_texts": {
+      "name": "session_registrations_texts",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "path": {
+          "name": "path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "text": {
+          "name": "text",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "session_registrations_texts_order_parent": {
+          "name": "session_registrations_texts_order_parent",
+          "columns": [
+            {
+              "expression": "order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "session_registrations_texts_parent_fk": {
+          "name": "session_registrations_texts_parent_fk",
+          "tableFrom": "session_registrations_texts",
+          "tableTo": "session_registrations",
+          "columnsFrom": [
+            "parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -6962,8 +7019,8 @@
       "schema": "public",
       "values": [
         "< $1K",
-        "$1–3K",
-        "$3–8K",
+        "$1\u20133K",
+        "$3\u20138K",
         "$8K+"
       ]
     },
@@ -7041,18 +7098,6 @@
         "inactive",
         "incomplete",
         "none"
-      ]
-    },
-    "public.enum_session_registrations_goal": {
-      "name": "enum_session_registrations_goal",
-      "schema": "public",
-      "values": [
-        "internship",
-        "job-ready",
-        "networking",
-        "personal-brand",
-        "freelance",
-        "explore"
       ]
     },
     "public.enum_session_registrations_applied_before": {

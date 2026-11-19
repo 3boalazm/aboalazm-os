@@ -360,12 +360,13 @@ function FieldControl({
   const helpId = `${field.name}-help`;
   const describedBy = [error ? errorId : null, field.help ? helpId : null].filter(Boolean).join(" ") || undefined;
   const inputId = `${field.name}-input`;
-  const isRadio = field.type === "radio";
-  /* A radio question owns a fieldset, so its wrapper must not be a <label>. */
-  const Wrapper = isRadio ? "div" : "label";
+  /* radio and multi both own a fieldset of option cards, so the wrapper must
+     not be a <label> (one label cannot point at four controls). */
+  const isChoice = field.type === "radio" || field.type === "multi";
+  const Wrapper = isChoice ? "div" : "label";
 
   return (
-    <Wrapper className="flex flex-col gap-1" {...(isRadio ? {} : { htmlFor: inputId })}>
+    <Wrapper className="flex flex-col gap-1" {...(isChoice ? {} : { htmlFor: inputId })}>
       <span className={LABEL}>
         {t(field.label)}
         {!field.required ? <span className="text-text-ghost"> · {t({ ar: "اختياري", en: "optional" })}</span> : null}
@@ -419,16 +420,18 @@ function FieldControl({
         </select>
       ) : null}
 
-      {isRadio ? (
+      {isChoice ? (
         <fieldset className={`flex flex-col gap-1 border-0 p-0 ${field.layout === "grid" ? "sm:grid sm:grid-cols-2 sm:gap-1" : ""}`}>
           <legend className="sr-only">{t(field.label)}</legend>
           {(field.options ?? []).map((option) => (
             <label key={option.value} htmlFor={`${field.name}-${option.value}`} className={OPTION_CARD}>
               <input
-                type="radio"
+                type={field.type === "multi" ? "checkbox" : "radio"}
                 id={`${field.name}-${option.value}`}
                 name={field.name}
                 value={option.value}
+                /* required on every box of the group is how HTML asks for "at
+                   least one" — which is exactly a required multi answer. */
                 required={field.required}
                 aria-describedby={describedBy}
                 className="mt-0.5 accent-[var(--color-accent)]"

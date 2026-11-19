@@ -27,7 +27,6 @@ import { sql } from "@payloadcms/db-postgres";
 const ENUMS: Record<string, string[]> = {
   enum_session_registrations_year_of_study: ["year-1", "year-2", "year-3", "year-4", "year-5", "postgraduate", "fresh-grad", "other"],
   enum_session_registrations_linkedin_status: ["active", "inactive", "incomplete", "none"],
-  enum_session_registrations_goal: ["internship", "job-ready", "networking", "personal-brand", "freelance", "explore"],
   enum_session_registrations_applied_before: ["often", "tried", "never"],
   enum_session_registrations_cv_status: ["ready", "needs-work", "not-started"],
   enum_session_registrations_follow_up: ["new", "reviewed", "replied", "closed"],
@@ -64,6 +63,19 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     );
   `);
 
+  /* `goals` (text hasMany) lives here, one row per chosen goal — the shape
+     Payload's own schema builder gives every repeatable text field:
+     (order, parent_id, path, text). */
+  await db.execute(sql`
+    CREATE TABLE IF NOT EXISTS "session_registrations_texts" (
+      "id" serial PRIMARY KEY NOT NULL,
+      "order" integer NOT NULL,
+      "parent_id" integer NOT NULL,
+      "path" varchar NOT NULL,
+      "text" varchar
+    );
+  `);
+
   await db.execute(sql`
     CREATE TABLE IF NOT EXISTS "session_registrations" (
       "id" serial PRIMARY KEY NOT NULL,
@@ -75,7 +87,6 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
       "interest_area" varchar,
       "linkedin_status" "public"."enum_session_registrations_linkedin_status" NOT NULL,
       "linkedin_url" varchar,
-      "goal" "public"."enum_session_registrations_goal" NOT NULL,
       "applied_before" "public"."enum_session_registrations_applied_before",
       "cv_status" "public"."enum_session_registrations_cv_status",
       "cv_file_id" integer,
@@ -102,7 +113,6 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     `CREATE INDEX IF NOT EXISTS "session_registrations_college_idx" ON "session_registrations" USING btree ("college")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_year_of_study_idx" ON "session_registrations" USING btree ("year_of_study")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_linkedin_status_idx" ON "session_registrations" USING btree ("linkedin_status")`,
-    `CREATE INDEX IF NOT EXISTS "session_registrations_goal_idx" ON "session_registrations" USING btree ("goal")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_cv_status_idx" ON "session_registrations" USING btree ("cv_status")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_cv_file_idx" ON "session_registrations" USING btree ("cv_file_id")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_follow_up_idx" ON "session_registrations" USING btree ("follow_up")`,
@@ -110,6 +120,8 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     `CREATE INDEX IF NOT EXISTS "session_registrations_session_key_idx" ON "session_registrations" USING btree ("session_key")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_updated_at_idx" ON "session_registrations" USING btree ("updated_at")`,
     `CREATE INDEX IF NOT EXISTS "session_registrations_created_at_idx" ON "session_registrations" USING btree ("created_at")`,
+    `CREATE INDEX IF NOT EXISTS "session_registrations_texts_order_parent" ON "session_registrations_texts" USING btree ("order", "parent_id")`,
+    `ALTER TABLE "session_registrations_texts" ADD CONSTRAINT "session_registrations_texts_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."session_registrations"("id") ON DELETE cascade ON UPDATE no action`,
     `ALTER TABLE "session_registrations" ADD CONSTRAINT "session_registrations_cv_file_id_session_files_id_fk" FOREIGN KEY ("cv_file_id") REFERENCES "public"."session_files"("id") ON DELETE set null ON UPDATE no action`,
     /* Payload adds every collection to the locked-documents join table. */
     `ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "session_registrations_id" integer`,
@@ -137,6 +149,8 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.execute(sql`ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "session_registrations_id"`);
   await db.execute(sql`ALTER TABLE "payload_locked_documents_rels" DROP COLUMN IF EXISTS "session_files_id"`);
 
+  await db.execute(sql`ALTER TABLE "session_registrations_texts" DROP CONSTRAINT IF EXISTS "session_registrations_texts_parent_fk"`);
+  await db.execute(sql`DROP TABLE IF EXISTS "session_registrations_texts"`);
   await db.execute(sql`ALTER TABLE "session_registrations" DROP CONSTRAINT IF EXISTS "session_registrations_cv_file_id_session_files_id_fk"`);
   await db.execute(sql`DROP TABLE IF EXISTS "session_registrations"`);
   await db.execute(sql`DROP TABLE IF EXISTS "session_files"`);

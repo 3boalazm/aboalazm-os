@@ -18,7 +18,9 @@ import {
  * *coded fields*, not one JSON blob, so the Studio console (/studio/sessions)
  * can count them: which faculties showed up, how many arrive without an
  * account, which goal dominates the room, and what to answer first. Free-text
- * questions stay free text — they are read, not counted.
+ * questions stay free text — they are read, not counted. A question that allows
+ * several answers (goals) is stored as a set, so the chart counts choices, not
+ * people, and says so.
  *
  * WRITE PATH: only features/linkedin-session/actions.ts, through Payload's
  * Local API. REST/GraphQL create is closed below, which keeps the rate limit,
@@ -35,7 +37,7 @@ export const SessionRegistrations: CollectionConfig = {
     useAsTitle: "fullName",
     description:
       "Pre-session assessment answers. Filter by session, then use the follow-up and attendance fields to work the list before and after the room.",
-    defaultColumns: ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goal", "followUp", "createdAt"],
+    defaultColumns: ["fullName", "email", "college", "yearOfStudy", "linkedinStatus", "goals", "followUp", "createdAt"],
     listSearchableFields: ["fullName", "email", "college", "university", "interestArea"],
   },
   access: {
@@ -115,7 +117,12 @@ export const SessionRegistrations: CollectionConfig = {
     {
       type: "row",
       fields: [
-        { name: "goal", type: "select", required: true, index: true, options: payloadOptions("goal"), admin: { width: "50%" } },
+        /* `text hasMany`, not `select hasMany`, on purpose: the vocabulary is
+           still the list in assessment.ts (validate.ts refuses anything else —
+           the only write path), but it lands in `session_registrations_texts`
+           as one row per chosen goal, which is countable in SQL and does not
+           depend on an enum type Payload would name on its own. */
+        { name: "goals", type: "text", required: true, hasMany: true, maxRows: 6, admin: { width: "50%" } },
         { name: "appliedBefore", type: "select", options: payloadOptions("appliedBefore"), admin: { width: "50%" } },
       ],
     },
