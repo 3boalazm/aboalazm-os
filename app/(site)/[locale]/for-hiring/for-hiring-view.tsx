@@ -276,7 +276,7 @@ export function ForHiringView() {
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="live" size="md">
             <span className="size-2 rounded-pill bg-success animate-pulse" />
-            {ar ? "متاح للتوظيف | ماليزيا أو الخليج أو عن بُعد" : "AVAILABLE | GULF OR REMOTE"}
+            {ar ? "متاح للتوظيف | الخليج أو عن بُعد" : "AVAILABLE | GULF OR REMOTE"}
           </Badge>
           <span className="font-mono text-micro uppercase tracking-wider text-text-ghost">
             {ar ? "ملف المرشح لفرق التوظيف" : "CANDIDATE DOSSIER // FOR HIRING TEAMS"}
@@ -360,7 +360,7 @@ export function ForHiringView() {
           [ar ? "سنوات الممارسة" : "PRACTICE EXPERIENCE", "9+ Years", "2017–2026"],
           [ar ? "أنظمة هوية مُسلَّمة" : "IDENTITY SYSTEMS SHIPPED", "20+ Clients", ar ? "الصحة والدواء والغذاء والتعليم والحكومة" : "Healthcare, pharma, education, government"],
           [ar ? "إتقان اللغتين" : "BILINGUAL MASTERY", "Arabic + Latin", ar ? "تكافؤ طباعي أصيل" : "Native typographic parity"],
-          [ar ? "الموقع والجاهزية" : "LOCATION & STATUS", ar ? "Malaysia / Gulf / Remote" : "Gulf / Remote", ar ? "جاهز للانتقال (ماليزيا أو السعودية أو الإمارات أو قطر) أو للعمل عن بُعد" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
+          [ar ? "الموقع والجاهزية" : "LOCATION & STATUS", "Gulf / Remote", ar ? "جاهز للانتقال (السعودية أو الإمارات أو قطر) أو للعمل عن بُعد" : "Open to relocation (Saudi Arabia, UAE, Qatar) or remote"],
         ].map(([label, val, sub]) => (
           <div key={label} className="flex min-w-0 flex-col gap-1 rounded-card border border-border-subtle bg-surface-1 p-3 sm:p-4">
             <dt className="font-mono text-micro uppercase tracking-wider text-text-ghost [overflow-wrap:anywhere]">{label}</dt>
@@ -569,8 +569,8 @@ export function ForHiringView() {
           </h2>
           <p className="text-body-sm text-text-secondary">
             {ar
-              ? "متاح لمقابلة أولية ولمراجعة ملف الأعمال لوظيفة مصمم هوية بصرية أول (في ماليزيا أو الخليج أو عن بُعد). الرد خلال يومَي عمل."
-              : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions across Malaysia, the Gulf or remote. Typically replies within two working days."}
+              ? "متاح لمقابلة أولية ولمراجعة ملف الأعمال لوظيفة مصمم هوية بصرية أول (في الخليج أو عن بُعد). الرد خلال يومَي عمل."
+              : "Available for intro calls and portfolio reviews for Senior Brand Identity Designer positions across the Gulf or remote. Typically replies within two working days."}
           </p>
         </div>
 

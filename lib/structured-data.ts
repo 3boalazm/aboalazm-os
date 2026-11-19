@@ -66,7 +66,7 @@ function organizationNode() {
       "Business systems and automation",
       "Design systems and brand governance",
     ],
-    areaServed: ["MY", "EG", "SA", "AE", "QA", "KW", "BH", "OM"],
+    areaServed: ["EG", "SA", "AE", "QA", "KW", "BH", "OM"],
     sameAs: [
       "https://www.behance.net/aboalazm",
       "https://www.linkedin.com/in/aboalazm",

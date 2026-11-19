@@ -44,15 +44,15 @@ const TIMELINE = {
 
 const FACTS = {
   en: [
-    ["CURRENT STATUS", "Taking on selected brand identity projects | Malaysia / Gulf / Remote"],
-    ["BASED", "Al Obour, Egypt — open to Malaysia, the Gulf & remote"],
+    ["CURRENT STATUS", "Taking on selected brand identity projects | Gulf / Remote"],
+    ["BASED", "Al Obour, Egypt — open to the Gulf & remote"],
     ["LANGUAGES", "Arabic (Native) · English (Full professional)"],
     ["EDUCATION", "B.Sc. — Al-Azhar University · 2017–2024"],
     ["TRAINING", "MSP · Youth Scope · AYB · Bedaya · Resalah"],
   ],
   ar: [
-    ["الوضع الحالي", "أستقبل مشاريع مختارة في الهوية البصرية | ماليزيا / الخليج / عن بُعد"],
-    ["المقر", "العبور، مصر · منفتح على ماليزيا والخليج والعمل عن بُعد"],
+    ["الوضع الحالي", "أستقبل مشاريع مختارة في الهوية البصرية | الخليج / عن بُعد"],
+    ["المقر", "العبور، مصر · منفتح على الخليج والعمل عن بُعد"],
     ["اللغات", "العربية (لغة أم) · الإنجليزية (احترافية كاملة)"],
     ["التعليم", "بكالوريوس العلوم، جامعة الأزهر · 2017–2024"],
     ["التدريب", "MSP · يوث سكوب · AYB · بداية · رسالة"],
