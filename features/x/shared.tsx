@@ -10,9 +10,9 @@ import { useLang } from "@/components/providers/lang-provider";
 export function useX() {
   const { lang } = useLang();
   const ar = lang === "ar";
-  /** Pick a string for the current locale. Malay falls back to English. */
+  /** Pick a string for the current locale. */
   const t = React.useCallback(
-    (en: string, arabic: string, ms?: string) => (lang === "ar" ? arabic : lang === "ms" ? (ms ?? en) : en),
+    (en: string, arabic: string) => (lang === "ar" ? arabic : en),
     [lang],
   );
   return { lang, ar, t };

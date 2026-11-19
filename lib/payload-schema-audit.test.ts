@@ -261,10 +261,11 @@ test("the session migration SQL creates exactly what its snapshot describes", ()
   }
 });
 
-test("the newest snapshot and the Messages select agree with every live locale", () => {
-  /* If the enum snapshot still said en/ar, a correctly migrated database would
-     fail the release. If the select offered a value the enum lacks, an editor
-     picking it would hit a database error. Both directions are pinned here. */
+test("the Messages select offers exactly the live locales, all of which the newest enum accepts", () => {
+  /* The database enum keeps the legacy 'ms' value (historical rows may hold it;
+     Postgres cannot drop enum values in place), so the enum may be a superset
+     of the editor's options. Every option must still be a value the enum
+     accepts, and the options must be exactly the live locales. */
   const names = snapshotNames();
   const newest = readSnapshot(names[names.length - 1] as string);
   const messagesLocale = Object.values(newest.enums).find((e) => e.name === "enum_messages_locale");
@@ -273,8 +274,10 @@ test("the newest snapshot and the Messages select agree with every live locale",
 
   const select = readFileSync(path.join(root, "collections/Messages.ts"), "utf8");
   const field = select.slice(select.indexOf('name: "locale"'));
-  for (const value of messagesLocale.values) {
-    assert.ok(field.includes(`value: "${value}"`), `Messages.locale select is missing "${value}"`);
+  const offered = [...field.slice(0, field.indexOf("admin:")).matchAll(/value: "(\w+)"/g)].map((m) => m[1]);
+  assert.deepEqual(offered, ["en", "ar"], "Messages.locale must offer exactly the live locales");
+  for (const value of offered) {
+    assert.ok(messagesLocale.values.includes(value), `Messages.locale offers "${value}" which the enum lacks`);
   }
 });
 

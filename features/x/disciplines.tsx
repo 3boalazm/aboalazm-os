@@ -27,20 +27,19 @@ export function Disciplines() {
     <section id="offer" className="x-room x-iris ground-ember">
       <Chapter
         n="02"
-        kicker={t("What the studio builds", "ما يبنيه الاستوديو", "Apa yang studio bina")}
+        kicker={t("What the studio builds", "ما يبنيه الاستوديو")}
         title={
           ar ? (
             <>ثلاثة أبواب. <span className="x-accent">نظام واحد.</span></>
           ) : (
             <>
-              {t("Three doors.", "", "Tiga pintu.")} <span className="x-accent">{t("One system.", "", "Satu sistem.")}</span>
+              {t("Three doors.", "")} <span className="x-accent">{t("One system.", "")}</span>
             </>
           )
         }
         lead={t(
           "Every engagement belongs to one discipline, priced in the open. Pick the door that matches the problem — the others stay one click away.",
           "كل مشروع ينتمي إلى تخصص واحد، بسعر معلن. اختر الباب الذي يناسب مشكلتك، وتبقى الأبواب الأخرى على بُعد نقرة.",
-          "Setiap projek tergolong dalam satu disiplin, dengan harga terbuka. Pilih pintu yang sepadan dengan masalah anda.",
         )}
       />
       <div className="x-wrap">
@@ -89,7 +88,7 @@ export function Disciplines() {
                   <div className="x-gate__foot">
                     <span className="x-gate__from">{d.from[i]}</span>
                     <Link href={d.href} className="x-btn x-btn--line" tabIndex={isOpen ? 0 : -1}>
-                      {t("Open this door", "افتح هذا الباب", "Buka pintu ini")}
+                      {t("Open this door", "افتح هذا الباب")}
                       <Arrow />
                     </Link>
                   </div>

@@ -27,12 +27,6 @@ const UI = {
     label: "شبكة ثنائية اللغة",
     sub: "الشبكة نفسها والقواعد نفسها — الاتجاه ينعكس والتوازن يبقى.",
   },
-  ms: {
-    toggle_ltr: "Papar Inggeris (LTR)",
-    toggle_rtl: "Papar Arab (RTL)",
-    label: "Demo grid dwibahasa",
-    sub: "Grid yang sama, peraturan yang sama — arah bertukar, keseimbangan kekal.",
-  },
 } as const;
 
 const CARD = {
@@ -52,7 +46,7 @@ const CARD = {
 
 export function BilingualToggleTool() {
   const { lang } = useLang();
-  const ui = lang === "ar" ? UI.ar : lang === "ms" ? UI.ms : UI.en;
+  const ui = lang === "ar" ? UI.ar : UI.en;
   const [dir, setDir] = useState<"ltr" | "rtl">("ltr");
   const c = dir === "ltr" ? CARD.en : CARD.ar;
 

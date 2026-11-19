@@ -15,7 +15,7 @@
  *   · components/studio/sessions-view.tsx             → labels for the charts
  *
  * COPY: Arabic is the authored language (this audience signs up from an
- * Arabic post), English is the fallback for `/en` and `/ms`. It is deliberately
+ * Arabic post), English is the fallback for `/en`. It is deliberately
  * NOT added to lib/i18n.ts: that dictionary is the site's shared UI chrome,
  * and one campaign's questionnaire does not belong in it — same call the
  * `/book` page makes with its own local copy.

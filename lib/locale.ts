@@ -1,17 +1,17 @@
-export type Locale = "en" | "ar" | "ms";
-export const LOCALES = ["en", "ar", "ms"] as const;
+export type Locale = "en" | "ar";
+export const LOCALES = ["en", "ar"] as const;
 /** Order the header language switch cycles through. */
-export const LOCALE_CYCLE: readonly Locale[] = ["en", "ar", "ms"];
+export const LOCALE_CYCLE: readonly Locale[] = ["en", "ar"];
 /** Non-English locales carry a stable URL prefix; English keeps the bare URLs. */
-export const PREFIXED_LOCALES = ["ar", "ms"] as const;
-export const LOCALE_PATTERN = "(?:ar|ms|en)";
+export const PREFIXED_LOCALES = ["ar"] as const;
+export const LOCALE_PATTERN = "(?:ar|en)";
 export function stripLocale(path: string): string {
   return path.replace(new RegExp(`^\\/${LOCALE_PATTERN}(?=\\/|$)`), "") || "/";
 }
 export function isLocalizable(path: string): boolean {
   return path.startsWith("/") && !path.startsWith("//") && !/\.[a-z0-9]+(?:[?#]|$)/i.test(path) && !/^\/(?:api|admin|studio|_next|fonts|images|icons|showcase|cv|portfolio)(?:\/|[?#]|$)/.test(path);
 }
-/** English keeps existing URLs; Arabic (/ar) and Malay (/ms) have stable prefixes. */
+/** English keeps existing URLs; Arabic (/ar) has a stable prefix. */
 export function localeHref(href: string, locale: Locale): string {
   if (!isLocalizable(href)) return href;
   const plain = href.replace(new RegExp(`^\\/${LOCALE_PATTERN}(?=\\/|[?#]|$)`), "") || "/";
@@ -26,8 +26,7 @@ export function localeHref(href: string, locale: Locale): string {
  * for /writing/the-split-brand-ar, which the middleware — rightly, for old
  * links — sends straight back to /ar, and "English" does nothing. Returns a
  * path, or null when the page declares nothing for that language (then
- * `localeHref` is right). Malay has no translated articles of its own: it
- * reads the English twin.
+ * `localeHref` is right).
  */
 export function counterpartPath(
   alternates: ReadonlyArray<{ hreflang: string; href: string }>,
@@ -42,15 +41,9 @@ export function counterpartPath(
       return null;
     }
   };
-  const exact = pathOf(target);
-  if (exact) return exact;
-  if (target === "ms") {
-    const english = pathOf("en");
-    if (english) return localeHref(english, "ms");
-  }
-  return null;
+  return pathOf(target);
 }
-/** Text direction per locale. Malay is written in Latin script, so it is LTR. */
+/** Text direction per locale. */
 export function localeDir(locale: Locale): "rtl" | "ltr" {
   return locale === "ar" ? "rtl" : "ltr";
 }

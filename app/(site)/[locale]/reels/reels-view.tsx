@@ -43,7 +43,7 @@ export function ReelsView() {
     setOpen({ reel, at: Number.isFinite(t) && t >= 0 ? t : 0 });
   }, []);
 
-  const fmt = new Intl.DateTimeFormat(ar ? "ar-EG-u-nu-latn" : lang === "ms" ? "ms-MY" : "en-GB", {
+  const fmt = new Intl.DateTimeFormat(ar ? "ar-EG-u-nu-latn" : "en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -55,19 +55,17 @@ export function ReelsView() {
     <main className="container-content flex flex-col gap-8 pb-6">
       <header className="flex flex-col gap-3">
         <Heading
-          eyebrow={ar ? "ريلز / المنهج بالفيديو" : lang === "ms" ? "REEL / KAEDAH DALAM VIDEO" : "REELS / THE METHOD ON VIDEO"}
+          eyebrow={ar ? "ريلز / المنهج بالفيديو" : "REELS / THE METHOD ON VIDEO"}
           title={
             <>
-              {ar ? "الأنظمة التي تقف وراء العمل، " : lang === "ms" ? "Sistem di sebalik kerja, " : "The systems behind the work, "}
-              <em className="text-accent">{ar ? "في دقائق." : lang === "ms" ? "dalam beberapa minit." : "in minutes."}</em>
+              {ar ? "الأنظمة التي تقف وراء العمل، " : "The systems behind the work, "}
+              <em className="text-accent">{ar ? "في دقائق." : "in minutes."}</em>
             </>
           }
           subtitle={
             ar
               ? "ريلز قصيرة تشرح كيف نفكّر ونبني: البحث والتخطيط والتنفيذ والمراجعة، وهو المنهج نفسه الذي يُطبَّق على مشروعك."
-              : lang === "ms"
-                ? "Reel pendek tentang cara kami berfikir dan membina: penyelidikan, perancangan, pelaksanaan dan audit — kaedah yang sama untuk projek anda."
-                : "Short reels on how we think and build: research, planning, execution and audit — the same method applied to your project."
+              : "Short reels on how we think and build: research, planning, execution and audit — the same method applied to your project."
           }
           subtitleClassName="max-w-[58ch]"
         />
@@ -75,7 +73,7 @@ export function ReelsView() {
 
       {featured ? (
         <section aria-labelledby="reel-featured" className="grid grid-cols-[minmax(0,1fr)] items-start gap-4 md:grid-cols-[minmax(0,340px)_1fr] md:gap-8">
-          <ReelCard reel={featured} className="max-md:mx-auto max-md:max-w-[300px]" onOpen={() => openReel(featured)} index={ar ? "الأحدث" : lang === "ms" ? "TERKINI" : "LATEST"} />
+          <ReelCard reel={featured} className="max-md:mx-auto max-md:max-w-[300px]" onOpen={() => openReel(featured)} index={ar ? "الأحدث" : "LATEST"} />
 
           <div className="flex min-w-0 flex-col gap-3">
             <div className="flex flex-wrap items-center gap-2 font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
@@ -93,7 +91,7 @@ export function ReelsView() {
             {featured.chapters?.length ? (
               <div className="mt-1 flex flex-col gap-2">
                 <p className="font-mono text-micro uppercase tracking-[0.10em] text-text-ghost">
-                  {ar ? "الفصول" : lang === "ms" ? "BAB" : "CHAPTERS"}
+                  {ar ? "الفصول" : "CHAPTERS"}
                 </p>
                 <ol className="flex flex-col divide-y divide-border-subtle rounded-panel border border-border-subtle">
                   {featured.chapters.map((c, i) => (
@@ -142,7 +140,7 @@ export function ReelsView() {
       {rest.length > 0 ? (
         <section aria-labelledby="reels-all" className="flex flex-col gap-3">
           <h2 id="reels-all" className="font-mono text-label uppercase tracking-[0.06em] text-text-tertiary">
-            {ar ? "كل الريلز" : lang === "ms" ? "SEMUA REEL" : "ALL REELS"}
+            {ar ? "كل الريلز" : "ALL REELS"}
           </h2>
           <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:gap-4 lg:grid-cols-4">
             {rest.map((reel) => (

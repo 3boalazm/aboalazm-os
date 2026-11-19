@@ -381,7 +381,6 @@ export function MessageEditor({ initialDoc }: { initialDoc: Record<string, unkno
                   <option value="">—</option>
                   <option value="en">الإنجليزية (en)</option>
                   <option value="ar">العربية (ar)</option>
-                  <option value="ms">الماليزية (ms)</option>
                 </select>
               </div>
             </div>

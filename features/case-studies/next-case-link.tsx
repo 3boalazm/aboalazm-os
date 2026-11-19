@@ -9,7 +9,6 @@
  */
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
-import { useCaseT } from "./ms/context";
 import { Icon } from "@/components/ui/Icon";
 import { panelCardVariants } from "@/components/ui/PanelCard";
 import { trackEvent } from "@/lib/analytics";
@@ -28,9 +27,8 @@ export function NextCaseLink({
 }) {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const t = useCaseT();
   return (
-    <section className="container-wide pb-4" aria-label={ar ? "دراسة الحالة التالية" : t("Next case study")}>
+    <section className="container-wide pb-4" aria-label={ar ? "دراسة الحالة التالية" : "Next case study"}>
       <Link
         href={`/case-studies/${slug}`}
         onClick={() => trackEvent("case_study_open", { slug, surface: "next_case" })}
@@ -45,7 +43,7 @@ export function NextCaseLink({
         />
         <div className="relative z-elevated flex flex-col gap-2">
           <p className="font-mono text-micro uppercase tracking-[0.14em] text-text-tertiary">
-            {ar ? "الدراسة التالية · من الأرشيف" : t("NEXT CASE ↳ FROM THE FILES")}
+            {ar ? "الدراسة التالية · من الأرشيف" : "NEXT CASE ↳ FROM THE FILES"}
           </p>
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
             <h2 className="min-w-0 [overflow-wrap:anywhere] font-display text-[clamp(1.75rem,4vw,3rem)] font-[800] leading-[1.05] tracking-[-0.02em] text-text-primary">

@@ -64,24 +64,23 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
       className="x-work x-room ground-base"
       data-pinned={pinned}
       style={pinned ? { height: `calc(100svh + ${distance}px)` } : undefined}
-      aria-label={t("Selected work", "أعمال مختارة", "Kerja terpilih")}
+      aria-label={t("Selected work", "أعمال مختارة")}
     >
       <div className="x-work__pin">
         <motion.div ref={track} className="x-work__track" style={pinned ? { x, skewX: lean } : undefined}>
           <div className="x-slide x-slide--intro max-lg:pt-20">
             <div className="grid gap-4">
-              <p className="x-mono x-kicker">03 — {t("Selected work", "أعمال مختارة", "Kerja terpilih")}</p>
+              <p className="x-mono x-kicker">03 — {t("Selected work", "أعمال مختارة")}</p>
               <h2 className="x-display" style={{ fontSize: "clamp(2.2rem, 5.6vw, 4.5rem)" }}>
-                {t("Systems", "أنظمة", "Sistem")}
+                {t("Systems", "أنظمة")}
                 <br />
-                <span className="x-accent">{t("in production.", "قيد التشغيل.", "dalam pengeluaran.")}</span>
+                <span className="x-accent">{t("in production.", "قيد التشغيل.")}</span>
               </h2>
             </div>
             <p className="max-w-[34ch] leading-relaxed text-[var(--color-text-secondary)]">
               {t(
                 "Three identities, three digital builds. Each card says whether it was client work, a studio build or a demo.",
                 "ثلاث هويات وثلاثة منتجات رقمية. تذكر كل بطاقة بوضوح إن كان المشروع لعميل، أو بناءً داخليًا للاستوديو، أو نسخة تجريبية.",
-                "Tiga identiti, tiga binaan digital. Setiap kad menyatakan sama ada kerja klien, binaan studio atau demo.",
               )}
             </p>
           </div>
@@ -96,7 +95,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
                 <Link
                   href={href}
                   className="x-card"
-                  data-cursor={t("Open", "افتح", "Buka")}
+                  data-cursor={t("Open", "افتح")}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   onClick={() => p.hasCaseStudy && trackEvent("case_study_open", { slug: p.slug, surface: "x_work" })}
                 >
@@ -109,7 +108,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
                   </div>
                   <div className="x-card__meta">
                     <p className="x-mono opacity-75">
-                      {p.category === "development" ? t("Digital product", "منتج رقمي", "Produk digital") : t("Identity", "هوية", "Identiti")} · {yearLabel(p.year, ar)}
+                      {p.category === "development" ? t("Digital product", "منتج رقمي") : t("Identity", "هوية")} · {yearLabel(p.year, ar)}
                     </p>
                     <h3 className="x-card__name">{name}</h3>
                     <p className="x-card__line">{line}</p>
@@ -125,7 +124,7 @@ export function WorkTrack({ identity, digital }: { identity: readonly Project[];
                 <span className="x-display" style={{ fontSize: "clamp(3rem, 5vw, 4.5rem)" }}>
                   {total}
                 </span>
-                <span className="x-mono">{t("All projects", "كل المشاريع", "Semua projek")}</span>
+                <span className="x-mono">{t("All projects", "كل المشاريع")}</span>
                 <Arrow size={22} />
               </span>
             </Link>

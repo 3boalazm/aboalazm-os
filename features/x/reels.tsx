@@ -23,20 +23,19 @@ export function Reels() {
     <section id="watch" className="x-room x-iris ground-ink">
       <Chapter
         n="04"
-        kicker={t("Watch it run", "شاهده يعمل", "Lihat ia berjalan")}
+        kicker={t("Watch it run", "شاهده يعمل")}
         title={
           <>
-            {t("The method,", "المنهج،", "Kaedahnya,")} <span className="x-accent">{t("in minutes.", "في دقائق.", "dalam minit.")}</span>
+            {t("The method,", "المنهج،")} <span className="x-accent">{t("in minutes.", "في دقائق.")}</span>
           </>
         }
         lead={t(
           "Short reels on the systems behind the work — research, a real execution plan, an independent audit.",
           "ريلز قصيرة عن الأنظمة التي تقف خلف العمل: بحث، وخطة تنفيذ حقيقية، ومراجعة مستقلة.",
-          "Reel pendek tentang sistem di sebalik kerja — penyelidikan, pelan pelaksanaan sebenar, audit bebas.",
         )}
       >
         <Link href="/reels" className="x-btn x-btn--line w-fit">
-          {t("All reels", "كل الريلز", "Semua reel")}
+          {t("All reels", "كل الريلز")}
           <Arrow />
         </Link>
       </Chapter>
@@ -48,14 +47,14 @@ export function Reels() {
               key={s.key}
               type="button"
               className="x-phone"
-              data-cursor={t("Play", "تشغيل", "Main")}
+              data-cursor={t("Play", "تشغيل")}
               onClick={() => {
                 trackEvent("reel_open", { slug: s.reel.slug, surface: "x_reels" });
                 setOpen(s);
               }}
               /* Verb + the visible text in reading order ("01 · 0:00", then the
                  title): the name has to contain what the phone shows (WCAG 2.5.3). */
-              aria-label={`${t("Play", "شغّل", "Main")} ${String(i + 1).padStart(2, "0")} · ${formatTime(s.at)} ${pickText(s.title, lang)}`}
+              aria-label={`${t("Play", "شغّل")} ${String(i + 1).padStart(2, "0")} · ${formatTime(s.at)} ${pickText(s.title, lang)}`}
             >
               {/* Plain img: /reels/* sits outside images.localPatterns (media is served as-is). */}
               {/* eslint-disable-next-line @next/next/no-img-element */}

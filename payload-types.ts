@@ -478,7 +478,7 @@ export interface Message {
    * Sanitized local page path, e.g. /services/brand-identity.
    */
   sourcePage?: string | null;
-  locale?: ('en' | 'ar' | 'ms') | null;
+  locale?: ('en' | 'ar') | null;
   /**
    * Campaign ID only; no URL or visitor data.
    */

@@ -4,7 +4,7 @@ import { LinkedInSessionView } from "./linkedin-session-view";
 import { DEFAULT_SESSION_KEY } from "@/features/linkedin-session/assessment";
 
 /**
- * THE LINKEDIN SESSION FORM — /linkedin-session (and /ar, /ms).
+ * THE LINKEDIN SESSION FORM — /linkedin-session (and /ar).
  *
  * `dynamic = "force-dynamic"`: the form POSTs to a server action that writes to
  * Payload, so a cached copy of this page would be a page that only looks
@@ -28,11 +28,6 @@ const TITLES: Record<Locale, { title: string; description: string }> = {
     title: "سيشن LinkedIn — التسجيل وتقييم المستوى قبل السيشن",
     description:
       "أسئلة قصيرة قبل السيشن: خلفيتك، مستواك على LinkedIn، وهدفك منه. إجاباتك هي اللي بتحدد محتوى الجلسة.",
-  },
-  ms: {
-    title: "Sesi LinkedIn — pendaftaran dan penilaian pra-sesi",
-    description:
-      "Beberapa soalan ringkas sebelum sesi: latar belakang anda, tahap LinkedIn anda, dan matlamat anda — supaya sesi dibina mengikut keperluan anda.",
   },
 };
 

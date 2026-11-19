@@ -165,10 +165,10 @@ export function DisciplineCards({
  * chrome: an English-only heading on the Arabic home page would be the exact
  * bilingual failure this studio sells against.
  */
-const RING_LABEL: Record<Discipline["id"], [string, string, string]> = {
-  brand: ["Brand", "الهوية", "Jenama"],
-  digital: ["Digital", "الرقمي", "Digital"],
-  systems: ["Systems", "الأنظمة", "Sistem"],
+const RING_LABEL: Record<Discipline["id"], [string, string]> = {
+  brand: ["Brand", "الهوية"],
+  digital: ["Digital", "الرقمي"],
+  systems: ["Systems", "الأنظمة"],
 };
 
 /** Three overlapping rings: the disciplines are one system, and each ring is a door. */
@@ -185,14 +185,14 @@ export function DisciplineRings({ highlight }: { highlight?: Discipline["id"] })
             <Link href={d.href} className="discipline-ring" style={DISCIPLINE_COLOUR[d.id] as React.CSSProperties} data-lead={highlight === d.id}>
               <span className="font-mono text-micro">{d.n}</span>
               <span className={ar ? "text-subtitle font-semibold text-text-primary" : "font-display text-subtitle tracking-[-0.01em] text-text-primary max-sm:text-body"}>
-                {RING_LABEL[d.id][ar ? 1 : lang === "ms" ? 2 : 0]}
+                {RING_LABEL[d.id][ar ? 1 : 0]}
               </span>
             </Link>
           </li>
         ))}
       </ul>
       <p className="font-mono text-micro uppercase tracking-[0.12em] text-text-ghost">
-        {ar ? "حيث تتقاطع الثلاثة: مبنيّ ليعمل" : lang === "ms" ? "Di mana ia bertemu: dibina untuk berfungsi" : "Where they overlap: built to run"}
+        {ar ? "حيث تتقاطع الثلاثة: مبنيّ ليعمل" : "Where they overlap: built to run"}
       </p>
     </div>
   );

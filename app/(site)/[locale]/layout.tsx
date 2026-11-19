@@ -90,7 +90,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
   const { locale } = await params;
   const titles = {
     ar: { default: "مصطفى أبوالعزم — تصميم الهوية البصرية والمواقع", template: "%s · مصطفى أبوالعزم" },
-    ms: { default: "Mustafa Aboalazm — Reka Bentuk Identiti Jenama & Web", template: "%s · Mustafa Aboalazm" },
     en: { default: "Mustafa Aboalazm — Brand Identity & Web Design", template: "%s · Mustafa Aboalazm" },
   } as const;
   return { ...baseMetadata, title: titles[locale] };

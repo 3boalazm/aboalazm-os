@@ -70,14 +70,14 @@ export function CommandPalette() {
       keywords: r.topics.join(" "),
       run: go(`/reels?r=${r.slug}`),
     }));
-    const langs: Item[] = (["en", "ar", "ms"] as Locale[])
+    const langs: Item[] = (["en", "ar"] as Locale[])
       .filter((l) => l !== lang)
       .map((l) => ({
         id: `lang:${l}`,
         group: ["Actions", "الأوامر"],
-        label: l === "ar" ? ["Switch to Arabic", "العربية"] : l === "ms" ? ["Switch to Bahasa Melayu", "الملايو"] : ["Switch to English", "الإنجليزية"],
+        label: l === "ar" ? ["Switch to Arabic", "العربية"] : ["Switch to English", "الإنجليزية"],
         hint: l.toUpperCase(),
-        keywords: "language لغة bahasa",
+        keywords: "language لغة",
         run: () => setLang(l),
       }));
     const actions: Item[] = [
@@ -172,7 +172,7 @@ export function CommandPalette() {
               setQ(e.target.value);
               setCursor(0);
             }}
-            placeholder={ar ? "ابحث عن صفحة أو ريل أو أمر…" : lang === "ms" ? "Cari halaman, reel atau arahan…" : "Search pages, reels, commands…"}
+            placeholder={ar ? "ابحث عن صفحة أو ريل أو أمر…" : "Search pages, reels, commands…"}
             aria-controls="cmdk-list"
             className="w-full bg-transparent py-1 text-body text-text-primary placeholder:text-text-tertiary !outline-none focus:outline-none"
           />

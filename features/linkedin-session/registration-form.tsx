@@ -111,9 +111,7 @@ const FORM_COPY = {
 export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) {
   const { lang } = useLang();
   const ar = lang === "ar";
-  /* The questionnaire is authored in Arabic with an English twin. Malay — the
-     site's third locale — reads the English copy rather than shipping a
-     half-translated workshop form. */
+  /* The questionnaire is authored in Arabic with an English twin. */
   const dict: keyof Bi = ar ? "ar" : "en";
   const reduceMotion = useReducedMotion();
   const t = (pair: Bi) => pair[dict];

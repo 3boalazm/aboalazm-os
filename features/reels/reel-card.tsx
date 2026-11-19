@@ -7,12 +7,12 @@
 import * as React from "react";
 import { useLang } from "@/components/providers/lang-provider";
 import { Icon } from "@/components/ui/Icon";
-import { formatTime, pickText, type Reel, type Trilingual } from "./reels.data";
+import { formatTime, pickText, type Reel, type Bilingual } from "./reels.data";
 
 export interface ReelCardProps {
   reel: Reel;
   at?: number;
-  title?: Trilingual;
+  title?: Bilingual;
   poster?: string;
   /** Small label above the title, e.g. "01" or "PART 2". */
   index?: string;
@@ -57,7 +57,7 @@ export function ReelCard({ reel, at = 0, title, poster, index, onOpen, startBadg
   /* Accessible name = a verb + the visible text, in reading order (WCAG 2.5.3:
      what a voice-control user sees on the card — the time badge, the index,
      the title — has to be inside the name they can say). */
-  const accessibleName = [ar ? "شغّل" : lang === "ms" ? "Main" : "Play", timeText, index, label]
+  const accessibleName = [ar ? "شغّل" : "Play", timeText, index, label]
     .filter((part) => part !== undefined && part !== null && part !== "")
     .join(" ");
 

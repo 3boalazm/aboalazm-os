@@ -16,15 +16,12 @@ export function whatsappPrefillHref(message: string): string {
 export const RESPONSE_PROMISE = {
   en: "Same-day reply on working days (Sun-Thu, Cairo time). WhatsApp is fastest.",
   ar: "الرد في اليوم نفسه خلال أيام العمل (الأحد–الخميس بتوقيت القاهرة). واتساب أسرع وسيلة.",
-  ms: "Balas pada hari yang sama pada hari bekerja (Ahad–Khamis, waktu Kaherah). WhatsApp paling pantas.",
 } as const;
 
 export const RESPONSE_PROMISE_BI: readonly [string, string] = [
   RESPONSE_PROMISE.en,
   RESPONSE_PROMISE.ar,
 ] as const;
-
-export const RESPONSE_PROMISE_MS = RESPONSE_PROMISE.ms;
 
 /**
  * Optional Cal.com / Google appointment URL (Task 5).

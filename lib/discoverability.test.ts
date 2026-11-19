@@ -1,5 +1,5 @@
 /**
- * DISCOVERABILITY GUARDRAILS — the install control and the three languages.
+ * DISCOVERABILITY GUARDRAILS — the install control and the two languages.
  *
  * Both of these were real, reported defects rather than style preferences:
  *
@@ -10,11 +10,9 @@
  *     way to install the app was a card on /developer that nobody visits to
  *     install an app. This file fails if the mount goes missing again.
  *
- *   · "عاوز ابين اللغات اللي على الOS" — the site is authored in three locales
- *     (en / ar / ms) but the header exposed one button that cycled through them
- *     blindly, so two of the three were undiscoverable and Malay — the locale
- *     the Malaysia-facing positioning is written for — was effectively
- *     invisible.
+ *   · "عاوز ابين اللغات اللي على الOS" — the site is authored in two locales
+ *     (en / ar) but the header exposed one button that cycled through them
+ *     blindly, so the second language was undiscoverable.
  *
  * These assertions are deliberately structural (which component is mounted,
  * which locales are listed) rather than copy-based, so changing the wording
@@ -56,7 +54,7 @@ test("the install control offers the three placements the layout relies on", () 
 });
 
 test("every locale in LOCALES is reachable and named where languages are offered", () => {
-  assert.deepEqual([...LOCALES], ["en", "ar", "ms"]);
+  assert.deepEqual([...LOCALES], ["en", "ar"]);
 
   for (const locale of LOCALES) {
     const href = localeHref("/work", locale);
@@ -66,7 +64,7 @@ test("every locale in LOCALES is reachable and named where languages are offered
   /* The header menu, the tray and the mobile panel each list all three by
      name. A missing locale here is exactly the invisibility this work fixed. */
   const nav = read("components/layout/nav.tsx");
-  for (const needle of ["English", "العربية", "Bahasa Melayu"]) {
+  for (const needle of ["English", "العربية"]) {
     assert.ok(nav.includes(needle), `nav must name ${needle}`);
   }
   const tray = read("components/layout/os-tray.tsx");
@@ -77,8 +75,8 @@ test("every locale in LOCALES is reachable and named where languages are offered
   assert.doesNotMatch(nav, /LOCALE_CYCLE\[/, "the language control must not cycle blindly again");
 });
 
-test("the home page states the three languages instead of assuming the header explains them", () => {
-  /* New home (2026-11-16): the three scripts live in the PROOF bento. */
+test("the home page states the languages instead of assuming the header explains them", () => {
+  /* New home (2026-11-16): the two scripts live in the PROOF bento. */
   const home = read("app/(site)/[locale]/page.tsx");
   assert.match(home, /<Proof\s*\/>/);
   const band = read("features/x/proof.tsx");
@@ -89,12 +87,11 @@ test("the home page states the three languages instead of assuming the header ex
      is Thmanyah on any RTL page, so the specimen must be pinned, not tokenised. */
   assert.match(band, /"GC EPICPRO"/);
   assert.match(band, /"Thmanyah Serif Display"/);
-  assert.match(band, /"Montserrat"/);
 });
 
-test("the footer offers the same three locales on every page", () => {
+test("the footer offers the same locales on every page", () => {
   const footer = read("components/layout/footer.tsx");
-  assert.match(footer, /\["en", "ar", "ms"\]/);
+  assert.match(footer, /\["en", "ar"\]/);
   assert.match(footer, /localeHref\(pathname/, "footer language links stay on the current page");
 });
 

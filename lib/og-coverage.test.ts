@@ -8,7 +8,7 @@ import { test } from "node:test";
  * Share cards are easy to forget: a page that sets its own `openGraph` metadata but has no
  * `opengraph-image` next to it is published with no og:image at all, and every link to it
  * unfurls as a bare title. A production crawl once found eight such routes (the four service
- * pages, /partnership, /book, /developer, /reels) × three locales.
+ * pages, /partnership, /book, /developer, /reels) × two locales.
  *
  * These checks read the route tree, not the rendered output, so they stay fast and run with
  * the rest of the suite:

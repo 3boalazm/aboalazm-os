@@ -4,7 +4,6 @@ import { Fragment } from "react";
 import Image from "next/image";
 import Link from "@/components/ui/localized-link";
 import { useLang } from "@/components/providers/lang-provider";
-import { useCaseT } from "./ms/context";
 import { Badge } from "@/components/ui/Badge";
 import { buttonVariants } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -64,8 +63,7 @@ export function BusinessCaseView({
 }: BusinessCaseViewProps) {
   const { lang } = useLang();
   const ar = lang === "ar";
-  const t = useCaseT();
-  const pick = (text: Bilingual, isAr: boolean) => <SlashBreaks text={isAr ? text.ar : t(text.en)} />;
+  const pick = (text: Bilingual, isAr: boolean) => <SlashBreaks text={isAr ? text.ar : text.en} />;
 
   useAmbientGlow(
     project?.accent ?? {
@@ -94,17 +92,17 @@ export function BusinessCaseView({
           <div className="flex flex-wrap items-center gap-2">
             <Link href="/work" className="inline-flex items-center gap-1.5 transition-colors hover:text-text-primary">
               <Icon name="arrow-left" />
-              <span>{ar ? "كل الأعمال" : t("All work")}</span>
+              <span>{ar ? "كل الأعمال" : "All work"}</span>
             </Link>
             <span aria-hidden className="text-text-ghost">/</span>
             <Link href={trackHref} className="transition-colors hover:text-text-primary">
               {isDev
-                ? ar ? "المنتجات الرقمية" : t("Digital Products")
-                : ar ? "الهويات البصرية" : t("Brand Identity")}
+                ? ar ? "المنتجات الرقمية" : "Digital Products"
+                : ar ? "الهويات البصرية" : "Brand Identity"}
             </Link>
           </div>
           <span className="text-accent">
-            {ar ? "الجانب التجاري والمنتج" : t("Business & Product Overview")}
+            {ar ? "الجانب التجاري والمنتج" : "Business & Product Overview"}
           </span>
         </div>
 
@@ -121,19 +119,19 @@ export function BusinessCaseView({
               ) : null}
               {project?.status === "in-progress" ? (
                 <Badge tone="creative" size="sm">
-                  {ar ? "قيد الاستكمال" : t("In progress")}
+                  {ar ? "قيد الاستكمال" : "In progress"}
                 </Badge>
               ) : liveHref ? (
                 <Badge tone="live" size="sm">
                   {isLocalShowcase
-                    ? ar ? "معاينة تفاعلية" : t("Interactive showcase")
-                    : ar ? "منتج حيّ" : t("Live product")}
+                    ? ar ? "معاينة تفاعلية" : "Interactive showcase"
+                    : ar ? "منتج حيّ" : "Live product"}
                 </Badge>
               ) : (
                 <Badge tone="neutral" size="sm">
                   {isDev
-                    ? ar ? "ملف منتج موثّق" : t("Saved product file")
-                    : ar ? "نظام هوية منجز" : t("Delivered system")}
+                    ? ar ? "ملف منتج موثّق" : "Saved product file"
+                    : ar ? "نظام هوية منجز" : "Delivered system"}
                 </Badge>
               )}
             </div>
@@ -168,8 +166,8 @@ export function BusinessCaseView({
                 >
                   <span>
                     {isLocalShowcase
-                      ? ar ? "افتح المعاينة التفاعلية" : t("Open interactive showcase")
-                      : ar ? "افتح المنتج الحي" : t("Open live product")}
+                      ? ar ? "افتح المعاينة التفاعلية" : "Open interactive showcase"
+                      : ar ? "افتح المنتج الحي" : "Open live product"}
                   </span>
                   <Icon name="arrow-up-right" />
                 </a>
@@ -184,7 +182,7 @@ export function BusinessCaseView({
                     : "inline-flex items-center gap-2 px-5 py-2.5 font-mono text-label font-semibold tracking-[0.06em] transition-transform duration-base ease-physics hover:-translate-y-0.5",
                 })}
               >
-                <span>{ar ? "اطلب مشروعًا مشابهًا" : t("Build something similar")}</span>
+                <span>{ar ? "اطلب مشروعًا مشابهًا" : "Build something similar"}</span>
                 <Icon name="arrow-right" />
               </Link>
 
@@ -194,7 +192,7 @@ export function BusinessCaseView({
                   onClick={onSwitchToTechnical}
                   className="cursor-pointer rounded-pill border border-border-subtle px-4 py-2.5 font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary transition-colors duration-base ease-physics hover:border-border-strong hover:text-text-primary"
                 >
-                  {ar ? "التفاصيل التقنية والهندسية ←" : t("Technical architecture →")}
+                  {ar ? "التفاصيل التقنية والهندسية ←" : "Technical architecture →"}
                 </button>
               ) : null}
             </div>
@@ -205,7 +203,7 @@ export function BusinessCaseView({
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-2">
                 <Image
                   src={previewSrc}
-                  alt={ar ? `معاينة مشروع ${name}` : `${name} ${t("visual preview")}`}
+                  alt={ar ? `معاينة مشروع ${name}` : `${name} ${"visual preview"}`}
                   fill
                   sizes="(min-width: 1024px) 42vw, 100vw"
                   priority
@@ -213,7 +211,7 @@ export function BusinessCaseView({
                 />
               </div>
               <figcaption className="flex items-center justify-between gap-2 border-t border-border-subtle px-3.5 py-2.5 font-mono text-micro uppercase tracking-[0.08em] text-text-tertiary">
-                <span>{ar ? "واجهة ومخرجات المشروع" : t("Project surface & deliverables")}</span>
+                <span>{ar ? "واجهة ومخرجات المشروع" : "Project surface & deliverables"}</span>
                 <span className="text-accent">{data.slug.toUpperCase()}</span>
               </figcaption>
             </figure>
@@ -243,10 +241,10 @@ export function BusinessCaseView({
         <div className="container-wide flex flex-col gap-6">
           <div className="flex flex-col gap-1.5">
             <SectionLabel>
-              01 · {ar ? "المشكلة والحل العملي" : t("The Business Problem & Solution")}
+              01 · {ar ? "المشكلة والحل العملي" : "The Business Problem & Solution"}
             </SectionLabel>
             <h2 className="font-display text-title tracking-[-0.02em] text-text-primary">
-              {ar ? "ما المشكلة الواقعية التي يحلّها هذا المشروع؟" : t("What real-world problem does this solve?")}
+              {ar ? "ما المشكلة الواقعية التي يحلّها هذا المشروع؟" : "What real-world problem does this solve?"}
             </h2>
           </div>
 
@@ -258,7 +256,7 @@ export function BusinessCaseView({
                   {pick(data.problemAndShift.beforeTitle, ar)}
                 </h3>
                 <Badge tone="outline" size="sm">
-                  {ar ? "قبل النظام" : t("Before")}
+                  {ar ? "قبل النظام" : "Before"}
                 </Badge>
               </div>
               <ul className="flex flex-col gap-3">
@@ -278,7 +276,7 @@ export function BusinessCaseView({
                   {pick(data.problemAndShift.afterTitle, ar)}
                 </h3>
                 <Badge tone="accent" size="sm">
-                  {ar ? "بعد التطبيق" : t("With this project")}
+                  {ar ? "بعد التطبيق" : "With this project"}
                 </Badge>
               </div>
               <ul className="flex flex-col gap-3">
@@ -297,7 +295,7 @@ export function BusinessCaseView({
           {/* Who Benefits */}
           <div className="flex flex-col gap-3 pt-1">
             <p className="font-mono text-micro uppercase tracking-[0.1em] text-text-tertiary">
-              {ar ? "من يستخدمه وماذا يجني منه" : t("Who uses it & what they gain")}
+              {ar ? "من يستخدمه وماذا يجني منه" : "Who uses it & what they gain"}
             </p>
             <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
               {data.problemAndShift.stakeholders.map((s) => (
@@ -319,10 +317,10 @@ export function BusinessCaseView({
       <Section className="container-wide flex flex-col gap-6">
         <div className="flex flex-col gap-1.5">
           <SectionLabel>
-            02 · {ar ? "طريقة العمل" : t("How It Works")}
+            02 · {ar ? "طريقة العمل" : "How It Works"}
           </SectionLabel>
           <h2 className="font-display text-title tracking-[-0.02em] text-text-primary">
-            {ar ? "كيف يعمل المشروع خطوةً بخطوة؟" : t("How the project works in practice")}
+            {ar ? "كيف يعمل المشروع خطوةً بخطوة؟" : "How the project works in practice"}
           </h2>
           <p className="max-w-[62ch] text-body-sm text-text-secondary">
             {pick(data.workflowIntro, ar)}
@@ -335,7 +333,7 @@ export function BusinessCaseView({
               <PanelCard className="flex h-full flex-col gap-3 rounded-card p-5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-mono text-label font-semibold tabular-nums text-accent">
-                    {ar ? `خطوة ${step.step}` : `${t("STEP")} ${step.step}`}
+                    {ar ? `خطوة ${step.step}` : `${"STEP"} ${step.step}`}
                   </span>
                   <Badge tone="neutral" size="sm">
                     {pick(step.actor, ar)}
@@ -358,10 +356,10 @@ export function BusinessCaseView({
         <div className="container-wide flex flex-col gap-6">
           <div className="flex flex-col gap-1.5">
             <SectionLabel>
-              03 · {ar ? "المميزات والقيمة المضافة" : t("Key Features & Advantages")}
+              03 · {ar ? "المميزات والقيمة المضافة" : "Key Features & Advantages"}
             </SectionLabel>
             <h2 className="font-display text-title tracking-[-0.02em] text-text-primary">
-              {ar ? "أهم مزايا المشروع وقيمته التجارية وللمستخدم" : t("Core features and practical advantages")}
+              {ar ? "أهم مزايا المشروع وقيمته التجارية وللمستخدم" : "Core features and practical advantages"}
             </h2>
             <p className="max-w-[62ch] text-body-sm text-text-secondary">
               {pick(data.featuresIntro, ar)}
@@ -396,7 +394,7 @@ export function BusinessCaseView({
           <div className="flex max-w-[64ch] flex-col gap-2">
             <div className="flex flex-wrap items-center gap-2">
               <SectionLabel>
-                04 · {ar ? "حالة التشغيل والنطاق الحالي" : t("Operational Status & Scope")}
+                04 · {ar ? "حالة التشغيل والنطاق الحالي" : "Operational Status & Scope"}
               </SectionLabel>
               {/* The label can carry a long domain (ahmed-kamar-portfolio.vercel.app) that has no space to
                   wrap at: on a 320px phone that one token was wider than the card and pushed the whole page
@@ -433,8 +431,8 @@ export function BusinessCaseView({
             >
               <span>
                 {isLocalShowcase
-                  ? ar ? "جرّب المعاينة التفاعلية" : t("Try interactive showcase")
-                  : ar ? "زُر الموقع المباشر" : t("Visit live site")}
+                  ? ar ? "جرّب المعاينة التفاعلية" : "Try interactive showcase"
+                  : ar ? "زُر الموقع المباشر" : "Visit live site"}
               </span>
               <Icon name="arrow-up-right" />
             </a>

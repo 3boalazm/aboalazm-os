@@ -74,16 +74,16 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
       <PagePlate src="/images/generated/page-pricing.jpg" align="start">
       <header className="flex flex-col gap-3">
         <Heading
-          eyebrow={ar ? "الأسعار / التكلفة" : lang === "ms" ? "HARGA / KOS" : "PRICING / WHAT IT COSTS"}
+          eyebrow={ar ? "الأسعار / التكلفة" : "PRICING / WHAT IT COSTS"}
           eyebrowMeta={
             <p className="hidden font-mono text-micro uppercase tracking-[0.10em] text-text-ghost sm:block">
-              {ar ? "بالدولار · شفاف · قابل للتفاوض" : lang === "ms" ? "USD · TELUS · BOLEH DIRUNDING" : "USD · TRANSPARENT · NEGOTIABLE"}
+              {ar ? "بالدولار · شفاف · قابل للتفاوض" : "USD · TRANSPARENT · NEGOTIABLE"}
             </p>
           }
           title={
             <>
-              {ar ? "بلا رسوم " : lang === "ms" ? "Tiada " : "No hidden "}
-              <em className="text-accent">{ar ? "خفية." : lang === "ms" ? "yuran tersembunyi." : "fees."}</em>
+              {ar ? "بلا رسوم " : "No hidden "}
+              <em className="text-accent">{ar ? "خفية." : "fees."}</em>
             </>
           }
           subtitleClassName="max-w-[52ch]"
@@ -104,7 +104,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
                 "inline-flex items-center gap-1.5 px-3.5 py-1.5 font-mono text-label tracking-[0.06em]",
             })}
           >
-            {ar ? DISCOVERY_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan penemuan" : DISCOVERY_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
+            {ar ? DISCOVERY_CTA_LABEL[1] : DISCOVERY_CTA_LABEL[0]}<Icon name="arrow-right" flip={false} className="ms-1.5" />
           </Link>
           <Link
             href="/services/store-72h"
@@ -126,7 +126,7 @@ export function PricingView({ tiers, alaCarte }: PricingData) {
               data-booking-click="true"
               className="font-mono text-micro text-accent underline underline-offset-4"
             >
-              {ar ? BOOKING_CTA_LABEL[1] : lang === "ms" ? "Tempah panggilan percuma 30 minit" : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
+              {ar ? BOOKING_CTA_LABEL[1] : BOOKING_CTA_LABEL[0]} {ar ? "↖" : "↗"}
             </a>
           ) : null}
         </div>

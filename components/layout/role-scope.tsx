@@ -22,7 +22,7 @@ const ROLES: readonly [RegExp, XRole][] = [
 ];
 
 export function roleFor(pathname: string): XRole {
-  const path = pathname.replace(/^\/(en|ar|ms)(?=\/|$)/, "") || "/";
+  const path = pathname.replace(/^\/(en|ar)(?=\/|$)/, "") || "/";
   for (const [re, role] of ROLES) if (re.test(path)) return role;
   return "orange";
 }
