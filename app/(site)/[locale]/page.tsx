@@ -12,7 +12,7 @@ import { Method } from "@/features/x/method";
 import { Close } from "@/features/x/close";
 import { Tape } from "@/features/x/tape";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 const pageMetadata: Metadata = {
   // The studio leads; the founder's name follows because it is also a search query.

@@ -1,9 +1,14 @@
 import type { GlobalConfig } from "payload";
+import { revalidateSiteAfterGlobalChange } from "@/lib/revalidate";
 
 export const Settings: GlobalConfig = {
   slug: "settings",
   admin: {
     group: "Site Content",
+  },
+  hooks: {
+    // The About page reads the CV link from here; it had no hook while pages re-rendered every 60 s.
+    afterChange: [revalidateSiteAfterGlobalChange],
   },
   fields: [
     {

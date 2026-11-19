@@ -6,7 +6,7 @@ import { getSettings } from "@/lib/content";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getBreadcrumbSchema, getProfilePageSchema } from "@/lib/structured-data";
 
-export const revalidate = 60;
+export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 const pageMetadata: Metadata = {
   title: { absolute: "About Mustafa Aboalazm — Senior Brand Identity Designer" },
