@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import test from "node:test";
 
-import { ALL_FIELDS, CV_MAX_BYTES, FIELD_GROUPS, SESSIONS, optionValuesOf, payloadOptions } from "./assessment";
+import { ALL_FIELDS, CV_MAX_BYTES, FIELD_GROUPS, SESSIONS, firstFieldWithError, isNativelyRequired, optionValuesOf, payloadOptions } from "./assessment";
 
 /**
  * The questionnaire is the contract between four files: the form, the
@@ -79,12 +79,44 @@ test("the collection declares the same fields, options and caps as the questionn
   }
 });
 
-test("required fields use HTML attributes the browser can enforce, not only the server", () => {
-  /* The form renders from the same list, so the only thing to pin is that it
-     actually reads `required` instead of hard-coding which questions matter. */
-  assert.match(formSource, /required=\{field\.required\}/);
-  assert.match(formSource, /maxLength=\{field\.maxLength\}/);
-  assert.match(formSource, /name=\{field\.name\}/);
+/** The form without comments: a comment that explains why something is gone must not satisfy (or trip) a guard. */
+const formCode = formSource.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+test("required answers are enforced by our own check, not by the browser — a browser block is silent", () => {
+  /* 19–20 Nov 2026: this test used to demand `required={field.required}`, i.e. that the browser
+     enforce it. Every goals checkbox then carried `required`, HTML reads that as "THIS box must be
+     ticked", and someone who ticked 4 goals of 6 was stopped on the other two before any of our
+     code ran — with a bubble that is easy to miss and that some browsers never draw. Nothing was
+     sent and nothing said why. The contract is now: the form asks isNativelyRequired, is noValidate, and
+     submit runs the server's own validator before it sends. */
+  assert.match(formCode, /required=\{isNativelyRequired\(field\)\}/, "the form must ask isNativelyRequired(field), not read field.required");
+  assert.doesNotMatch(formCode, /required=\{field\.required\}/, "required={field.required} puts `required` on every checkbox of a multi group");
+  assert.match(formCode, /\bnoValidate\b/, "the form must be noValidate: submit shows what is wrong, the browser would only block");
+  const check = formCode.indexOf("validateRegistration(");
+  const send = formCode.indexOf("submitSessionRegistration(");
+  assert.ok(check > -1 && send > -1 && check < send, "submit must run validateRegistration before it calls the server action");
+  assert.match(formCode, /maxLength=\{field\.maxLength\}/);
+  assert.match(formCode, /name=\{field\.name\}/);
+});
+
+test("only a multi answer is kept off the browser's `required` — HTML has no 'at least one checkbox'", () => {
+  const multi = ALL_FIELDS.filter((f) => f.type === "multi");
+  assert.ok(multi.length > 0, "the goals question is a multi answer");
+  for (const field of multi) {
+    assert.equal(isNativelyRequired(field), false, `${field.name}: required on each checkbox demands them all`);
+  }
+  for (const field of ALL_FIELDS.filter((f) => f.type !== "multi")) {
+    assert.equal(isNativelyRequired(field), field.required, `${field.name}: a ${field.type} answer keeps its own required flag`);
+  }
+});
+
+test("the first question with an error is found in page order, whatever order the errors were found in", () => {
+  assert.equal(firstFieldWithError({}), null);
+  assert.equal(firstFieldWithError({ goals: "required", fullName: "required" }), "fullName");
+  /* The validator checks `goals` before `university`; the page shows `university` first. */
+  assert.equal(firstFieldWithError({ goals: "required", university: "too_long" }), "university");
+  assert.equal(firstFieldWithError({ cvFile: "file_too_large", questionForSession: "too_long" }), "cvFile");
+  assert.equal(firstFieldWithError({ somethingElse: "x" }), null);
 });
 
 test("the CV rule the form advertises is the rule the server applies", () => {

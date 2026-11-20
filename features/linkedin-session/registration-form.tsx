@@ -15,6 +15,17 @@
  * which has to name the chosen file and be clearable — `form.reset()` cannot
  * empty a file input, so the clear button sets `value = ""` itself.
  *
+ * Validation is ours, not the browser's. The form is `noValidate`: the
+ * browser's own check stops the submit before any of this code runs and then
+ * shows a bubble that is easy to miss and that some browsers (in-app
+ * WebViews above all) do not draw at all — the person only sees the page jump
+ * and nothing is sent. (That is how 4-of-6 ticked goals went silent on
+ * 19–20 Nov: HTML has no "at least one checkbox", see isNativelyRequired in
+ * ./assessment.ts.) So submit runs `validateRegistration` — the function the
+ * server re-checks with — then writes a message under every question that
+ * needs one, a summary that jumps to each, and scrolls the first one into the
+ * middle of the screen.
+ *
  * Radio cards carry a real `<input>` inside a `<label>`, so keyboard and
  * screen-reader behaviour stays the browser's; the selected state is
  * `has-[:checked]` CSS, not React state. A question with radio options is
@@ -23,13 +34,15 @@
  * elements with the same id.
  */
 import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { trackEvent } from "@/lib/analytics";
 import { useLang } from "@/components/providers/lang-provider";
 import { physics } from "@/lib/motion";
 import type { Bi, FieldDef } from "./assessment";
-import { ANSWER_MAX, FIELD_GROUPS } from "./assessment";
+import { ALL_FIELDS, ANSWER_MAX, FIELD_GROUPS, firstFieldWithError, isNativelyRequired } from "./assessment";
 import { submitSessionRegistration, type FieldErrors, type SessionSubmitResult } from "./actions";
+import { collectAnswers, validateRegistration } from "./validate";
 
 type SubmitSuccess = Extract<SessionSubmitResult, { ok: true }>;
 
@@ -98,8 +111,8 @@ const FORM_COPY = {
     en: "The request is taking unusually long. Don't submit again — that would register you twice. If nothing changed after a minute, write to us.",
   },
   invalid: {
-    ar: "فيه أسئلة ناقصة أو إجابة مش صحيحة — التعليقات تحت كل سؤال.",
-    en: "Some answers are missing or invalid — see the note under each question.",
+    ar: "لسه فيه أسئلة ناقصة أو إجابات مش صحيحة — اضغط على السؤال علشان توصله:",
+    en: "A few answers are missing or not valid — tap a question to jump to it:",
   },
   optional: { ar: "اختياري", en: "optional" },
   choose: { ar: "اختر إجابة", en: "Choose an answer" },
@@ -143,8 +156,8 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
   const eventContext = { session: sessionKey, locale: lang };
   const requiredFields = FIELD_GROUPS.flatMap((g) => g.fields).filter((f) => f.required);
 
-  /** Progress rail: required answers so far. A prompt, not a gate — the browser
-   *  and the server decide validity, this only tells people how much is left. */
+  /** Progress rail: required answers so far. A prompt, not a gate — submit and
+   *  the server decide validity, this only tells people how much is left. */
   function trackProgress() {
     const form = formRef.current;
     if (!form) return;
@@ -157,10 +170,70 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
     setAnswered(n);
   }
 
+  /** Changing an answer retires the message under it — the person is fixing it. */
+  function onFormChange(e: React.ChangeEvent<HTMLFormElement>) {
+    trackProgress();
+    const name = (e.target as { name?: string }).name;
+    if (name && name in fieldErrors) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[name as keyof FieldErrors];
+        return next;
+      });
+    }
+  }
+
+  /* The summary box goes with the last message under a question. */
+  useEffect(() => {
+    if (status === "invalid" && Object.keys(fieldErrors).length === 0) setStatus("idle");
+  }, [status, fieldErrors]);
+
+  /** Bring one question into the middle of the screen and put the keyboard on its first control.
+   *  Centring the whole question (label, options, message) beats focus()'s own scroll, which drags
+   *  the control to the screen edge — under the fixed header on a phone. A question that cannot fit
+   *  on the screen (it and its header clearance) is aligned to its top instead, so its label is
+   *  never the part that is cut off. */
+  function goToQuestion(name: string) {
+    const question = formRef.current?.querySelector<HTMLElement>(`[data-question="${name}"]`);
+    if (!question) return;
+    const clearance = parseFloat(getComputedStyle(question).scrollMarginTop) || 0;
+    const fits = question.getBoundingClientRect().height + clearance <= window.innerHeight;
+    question.scrollIntoView({ block: fits ? "center" : "start", behavior: reduceMotion ? "auto" : "smooth" });
+    question.querySelector<HTMLElement>("input, select, textarea")?.focus({ preventScroll: true });
+  }
+
+  /** Show what is wrong, then take the person to the first question in page order. */
+  function showFieldErrors(fields: FieldErrors) {
+    /* flushSync: the messages must be in the DOM before we measure and scroll, or the
+       layout moves under the scroll. */
+    flushSync(() => {
+      setFieldErrors(fields);
+      setStatus("invalid");
+    });
+    trackEvent("assessment_form_error", { ...eventContext, reason: "invalid_field" });
+    const first = firstFieldWithError(fields);
+    if (first) goToQuestion(first);
+  }
+
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (inFlight.current) return;
     const form = e.currentTarget;
+    const data = new FormData(form);
+
+    /* noValidate switches the browser's own check off, so this is the gate before the request:
+       the server's verdict, reached without a round trip (and without spending the per-IP budget
+       on an incomplete form). */
+    const chosen = data.get("cvFile");
+    const local = validateRegistration(
+      collectAnswers(data.entries()),
+      chosen instanceof File && chosen.size > 0 ? { name: chosen.name, size: chosen.size, type: chosen.type } : null,
+    );
+    if (!local.ok) {
+      showFieldErrors(local.fields);
+      return;
+    }
+
     inFlight.current = true;
     setStatus("working");
     setFieldErrors({});
@@ -168,7 +241,7 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
 
     try {
       const res = await Promise.race([
-        submitSessionRegistration(new FormData(form)),
+        submitSessionRegistration(data),
         new Promise<never>((_, reject) => {
           setTimeout(() => reject(new Error("timeout")), 20_000);
         }),
@@ -177,11 +250,9 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
 
       if (!res.ok) {
         if (res.error === "invalid") {
-          setFieldErrors(res.fields);
-          setStatus("invalid");
-          trackEvent("assessment_form_error", { ...eventContext, reason: "invalid_field" });
-          const first = Object.keys(res.fields)[0];
-          if (first) form.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
+          /* Only a hand-built request or a stale page gets here — the check above is the same
+             function — but the answer is the same either way. */
+          showFieldErrors(res.fields);
           return;
         }
         setStatus(res.error === "rate_limited" ? "rateLimited" : res.error === "unknown_session" ? "unknownSession" : "error");
@@ -223,9 +294,10 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
           ? { tone: "danger", text: t(FORM_COPY.storageFailed) }
           : status === "unknownSession"
             ? { tone: "danger", text: t(FORM_COPY.unknownSession) }
-            : status === "invalid"
-              ? { tone: "danger", text: t(FORM_COPY.invalid) }
-              : null;
+            : null;
+
+  /** Questions with a message under them, in page order — the summary above the button lists them. */
+  const problems = ALL_FIELDS.filter((field) => fieldErrors[field.name as keyof FieldErrors]);
 
   return (
     <div className="rounded-panel border border-border-subtle bg-surface-1 p-3 shadow-card md:p-4">
@@ -257,15 +329,15 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
         <motion.form
           ref={formRef}
           aria-label={t(FORM_COPY.formName)}
+          noValidate
           onSubmit={submit}
-          onChange={trackProgress}
+          onChange={onFormChange}
           onFocusCapture={() => {
             if (!didStart.current) {
               didStart.current = true;
               trackEvent("assessment_form_start", eventContext);
             }
           }}
-          onInvalidCapture={() => trackEvent("assessment_form_error", { ...eventContext, reason: "invalid_field" })}
           transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: [0.7, 0, 0.84, 0] }}
           className="flex flex-col gap-4"
         >
@@ -322,8 +394,25 @@ export function SessionRegistrationForm({ sessionKey }: { sessionKey: string }) 
           </div>
           <input type="hidden" name="sessionKey" value={sessionKey} readOnly />
 
+          {status === "invalid" && problems.length > 0 ? (
+            <div role="alert" className="flex flex-col gap-1 rounded-card border border-danger-border bg-danger-dim px-2 py-1.5 text-body-sm text-danger-text">
+              <p>{t(FORM_COPY.invalid)}</p>
+              <ul className="flex flex-col gap-0.5">
+                {problems.map((field) => (
+                  <li key={field.name}>
+                    <button type="button" onClick={() => goToQuestion(field.name)} className="text-start underline underline-offset-4">
+                      {t(field.label)}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
           {banner ? (
-            <p className={`text-body-sm ${banner.tone === "warn" ? "text-warning-text" : "text-danger-text"}`}>{banner.text}</p>
+            <p role="alert" className={`text-body-sm ${banner.tone === "warn" ? "text-warning-text" : "text-danger-text"}`}>
+              {banner.text}
+            </p>
           ) : null}
 
           <button
@@ -364,7 +453,9 @@ function FieldControl({
   const Wrapper = isChoice ? "div" : "label";
 
   return (
-    <Wrapper className="flex flex-col gap-1" {...(isChoice ? {} : { htmlFor: inputId })}>
+    /* scroll-mt-10 = 80px (this site's spacing unit is 8px): the fixed header is 74px tall, so a
+       scrolled-to question is centred in the part of the screen that is actually visible. */
+    <Wrapper data-question={field.name} className="flex scroll-mt-10 flex-col gap-1" {...(isChoice ? {} : { htmlFor: inputId })}>
       <span className={LABEL}>
         {t(field.label)}
         {!field.required ? <span className="text-text-ghost"> · {t({ ar: "اختياري", en: "optional" })}</span> : null}
@@ -375,11 +466,12 @@ function FieldControl({
           id={inputId}
           name={field.name}
           type={field.type === "url" ? "url" : field.type}
-          required={field.required}
+          required={isNativelyRequired(field)}
           maxLength={field.maxLength}
           autoComplete={field.autoComplete}
           placeholder={field.placeholder ? field.placeholder[dict] : undefined}
           aria-describedby={describedBy}
+          aria-invalid={error ? true : undefined}
           className={`${FIELD} ${error ? "border-danger-border" : ""}`}
           dir={field.type === "email" || field.type === "url" ? "ltr" : undefined}
         />
@@ -389,11 +481,12 @@ function FieldControl({
         <textarea
           id={inputId}
           name={field.name}
-          required={field.required}
+          required={isNativelyRequired(field)}
           rows={3}
           maxLength={field.maxLength ?? ANSWER_MAX}
           placeholder={field.placeholder ? field.placeholder[dict] : undefined}
           aria-describedby={describedBy}
+          aria-invalid={error ? true : undefined}
           className={`${FIELD} ${error ? "border-danger-border" : ""}`}
         />
       ) : null}
@@ -402,9 +495,10 @@ function FieldControl({
         <select
           id={inputId}
           name={field.name}
-          required={field.required}
+          required={isNativelyRequired(field)}
           defaultValue=""
           aria-describedby={describedBy}
+          aria-invalid={error ? true : undefined}
           className={`${FIELD} ${error ? "border-danger-border" : ""}`}
         >
           <option value="" disabled>
@@ -422,16 +516,22 @@ function FieldControl({
         <fieldset className={`flex flex-col gap-1 border-0 p-0 ${field.layout === "grid" ? "sm:grid sm:grid-cols-2 sm:gap-1" : ""}`}>
           <legend className="sr-only">{t(field.label)}</legend>
           {(field.options ?? []).map((option) => (
-            <label key={option.value} htmlFor={`${field.name}-${option.value}`} className={OPTION_CARD}>
+            <label
+              key={option.value}
+              htmlFor={`${field.name}-${option.value}`}
+              className={error ? OPTION_CARD.replace("border-border-subtle", "border-danger-border") : OPTION_CARD}
+            >
               <input
                 type={field.type === "multi" ? "checkbox" : "radio"}
                 id={`${field.name}-${option.value}`}
                 name={field.name}
                 value={option.value}
-                /* required on every box of the group is how HTML asks for "at
-                   least one" — which is exactly a required multi answer. */
-                required={field.required}
+                /* `required` on a radio makes the group "pick one"; on a checkbox it makes
+                   THAT box mandatory, so a multi group must not carry it at all — "at least
+                   one" is validate.ts's job (isNativelyRequired in ./assessment.ts). */
+                required={isNativelyRequired(field)}
                 aria-describedby={describedBy}
+                aria-invalid={error ? true : undefined}
                 className="mt-0.5 accent-[var(--color-accent)]"
               />
               <span className="min-w-0">
@@ -451,7 +551,7 @@ function FieldControl({
         </span>
       ) : null}
       {error ? (
-        <span id={errorId} role="alert" className="text-micro text-danger-text">
+        <span id={errorId} role="alert" className="text-body-sm text-danger-text">
           {error}
         </span>
       ) : null}

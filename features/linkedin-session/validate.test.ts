@@ -1,8 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { ANSWER_MAX, FULL_NAME_MAX } from "./assessment";
-import { normalizeLinkedInUrl, validateRegistration } from "./validate";
+import { ANSWER_MAX, FULL_NAME_MAX, optionValuesOf } from "./assessment";
+import { collectAnswers, normalizeLinkedInUrl, validateRegistration } from "./validate";
 
 /**
  * A server action is a public endpoint: the only thing standing between a
@@ -52,6 +52,77 @@ test("each missing required question is reported on that question", () => {
     if (res.ok) continue;
     assert.equal(res.fields[name as keyof typeof res.fields], "required");
   }
+});
+
+test("any non-empty combination of goals is a valid answer, and no goal at all is not", () => {
+  /* 19–20 Nov 2026: the browser demanded every goal be ticked (see isNativelyRequired). The
+     validator was never the problem, but nothing pinned that a person may tick any subset —
+     so every one of the 2^n − 1 subsets is run, not just the ones that came to mind. */
+  const all = optionValuesOf("goals");
+  assert.ok(all.length >= 2, "the goals question offers several options");
+  for (let mask = 0; mask < 1 << all.length; mask += 1) {
+    const goals = all.filter((_, i) => mask & (1 << i));
+    const res = validateRegistration({ ...valid, goals });
+    if (goals.length === 0) {
+      assert.equal(res.ok, false, "an empty goals set must be refused");
+      if (!res.ok) assert.equal(res.fields.goals, "required");
+    } else {
+      assert.equal(res.ok, true, `goals ${goals.join(" + ")} must be accepted`);
+      if (res.ok && !res.spam) assert.deepEqual(res.data.goals, goals);
+    }
+  }
+});
+
+test("collectAnswers reads a checkbox group the way a browser sends it: one key per ticked box", () => {
+  const form = new FormData();
+  form.append("fullName", "محمد مصطفى");
+  for (const goal of ["networking", "internship", "explore"]) form.append("goals", goal);
+  form.append("linkedinStatus", "inactive");
+  form.append("cvFile", new Blob(["%PDF-1.4"], { type: "application/pdf" }), "cv.pdf");
+
+  const raw = collectAnswers(form.entries());
+  assert.deepEqual(raw.goals, ["networking", "internship", "explore"], "every ticked box is kept, in the order sent");
+  assert.equal(raw.fullName, "محمد مصطفى", "a key that appears once stays a string");
+  assert.equal("cvFile" in raw, false, "the file is never an answer — only its metadata reaches the validator");
+});
+
+test("one ticked box stays a plain string, and the validator accepts it as a one-goal set", () => {
+  const form = new FormData();
+  form.append("goals", "internship");
+  const raw = collectAnswers(form.entries());
+  assert.equal(raw.goals, "internship");
+  const res = validateRegistration({ ...valid, ...raw });
+  assert.equal(res.ok, true);
+});
+
+test("what the browser form collects is judged the same as what the server action collects", () => {
+  /* The form now runs validateRegistration itself before it sends, on the output of
+     collectAnswers — the same two functions the server action uses. Three ticked goals pass,
+     none give the one error the form shows under that question. */
+  const build = (goals: string[]) => {
+    const form = new FormData();
+    for (const [key, value] of Object.entries({ ...valid, goals: undefined })) if (typeof value === "string") form.append(key, value);
+    for (const goal of goals) form.append("goals", goal);
+    return validateRegistration(collectAnswers(form.entries()));
+  };
+  const three = build(["internship", "networking", "explore"]);
+  assert.equal(three.ok, true);
+  if (three.ok && !three.spam) assert.deepEqual(three.data.goals, ["internship", "networking", "explore"]);
+  const none = build([]);
+  assert.equal(none.ok, false);
+  if (!none.ok) assert.deepEqual(Object.keys(none.fields), ["goals"], "only the unanswered question is reported");
+});
+
+test("collectAnswers is safe against hostile keys and non-string entries", () => {
+  const raw = collectAnswers([
+    ["constructor", "a"],
+    ["constructor", "b"],
+    ["__proto__", "x"],
+    ["notes", new Blob(["x"]) as unknown],
+  ]);
+  assert.deepEqual(raw.constructor, ["a", "b"], "a key that shadows an Object.prototype member is still just a repeated key");
+  assert.equal(raw.notes, "", "a File/Blob smuggled under a text key never reaches a text answer");
+  assert.equal(Object.getPrototypeOf(raw), Object.prototype, "assigning __proto__ must not swap the object's prototype");
 });
 
 test("blank answers and empty selects are 'not answered', not stored as empty strings", () => {

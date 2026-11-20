@@ -173,6 +173,33 @@ export function validateCvFile(file: CvFileInfo | null | undefined): FieldErrorC
   return null;
 }
 
+/**
+ * Form entries → the plain record `validateRegistration` reads. The browser
+ * form and the server action both call this, so the form checks an answer with
+ * the same function the server re-checks it with: a person is never told
+ * "fine" by one and "invalid" by the other.
+ *
+ * A checkbox group sends the same key once per ticked box: every one is kept,
+ * as an array, in the order sent. A key that appears once stays a string. The
+ * CV is skipped (only its metadata goes to the validator, the bytes stay in
+ * the `File`), and any other non-string entry becomes "" — it can never carry
+ * a `File` object into a text answer.
+ */
+export function collectAnswers(entries: Iterable<[string, unknown]>): Record<string, unknown> {
+  const raw: Record<string, unknown> = {};
+  for (const [key, value] of entries) {
+    if (key === "cvFile") continue;
+    const next = typeof value === "string" ? value : "";
+    if (Object.prototype.hasOwnProperty.call(raw, key)) {
+      const seen = raw[key];
+      raw[key] = Array.isArray(seen) ? [...seen, next] : [seen, next];
+    } else {
+      raw[key] = next;
+    }
+  }
+  return raw;
+}
+
 export function validateRegistration(input: unknown, cv?: CvFileInfo | null): RegistrationCheck {
   if (typeof input !== "object" || input === null || Array.isArray(input)) {
     return { ok: false, error: "invalid", fields: {} };

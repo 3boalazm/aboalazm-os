@@ -338,6 +338,35 @@ export const FIELD_GROUPS: readonly FieldGroup[] = [
 
 export const ALL_FIELDS: readonly FieldDef[] = FIELD_GROUPS.flatMap((g) => g.fields);
 
+/**
+ * Should the browser's own `required` flag be set on this question's inputs?
+ *
+ * Everywhere except a "multi" answer, yes. HTML has no "at least one of these
+ * checkboxes": `required` on a checkbox means THAT box must be ticked, so a
+ * group where every box carries it cannot be submitted until every box is
+ * ticked (a radio group is the opposite — one required radio makes the whole
+ * group "pick one"). That is exactly what shipped on 19 Nov with the goals
+ * question: someone who ticked four goals of six was blocked by the browser on
+ * the other two, before any of our code ran, with no message we could show.
+ *
+ * "At least one" is checked by validate.ts instead — in the browser before the
+ * request is sent, and again on the server.
+ */
+export function isNativelyRequired(field: FieldDef): boolean {
+  return field.required && field.type !== "multi";
+}
+
+/**
+ * The first question, in the order the page shows them, that has an error.
+ * An error map is keyed in the order the validator checks things (which is not
+ * the order of the page), so "where do I send the person?" cannot just take the
+ * first key.
+ */
+export function firstFieldWithError(errors: Partial<Record<string, unknown>>): string | null {
+  for (const field of ALL_FIELDS) if (errors[field.name]) return field.name;
+  return null;
+}
+
 /* ── operator vocabulary ──────────────────────────────────────────────────
    Two questions the attendee never sees, but the console needs the same
    allowlist discipline for them as for the form's selects (both are Postgres
