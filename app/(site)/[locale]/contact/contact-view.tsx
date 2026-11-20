@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense, useState } from "react";
 import Link from "@/components/ui/localized-link";
 import { ContactForm } from "@/features/contact";
 import { useLang } from "@/components/providers/lang-provider";
@@ -14,6 +15,7 @@ import {
   RESPONSE_PROMISE,
 } from "@/lib/contact-details";
 import { Icon } from "@/components/ui/Icon";
+import { ContactContextFromUrl } from "./contact-from-url";
 
 const CHANNELS = [
   { en: "WhatsApp", ar: "واتساب", label: "+20 109 250 0454", href: "https://wa.me/201092500454" },
@@ -21,10 +23,13 @@ const CHANNELS = [
 ] as const;
 const CORAL = { primary: "rgb(255 107 71 / 0.16)", secondary: "rgb(255 168 120 / 0.08)" };
 
-export function ContactView({ context }: { context?: ContactContext }) {
+export function ContactView() {
   const { lang } = useLang();
   const ar = lang === "ar";
   useAmbientGlow(CORAL, 0.45);
+  // Funnel context from the URL (?service, ?tier, ?source, utm_*). The page is static, so it is read in the browser
+  // and arrives right after hydration; the form follows it in place (no remount, nothing typed is lost).
+  const [context, setContext] = useState<ContactContext>();
 
   const depositPlanId: PlanId =
     (context?.tier as PlanId | undefined) ??
@@ -32,6 +37,9 @@ export function ContactView({ context }: { context?: ContactContext }) {
 
   return (
     <main className="container-content flex flex-col gap-5 pb-8">
+      <Suspense fallback={null}>
+        <ContactContextFromUrl onChange={setContext} />
+      </Suspense>
       <header className="flex flex-col gap-3">
         <p className="x-mono x-kicker">
           {ar ? "تواصل / مشروع جديد" : "CONTACT / YOUR NEXT PROJECT"}
@@ -73,10 +81,7 @@ export function ContactView({ context }: { context?: ContactContext }) {
       </header>
 
       <div className="grid items-start gap-5 lg:grid-cols-[7fr_5fr]">
-        <ContactForm
-          key={`${context?.service}-${context?.tier}-${context?.source}`}
-          context={context}
-        />
+        <ContactForm context={context} />
         <aside className="flex flex-col gap-4">
           <div className="rounded-card border border-border-default bg-surface-1 p-3">
             <h2 className="font-display font-display-sm text-subtitle">

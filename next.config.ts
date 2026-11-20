@@ -154,7 +154,14 @@ const nextConfig: NextConfig = {
         permanent: false,
       },
     ];
-    return [...redirects, ...redirects.map((entry) => ({ ...entry, source: `/ar${entry.source}`, destination: `/ar${entry.destination}` }))];
+    return [
+      ...redirects,
+      ...redirects.map((entry) => ({ ...entry, source: `/ar${entry.source}`, destination: `/ar${entry.destination}` })),
+      // The CV link is in every footer. As a redirect here it is answered by the routing layer; it used to be a
+      // route handler, i.e. a serverless function run (and a cold start) per click. Not mirrored under /ar: the
+      // file lives at the root and every CV link points at /cv.
+      { source: "/cv", destination: "/Mustafa_Taha_Brand_Identity_CV.docx", permanent: false },
+    ];
   },
   images: {
     formats: ["image/avif", "image/webp"],

@@ -33,6 +33,20 @@ export function parseContactContext(raw: Record<string, unknown>): ContactContex
   const locale: Locale = raw.locale === "ar" ? "ar" : "en";
   return { service, tier, source, locale, ...campaign };
 }
+/**
+ * Same result as `parseContactContext(await searchParams)`, for code that only has the URL. /contact is a
+ * static page (a page that reads `searchParams` is a function call on every visit and every <Link> prefetch),
+ * so the funnel context is read in the browser instead. A repeated key stays an array, as `searchParams`
+ * delivers it, so the parser treats it exactly as it did on the server.
+ */
+export function parseContactContextFromSearch(params: Iterable<[string, string]>): ContactContext {
+  const raw: Record<string, string | string[]> = {};
+  for (const [key, value] of params) {
+    const seen = raw[key];
+    raw[key] = seen === undefined ? value : Array.isArray(seen) ? [...seen, value] : [seen, value];
+  }
+  return parseContactContext(raw);
+}
 export function parseCampaign(raw: Record<string, unknown>): Record<string, string> {
   const result: Record<string, string> = {};
   for (const key of ["utm_source", "utm_medium", "utm_campaign"]) {
