@@ -6,7 +6,11 @@ import type { CollectionConfig } from "payload";
  * One row per browser event emitted through lib/analytics.ts and accepted
  * by app/api/track/route.ts. The route is the only writer in practice: it
  * validates against lib/analytics-events.ts (allowlisted names, sanitized
- * paths, host-only referrers, no PII) and writes through the Local API.
+ * paths, host-only referrers, no PII) and stores the row with one INSERT from
+ * lib/analytics-store.ts, so a page view does not have to boot the CMS.
+ * That INSERT lists this collection's columns by hand; adding or renaming a
+ * field here means updating ANALYTICS_COLUMNS there (lib/analytics-store.test.ts
+ * fails the build when the two disagree).
  *
  * `name` is deliberately a plain text field, NOT a select. The event
  * taxonomy lives in code (docs/EVENTS.md) and grows by editing a union
