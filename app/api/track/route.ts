@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { getPayload } from "@/lib/payload";
+import { insertAnalyticsEvent } from "@/lib/analytics-store";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { parseEventPayload } from "@/lib/analytics-events";
 
@@ -8,7 +8,12 @@ import { parseEventPayload } from "@/lib/analytics-events";
  *
  * POST one event from lib/analytics.ts (fetch keepalive or sendBeacon) →
  * validate against the privacy contract in lib/analytics-events.ts → store
- * in the `analytics-events` collection via the Local API.
+ * in the `analytics_events` table (the `analytics-events` collection) with a
+ * single INSERT from lib/analytics-store.ts.
+ *
+ * This route must not import Payload. It runs once per page view, and loading
+ * the CMS in a cold instance cost ~250 ms of CPU to store a ten-field row
+ * (lib/cpu-guard.test.ts fails the build if the import comes back).
  *
  * Design constraints, in order:
  *   1. Analytics must never break or slow the visitor's action. Every
@@ -46,13 +51,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const payload = await getPayload();
-    await payload.create({ collection: "analytics-events", data: parsed.record });
-  } catch {
+    await insertAnalyticsEvent(parsed.record);
+  } catch (error) {
     // Storage failing must look identical to storage working. The event is
     // lost; the visitor's click is not. The Studio System screen probes
     // this collection, so a silent write failure surfaces there instead.
-    console.error("[track] event write failed");
+    // Only the error code is logged (a database message can quote row values).
+    const code = (error as { code?: unknown } | null)?.code;
+    console.error("[track] event write failed", typeof code === "string" ? code : (error as Error | null)?.name);
   }
 
   return new NextResponse(null, { status: 204 });

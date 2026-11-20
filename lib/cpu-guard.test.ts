@@ -82,3 +82,15 @@ test("the sitemap is regenerated at most once a day, and /cv is a config redirec
   assert.equal(filesUnder("app", (f) => /(^|\/)cv\/route\.ts$/.test(f)).length, 0, "app/cv/route.ts is back: /cv is a redirect in next.config.ts (a route handler is a function run per click)");
   assert.match(read("next.config.ts"), /source: "\/cv", destination: "\/Mustafa_Taha_Brand_Identity_CV\.docx"/);
 });
+
+test("the analytics beacon stores its row without loading Payload (it runs once per page view)", () => {
+  // Loading and starting the CMS in a cold instance cost ~250 ms of CPU to write ten short strings. The table is
+  // still Payload's; lib/analytics-store.test.ts keeps the hand-written INSERT in step with it.
+  for (const rel of ["app/api/track/route.ts", "lib/analytics-store.ts"]) {
+    const source = code(rel);
+    assert.doesNotMatch(source, /from\s+["'](?:@\/lib\/payload|payload|@payload-config|@payloadcms\/[^"']+)["']/, `${rel} imports Payload: every cold POST /api/track would boot the CMS again`);
+    assert.doesNotMatch(source, /import\(\s*["'](?:@\/lib\/payload|payload|@payload-config)/, `${rel} loads Payload dynamically`);
+    assert.doesNotMatch(source, /\bgetPayload\b/, `${rel} calls getPayload()`);
+  }
+  assert.match(code("app/api/track/route.ts"), /insertAnalyticsEvent\(parsed\.record\)/, "the beacon route must store through lib/analytics-store.ts");
+});
