@@ -37,6 +37,13 @@ export function ContactForm({ context }: { context?: ContactContext }) {
   const ar = lang === "ar";
   const reduceMotion = useReducedMotion();
   const [selection, setSelection] = useState(() => parseContactContext(context ?? {}));
+  // The funnel context can arrive after the first render (/contact is static, the URL is read in the browser).
+  // Follow it in place instead of remounting the form: a remount would drop what was typed before hydration.
+  const [appliedContext, setAppliedContext] = useState(context);
+  if (context !== appliedContext) {
+    setAppliedContext(context);
+    setSelection(parseContactContext(context ?? {}));
+  }
   const didStart = useRef(false);
   const eventContext = { service: selection.service, tier: selection.tier, source: selection.source, locale: lang };
   const [status, setStatus] = useState<Status>("idle");

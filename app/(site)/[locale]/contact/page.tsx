@@ -1,6 +1,5 @@
 import { localizedMetadata } from "@/lib/localized-metadata";
 import type { Locale } from "@/lib/locale";
-import { parseContactContext } from "@/lib/contact-context";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/json-ld";
 import { RESPONSE_PROMISE } from "@/lib/contact-details";
@@ -13,12 +12,14 @@ const pageMetadata: Metadata = {
   description: `Reach out by email or WhatsApp, or send a project enquiry directly. ${RESPONSE_PROMISE.en}`,
 };
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const context = parseContactContext(await searchParams);
+// Static on purpose (CPU GUARD, lib/cpu-guard.test.ts): this page must not read `searchParams`, cookies or headers.
+// The funnel context in the URL is read in the browser (contact-from-url.tsx, used by <ContactView>); until it has
+// hydrated, and for crawlers, the HTML is the complete view without a context.
+export default function ContactPage() {
   return (
     <>
       <JsonLd data={getBreadcrumbSchema([{ name: "Contact", path: "/contact" }])} />
-      <ContactView context={context} />
+      <ContactView />
       {/* The FAQ moved here from the home page: it answers
           the questions people have right before they write. */}
       <section id="faq" className="scroll-mt-20 py-8">
