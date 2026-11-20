@@ -32,7 +32,7 @@ import { getPayload } from "@/lib/payload";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { sendSessionRegistrationNotification } from "@/lib/email";
 import { DEFAULT_SESSION_KEY, isKnownSessionKey, optionLabel } from "./assessment";
-import { validateRegistration, type RegistrationData } from "./validate";
+import { collectAnswers, validateRegistration, type RegistrationData } from "./validate";
 
 export type FieldErrors = Partial<Record<keyof RegistrationData | "cvFile", string>>;
 
@@ -63,19 +63,9 @@ function fieldErrors(fields: FieldErrors): FieldErrors {
  * bytes stay in the `File` until the upload call.
  */
 function readForm(formData: FormData): { raw: Record<string, unknown>; file: File | null } {
-  const raw: Record<string, unknown> = {};
-  for (const [key, value] of formData.entries()) {
-    if (key === "cvFile") continue;
-    const next = typeof value === "string" ? value : "";
-    /* A checkbox group sends the same key once per answer: keep every one, as
-       an array. Single-value fields never repeat a key, so they stay strings. */
-    if (key in raw) {
-      const seen = raw[key];
-      raw[key] = Array.isArray(seen) ? [...seen, next] : [seen, next];
-    } else {
-      raw[key] = next;
-    }
-  }
+  /* collectAnswers is shared with the browser form (see validate.ts), so both
+     read a checkbox group the same way. */
+  const raw = collectAnswers(formData.entries());
   const chosen = formData.get("cvFile");
   return { raw, file: chosen instanceof File && chosen.size > 0 ? chosen : null };
 }
