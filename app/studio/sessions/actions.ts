@@ -16,6 +16,7 @@ import { revalidatePath } from "next/cache";
 import { getPayload } from "@/lib/payload";
 import { getStudioUser } from "@/lib/studio/auth";
 import { ATTENDANCE_OPTIONS, FOLLOWUP_OPTIONS } from "@/features/linkedin-session/assessment";
+import { normalizeRegistrationId } from "@/lib/studio/sessions";
 
 const ATTENDANCE = ATTENDANCE_OPTIONS.map((o) => o.value);
 const FOLLOW_UP = FOLLOWUP_OPTIONS.map((o) => o.value);
@@ -61,4 +62,40 @@ export async function saveRegistrationDetails(id: string | number, input: Regist
     return { ok: false, error: `الملاحظة يجب أن تكون نصًا بأقل من ${NOTES_MAX} حرفًا.` };
   }
   return write(id, { followUp: input.followUp, attendance: input.attendance, notes: input.notes.trim() });
+}
+
+/**
+ * حذف رد واحد نهائيًا — الصف وملف الـ CV معه.
+ *
+ * الحذف يمرّ عبر `payload.delete` بـ `overrideAccess: false`، فصلاحية
+ * `session-registrations.access.delete` (مستخدم مسجَّل) هي الحدّ الفاصل لا هذا
+ * الملف. وhook `afterDelete` في collections/SessionRegistrations.ts يحذف ملف
+ * الـ CV داخل المعاملة نفسها: إمّا يذهب الاثنان أو لا يذهب شيء.
+ *
+ * رقم الصف يُتحقّق منه قبل أي استعلام (الفعل نقطة POST عامة). وصف غير موجود —
+ * حُذف من تبويب آخر مثلًا — يُعدّ نجاحًا: ما طُلب (ألا يوجد الصف) قائم.
+ */
+export async function deleteRegistration(id: string | number): Promise<ActionResult> {
+  const user = await getStudioUser();
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
+  const target = normalizeRegistrationId(id);
+  if (target === null) return { ok: false, error: "رقم الرد غير صالح — لم يُحذف شيء." };
+  try {
+    const payload = await getPayload();
+    await payload.delete({
+      collection: "session-registrations",
+      id: target,
+      overrideAccess: false,
+      user: user as never,
+    });
+  } catch (error) {
+    if ((error as { status?: number }).status !== 404) {
+      /* Name only: Payload messages can quote the row, and a row here is a person. */
+      console.error("[studio/sessions] delete failed:", error instanceof Error ? error.name : "unknown");
+      return { ok: false, error: "تعذر الحذف — لم يتغير شيء. جرّب مرة أخرى." };
+    }
+  }
+  revalidatePath("/studio/sessions");
+  revalidatePath("/studio");
+  return { ok: true };
 }
