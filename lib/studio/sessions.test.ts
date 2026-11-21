@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import test from "node:test";
 
 import { UNANSWERED, fieldDef, optionValuesOf } from "@/features/linkedin-session/assessment";
@@ -8,6 +10,7 @@ import {
   GROUPED_SELECTS,
   GROUPED_TEXTS,
   buildSessionReport,
+  normalizeRegistrationId,
   registrationCsv,
   type SessionRegistrationRow,
 } from "./sessions";
@@ -179,4 +182,76 @@ test("every grouped field has a real option list to label the chart with", () =>
   for (const field of GROUPED_TEXTS) {
     assert.equal(optionValuesOf(field).length, 0, `${field} must stay free text — a chart of invented buckets is worse than none`);
   }
+});
+
+/* ── deleting a registration ─────────────────────────────────────────────────
+   The delete is irreversible and the action behind it is a public POST
+   endpoint, so what is pinned here is the shape of the safety, not the
+   behaviour of a database: the id is checked, the operator session is checked
+   first, Payload's own access rule stays the boundary, the CV file goes in the
+   same transaction (the bug that made this hang), and the button takes two
+   clicks. The behaviour itself was exercised on a throwaway Postgres. */
+
+const ROOT = process.cwd(); // npm scripts run from the repo root, like lib/cpu-guard.test.ts
+const source = (rel: string) =>
+  readFileSync(join(ROOT, rel), "utf8")
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/(^|[^:])\/\/.*$/gm, "$1");
+
+test("normalizeRegistrationId accepts only what Payload's serial ids can be", () => {
+  assert.equal(normalizeRegistrationId(7), 7);
+  assert.equal(normalizeRegistrationId("7"), 7);
+  assert.equal(normalizeRegistrationId("1234567890"), 1234567890);
+  for (const bad of [0, -1, 1.5, NaN, Infinity, Number.MAX_SAFE_INTEGER + 2, "", " 7", "7 ", "07", "0", "-3", "1.5", "1e3", "0x10", "7; drop table", "٧", null, undefined, {}, [], [7], true]) {
+    assert.equal(normalizeRegistrationId(bad), null, `must refuse ${JSON.stringify(bad)}`);
+  }
+});
+
+test("deleteRegistration checks the session, then the id, and leaves access to Payload", () => {
+  const code = source("app/studio/sessions/actions.ts");
+  const start = code.indexOf("export async function deleteRegistration");
+  assert.ok(start > -1, "the action exists");
+  const body = code.slice(start);
+  const order = [body.indexOf("getStudioUser("), body.indexOf("normalizeRegistrationId("), body.indexOf("payload.delete(")];
+  assert.ok(order.every((i) => i > -1), `session check, id check and delete must all be there: ${order}`);
+  assert.ok(order[0]! < order[1]! && order[1]! < order[2]!, "order must be session -> id -> delete, so nothing runs for a logged-out caller");
+  assert.match(body, /overrideAccess:\s*false/, "Payload's access rule must stay the boundary");
+  assert.match(body, /user:\s*user as never/, "the delete must run as the operator");
+  assert.match(body, /collection:\s*"session-registrations"/);
+  assert.equal(/where\s*:/.test(body), false, "delete by one validated id, never by a filter: a filter can match many rows");
+});
+
+test("the CV file is deleted inside the registration's transaction, and a failure is not swallowed", () => {
+  const code = source("collections/SessionRegistrations.ts");
+  const hook = code.slice(code.indexOf("afterDelete"));
+  assert.match(hook, /payload\.delete\(\{[^}]*collection:\s*"session-files"[^}]*\breq\b[^}]*\}\)/, "without `req` the file delete opens a second transaction and deadlocks against cv_file_id");
+  assert.equal(/\bcatch\b/.test(hook.slice(0, hook.indexOf("fields:"))), false, "a swallowed error would report success for a delete that was rolled back");
+});
+
+test("deleting asks twice, in the detail panel — the table's button only opens it", () => {
+  const view = source("components/studio/sessions-view.tsx");
+  assert.equal((view.match(/deleteRegistration\(/g) ?? []).length, 1, "one call site for the delete action");
+  const start = view.indexOf("function DeleteRegistration");
+  const control = view.slice(start, view.indexOf("function RegistrationDetail"));
+  assert.ok(start > 0 && control.length > 0, "the control is where the slice expects it");
+  assert.match(control, /onClick=\{\(\) => setArmed\(true\)\}/, "the first click only arms the confirmation");
+  assert.ok(control.indexOf("setArmed(true)") < control.indexOf("onConfirm(row)"), "confirmation comes before the call");
+  assert.match(control, /Escape/, "Escape cancels");
+  assert.match(control, /e\.stopPropagation\(\)/, "...the confirmation only: the panel listens for Escape on window and would close with it");
+  assert.match(control, /cancelRef\.current\?\.focus\(\)/, "the safe button takes focus, so a stray Enter cancels");
+  assert.match(control, /setTimeout\(\(\) => cancelRef\.current\?\.focus\(\)/, "...deferred: the panel's own focus-on-open effect runs after this one and would win");
+  assert.equal(/window\.confirm/.test(view), false, "a native dialog can be muted by the browser, which would turn the delete into a silent no-op");
+  assert.match(view, /setRows\(\(rs\) => rs\.filter/, "the row leaves the list only after the server answered");
+
+  // One confirmation, in the panel. A confirmation inside a table cell widened its column and clipped its own Cancel
+  // button at 1600px, and the action column is outside the frame at 1440px and narrower (both measured), so the table's
+  // button never deletes and never asks: it opens the panel with the question already on the screen.
+  assert.equal((view.match(/<DeleteRegistration\b/g) ?? []).length, 1, "one confirmation, in the detail panel");
+  assert.match(view, /<DeleteRegistration row=\{row\} onConfirm=\{onDelete\} initiallyArmed=\{autoArmDelete\} \/>/, "it starts armed when the panel was opened from the table");
+  assert.match(view, /onClick=\{\(\) => openForDelete\(row\.id\)\}/, "the table's button opens the panel...");
+  assert.match(view, /const openForDelete = \(id[^)]*\) => \{\s*setArmDelete\(true\);\s*setSelectedId\(id\);/, "...armed");
+  assert.match(view, /const openDetail = \(id[^)]*\) => \{\s*setArmDelete\(false\);/, "the name button opens it plain");
+  assert.match(view, /<RegistrationDetail[\s\S]*?onDelete=\{remove\}[\s\S]*?autoArmDelete=\{armDelete\}/, "the panel deletes through the one handler");
+  assert.match(view, /const closeDetail = useCallback\(/, "a stable onClose: the panel re-runs its focus-on-open effect when it changes, which would pull focus off the safe button");
+  assert.match(view, /onClose=\{closeDetail\}/, "and the panel uses it");
 });

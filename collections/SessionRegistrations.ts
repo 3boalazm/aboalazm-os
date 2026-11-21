@@ -53,21 +53,26 @@ export const SessionRegistrations: CollectionConfig = {
      * leaves the PDF in the bucket with nothing pointing at it. Payload's
      * cloud-storage adapter removes the blob when the upload doc is deleted.
      *
-     * The hook runs after the row is gone, so it deletes through the same
-     * request (the operator is already authorised on session-files).
+     * `req` MUST be passed on. It keeps this delete inside the transaction that
+     * is deleting the registration. Without it the file delete runs in a second
+     * transaction, and `session_files` is referenced by
+     * `session_registrations.cv_file_id` (ON DELETE SET NULL): the second
+     * transaction waits for the first to commit, the first waits for this hook,
+     * and the delete never returns. Reproduced on a throwaway Postgres on
+     * 20–21 Nov 2026: one connection `idle in transaction`, the other blocked
+     * on `transactionid` running `delete from "session_files"`.
+     *
+     * No try/catch on purpose. In one transaction both rows go or neither does;
+     * swallowing an error here would let a transaction that was already rolled
+     * back report success, i.e. tell the operator a person's data is gone when
+     * it is not.
      */
     afterDelete: [
       async ({ doc, req }) => {
         const file = doc.cvFile;
         const id = typeof file === "object" && file !== null ? file.id : file;
         if (id === undefined || id === null || id === "") return;
-        try {
-          await req.payload.delete({ collection: "session-files", id });
-        } catch (error) {
-          /* The row is already deleted; a leftover file must not turn into a 500
-             on a screen that will now refuse to show it. */
-          req.payload.logger.error({ err: error, msg: "session registration deleted but its CV file remains", id });
-        }
+        await req.payload.delete({ collection: "session-files", id, req });
       },
     ],
   },

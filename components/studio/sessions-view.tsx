@@ -12,14 +12,14 @@
  * app/studio/sessions/actions.ts، وتُتراجع أماميًا مع رسالة تخبر بالرفض إن
  * رفضتها قاعدة البيانات.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Chip, EmptyState, SIcon, Tile, ViewHeader, ago, initials, num, shortTime, type ChipTone } from "@/components/studio/ui";
 import { Drawer, Toasts, useToasts } from "@/components/studio/interactive";
 import { ATTENDANCE_OPTIONS, FOLLOWUP_OPTIONS, optionLabel, sessionTitle } from "@/features/linkedin-session/assessment";
 import type { Dist, SessionRegistrationRow, SessionReport } from "@/lib/studio/sessions";
-import { saveRegistrationDetails, setAttendance } from "@/app/studio/sessions/actions";
+import { deleteRegistration, saveRegistrationDetails, setAttendance } from "@/app/studio/sessions/actions";
 
 const FIELD_TITLES: Record<string, string> = {
   yearOfStudy: "السنة الدراسية",
@@ -46,6 +46,9 @@ export function SessionsView({
 }) {
   const [rows, setRows] = useState(initialRows);
   const [selectedId, setSelectedId] = useState<string | number | null>(null);
+  /* «حذف…» في الجدول يفتح لوحة التفاصيل والتأكيد مطروح فيها؛ زر الاسم يفتحها دونه.
+     تأكيد واحد في مكان واحد (انظر DeleteRegistration). */
+  const [armDelete, setArmDelete] = useState(false);
   const [query, setQuery] = useState("");
   const router = useRouter();
   const { toasts, push } = useToasts();
@@ -81,6 +84,39 @@ export function SessionsView({
     }
     push("ok", `حُدّث الحضور: ${attendanceLabel(attendance)}`);
     router.refresh();
+  };
+
+  const openDetail = (id: string | number) => {
+    setArmDelete(false);
+    setSelectedId(id);
+  };
+  const openForDelete = (id: string | number) => {
+    setArmDelete(true);
+    setSelectedId(id);
+  };
+  /* Stable identity on purpose: the panel re-runs its focus-on-open effect whenever
+     `onClose` changes, and an inline arrow changes on every render (a toast timing
+     out is enough) — which would pull focus off the confirmation's safe button. */
+  const closeDetail = useCallback(() => {
+    setSelectedId(null);
+    setArmDelete(false);
+  }, []);
+
+  /* Not optimistic: a delete cannot be taken back, so the row leaves the list
+     only after the server says it is gone. The refresh recomputes every tile
+     and chart from the remaining rows. */
+  const remove = async (row: SessionRegistrationRow): Promise<boolean> => {
+    const res = await deleteRegistration(row.id);
+    if (!res.ok) {
+      push("danger", res.error);
+      return false;
+    }
+    setRows((rs) => rs.filter((r) => String(r.id) !== String(row.id)));
+    setSelectedId((current) => (current !== null && String(current) === String(row.id) ? null : current));
+    setArmDelete(false);
+    push("ok", `حُذف رد «${row.fullName}» نهائيًا${row.cvFile ? " مع ملف الـ CV" : ""}.`);
+    router.refresh();
+    return true;
   };
 
   return (
@@ -313,6 +349,7 @@ export function SessionsView({
                       <th>CV</th>
                       <th>الحضور</th>
                       <th>المتابعة</th>
+                      <th>إجراء</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -322,7 +359,7 @@ export function SessionsView({
                           <button
                             type="button"
                             className="studio-row--btn"
-                            onClick={() => setSelectedId(row.id)}
+                            onClick={() => openDetail(row.id)}
                             style={{ display: "flex", gap: 9, alignItems: "center", textAlign: "start", maxWidth: 320 }}
                           >
                             <span className="studio-ava">{initials(row.fullName || "؟")}</span>
@@ -385,6 +422,17 @@ export function SessionsView({
                         <td>
                           <Chip tone={followTone(row.followUp)}>{optionLabel("followUp", row.followUp ?? "new")}</Chip>
                         </td>
+                        <td>
+                          <button
+                            type="button"
+                            className="studio-btn studio-btn--sm studio-btn--danger"
+                            aria-label={`حذف رد ${row.fullName}`}
+                            title="يفتح الرد ويسأل قبل حذفه نهائيًا"
+                            onClick={() => openForDelete(row.id)}
+                          >
+                            حذف…
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -397,7 +445,7 @@ export function SessionsView({
 
       <Drawer
         open={Boolean(selected)}
-        onClose={() => setSelectedId(null)}
+        onClose={closeDetail}
         title={
           selected ? (
             <span style={{ display: "flex", alignItems: "center", gap: 9, minWidth: 0 }}>
@@ -415,11 +463,11 @@ export function SessionsView({
           ) : null
         }
       >
-        {selected ? <RegistrationDetail row={selected} onSaved={(patch) => {
+        {selected ? <RegistrationDetail key={String(selected.id)} row={selected} onSaved={(patch) => {
           setRows((rs) => rs.map((r) => (String(r.id) === String(selected.id) ? { ...r, ...patch } : r)));
           push("ok", "حُفظت التعديلات في Payload.");
           router.refresh();
-        }} onError={(message) => push("danger", message)} /> : null}
+        }} onError={(message) => push("danger", message)} onDelete={remove} autoArmDelete={armDelete} /> : null}
       </Drawer>
 
       <Toasts items={toasts} />
@@ -448,14 +496,105 @@ function DistRow({ dist, max }: { dist: Dist; max: number }) {
   );
 }
 
+/**
+ * حذف رد: نقرتان، وفي مكان واحد هو لوحة التفاصيل. الأولى تفتح سؤال التأكيد باسم
+ * الشخص (والزر الآمن «إلغاء» هو الذي يأخذ التركيز، فالضغط على Enter بالخطأ لا
+ * يحذف)، والثانية تحذف فعلًا. Escape يلغي التأكيد وحده ولا يغلق اللوحة معه.
+ * لا نافذة متصفح: window.confirm تُكتم لمن يختار «منع النوافذ»، فيصير الحذف صامتًا
+ * بلا تفسير.
+ *
+ * زر «حذف…» في صف الجدول لا يحذف ولا يحمل تأكيدًا خاصًا به: يفتح هذه اللوحة
+ * والسؤال مطروح (initiallyArmed). جُرّب تأكيد داخل الخلية فوسّع العمود وقصّ النص
+ * وزر «إلغاء» على شاشة 1600px، وعمود «إجراء» نفسه خارج الإطار على 1440px وأقل.
+ * اللوحة فيها المكان، وتُظهر بيانات الشخص قبل أن يقرّر المشغّل، وتُفتح من عمود
+ * الاسم على أي شاشة.
+ */
+function DeleteRegistration({
+  row,
+  onConfirm,
+  initiallyArmed,
+}: {
+  row: SessionRegistrationRow;
+  onConfirm: (row: SessionRegistrationRow) => Promise<boolean>;
+  initiallyArmed: boolean;
+}) {
+  const [armed, setArmed] = useState(initiallyArmed);
+  const [busy, setBusy] = useState(false);
+  const cancelRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!armed) return;
+    // Deferred: when the panel opens already asking, its own focus-on-open effect runs after this
+    // component's (children first) and would take a direct focus() away again. The safe button must win.
+    const timer = window.setTimeout(() => cancelRef.current?.focus(), 0);
+    return () => window.clearTimeout(timer);
+  }, [armed]);
+
+  if (!armed) {
+    return (
+      <button
+        type="button"
+        className="studio-btn studio-btn--sm studio-btn--danger"
+        aria-label={`حذف رد ${row.fullName} (لوحة التفاصيل)`}
+        title="حذف هذا الرد نهائيًا"
+        onClick={() => setArmed(true)}
+      >
+        حذف هذا الرد
+      </button>
+    );
+  }
+
+  return (
+    <div
+      role="group"
+      aria-label={`تأكيد حذف رد ${row.fullName}`}
+      onKeyDown={(e) => {
+        if (e.key !== "Escape") return;
+        e.stopPropagation(); // الـ Escape هنا للتأكيد فقط؛ لوحة التفاصيل تسمعه على window وتُغلق لو وصلها
+        if (!busy) setArmed(false);
+      }}
+      style={{ display: "flex", flexDirection: "column", gap: 6, minWidth: 200 }}
+    >
+      <span role="alert" className="studio-tiny" style={{ color: "var(--s-danger)", whiteSpace: "normal" }}>
+        حذف رد «{row.fullName}» نهائيًا{row.cvFile ? " مع ملف الـ CV" : ""}؟ لا يمكن التراجع.
+      </span>
+      <span style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+        <button
+          type="button"
+          className="studio-btn studio-btn--sm studio-btn--danger"
+          disabled={busy}
+          onClick={async () => {
+            setBusy(true);
+            const gone = await onConfirm(row);
+            if (!gone) {
+              setBusy(false);
+              setArmed(false);
+            }
+          }}
+        >
+          {busy ? "جارٍ الحذف…" : "نعم، احذف نهائيًا"}
+        </button>
+        <button ref={cancelRef} type="button" className="studio-btn studio-btn--sm" disabled={busy} onClick={() => setArmed(false)}>
+          إلغاء
+        </button>
+      </span>
+    </div>
+  );
+}
+
 function RegistrationDetail({
   row,
   onSaved,
   onError,
+  onDelete,
+  autoArmDelete,
 }: {
   row: SessionRegistrationRow;
   onSaved: (patch: Partial<SessionRegistrationRow>) => void;
   onError: (message: string) => void;
+  onDelete: (row: SessionRegistrationRow) => Promise<boolean>;
+  /** The panel was opened from the table's «حذف…»: show the confirmation already asking. */
+  autoArmDelete: boolean;
 }) {
   const [followUp, setFollowUp] = useState(row.followUp ?? "new");
   const [attendance, setAttendanceState] = useState(row.attendance ?? "registered");
@@ -554,6 +693,11 @@ function RegistrationDetail({
             يُكتب عبر <code>payload.update</code> بـ <code>overrideAccess: false</code>
           </span>
         </div>
+      </div>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, paddingTop: 14, borderTop: "1px solid var(--s-hair)" }}>
+        <p className="studio-up">حذف الرد</p>
+        <DeleteRegistration row={row} onConfirm={onDelete} initiallyArmed={autoArmDelete} />
       </div>
     </div>
   );

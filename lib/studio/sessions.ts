@@ -44,6 +44,22 @@ export interface SessionRegistrationRow {
   updatedAt?: string;
 }
 
+/**
+ * A registration id as it arrives from the browser. Payload on Postgres uses
+ * serial integer ids, and a server action is a public POST endpoint, so the
+ * value is checked instead of trusted: a positive safe integer, or the same
+ * digits as a string. Anything else (empty, negative, decimal, hex, "1e3",
+ * padded, an object) is refused before it reaches the database.
+ */
+export function normalizeRegistrationId(raw: unknown): number | null {
+  if (typeof raw === "number") return Number.isSafeInteger(raw) && raw > 0 ? raw : null;
+  if (typeof raw === "string" && /^[1-9]\d{0,15}$/.test(raw)) {
+    const n = Number(raw);
+    return Number.isSafeInteger(n) ? n : null;
+  }
+  return null;
+}
+
 /** الحقول التي تملك قائمة خيارات في assessment.ts فتُجمع بأسمائها العربية. */
 export const GROUPED_SELECTS = ["yearOfStudy", "linkedinStatus", "cvStatus", "appliedBefore", "attendance", "followUp"] as const;
 /** حقول hasMany: إجابة واحدة لصفوف متعددة، والصف قد يختار أكثر من قيمة. */
