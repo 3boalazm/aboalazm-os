@@ -651,6 +651,12 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
 .fear-quote p { font-size: 1rem; }
 .msg-text { font-size: 0.85rem; }
 .takeaway-line { max-width: none; }
+/* Body copy in examples = IBM Plex Sans Arabic (owner: posts, messages and headline examples read as body text, not code) */
+.post-body, .post-body p, .post-name, .post-meta,
+.msg-text, .ex-text, .headline-eq { font-family: var(--font-arabic) !important; letter-spacing: 0 !important; }
+.post-meta { text-transform: none; }
+.msg-text { font-size: 0.95rem; line-height: 1.75; }
+.ex-text { font-size: 1rem; }
 /* bilingual post pairs (slides 20–22) — AR on the right, EN on the left */
 .post-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch; }
 .post-pair .post-card { max-width: none; margin: 0; display: flex; flex-direction: column; padding: 1.5rem 1.6rem; }
