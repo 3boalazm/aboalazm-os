@@ -651,6 +651,16 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
 .fear-quote p { font-size: 1rem; }
 .msg-text { font-size: 0.85rem; }
 .takeaway-line { max-width: none; }
+/* bilingual post pairs (slides 20–22) — AR on the right, EN on the left */
+.post-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch; }
+.post-pair .post-card { max-width: none; margin: 0; display: flex; flex-direction: column; padding: 1.5rem 1.6rem; }
+.post-pair .post-head { margin-bottom: 1rem; padding-bottom: 0.9rem; }
+.post-pair .post-body { flex: 1; }
+.post-pair .post-body p { font-size: 0.98rem; line-height: 1.7; margin-bottom: 0.6rem; }
+.post-card--ar .post-body { direction: rtl; text-align: right; }
+.post-card--ar .post-name, .post-card--ar .post-meta { font-family: var(--font-arabic); letter-spacing: 0; }
+.post-card--ar .post-tags { direction: rtl; }
+.post-pair .copy-btn { align-self: flex-start; height: 2.6rem; margin-top: 0.75rem; }
 /* slide 8: shorter wireframe so the chapter head clears the brand mark */
 [data-slide="8"] .chapter { margin-bottom: 1.25rem; }
 [data-slide="8"] .wireframe { width: 420px; zoom: 0.78; }
@@ -1177,37 +1187,159 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
     <aside class="notes"><p>البوست مش لازم يكون إنجاز كبير. المهم الاستمرارية: بوست كل أسبوعين كفاية كبداية. الـ 3 formulas دول يغطوا أغلب الحالات اللي الطالب ممكن يواجهها.</p></aside>
   </section>
 
-  <!-- ═══════════════════ 20 — Full Post Example ═══════════════════ -->
+  <!-- ═══════════════════ 20 — Post example 1/3 (AR + EN) ═══════════════════ -->
   <section class="slide x-room ground-ink" data-slide="20" data-part="content">
     <div class="atmos-field" aria-hidden="true"></div>
     <div class="slide-inner">
       <div class="slide-content">
-        <p class="x-kicker slide-kicker">المحتوى · مثال</p>
-        <h2 class="slide-title x-display">مثال <em>بوست</em> كامل</h2>
-        <article class="post-card">
-          <header class="post-head">
-            <span class="post-avatar" aria-hidden="true"></span>
-            <div>
-              <p class="post-name">Student · Architecture</p>
-              <p class="post-meta">PROJECT POST</p>
+        <p class="x-kicker slide-kicker">المحتوى · مثال 1 من 3</p>
+        <h2 class="slide-title x-display">بوست <em>مشروع</em></h2>
+        <p class="slide-lead">Project Post — عملت إيه ← التحدي ← اتعلمت إيه ← صورة</p>
+        <div class="post-pair">
+          <article class="post-card post-card--ar" dir="rtl" lang="ar">
+            <header class="post-head">
+              <span class="post-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="post-name">طالب · عمارة</p>
+                <p class="post-meta">بوست مشروع</p>
+              </div>
+            </header>
+            <div class="post-body">
+            <p>خلّصت مشروع استوديو التصميم في سنة تالتة: مكتبة عامة لحي [اسم المنطقة].</p>
+            <p>أصعب حاجة؟ إزاي أدخّل إضاءة طبيعية من غير ما المكان يسخن.</p>
+            <p>اللي اتعلمته: ابدأ بالمناخ، مش بالشكل.</p>
+            <p>ولما رجعت لشغلي في سنة أولى، شفت قد إيه طريقة تفكيري اتغيرت.</p>
+            <p>يسعدني أسمع رأي المعماريين اللي في المجال 👇</p>
+            <p class="post-tags">#عمارة #مشاريع_طلاب</p>
             </div>
-          </header>
-          <div class="post-body">
+            <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label" data-label="نسخ">نسخ</span></button>
+          </article>
+          <article class="post-card post-card--en" dir="ltr" lang="en">
+            <header class="post-head">
+              <span class="post-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="post-name">Student · Architecture</p>
+                <p class="post-meta">PROJECT POST</p>
+              </div>
+            </header>
+            <div class="post-body">
             <p>Just wrapped up my 3rd-year design studio project: a community library for [area].</p>
             <p>The hardest part? Balancing natural light with heat control.</p>
             <p>What I learned: start with the climate, not the form.</p>
             <p>Looking back at my 1st-year work, I can see how much my process has changed.</p>
             <p>Would love feedback from architects in the field 👇</p>
             <p class="post-tags">#Architecture #StudentWork</p>
-          </div>
-        </article>
+            </div>
+            <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label" data-label="Copy">Copy</span></button>
+          </article>
+        </div>
       </div>
     </div>
-    <aside class="notes"><p>لاحظ إنه بيوري التطور ويطلب feedback — مش بيدّعي إنه محترف. المصداقية دي هي اللي بتبني الثقة مع الـ Network.</p></aside>
+    <aside class="notes"><p>لاحظ إنه بيوري التطور ويطلب رأي، ومش بيدّعي إنه محترف. نفس البوست بلغتين: اللي جمهوره في مصر يكتب عربي، واللي بيستهدف شركات برّه أو مجال شغله إنجليزي يكتب إنجليزي. وممكن يكتب الاتنين في نفس البوست.</p></aside>
   </section>
 
-  <!-- ═══════════════════ 21 — Finding Internships (Chapter 06) ═══════════════════ -->
-  <section class="slide x-room ground-base" data-slide="21" data-part="jobs">
+  <!-- ═══════════════════ 21 — Post example 2/3 (AR + EN) ═══════════════════ -->
+  <section class="slide x-room ground-ink" data-slide="21" data-part="content">
+    <div class="atmos-field" aria-hidden="true"></div>
+    <div class="slide-inner">
+      <div class="slide-content">
+        <p class="x-kicker slide-kicker">المحتوى · مثال 2 من 3</p>
+        <h2 class="slide-title x-display">بوست <em>تعلّم</em></h2>
+        <p class="slide-lead">Learning Post — خلّصت إيه ← أهم 3 حاجات ← هطبّقها فين</p>
+        <div class="post-pair">
+          <article class="post-card post-card--ar" dir="rtl" lang="ar">
+            <header class="post-head">
+              <span class="post-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="post-name">طالبة · تصميم</p>
+                <p class="post-meta">بوست تعلّم</p>
+              </div>
+            </header>
+            <div class="post-body">
+            <p>خلّصت كورس [اسم الكورس] على [المنصة] 🎓</p>
+            <p>3 حاجات هاخدها معايا:</p>
+            <p>1. اتكلم مع المستخدم قبل ما تصمم أي حاجة.<br>2. اسكتش بسيط في الأول أحسن من تصميم كامل.<br>3. الرأي بدري بيوفّر أسابيع بعدين.</p>
+            <p>الخطوة الجاية: هطبّق ده على مشروع التخرج.</p>
+            <p>إيه أهم درس غيّر طريقة شغلك؟ 👇</p>
+            <p class="post-tags">#UX #بتعلم</p>
+            </div>
+            <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label" data-label="نسخ">نسخ</span></button>
+          </article>
+          <article class="post-card post-card--en" dir="ltr" lang="en">
+            <header class="post-head">
+              <span class="post-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="post-name">Student · Design</p>
+                <p class="post-meta">LEARNING POST</p>
+              </div>
+            </header>
+            <div class="post-body">
+            <p>Just finished [Course name] on [platform] 🎓</p>
+            <p>3 things I’m taking with me:</p>
+            <p>1. Talk to users before you design anything.<br>2. A simple sketch beats a polished mockup at the start.<br>3. Early feedback saves weeks later.</p>
+            <p>Next step: applying this to my graduation project.</p>
+            <p>What’s one lesson that changed how you work? 👇</p>
+            <p class="post-tags">#UXDesign #LearningInPublic</p>
+            </div>
+            <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label" data-label="Copy">Copy</span></button>
+          </article>
+        </div>
+      </div>
+    </div>
+    <aside class="notes"><p>البوست ده أسهل بداية لأي حد معندوش مشاريع لسه: أي كورس أو كتاب أو فيديو اتعلم منه يتحول لبوست. السؤال في الآخر بيفتح كومنتات.</p></aside>
+  </section>
+
+  <!-- ═══════════════════ 22 — Post example 3/3 (AR + EN) ═══════════════════ -->
+  <section class="slide x-room ground-ink" data-slide="22" data-part="content">
+    <div class="atmos-field" aria-hidden="true"></div>
+    <div class="slide-inner">
+      <div class="slide-content">
+        <p class="x-kicker slide-kicker">المحتوى · مثال 3 من 3</p>
+        <h2 class="slide-title x-display">بوست <em>إيفنت</em></h2>
+        <p class="slide-lead">Event Post — حضرت إيه ← أهم حاجة خرجت بيها ← منشن للمتحدث</p>
+        <div class="post-pair">
+          <article class="post-card post-card--ar" dir="rtl" lang="ar">
+            <header class="post-head">
+              <span class="post-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="post-name">طالب · إدارة أعمال</p>
+                <p class="post-meta">بوست إيفنت</p>
+              </div>
+            </header>
+            <div class="post-body">
+            <p>حضرت النهارده [اسم الإيفنت] في [المكان].</p>
+            <p>أكتر كلام فضل معايا كان لـ [اسم المتحدث] عن [الموضوع].</p>
+            <p>أهم حاجة خرجت بيها: مش محتاج خبرة عشان تبدأ، محتاج دليل إنك بتتعلم.</p>
+            <p>شكرًا [@المتحدث] و[@المنظمين] على السيشن 🙏</p>
+            <p class="post-tags">#تطوير_مهني #[مجالك]</p>
+            </div>
+            <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label" data-label="نسخ">نسخ</span></button>
+          </article>
+          <article class="post-card post-card--en" dir="ltr" lang="en">
+            <header class="post-head">
+              <span class="post-avatar" aria-hidden="true"></span>
+              <div>
+                <p class="post-name">Student · Business</p>
+                <p class="post-meta">EVENT POST</p>
+              </div>
+            </header>
+            <div class="post-body">
+            <p>Attended [Event name] at [venue] today.</p>
+            <p>The talk that stayed with me was by [Speaker] on [topic].</p>
+            <p>My biggest takeaway: you don’t need experience to start — you need proof that you’re learning.</p>
+            <p>Thanks [@Speaker] and [@Organizers] for a great session 🙏</p>
+            <p class="post-tags">#CareerDevelopment #[YourField]</p>
+            </div>
+            <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label" data-label="Copy">Copy</span></button>
+          </article>
+        </div>
+      </div>
+    </div>
+    <aside class="notes"><p>اقترح عليهم يكتبوا أول بوست ليهم عن السيشن دي نفسها، بالقالب ده. المنشن (Tag) للمتحدث والمنظمين بيخلي البوست يوصل لناس أكتر.</p></aside>
+  </section>
+
+  <!-- ═══════════════════ 23 — Finding Internships (Chapter 06) ═══════════════════ -->
+  <section class="slide x-room ground-base" data-slide="23" data-part="jobs">
     <div class="atmos-field" aria-hidden="true"></div>
     <div class="slide-inner">
       <div class="slide-content">
@@ -1245,8 +1377,8 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
     <aside class="notes"><p>ده رد على سؤال "إزاي أعرف إن الفرصة مناسبة لي": لو عندك 60% من الـ Requirements، قدّم. متستناش لحد ما تطابق 100%.</p></aside>
   </section>
 
-  <!-- ═══════════════════ 22 — What you leave with (Statement) ═══════════════════ -->
-  <section class="slide x-room ground-glow statement-editorial" data-slide="22" data-part="outro">
+  <!-- ═══════════════════ 24 — What you leave with (Statement) ═══════════════════ -->
+  <section class="slide x-room ground-glow statement-editorial" data-slide="24" data-part="outro">
     <div class="slide-inner">
       <div class="slide-content">
         <p class="x-kicker slide-kicker">الختام · الـ Checklist</p>
@@ -1267,8 +1399,8 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
     <aside class="notes"><p>لخص الـ 5 حاجات اللي كل طالب هيخرج بيها، وافتح للأسئلة. الـ Worksheet موجود عشان كل واحد يكمله بعد السيشن.</p></aside>
   </section>
 
-  <!-- ═══════════════════ 23 — References ═══════════════════ -->
-  <section class="slide x-room ground-glow" data-slide="23" data-part="outro">
+  <!-- ═══════════════════ 25 — References ═══════════════════ -->
+  <section class="slide x-room ground-glow" data-slide="25" data-part="outro">
     <div class="atmos-field" aria-hidden="true"></div>
     <div class="slide-inner">
       <div class="slide-content">
@@ -1689,8 +1821,9 @@ timer.btn.addEventListener('click', stopTimer);
    ═══════════════════════════════════════════════════════════════ */
 document.querySelectorAll('.copy-btn').forEach(btn => {
   btn.addEventListener('click', async () => {
-    const card = btn.closest('.msg-card');
-    const text = card.querySelector('.msg-text').textContent.trim();
+    const card = btn.closest('.msg-card, .post-card');
+    const src = card.querySelector('.msg-text, .post-body');
+    const text = (src.innerText || src.textContent).trim();
     let ok = false;
     try {
       await navigator.clipboard.writeText(text);
@@ -1710,10 +1843,11 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
     if (ok) {
       const label = btn.querySelector('.copy-btn__label');
       btn.classList.add('is-done');
-      label.textContent = 'Copied ✓';
+      const base = label.dataset.label || 'Copy';
+      label.textContent = base === 'نسخ' ? 'اتنسخ ✓' : 'Copied ✓';
       setTimeout(() => {
         btn.classList.remove('is-done');
-        label.textContent = 'Copy';
+        label.textContent = base;
       }, 2000);
     }
   });
