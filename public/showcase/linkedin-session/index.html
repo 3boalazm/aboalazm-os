@@ -651,6 +651,13 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
 .fear-quote p { font-size: 1rem; }
 .msg-text { font-size: 0.85rem; }
 .takeaway-line { max-width: none; }
+/* slide 8: shorter wireframe so the chapter head clears the brand mark */
+[data-slide="8"] .chapter { margin-bottom: 1.25rem; }
+[data-slide="8"] .wireframe { width: 420px; zoom: 0.78; }
+[data-slide="8"] .x-chapter__title { font-size: 4.25rem; }
+[data-slide="8"] .wf-banner { height: 72px; }
+[data-slide="8"] .wf-photo { width: 72px; height: 72px; margin-top: -40px; }
+[data-slide="8"] .wf-body { gap: 0.6rem; padding: 0.9rem 1.1rem 1.1rem; }
 </style>
 </head>
 <body>
@@ -695,7 +702,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
     <div class="atmos-field" aria-hidden="true"></div>
     <div class="slide-inner">
       <div class="slide-content">
-        <p class="x-kicker slide-kicker">Room Snapshot · استبيان التسجيل</p>
+        <p class="x-kicker slide-kicker">صورة سريعة · استبيان التسجيل</p>
         <h2 class="slide-title x-display">إنتوا <em>قلتولنا</em></h2>
         <p class="slide-lead">السيشن دي مبنية على إجاباتكم إنتوا — وكل الأرقام اللي قدامكم نتايج الاستبيان.</p>
         <div class="stat-grid" id="stats-grid" role="group" aria-label="ملخص استبيان التسجيل"></div>
@@ -781,7 +788,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
             <span class="compare__tag x-mono x-accent">LinkedIn</span>
             <ul>
               <li>بتشارك شغلك وتعلّمك</li>
-              <li>ناس في مجالك + شركات + Recruiters</li>
+              <li>ناس في مجالك + شركات + مسؤولين التوظيف (Recruiters)</li>
               <li>الهدف: فرص وسمعة مهنية</li>
             </ul>
           </div>
@@ -835,13 +842,13 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           <aside class="wireframe-legend">
             <h3>الـ 7 أجزاء</h3>
             <ol>
-              <li>Photo</li>
-              <li>Banner</li>
-              <li>Headline</li>
-              <li>About</li>
-              <li>Experience</li>
-              <li>Education</li>
-              <li>Skills + Projects</li>
+              <li>Photo — الصورة</li>
+              <li>Banner — صورة الغلاف</li>
+              <li>Headline — السطر اللي تحت اسمك</li>
+              <li>About — نبذة عنك</li>
+              <li>Experience — الخبرات</li>
+              <li>Education — التعليم</li>
+              <li>Skills + Projects — المهارات والمشاريع</li>
             </ol>
           </aside>
         </div>
@@ -894,6 +901,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
       <div class="slide-content">
         <p class="x-kicker slide-kicker">البروفايل · الـ Headline</p>
         <h2 class="slide-title x-display">الـ <em>Headline</em></h2>
+        <p class="slide-lead">السطر اللي تحت اسمك على طول — أول حاجة حد بيقراها عنك</p>
         <p class="headline-eq">[التخصص / الدور اللي رايحله] | [2–3 مهارات] | [بتبني إيه أو بتتعلم إيه]</p>
         <div class="example-list">
           <div class="example-row example-row--bad">
@@ -921,6 +929,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
       <div class="slide-content">
         <p class="x-kicker slide-kicker">البروفايل · الـ About</p>
         <h2 class="slide-title x-display">الـ <em>About</em></h2>
+        <p class="slide-lead">نبذة عنك في 4 أسطر</p>
         <div class="about-wrap">
           <div class="about-steps">
             <div class="about-step"><span class="about-step__num">1</span><span class="about-step__text">أنا مين ودارس إيه</span></div>
@@ -947,7 +956,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
       <div class="slide-content">
         <p class="x-kicker slide-kicker">البروفايل · إيه اللي يتحسب</p>
         <h2 class="slide-title x-display">مفيش خبرة؟ <em>عندك كتير</em></h2>
-        <p class="slide-lead">اللي يتحسب <span class="x-mono">Experience</span></p>
+        <p class="slide-lead">كل ده يتحسب خبرة (Experience)</p>
         <div class="exp-grid">
           <div class="exp-card">
             <span class="exp-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
@@ -963,7 +972,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           </div>
           <div class="exp-card">
             <span class="exp-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7M3 12.5h18"/></svg></span>
-            <h3>Internship</h3>
+            <h3>تدريب (Internship)</h3>
           </div>
           <div class="exp-card">
             <span class="exp-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3M9 17l-1.5 3.5L6 19l1.5-3.5L6 14l1.5 3.5L9 14zM15 17l1.5 3.5L18 19l-1.5-3.5L18 14l-1.5 3.5z"/></svg></span>
@@ -975,7 +984,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           </div>
           <div class="exp-card">
             <span class="exp-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
-            <h3>شغل Freelance صغير</h3>
+            <h3>شغل حر صغير (Freelance)</h3>
           </div>
         </div>
       </div>
@@ -1018,8 +1027,8 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
         <ul class="skills-list">
           <li>ضيف 5–10 مهارات مرتبطة بمجالك</li>
           <li>خلي أهم 3 فوق</li>
-          <li>فعّل Open to Work — ممكن تخليه للـ Recruiters بس</li>
-          <li>حدد نوع الشغل: Internship / Entry-level</li>
+          <li>فعّل Open to Work (علامة إنك بتدوّر على فرصة) — وممكن تخليها ظاهرة لمسؤولين التوظيف بس</li>
+          <li>حدد نوع الفرصة: تدريب (Internship) أو أول وظيفة (Entry-level)</li>
         </ul>
       </div>
     </div>
@@ -1051,7 +1060,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
         <div class="chapter">
           <span class="x-chapter__num" aria-hidden="true">04</span>
           <div class="chapter__body">
-            <p class="x-kicker">جزء 04 — Networking</p>
+            <p class="x-kicker">جزء 04 — Networking (بناء العلاقات)</p>
             <h2 class="x-chapter__title x-display">مين تتابع <em>وتضيف؟</em></h2>
           </div>
         </div>
@@ -1059,8 +1068,8 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
         <div class="follow-grid">
           <div class="follow-card">
             <span class="follow-num">1</span>
-            <h3>Alumni</h3>
-            <p>خريجين من كليتك — أسهل بداية</p>
+            <h3>Alumni (الخريجين)</h3>
+            <p>ناس اتخرجوا من نفس كليتك — أسهل بداية</p>
           </div>
           <div class="follow-card">
             <span class="follow-num">2</span>
@@ -1070,7 +1079,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           <div class="follow-card">
             <span class="follow-num">3</span>
             <h3>HR و Recruiters</h3>
-            <p>في شركات بتحبها</p>
+            <p>مسؤولين التوظيف في شركات بتحبها</p>
           </div>
           <div class="follow-card">
             <span class="follow-num">4</span>
@@ -1105,7 +1114,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           <article class="msg-card">
             <header>
               <span class="msg-num">①</span>
-              <h3>Connection Request — لخريج</h3>
+              <h3>طلب إضافة — لخريج</h3>
               <span class="msg-len">أقل من 200 حرف</span>
             </header>
             <pre class="msg-text">Hi [Name], I'm a [year] [major] student at [University]. I saw your journey at [Company] and would love to connect and learn from your experience.</pre>
@@ -1122,7 +1131,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           <article class="msg-card">
             <header>
               <span class="msg-num">③</span>
-              <h3>لـ Recruiter — عن Internship</h3>
+              <h3>لمسؤول توظيف — عن تدريب</h3>
             </header>
             <pre class="msg-text">Hi [Name], I'm a [major] student interested in internship opportunities at [Company]. I've worked on [project/skill] and I'm eager to learn. Are there any upcoming internship programs you'd recommend I apply to?</pre>
             <button class="x-btn x-btn--line copy-btn" type="button"><span class="copy-btn__label">Copy</span></button>
@@ -1130,7 +1139,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
         </div>
       </div>
     </div>
-    <aside class="notes"><p>كل رسالة لازم يبقى فيها حاجة شخصية — اسمه أو حاجة شافها في بروفايله. متبعتش نفس الرسالة لكل الناس. ومتطلبش Referral في أول رسالة — ابدأ بطلب نصيحة وبس.</p></aside>
+    <aside class="notes"><p>كل رسالة لازم يبقى فيها حاجة شخصية — اسمه أو حاجة شافها في بروفايله. متبعتش نفس الرسالة لكل الناس. ومتطلبش Referral (إنه يرشّحك لوظيفة) في أول رسالة — ابدأ بطلب نصيحة وبس.</p></aside>
   </section>
 
   <!-- ═══════════════════ 19 — How to write a post (Chapter 05) ═══════════════════ -->
@@ -1145,7 +1154,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
             <h2 class="x-chapter__title x-display">إزاي أكتب <em>بوست؟</em></h2>
           </div>
         </div>
-        <p class="slide-lead">أكتر سؤال تعبكم — 3 formulas تغطي أغلب الحالات</p>
+        <p class="slide-lead">أكتر سؤال تعبكم — 3 قوالب جاهزة تغطي أغلب الحالات</p>
         <div class="formula-grid">
           <div class="formula">
             <span class="formula-tag">Project Post</span>
@@ -1159,7 +1168,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           </div>
           <div class="formula">
             <span class="formula-tag">Event Post</span>
-            <p class="formula-flow">حضرت إيه ← أهم Takeaway ← Tag للمتحدث أو المنظم</p>
+            <p class="formula-flow">حضرت إيه ← أهم حاجة خرجت بيها ← اعمل Tag (منشن) للمتحدث أو المنظم</p>
             <div class="post-mock" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
           </div>
         </div>
@@ -1212,23 +1221,23 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
         <ol class="flow">
           <li>
             <span class="flow-num">1</span>
-            <h3>Jobs</h3>
-            <p>اكتب المجال + "Intern"</p>
+            <h3>Jobs (الوظائف)</h3>
+            <p>اكتب مجالك + كلمة "Intern" (متدرب)</p>
           </li>
           <li>
             <span class="flow-num">2</span>
             <h3>الفلاتر</h3>
-            <p>Experience level: Internship / Entry level · Location · Remote</p>
+            <p>مستوى الخبرة: Internship / Entry level · المكان · Remote (من البيت)</p>
           </li>
           <li>
             <span class="flow-num">3</span>
             <h3>Job Alert</h3>
-            <p>اعمل واحد على الأقل</p>
+            <p>تنبيه بيوصلك أول ما تنزل فرصة مناسبة — اعمل واحد على الأقل</p>
           </li>
           <li>
             <span class="flow-num">4</span>
             <h3>قبل ما تقدّم</h3>
-            <p>اقرا الـ Requirements وشوف عندك كام واحدة — لو 60% فأكتر، قدّم</p>
+            <p>اقرا الشروط (Requirements) وشوف عندك كام واحد منها — لو 60% فأكتر، قدّم</p>
           </li>
         </ol>
       </div>
@@ -1293,7 +1302,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
           </a>
           <a class="site-card" href="https://www.linkedin.com/learning/search?keywords=Professional%20Networking%20for%20Career%20Starters" target="_blank" rel="noopener" data-ref="6">
             <span class="site-card__title">Professional Networking for Career Starters</span>
-            <span class="site-card__desc">LinkedIn Learning · Informational Interviews و Referral</span>
+            <span class="site-card__desc">LinkedIn Learning · إزاي تطلب نصيحة أو ترشيح (Referral)</span>
             <span class="site-card__arrow" aria-hidden="true">←</span>
           </a>
         </div>
@@ -1358,7 +1367,7 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
     </section>
 
     <section class="ws-block">
-      <h3>5 أشخاص هضيفهم (Alumni / مجالي)</h3>
+      <h3>5 أشخاص هضيفهم (خريجين كليتي / ناس في مجالي)</h3>
       <div class="ws-line"></div>
       <div class="ws-line"></div>
       <div class="ws-line"></div>
@@ -1368,9 +1377,9 @@ body.ws-open #progress, body.ws-open #hud-meta { opacity: 0; }
 
     <section class="ws-block">
       <h3>أول 3 رسايل</h3>
-      <label class="ws-check"><input type="checkbox"><span>① Connection Request — لخريج</span></label>
+      <label class="ws-check"><input type="checkbox"><span>① طلب إضافة — لخريج</span></label>
       <label class="ws-check"><input type="checkbox"><span>② طلب نصيحة — لحد في مجالي</span></label>
-      <label class="ws-check"><input type="checkbox"><span>③ لـ Recruiter — عن Internship</span></label>
+      <label class="ws-check"><input type="checkbox"><span>③ لمسؤول توظيف — عن تدريب</span></label>
     </section>
 
     <section class="ws-block">
