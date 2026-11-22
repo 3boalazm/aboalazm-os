@@ -169,6 +169,8 @@ const nextConfig: NextConfig = {
       // middleware, like the farm demo). Short link for the room, both locales; the deck itself is Arabic-only.
       { source: "/linkedin-session/deck", destination: "/showcase/linkedin-session/index.html", permanent: false },
       { source: "/ar/linkedin-session/deck", destination: "/showcase/linkedin-session/index.html", permanent: false },
+      { source: "/linkedin-session/guide", destination: "/showcase/linkedin-session/guide.html", permanent: false },
+      { source: "/ar/linkedin-session/guide", destination: "/showcase/linkedin-session/guide.html", permanent: false },
     ];
   },
   images: {
