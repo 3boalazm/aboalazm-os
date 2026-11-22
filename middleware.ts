@@ -30,5 +30,5 @@ export function middleware(request: NextRequest) {
   return NextResponse.rewrite(url);
 }
 export const config = {
-  matcher: ["/((?!api(?:/|$)|admin(?:/|$)|studio(?:/|$)|_next/|fonts/|images/|icons/|showcase/|cv(?:/|$)|portfolio(?:/|$)|.*\\.[a-zA-Z0-9]+$).*)"],
+  matcher: ["/((?!api(?:/|$)|admin(?:/|$)|studio(?:/|$)|_next/|fonts/|images/|icons/|showcase/|cv(?:/|$)|portfolio(?:/|$)|c(?:/|$)|cards(?:/|$)|.*\\.[a-zA-Z0-9]+$).*)"],
 };
