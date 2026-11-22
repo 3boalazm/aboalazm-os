@@ -55,7 +55,7 @@ test("averages, lift and who got more confident are counted from rows", () => {
 
 test("multi-answer bars count each person once per choice and may pass 100%", () => {
   const r = buildFeedbackReport([
-    row({ mostUseful: ["profile", "scams", "profile"] }),
+    row({ mostUseful: ["profile", "content", "profile"] }),
     row({ mostUseful: ["profile", "demos"] }),
   ]);
   const profile = r.mostUseful.find((d) => d.key === "profile");

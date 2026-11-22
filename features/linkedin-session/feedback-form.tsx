@@ -44,6 +44,7 @@ import {
 import { ANSWER_MAX } from "./assessment";
 import { requestCertificate, submitSessionFeedback } from "./feedback-actions";
 import { collectAnswers } from "./validate";
+import { CelebrationBurst } from "./celebration";
 
 type Status = "idle" | "working" | "sent" | "error" | "rateLimited" | "uncertain" | "invalid" | "unknownSession";
 
@@ -134,6 +135,7 @@ export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: stri
   const [certOpen, setCertOpen] = useState(false);
   const [certName, setCertName] = useState("");
   const [certState, setCertState] = useState<"idle" | "working" | "done" | "error" | "invalid">("idle");
+  const [burst, setBurst] = useState(false);
 
   const inFlight = useRef(false);
   const mounted = useRef(true);
@@ -286,6 +288,7 @@ export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: stri
 
   return (
     <div className="rounded-panel border border-border-subtle bg-surface-1 p-3 shadow-card md:p-4">
+      {burst ? <CelebrationBurst onDone={() => setBurst(false)} /> : null}
       <div role="status" aria-live="polite">
         {status === "sent" ? (
           <motion.div
@@ -328,6 +331,7 @@ export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: stri
                       const res = await requestCertificate(fd);
                       if (!mounted.current) return;
                       setCertState(res.ok ? "done" : res.error === "invalid" ? "invalid" : "error");
+                      if (res.ok) setBurst(true);
                     } catch {
                       if (mounted.current) setCertState("error");
                     }

@@ -18,7 +18,7 @@
  *   1. did the room get more confident (confidence before → after, 1–5),
  *   2. which part earned its minutes (mostUseful) and what to cut (improve),
  *   3. what each person will do first (nextStep) — the follow-up list.
- * It is anonymous by default. A name and a LinkedIn link are optional, and a name is
+ * It is anonymous by default. The LinkedIn link is required (it is how the studio reaches the person); the name is optional, and a name is
  * required only if the person lets us quote them (allowQuote).
  *
  * COPY: Arabic is authored, English is the `/en` twin — same call as the
@@ -76,9 +76,7 @@ const MOST_USEFUL: FieldOption[] = [
   { value: "profile", label: { ar: "تظبيط البروفايل (الـ Headline والـ About)", en: "Fixing the profile (headline and About)" } },
   { value: "networking", label: { ar: "التواصل مع الخريجين والرسايل الجاهزة", en: "Reaching alumni, and the ready-made messages" } },
   { value: "content", label: { ar: "كتابة البوستات", en: "Writing posts" } },
-  { value: "opportunities", label: { ar: "البحث عن تدريب وJob Alert", en: "Finding internships and Job Alerts" } },
-  { value: "scams", label: { ar: "علامات النصب في الوظايف", en: "Spotting job scams" } },
-  { value: "demos", label: { ar: "الديموهات اللايف على LinkedIn", en: "The live demos on LinkedIn" } },
+  { value: "demos", label: { ar: "الشرح اللايف على موقع LinkedIn", en: "The live walkthrough on LinkedIn" } },
   { value: "practice", label: { ar: "وقت التطبيق", en: "The hands-on practice time" } },
 ];
 
@@ -214,9 +212,9 @@ export const FEEDBACK_GROUPS: readonly FeedbackGroup[] = [
         name: "linkedinUrl",
         type: "url",
         label: { ar: "رابط حسابك على LinkedIn", en: "Your LinkedIn profile link" },
-        help: { ar: "لو كتبته هنربط رأيك بتسجيلك، ونتواصل معاك على LinkedIn.", en: "If you add it we match this to your sign-up and reach you on LinkedIn." },
+        help: { ar: "هنربط رأيك بتسجيلك، ونتواصل معاك على LinkedIn.", en: "We match this to your sign-up and reach you on LinkedIn." },
         placeholder: { ar: "linkedin.com/in/username", en: "linkedin.com/in/username" },
-        required: false,
+        required: true,
         maxLength: LINKEDIN_URL_MAX,
       },
       {
@@ -373,7 +371,9 @@ export function validateFeedback(input: unknown): FeedbackCheck {
   if (fullName === null) fields.fullName = "too_long";
 
   let linkedinUrl: string | undefined;
-  if (!blank(raw.linkedinUrl)) {
+  if (blank(raw.linkedinUrl)) {
+    fields.linkedinUrl = "required";
+  } else {
     const v = typeof raw.linkedinUrl === "string" ? raw.linkedinUrl.trim() : "";
     if (v.length > LINKEDIN_URL_MAX) fields.linkedinUrl = "too_long";
     else {
