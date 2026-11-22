@@ -19,6 +19,7 @@ const VALID = {
   confidenceAfter: "4",
   mostUseful: ["profile", "demos"],
   nextStep: "headline",
+  linkedinUrl: "linkedin.com/in/mona-said",
 };
 
 describe("feedback vocabulary", () => {
@@ -55,7 +56,7 @@ describe("feedback vocabulary", () => {
 });
 
 describe("validateFeedback", () => {
-  it("accepts the six required answers and nothing else", () => {
+  it("accepts the required answers and nothing else", () => {
     const r = validateFeedback(VALID);
     assert.ok(r.ok && !r.spam);
     if (r.ok && !r.spam) {
@@ -65,7 +66,7 @@ describe("validateFeedback", () => {
       assert.deepEqual(r.data.mostUseful, ["profile", "demos"]);
       assert.equal(r.data.allowQuote, false);
       assert.equal(r.data.fullName, undefined);
-      assert.equal(r.data.linkedinUrl, undefined);
+      assert.equal(r.data.linkedinUrl, "https://www.linkedin.com/in/mona-said");
     }
   });
 
@@ -75,7 +76,7 @@ describe("validateFeedback", () => {
     if (!r.ok) {
       assert.deepEqual(
         Object.keys(r.fields).sort(),
-        ["confidenceAfter", "confidenceBefore", "mostUseful", "nextStep", "pace", "rating", "recommend"].sort(),
+        ["confidenceAfter", "confidenceBefore", "linkedinUrl", "mostUseful", "nextStep", "pace", "rating", "recommend"].sort(),
       );
       for (const code of Object.values(r.fields)) assert.equal(code, "required");
     }
@@ -101,7 +102,7 @@ describe("validateFeedback", () => {
     const r = validateFeedback({ ...VALID, mostUseful: ["demos", "profile", "profile"] });
     assert.ok(r.ok && !r.spam);
     if (r.ok && !r.spam) assert.deepEqual(r.data.mostUseful, ["profile", "demos"]);
-    const one = validateFeedback({ ...VALID, mostUseful: "scams" });
+    const one = validateFeedback({ ...VALID, mostUseful: "content" });
     assert.ok(one.ok && !one.spam);
     const bad = validateFeedback({ ...VALID, mostUseful: ["profile", "hack"] });
     assert.ok(!bad.ok);
@@ -129,7 +130,9 @@ describe("validateFeedback", () => {
     assert.ok(validateFeedback({ ...VALID, nextTopic: "x".repeat(1000) }).ok);
   });
 
-  it("the LinkedIn link is optional but must be a profile link when given; it is normalised", () => {
+  it("the LinkedIn link is required, must be a profile link, and is normalised", () => {
+    const missing = validateFeedback({ ...VALID, linkedinUrl: "  " });
+    assert.ok(!missing.ok && missing.fields.linkedinUrl === "required");
     assert.ok(!validateFeedback({ ...VALID, linkedinUrl: "nope" }).ok);
     assert.ok(!validateFeedback({ ...VALID, linkedinUrl: "https://example.com/in/x" }).ok);
     const r = validateFeedback({ ...VALID, linkedinUrl: "  linkedin.com/in/mona-said?utm=1 " });
