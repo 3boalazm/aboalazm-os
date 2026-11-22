@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { ANSWER_MAX, DEFAULT_SESSION_KEY, FULL_NAME_MAX } from "@/features/linkedin-session/assessment";
+import { ANSWER_MAX, DEFAULT_SESSION_KEY, FULL_NAME_MAX, LINKEDIN_URL_MAX } from "@/features/linkedin-session/assessment";
 import { feedbackPayloadOptions } from "@/features/linkedin-session/feedback";
 
 /**
@@ -16,8 +16,8 @@ import { feedbackPayloadOptions } from "@/features/linkedin-session/feedback";
  * three choices (pace, recommend, first next step), one set (which parts
  * helped). The three open answers are read, not counted.
  *
- * ANONYMOUS BY DEFAULT. `fullName` and `email` are optional on purpose: people
- * are franker without them. `email` is only used to match a feedback row to a
+ * ANONYMOUS BY DEFAULT. `fullName` and `linkedinUrl` are optional on purpose: people
+ * are franker without them. `linkedinUrl` is only used to match a feedback row to a
  * registration; `allowQuote` is honoured only with a name (validated in
  * features/linkedin-session/feedback.ts, the only write path).
  *
@@ -34,7 +34,7 @@ export const SessionFeedback: CollectionConfig = {
     useAsTitle: "fullName",
     description: "After-session feedback. Read the open answers first; the numbers are on /studio/sessions.",
     defaultColumns: ["rating", "confidenceBefore", "confidenceAfter", "recommend", "nextStep", "createdAt"],
-    listSearchableFields: ["fullName", "email", "bestPart", "improve", "nextTopic"],
+    listSearchableFields: ["fullName", "linkedinUrl", "bestPart", "improve", "nextTopic"],
   },
   access: {
     create: () => false,
@@ -75,8 +75,12 @@ export const SessionFeedback: CollectionConfig = {
       type: "row",
       fields: [
         { name: "fullName", type: "text", maxLength: FULL_NAME_MAX, admin: { width: "50%" } },
-        /* No maxLength option on email in Payload; the 254 cap lives in feedback.ts. */
-        { name: "email", type: "email", index: true, admin: { width: "50%" } },
+        {
+          name: "linkedinUrl",
+          type: "text",
+          maxLength: LINKEDIN_URL_MAX,
+          admin: { width: "50%", description: "Normalised to https://www.linkedin.com/in/<handle>." },
+        },
       ],
     },
     {

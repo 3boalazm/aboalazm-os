@@ -266,7 +266,6 @@ test("the session-feedback snapshot adds exactly its two tables and three enums"
   const names = snapshotNames();
   const newest = "20261122_180000_session_feedback";
   assert.ok(names.includes(newest), "the session-feedback snapshot must be on disk");
-  assert.equal(names[names.length - 1], newest, "the session-feedback snapshot is the newest one");
 
   const previous = readSnapshot("20261119_130000_session_registrations");
   const current = readSnapshot(newest);
@@ -417,4 +416,45 @@ test("production build migration runner stays production-only, locked, and non-i
   assert.ok(migrateIdx > -1, "build script must invoke db:migrate:ci");
   assert.ok(nextBuildIdx > migrateIdx, "db:migrate:ci must run before next build");
   assert.ok(gateIdx > nextBuildIdx, "check:db-schema must verify schema state after next build");
+});
+
+test("the feedback LinkedIn migration swaps exactly one column and its index", () => {
+  const before = readSnapshot("20261122_180000_session_feedback");
+  const after = readSnapshot("20261122_230000_session_feedback_linkedin");
+  
+  const changed = Object.keys(before.tables).filter((key) => JSON.stringify(before.tables[key]) !== JSON.stringify(after.tables[key]));
+  assert.deepEqual(changed, ["public.session_feedback"]);
+  assert.deepEqual(Object.keys(after.tables).sort(), Object.keys(before.tables).sort());
+  assert.deepEqual(after.enums, before.enums);
+
+  const b = before.tables["public.session_feedback"] as unknown as { columns: Record<string, unknown>; indexes: Record<string, unknown> };
+  const a = after.tables["public.session_feedback"] as unknown as typeof b;
+  assert.deepEqual(Object.keys(b.columns).filter((k) => !(k in a.columns)), ["email"]);
+  assert.deepEqual(Object.keys(a.columns).filter((k) => !(k in b.columns)), ["linkedin_url"]);
+  assert.deepEqual(Object.keys(b.indexes).filter((k) => !(k in a.indexes)), ["session_feedback_email_idx"]);
+  assert.deepEqual(Object.keys(a.indexes).filter((k) => !(k in b.indexes)), []);
+
+  const migration = readFileSync(path.join(root, "migrations/20261122_230000_session_feedback_linkedin.ts"), "utf8");
+  assert.ok(migration.includes('"linkedin_url"') && migration.includes('DROP COLUMN IF EXISTS "email"'));
+});
+
+test("the session-certificates migration adds one table and its locked-documents relation, nothing else", () => {
+  const before = readSnapshot("20261122_230000_session_feedback_linkedin");
+  const after = readSnapshot("20261122_233000_session_certificates");
+  assert.equal(snapshotNames().at(-1), "20261122_233000_session_certificates");
+
+  assert.deepEqual(Object.keys(after.tables).filter((k) => !(k in before.tables)), ["public.session_certificates"]);
+  assert.deepEqual(Object.keys(before.tables).filter((k) => !(k in after.tables)), []);
+  assert.deepEqual(after.enums, before.enums);
+  const changed = Object.keys(before.tables).filter((k) => JSON.stringify(before.tables[k]) !== JSON.stringify(after.tables[k]));
+  assert.deepEqual(changed, ["public.payload_locked_documents_rels"]);
+
+  const table = after.tables["public.session_certificates"] as unknown as { columns: Record<string, { notNull?: boolean }>; indexes: Record<string, unknown> };
+  assert.deepEqual(Object.keys(table.columns), ["id", "full_name", "session_key", "source", "updated_at", "created_at"]);
+  assert.equal(table.columns.full_name?.notNull, true);
+
+  const migration = readFileSync(path.join(root, "migrations/20261122_233000_session_certificates.ts"), "utf8");
+  assert.ok(migration.includes('CREATE TABLE IF NOT EXISTS "session_certificates"'));
+  for (const column of Object.keys(table.columns)) assert.ok(migration.includes(`"${column}"`), column);
+  for (const index of Object.keys(table.indexes)) assert.ok(migration.includes(index), index);
 });

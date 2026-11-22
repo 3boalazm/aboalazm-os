@@ -15,16 +15,18 @@ import { useRouter } from "next/navigation";
 import { Chip, EmptyState, SIcon, Tile, num, ago } from "@/components/studio/ui";
 import { Toasts, useToasts } from "@/components/studio/interactive";
 import { deleteFeedback } from "@/app/studio/sessions/actions";
-import { buildFeedbackReport, responseRate, type FeedbackAnswer, type FeedbackDist, type FeedbackRow } from "@/lib/studio/feedback";
+import { buildFeedbackReport, responseRate, uniqueCertificateNames, type CertificateRow, type FeedbackAnswer, type FeedbackDist, type FeedbackRow } from "@/lib/studio/feedback";
 
 const SCALE_FOOT = "من ٥";
 
 export function SessionFeedbackSection({
   rows: initialRows,
+  certificates,
   registered,
   activeSession,
 }: {
   rows: FeedbackRow[];
+  certificates: CertificateRow[];
   registered: number;
   activeSession: string | null;
 }) {
@@ -36,6 +38,7 @@ export function SessionFeedbackSection({
   useEffect(() => setRows(initialRows), [initialRows]);
 
   const report = buildFeedbackReport(rows);
+  const certNames = uniqueCertificateNames(certificates);
   const rate = responseRate(report.total, registered);
   const session = activeSession ? `&session=${encodeURIComponent(activeSession)}` : "";
   const where = activeSession ? <> حيث <code>session_key</code> = {activeSession}</> : " — كل الجلسات";
@@ -66,6 +69,12 @@ export function SessionFeedbackSection({
             <SIcon name="external" size={14} />
             فتح الفورم
           </Link>
+          {certNames.length > 0 ? (
+            <Link className="studio-btn studio-btn--sm" href={`/studio/sessions/export-certificates${session ? `?${session.slice(1)}` : ""}`}>
+              <SIcon name="arrowDown" size={14} />
+              أسماء الشهادات
+            </Link>
+          ) : null}
           {report.total > 0 ? (
             <Link className="studio-btn studio-btn--sm" href={`/studio/sessions/export-feedback${session ? `?${session.slice(1)}` : ""}`}>
               <SIcon name="arrowDown" size={14} />
@@ -74,6 +83,23 @@ export function SessionFeedbackSection({
           ) : null}
         </span>
       </header>
+
+      {certNames.length > 0 ? (
+        <div className="studio-bento" style={{ marginBlockEnd: 12 }}>
+          <Tile
+            span="w12"
+            title={<b>طلبات الشهادات</b>}
+            aside={<span className="studio-tiny">{num(certNames.length)} اسم</span>}
+            provenance={<>صفوف <code>session-certificates</code>{where} — منفصلة عن الإجابات ولا تتربط بها</>}
+          >
+            <ol style={{ margin: 0, paddingInlineStart: "1.4rem", columnWidth: 220, columnGap: 24, fontSize: 13.5, lineHeight: 1.8 }}>
+              {certNames.map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ol>
+          </Tile>
+        </div>
+      ) : null}
 
       {report.total === 0 ? (
         <Tile span="w12" title={<b>لا تقييمات بعد</b>} provenance={<>صفوف <code>session-feedback</code>{where}</>}>
@@ -132,7 +158,7 @@ export function SessionFeedbackSection({
           <Tile
             span="w6"
             title={<b>أول خطوة هيعملوها</b>}
-            provenance={<>توزيع <code>next_step</code> — قائمة المتابعة بعد السيشن · {num(report.withEmail)} سابوا بريدهم</>}
+            provenance={<>توزيع <code>next_step</code> — قائمة المتابعة بعد السيشن · {num(report.withLinkedin)} سابوا رابط LinkedIn</>}
           >
             <div className="studio-dist">
               {report.nextStep.map((d) => (
@@ -191,7 +217,11 @@ export function SessionFeedbackSection({
                         {row.fullName ? (
                           <>
                             {row.fullName}
-                            {row.email ? <span className="studio-tiny" style={{ display: "block" }}>{row.email}</span> : null}
+                            {row.linkedinUrl?.startsWith("https://www.linkedin.com/") ? (
+                              <a className="studio-tiny" style={{ display: "block" }} href={row.linkedinUrl} target="_blank" rel="noopener noreferrer">
+                                {row.linkedinUrl.replace("https://www.linkedin.com/", "")}
+                              </a>
+                            ) : null}
                           </>
                         ) : (
                           <Chip>مجهول</Chip>

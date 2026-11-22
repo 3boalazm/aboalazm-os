@@ -7,6 +7,7 @@ import {
   feedbackOptionLabel,
   feedbackOptionValues,
   firstFeedbackFieldWithError,
+  validateCertificateName,
   validateFeedback,
 } from "./feedback";
 
@@ -64,7 +65,7 @@ describe("validateFeedback", () => {
       assert.deepEqual(r.data.mostUseful, ["profile", "demos"]);
       assert.equal(r.data.allowQuote, false);
       assert.equal(r.data.fullName, undefined);
-      assert.equal(r.data.email, undefined);
+      assert.equal(r.data.linkedinUrl, undefined);
     }
   });
 
@@ -128,11 +129,12 @@ describe("validateFeedback", () => {
     assert.ok(validateFeedback({ ...VALID, nextTopic: "x".repeat(1000) }).ok);
   });
 
-  it("email is optional but must be an address when given; it is lower-cased", () => {
-    assert.ok(!validateFeedback({ ...VALID, email: "nope" }).ok);
-    const r = validateFeedback({ ...VALID, email: "  Student@Example.COM " });
+  it("the LinkedIn link is optional but must be a profile link when given; it is normalised", () => {
+    assert.ok(!validateFeedback({ ...VALID, linkedinUrl: "nope" }).ok);
+    assert.ok(!validateFeedback({ ...VALID, linkedinUrl: "https://example.com/in/x" }).ok);
+    const r = validateFeedback({ ...VALID, linkedinUrl: "  linkedin.com/in/mona-said?utm=1 " });
     assert.ok(r.ok && !r.spam);
-    if (r.ok && !r.spam) assert.equal(r.data.email, "student@example.com");
+    if (r.ok && !r.spam) assert.equal(r.data.linkedinUrl, "https://www.linkedin.com/in/mona-said");
   });
 
   it("allowQuote needs a name; with a name it is kept", () => {
@@ -173,5 +175,27 @@ describe("validateFeedback", () => {
   it("the form scrolls to the first problem in page order, not validator order", () => {
     assert.equal(firstFeedbackFieldWithError({ nextStep: "required", pace: "required" }), "pace");
     assert.equal(firstFeedbackFieldWithError({}), null);
+  });
+});
+
+describe("certificate name", () => {
+  it("accepts real names in Arabic and Latin, collapsing whitespace", () => {
+    for (const [input, expected] of [
+      ["  منى   سعيد ", "منى سعيد"],
+      ["Mona O'Brien-Said", "Mona O'Brien-Said"],
+      ["عبد الرحمن", "عبد الرحمن"],
+    ] as const) {
+      const r = validateCertificateName(input);
+      assert.ok(r.ok && r.name === expected, input);
+    }
+  });
+
+  it("refuses empty, too long, digits, markup, formulas and non-strings", () => {
+    assert.deepEqual(validateCertificateName("   "), { ok: false, error: "required" });
+    assert.deepEqual(validateCertificateName(undefined), { ok: false, error: "required" });
+    assert.deepEqual(validateCertificateName("ا".repeat(121)), { ok: false, error: "too_long" });
+    for (const bad of ["x", "Mona 2", "<b>Mona</b>", "=HYPERLINK(1)", "-Mona", "Mona\u0000"]) {
+      assert.deepEqual(validateCertificateName(bad), { ok: false, error: "invalid" }, bad);
+    }
   });
 });

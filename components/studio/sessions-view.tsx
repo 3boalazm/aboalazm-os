@@ -21,7 +21,7 @@ import { ATTENDANCE_OPTIONS, FOLLOWUP_OPTIONS, optionLabel, sessionTitle } from 
 import type { Dist, SessionRegistrationRow, SessionReport } from "@/lib/studio/sessions";
 import { deleteRegistration, saveRegistrationDetails, setAttendance } from "@/app/studio/sessions/actions";
 import { SessionFeedbackSection } from "@/components/studio/session-feedback-section";
-import type { FeedbackRow } from "@/lib/studio/feedback";
+import type { CertificateRow, FeedbackRow } from "@/lib/studio/feedback";
 
 const FIELD_TITLES: Record<string, string> = {
   yearOfStudy: "السنة الدراسية",
@@ -41,8 +41,10 @@ export function SessionsView({
   sessions,
   activeSession,
   feedbackRows,
+  certificateRows,
 }: {
   feedbackRows: FeedbackRow[];
+  certificateRows: CertificateRow[];
   rows: SessionRegistrationRow[];
   report: SessionReport;
   sessions: { key: string; rows: number }[];
@@ -447,7 +449,7 @@ export function SessionsView({
         </div>
       )}
 
-      <SessionFeedbackSection rows={feedbackRows} registered={report.total} activeSession={activeSession} />
+      <SessionFeedbackSection certificates={certificateRows} rows={feedbackRows} registered={report.total} activeSession={activeSession} />
 
       <Drawer
         open={Boolean(selected)}

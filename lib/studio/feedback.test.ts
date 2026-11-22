@@ -6,6 +6,8 @@ import { ALL_FEEDBACK_FIELDS, feedbackOptionValues } from "@/features/linkedin-s
 import {
   FEEDBACK_CSV_COLUMNS,
   buildFeedbackReport,
+  certificatesCsv,
+  uniqueCertificateNames,
   feedbackCsv,
   normalizeFeedbackId,
   responseRate,
@@ -109,4 +111,21 @@ test("CSV: header matches columns, formulas are defanged, sets use '; '", () => 
 test("every CSV column is a real feedback field or bookkeeping", () => {
   const known = new Set([...ALL_FEEDBACK_FIELDS.map((f) => f.name), "sessionKey", "createdAt"]);
   for (const c of FEEDBACK_CSV_COLUMNS) assert.ok(known.has(c), c);
+});
+
+test("certificate names are de-duplicated case-insensitively and sorted", () => {
+  const rows = [
+    { id: 1, fullName: "Mona Said" },
+    { id: 2, fullName: " mona   said " },
+    { id: 3, fullName: "علي حسن" },
+    { id: 4, fullName: "" },
+  ];
+  assert.deepEqual([...uniqueCertificateNames(rows)].sort(), ["Mona Said", "علي حسن"].sort());
+});
+
+test("certificate CSV has a header and defangs formulas", () => {
+  const csv = certificatesCsv([{ id: 1, fullName: "=cmd", sessionKey: "linkedin-2026", createdAt: "2026-11-22T10:00:00Z" }]);
+  const [head, line] = csv.split("\r\n");
+  assert.equal(head, "fullName,sessionKey,createdAt");
+  assert.ok(line!.startsWith("'=cmd,linkedin-2026"));
 });
