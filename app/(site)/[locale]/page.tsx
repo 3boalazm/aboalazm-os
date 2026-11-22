@@ -15,10 +15,11 @@ import { Tape } from "@/features/x/tape";
 export const revalidate = 86400; // daily safety net; CMS saves invalidate on demand (lib/revalidate.ts). Keep >= 3600.
 
 const pageMetadata: Metadata = {
-  // The studio leads; the founder's name follows because it is also a search query.
-  title: "Aboalazm OS — Brand, Digital & Business Systems Studio",
+  // 2026-11-22: the founder's name leads. Searching "Mustafa Aboalazm" returned Behance/LinkedIn first because their
+  // titles start with the name; the studio name follows so the page still reads as the studio's home.
+  title: "Mustafa Aboalazm — Senior Brand Identity Designer | Aboalazm OS Studio",
   description:
-    "A founder-led studio building brand identity, bilingual digital experiences and business systems for ambitious companies. Discovery call first, written scope before any payment.",
+    "Mustafa Aboalazm is a senior brand identity designer in Al Obour, Egypt, and founder of Aboalazm OS: a studio building brand identity, bilingual digital experiences and business systems. Discovery call first, written scope before any payment.",
   alternates: { canonical: "/" },
 };
 
