@@ -31,7 +31,10 @@ export type EventName =
   | "assessment_form_start"
   | "assessment_form_submit_attempt"
   | "assessment_form_error"
-  | "assessment_submit";
+  | "assessment_submit"
+  | "feedback_form_start"
+  | "feedback_form_error"
+  | "feedback_submit";
 
 /** Event-specific, non-PII context fields. Keep event meanings and the property privacy contract in docs/EVENTS.md. */
 export type EventProps = Record<string, string | undefined>;

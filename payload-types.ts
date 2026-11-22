@@ -79,6 +79,7 @@ export interface Config {
     'analytics-events': AnalyticsEvent;
     'session-registrations': SessionRegistration;
     'session-files': SessionFile;
+    'session-feedback': SessionFeedback;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -98,6 +99,7 @@ export interface Config {
     'analytics-events': AnalyticsEventsSelect<false> | AnalyticsEventsSelect<true>;
     'session-registrations': SessionRegistrationsSelect<false> | SessionRegistrationsSelect<true>;
     'session-files': SessionFilesSelect<false> | SessionFilesSelect<true>;
+    'session-feedback': SessionFeedbackSelect<false> | SessionFeedbackSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -637,6 +639,38 @@ export interface SessionFile {
   focalY?: number | null;
 }
 /**
+ * After-session feedback. Read the open answers first; the numbers are on /studio/sessions.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-feedback".
+ */
+export interface SessionFeedback {
+  id: number;
+  rating: number;
+  confidenceBefore: number;
+  confidenceAfter: number;
+  pace: 'too-fast' | 'right' | 'too-slow';
+  recommend: 'yes' | 'maybe' | 'no';
+  nextStep: 'account' | 'photo' | 'headline' | 'about' | 'connect' | 'post' | 'job-alert';
+  mostUseful: string[];
+  bestPart?: string | null;
+  improve?: string | null;
+  nextTopic?: string | null;
+  fullName?: string | null;
+  email?: string | null;
+  /**
+   * The person agreed to be quoted by name. Never true without a name.
+   */
+  allowQuote?: boolean | null;
+  /**
+   * Which cohort this row belongs to — the same key as session-registrations.
+   */
+  sessionKey: string;
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -707,6 +741,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'session-files';
         value: number | SessionFile;
+      } | null)
+    | ({
+        relationTo: 'session-feedback';
+        value: number | SessionFeedback;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1066,6 +1104,29 @@ export interface SessionFilesSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-feedback_select".
+ */
+export interface SessionFeedbackSelect<T extends boolean = true> {
+  rating?: T;
+  confidenceBefore?: T;
+  confidenceAfter?: T;
+  pace?: T;
+  recommend?: T;
+  nextStep?: T;
+  mostUseful?: T;
+  bestPart?: T;
+  improve?: T;
+  nextTopic?: T;
+  fullName?: T;
+  email?: T;
+  allowQuote?: T;
+  sessionKey?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -59,6 +59,10 @@ export const EVENT_NAMES = [
   "assessment_form_submit_attempt",
   "assessment_form_error",
   "assessment_submit",
+  /* After-session feedback (features/linkedin-session/feedback-form.tsx). */
+  "feedback_form_start",
+  "feedback_form_error",
+  "feedback_submit",
 ] as const;
 
 export type AnalyticsEventName = (typeof EVENT_NAMES)[number];

@@ -20,6 +20,8 @@ import { Drawer, Toasts, useToasts } from "@/components/studio/interactive";
 import { ATTENDANCE_OPTIONS, FOLLOWUP_OPTIONS, optionLabel, sessionTitle } from "@/features/linkedin-session/assessment";
 import type { Dist, SessionRegistrationRow, SessionReport } from "@/lib/studio/sessions";
 import { deleteRegistration, saveRegistrationDetails, setAttendance } from "@/app/studio/sessions/actions";
+import { SessionFeedbackSection } from "@/components/studio/session-feedback-section";
+import type { FeedbackRow } from "@/lib/studio/feedback";
 
 const FIELD_TITLES: Record<string, string> = {
   yearOfStudy: "السنة الدراسية",
@@ -38,7 +40,9 @@ export function SessionsView({
   report,
   sessions,
   activeSession,
+  feedbackRows,
 }: {
+  feedbackRows: FeedbackRow[];
   rows: SessionRegistrationRow[];
   report: SessionReport;
   sessions: { key: string; rows: number }[];
@@ -442,6 +446,8 @@ export function SessionsView({
           </Tile>
         </div>
       )}
+
+      <SessionFeedbackSection rows={feedbackRows} registered={report.total} activeSession={activeSession} />
 
       <Drawer
         open={Boolean(selected)}

@@ -17,6 +17,7 @@ import { getPayload } from "@/lib/payload";
 import { getStudioUser } from "@/lib/studio/auth";
 import { ATTENDANCE_OPTIONS, FOLLOWUP_OPTIONS } from "@/features/linkedin-session/assessment";
 import { normalizeRegistrationId } from "@/lib/studio/sessions";
+import { normalizeFeedbackId } from "@/lib/studio/feedback";
 
 const ATTENDANCE = ATTENDANCE_OPTIONS.map((o) => o.value);
 const FOLLOW_UP = FOLLOWUP_OPTIONS.map((o) => o.value);
@@ -97,5 +98,28 @@ export async function deleteRegistration(id: string | number): Promise<ActionRes
   }
   revalidatePath("/studio/sessions");
   revalidatePath("/studio");
+  return { ok: true };
+}
+
+/**
+ * حذف رد تقييم واحد نهائيًا (`session-feedback`) — لصف خاطئ أو مسيء.
+ * نفس عقد deleteRegistration: جلسة مشغّل، رقم مُتحقَّق، overrideAccess: false،
+ * وصف غير موجود يُعدّ نجاحًا.
+ */
+export async function deleteFeedback(id: string | number): Promise<ActionResult> {
+  const user = await getStudioUser();
+  if (!user) return { ok: false, error: "انتهت الجلسة — يرجى تسجيل الدخول مجددًا." };
+  const target = normalizeFeedbackId(id);
+  if (target === null) return { ok: false, error: "رقم التقييم غير صالح — لم يُحذف شيء." };
+  try {
+    const payload = await getPayload();
+    await payload.delete({ collection: "session-feedback", id: target, overrideAccess: false, user: user as never });
+  } catch (error) {
+    if ((error as { status?: number }).status !== 404) {
+      console.error("[studio/sessions] feedback delete failed:", error instanceof Error ? error.name : "unknown");
+      return { ok: false, error: "تعذر الحذف — لم يتغير شيء. جرّب مرة أخرى." };
+    }
+  }
+  revalidatePath("/studio/sessions");
   return { ok: true };
 }
