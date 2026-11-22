@@ -36,12 +36,13 @@ import {
   FEEDBACK_GROUPS,
   firstFeedbackFieldWithError,
   isFeedbackNativelyRequired,
+  validateCertificateName,
   validateFeedback,
   type FeedbackFieldDef,
   type FeedbackFieldErrors,
 } from "./feedback";
 import { ANSWER_MAX } from "./assessment";
-import { submitSessionFeedback } from "./feedback-actions";
+import { requestCertificate, submitSessionFeedback } from "./feedback-actions";
 import { collectAnswers } from "./validate";
 
 type Status = "idle" | "working" | "sent" | "error" | "rateLimited" | "uncertain" | "invalid" | "unknownSession";
@@ -57,7 +58,7 @@ const SCALE_CARD =
 const ERROR_COPY: Record<string, Bi> = {
   required: { ar: "محتاجين إجابتك على السؤال ده.", en: "Please answer this one." },
   too_long: { ar: "الإجابة أطول من اللازم.", en: "That answer is too long." },
-  invalid_email: { ar: "البريد الإلكتروني مش صحيح — تأكد منه.", en: "That email address doesn't look right." },
+  invalid_url: { ar: "الرابط مش صحيح — اكتبه زي linkedin.com/in/username", en: "That doesn't look like a LinkedIn profile link — e.g. linkedin.com/in/username" },
   invalid_option: { ar: "اختار إجابة من اللي موجودين.", en: "Pick one of the listed answers." },
   needs_name: { ar: "اكتب اسمك لو عايزنا نعرض رأيك باسمك.", en: "Add your name if we may quote you." },
 };
@@ -104,6 +105,20 @@ const COPY = {
   optional: { ar: "اختياري", en: "optional" },
   choose: { ar: "اختر إجابة", en: "Choose an answer" },
   progress: { ar: "الأسئلة الأساسية", en: "Required answers" },
+  certAsk: { ar: "عايز شهادة حضور؟", en: "Want an attendance certificate?" },
+  certHint: {
+    ar: "اكتب اسمك زي ما تحب يظهر على الشهادة، وهنبعتهالك. الاسم ده بيتحفظ لوحده وماله علاقة بإجاباتك.",
+    en: "Type your name as you want it printed and we will send it to you. It is stored on its own, never linked to your answers.",
+  },
+  certLabel: { ar: "الاسم على الشهادة", en: "Name on the certificate" },
+  certSend: { ar: "ابعت اسمي", en: "Send my name" },
+  certSending: { ar: "بيرسل…", en: "Sending…" },
+  certDone: { ar: "وصل اسمك — هتوصلك الشهادة قريب. 🎓", en: "Got your name — the certificate is on its way. 🎓" },
+  certFail: { ar: "الإرسال فشل — جرّب تاني.", en: "That failed — try again." },
+  certInvalid: {
+    ar: "اكتب اسمك بحروف (من غير أرقام أو رموز).",
+    en: "Please type your name in letters (no digits or symbols).",
+  },
 } satisfies Record<string, Bi>;
 
 export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: string; deckHref?: string }) {
@@ -116,6 +131,9 @@ export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: stri
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<FeedbackFieldErrors>({});
   const [answered, setAnswered] = useState(0);
+  const [certOpen, setCertOpen] = useState(false);
+  const [certName, setCertName] = useState("");
+  const [certState, setCertState] = useState<"idle" | "working" | "done" | "error" | "invalid">("idle");
 
   const inFlight = useRef(false);
   const mounted = useRef(true);
@@ -228,6 +246,9 @@ export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: stri
         return;
       }
 
+      /* Offer the certificate with the name they already typed, before the form is wiped. */
+      const typedName = data.get("fullName");
+      if (typeof typedName === "string") setCertName(typedName.trim());
       form.reset();
       setAnswered(0);
       setStatus("sent");
@@ -279,6 +300,73 @@ export function SessionFeedbackForm({ sessionKey, deckHref }: { sessionKey: stri
             <p className="font-display text-title tracking-[-0.015em]">{t(COPY.successTitle)}</p>
             <p className="text-body-sm text-text-secondary">{t(COPY.successBody)}</p>
             <p className="text-body-sm text-text-secondary">{t(COPY.successStep)}</p>
+            <div className="mx-auto mt-2 flex w-full max-w-[420px] flex-col gap-1.5 rounded-card border border-border-subtle bg-surface-0 p-2 text-start">
+              {certState === "done" ? (
+                <p role="status" className="text-body-sm text-success">{t(COPY.certDone)}</p>
+              ) : !certOpen ? (
+                <button
+                  type="button"
+                  onClick={() => setCertOpen(true)}
+                  className="w-full rounded-pill border border-accent bg-accent-14 px-3 py-1.5 font-display text-body-sm text-text-primary transition-colors duration-fast ease-physics hover:bg-accent-24"
+                >
+                  🎓 {t(COPY.certAsk)}
+                </button>
+              ) : (
+                <form
+                  noValidate
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (certState === "working") return;
+                    const fd = new FormData(e.currentTarget);
+                    const check = validateCertificateName(fd.get("certificateName"));
+                    if (!check.ok) {
+                      setCertState("invalid");
+                      return;
+                    }
+                    setCertState("working");
+                    try {
+                      const res = await requestCertificate(fd);
+                      if (!mounted.current) return;
+                      setCertState(res.ok ? "done" : res.error === "invalid" ? "invalid" : "error");
+                    } catch {
+                      if (mounted.current) setCertState("error");
+                    }
+                  }}
+                  className="flex flex-col gap-1.5"
+                >
+                  <p className="text-body-sm text-text-secondary">{t(COPY.certHint)}</p>
+                  <label className="flex flex-col gap-1">
+                    <span className={LABEL}>{t(COPY.certLabel)}</span>
+                    <input
+                      name="certificateName"
+                      type="text"
+                      autoComplete="name"
+                      maxLength={120}
+                      value={certName}
+                      onChange={(e) => {
+                        setCertName(e.target.value);
+                        if (certState === "invalid" || certState === "error") setCertState("idle");
+                      }}
+                      aria-invalid={certState === "invalid" ? true : undefined}
+                      className={`${FIELD} ${certState === "invalid" ? "border-danger-border" : ""}`}
+                    />
+                  </label>
+                  <div aria-hidden="true" className="sr-only">
+                    <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" />
+                  </div>
+                  <input type="hidden" name="sessionKey" value={sessionKey} readOnly />
+                  {certState === "invalid" ? <p role="alert" className="text-body-sm text-danger-text">{t(COPY.certInvalid)}</p> : null}
+                  {certState === "error" ? <p role="alert" className="text-body-sm text-danger-text">{t(COPY.certFail)}</p> : null}
+                  <button
+                    type="submit"
+                    disabled={certState === "working"}
+                    className="w-full rounded-pill border border-accent bg-accent-14 px-3 py-1.5 font-display text-body-sm text-text-primary transition-colors duration-fast ease-physics hover:bg-accent-24 disabled:opacity-60"
+                  >
+                    {certState === "working" ? t(COPY.certSending) : t(COPY.certSend)}
+                  </button>
+                </form>
+              )}
+            </div>
             {deckHref ? (
               <p className="pt-1">
                 <a href={deckHref} className="text-body-sm text-accent-text underline underline-offset-4 hover:text-text-primary">
@@ -408,7 +496,7 @@ function FeedbackControl({
         </span>
       ) : null}
 
-      {field.type === "text" || field.type === "email" ? (
+      {field.type === "text" || field.type === "url" ? (
         <input
           id={inputId}
           name={field.name}
@@ -420,7 +508,7 @@ function FeedbackControl({
           aria-describedby={describedBy}
           aria-invalid={invalid}
           className={`${FIELD} ${error ? "border-danger-border" : ""}`}
-          dir={field.type === "email" ? "ltr" : undefined}
+          dir={field.type === "url" ? "ltr" : undefined}
         />
       ) : null}
 

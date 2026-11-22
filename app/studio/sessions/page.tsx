@@ -4,7 +4,7 @@ import { StudioShell } from "@/components/studio/shell";
 import { SessionsView } from "@/components/studio/sessions-view";
 import { loadManageShellProps } from "@/lib/studio/cms";
 import { allRegistrations, buildSessionReport, sessionKeys } from "@/lib/studio/sessions";
-import { allFeedback } from "@/lib/studio/feedback";
+import { allCertificates, allFeedback } from "@/lib/studio/feedback";
 import { sessionTitle } from "@/features/linkedin-session/assessment";
 
 export const dynamic = "force-dynamic";
@@ -31,9 +31,10 @@ export default async function StudioSessionsPage({
   const user = await requireStudioUser(`/studio/sessions${session ? `?session=${encodeURIComponent(session)}` : ""}`);
   const payload = await getPayload();
 
-  const [rows, feedbackRows, sessions, shell] = await Promise.all([
+  const [rows, feedbackRows, certificateRows, sessions, shell] = await Promise.all([
     allRegistrations({ payload, user }, session),
     allFeedback({ payload, user }, session),
+    allCertificates({ payload, user }, session),
     sessionKeys({ payload, user }),
     loadManageShellProps(payload, user),
   ]);
@@ -53,7 +54,7 @@ export default async function StudioSessionsPage({
 
   return (
     <StudioShell counts={shell.counts} attention={attention} userEmail={user.email} version={`تحضير السيشن · ${label}`}>
-      <SessionsView feedbackRows={feedbackRows} rows={rows} report={report} sessions={sessions} activeSession={session} />
+      <SessionsView feedbackRows={feedbackRows} certificateRows={certificateRows} rows={rows} report={report} sessions={sessions} activeSession={session} />
     </StudioShell>
   );
 }

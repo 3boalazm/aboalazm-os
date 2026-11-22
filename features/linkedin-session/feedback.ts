@@ -18,16 +18,17 @@
  *   1. did the room get more confident (confidence before → after, 1–5),
  *   2. which part earned its minutes (mostUseful) and what to cut (improve),
  *   3. what each person will do first (nextStep) — the follow-up list.
- * It is anonymous by default. A name and email are optional, and a name is
+ * It is anonymous by default. A name and a LinkedIn link are optional, and a name is
  * required only if the person lets us quote them (allowQuote).
  *
  * COPY: Arabic is authored, English is the `/en` twin — same call as the
  * registration form, and deliberately not in lib/i18n.ts.
  */
 
-import { ANSWER_MAX, FULL_NAME_MAX, type Bi, type FieldOption } from "./assessment";
+import { ANSWER_MAX, FULL_NAME_MAX, LINKEDIN_URL_MAX, type Bi, type FieldOption } from "./assessment";
+import { normalizeLinkedInUrl } from "./validate";
 
-export type FeedbackFieldType = "radio" | "scale" | "multi" | "textarea" | "text" | "email" | "checkbox";
+export type FeedbackFieldType = "radio" | "scale" | "multi" | "textarea" | "text" | "url" | "checkbox";
 
 export interface FeedbackFieldDef {
   /** The Payload field name = the form input name = the FormData key. */
@@ -210,13 +211,13 @@ export const FEEDBACK_GROUPS: readonly FeedbackGroup[] = [
         autoComplete: "name",
       },
       {
-        name: "email",
-        type: "email",
-        label: { ar: "البريد الإلكتروني", en: "Email" },
-        help: { ar: "لو كتبته هنربط رأيك بتسجيلك، ونبعتلك مواد السيشن.", en: "If you add it we match this to your sign-up and send the session material." },
-        placeholder: { ar: "you@example.com", en: "you@example.com" },
+        name: "linkedinUrl",
+        type: "url",
+        label: { ar: "رابط حسابك على LinkedIn", en: "Your LinkedIn profile link" },
+        help: { ar: "لو كتبته هنربط رأيك بتسجيلك، ونتواصل معاك على LinkedIn.", en: "If you add it we match this to your sign-up and reach you on LinkedIn." },
+        placeholder: { ar: "linkedin.com/in/username", en: "linkedin.com/in/username" },
         required: false,
-        autoComplete: "email",
+        maxLength: LINKEDIN_URL_MAX,
       },
       {
         name: "allowQuote",
@@ -252,7 +253,7 @@ export function feedbackOptionLabel(name: string, value: string | null | undefin
 
 /** A multi / required-choice question cannot use the browser's `required` — see isNativelyRequired in assessment.ts. */
 export function isFeedbackNativelyRequired(field: FeedbackFieldDef): boolean {
-  return field.required && (field.type === "radio" || field.type === "scale" || field.type === "text" || field.type === "email" || field.type === "textarea");
+  return field.required && (field.type === "radio" || field.type === "scale" || field.type === "text" || field.type === "url" || field.type === "textarea");
 }
 
 /** First field with an error, in page order (not validator order) — where the form scrolls to. */
@@ -262,7 +263,7 @@ export function firstFeedbackFieldWithError(errors: Partial<Record<string, unkno
 
 /* ── validation ─────────────────────────────────────────────────────────── */
 
-export type FeedbackErrorCode = "required" | "too_long" | "invalid_email" | "invalid_option" | "needs_name";
+export type FeedbackErrorCode = "required" | "too_long" | "invalid_url" | "invalid_option" | "needs_name";
 
 export interface FeedbackData {
   rating: number;
@@ -277,7 +278,7 @@ export interface FeedbackData {
   improve?: string;
   nextTopic?: string;
   fullName?: string;
-  email?: string;
+  linkedinUrl?: string;
   allowQuote: boolean;
 }
 
@@ -288,10 +289,6 @@ export type FeedbackCheck =
   | { ok: true; spam: true }
   | { ok: true; spam: false; data: FeedbackData }
   | { ok: false; error: "invalid"; fields: FeedbackFieldErrors };
-
-const EMAIL_MAX = 254;
-/* Same shape the contact and registration forms accept. */
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function blank(value: unknown): boolean {
   return value === undefined || value === null || (typeof value === "string" && !value.trim());
@@ -375,11 +372,16 @@ export function validateFeedback(input: unknown): FeedbackCheck {
   const fullName = oneLine(raw.fullName, FULL_NAME_MAX);
   if (fullName === null) fields.fullName = "too_long";
 
-  let email: string | undefined;
-  if (!blank(raw.email)) {
-    const v = typeof raw.email === "string" ? raw.email.trim().toLowerCase() : "";
-    if (!v || v.length > EMAIL_MAX || !EMAIL_RE.test(v)) fields.email = "invalid_email";
-    else email = v;
+  let linkedinUrl: string | undefined;
+  if (!blank(raw.linkedinUrl)) {
+    const v = typeof raw.linkedinUrl === "string" ? raw.linkedinUrl.trim() : "";
+    if (v.length > LINKEDIN_URL_MAX) fields.linkedinUrl = "too_long";
+    else {
+      /* The registration form's normaliser: https://www.linkedin.com/in/<handle>, query dropped. */
+      const normalized = v ? normalizeLinkedInUrl(v) : null;
+      if (!normalized) fields.linkedinUrl = "invalid_url";
+      else linkedinUrl = normalized;
+    }
   }
 
   /* A checkbox arrives as "on"/"yes"/"true" when ticked and not at all when not. */
@@ -403,8 +405,26 @@ export function validateFeedback(input: unknown): FeedbackCheck {
       improve: improve ?? undefined,
       nextTopic: nextTopic ?? undefined,
       fullName: fullName ?? undefined,
-      email,
+      linkedinUrl,
       allowQuote,
     },
   };
+}
+
+/* ── certificate name ───────────────────────────────────────────────────── */
+
+export type CertificateNameCheck = { ok: true; name: string } | { ok: false; error: "required" | "too_long" | "invalid" };
+
+/**
+ * The name printed on a certificate. One line, letters in any script plus
+ * spaces and the few marks real names carry (. ' - ’); no digits, no markup,
+ * no control characters — it ends up in a CSV and on a PDF.
+ */
+export function validateCertificateName(input: unknown): CertificateNameCheck {
+  if (typeof input !== "string") return { ok: false, error: "required" };
+  const name = input.replace(/\s+/g, " ").trim();
+  if (!name) return { ok: false, error: "required" };
+  if (name.length > FULL_NAME_MAX) return { ok: false, error: "too_long" };
+  if (name.length < 2 || !/^[\p{L}\p{M}][\p{L}\p{M} .'’-]*$/u.test(name)) return { ok: false, error: "invalid" };
+  return { ok: true, name };
 }

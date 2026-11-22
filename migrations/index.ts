@@ -4,6 +4,8 @@ import * as migration_20261111_120000_messages_locale_ms from './20261111_120000
 import * as migration_20261112_100000_analytics_events from './20261112_100000_analytics_events';
 import * as migration_20261119_130000_session_registrations from './20261119_130000_session_registrations';
 import * as migration_20261122_180000_session_feedback from './20261122_180000_session_feedback';
+import * as migration_20261122_230000_session_feedback_linkedin from './20261122_230000_session_feedback_linkedin';
+import * as migration_20261122_233000_session_certificates from './20261122_233000_session_certificates';
 
 export const migrations = [
   {
@@ -35,5 +37,15 @@ export const migrations = [
     up: migration_20261122_180000_session_feedback.up,
     down: migration_20261122_180000_session_feedback.down,
     name: '20261122_180000_session_feedback'
+  },
+  {
+    up: migration_20261122_230000_session_feedback_linkedin.up,
+    down: migration_20261122_230000_session_feedback_linkedin.down,
+    name: '20261122_230000_session_feedback_linkedin'
+  },
+  {
+    up: migration_20261122_233000_session_certificates.up,
+    down: migration_20261122_233000_session_certificates.down,
+    name: '20261122_233000_session_certificates'
   }
 ];

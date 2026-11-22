@@ -28,7 +28,7 @@ export interface FeedbackRow {
   improve?: string | null;
   nextTopic?: string | null;
   fullName?: string | null;
-  email?: string | null;
+  linkedinUrl?: string | null;
   allowQuote?: boolean | null;
   sessionKey?: string | null;
   createdAt?: string;
@@ -96,8 +96,8 @@ export interface FeedbackReport {
   bestPart: FeedbackAnswer[];
   improve: FeedbackAnswer[];
   nextTopic: FeedbackAnswer[];
-  /** Left an email: can be followed up. */
-  withEmail: number;
+  /** Left a LinkedIn link: can be followed up. */
+  withLinkedin: number;
   /** Agreed to be quoted, by name, and wrote a "best part". */
   quotes: FeedbackAnswer[];
 }
@@ -158,7 +158,7 @@ export function buildFeedbackReport(rows: FeedbackRow[]): FeedbackReport {
     bestPart,
     improve: answers(rows, "improve"),
     nextTopic: answers(rows, "nextTopic"),
-    withEmail: rows.filter((r) => Boolean(r.email?.trim())).length,
+    withLinkedin: rows.filter((r) => Boolean(r.linkedinUrl?.trim())).length,
     quotes: bestPart.filter((a) => a.quotable),
   };
 }
@@ -182,7 +182,7 @@ export const FEEDBACK_CSV_COLUMNS = [
   "improve",
   "nextTopic",
   "fullName",
-  "email",
+  "linkedinUrl",
   "allowQuote",
   "sessionKey",
   "createdAt",
@@ -207,4 +207,42 @@ export function feedbackCsv(rows: FeedbackRow[]): string {
     }).join(","),
   );
   return [head, ...lines].join("\r\n");
+}
+
+/* ── certificate requests ──────────────────────────────────────────────── */
+
+export interface CertificateRow {
+  id: string | number;
+  fullName: string;
+  sessionKey?: string | null;
+  createdAt?: string;
+}
+
+export async function allCertificates({ payload, user }: Ctx, sessionKey?: string | null): Promise<CertificateRow[]> {
+  const res = await payload.find({
+    collection: "session-certificates",
+    where: sessionKey ? { sessionKey: { equals: sessionKey } } : undefined,
+    sort: "fullName",
+    limit: 0,
+    pagination: false,
+    depth: 0,
+    overrideAccess: false,
+    user: user as never,
+  });
+  return res.docs as unknown as CertificateRow[];
+}
+
+/** One line per person: the same name asked for twice is printed once. */
+export function uniqueCertificateNames(rows: CertificateRow[]): string[] {
+  const seen = new Map<string, string>();
+  for (const row of rows) {
+    const name = row.fullName?.replace(/\s+/g, " ").trim();
+    if (name && !seen.has(name.toLowerCase())) seen.set(name.toLowerCase(), name);
+  }
+  return [...seen.values()].sort((a, b) => a.localeCompare(b, "ar"));
+}
+
+export function certificatesCsv(rows: CertificateRow[]): string {
+  const lines = rows.map((row) => [csvCell(row.fullName), csvCell(row.sessionKey), csvCell(row.createdAt)].join(","));
+  return ["fullName,sessionKey,createdAt", ...lines].join("\r\n");
 }

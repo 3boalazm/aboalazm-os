@@ -28,7 +28,7 @@ import { headers } from "next/headers";
 import { getPayload } from "@/lib/payload";
 import { rateLimit, getClientIp } from "@/lib/rate-limit";
 import { DEFAULT_SESSION_KEY, isKnownSessionKey } from "./assessment";
-import { validateFeedback, type FeedbackFieldErrors } from "./feedback";
+import { validateCertificateName, validateFeedback, type FeedbackFieldErrors } from "./feedback";
 import { collectAnswers } from "./validate";
 
 export type FeedbackSubmitResult =
@@ -73,6 +73,60 @@ export async function submitSessionFeedback(formData: FormData): Promise<Feedbac
   } catch (error) {
     /* No answers in logs: a free-text answer is a person's words. */
     console.error("[session-feedback] could not be stored:", error instanceof Error ? error.name : "unknown");
+    return { ok: false, error: "storage_failed" };
+  }
+}
+
+/* ── certificate request ────────────────────────────────────────────────── */
+
+export type CertificateResult =
+  | { ok: true }
+  | { ok: false; error: "rate_limited" | "storage_failed" | "unknown_session" | "spam" }
+  | { ok: false; error: "invalid"; reason: "required" | "too_long" | "invalid" };
+
+/**
+ * The name for the attendance certificate — a separate write from the
+ * feedback (its own collection), so the answers stay anonymous. Same guards:
+ * public POST, per-IP budget, honeypot, session key. Asking twice with the
+ * same name is one row.
+ */
+export async function requestCertificate(formData: FormData): Promise<CertificateResult> {
+  const ip = getClientIp(await headers());
+  const limit = rateLimit(`certificate:${ip}`, 40, 10 * 60 * 1000);
+  if (!limit.ok) return { ok: false, error: "rate_limited" };
+
+  const trap = formData.get("_gotcha");
+  if (typeof trap === "string" && trap.trim() !== "") return { ok: false, error: "spam" };
+
+  const sentKey = formData.get("sessionKey");
+  let sessionKey = DEFAULT_SESSION_KEY;
+  if (typeof sentKey === "string" && sentKey !== "") {
+    if (!isKnownSessionKey(sentKey)) return { ok: false, error: "unknown_session" };
+    sessionKey = sentKey;
+  }
+
+  const checked = validateCertificateName(formData.get("certificateName"));
+  if (!checked.ok) return { ok: false, error: "invalid", reason: checked.error };
+
+  try {
+    const payload = await getPayload();
+    const existing = await payload.find({
+      collection: "session-certificates",
+      where: { and: [{ sessionKey: { equals: sessionKey } }, { fullName: { like: checked.name } }] },
+      limit: 20,
+      depth: 0,
+      pagination: false,
+    });
+    const same = existing.docs.some((d) => String((d as { fullName?: string }).fullName ?? "").toLowerCase() === checked.name.toLowerCase());
+    if (!same) {
+      await payload.create({
+        collection: "session-certificates",
+        data: { fullName: checked.name, sessionKey, source: "form" } as never,
+      });
+    }
+    return { ok: true };
+  } catch (error) {
+    console.error("[session-certificates] could not be stored:", error instanceof Error ? error.name : "unknown");
     return { ok: false, error: "storage_failed" };
   }
 }

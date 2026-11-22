@@ -80,6 +80,7 @@ export interface Config {
     'session-registrations': SessionRegistration;
     'session-files': SessionFile;
     'session-feedback': SessionFeedback;
+    'session-certificates': SessionCertificate;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -100,6 +101,7 @@ export interface Config {
     'session-registrations': SessionRegistrationsSelect<false> | SessionRegistrationsSelect<true>;
     'session-files': SessionFilesSelect<false> | SessionFilesSelect<true>;
     'session-feedback': SessionFeedbackSelect<false> | SessionFeedbackSelect<true>;
+    'session-certificates': SessionCertificatesSelect<false> | SessionCertificatesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -657,13 +659,33 @@ export interface SessionFeedback {
   improve?: string | null;
   nextTopic?: string | null;
   fullName?: string | null;
-  email?: string | null;
+  /**
+   * Normalised to https://www.linkedin.com/in/<handle>.
+   */
+  linkedinUrl?: string | null;
   /**
    * The person agreed to be quoted by name. Never true without a name.
    */
   allowQuote?: boolean | null;
   /**
    * Which cohort this row belongs to — the same key as session-registrations.
+   */
+  sessionKey: string;
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Names requested for the attendance certificate. Not linked to any feedback answer.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-certificates".
+ */
+export interface SessionCertificate {
+  id: number;
+  fullName: string;
+  /**
+   * Which cohort this name belongs to — the same key as session-registrations.
    */
   sessionKey: string;
   source?: string | null;
@@ -745,6 +767,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'session-feedback';
         value: number | SessionFeedback;
+      } | null)
+    | ({
+        relationTo: 'session-certificates';
+        value: number | SessionCertificate;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1121,8 +1147,19 @@ export interface SessionFeedbackSelect<T extends boolean = true> {
   improve?: T;
   nextTopic?: T;
   fullName?: T;
-  email?: T;
+  linkedinUrl?: T;
   allowQuote?: T;
+  sessionKey?: T;
+  source?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "session-certificates_select".
+ */
+export interface SessionCertificatesSelect<T extends boolean = true> {
+  fullName?: T;
   sessionKey?: T;
   source?: T;
   updatedAt?: T;
