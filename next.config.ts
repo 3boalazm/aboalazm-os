@@ -161,6 +161,10 @@ const nextConfig: NextConfig = {
       // route handler, i.e. a serverless function run (and a cold start) per click. Not mirrored under /ar: the
       // file lives at the root and every CV link points at /cv.
       { source: "/cv", destination: "/Mustafa_Taha_Brand_Identity_CV.docx", permanent: false },
+      // The retired /ms section was indexed by Google (image results still carry its titles). A 404 drops that
+      // equity; a permanent redirect hands it to the English page. Answered by the routing layer: no function run.
+      { source: "/ms", destination: "/", permanent: true },
+      { source: "/ms/:path*", destination: "/:path*", permanent: true },
       // The LinkedIn student-session deck is one self-contained HTML file in public/showcase (outside the locale
       // middleware, like the farm demo). Short link for the room, both locales; the deck itself is Arabic-only.
       { source: "/linkedin-session/deck", destination: "/showcase/linkedin-session/index.html", permanent: false },
