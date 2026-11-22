@@ -31,7 +31,7 @@
     "test:analytics-events": "node --import tsx --test lib/analytics-events.test.ts",
     "test:analytics-store": "node --import tsx --test lib/analytics-store.test.ts",
     "test:schema-audit": "node --import tsx --test lib/payload-schema-audit.test.ts",
-    "test:session": "node --import tsx --test features/linkedin-session/*.test.ts lib/studio/sessions.test.ts",
+    "test:session": "node --import tsx --test features/linkedin-session/*.test.ts lib/studio/sessions.test.ts lib/studio/feedback.test.ts",
     "check:contact": "node --import tsx scripts/check-contact-setup.ts",
     "check:db-ssl": "node --import tsx scripts/check-db-ssl-mode.ts",
     "payload": "payload",

@@ -36,6 +36,7 @@ const SNAPSHOTS = [
   "20261111_120000_messages_locale_ms",
   "20261112_100000_analytics_events",
   "20261119_130000_session_registrations",
+  "20261122_180000_session_feedback",
 ] as const;
 
 const snapshots = SNAPSHOTS.map((name) => ({

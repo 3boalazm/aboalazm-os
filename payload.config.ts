@@ -19,6 +19,7 @@ import { Messages } from "./collections/Messages";
 import { AnalyticsEvents } from "./collections/AnalyticsEvents";
 import { SessionRegistrations } from "./collections/SessionRegistrations";
 import { SessionFiles } from "./collections/SessionFiles";
+import { SessionFeedback } from "./collections/SessionFeedback";
 import { Offers } from "./globals/Offers";
 import { Settings } from "./globals/Settings";
 
@@ -72,6 +73,7 @@ export default buildConfig({
     AnalyticsEvents,
     SessionRegistrations,
     SessionFiles,
+    SessionFeedback,
   ],
   globals: [Offers, Settings],
   /**
